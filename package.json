@@ -26,7 +26,8 @@
     "react-native-gesture-handler": "~1.3.0",
     "react-native-svg": "^9.11.1",
     "react-native-web": "^0.11.7",
-    "react-navigation": "^3.12.0"
+    "react-navigation": "^3.12.0",
+    "react-relay": "^6.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0",
