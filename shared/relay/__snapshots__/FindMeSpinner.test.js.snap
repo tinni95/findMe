@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FindMeSpinner with a different color prop renders successfully to match snapshot 1`] = `
+<ActivityIndicator
+  animating={true}
+  color="#ddd"
+  hidesWhenStopped={true}
+  size="large"
+  style={
+    Object {
+      "flex": 1,
+      "justifyContent": "flex-start",
+    }
+  }
+/>
+`;
+
+exports[`FindMeSpinner with no non-default props renders successfully to match snapshot 1`] = `
+<ActivityIndicator
+  animating={true}
+  color="blue"
+  hidesWhenStopped={true}
+  size="large"
+  style={
+    Object {
+      "flex": 1,
+      "justifyContent": "flex-start",
+    }
+  }
+/>
+`;
