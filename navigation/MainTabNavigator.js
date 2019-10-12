@@ -2,8 +2,12 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import Lamp from '../components/TabBarIcons/Lamp';
+import Add from '../components/TabBarIcons/Add';
+import House from '../components/TabBarIcons/House';
+import Profile from '../components/TabBarIcons/Profile';
+import Tie from '../components/TabBarIcons/Tie';
+import Explore from '../screens/Explore';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
@@ -14,21 +18,16 @@ const config = Platform.select({
 
 const HomeStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Home: Explore,
   },
   config
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Esplora',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
+    <House
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
     />
   ),
 };
@@ -43,34 +42,78 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Post idea',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <Lamp
+      focused={focused}
+    />
   ),
 };
 
 LinksStack.path = '';
 
-const SettingsStack = createStackNavigator(
+
+const InserisciStack = createStackNavigator(
+  {
+    Links: LinksScreen,
+  },
+  config
+);
+
+InserisciStack.navigationOptions = {
+  tabBarLabel: 'Inserisci',
+  tabBarIcon: ({ focused }) => (
+    <Add
+      focused={focused}
+    />
+  ),
+};
+
+InserisciStack.path = '';
+
+const ServiziStack = createStackNavigator(
   {
     Settings: SettingsScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+ServiziStack.navigationOptions = {
+  tabBarLabel: 'Servizi',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+    <Tie
+      focused={focused}
+    />
   ),
 };
 
-SettingsStack.path = '';
+ServiziStack.path = '';
+
+const ProfileStack = createStackNavigator(
+  {
+    Settings: SettingsScreen,
+  },
+  config
+);
+
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profilo',
+  tabBarIcon: ({ focused }) => (
+    <Profile
+      focused={focused}
+    />
+  ),
+};
+
+ProfileStack.path = '';
+
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
-  SettingsStack,
+  InserisciStack,
+  ServiziStack,
+  ProfileStack
 });
 
 tabNavigator.path = '';
