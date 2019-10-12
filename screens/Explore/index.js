@@ -1,3 +1,3 @@
-import Explore from "./Explore";
+import ExploreQueryRenderer from "./ExploreQueryRenderer";
 
-export default Explore;
+export default ExploreQueryRenderer;

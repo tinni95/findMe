@@ -7,7 +7,7 @@ import Add from '../components/TabBarIcons/Add';
 import House from '../components/TabBarIcons/House';
 import Profile from '../components/TabBarIcons/Profile';
 import Tie from '../components/TabBarIcons/Tie';
-import Explore from '../screens/Explore';
+import ExploreQueryRenderer from '../screens/Explore';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
@@ -18,7 +18,7 @@ const config = Platform.select({
 
 const HomeStack = createStackNavigator(
   {
-    Home: Explore,
+    Home: ExploreQueryRenderer,
   },
   config
 );
