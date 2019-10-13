@@ -28,6 +28,6 @@ export default class ExploreQueryRenderer extends React.Component {
 
 
 
-Explore.navigationOptions = {
+ExploreQueryRenderer.navigationOptions = {
     header: null,
 };
