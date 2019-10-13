@@ -14,6 +14,14 @@ export default class ExploreQueryRenderer extends React.Component {
                       postsFeed{
                         id
                         title
+                           field
+                        description
+                        positions{
+                        id
+                        field
+                        title
+                        description
+                        }
                       }
                     }
                 `}
