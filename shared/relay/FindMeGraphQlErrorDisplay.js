@@ -9,7 +9,7 @@ const FindMeGraphQlErrorDisplay = () => {
             <Text style={styles.text}>
                 {"Oops, something went wrong!\n" +
                     "\n" +
-                    "If this problem persists, please reach out to us by email at hello@purplesquid.scot"}
+                    "If this problem persists, please reach out to us by email at diversesoftwaredesign@gmail.com"}
             </Text>
         </View>
     );

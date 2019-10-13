@@ -11,7 +11,7 @@ export default class ExploreQueryRenderer extends React.Component {
                 environment={environment}
                 query={graphql`
                     query ExploreQueryRendererQuery {
-                      posts{
+                      postsFeed{
                         id
                       }
                     }

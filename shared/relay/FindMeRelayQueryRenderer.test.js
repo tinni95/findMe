@@ -28,7 +28,7 @@ describe("FindMeRelayQueryRenderer", () => {
                     <FindMeRelayQueryRenderer
                         query={graphql`
                             query FindMeRelayQueryRendererTestQuery {
-                              posts{id}
+                              postsFeed{id}
                             }
                         `}
                         {...props}

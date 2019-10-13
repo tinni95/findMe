@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 274540aeedfdf14cb94872c37eea5963
+ * @relayHash b05b40db6786756eb54d0b978518a284
  */
 
 /* eslint-disable */
@@ -11,7 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type ExploreQueryRendererQueryVariables = {||};
 export type ExploreQueryRendererQueryResponse = {|
-  +posts: $ReadOnlyArray<?{|
+  +postsFeed: $ReadOnlyArray<{|
     +id: string
   |}>
 |};
@@ -24,7 +24,7 @@ export type ExploreQueryRendererQuery = {|
 
 /*
 query ExploreQueryRendererQuery {
-  posts {
+  postsFeed {
     id
   }
 }
@@ -35,7 +35,7 @@ var v0 = [
   {
     "kind": "LinkedField",
     "alias": null,
-    "name": "posts",
+    "name": "postsFeed",
     "storageKey": null,
     "args": null,
     "concreteType": "Post",
@@ -71,11 +71,11 @@ return {
     "operationKind": "query",
     "name": "ExploreQueryRendererQuery",
     "id": null,
-    "text": "query ExploreQueryRendererQuery {\n  posts {\n    id\n  }\n}\n",
+    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '735ae7adf48af81cf2748839d2357e61';
+(node/*: any*/).hash = '535081e7660298545c0783fa25a8fd05';
 module.exports = node;

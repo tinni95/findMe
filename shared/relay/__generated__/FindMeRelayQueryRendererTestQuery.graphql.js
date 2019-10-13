@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash fadf44750928a8a774e76dea982b5e97
+ * @relayHash bf1815633cab1add04c05e083ad0b27d
  */
 
 /* eslint-disable */
@@ -11,7 +11,7 @@
 import type { ConcreteRequest } from 'relay-runtime';
 export type FindMeRelayQueryRendererTestQueryVariables = {||};
 export type FindMeRelayQueryRendererTestQueryResponse = {|
-  +posts: $ReadOnlyArray<?{|
+  +postsFeed: $ReadOnlyArray<{|
     +id: string
   |}>
 |};
@@ -24,7 +24,7 @@ export type FindMeRelayQueryRendererTestQuery = {|
 
 /*
 query FindMeRelayQueryRendererTestQuery {
-  posts {
+  postsFeed {
     id
   }
 }
@@ -35,7 +35,7 @@ var v0 = [
   {
     "kind": "LinkedField",
     "alias": null,
-    "name": "posts",
+    "name": "postsFeed",
     "storageKey": null,
     "args": null,
     "concreteType": "Post",
@@ -71,11 +71,11 @@ return {
     "operationKind": "query",
     "name": "FindMeRelayQueryRendererTestQuery",
     "id": null,
-    "text": "query FindMeRelayQueryRendererTestQuery {\n  posts {\n    id\n  }\n}\n",
+    "text": "query FindMeRelayQueryRendererTestQuery {\n  postsFeed {\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8591f19273da72a70c33b808ade72bc0';
+(node/*: any*/).hash = '0e2fa517c5001ea82bbb5c6cc2ece10b';
 module.exports = node;

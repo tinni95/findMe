@@ -5,12 +5,12 @@ import {
     retryMiddleware,
     urlMiddleware,
 } from "react-relay-network-modern";
-
+import { graphlEndPoint } from "../urls";
 import { retryDelayInMillisecondsForAttemptNumber } from "./exponentialBackoff";
 
 const middlewares = [
     urlMiddleware({
-        url: "https://eu1.prisma.sh/contattodigio/database/dev",
+        url: graphlEndPoint,
     }),
     retryMiddleware({
         fetchTimeout: 20000, // 20 seconds for a single request to time out

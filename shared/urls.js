@@ -1,0 +1,1 @@
+export const graphlEndPoint = "http://localhost:5000/";
