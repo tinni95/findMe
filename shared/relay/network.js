@@ -2,6 +2,7 @@ import {
     cacheMiddleware,
     errorMiddleware,
     RelayNetworkLayer,
+    loggerMiddleware,
     retryMiddleware,
     urlMiddleware,
 } from "react-relay-network-modern";
@@ -16,6 +17,7 @@ const middlewares = [
         fetchTimeout: 20000, // 20 seconds for a single request to time out
         retryDelays: retryDelayInMillisecondsForAttemptNumber, // exponential back-off with termination
     }),
+    loggerMiddleware(),
     errorMiddleware(),
     cacheMiddleware({
         ttl: 1000 * 10, // 10 seconds

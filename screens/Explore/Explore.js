@@ -7,7 +7,7 @@ export default class Explore extends React.Component {
     renderCards = () => {
         return this.props.posts
             .map((post, index) => {
-                return <Text>{post.title}</Text>
+                return <Text key={index}>{post.title}</Text>
             });
     };
 

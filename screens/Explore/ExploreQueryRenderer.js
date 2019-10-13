@@ -13,6 +13,7 @@ export default class ExploreQueryRenderer extends React.Component {
                     query ExploreQueryRendererQuery {
                       postsFeed{
                         id
+                        title
                       }
                     }
                 `}
@@ -20,8 +21,8 @@ export default class ExploreQueryRenderer extends React.Component {
             />
         )
     }
-    queryRender = ({ props: { posts } }) => {
-        return <Explore posts={posts} />;
+    queryRender = ({ props: { postsFeed } }) => {
+        return <Explore posts={postsFeed} />;
     };
 }
 
