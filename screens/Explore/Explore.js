@@ -4,7 +4,7 @@ import FieldIconRound from "../../components/FieldIcons/FieldIconRound";
 
 export default class Explore extends React.Component {
 
-    renderCards = () => {
+    renderPosts = () => {
         return this.props.posts
             .map((post, index) => {
                 return <FieldIconRound key={index} bg={"#00B6BE"} color={"white"} field={post.positions[0].field} />
@@ -12,7 +12,7 @@ export default class Explore extends React.Component {
     };
 
     render() {
-        return this.renderCards()
+        return this.renderPosts()
     }
 }
 

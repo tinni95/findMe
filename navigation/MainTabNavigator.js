@@ -7,6 +7,7 @@ import Add from '../components/TabBarIcons/Add';
 import House from '../components/TabBarIcons/House';
 import Profile from '../components/TabBarIcons/Profile';
 import Tie from '../components/TabBarIcons/Tie';
+import InsertFirstScreen from "../screens/InsertStack";
 import ExploreQueryRenderer from '../screens/Explore';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -53,14 +54,14 @@ LinksStack.navigationOptions = {
 LinksStack.path = '';
 
 
-const InserisciStack = createStackNavigator(
+const InsertStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    InsertFirstScreen,
   },
   config
 );
 
-InserisciStack.navigationOptions = {
+InsertStack.navigationOptions = {
   tabBarLabel: 'Inserisci',
   tabBarIcon: ({ focused }) => (
     <Add
@@ -69,7 +70,7 @@ InserisciStack.navigationOptions = {
   ),
 };
 
-InserisciStack.path = '';
+InsertStack.path = '';
 
 const ServiziStack = createStackNavigator(
   {
@@ -111,7 +112,7 @@ ProfileStack.path = '';
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
-  InserisciStack,
+  InsertStack,
   ServiziStack,
   ProfileStack
 });
