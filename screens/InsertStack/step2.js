@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, View, StyleSheet, TouchableOpacity, Text } from "react-native";
-
+import { width } from "../../constants/Layout"
 export default InsertSecondScreen = ({ navigation: { navigate } }) => {
     return (
         <View style={styles.container}>
@@ -18,12 +18,12 @@ InsertFirstScreen.navigationOptions = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "lightgrey"
+        backgroundColor: "#EBEBEB"
     },
     header: {
-        flex: 5,
-        height: undefined,
-        width: undefined
+        flex: 1,
+        height: 5,
+        width
     },
     button: {
         flex: 1,

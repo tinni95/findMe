@@ -10,7 +10,7 @@ export default InsertFirstScreen = ({ navigation: { navigate } }) => {
                 source={require('../../assets/images/header.png')}
                 resizeMode="contain"
             />
-            <TouchableOpacity onPress={navigate("step2")} style={styles.button}>
+            <TouchableOpacity onPress={() => navigate("InsertSecondScreen")} style={styles.button}>
                 <TextWithArrow text={"Seleziona la categoria"} color={"#00B6BE"} />
             </TouchableOpacity>
         </View>)
@@ -22,15 +22,17 @@ InsertFirstScreen.navigationOptions = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#EBEBEB"
+        backgroundColor: "#02394D"
     },
     header: {
-        flex: 5,
+        flex: 3,
         height: undefined,
         width: undefined
     },
     button: {
         flex: 1,
-        alignItems: "center"
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "rgba(255,255,255,0.2)"
     }
 })
