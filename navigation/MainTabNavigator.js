@@ -8,6 +8,7 @@ import House from '../components/TabBarIcons/House';
 import Profile from '../components/TabBarIcons/Profile';
 import Tie from '../components/TabBarIcons/Tie';
 import InsertFirstScreen from "../screens/InsertStack";
+import InsertSecondScreen from "../screens/InsertStack";
 import ExploreQueryRenderer from '../screens/Explore';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -57,6 +58,7 @@ LinksStack.path = '';
 const InsertStack = createStackNavigator(
   {
     InsertFirstScreen,
+    InsertSecondScreen
   },
   config
 );
