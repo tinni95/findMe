@@ -1,8 +1,9 @@
 import { createStackNavigator } from 'react-navigation';
 
-import LoginForm from './MainTabNavigator';
+import { LoginScreen, LandingPage } from '../screens/AuthenticationStack';
 
 export default createStackNavigator({
-    Main: LoginForm,
+    LandingPage,
+    LoginScreen
 })
 
