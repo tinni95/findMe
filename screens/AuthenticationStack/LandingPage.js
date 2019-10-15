@@ -2,6 +2,12 @@ import React from "react";
 import { Image, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Button } from 'react-native-paper';
 import { width } from "../../constants/Layout"
+import { AsyncStorage } from "react-native";
+const TOKEN_KEY = "apsofjkcaoisll032ir";
+
+const _asyncStorageGetToken = async () => {
+    await AsyncStorage.getItem(TOKEN_KEY);
+};
 
 export default LandingPage = ({ navigation: { navigate } }) => {
     return (
