@@ -2,17 +2,37 @@ import React from "react";
 import { StyleSheet, View } from "react-native"
 import { width } from "../../constants/Layout"
 
-export default PostCard = ({ post }) => {
-    <View style={styles.card}>
+import PostCardPublisher from "./PostCardPublisher"
+import PostCardText from "./PostCardText"
 
-    </View>
+export default PostCard = ({ post }) => {
+    return (
+        <View style={styles.card}>
+            <View style={styles.body}>
+                <PostCardPublisher />
+                <PostCardText />
+            </View>
+            <View style={styles.footer}>
+
+            </View>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
     card: {
-        height: 300,
+        height: 200,
         width,
-        borderRadius: 25,
+        borderRadius: 15,
+        marginTop: 20,
         backgroundColor: "white"
+    },
+    body: {
+        flex: 8,
+        flexDirection: "row"
+    },
+    footer: {
+        flex: 2,
+        flexDirection: "row"
     }
 });
