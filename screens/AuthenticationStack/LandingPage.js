@@ -12,10 +12,10 @@ export default LandingPage = ({ navigation: { navigate } }) => {
                 resizeMode="contain"
             />
             <View style={styles.buttonWrapper}>
-                <Button style={styles.button} mode="contained" onPress={() => console.log('Pressed')}>
+                <Button style={styles.button} mode="contained" onPress={() => navigate("SignUpScreen")}>
                     Sign Up
             </Button>
-                <TouchableOpacity style={styles.loginWrapper}>
+                <TouchableOpacity onPress={() => navigate("LoginScreen")} style={styles.loginWrapper}>
                     <Text style={styles.loginPrompt}>Already a member? Login</Text>
                 </TouchableOpacity>
             </View>

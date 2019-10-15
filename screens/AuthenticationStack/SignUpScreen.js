@@ -3,7 +3,7 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { Button } from 'react-native-paper';
 import { width } from "../../constants/Layout"
 import { TextInput, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import { Login } from "../../mutations/AuthenticationStack"
+import { SignUp } from "../../mutations/AuthenticationStack"
 
 const theme = {
     ...DefaultTheme,
@@ -15,21 +15,29 @@ const theme = {
     },
 };
 
-export default class LoginScreen extends React.Component {
+export default class SignUpScreen extends React.Component {
     state = {
         email: '',
-        password: ''
+        password: '',
+        name: ''
     };
 
-    login = () => {
-        const { email, password } = this.state;
-        Login({ email, password });
+    signUp = () => {
+        const { email, password, name } = this.state;
+        SignUp({ email, password, name })
     }
+
     render() {
         return (
             <PaperProvider theme={theme}>
                 <View style={styles.container}>
                     <View style={styles.header}>
+                        <TextInput
+                            style={styles.input}
+                            label='Name'
+                            value={this.state.name}
+                            onChangeText={name => this.setState({ name })}
+                        />
                         <TextInput
                             style={styles.input}
                             autoCompleteType="email"
@@ -46,8 +54,8 @@ export default class LoginScreen extends React.Component {
                         />
                     </View>
                     <View style={styles.buttonWrapper}>
-                        <Button style={styles.button} mode="contained" onPress={() => this.login()}>
-                            Sign In
+                        <Button style={styles.button} mode="contained" onPress={() => this.signUp()}>
+                            Sign Up
                      </Button>
                     </View>
                 </View>
@@ -56,7 +64,6 @@ export default class LoginScreen extends React.Component {
     }
 
 }
-
 
 
 const styles = StyleSheet.create({
