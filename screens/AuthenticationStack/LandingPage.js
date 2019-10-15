@@ -1,8 +1,8 @@
 import React from "react";
 import { Image, View, StyleSheet, TouchableOpacity, Text } from "react-native";
-import TextWithArrow from "../../components/TextWithArrow";
 import { Button } from 'react-native-paper';
 import { width } from "../../constants/Layout"
+
 export default LandingPage = ({ navigation: { navigate } }) => {
     return (
         <View style={styles.container}>

@@ -10,7 +10,7 @@ import {
 import { AsyncStorage } from "react-native";
 import { graphlEndPoint } from "../urls";
 import { retryDelayInMillisecondsForAttemptNumber } from "./exponentialBackoff";
-const TOKEN_KEY = "apsofjkcaoisll032ir";
+const TOKEN_KEY = "apsosfjkcaoisll032ir";
 
 const _asyncStorageGetToken = async () => {
     return await AsyncStorage.getItem(TOKEN_KEY);

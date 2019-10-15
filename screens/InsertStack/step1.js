@@ -1,6 +1,5 @@
 import React from "react";
 import { Image, View, StyleSheet, TouchableOpacity, Text } from "react-native";
-import TextWithArrow from "../../components/TextWithArrow";
 
 export default InsertFirstScreen = ({ navigation: { navigate } }) => {
     return (
@@ -11,7 +10,6 @@ export default InsertFirstScreen = ({ navigation: { navigate } }) => {
                 resizeMode="contain"
             />
             <TouchableOpacity onPress={() => navigate("InsertSecondScreen")} style={styles.button}>
-                <TextWithArrow text={"Seleziona la categoria"} color={"#00B6BE"} />
             </TouchableOpacity>
         </View>)
 }
