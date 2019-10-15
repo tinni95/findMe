@@ -4,9 +4,8 @@ import { Button } from 'react-native-paper';
 import { width } from "../../constants/Layout"
 import { TextInput, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { SignUp } from "../../mutations/AuthenticationStack"
-import { TOKEN_KEY } from "../../constants/keys"
 import { AsyncStorage } from "react-native";
-
+const TOKEN_KEY = "apsofjkcaoisll032ir";
 const theme = {
     ...DefaultTheme,
     roundness: 4,
@@ -17,7 +16,7 @@ const theme = {
     },
 };
 
-_asyncStorageSaveToken = async token => {
+const _asyncStorageSaveToken = async token => {
     await AsyncStorage.setItem(TOKEN_KEY, token);
 };
 
@@ -31,7 +30,7 @@ export default class SignUpScreen extends React.Component {
     signUp = async () => {
         const { email, password, name } = this.state;
         const { token } = await SignUp({ email, password, name });
-        await this._asyncStorageSaveToken(token);
+        await _asyncStorageSaveToken(token);
         this.props.navigation.navigate("MainTabNavigator");
     }
 
