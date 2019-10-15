@@ -1,17 +1,27 @@
 import {
     cacheMiddleware,
+    authMiddleware,
     errorMiddleware,
     RelayNetworkLayer,
     loggerMiddleware,
     retryMiddleware,
     urlMiddleware,
 } from "react-relay-network-modern";
+import { AsyncStorage } from "react-native";
 import { graphlEndPoint } from "../urls";
 import { retryDelayInMillisecondsForAttemptNumber } from "./exponentialBackoff";
+const TOKEN_KEY = "apsofjkcaoisll032ir";
+
+const _asyncStorageGetToken = async () => {
+    return await AsyncStorage.getItem(TOKEN_KEY);
+};
 
 const middlewares = [
     urlMiddleware({
         url: graphlEndPoint,
+    }),
+    authMiddleware({
+        token: _asyncStorageGetToken()
     }),
     retryMiddleware({
         fetchTimeout: 20000, // 20 seconds for a single request to time out

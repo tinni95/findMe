@@ -632,6 +632,7 @@ input PostWhereInput {
 }
 
 type Query {
+  currentUser(id: ID): User
   applicationsForPosition(positionId: ID!): [Application!]!
   positionsForPost(postId: ID!): [Position!]!
   singlePosition(id: ID!): Position!

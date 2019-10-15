@@ -1,9 +1,9 @@
 import LoginScreen from "./LoginScreen";
-import LandingPage from "./LandingPage";
+import LandingPageQueryRenderer from "./LandingPageQueryRenderer";
 import SignUpScreen from "./SignUpScreen";
 
 export {
-    LandingPage,
+    LandingPageQueryRenderer,
     LoginScreen,
     SignUpScreen
 };
