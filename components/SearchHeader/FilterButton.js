@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     button: {
         width: 80,
         margin: 10,
+        marginBottom: 15,
         alignSelf: "flex-end"
     }
 })
