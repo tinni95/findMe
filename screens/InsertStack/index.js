@@ -1,7 +1,7 @@
-import InsertFirstScreen from "./step1"
+import InsertFlowHome from "./InsertFlowHome"
 import InsertSecondScreen from "./step2"
 
 export {
-    InsertFirstScreen,
+    InsertFlowHome,
     InsertSecondScreen
 };
