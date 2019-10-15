@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
     authorInfo: {
+        marginLeft: 4,
         flexDirection: "row",
         justifyContent: "flex-start",
     },
