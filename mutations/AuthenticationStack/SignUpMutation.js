@@ -24,7 +24,7 @@ export async function SignUp({
     password,
     name
 }) {
-    const { SignUp } = await commitMutation(environment, {
+    const { signup } = await commitMutation(environment, {
         mutation: SignUpMutation,
         variables: {
             email,
@@ -32,5 +32,5 @@ export async function SignUp({
             name
         },
     });
-    return SignUp;
+    return signup;
 }

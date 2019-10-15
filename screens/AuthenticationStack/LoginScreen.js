@@ -25,6 +25,7 @@ export default class LoginScreen extends React.Component {
         const { email, password } = this.state;
         Login({ email, password });
     }
+
     render() {
         return (
             <PaperProvider theme={theme}>
