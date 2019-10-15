@@ -16,7 +16,7 @@ export default InsertFlowHome = ({ navigation: { navigate } }) => {
         </View>)
 }
 
-InsertFlowWrapper.navigationOptions = {
+InsertFlowHome.navigationOptions = {
     header: null
 }
 const styles = StyleSheet.create({
