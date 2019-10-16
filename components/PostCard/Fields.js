@@ -9,7 +9,8 @@ export const Fields = ({ post: { positions } }) => {
     });
     return (
         <View style={styles.container}>
-            <ScrollView horizontal={true}>
+            <ScrollView horizontal={true}
+                showsHorizontalScrollIndicator={false}>
                 {fields}
             </ScrollView>
         </View>
