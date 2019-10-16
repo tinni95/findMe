@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 6bef05116f44a51fb2d352f0560250e3
+ * @relayHash 44ee7009e2cba136d25832e2eab103e0
  */
 
 /* eslint-disable */
@@ -35,6 +35,7 @@ fragment PostCard_post on Post {
   ...PostCardText_post
   ...Fields_post
   ...Views_post
+  ...PostCardPublisher_post
 }
 
 fragment PostCardText_post on Post {
@@ -52,6 +53,13 @@ fragment Fields_post on Post {
 
 fragment Views_post on Post {
   views
+}
+
+fragment PostCardPublisher_post on Post {
+  positions {
+    available
+    id
+  }
 }
 */
 
@@ -160,7 +168,7 @@ return {
     "operationKind": "query",
     "name": "ExploreQueryRendererQuery",
     "id": null,
-    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...PostCard_post\n    id\n  }\n}\n\nfragment PostCard_post on Post {\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  description\n}\n\nfragment Fields_post on Post {\n  positions {\n    available\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n",
+    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...PostCard_post\n    id\n  }\n}\n\nfragment PostCard_post on Post {\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n  ...PostCardPublisher_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  description\n}\n\nfragment Fields_post on Post {\n  positions {\n    available\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n\nfragment PostCardPublisher_post on Post {\n  positions {\n    available\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

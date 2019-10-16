@@ -7,6 +7,7 @@ import PostCardText from "./PostCardText"
 import Fields from "./Fields";
 import Views from "./Views";
 import CreatedAt from "./CreatedAt";
+
 export const PostCard = ({ post }) => {
     return (
         <View style={styles.card}>
@@ -47,6 +48,7 @@ export default createFragmentContainer(PostCard, {
                 ...PostCardText_post
                 ...Fields_post
                 ...Views_post 
+                ...PostCardPublisher_post 
         }
     `,
 });

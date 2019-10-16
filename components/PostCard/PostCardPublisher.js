@@ -1,7 +1,18 @@
 import React from "react";
 import { Text, StyleSheet, Image, View } from "react-native"
-import { width } from "../../constants/Layout"
 import People from "../../assets/images/people.svg";
+import { graphql, createFragmentContainer } from "react-relay";
+import { Bold, Light } from "../StyledText"
+
+const availablePositions = (positions) => {
+    const amount = positions.reduce(
+        (acc, position) => acc + position.available,
+        0
+    );
+    return (
+        <Bold style={styles.amount}>{amount} POSITIONS AVAILABLE</Bold>
+    )
+}
 
 const authorInfo = () => {
     return (
@@ -18,7 +29,7 @@ const authorInfo = () => {
     )
 }
 
-export default PostCardPublisher = ({ post }) => {
+export const PostCardPublisher = ({ post: { positions } }) => {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -27,6 +38,9 @@ export default PostCardPublisher = ({ post }) => {
             </View>
             <View style={styles.infoContainer}>
                 {authorInfo()}
+            </View>
+            <View style={styles.positionsContainer}>
+                {availablePositions(positions)}
             </View>
         </View>
     )
@@ -69,5 +83,22 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginTop: -2,
         marginLeft: 2
-    }
+    },
+    amount: {
+        textAlign: "center",
+        fontSize: 6.5,
+        margin: 5
+    },
+
+
+});
+
+export default createFragmentContainer(PostCardPublisher, {
+    post: graphql`
+        fragment PostCardPublisher_post on Post {
+            positions {
+                available
+            }
+        }
+    `,
 });
