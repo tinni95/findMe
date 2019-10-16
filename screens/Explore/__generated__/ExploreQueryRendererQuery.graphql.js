@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 6f3eb419aa80fc8ed799d46b4c3df2a5
+ * @relayHash 6bef05116f44a51fb2d352f0560250e3
  */
 
 /* eslint-disable */
@@ -44,6 +44,7 @@ fragment PostCardText_post on Post {
 
 fragment Fields_post on Post {
   positions {
+    available
     field
     id
   }
@@ -129,6 +130,13 @@ return {
               {
                 "kind": "ScalarField",
                 "alias": null,
+                "name": "available",
+                "args": null,
+                "storageKey": null
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
                 "name": "field",
                 "args": null,
                 "storageKey": null
@@ -152,7 +160,7 @@ return {
     "operationKind": "query",
     "name": "ExploreQueryRendererQuery",
     "id": null,
-    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...PostCard_post\n    id\n  }\n}\n\nfragment PostCard_post on Post {\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  description\n}\n\nfragment Fields_post on Post {\n  positions {\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n",
+    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...PostCard_post\n    id\n  }\n}\n\nfragment PostCard_post on Post {\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  description\n}\n\nfragment Fields_post on Post {\n  positions {\n    available\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n",
     "metadata": {}
   }
 };

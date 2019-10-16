@@ -13,7 +13,8 @@ declare export opaque type Fields_post$ref: FragmentReference;
 declare export opaque type Fields_post$fragmentType: Fields_post$ref;
 export type Fields_post = {|
   +positions: ?$ReadOnlyArray<{|
-    +field: string
+    +available: number,
+    +field: string,
   |}>,
   +$refType: Fields_post$ref,
 |};
@@ -44,6 +45,13 @@ const node/*: ReaderFragment*/ = {
         {
           "kind": "ScalarField",
           "alias": null,
+          "name": "available",
+          "args": null,
+          "storageKey": null
+        },
+        {
+          "kind": "ScalarField",
+          "alias": null,
           "name": "field",
           "args": null,
           "storageKey": null
@@ -53,5 +61,5 @@ const node/*: ReaderFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = 'ba67954aac86078f51af55cded43c43f';
+(node/*: any*/).hash = 'da9fa64d698411cfed8a6d4d9dcf255d';
 module.exports = node;

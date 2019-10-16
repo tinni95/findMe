@@ -11,7 +11,7 @@ export const PostCard = ({ post }) => {
     return (
         <View style={styles.card}>
             <View style={styles.body}>
-                <PostCardPublisher />
+                <PostCardPublisher post={post} />
                 <PostCardText post={post} />
             </View>
             <View style={styles.footer}>

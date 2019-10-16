@@ -5,7 +5,7 @@ import FieldIconRound from "../FieldIcons"
 
 export const Fields = ({ post: { positions } }) => {
     const fields = positions.map((position, index) => {
-        return <FieldIconRound color={"white"} bg={"#00B6BE"} key={index} field={position.field} />
+        return <FieldIconRound available={position.available} color={"white"} bg={"#00B6BE"} key={index} field={position.field} />
     });
     return (
         <View style={styles.container}>
@@ -27,6 +27,7 @@ export default createFragmentContainer(Fields, {
     post: graphql`
         fragment Fields_post on Post {
             positions{
+                available
                   field  
             }
         }
