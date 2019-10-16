@@ -35,8 +35,12 @@ async function loadResourcesAsync() {
       ...Ionicons.font,
       // We include SpaceMono because we use it in HomeScreen.js. Feel free to
       // remove this if you are not using it in your app
+      'Avenir': require('./assets/fonts/SpaceMono-Regular.ttf'),
       'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
       'changa-one': require('./assets/fonts/ChangaOne-Regular.ttf'),
+      'sequel-sans': require('./assets/fonts/SequelSans-Body.ttf'),
+      'sequel-sans-bold': require('./assets/fonts/SequelSans-Bold.ttf'),
+      'sequel-sans-light': require('./assets/fonts/SequelSans-Body-light.ttf'),
     }),
   ]);
 }

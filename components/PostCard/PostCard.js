@@ -1,19 +1,23 @@
 import React from "react";
 import { StyleSheet, View } from "react-native"
 import { width } from "../../constants/Layout"
-
+import { graphql, createFragmentContainer } from "react-relay";
 import PostCardPublisher from "./PostCardPublisher"
 import PostCardText from "./PostCardText"
-
-export default PostCard = ({ post }) => {
+import Fields from "./Fields";
+import Views from "./Views";
+import CreatedAt from "./CreatedAt";
+export const PostCard = ({ post }) => {
     return (
         <View style={styles.card}>
             <View style={styles.body}>
                 <PostCardPublisher />
-                <PostCardText />
+                <PostCardText post={post} />
             </View>
             <View style={styles.footer}>
-
+                <Fields post={post}></Fields>
+                <Views post={post}></Views>
+                <CreatedAt ></CreatedAt>
             </View>
         </View>
     )
@@ -35,4 +39,14 @@ const styles = StyleSheet.create({
         flex: 2,
         flexDirection: "row"
     }
+});
+
+export default createFragmentContainer(PostCard, {
+    post: graphql`
+        fragment PostCard_post on Post {
+                ...PostCardText_post
+                ...Fields_post
+                ...Views_post 
+        }
+    `,
 });

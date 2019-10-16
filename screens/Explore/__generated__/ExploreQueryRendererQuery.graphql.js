@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ca2cbfa8bd41264256002ffb5db66960
+ * @relayHash 6f3eb419aa80fc8ed799d46b4c3df2a5
  */
 
 /* eslint-disable */
@@ -9,19 +9,11 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type PostCard_post$ref = any;
 export type ExploreQueryRendererQueryVariables = {||};
 export type ExploreQueryRendererQueryResponse = {|
   +postsFeed: $ReadOnlyArray<{|
-    +id: string,
-    +title: string,
-    +field: string,
-    +description: string,
-    +positions: ?$ReadOnlyArray<{|
-      +id: string,
-      +field: string,
-      +title: string,
-      +description: string,
-    |}>,
+    +$fragmentRefs: PostCard_post$ref
   |}>
 |};
 export type ExploreQueryRendererQuery = {|
@@ -34,17 +26,31 @@ export type ExploreQueryRendererQuery = {|
 /*
 query ExploreQueryRendererQuery {
   postsFeed {
+    ...PostCard_post
     id
-    title
-    field
-    description
-    positions {
-      id
-      field
-      title
-      description
-    }
   }
+}
+
+fragment PostCard_post on Post {
+  ...PostCardText_post
+  ...Fields_post
+  ...Views_post
+}
+
+fragment PostCardText_post on Post {
+  title
+  description
+}
+
+fragment Fields_post on Post {
+  positions {
+    field
+    id
+  }
+}
+
+fragment Views_post on Post {
+  views
 }
 */
 
@@ -55,60 +61,7 @@ var v0 = {
   "name": "id",
   "args": null,
   "storageKey": null
-},
-v1 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "title",
-  "args": null,
-  "storageKey": null
-},
-v2 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "field",
-  "args": null,
-  "storageKey": null
-},
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "description",
-  "args": null,
-  "storageKey": null
-},
-v4 = [
-  {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "postsFeed",
-    "storageKey": null,
-    "args": null,
-    "concreteType": "Post",
-    "plural": true,
-    "selections": [
-      (v0/*: any*/),
-      (v1/*: any*/),
-      (v2/*: any*/),
-      (v3/*: any*/),
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "positions",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "Position",
-        "plural": true,
-        "selections": [
-          (v0/*: any*/),
-          (v2/*: any*/),
-          (v1/*: any*/),
-          (v3/*: any*/)
-        ]
-      }
-    ]
-  }
-];
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -117,23 +70,93 @@ return {
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": [],
-    "selections": (v4/*: any*/)
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "postsFeed",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Post",
+        "plural": true,
+        "selections": [
+          {
+            "kind": "FragmentSpread",
+            "name": "PostCard_post",
+            "args": null
+          }
+        ]
+      }
+    ]
   },
   "operation": {
     "kind": "Operation",
     "name": "ExploreQueryRendererQuery",
     "argumentDefinitions": [],
-    "selections": (v4/*: any*/)
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "postsFeed",
+        "storageKey": null,
+        "args": null,
+        "concreteType": "Post",
+        "plural": true,
+        "selections": [
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "title",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "description",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "positions",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "Position",
+            "plural": true,
+            "selections": [
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "field",
+                "args": null,
+                "storageKey": null
+              },
+              (v0/*: any*/)
+            ]
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "views",
+            "args": null,
+            "storageKey": null
+          },
+          (v0/*: any*/)
+        ]
+      }
+    ]
   },
   "params": {
     "operationKind": "query",
     "name": "ExploreQueryRendererQuery",
     "id": null,
-    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    id\n    title\n    field\n    description\n    positions {\n      id\n      field\n      title\n      description\n    }\n  }\n}\n",
+    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...PostCard_post\n    id\n  }\n}\n\nfragment PostCard_post on Post {\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  description\n}\n\nfragment Fields_post on Post {\n  positions {\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '9eeeb373f14b8c8e70b4c036fda3d650';
+(node/*: any*/).hash = '56ea6b88ed6e1f0829b1e6716871f738';
 module.exports = node;

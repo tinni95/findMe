@@ -1,12 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native"
+import LocationWithText from "../shared/LocationWithText";
+import { Bold, Light } from "../StyledText"
+import { graphql, createFragmentContainer } from "react-relay";
 
-export default PostCardText = ({ post }) => {
+export const PostCardText = ({ post }) => {
     return (
         <View style={styles.container}>
-            <Text>a</Text>
-            <Text>a</Text>
-            <Text>a</Text>
+            <Bold>{post.title}</Bold>
+            <LocationWithText text={"Caserta, Ce"} color={"#00B6BE"} textColor={"#ADBFC5"} />
+            <Light>{post.description}</Light>
         </View>
     )
 }
@@ -14,6 +17,16 @@ export default PostCardText = ({ post }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
-        flex: 4
+        flex: 4,
+        margin: 5
     },
+});
+
+export default createFragmentContainer(PostCardText, {
+    post: graphql`
+        fragment PostCardText_post on Post {
+                title
+                description
+        }
+    `,
 });
