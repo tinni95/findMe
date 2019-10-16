@@ -2,12 +2,7 @@ import React from "react";
 import { Image, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Button } from 'react-native-paper';
 import { width } from "../../constants/Layout"
-import { AsyncStorage } from "react-native";
-const TOKEN_KEY = "apsofjkcaoisll032ir";
-
-const _asyncStorageGetToken = async () => {
-    await AsyncStorage.getItem(TOKEN_KEY);
-};
+import { Light } from "../../components/StyledText"
 
 export default LandingPage = ({ navigation: { navigate } }) => {
     return (
@@ -22,7 +17,7 @@ export default LandingPage = ({ navigation: { navigate } }) => {
                     Sign Up
             </Button>
                 <TouchableOpacity onPress={() => navigate("LoginScreen")} style={styles.loginWrapper}>
-                    <Text style={styles.loginPrompt}>Already a member? Login</Text>
+                    <Light style={styles.loginPrompt}>Already a member? Login</Light>
                 </TouchableOpacity>
             </View>
         </View>)

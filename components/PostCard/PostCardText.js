@@ -18,7 +18,6 @@ export const PostCardText = ({ post: { description, title } }) => {
         <View style={styles.container}>
             <Bold>{fixOverflow(title, titleLimit)}</Bold>
             <LocationWithText text={"Caserta, Ce"} color={"#00B6BE"} textColor={"#ADBFC5"} />
-
             <Light>
                 {fixOverflow(description, descriptionLimit)}
             </Light>

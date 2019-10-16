@@ -14,11 +14,12 @@ const styles = StyleSheet.create({
     container: {
         marginLeft: -3,
         flexDirection: "row",
-        margin: 5
+        margin: 5,
+        marginTop: 3
     },
     text: {
         fontSize: 15,
-        marginTop: 3,
+
         marginLeft: 2,
     }
 })
