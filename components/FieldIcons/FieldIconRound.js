@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
         marginLeft: 2,
         marginRight: 4,
         alignItems: "center",
-        height: 35,
-        width: 35,
+        height: 33,
+        width: 33,
         borderRadius: 20
     },
     bottomText: {

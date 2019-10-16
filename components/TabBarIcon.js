@@ -6,7 +6,7 @@ import Colors from '../constants/Colors';
 export default function TabBarIcon(props) {
   return (
     <Lamp
-      width={30} height={30}
+      width={23} height={23}
       fill={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
     />
   );

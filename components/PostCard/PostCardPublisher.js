@@ -3,6 +3,7 @@ import { Text, StyleSheet, Image, View } from "react-native"
 import People from "../../assets/images/people.svg";
 import { graphql, createFragmentContainer } from "react-relay";
 import { Bold, Light } from "../StyledText"
+import { isSmallDevice } from "../../constants/Layout"
 
 const availablePositions = (positions) => {
     const amount = positions.reduce(
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     },
     amount: {
         textAlign: "center",
-        fontSize: 6.5,
+        fontSize: isSmallDevice ? 6 : 6.5,
         margin: 5
     },
 

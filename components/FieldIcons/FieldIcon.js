@@ -24,7 +24,7 @@ export default function FieldIcon(props) {
     return (
         <FieldIcon
             style={{ marginTop: 8 }}
-            width={21} height={21}
+            width={20} height={20}
             fill={props.color}
         />
     );
