@@ -1,6 +1,6 @@
 import React from 'react';
 import Science from "../../assets/images/laboratory.svg";
-import It from "../../assets/images/computer.svg";
+import It from "../../assets/images/auction.svg";
 import Wellbeing from "../../assets/images/heart.svg";
 import Economics from "../../assets/images/economics.svg";
 import Engineering from "../../assets/images/engineer.svg";
@@ -24,7 +24,7 @@ export default function FieldIcon(props) {
     return (
         <FieldIcon
             style={{ marginTop: 8 }}
-            width={23} height={23}
+            width={21} height={21}
             fill={props.color}
         />
     );

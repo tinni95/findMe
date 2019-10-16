@@ -15,6 +15,7 @@ export default class Explore extends React.Component {
 
     render() {
         return (
+
             <View style={styles.container}>
                 <SearchHeader />
                 <View style={styles.postBody}>
