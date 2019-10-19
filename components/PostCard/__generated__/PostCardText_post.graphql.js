@@ -13,6 +13,8 @@ declare export opaque type PostCardText_post$ref: FragmentReference;
 declare export opaque type PostCardText_post$fragmentType: PostCardText_post$ref;
 export type PostCardText_post = {|
   +title: string,
+  +startDate: any,
+  +field: string,
   +$refType: PostCardText_post$ref,
 |};
 export type PostCardText_post$data = PostCardText_post;
@@ -36,9 +38,23 @@ const node/*: ReaderFragment*/ = {
       "name": "title",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "startDate",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "field",
+      "args": null,
+      "storageKey": null
     }
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '6b60b590067246dc5599dcb5929e51d4';
+(node/*: any*/).hash = '739812c1b3dee75cca97b68612cc46fc';
 module.exports = node;

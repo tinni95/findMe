@@ -103,14 +103,16 @@ type AuthPayload {
   user: User
 }
 
+scalar DateTime
+
 type Mutation {
   createApplication(positionId: ID!): Application!
   deleteApplication(id: ID!): Application!
   createPosition(title: String!, description: String!, field: String!, available: Int!, postId: ID!): Position!
   updatePosition(available: Int!, id: ID!): Position!
   deletePosition(id: ID!): Position!
-  createPost(title: String!, description: String!, field: String!): Post!
-  updatePost(id: ID!, url: String, description: String): Post!
+  createPost(title: String!, description: String!, field: String!, startDate: DateTime!): Post!
+  updatePost(id: ID!, title: String, description: String): Post!
   deletePost(id: ID!): Post!
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
@@ -344,13 +346,15 @@ input PositionWhereInput {
 
 type Post implements Node {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   field: String!
-  locationLon: String
-  locationLat: String
+  location: String
   description: String!
   views: Int!
   postedBy(where: UserWhereInput): User!
+  startDate: DateTime!
   positions(where: PositionWhereInput, orderBy: PositionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Position!]
 }
 
@@ -403,6 +407,50 @@ input PostWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   title: String
 
   """All values that are not equal to given value."""
@@ -483,86 +531,46 @@ input PostWhereInput {
 
   """All values not ending with the given string."""
   field_not_ends_with: String
-  locationLon: String
+  location: String
 
   """All values that are not equal to given value."""
-  locationLon_not: String
+  location_not: String
 
   """All values that are contained in given list."""
-  locationLon_in: [String!]
+  location_in: [String!]
 
   """All values that are not contained in given list."""
-  locationLon_not_in: [String!]
+  location_not_in: [String!]
 
   """All values less than the given value."""
-  locationLon_lt: String
+  location_lt: String
 
   """All values less than or equal the given value."""
-  locationLon_lte: String
+  location_lte: String
 
   """All values greater than the given value."""
-  locationLon_gt: String
+  location_gt: String
 
   """All values greater than or equal the given value."""
-  locationLon_gte: String
+  location_gte: String
 
   """All values containing the given string."""
-  locationLon_contains: String
+  location_contains: String
 
   """All values not containing the given string."""
-  locationLon_not_contains: String
+  location_not_contains: String
 
   """All values starting with the given string."""
-  locationLon_starts_with: String
+  location_starts_with: String
 
   """All values not starting with the given string."""
-  locationLon_not_starts_with: String
+  location_not_starts_with: String
 
   """All values ending with the given string."""
-  locationLon_ends_with: String
+  location_ends_with: String
 
   """All values not ending with the given string."""
-  locationLon_not_ends_with: String
-  locationLat: String
-
-  """All values that are not equal to given value."""
-  locationLat_not: String
-
-  """All values that are contained in given list."""
-  locationLat_in: [String!]
-
-  """All values that are not contained in given list."""
-  locationLat_not_in: [String!]
-
-  """All values less than the given value."""
-  locationLat_lt: String
-
-  """All values less than or equal the given value."""
-  locationLat_lte: String
-
-  """All values greater than the given value."""
-  locationLat_gt: String
-
-  """All values greater than or equal the given value."""
-  locationLat_gte: String
-
-  """All values containing the given string."""
-  locationLat_contains: String
-
-  """All values not containing the given string."""
-  locationLat_not_contains: String
-
-  """All values starting with the given string."""
-  locationLat_starts_with: String
-
-  """All values not starting with the given string."""
-  locationLat_not_starts_with: String
-
-  """All values ending with the given string."""
-  locationLat_ends_with: String
-
-  """All values not ending with the given string."""
-  locationLat_not_ends_with: String
+  location_not_ends_with: String
   description: String
 
   """All values that are not equal to given value."""
@@ -625,6 +633,28 @@ input PostWhereInput {
 
   """All values greater than or equal the given value."""
   views_gte: Int
+  startDate: DateTime
+
+  """All values that are not equal to given value."""
+  startDate_not: DateTime
+
+  """All values that are contained in given list."""
+  startDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  startDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  startDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  startDate_lte: DateTime
+
+  """All values greater than the given value."""
+  startDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  startDate_gte: DateTime
   postedBy: UserWhereInput
   positions_every: PositionWhereInput
   positions_some: PositionWhereInput

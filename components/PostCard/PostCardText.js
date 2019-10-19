@@ -4,7 +4,7 @@ import LocationWithText from "../shared/LocationWithText";
 import { Bold, Body } from "../StyledText"
 import { graphql, createFragmentContainer } from "react-relay";
 import { isSmallDevice } from "../../constants/Layout"
-
+import moment from "moment";
 const titleLimit = 50;
 
 const fixOverflow = (text, limit) => {
@@ -14,26 +14,26 @@ const fixOverflow = (text, limit) => {
             text
     }
 }
-const MainText = () => {
+const MainText = ({ date, field }) => {
     return (
         <View style={styles.mainTextContainer}>
             <View style={styles.mainTextColumn}>
                 <Bold style={styles.columnHeader}>Data Inizio</Bold>
-                <Bold style={styles.columnBody}>24/10/1995</Bold>
+                <Bold style={styles.columnBody}>{moment(date).format("YYYY/MM/DD")}</Bold>
             </View>
             <View style={styles.mainTextColumn}>
                 <Bold style={styles.columnHeader}>Settore</Bold>
-                <Bold style={styles.columnBody}>Startup</Bold>
+                <Bold style={styles.columnBody}>{field}</Bold>
             </View>
         </View>
     )
 }
-export const PostCardText = ({ post: { title } }) => {
+export const PostCardText = ({ post: { title, date, field } }) => {
     return (
         <View style={styles.container}>
             <Bold style={styles.title}>{fixOverflow(title, titleLimit)}</Bold>
             <LocationWithText style={styles.location} text={"Caserta, Campania"} color={"#DD1E63"} textColor={"#ADBFC5"} />
-            {MainText()}
+            {MainText({ date, field })}
         </View>
     )
 }
@@ -76,6 +76,8 @@ export default createFragmentContainer(PostCardText, {
     post: graphql`
         fragment PostCardText_post on Post {
                 title
+                startDate
+                field
         }
     `,
 });

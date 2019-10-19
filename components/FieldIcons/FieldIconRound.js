@@ -25,6 +25,5 @@ const styles = StyleSheet.create({
     bottomText: {
         fontSize: 10,
         marginTop: 23,
-        marginLeft: -5
     }
 })
