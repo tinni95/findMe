@@ -1,24 +1,29 @@
 import React from "react";
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, Platform } from "react-native"
 import { width } from "../../constants/Layout"
 import { graphql, createFragmentContainer } from "react-relay";
 import PostCardPublisher from "./PostCardPublisher"
 import PostCardText from "./PostCardText"
 import Fields from "./Fields";
-import Views from "./Views";
-import CreatedAt from "./CreatedAt";
+import RoundButton from "../shared/RoundButton";
+import { LinearGradient } from "expo-linear-gradient";
 
 export const PostCard = ({ post }) => {
     return (
         <View style={styles.card}>
             <View style={styles.body}>
                 <PostCardPublisher post={post} />
+                <LinearGradient
+                    colors={["#EBEBEB", "#FFFDFD"]}
+                    style={styles.line} />
                 <PostCardText post={post} />
             </View>
             <View style={styles.footer}>
                 <Fields post={post}></Fields>
-                <Views post={post}></Views>
-                <CreatedAt ></CreatedAt>
+                <View style={styles.buttonContainer}>
+                    <RoundButton text={"Scopri di Più"}
+                        onPress={console.log("pressed")} />
+                </View>
             </View>
         </View>
     )
@@ -30,18 +35,34 @@ const styles = StyleSheet.create({
         width,
         marginTop: 15,
         backgroundColor: "white",
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
+        ...Platform.select({
+            ios: {
+                shadowColor: 'black',
+                shadowOffset: { height: -3 },
+                shadowOpacity: 0.1,
+                shadowRadius: 3,
+            },
+            android: {
+                elevation: 20,
+            },
+        }),
     },
     body: {
-        flex: 8,
+        flex: 7,
         flexDirection: "row"
     },
     footer: {
-        flex: 2,
+        flex: 3,
         flexDirection: "row"
+    },
+    buttonContainer: {
+        marginLeft: 50,
+        marginTop: 10,
+        flex: 6
+    },
+    line: {
+        flex: 0.01,
+        backgroundColor: "black"
     }
 });
 

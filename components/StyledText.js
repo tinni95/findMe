@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-export function AvenirText(props) {
+export function Avenir(props) {
   return (
-    <Text {...props} style={[props.style, { fontFamily: 'changa-one' }]} />
+    <Text {...props} style={[props.style, { fontFamily: 'Avenir' }]} />
   );
 }
 
@@ -22,5 +22,11 @@ export function Bold(props) {
 export function Light(props) {
   return (
     <Text {...props} style={[props.style, { fontFamily: 'sequel-sans-light' }]} />
+  );
+}
+
+export function Changa(props) {
+  return (
+    <Text {...props} style={[props.style, { fontFamily: 'changa-one' }]} />
   );
 }

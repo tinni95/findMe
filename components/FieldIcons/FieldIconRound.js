@@ -5,11 +5,9 @@ import FieldIcon from "./FieldIcon";
 export default function FieldIconRound(props) {
     return (
         <View style={styles.container}>
-            <View style={[styles.circle, { backgroundColor: props.bg }]}>
-                <FieldIcon
-                    {...props}
-                />
-            </View>
+            <FieldIcon
+                {...props}
+            />
             {props.available > 1 ?
                 <Text style={styles.bottomText}>{props.available}</Text>
                 : null}
@@ -21,15 +19,8 @@ export default function FieldIconRound(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: "row"
-    },
-    circle: {
-        marginLeft: 2,
-        marginRight: 4,
-        alignItems: "center",
-        height: 33,
-        width: 33,
-        borderRadius: 20
+        flexDirection: "row",
+        margin: 5
     },
     bottomText: {
         fontSize: 10,

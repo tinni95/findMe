@@ -1,20 +1,22 @@
 import React from "react";
 import SearchBarComponent from './SearchBarComponent';
 import FilterButton from "./FilterButton";
-import CurrentFilters from "./CurrentFilters";
 import { StyleSheet, View } from "react-native";
 import { isSmallDevice } from "../../constants/Layout"
 import PropTypes from "prop-types";
+import { LinearGradient } from "expo-linear-gradient";
+
 
 export default function SearchHeader({ setSearch, search }) {
     return (
-        <View style={styles.container}>
+        <LinearGradient
+            colors={["#053144", "#26547C"]}
+            style={styles.container}>
             <SearchBarComponent search={search} setSearch={setSearch} />
             <View style={styles.footer}>
-                <CurrentFilters ambito={"Tutti gli ambiti"} location={"Maddaloni, ce"} />
                 <FilterButton />
             </View>
-        </View>
+        </LinearGradient>
     );
 }
 
@@ -26,7 +28,7 @@ SearchHeader.propTypes = {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#02394D",
-        flex: isSmallDevice ? 2.5 : 1.8
+        flex: isSmallDevice ? 1.9 : 1.4
     },
     footer: {
         flexDirection: "row",

@@ -1,19 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, Image, View } from "react-native"
 import People from "../../assets/images/people.svg";
-import { graphql, createFragmentContainer } from "react-relay";
-import { Bold, Light } from "../StyledText"
 import { isSmallDevice } from "../../constants/Layout"
-
-const availablePositions = (positions) => {
-    const amount = positions.reduce(
-        (acc, position) => acc + position.available,
-        0
-    );
-    return (
-        <Bold style={styles.amount}>{amount} POSITIONS AVAILABLE</Bold>
-    )
-}
 
 const authorInfo = () => {
     return (
@@ -30,18 +18,13 @@ const authorInfo = () => {
     )
 }
 
-export const PostCardPublisher = ({ post: { positions } }) => {
+export default PostCardPublisher = ({ post: { positions } }) => {
     return (
         <View style={styles.container}>
-            <View style={styles.imageContainer}>
-                <Image resizeMode="contain" style={styles.image}
-                    source={require("../../assets/images/placeholder.jpeg")} />
-            </View>
             <View style={styles.infoContainer}>
+                <Image resizeMode="contain" style={styles.image}
+                    source={require("../../assets/images/placeholder.png")} />
                 {authorInfo()}
-            </View>
-            <View style={styles.positionsContainer}>
-                {availablePositions(positions)}
             </View>
         </View>
     )
@@ -51,35 +34,28 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
         flex: 1.5,
-        borderRightColor: "black",
-        borderRightWidth: 1,
+        marginTop: 5
     },
     image: {
-        flex: 1,
-        width: undefined,
-        height: undefined,
-        borderRadius: 10,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
     },
     infoContainer: {
         flex: 1,
+        flexDirection: "column",
         justifyContent: "flex-start",
-    },
-    imageContainer: {
-        flex: 1,
-        marginTop: 10,
-        marginLeft: 5,
-        marginRight: 5,
-        top: -10,
-        justifyContent: "flex-end",
+        alignItems: "center"
     },
     authorInfo: {
+        marginTop: 8,
         marginLeft: 4,
         flexDirection: "row",
         justifyContent: "flex-start",
     },
     authorInfoText: {
-        fontSize: 12,
-        color: "#00B6BE",
+        fontSize: 10,
+        color: "#002C3C",
         fontFamily: "Avenir",
         fontWeight: "bold",
         marginTop: -2,
@@ -90,16 +66,4 @@ const styles = StyleSheet.create({
         fontSize: isSmallDevice ? 6 : 6.5,
         margin: 5
     },
-
-
-});
-
-export default createFragmentContainer(PostCardPublisher, {
-    post: graphql`
-        fragment PostCardPublisher_post on Post {
-            positions {
-                available
-            }
-        }
-    `,
 });

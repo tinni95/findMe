@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import LocationWithText from "../shared/LocationWithText";
-import { Bold, Light } from "../StyledText"
+import { Bold, Body } from "../StyledText"
 import { graphql, createFragmentContainer } from "react-relay";
-import Fields from "./Fields";
-const descriptionLimit = 180;
-const titleLimit = 34;
+import { isSmallDevice } from "../../constants/Layout"
+
+const titleLimit = 50;
 
 const fixOverflow = (text, limit) => {
     {
@@ -14,14 +14,26 @@ const fixOverflow = (text, limit) => {
             text
     }
 }
+const MainText = () => {
+    return (
+        <View style={styles.mainTextContainer}>
+            <View style={styles.mainTextColumn}>
+                <Bold style={styles.columnHeader}>Data Inizio</Bold>
+                <Bold style={styles.columnBody}>24/10/1995</Bold>
+            </View>
+            <View style={styles.mainTextColumn}>
+                <Bold style={styles.columnHeader}>Settore</Bold>
+                <Bold style={styles.columnBody}>Startup</Bold>
+            </View>
+        </View>
+    )
+}
 export const PostCardText = ({ post: { description, title } }) => {
     return (
         <View style={styles.container}>
-            <Bold>{fixOverflow(title, titleLimit)}</Bold>
-            <LocationWithText text={"Caserta, Ce"} color={"#00B6BE"} textColor={"#ADBFC5"} />
-            <Light>
-                {fixOverflow(description, descriptionLimit)}
-            </Light>
+            <Bold style={styles.title}>{fixOverflow(title, titleLimit)}</Bold>
+            <LocationWithText style={styles.location} text={"Caserta, Campania"} color={"#DD1E63"} textColor={"#ADBFC5"} />
+            {MainText()}
         </View>
     )
 }
@@ -31,6 +43,32 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         flex: 4,
         margin: 5
+    },
+    title: {
+        fontSize: isSmallDevice ? 16 : 18
+    },
+    mainTextContainer: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    mainTextColumn: {
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "center",
+    },
+    columnHeader: {
+        fontSize: 11,
+        color: "#ADADAD"
+    },
+    columnBody: {
+        fontSize: 13,
+        marginTop: isSmallDevice ? 5 : 8,
+        color: "#002C3C"
+    },
+    content: {
+        flex: 9
     },
 });
 

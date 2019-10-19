@@ -1,19 +1,20 @@
 import React from "react";
-import { Button } from 'react-native-paper';
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import Filters from "../../assets/images/controls.svg";
 
 export default function FilterButton() {
     return (
-        <Button style={styles.button} color="#707070" mode="contained" onPress={() => console.log('Pressed')}>
-            FILTRI
-        </Button>
+        <TouchableOpacity>
+            <Filters
+                style={styles.button}
+                width={25} height={25}
+                fill={"white"}
+            />
+        </TouchableOpacity>
     );
 }
 const styles = StyleSheet.create({
     button: {
-        width: 80,
         margin: 10,
-        marginBottom: 15,
-        alignSelf: "flex-end"
     }
 })

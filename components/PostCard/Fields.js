@@ -6,7 +6,7 @@ import { Tooltip, Text } from 'react-native-elements';
 
 export const Fields = ({ post: { positions } }) => {
     const fields = positions.map((position, index) => {
-        return <FieldIconRound available={position.available} color={"white"} bg={"#00B6BE"} key={index} field={position.field} />
+        return <FieldIconRound available={position.available} color={"#26547C"} key={index} field={position.field} />
     });
     return (
         <View style={styles.container}>
