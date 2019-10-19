@@ -28,7 +28,7 @@ const MainText = () => {
         </View>
     )
 }
-export const PostCardText = ({ post: { description, title } }) => {
+export const PostCardText = ({ post: { title } }) => {
     return (
         <View style={styles.container}>
             <Bold style={styles.title}>{fixOverflow(title, titleLimit)}</Bold>
@@ -76,7 +76,6 @@ export default createFragmentContainer(PostCardText, {
     post: graphql`
         fragment PostCardText_post on Post {
                 title
-                description
         }
     `,
 });

@@ -72,7 +72,6 @@ export default createFragmentContainer(PostCard, {
                 ...PostCardText_post
                 ...Fields_post
                 ...Views_post 
-                ...PostCardPublisher_post 
         }
     `,
 });

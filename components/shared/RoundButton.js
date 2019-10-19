@@ -14,11 +14,13 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: "#60E1E0",
         alignSelf: 'flex-start',
-        padding: 10
+        padding: 10,
+        paddingLeft: 15,
+        paddingRight: 15
     },
     text: {
         color: "white",
-        fontSize: isSmallDevice ? 12 : 15,
+        fontSize: isSmallDevice ? 11 : 13,
         marginLeft: 2,
     }
 })
