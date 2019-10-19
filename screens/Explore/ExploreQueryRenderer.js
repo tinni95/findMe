@@ -12,6 +12,7 @@ export default class ExploreQueryRenderer extends React.Component {
                 query={graphql`
                     query ExploreQueryRendererQuery {
                         postsFeed{
+                        ...Explore_post
                         ...PostCard_post
                         }
                     }

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native"
 import LocationWithText from "../shared/LocationWithText";
 import { Bold, Light } from "../StyledText"
 import { graphql, createFragmentContainer } from "react-relay";
+import Fields from "./Fields";
 const descriptionLimit = 180;
 const titleLimit = 34;
 

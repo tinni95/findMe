@@ -13,7 +13,7 @@ export default class LandingPageWrapper extends React.Component {
         const token = await _asyncStorageGetToken();
         console.log("token", token)
         if (token) this.props.navigation.navigate("MainTabNavigator");
-        else this.props.navigation.navigate("LandingPage");
+        else this.props.navigation.navigate("MainTabNavigator");
     }
 
     render() {

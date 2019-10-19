@@ -2,25 +2,23 @@ import React from "react";
 import { Searchbar } from 'react-native-paper';
 import { StyleSheet } from "react-native";
 import { width } from "../../constants/Layout"
+import PropTypes from "prop-types";
 class SearchBarComponent extends React.Component {
-
-    state = {
-        search: ""
-    }
-
+    static propTypes = {
+        setSearch: PropTypes.func.isRequired,
+        search: PropTypes.string.isRequired,
+    };
     updateSearch = search => {
-        this.setState({ search });
+        this.props.setSearch(search);
     };
 
     render() {
-        const { search } = this.state;
-
         return (
             <Searchbar
                 style={styles.container}
                 placeholder="Type Here..."
                 onChangeText={this.updateSearch}
-                value={search}
+                value={this.props.search}
             />
         );
     }

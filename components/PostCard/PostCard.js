@@ -28,9 +28,12 @@ const styles = StyleSheet.create({
     card: {
         height: 200,
         width,
-        borderRadius: 15,
-        marginTop: 20,
-        backgroundColor: "white"
+        marginTop: 15,
+        backgroundColor: "white",
+        shadowColor: 'black',
+        shadowOffset: { height: -3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
     },
     body: {
         flex: 8,

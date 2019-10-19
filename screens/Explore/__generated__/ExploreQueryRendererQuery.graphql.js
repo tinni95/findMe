@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 44ee7009e2cba136d25832e2eab103e0
+ * @relayHash 6edf128f74203f94e895e337a8018258
  */
 
 /* eslint-disable */
@@ -9,11 +9,12 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
+type Explore_post$ref = any;
 type PostCard_post$ref = any;
 export type ExploreQueryRendererQueryVariables = {||};
 export type ExploreQueryRendererQueryResponse = {|
   +postsFeed: $ReadOnlyArray<{|
-    +$fragmentRefs: PostCard_post$ref
+    +$fragmentRefs: Explore_post$ref & PostCard_post$ref
   |}>
 |};
 export type ExploreQueryRendererQuery = {|
@@ -26,9 +27,15 @@ export type ExploreQueryRendererQuery = {|
 /*
 query ExploreQueryRendererQuery {
   postsFeed {
+    ...Explore_post
     ...PostCard_post
     id
   }
+}
+
+fragment Explore_post on Post {
+  title
+  description
 }
 
 fragment PostCard_post on Post {
@@ -89,6 +96,11 @@ return {
         "concreteType": "Post",
         "plural": true,
         "selections": [
+          {
+            "kind": "FragmentSpread",
+            "name": "Explore_post",
+            "args": null
+          },
           {
             "kind": "FragmentSpread",
             "name": "PostCard_post",
@@ -168,11 +180,11 @@ return {
     "operationKind": "query",
     "name": "ExploreQueryRendererQuery",
     "id": null,
-    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...PostCard_post\n    id\n  }\n}\n\nfragment PostCard_post on Post {\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n  ...PostCardPublisher_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  description\n}\n\nfragment Fields_post on Post {\n  positions {\n    available\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n\nfragment PostCardPublisher_post on Post {\n  positions {\n    available\n    id\n  }\n}\n",
+    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...Explore_post\n    ...PostCard_post\n    id\n  }\n}\n\nfragment Explore_post on Post {\n  title\n  description\n}\n\nfragment PostCard_post on Post {\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n  ...PostCardPublisher_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  description\n}\n\nfragment Fields_post on Post {\n  positions {\n    available\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n\nfragment PostCardPublisher_post on Post {\n  positions {\n    available\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '56ea6b88ed6e1f0829b1e6716871f738';
+(node/*: any*/).hash = '50f237bcb0deef16aa7b8f17fb9836f5';
 module.exports = node;

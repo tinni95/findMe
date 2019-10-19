@@ -4,10 +4,12 @@ import FilterButton from "./FilterButton";
 import CurrentFilters from "./CurrentFilters";
 import { StyleSheet, View } from "react-native";
 import { isSmallDevice } from "../../constants/Layout"
-export default function SearchHeader() {
+import PropTypes from "prop-types";
+
+export default function SearchHeader({ setSearch, search }) {
     return (
         <View style={styles.container}>
-            <SearchBarComponent />
+            <SearchBarComponent search={search} setSearch={setSearch} />
             <View style={styles.footer}>
                 <CurrentFilters ambito={"Tutti gli ambiti"} location={"Maddaloni, ce"} />
                 <FilterButton />
@@ -15,6 +17,11 @@ export default function SearchHeader() {
         </View>
     );
 }
+
+SearchHeader.propTypes = {
+    setSearch: PropTypes.func.isRequired,
+    search: PropTypes.string.isRequired,
+};
 
 const styles = StyleSheet.create({
     container: {
