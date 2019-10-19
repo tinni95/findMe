@@ -15,6 +15,7 @@ export type PostCardText_post = {|
   +title: string,
   +startDate: any,
   +field: string,
+  +location: ?string,
   +$refType: PostCardText_post$ref,
 |};
 export type PostCardText_post$data = PostCardText_post;
@@ -52,9 +53,16 @@ const node/*: ReaderFragment*/ = {
       "name": "field",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "location",
+      "args": null,
+      "storageKey": null
     }
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '739812c1b3dee75cca97b68612cc46fc';
+(node/*: any*/).hash = '48c34dcc02e8d8dfd30fe7aaeda66778';
 module.exports = node;

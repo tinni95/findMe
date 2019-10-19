@@ -3,11 +3,12 @@ import Location from "../../assets/images/location.svg";
 import { StyleSheet, View, Text } from "react-native";
 import { Body } from "../StyledText"
 import { isSmallDevice } from "../../constants/Layout"
+
 export default function LocationWithText(props) {
     return (
         <View style={styles.container}>
             <Location height={20} width={20} fill={props.color} />
-            <Body style={[styles.text, { color: props.textColor }]}>{props.text}</Body>
+            <Body style={[styles.text, { color: props.textColor }]}>{props.location}</Body>
         </View>
     );
 }
@@ -23,3 +24,4 @@ const styles = StyleSheet.create({
         marginLeft: 2,
     }
 })
+
