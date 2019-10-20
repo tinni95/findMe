@@ -23,11 +23,13 @@ export default class PostScreen extends React.Component {
                         <PostScreenHeader name={"Giovanni D'Amico"} image={require("../../assets/images/placeholder.png")} />
                     </View>
                 )}>
-                <Bold style={styles.title}>{this.props.post.title}</Bold>
-                <LocationWithText points={25} fontSize={isSmallDevice ? 18 : 20} style={styles.location} location={this.props.post.location}></LocationWithText>
-                <Tabs style={{ marginLeft: 5 }} tab1Title={"Desrizione"} tab2Title={"Team"}
-                    tab1Content={() => <View style={styles.tabContainer}><Light style={styles.body}>{this.props.post.description}</Light></View>}
-                    tab2Content={() => <View style={styles.tabContainer}><Light style={styles.body}>blabllallal</Light></View>}></Tabs>
+                <View style={styles.contentContainer}>
+                    <Bold style={styles.title}>{this.props.post.title}</Bold>
+                    <LocationWithText points={25} fontSize={isSmallDevice ? 18 : 20} style={styles.location} location={this.props.post.location}></LocationWithText>
+                    <Tabs style={{ marginLeft: 5 }} tab1Title={"Desrizione"} tab2Title={"Team"}
+                        tab1Content={() => <View style={styles.tabContainer}><Light style={styles.body}>{this.props.post.description}</Light></View>}
+                        tab2Content={() => <View style={styles.tabContainer}><Light style={styles.body}>blabllallal</Light></View>}></Tabs>
+                </View>
             </ParallaxScrollView>
         )
     }
@@ -56,10 +58,21 @@ const styles = StyleSheet.create({
     },
     tabContainer: {
         marginBottom: 20,
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
+    },
+    contentContainer: {
+        marginTop: 5,
+        backgroundColor: "white",
+        ...Platform.select({
+            ios: {
+                shadowColor: 'black',
+                shadowOffset: { height: -3 },
+                shadowOpacity: 0.1,
+                shadowRadius: 3,
+            },
+            android: {
+                elevation: 20,
+            },
+        }),
     }
 })
 
