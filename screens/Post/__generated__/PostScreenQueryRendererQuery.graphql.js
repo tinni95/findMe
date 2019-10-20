@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a78f7235b584595c8904c6b71f720f80
+ * @relayHash 74df14bfe01cb123b659fa74951259b7
  */
 
 /* eslint-disable */
@@ -17,6 +17,9 @@ export type PostScreenQueryRendererQueryResponse = {|
     +description: string,
     +title: string,
     +location: ?string,
+    +positions: ?$ReadOnlyArray<{|
+      +title: string
+    |}>,
   |}
 |};
 export type PostScreenQueryRendererQuery = {|
@@ -34,6 +37,10 @@ query PostScreenQueryRendererQuery(
     description
     title
     location
+    positions {
+      title
+      id
+    }
     id
   }
 }
@@ -75,6 +82,13 @@ v4 = {
   "name": "location",
   "args": null,
   "storageKey": null
+},
+v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
 };
 return {
   "kind": "Request",
@@ -96,7 +110,19 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/)
+          (v4/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "positions",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "Position",
+            "plural": true,
+            "selections": [
+              (v3/*: any*/)
+            ]
+          }
         ]
       }
     ]
@@ -119,12 +145,19 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           {
-            "kind": "ScalarField",
+            "kind": "LinkedField",
             "alias": null,
-            "name": "id",
+            "name": "positions",
+            "storageKey": null,
             "args": null,
-            "storageKey": null
-          }
+            "concreteType": "Position",
+            "plural": true,
+            "selections": [
+              (v3/*: any*/),
+              (v5/*: any*/)
+            ]
+          },
+          (v5/*: any*/)
         ]
       }
     ]
@@ -133,11 +166,11 @@ return {
     "operationKind": "query",
     "name": "PostScreenQueryRendererQuery",
     "id": null,
-    "text": "query PostScreenQueryRendererQuery(\n  $postId: ID!\n) {\n  singlePost(id: $postId) {\n    description\n    title\n    location\n    id\n  }\n}\n",
+    "text": "query PostScreenQueryRendererQuery(\n  $postId: ID!\n) {\n  singlePost(id: $postId) {\n    description\n    title\n    location\n    positions {\n      title\n      id\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '55edd433fbcacda6742a509cae25e8fd';
+(node/*: any*/).hash = '0e5e474793c9fc6feb36633161136e20';
 module.exports = node;

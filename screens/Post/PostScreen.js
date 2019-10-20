@@ -6,8 +6,16 @@ import PostScreenHeader from "../../components/PostScreenHeader";
 import { Bold, Light } from "../../components/StyledText";
 import LocationWithText from "../../components/shared/LocationWithText";
 import Tabs from "../../components/shared/Tabs";
+import PositionCard from "../../components/PositionCard";
 
 export default class PostScreen extends React.Component {
+
+    positionCards = () => {
+        return this.props.post.positions
+            .map((position, index) => {
+                return <PositionCard navigation={this.props.navigation} key={index} position={position} />
+            });
+    }
 
     render() {
         return (
@@ -30,6 +38,7 @@ export default class PostScreen extends React.Component {
                         tab1Content={() => <View style={styles.tabContainer}><Light style={styles.body}>{this.props.post.description}</Light></View>}
                         tab2Content={() => <View style={styles.tabContainer}><Light style={styles.body}>blabllallal</Light></View>}></Tabs>
                 </View>
+                {this.positionCards()}
             </ParallaxScrollView>
         )
     }
