@@ -18,7 +18,7 @@ const _asyncStorageGetToken = async () => {
 
 const middlewares = [
     urlMiddleware({
-        url: graphlEndPoint,
+        url: "http://165.22.64.62/",
     }),
     authMiddleware({
         token: _asyncStorageGetToken()

@@ -22,7 +22,7 @@ export default class ExploreQueryRenderer extends React.Component {
         )
     }
     queryRender = ({ props: { postsFeed } }) => {
-        return <Explore posts={postsFeed} />;
+        return <Explore navigation={this.props.navigation} posts={postsFeed} />;
     };
 }
 

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash db930914e95587852aa23840d203d512
+ * @relayHash 337ed66d4e9b1cd21f8075837c25856d
  */
 
 /* eslint-disable */
@@ -39,6 +39,7 @@ fragment Explore_post on Post {
 }
 
 fragment PostCard_post on Post {
+  id
   ...PostCardText_post
   ...Fields_post
   ...Views_post
@@ -68,14 +69,14 @@ const node/*: ConcreteRequest*/ = (function(){
 var v0 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "field",
+  "name": "id",
   "args": null,
   "storageKey": null
 },
 v1 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "id",
+  "name": "field",
   "args": null,
   "storageKey": null
 };
@@ -139,6 +140,7 @@ return {
             "args": null,
             "storageKey": null
           },
+          (v0/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
@@ -146,7 +148,7 @@ return {
             "args": null,
             "storageKey": null
           },
-          (v0/*: any*/),
+          (v1/*: any*/),
           {
             "kind": "ScalarField",
             "alias": null,
@@ -170,8 +172,8 @@ return {
                 "args": null,
                 "storageKey": null
               },
-              (v0/*: any*/),
-              (v1/*: any*/)
+              (v1/*: any*/),
+              (v0/*: any*/)
             ]
           },
           {
@@ -180,8 +182,7 @@ return {
             "name": "views",
             "args": null,
             "storageKey": null
-          },
-          (v1/*: any*/)
+          }
         ]
       }
     ]
@@ -190,7 +191,7 @@ return {
     "operationKind": "query",
     "name": "ExploreQueryRendererQuery",
     "id": null,
-    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...Explore_post\n    ...PostCard_post\n    id\n  }\n}\n\nfragment Explore_post on Post {\n  title\n  description\n}\n\nfragment PostCard_post on Post {\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  startDate\n  field\n  location\n}\n\nfragment Fields_post on Post {\n  positions {\n    available\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n",
+    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...Explore_post\n    ...PostCard_post\n    id\n  }\n}\n\nfragment Explore_post on Post {\n  title\n  description\n}\n\nfragment PostCard_post on Post {\n  id\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  startDate\n  field\n  location\n}\n\nfragment Fields_post on Post {\n  positions {\n    available\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n",
     "metadata": {}
   }
 };

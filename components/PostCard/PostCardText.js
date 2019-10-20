@@ -32,7 +32,7 @@ export const PostCardText = ({ post: { title, date, field, location } }) => {
     return (
         <View style={styles.container}>
             <Bold style={styles.title}>{fixOverflow(title, titleLimit)}</Bold>
-            <LocationWithText style={styles.location} location={location} color={"#DD1E63"} textColor={"#ADBFC5"} />
+            <LocationWithText points={20} style={styles.location} location={location} color={"#DD1E63"} textColor={"#ADBFC5"} />
             {MainText({ date, field })}
         </View>
     )

@@ -8,7 +8,8 @@ import Fields from "./Fields";
 import RoundButton from "../shared/RoundButton";
 import { LinearGradient } from "expo-linear-gradient";
 
-export const PostCard = ({ post }) => {
+export const PostCard = ({ post, navigation: { navigate } }) => {
+    console.log("asda", post.id)
     return (
         <View style={styles.card}>
             <View style={styles.body}>
@@ -22,7 +23,9 @@ export const PostCard = ({ post }) => {
                 <Fields post={post}></Fields>
                 <View style={styles.buttonContainer}>
                     <RoundButton text={"Scopri di Più"}
-                        onPress={console.log("pressed")} />
+                        onPress={() => navigate("PostScreenQueryRenderer", {
+                            id: post.id
+                        })} />
                 </View>
             </View>
         </View>
@@ -69,6 +72,7 @@ const styles = StyleSheet.create({
 export default createFragmentContainer(PostCard, {
     post: graphql`
         fragment PostCard_post on Post {
+                id
                 ...PostCardText_post
                 ...Fields_post
                 ...Views_post 
