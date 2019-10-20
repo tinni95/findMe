@@ -60,8 +60,6 @@ const styles = StyleSheet.create({
         shadowOffset: { height: -3 },
         shadowOpacity: 0.1,
         shadowRadius: 3,
-
-
     }
 })
 

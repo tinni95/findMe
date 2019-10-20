@@ -9,7 +9,6 @@ import RoundButton from "../shared/RoundButton";
 import { LinearGradient } from "expo-linear-gradient";
 
 export const PostCard = ({ post, navigation: { navigate } }) => {
-    console.log("asda", post.id)
     return (
         <View style={styles.card}>
             <View style={styles.body}>

@@ -14,11 +14,12 @@ export default class Tabs extends React.Component {
                 borderBottomWidth: 1.5,
                 borderBottomColor: "#DD1E63",
                 marginRight: 10,
-                paddingBottom: 5
+                padding: 5
             }
         }
         return {
-            marginRight: 10
+            marginRight: 10,
+            padding: 5
         }
     }
 
