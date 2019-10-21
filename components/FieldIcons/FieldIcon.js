@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from "react-native"
 import Science from "../../assets/images/laboratory.svg";
 import It from "../../assets/images/auction.svg";
 import Wellbeing from "../../assets/images/heart.svg";
@@ -24,7 +25,7 @@ export default function FieldIcon(props) {
     return (
         <FieldIcon
             style={{ marginTop: 8 }}
-            width={20} height={20}
+            width={props.size ? props.size : 20} height={props.size ? props.size : 20}
             fill={props.color}
         />
     );
