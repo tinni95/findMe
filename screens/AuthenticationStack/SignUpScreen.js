@@ -1,19 +1,56 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Button } from 'react-native-paper';
-import { width } from "../../constants/Layout"
-import { TextInput, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { View, StyleSheet, Image } from "react-native";
 import { SignUp } from "../../mutations/AuthenticationStack"
 import { AsyncStorage } from "react-native";
+import t from "tcomb-form-native";
+import { width } from "../../constants/Layout";
 const TOKEN_KEY = "apsofjkcaoisll032ir";
-const theme = {
-    ...DefaultTheme,
-    roundness: 4,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: '#7CEA9C',
-        accent: 'white',
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+var _ = require("lodash");
+
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
+stylesheet.controlLabel.normal.color = "#5F5E5E";
+stylesheet.textbox.normal.borderWidth = 0;
+stylesheet.textbox.error.borderWidth = 0;
+stylesheet.textboxView.normal.borderWidth = 0;
+stylesheet.textboxView.error.borderWidth = 0;
+stylesheet.textboxView.normal.borderBottomWidth = 1;
+stylesheet.textboxView.error.borderBottomWidth = 1;
+stylesheet.textboxView.normal.borderBottomColor = "#838383";
+stylesheet.textboxView.error.borderBottomColor = "#B19393";
+
+const stylesheet1 = {
+    ...stylesheet,
+    fieldset: {
+        flexDirection: 'row',
+        justifyContent: "space-between"
     },
+    formGroup: {
+        normal: { width: width * 42.5 / 100, marginBottom: 10 },
+        error: { flex: 0.9 }
+    }
+}
+
+const Form = t.form.Form;
+
+const SignUpFirstForm = t.struct({
+    nome: t.String,
+    cognome: t.String,
+});
+const SignUpForm = t.struct({
+    email: t.String,
+    password: t.String,
+    repassword: t.String,
+});
+
+const options = {
+    stylesheet,
+    auto: 'placeholders',
+};
+
+const options1 = {
+    stylesheet: stylesheet1,
+    auto: 'placeholders',
 };
 
 const _asyncStorageSaveToken = async token => {
@@ -21,10 +58,12 @@ const _asyncStorageSaveToken = async token => {
 };
 
 export default class SignUpScreen extends React.Component {
-    state = {
-        email: '',
-        password: '',
-        name: ''
+    handleSubmit = () => {
+        const value = this._form.getValue();
+        console.log("value: ", value);
+        if (value !== null) {
+
+        }
     };
 
     signUp = async () => {
@@ -36,37 +75,32 @@ export default class SignUpScreen extends React.Component {
 
     render() {
         return (
-            <PaperProvider theme={theme}>
-                <View style={styles.container}>
-                    <View style={styles.header}>
-                        <TextInput
-                            style={styles.input}
-                            label='Name'
-                            value={this.state.name}
-                            onChangeText={name => this.setState({ name })}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            autoCompleteType="email"
-                            label='Email'
-                            value={this.state.email}
-                            onChangeText={email => this.setState({ email })}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            label='Password'
-                            secureTextEntry={true}
-                            value={this.state.password}
-                            onChangeText={password => this.setState({ password })}
-                        />
-                    </View>
-                    <View style={styles.buttonWrapper}>
-                        <Button style={styles.button} mode="contained" onPress={() => this.signUp()}>
-                            Sign Up
-                     </Button>
-                    </View>
+            <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    <Image
+                        style={styles.header}
+                        source={require('../../assets/images/logo_negative.png')}
+                        resizeMode="contain"
+                    />
                 </View>
-            </PaperProvider>
+                <KeyboardAwareScrollView>
+                    <View style={styles.formContainer}>
+                        <Form
+                            type={SignUpFirstForm}
+                            ref={c => (this._form = c)}
+                            options={options1}
+                        />
+                        <Form
+                            type={SignUpForm}
+                            ref={c => (this._form = c)}
+                            options={options}
+                        />
+                    </View>
+                </KeyboardAwareScrollView>
+                <View style={styles.buttonsContainer}>
+
+                </View>
+            </View>
         );
     }
 
@@ -76,25 +110,22 @@ export default class SignUpScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#02394D"
+        backgroundColor: "#FFFFFF"
     },
-    header: {
-        flex: 3,
-        justifyContent: 'center',
-        alignItems: 'center',
+    imageContainer: {
+        alignItems: "center",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flex: 1,
+        marginTop: 20
     },
-    input: {
-        fontSize: 20,
-        margin: 20,
-        width: width - 40,
-    },
-    buttonWrapper: {
+    formContainer: {
         flex: 2,
-        justifyContent: 'center',
-        alignItems: 'center',
+        marginLeft: 20,
+        marginRight: 20,
     },
-    button: {
-        color: "white",
-        backgroundColor: "#7CEA9C",
-    },
+    buttonsContainer: {
+        flex: 2,
+        alignItems: "center"
+    }
 })
