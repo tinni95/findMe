@@ -3,19 +3,24 @@ import { View, StyleSheet, Image } from "react-native";
 import { SignUp } from "../../mutations/AuthenticationStack"
 import { AsyncStorage } from "react-native";
 import t from "tcomb-form-native";
-import { width } from "../../constants/Layout";
 const TOKEN_KEY = "apsofjkcaoisll032ir";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 var _ = require("lodash");
-
+import { width } from "../../constants/Layout";
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 stylesheet.controlLabel.normal.color = "#5F5E5E";
 stylesheet.textbox.normal.borderWidth = 0;
 stylesheet.textbox.error.borderWidth = 0;
+stylesheet.textbox.normal.marginBottom = 0;
+stylesheet.textbox.error.marginBottom = 0;
 stylesheet.textboxView.normal.borderWidth = 0;
 stylesheet.textboxView.error.borderWidth = 0;
+stylesheet.textboxView.normal.borderRadius = 0;
+stylesheet.textboxView.error.borderRadius = 0;
 stylesheet.textboxView.normal.borderBottomWidth = 1;
 stylesheet.textboxView.error.borderBottomWidth = 1;
+stylesheet.textboxView.normal.marginBottom = 5;
+stylesheet.textboxView.error.marginBottom = 5;
 stylesheet.textboxView.normal.borderBottomColor = "#838383";
 stylesheet.textboxView.error.borderBottomColor = "#B19393";
 
@@ -47,7 +52,6 @@ const options = {
     stylesheet,
     auto: 'placeholders',
 };
-
 const options1 = {
     stylesheet: stylesheet1,
     auto: 'placeholders',
@@ -97,9 +101,7 @@ export default class SignUpScreen extends React.Component {
                         />
                     </View>
                 </KeyboardAwareScrollView>
-                <View style={styles.buttonsContainer}>
-
-                </View>
+                <View></View>
             </View>
         );
     }
@@ -116,16 +118,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-start",
         alignItems: "center",
-        flex: 1,
         marginTop: 20
     },
     formContainer: {
-        flex: 2,
-        marginLeft: 20,
-        marginRight: 20,
+        margin: 20,
+        marginTop: 30,
+        justifyContent: "flex-start",
     },
     buttonsContainer: {
-        flex: 2,
         alignItems: "center"
     }
 })
