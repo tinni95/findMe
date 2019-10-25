@@ -25,8 +25,8 @@ export default LandingPage = ({ navigation: { navigate } }) => {
                 <View style={styles.buttonsWrapper}>
                     <Light style={styles.register}>Registrati</Light>
                     <View style={styles.roundButtons}>
-                        <RoundButtonEmpty onPress={() => navigate("SignUpScreen")} text={"Sono Un Utente"} />
-                        <RoundButtonEmpty text={"Sono Un Azienda"} />
+                        <RoundButtonEmpty color={"#5EDDDC"} onPress={() => navigate("SignUpScreen")} text={"Sono Un Utente"} />
+                        <RoundButtonEmpty color={"#5EDDDC"} text={"Sono Un Azienda"} />
                     </View>
                 </View>
                 <View style={styles.buttonFooterWrapper}>

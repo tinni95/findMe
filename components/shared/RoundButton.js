@@ -5,7 +5,7 @@ import { isSmallDevice } from "../../constants/Layout"
 export default function RoundButton(props) {
     return (
         <TouchableOpacity onPress={props.onPress}>
-            <View style={[styles.container, { backgroundColor: props.color }]}>
+            <View style={[styles.container, { backgroundColor: props.color, width: props.isLong ? 200 : undefined }]}>
                 <Avenir style={styles.text}>{props.text}</Avenir>
             </View>
         </TouchableOpacity>

@@ -7,6 +7,7 @@ const TOKEN_KEY = "apsofjkcaoisll032ir";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 var _ = require("lodash");
 import { width } from "../../constants/Layout";
+import RoundButtonEmpty from "../../components/shared/RoundButtonEmpty";
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 stylesheet.controlLabel.normal.color = "#5F5E5E";
 stylesheet.textbox.normal.borderWidth = 0;
@@ -101,7 +102,9 @@ export default class SignUpScreen extends React.Component {
                         />
                     </View>
                 </KeyboardAwareScrollView>
-                <View></View>
+                <View style={styles.buttonContainer}>
+                    <RoundButtonEmpty color={"#5EDDDC"} text={"Sono Un Azienda"} />
+                </View>
             </View>
         );
     }
