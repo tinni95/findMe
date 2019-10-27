@@ -5,10 +5,10 @@ import { isSmallDevice } from "../../constants/Layout"
 import { AsyncStorage } from "react-native";
 import { Bold } from "../../components/StyledText"
 const TOKEN_KEY = "apsofjkcaoisll032ir";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 var _ = require("lodash");
-import RoundButtonEmpty from "../../components/shared/RoundButtonEmpty";
-import RoundButton from "../../components/shared/RoundButton";
+import RoundButtonEmpty from "../../components/shared/RoundButtonEmptySignUpScreen";
+import RoundButton from "../../components/shared/RoundButtonSignUpScreen";
 
 const _asyncStorageSaveToken = async token => {
     await AsyncStorage.setItem(TOKEN_KEY, token);
