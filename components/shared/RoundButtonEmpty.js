@@ -5,8 +5,8 @@ import { isSmallDevice } from "../../constants/Layout"
 export default function RoundButton(props) {
     return (
         <TouchableOpacity onPress={props.onPress}>
-            <View style={[styles.container, { borderColor: props.color, width: props.isLong ? 100 : undefined }]}>
-                <Bold style={styles.text}>{props.text}</Bold>
+            <View style={[styles.container, { borderColor: props.color, width: props.isLong ? 200 : undefined }]}>
+                <Bold style={[styles.text, { color: props.fontColor }]}>{props.text}</Bold>
             </View>
         </TouchableOpacity>
     );
@@ -16,12 +16,13 @@ const styles = StyleSheet.create({
         margin: 10,
         borderRadius: 25,
         borderWidth: 1,
-        padding: 15,
-
+        padding: isSmallDevice ? 7.5 : 10,
+        height: isSmallDevice ? 30 : 40
     },
     text: {
+        textAlign: "center",
         color: "white",
-        fontSize: isSmallDevice ? 11 : 13,
+        fontSize: isSmallDevice ? 11 : 12,
         marginLeft: 2,
     }
 })
