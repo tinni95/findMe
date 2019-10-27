@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, TextInput } from "react-native";
+import { Keyboard, View, StyleSheet, Image, TextInput } from "react-native";
 import { SignUp } from "../../mutations/AuthenticationStack";
 import { isSmallDevice } from "../../constants/Layout"
 import { AsyncStorage } from "react-native";
@@ -36,7 +36,31 @@ const validateRePassword = (password, repassword) => {
 export default class SignUpScreen extends React.Component {
     state = {
         name: '', surname: '', email: '', password: '', repassword: '',
-        nameError: '', surnameError: '', emailError: '', passwordError: '', repasswordError: ''
+        nameError: '', surnameError: '', emailError: '', passwordError: '', repasswordError: '',
+        keyboardShown: ''
+    }
+    componentDidMount() {
+        this.keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            this._keyboardDidShow,
+        );
+        this.keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            this._keyboardDidHide,
+        );
+    }
+
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+    }
+
+    _keyboardDidShow = async () => {
+        await this.setState({ keyboardShown: true })
+    }
+
+    _keyboardDidHide = async () => {
+        await this.setState({ keyboardShown: false })
     }
 
     onChangeText = (key, val) => {
@@ -44,27 +68,59 @@ export default class SignUpScreen extends React.Component {
     }
 
     signUp = async () => {
-        const { email, password, nome } = this.state;
-        const { token } = await SignUp({ email, password, name });
+        const { email, password, name } = this.state;
+        try {
+            const { token } = await SignUp({ email, password, name, onError: () => alert("questa email è gia in uso"), onCompleted: () => null });
+            fail();
+        } catch (error) {
+            console.log(error)
+            return;
+        }
+
         await _asyncStorageSaveToken(token);
+        console.log(token);
         this.props.navigation.navigate("MainTabNavigator");
     }
+    validateForm = () => {
+        const { nameError, surnameError, emailError,
+            passwordError, repasswordError } = this.state;
+        return !nameError && !surnameError && !emailError
+            && !passwordError && !repasswordError;
+    }
 
-    handleSubmit = () => {
+    handleSubmit = async () => {
         if (!validateName(this.state.name)) {
-            this.setState({ nameError: true })
+            await this.setState({ nameError: true })
+        }
+        else {
+            await this.setState({ nameError: false })
         }
         if (!validateName(this.state.surname)) {
-            this.setState({ surnameError: true })
+            await this.setState({ surnameError: true })
+        }
+        else {
+            await this.setState({ surnameError: false })
         }
         if (!validateEmail(this.state.email)) {
-            this.setState({ emailError: true })
+            await this.setState({ emailError: true })
+        }
+        else {
+            await this.setState({ emailError: false })
         }
         if (!validatePassword(this.state.password)) {
-            this.setState({ passwordError: true })
+            await this.setState({ passwordError: true })
+        }
+        else {
+            await this.setState({ passwordError: false })
         }
         if (!validateRePassword(this.state.password, this.state.repassword)) {
-            this.setState({ repasswordError: true })
+            await this.setState({ repasswordError: true })
+        }
+        else {
+            await this.setState({ repasswordError: false })
+        }
+        if (this.validateForm()) {
+            this.signUp();
         }
 
     }
@@ -72,13 +128,15 @@ export default class SignUpScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.imageContainer}>
-                    <Image
-                        style={styles.header}
-                        source={require('../../assets/images/logo_negative.png')}
-                        resizeMode="contain"
-                    />
-                </View>
+                {this.state.keyboardShown ? null :
+                    <View style={styles.imageContainer}>
+                        <Image
+                            style={styles.header}
+                            source={require('../../assets/images/logo_negative.png')}
+                            resizeMode="contain"
+                        />
+                    </View>
+                }
                 <View style={styles.formContainer}>
                     <View style={styles.inputHalfsContainer}>
                         <View
@@ -87,8 +145,8 @@ export default class SignUpScreen extends React.Component {
                                 style={this.state.nameError ? styles.inputHalfError : styles.inputHalf}
                                 placeholder='Nome'
                                 autoCapitalize="none"
-                                placeholderTextColor='#5F5E5E'
-                                onChangeText={val => this.onChangeText('username', val)}
+                                placeholderTextColor='#ADADAD'
+                                onChangeText={val => this.onChangeText('name', val)}
                                 onSubmitEditing={() => this.surname.focus()}
                             />
                             {this.state.nameError ? <Bold style={styles.error}>Campo Obbligatorio</Bold> : <View style={styles.separator} />}
@@ -97,12 +155,11 @@ export default class SignUpScreen extends React.Component {
                         <View
                             style={styles.inputHalfContainer}>
                             <TextInput
-                                style={this.state.nameError ? styles.inputHalfError : styles.inputHalf}
+                                style={this.state.surnameError ? styles.inputHalfError : styles.inputHalf}
                                 placeholder='Cognome'
-                                secureTextEntry={true}
                                 autoCapitalize="none"
-                                placeholderTextColor='#5F5E5E'
-                                onChangeText={val => this.onChangeText('password', val)}
+                                placeholderTextColor='#ADADAD'
+                                onChangeText={val => this.onChangeText('surname', val)}
                                 ref={(input) => this.surname = input}
                                 onSubmitEditing={() => this.email.focus()}
                             />
@@ -113,7 +170,7 @@ export default class SignUpScreen extends React.Component {
                         style={this.state.emailError ? styles.inputError : styles.input}
                         placeholder='Email'
                         autoCapitalize="none"
-                        placeholderTextColor='#5F5E5E'
+                        placeholderTextColor='#ADADAD'
                         onChangeText={val => this.onChangeText('email', val)}
                         ref={(input) => this.email = input}
                         onSubmitEditing={() => this.password.focus()}
@@ -122,8 +179,9 @@ export default class SignUpScreen extends React.Component {
                     <TextInput
                         style={this.state.passwordError ? styles.inputError : styles.input}
                         placeholder='Password'
+                        secureTextEntry={true}
                         autoCapitalize="none"
-                        placeholderTextColor='#5F5E5E'
+                        placeholderTextColor='#ADADAD'
                         onChangeText={val => this.onChangeText('password', val)}
                         ref={(input) => this.password = input}
                         onSubmitEditing={() => this.repassword.focus()}
@@ -133,7 +191,8 @@ export default class SignUpScreen extends React.Component {
                         style={this.state.repasswordError ? styles.inputError : styles.input}
                         placeholder='Ripeti Password'
                         autoCapitalize="none"
-                        placeholderTextColor='#5F5E5E'
+                        secureTextEntry={true}
+                        placeholderTextColor='#ADADAD'
                         onChangeText={val => this.onChangeText('repassword', val)}
                         ref={(input) => this.repassword = input}
                     />
@@ -213,7 +272,7 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         margin: isSmallDevice ? 30 : 40,
-        marginTop: isSmallDevice ? 50 : 60,
+        marginTop: isSmallDevice ? 40 : 60,
         justifyContent: "center",
     },
     buttonsContainer: {
