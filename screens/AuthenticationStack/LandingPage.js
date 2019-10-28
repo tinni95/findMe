@@ -6,6 +6,7 @@ import { Light, Bold } from "../../components/StyledText"
 import { LinearGradient } from "expo-linear-gradient";
 import RoundButtonEmpty from "../../components/shared/RoundButtonEmpty";
 import RoundButton from "../../components/shared/RoundButton";
+
 export default LandingPage = ({ navigation: { navigate } }) => {
     return (
         <LinearGradient
@@ -32,7 +33,7 @@ export default LandingPage = ({ navigation: { navigate } }) => {
                 <View style={styles.buttonFooterWrapper}>
                     <Light style={styles.register}>Hai già un account?</Light>
                     <View style={styles.roundButtons}>
-                        <RoundButton color={"#DD1E63"} text={"Accedi"} />
+                        <RoundButton onPress={() => navigate("LoginScreen")} color={"#DD1E63"} text={"Accedi"} />
                     </View>
                 </View>
             </View>

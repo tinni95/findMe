@@ -1,12 +1,14 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { Avenir } from "../StyledText"
 import { isSmallDevice } from "../../constants/Layout"
 export default function RoundButton(props) {
     return (
-        <View style={[styles.container, { backgroundColor: props.color }]}>
-            <Avenir style={styles.text}>{props.text}</Avenir>
-        </View>
+        <TouchableOpacity onPress={props.onPress}>
+            <View style={[styles.container, { backgroundColor: props.color }]}>
+                <Avenir style={styles.text}>{props.text}</Avenir>
+            </View>
+        </TouchableOpacity>
     );
 }
 const styles = StyleSheet.create({

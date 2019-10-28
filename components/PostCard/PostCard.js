@@ -24,7 +24,7 @@ export const PostCard = ({ post, navigation: { navigate } }) => {
                     <RoundButton text={"Scopri di Più"}
                         onPress={() => navigate("PostScreenQueryRenderer", {
                             id: post.id
-                        })} />
+                        })} color={"#60E1E0"} />
                 </View>
             </View>
         </View>

@@ -22,19 +22,19 @@ export const SignUpMutation = graphql`
 export async function SignUp({
     email,
     password,
-    name,
-    onCompleted,
-    onError
+    name
 }) {
-    const { signup } = await commitMutation(environment, {
+    const response = commitMutation(environment, {
         mutation: SignUpMutation,
         variables: {
             email,
             password,
             name
         },
-        onCompleted,
-        onError
+    }).then(response => {
+        return response
+    }).catch(error => {
+        return error
     });
-    return signup;
+    return response;
 }

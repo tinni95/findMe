@@ -18,7 +18,7 @@ const _asyncStorageGetToken = async () => {
 
 const middlewares = [
     urlMiddleware({
-        url: "http://165.22.64.62/",
+        url: graphlEndPoint,
     }),
     authMiddleware({
         token: _asyncStorageGetToken()
@@ -28,7 +28,6 @@ const middlewares = [
         retryDelays: retryDelayInMillisecondsForAttemptNumber, // exponential back-off with termination
     }),
     loggerMiddleware(),
-    errorMiddleware(),
     cacheMiddleware({
         ttl: 1000 * 10, // 10 seconds
     }),

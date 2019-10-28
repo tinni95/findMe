@@ -20,17 +20,17 @@ export const LoginMutation = graphql`
 export async function Login({
     email,
     password,
-    onError,
-    onSuccess
 }) {
-    const { Login } = await commitMutation(environment, {
+    const response = commitMutation(environment, {
         mutation: LoginMutation,
         variables: {
             email,
-            password,
+            password
         },
-        onError,
-        onSuccess
+    }).then(response => {
+        return response
+    }).catch(error => {
+        return error
     });
-    Login;
+    return response;
 }

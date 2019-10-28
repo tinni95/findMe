@@ -1,9 +1,8 @@
 import React from "react";
 import AvoidingView from "./AvoidingView"
-import { View, StyleSheet, Image, TextInput } from "react-native";
+import { View, StyleSheet, Image, TextInput, AsyncStorage } from "react-native";
 import { SignUp } from "../../mutations/AuthenticationStack";
 import { isSmallDevice } from "../../constants/Layout"
-import { AsyncStorage } from "react-native";
 import { Bold } from "../../components/StyledText"
 const TOKEN_KEY = "apsofjkcaoisll032ir";
 import RoundButtonEmpty from "../../components/shared/RoundButtonEmptySignUpScreen";
@@ -46,22 +45,29 @@ export default class SignUpScreenUser extends AvoidingView {
             alert(`Facebook Login Error: ${message}`);
         }
     }
+
     onChangeText = (key, val) => {
         this.setState({ [key]: val })
     }
 
     signUp = async () => {
-        const { email, password, name } = this.state;
-        try {
-            const { token } = await SignUp({ email, password, name, onError: () => alert("questa email è gia in uso"), onCompleted: () => null });
-            fail();
-        } catch (error) {
-            console.log(error)
-            return;
+        let { email, password, name } = this.state;
+        email = email.toString().toLowerCase();
+        const response = await SignUp({ email, password, name });
+        if (response && response.signup) {
+            const { token } = response.signup;
+            await _asyncStorageSaveToken(token);
+            this.props.navigation.navigate("MainTabNavigator");
         }
-        await _asyncStorageSaveToken(token);
-        console.log(token);
-        this.props.navigation.navigate("MainTabNavigator");
+        else {
+            const { message } = response.res.errors[0];
+            if (message === "A unique constraint would be violated on User. Details: Field name = email") {
+                alert("l'email inserita è già in uso");
+            }
+            else {
+                alert("si è verificato un errore, per favore riprova più tardi");
+            }
+        }
     }
 
     validateForm = () => {

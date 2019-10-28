@@ -1,58 +1,76 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import { Button } from 'react-native-paper';
+import { View, Image, TextInput, AsyncStorage, StyleSheet } from "react-native";
 import { width } from "../../constants/Layout"
-import { TextInput, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Login } from "../../mutations/AuthenticationStack"
+import AvoidingView from "./AvoidingView"
+const TOKEN_KEY = "apsofjkcaoisll032ir";
+import RoundButton from "../../components/shared/RoundButtonSignUpScreen";
+import { isSmallDevice } from "../../constants/Layout"
 
-const theme = {
-    ...DefaultTheme,
-    roundness: 4,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: '#7CEA9C',
-        accent: 'white',
-    },
+const _asyncStorageSaveToken = async token => {
+    await AsyncStorage.setItem(TOKEN_KEY, token);
 };
 
-export default class LoginScreen extends React.Component {
+export default class LoginScreen extends AvoidingView {
     state = {
         email: '',
         password: ''
     };
 
-    login = () => {
-        const { email, password } = this.state;
-        Login({ email, password });
+    login = async () => {
+        let { email, password } = this.state;
+        email = email.toString().toLowerCase();
+        const response = await Login({ email, password });
+        if (response && response.login) {
+            const { token } = response.login;
+            await _asyncStorageSaveToken(token);
+            this.props.navigation.navigate("MainTabNavigator");
+        }
+        else {
+            const { message } = response.res.errors[0];
+            if (message === "No such a user") {
+                alert("l'email inserita non è riconosciuta");
+            }
+            else if (message === "Invalid password") {
+                alert("la password non è corretta");
+            }
+            else {
+                alert("si è verificato un errore, per favore riprova più tardi");
+            }
+        }
     }
 
     render() {
         return (
-            <PaperProvider theme={theme}>
-                <View style={styles.container}>
-                    <View style={styles.header}>
-                        <TextInput
-                            style={styles.input}
-                            autoCompleteType="email"
-                            label='Email'
-                            value={this.state.email}
-                            onChangeText={email => this.setState({ email })}
-                        />
-                        <TextInput
-                            style={styles.input}
-                            label='Password'
-                            secureTextEntry={true}
-                            value={this.state.password}
-                            onChangeText={password => this.setState({ password })}
-                        />
-                    </View>
-                    <View style={styles.buttonWrapper}>
-                        <Button style={styles.button} mode="contained" onPress={() => this.login()}>
-                            Sign In
-                     </Button>
-                    </View>
+            <View style={styles.container}>
+                <View style={styles.imageContainer}>
+                    <Image
+                        style={styles.header}
+                        source={require('../../assets/images/logo_negative.png')}
+                        resizeMode="contain"
+                    />
                 </View>
-            </PaperProvider>
+                <View style={styles.formContainer}>
+                    <TextInput
+                        style={styles.input}
+                        autoCompleteType="email"
+                        placeholder='Email'
+                        label='Email'
+                        value={this.state.email}
+                        onChangeText={email => this.setState({ email })}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder='password'
+                        secureTextEntry={true}
+                        value={this.state.password}
+                        onChangeText={password => this.setState({ password })}
+                    />
+                </View>
+                <View style={styles.buttonsContainer}>
+                    <RoundButton onPress={this.login} isLong={true} fontColor={"#DD1E63"} text={"Entra"} fontColor={"#DD1E63"} color={"#DD1E63"}></RoundButton>
+                </View>
+            </View>
         );
     }
 
@@ -63,7 +81,7 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#02394D"
+        backgroundColor: "white"
     },
     header: {
         flex: 3,
@@ -71,17 +89,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     input: {
-        fontSize: 20,
-        margin: 20,
-        width: width - 40,
+        width: "100%",
+        height: 55,
+        padding: 8,
+        borderBottomWidth: 0.5,
+        color: '#5F5E5E',
+        borderRadius: 14,
+        fontSize: isSmallDevice ? 14 : 16,
+        fontWeight: '500',
     },
-    buttonWrapper: {
-        flex: 2,
-        justifyContent: 'center',
-        alignItems: 'center',
+    imageContainer: {
+        alignItems: "center",
+        justifyContent: "flex-start",
+        marginTop: 20
     },
-    button: {
-        color: "white",
-        backgroundColor: "#7CEA9C",
+    formContainer: {
+        margin: isSmallDevice ? 30 : 40,
+        marginTop: isSmallDevice ? 40 : 60,
+        justifyContent: "center",
+    },
+    buttonsContainer: {
+        flex: isSmallDevice ? 10 : 7.5,
+        alignItems: "center",
+        justifyContent: "flex-start",
     },
 })
