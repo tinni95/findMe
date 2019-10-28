@@ -5,7 +5,7 @@ import AuthenticationStack from './AuthenticationStack';
 
 export default createAppContainer(
   createSwitchNavigator({
-    AuthenticationStack,
+    MainTabNavigator,
     MainTabNavigator
   })
 );

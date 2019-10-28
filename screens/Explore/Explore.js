@@ -1,14 +1,20 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Modal } from "react-native";
 import PostCard from "../../components/PostCard";
 import { StyleSheet } from "react-native";
 import SearchHeader from "../../components/SearchHeader";
+import FiltersModal from "./FiltersModal";
 import { graphql, createFragmentContainer } from "react-relay";
 
 export class Explore extends React.Component {
 
     state = {
-        search: ""
+        search: "",
+        modalVisible: false
+    }
+
+    setModalVisible = visible => {
+        this.setState({ modalVisible: visible });
     }
 
     updateSearch = search => {
@@ -25,7 +31,8 @@ export class Explore extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <SearchHeader search={this.state.search} setSearch={this.updateSearch} />
+                <FiltersModal modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}></FiltersModal>
+                <SearchHeader setModalVisible={this.setModalVisible} search={this.state.search} setSearch={this.updateSearch} />
                 <View style={styles.postBody}>
                     <ScrollView>
                         {this.renderPosts()}

@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import Filters from "../../assets/images/controls.svg";
 
-export default function FilterButton() {
+export default function FilterButton(props) {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.onPress}>
             <Filters
                 style={styles.button}
                 width={25} height={25}

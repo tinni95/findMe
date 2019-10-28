@@ -7,14 +7,14 @@ import PropTypes from "prop-types";
 import { LinearGradient } from "expo-linear-gradient";
 
 
-export default function SearchHeader({ setSearch, search }) {
+export default function SearchHeader({ setSearch, search, setModalVisible }) {
     return (
         <LinearGradient
             colors={["#053144", "#26547C"]}
             style={styles.container}>
             <SearchBarComponent search={search} setSearch={setSearch} />
             <View style={styles.footer}>
-                <FilterButton />
+                <FilterButton onPress={() => setModalVisible(true)} />
             </View>
         </LinearGradient>
     );
