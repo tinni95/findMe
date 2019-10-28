@@ -1,68 +1,51 @@
 import React from "react";
-import { Keyboard, View, StyleSheet, Image, TextInput } from "react-native";
+import AvoidingView from "./AvoidingView"
+import { View, StyleSheet, Image, TextInput } from "react-native";
 import { SignUp } from "../../mutations/AuthenticationStack";
 import { isSmallDevice } from "../../constants/Layout"
 import { AsyncStorage } from "react-native";
 import { Bold } from "../../components/StyledText"
 const TOKEN_KEY = "apsofjkcaoisll032ir";
-
-var _ = require("lodash");
 import RoundButtonEmpty from "../../components/shared/RoundButtonEmptySignUpScreen";
 import RoundButton from "../../components/shared/RoundButtonSignUpScreen";
+import { validateEmail, validateName, validatePassword, validateRePassword } from "./validators"
+import * as Facebook from 'expo-facebook';
 
 const _asyncStorageSaveToken = async token => {
     await AsyncStorage.setItem(TOKEN_KEY, token);
 };
 
-const validateEmail = (email) => {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-
-const validateName = (name) => {
-    var re = /[a-z]{1,10}/;
-    return re.test(name);
-}
-
-const validatePassword = (password) => {
-    var re = /(?=.*[0-9])/;
-    return re.test(password);
-}
-
-const validateRePassword = (password, repassword) => {
-    return password === repassword;
-}
-
-export default class SignUpScreen extends React.Component {
-    state = {
-        name: '', surname: '', email: '', password: '', repassword: '',
-        nameError: '', surnameError: '', emailError: '', passwordError: '', repasswordError: '',
-        keyboardShown: ''
-    }
-    componentDidMount() {
-        this.keyboardDidShowListener = Keyboard.addListener(
-            'keyboardDidShow',
-            this._keyboardDidShow,
-        );
-        this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardDidHide',
-            this._keyboardDidHide,
-        );
+export default class SignUpScreenUser extends AvoidingView {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '', surname: '', email: '', password: '', repassword: '',
+            nameError: '', surnameError: '', emailError: '', passwordError: '', repasswordError: '',
+        }
     }
 
-    componentWillUnmount() {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
+    facebook = async () => {
+        try {
+            const {
+                type,
+                token,
+                expires,
+                permissions,
+                declinedPermissions,
+            } = await Facebook.logInWithReadPermissionsAsync('822183698200481', {
+                permissions: ['public_profile'],
+            });
+            if (type === 'success') {
+                // Get the user's name using Facebook's Graph API
+                const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+                console.log('Logged in!', `Hi ${(await response.json())}!`);
+            } else {
+                // type === 'cancel'
+            }
+        } catch ({ message }) {
+            alert(`Facebook Login Error: ${message}`);
+        }
     }
-
-    _keyboardDidShow = async () => {
-        await this.setState({ keyboardShown: true })
-    }
-
-    _keyboardDidHide = async () => {
-        await this.setState({ keyboardShown: false })
-    }
-
     onChangeText = (key, val) => {
         this.setState({ [key]: val })
     }
@@ -76,11 +59,11 @@ export default class SignUpScreen extends React.Component {
             console.log(error)
             return;
         }
-
         await _asyncStorageSaveToken(token);
         console.log(token);
         this.props.navigation.navigate("MainTabNavigator");
     }
+
     validateForm = () => {
         const { nameError, surnameError, emailError,
             passwordError, repasswordError } = this.state;
@@ -201,7 +184,7 @@ export default class SignUpScreen extends React.Component {
                 <View style={styles.buttonsContainer}>
                     <RoundButtonEmpty onPress={this.handleSubmit} isLong={true} fontColor={"#DD1E63"} text={"Registrati"} fontColor={"#DD1E63"} color={"#DD1E63"}></RoundButtonEmpty>
                     <Bold style={styles.buttonText}>O continua Con</Bold>
-                    <RoundButton bold={true} isLong={true} fontColor={"#10436E"} text={"Facebook"} color={"#10436E"}></RoundButton>
+                    <RoundButton onPress={this.facebook} bold={true} isLong={true} fontColor={"#10436E"} text={"Facebook"} color={"#10436E"}></RoundButton>
                     <RoundButtonEmpty bold={true} isLong={true} fontColor={"#794545"} text={"Google"} color={"#white"}></RoundButtonEmpty>
                 </View>
             </View >

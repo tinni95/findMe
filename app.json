@@ -4,6 +4,9 @@
     "slug": "findMe",
     "privacy": "public",
     "sdkVersion": "35.0.0",
+    "facebookScheme": "fb822183698200481",
+    "facebookAppId": "822183698200481",
+    "facebookDisplayName": "FindMe",
     "platforms": [
       "ios",
       "android",

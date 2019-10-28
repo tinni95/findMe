@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/giovannidamico/.nvm/versions/node/v12.6.0/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js add relay-compiler —d
+  /Users/giovannidamico/.nvm/versions/node/v12.6.0/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js add expo-facebook.
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.7/bin:/Users/giovannidamico/.nvm/versions/node/v12.6.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/Users/giovannidamico/.nvm/versions/node/v12.6.0/bin
@@ -14,14 +14,17 @@ Platform:
   darwin x64
 
 Trace: 
-  TypeError [ERR_UNESCAPED_CHARACTERS]: Request path contains unescaped characters
-      at new ClientRequest (_http_client.js:139:13)
-      at Object.request (https.js:309:10)
-      at Request.module.exports.Request.start (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:130152:32)
-      at Request.module.exports.Request.end (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:130911:10)
-      at end (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:129965:14)
-      at Immediate._onImmediate (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:129979:7)
-      at processImmediate (internal/timers.js:439:21)
+  Error: https://registry.yarnpkg.com/expo-facebook.: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:66091:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:129590:22)
+      at Request.emit (events.js:203:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:130562:10)
+      at Request.emit (events.js:203:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:130484:12)
+      at Object.onceWrapper (events.js:291:20)
+      at IncomingMessage.emit (events.js:208:15)
+      at endReadableNT (_stream_readable.js:1154:12)
+      at processTicksAndRejections (internal/process/task_queues.js:77:11)
 
 npm manifest: 
   {
@@ -49,9 +52,12 @@ npm manifest:
       "expo-asset": "^7.0.0",
       "expo-constants": "^7.0.0",
       "expo-font": "~7.0.0",
+      "expo-linear-gradient": "^7.0.1",
       "expo-web-browser": "^7.0.0",
       "get-graphql-schema": "^2.1.2",
       "graphql": "^14.5.8",
+      "lodash": "^4.17.15",
+      "moment": "^2.24.0",
       "native-base": "^2.13.8",
       "react": "16.8.3",
       "react-dom": "16.8.3",
@@ -59,9 +65,12 @@ npm manifest:
       "react-native-arrow": "^1.0.3",
       "react-native-elements": "^1.2.6",
       "react-native-gesture-handler": "~1.3.0",
+      "react-native-keyboard-aware-scroll-view": "^0.9.1",
+      "react-native-normalize": "^1.0.1",
       "react-native-paper": "^2.16.0",
+      "react-native-parallax-scroll-view": "^0.21.3",
       "react-native-step-indicator": "^0.0.11",
-      "react-native-svg": "^9.11.1",
+      "react-native-svg": "~9.9.2",
       "react-native-testing-library": "^1.11.1",
       "react-native-web": "^0.11.7",
       "react-navigation": "^3.12.0",
@@ -70,7 +79,8 @@ npm manifest:
       "relay": "^0.8.0-1",
       "relay-commit-mutation-promise": "^1.1.3",
       "relay-compiler": "^6.0.0",
-      "relay-runtime": "^6.0.0"
+      "relay-runtime": "^6.0.0",
+      "tcomb-form-native": "^0.6.20"
     },
     "devDependencies": {
       "babel-preset-expo": "^7.0.0",
@@ -1377,9 +1387,9 @@ Lockfile:
       "@types/react" "*"
   
   "@types/react@*":
-    version "16.9.6"
-    resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.6.tgz#40722a2ef9f67b054c15b0a0b0d7f09409176134"
-    integrity sha512-ulPWlBFO0DQiObqxEm3t4icozuakPy5O81g6QyHv+Nyo1UPL+QVq2rmq1e4J8oHY7jl0HEtMAHNwNIzv6FRuTQ==
+    version "16.9.7"
+    resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.7.tgz#3b50cb38285a79fd325cf185e0d623e3e0dd2893"
+    integrity sha512-cF/zwVSOa/NQ5ZSLwUmAdeARgJkmu94shnqDO0dUOsp5roeS8SXtYv06uKeQMYgMjnP6dXH5CecxL+GibvqEFg==
     dependencies:
       "@types/prop-types" "*"
       csstype "^2.2.0"
@@ -2931,7 +2941,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-7.0.0.tgz#131f56bc1ed8dd66e64a159afd7eaef26939d929"
     integrity sha512-LjIudbftcZnoviujJUZEzLMdE3m9A2NOvxrRszYHUjySpNN1bAKKyx1gLJbg/yZIWcdEIQ+6uCYtLbuK74Wk2Q==
   
-  expo-linear-gradient@~7.0.0:
+  expo-linear-gradient@^7.0.1, expo-linear-gradient@~7.0.0:
     version "7.0.1"
     resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-7.0.1.tgz#86b8f22cb76fb1594cce6527c22e3182c7e98b6c"
     integrity sha512-YJsvA7nx8sMcV1+XhIsqT5+tyHhJi87AxgFW4fBlvUr9gAXhPMvUwkNMPPIkyOpKiEMPuQ7yWS29qwZdOHBGFQ==
@@ -5360,6 +5370,11 @@ Lockfile:
     dependencies:
       minimist "0.0.8"
   
+  moment@^2.24.0:
+    version "2.24.0"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+    integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+  
   morgan@^1.9.0:
     version "1.9.1"
     resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.9.1.tgz#0a8d16734a1d9afbc824b99df87e738e58e2da59"
@@ -6288,13 +6303,18 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
     integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
   
-  react-native-keyboard-aware-scroll-view@0.9.1:
+  react-native-keyboard-aware-scroll-view@0.9.1, react-native-keyboard-aware-scroll-view@^0.9.1:
     version "0.9.1"
     resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.9.1.tgz#9e54b565a5f19b30bed12221d48921781f7630af"
     integrity sha512-tBZ8rmjELN0F6t5UBp5CW3NYmZXgVnJSzVCssv/OqG2t6kiB+OUTqxNvUP24K+HARX4H+XaW0aEJSFQkQCv6KA==
     dependencies:
       prop-types "^15.6.2"
       react-native-iphone-x-helper "^1.0.3"
+  
+  react-native-normalize@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/react-native-normalize/-/react-native-normalize-1.0.1.tgz#52de71d1b86dd357c6f40fd4ab84b10336f0f072"
+    integrity sha512-QYs95xhARhlcWWcDC77r4nVfxa3pDSfIBx2gdYZ+DOcLhSdPzRHFivWbGu3mL01JcvE69pMK7BmbPCda28vXwA==
   
   react-native-paper@^2.16.0:
     version "2.16.0"
@@ -6307,6 +6327,13 @@ Lockfile:
       hoist-non-react-statics "^3.1.0"
       react-lifecycles-compat "^3.0.4"
       react-native-safe-area-view "^0.12.0"
+  
+  react-native-parallax-scroll-view@^0.21.3:
+    version "0.21.3"
+    resolved "https://registry.yarnpkg.com/react-native-parallax-scroll-view/-/react-native-parallax-scroll-view-0.21.3.tgz#d956ad224ce3b0a2725b80574bcbf688bbeda14e"
+    integrity sha512-oVbZPijNGYGcpU2z7k/ZOOnl0vYxch7qtVvaJpH4+wLVnEP49NC2diCzjFGz8PE0yEcgyeTdkpdUK8RTD3QEew==
+    dependencies:
+      prop-types "^15.6.0"
   
   react-native-platform-touchable@^1.1.1:
     version "1.1.1"
@@ -6362,10 +6389,10 @@ Lockfile:
       "@svgr/core" "^4.1.0"
       semver "^5.6.0"
   
-  react-native-svg@^9.11.1:
-    version "9.11.1"
-    resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.11.1.tgz#b1ccf48de413ff8c4f476f202aaa3893f4c8b59a"
-    integrity sha512-BmNCM81SSzhj1+N5rYiy7sxrkmybgiT8Cu8yVRB7zVoWze/i1lbCWJah+Gk0OHHwR35ZA31oVKf5jtO4G1n94Q==
+  react-native-svg@~9.9.2:
+    version "9.9.9"
+    resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.9.9.tgz#67c83b56d7a292162762a6d389dc78512558c2ca"
+    integrity sha512-a/wxzEaAqWZ3uYwTJKo8sj2gURmEs4xBB83tx5gK9rpoEixzHfsj8+qLacwmQrHab7nf+tWj56INMTSPqm60oA==
   
   react-native-tab-view@^1.2.0, react-native-tab-view@^1.4.1:
     version "1.4.1"
@@ -7433,6 +7460,25 @@ Lockfile:
       mkdirp "^0.5.0"
       safe-buffer "^5.1.2"
       yallist "^3.0.3"
+  
+  tcomb-form-native@^0.6.20:
+    version "0.6.20"
+    resolved "https://registry.yarnpkg.com/tcomb-form-native/-/tcomb-form-native-0.6.20.tgz#81771faf86536a5d4c0f492885eb229324d47ea5"
+    integrity sha512-tuvLmdii2zvkevzFKMS1lYbmE5BeKuRF+sokVqllfjwrViLjgdSCD2Y8WZHUYbUMTbBfEUF65F0vd5zP+Owr2Q==
+    dependencies:
+      tcomb-validation "^3.0.0"
+  
+  tcomb-validation@^3.0.0:
+    version "3.4.1"
+    resolved "https://registry.yarnpkg.com/tcomb-validation/-/tcomb-validation-3.4.1.tgz#a7696ec176ce56a081d9e019f8b732a5a8894b65"
+    integrity sha512-urVVMQOma4RXwiVCa2nM2eqrAomHROHvWPuj6UkDGz/eb5kcy0x6P0dVt6kzpUZtYMNoAqJLWmz1BPtxrtjtrA==
+    dependencies:
+      tcomb "^3.0.0"
+  
+  tcomb@^3.0.0:
+    version "3.2.29"
+    resolved "https://registry.yarnpkg.com/tcomb/-/tcomb-3.2.29.tgz#32404fe9456d90c2cf4798682d37439f1ccc386c"
+    integrity sha512-di2Hd1DB2Zfw6StGv861JoAF5h/uQVu/QJp2g8KVbtfKnoHdBQl5M32YWq6mnSYBQ1vFFrns5B1haWJL7rKaOQ==
   
   temp@0.8.3:
     version "0.8.3"
