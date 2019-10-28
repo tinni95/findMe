@@ -21,7 +21,8 @@ const components = {
 };
 
 export default function FieldIcon(props) {
-    const FieldIcon = components[props.field];
+    const FieldIcon = components[props.field] === undefined ? components["Other"] : components[props.field];
+
     return (
         <FieldIcon
             style={{ marginTop: 8 }}

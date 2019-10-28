@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Image, TextInput, AsyncStorage, StyleSheet } from "react-native";
-import { width } from "../../constants/Layout"
 import { Login } from "../../mutations/AuthenticationStack"
 import AvoidingView from "./AvoidingView"
 const TOKEN_KEY = "apsofjkcaoisll032ir";

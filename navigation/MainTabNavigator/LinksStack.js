@@ -2,8 +2,7 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import LinksScreen from '../../screens/LinksScreen';
-import Lamp from '../../components/TabBarIcons/Lamp';
-
+import House from '../../components/TabBarIcons/House';
 const LinksStack = createStackNavigator(
     {
         LinksScreen,
@@ -11,9 +10,9 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
-    tabBarLabel: 'Post idea',
+    tabBarLabel: 'Esplora',
     tabBarIcon: ({ focused }) => (
-        <Lamp
+        <House
             focused={focused}
         />
     ),

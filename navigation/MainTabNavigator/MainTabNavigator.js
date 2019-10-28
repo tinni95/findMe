@@ -7,8 +7,8 @@ import ProfileStack from "./ProfileStack";
 import { createBottomTabNavigator } from 'react-navigation';
 
 const MainTabNavigator = createBottomTabNavigator({
-    HomeStack,
     LinksStack,
+    HomeStack,
     InsertStack,
     ServiziStack,
     ProfileStack

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import House from '../../components/TabBarIcons/House';
+import Lamp from '../../components/TabBarIcons/Lamp';
 import ExploreQueryRenderer from '../../screens/Explore';
 import PostScreenQueryRenderer from '../../screens/Post';
 
@@ -12,9 +12,9 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-    tabBarLabel: 'Esplora',
+    tabBarLabel: 'Post idea',
     tabBarIcon: ({ focused }) => (
-        <House
+        <Lamp
             focused={focused}
         />
     ),
