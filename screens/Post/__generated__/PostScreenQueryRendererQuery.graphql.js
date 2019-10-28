@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 74df14bfe01cb123b659fa74951259b7
+ * @relayHash 0a3b78e0eba387b4d8a8f904080ace5e
  */
 
 /* eslint-disable */
@@ -18,7 +18,9 @@ export type PostScreenQueryRendererQueryResponse = {|
     +title: string,
     +location: ?string,
     +positions: ?$ReadOnlyArray<{|
-      +title: string
+      +title: string,
+      +available: number,
+      +field: string,
     |}>,
   |}
 |};
@@ -39,6 +41,8 @@ query PostScreenQueryRendererQuery(
     location
     positions {
       title
+      available
+      field
       id
     }
     id
@@ -86,6 +90,20 @@ v4 = {
 v5 = {
   "kind": "ScalarField",
   "alias": null,
+  "name": "available",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "field",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
+  "kind": "ScalarField",
+  "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
@@ -120,7 +138,9 @@ return {
             "concreteType": "Position",
             "plural": true,
             "selections": [
-              (v3/*: any*/)
+              (v3/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/)
             ]
           }
         ]
@@ -154,10 +174,12 @@ return {
             "plural": true,
             "selections": [
               (v3/*: any*/),
-              (v5/*: any*/)
+              (v5/*: any*/),
+              (v6/*: any*/),
+              (v7/*: any*/)
             ]
           },
-          (v5/*: any*/)
+          (v7/*: any*/)
         ]
       }
     ]
@@ -166,11 +188,11 @@ return {
     "operationKind": "query",
     "name": "PostScreenQueryRendererQuery",
     "id": null,
-    "text": "query PostScreenQueryRendererQuery(\n  $postId: ID!\n) {\n  singlePost(id: $postId) {\n    description\n    title\n    location\n    positions {\n      title\n      id\n    }\n    id\n  }\n}\n",
+    "text": "query PostScreenQueryRendererQuery(\n  $postId: ID!\n) {\n  singlePost(id: $postId) {\n    description\n    title\n    location\n    positions {\n      title\n      available\n      field\n      id\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '0e5e474793c9fc6feb36633161136e20';
+(node/*: any*/).hash = '6b84f0a7f356352daaeb81410324e8ef';
 module.exports = node;

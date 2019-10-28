@@ -16,6 +16,8 @@ export default class PostScreenQueryRenderer extends React.Component {
                             location
                             positions{
                                 title
+                                available
+                                field
                             }
                         }
                     }

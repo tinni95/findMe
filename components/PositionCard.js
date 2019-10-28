@@ -9,7 +9,7 @@ export default function PositionCard({ position }) {
             <View style={styles.header}>
                 <Bold style={styles.headerText}>{position.title}</Bold>
                 <View style={styles.iconContainer}>
-                    <FieldIconRound size={25} field={"Science"} color={"#60E1E0"} />
+                    <FieldIconRound size={25} field={position.field} color={"#60E1E0"} />
                 </View>
             </View>
             <View style={styles.columns}>
