@@ -1,62 +1,98 @@
-import { AppLoading } from 'expo';
-import { Asset } from 'expo-asset';
-import * as Font from 'expo-font';
-import React, { useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
-import AppNavigator from './navigation/AppNavigator';
+import React from 'react';
+import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { AuthSession } from 'expo';
+import jwtDecode from 'jwt-decode';
 
-export default function App(props) {
-  const [isLoadingComplete, setLoadingComplete] = useState(false);
+/*
+  You need to swap out the Auth0 client id and domain with
+  the one from your Auth0 client.
+  In your Auth0 client, you need to also add a url to your authorized redirect urls.
+  For this application, I added https://auth.expo.io/@arielweinberger/auth0-example because I am
+  signed in as the "community" account on Expo and the slug for this app is "auth0-example" (check out app.json).
+  You can open this app in the Expo client and check your logs to find out your redirect URL.
+*/
+const auth0ClientId = 'hQrHegeFsjPj1wvPp6IlbKhd0oPZbbLq';
+const auth0Domain = 'https://dev-tpyw87g7.eu.auth0.com';
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
+/**
+ * Converts an object to a query string.
+ */
+function toQueryString(params) {
+  return '?' + Object.entries(params)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
+}
+
+export default class App extends React.Component {
+  state = {
+    name: null,
+  };
+
+  login = async () => {
+    // Retrieve the redirect URL, add this to the callback URL list
+    // of your Auth0 application.
+    const redirectUrl = AuthSession.getRedirectUrl();
+    console.log(`Redirect URL: ${redirectUrl}`);
+
+    // Structure the auth parameters and URL
+    const queryParams = toQueryString({
+      client_id: auth0ClientId,
+      redirect_uri: redirectUrl,
+      response_type: 'id_token', // id_token will return a JWT token
+      scope: 'openid profile', // retrieve the user's profile
+      nonce: 'nonce', // ideally, this will be a random value
+    });
+    const authUrl = `${auth0Domain}/authorize` + queryParams;
+
+    // Perform the authentication
+    const response = await AuthSession.startAsync({ authUrl });
+    console.log('Authentication response', response);
+
+    if (response.type === 'success') {
+      this.handleResponse(response.params);
+    }
+  };
+
+  handleResponse = (response) => {
+    if (response.error) {
+      Alert('Authentication error', response.error_description || 'something went wrong');
+      return;
+    }
+
+    // Retrieve the JWT token and decode it
+    const jwtToken = response.id_token;
+    const decoded = jwtDecode(jwtToken);
+
+    const { name } = decoded;
+    this.setState({ name });
+  };
+
+  render() {
+    const { name } = this.state;
+
     return (
-      <AppLoading
-        startAsync={loadResourcesAsync}
-        onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
-      />
+      <View style={styles.container}>
+        {
+          name ?
+            <Text style={styles.title}>You are logged in, {name}!</Text> :
+            <Button title="Log in with Auth0" onPress={this.login} />
+        }
+      </View>
     );
   }
-  return (
-    <View style={styles.container}>
-      {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-      <AppNavigator />
-    </View>
-  );
-}
-
-async function loadResourcesAsync() {
-  await Promise.all([
-    Font.loadAsync({
-      // This is the font that we are using for our tab bar
-      ...Ionicons.font,
-      // We include SpaceMono because we use it in HomeScreen.js. Feel free to
-      // remove this if you are not using it in your app
-      Avenir: require('./assets/fonts/avenir.otf'),
-      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      'changa-one': require('./assets/fonts/ChangaOne-Regular.ttf'),
-      'sequel-sans': require('./assets/fonts/SequelSans-Body.ttf'),
-      'sequel-sans-bold': require('./assets/fonts/SequelSans-Bold.ttf'),
-      'sequel-sans-light': require('./assets/fonts/SequelSans-Body-light.ttf')
-    })
-  ]);
-}
-
-function handleLoadingError(error) {
-  // In this case, you might want to report the error to your error reporting
-  // service, for example Sentry
-  console.warn(error);
-}
-
-function handleFinishLoading(setLoadingComplete) {
-  setLoadingComplete(true);
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
-  }
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginTop: 40,
+  },
 });
