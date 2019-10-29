@@ -18,6 +18,7 @@ export default FiltersModalHeader = ({ setModalVisible }) => {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
     height: 50,
