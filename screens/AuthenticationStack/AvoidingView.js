@@ -1,34 +1,26 @@
-import React from "react";
-import { Keyboard } from "react-native";
+import React from 'react';
+import { Keyboard } from 'react-native';
 
 export default class AvoidingView extends React.Component {
-    state = {
-        keyboardShown: ''
-    }
-    componentDidMount() {
-        this.keyboardDidShowListener = Keyboard.addListener(
-            'keyboardDidShow',
-            this._keyboardDidShow,
-        );
-        this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardDidHide',
-            this._keyboardDidHide,
-        );
-    }
+  state = {
+    keyboardShown: ''
+  };
 
-    componentWillUnmount() {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
-    }
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this._keyboardDidHide);
+  }
 
-    _keyboardDidShow = async () => {
-        await this.setState({ keyboardShown: true })
-    }
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
 
-    _keyboardDidHide = async () => {
-        await this.setState({ keyboardShown: false })
-    }
+  _keyboardDidShow = async () => {
+    await this.setState({ keyboardShown: true });
+  };
 
-
+  _keyboardDidHide = async () => {
+    await this.setState({ keyboardShown: false });
+  };
 }
-

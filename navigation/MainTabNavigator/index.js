@@ -1,3 +1,3 @@
-import MainTabNavigator from "./MainTabNavigator";
+import MainTabNavigator from './MainTabNavigator';
 
 export default MainTabNavigator;

@@ -1,7 +1,4 @@
-import { Login } from "./LoginMutation";
-import { SignUp } from "./SignUpMutation";
+import { Login } from './LoginMutation';
+import { SignUp } from './SignUpMutation';
 
-export {
-    Login,
-    SignUp
-}
+export { Login, SignUp };

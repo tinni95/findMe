@@ -4,20 +4,14 @@ import Lamp from '../../components/TabBarIcons/Lamp';
 import ExploreQueryRenderer from '../../screens/Explore';
 import PostScreenQueryRenderer from '../../screens/Post';
 
-const HomeStack = createStackNavigator(
-    {
-        ExploreQueryRenderer,
-        PostScreenQueryRenderer
-    }
-);
+const HomeStack = createStackNavigator({
+  ExploreQueryRenderer,
+  PostScreenQueryRenderer
+});
 
 HomeStack.navigationOptions = {
-    tabBarLabel: 'Post idea',
-    tabBarIcon: ({ focused }) => (
-        <Lamp
-            focused={focused}
-        />
-    ),
+  tabBarLabel: 'Post idea',
+  tabBarIcon: ({ focused }) => <Lamp focused={focused} />
 };
 
 HomeStack.path = '';

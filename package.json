@@ -9,6 +9,7 @@
     "test": "jest --watchAll",
     "relay": "relay-compiler --src --schema shared/relay/schema.graphql",
     "relay:watch": "yarn relay --watch",
+    "lint:fix": "eslint --fix ./ && prettier ./**/*.js --write",
     "getschema": "get-graphql-schema http://localhost:4000/ > ./shared/relay/schema.graphql"
   },
   "jest": {
@@ -31,6 +32,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "native-base": "^2.13.8",
+    "prop-types": "^15.7.2",
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
@@ -55,8 +57,17 @@
     "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "babel-preset-expo": "^7.0.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
     "jest-expo": "^35.0.0",
+    "prettier": "^1.18.2",
     "react-native-svg-transformer": "^0.13.0"
   },
   "private": true

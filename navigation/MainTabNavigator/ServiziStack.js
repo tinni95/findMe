@@ -1,21 +1,15 @@
 import React from 'react';
-import Tie from '../../components/TabBarIcons/Tie';
 import { createStackNavigator } from 'react-navigation';
+import Tie from '../../components/TabBarIcons/Tie';
 import SettingsScreen from '../../screens/SettingsScreen';
 
-const ServiziStack = createStackNavigator(
-    {
-        SettingsScreen,
-    }
-);
+const ServiziStack = createStackNavigator({
+  SettingsScreen
+});
 
 ServiziStack.navigationOptions = {
-    tabBarLabel: 'Servizi',
-    tabBarIcon: ({ focused }) => (
-        <Tie
-            focused={focused}
-        />
-    ),
+  tabBarLabel: 'Servizi',
+  tabBarIcon: ({ focused }) => <Tie focused={focused} />
 };
 
 ServiziStack.path = '';

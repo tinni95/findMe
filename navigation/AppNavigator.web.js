@@ -5,8 +5,7 @@ import MainTabNavigator from './MainTabNavigator';
 
 const switchNavigator = createSwitchNavigator({
   AuthenticationStack,
-  MainTabNavigator,
-
+  MainTabNavigator
 });
 switchNavigator.path = '';
 

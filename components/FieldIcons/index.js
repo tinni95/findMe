@@ -1,3 +1,3 @@
-import FieldIconRound from "./FieldIconRound"
+import FieldIconRound from './FieldIconRound';
 
 export default FieldIconRound;

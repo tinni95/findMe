@@ -1,3 +1,3 @@
-import FiltersModal from "./FiltersModal";
+import FiltersModal from './FiltersModal';
 
 export default FiltersModal;
