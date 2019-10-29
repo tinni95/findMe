@@ -20,6 +20,12 @@
 		},
 		{
 			"path": "/Users/giovannidamico/work/vuxe/vuxe-app"
+		},
+		{
+			"path": "/Users/giovannidamico/work/vuxe/vuxe-biz/src"
+		},
+		{
+			"path": "/Users/giovannidamico/work/vuxe/vuxe-api"
 		}
 	],
 	"settings": {}

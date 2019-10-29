@@ -116,6 +116,7 @@ type Mutation {
   deletePost(id: ID!): Post!
   signup(email: String!, password: String!, nome: String!, cognome: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
+  updateUser(picture: Upload, email: String, password: String, nome: String, cognome: String): User!
 }
 
 """An object with an ID"""
@@ -757,6 +758,12 @@ type Team implements Node {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
+"""
+The `Upload` scalar type represents a file upload promise that resolves an
+object containing `stream`, `filename`, `mimetype` and `encoding`.
+"""
+scalar Upload
+
 type User {
   id: ID!
   email: String!
@@ -764,6 +771,7 @@ type User {
   applications: [Application!]!
   nome: String!
   cognome: String!
+  pictureUrl: String
 }
 
 enum UserOrderByInput {
@@ -777,6 +785,8 @@ enum UserOrderByInput {
   nome_DESC
   cognome_ASC
   cognome_DESC
+  pictureUrl_ASC
+  pictureUrl_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -992,6 +1002,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   cognome_not_ends_with: String
+  pictureUrl: String
+
+  """All values that are not equal to given value."""
+  pictureUrl_not: String
+
+  """All values that are contained in given list."""
+  pictureUrl_in: [String!]
+
+  """All values that are not contained in given list."""
+  pictureUrl_not_in: [String!]
+
+  """All values less than the given value."""
+  pictureUrl_lt: String
+
+  """All values less than or equal the given value."""
+  pictureUrl_lte: String
+
+  """All values greater than the given value."""
+  pictureUrl_gt: String
+
+  """All values greater than or equal the given value."""
+  pictureUrl_gte: String
+
+  """All values containing the given string."""
+  pictureUrl_contains: String
+
+  """All values not containing the given string."""
+  pictureUrl_not_contains: String
+
+  """All values starting with the given string."""
+  pictureUrl_starts_with: String
+
+  """All values not starting with the given string."""
+  pictureUrl_not_starts_with: String
+
+  """All values ending with the given string."""
+  pictureUrl_ends_with: String
+
+  """All values not ending with the given string."""
+  pictureUrl_not_ends_with: String
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput

@@ -28,7 +28,7 @@ export default class PostScreen extends React.Component {
           <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <PostScreenHeader
               name={"Giovanni D'Amico"}
-              image={require('../../assets/images/placeholder.png')}
+              image={{ uri: "https://hwattsup.website/AppBackEnd/images/placeholder.jpeg" }}
             />
           </View>
         )}>
