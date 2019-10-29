@@ -58,7 +58,7 @@ export default class LoginScreen extends AvoidingView {
                     />
                     <TextInput
                         style={FormStyles.input}
-                        placeholder="password"
+                        placeholder="Password"
                         secureTextEntry
                         value={this.state.password}
                         onChangeText={password => this.setState({ password })}
@@ -69,7 +69,7 @@ export default class LoginScreen extends AvoidingView {
                         onPress={this.login}
                         isLong
                         fontColor="#DD1E63"
-                        text="Entra"
+                        text="ACCEDI"
                         color="#DD1E63"
                     />
                 </View>
