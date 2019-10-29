@@ -2,9 +2,10 @@ import React from "react";
 import { View, Image, TextInput, AsyncStorage, StyleSheet } from "react-native";
 import { Login } from "../../mutations/AuthenticationStack"
 import AvoidingView from "./AvoidingView"
-const TOKEN_KEY = "apsofjkcaoisll032ir";
+import { TOKEN_KEY } from "../../shared/Token"
 import RoundButton from "../../components/shared/RoundButtonSignUpScreen";
 import { isSmallDevice } from "../../constants/Layout"
+import FormStyles from "./FormStyles"
 
 const _asyncStorageSaveToken = async token => {
     await AsyncStorage.setItem(TOKEN_KEY, token);
@@ -51,7 +52,7 @@ export default class LoginScreen extends AvoidingView {
                 </View>
                 <View style={styles.formContainer}>
                     <TextInput
-                        style={styles.input}
+                        style={FormStyles.input}
                         autoCompleteType="email"
                         placeholder='Email'
                         label='Email'
@@ -59,7 +60,7 @@ export default class LoginScreen extends AvoidingView {
                         onChangeText={email => this.setState({ email })}
                     />
                     <TextInput
-                        style={styles.input}
+                        style={FormStyles.input}
                         placeholder='password'
                         secureTextEntry={true}
                         value={this.state.password}
@@ -86,16 +87,6 @@ const styles = StyleSheet.create({
         flex: 3,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    input: {
-        width: "100%",
-        height: 55,
-        padding: 8,
-        borderBottomWidth: 0.5,
-        color: '#5F5E5E',
-        borderRadius: 14,
-        fontSize: isSmallDevice ? 14 : 16,
-        fontWeight: '500',
     },
     imageContainer: {
         alignItems: "center",

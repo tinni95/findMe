@@ -33,7 +33,7 @@ export default class PostScreen extends React.Component {
                 )}>
                 <View style={styles.contentContainer}>
                     <Bold style={styles.title}>{this.props.post.title}</Bold>
-                    <LocationWithText points={25} fontSize={isSmallDevice ? 18 : 20} style={styles.location} location={this.props.post.location}></LocationWithText>
+                    <LocationWithText points={25} fontSize={isSmallDevice ? 18 : 20} style={styles.location} regione={this.props.post.regione} comune={this.props.post.comune}></LocationWithText>
                     <Tabs style={{ marginLeft: 5 }} tab1Title={"Desrizione"} tab2Title={"Team"}
                         tab1Content={() => <View style={styles.tabContainer}><Light style={styles.body}>{this.props.post.description}</Light></View>}
                         tab2Content={() => <View style={styles.tabContainer}><Light style={styles.body}>blabllallal</Light></View>}></Tabs>

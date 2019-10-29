@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0a3b78e0eba387b4d8a8f904080ace5e
+ * @relayHash b10d39d0552207b570ef878642807cbf
  */
 
 /* eslint-disable */
@@ -16,7 +16,8 @@ export type PostScreenQueryRendererQueryResponse = {|
   +singlePost: {|
     +description: string,
     +title: string,
-    +location: ?string,
+    +comune: string,
+    +regione: string,
     +positions: ?$ReadOnlyArray<{|
       +title: string,
       +available: number,
@@ -38,7 +39,8 @@ query PostScreenQueryRendererQuery(
   singlePost(id: $postId) {
     description
     title
-    location
+    comune
+    regione
     positions {
       title
       available
@@ -83,25 +85,32 @@ v3 = {
 v4 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "location",
+  "name": "comune",
   "args": null,
   "storageKey": null
 },
 v5 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "available",
+  "name": "regione",
   "args": null,
   "storageKey": null
 },
 v6 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "field",
+  "name": "available",
   "args": null,
   "storageKey": null
 },
 v7 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "field",
+  "args": null,
+  "storageKey": null
+},
+v8 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -129,6 +138,7 @@ return {
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
+          (v5/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -139,8 +149,8 @@ return {
             "plural": true,
             "selections": [
               (v3/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/)
+              (v6/*: any*/),
+              (v7/*: any*/)
             ]
           }
         ]
@@ -164,6 +174,7 @@ return {
           (v2/*: any*/),
           (v3/*: any*/),
           (v4/*: any*/),
+          (v5/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -174,12 +185,12 @@ return {
             "plural": true,
             "selections": [
               (v3/*: any*/),
-              (v5/*: any*/),
               (v6/*: any*/),
-              (v7/*: any*/)
+              (v7/*: any*/),
+              (v8/*: any*/)
             ]
           },
-          (v7/*: any*/)
+          (v8/*: any*/)
         ]
       }
     ]
@@ -188,11 +199,11 @@ return {
     "operationKind": "query",
     "name": "PostScreenQueryRendererQuery",
     "id": null,
-    "text": "query PostScreenQueryRendererQuery(\n  $postId: ID!\n) {\n  singlePost(id: $postId) {\n    description\n    title\n    location\n    positions {\n      title\n      available\n      field\n      id\n    }\n    id\n  }\n}\n",
+    "text": "query PostScreenQueryRendererQuery(\n  $postId: ID!\n) {\n  singlePost(id: $postId) {\n    description\n    title\n    comune\n    regione\n    positions {\n      title\n      available\n      field\n      id\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '6b84f0a7f356352daaeb81410324e8ef';
+(node/*: any*/).hash = 'fb718d18dba2a1e44cfbd2f243092762';
 module.exports = node;

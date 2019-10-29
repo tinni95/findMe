@@ -8,7 +8,7 @@ export default function LocationWithText(props) {
     return (
         <View style={[styles.container, props.style]}>
             <Location height={props.points} width={props.points} fill={"#DD1E63"} />
-            <Body style={[styles.text, { fontSize: props.fontSize }]}>{props.location}</Body>
+            <Body style={[styles.text, { fontSize: props.fontSize }]}>{props.comune + ", " + props.regione}</Body>
         </View>
     );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, View } from "react-native";
 import FiltersModalHeader from "./FiltersModalHeader";
+import FiltersModalBody from "./FiltersModalBody";
 
 export default class FiltersModal extends React.Component {
 
@@ -16,6 +17,7 @@ export default class FiltersModal extends React.Component {
                 <View style={{ marginTop: 40 }}>
                     <View>
                         <FiltersModalHeader setModalVisible={this.props.setModalVisible}></FiltersModalHeader>
+                        <FiltersModalBody></FiltersModalBody>
                     </View>
                 </View>
             </Modal>)

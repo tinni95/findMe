@@ -13,7 +13,8 @@ export default class PostScreenQueryRenderer extends React.Component {
                         singlePost(id: $postId) {
                             description
                             title
-                            location
+                            comune
+                            regione
                             positions{
                                 title
                                 available

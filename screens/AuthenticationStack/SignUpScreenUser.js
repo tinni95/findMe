@@ -4,11 +4,12 @@ import { View, StyleSheet, Image, TextInput, AsyncStorage } from "react-native";
 import { SignUp } from "../../mutations/AuthenticationStack";
 import { isSmallDevice } from "../../constants/Layout"
 import { Bold } from "../../components/StyledText"
-const TOKEN_KEY = "apsofjkcaoisll032ir";
+import { TOKEN_KEY } from "../../shared/Token";
 import RoundButtonEmpty from "../../components/shared/RoundButtonEmptySignUpScreen";
 import RoundButton from "../../components/shared/RoundButtonSignUpScreen";
 import { validateEmail, validateName, validatePassword, validateRePassword } from "./validators"
 import * as Facebook from 'expo-facebook';
+import FormStyles from "./FormStyles"
 
 const _asyncStorageSaveToken = async token => {
     await AsyncStorage.setItem(TOKEN_KEY, token);
@@ -18,7 +19,7 @@ export default class SignUpScreenUser extends AvoidingView {
     constructor(props) {
         super(props);
         this.state = {
-            name: '', surname: '', email: '', password: '', repassword: '',
+            nome: '', cognome: '', email: '', password: '', repassword: '',
             nameError: '', surnameError: '', emailError: '', passwordError: '', repasswordError: '',
         }
     }
@@ -51,9 +52,9 @@ export default class SignUpScreenUser extends AvoidingView {
     }
 
     signUp = async () => {
-        let { email, password, name } = this.state;
+        let { email, password, nome, cognome } = this.state;
         email = email.toString().toLowerCase();
-        const response = await SignUp({ email, password, name });
+        const response = await SignUp({ email, password, nome, cognome });
         if (response && response.signup) {
             const { token } = response.signup;
             await _asyncStorageSaveToken(token);
@@ -78,13 +79,13 @@ export default class SignUpScreenUser extends AvoidingView {
     }
 
     handleSubmit = async () => {
-        if (!validateName(this.state.name)) {
+        if (!validateName(this.state.nome)) {
             await this.setState({ nameError: true })
         }
         else {
             await this.setState({ nameError: false })
         }
-        if (!validateName(this.state.surname)) {
+        if (!validateName(this.state.cognome)) {
             await this.setState({ surnameError: true })
         }
         else {
@@ -127,36 +128,36 @@ export default class SignUpScreenUser extends AvoidingView {
                     </View>
                 }
                 <View style={styles.formContainer}>
-                    <View style={styles.inputHalfsContainer}>
+                    <View style={FormStyles.inputHalfsContainer}>
                         <View
-                            style={styles.inputHalfContainer}>
+                            style={FormStyles.inputHalfContainer}>
                             <TextInput
-                                style={this.state.nameError ? styles.inputHalfError : styles.inputHalf}
+                                style={this.state.nameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
                                 placeholder='Nome'
                                 autoCapitalize="none"
                                 placeholderTextColor='#ADADAD'
-                                onChangeText={val => this.onChangeText('name', val)}
+                                onChangeText={val => this.onChangeText('nome', val)}
                                 onSubmitEditing={() => this.surname.focus()}
                             />
-                            {this.state.nameError ? <Bold style={styles.error}>Campo Obbligatorio</Bold> : <View style={styles.separator} />}
+                            {this.state.nameError ? <Bold style={FormStyles.error}>Campo Obbligatorio</Bold> : <View style={styles.separator} />}
                         </View>
 
                         <View
-                            style={styles.inputHalfContainer}>
+                            style={FormStyles.inputHalfContainer}>
                             <TextInput
-                                style={this.state.surnameError ? styles.inputHalfError : styles.inputHalf}
+                                style={this.state.surnameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
                                 placeholder='Cognome'
                                 autoCapitalize="none"
                                 placeholderTextColor='#ADADAD'
-                                onChangeText={val => this.onChangeText('surname', val)}
+                                onChangeText={val => this.onChangeText('cognome', val)}
                                 ref={(input) => this.surname = input}
                                 onSubmitEditing={() => this.email.focus()}
                             />
-                            {this.state.surnameError ? <Bold style={styles.error}>Campo Obbligatorio</Bold> : <View style={styles.separator} />}
+                            {this.state.surnameError ? <Bold style={FormStyles.error}>Campo Obbligatorio</Bold> : <View style={styles.separator} />}
                         </View>
                     </View>
                     <TextInput
-                        style={this.state.emailError ? styles.inputError : styles.input}
+                        style={this.state.emailError ? FormStyles.inputError : FormStyles.input}
                         placeholder='Email'
                         autoCapitalize="none"
                         placeholderTextColor='#ADADAD'
@@ -164,9 +165,9 @@ export default class SignUpScreenUser extends AvoidingView {
                         ref={(input) => this.email = input}
                         onSubmitEditing={() => this.password.focus()}
                     />
-                    {this.state.emailError ? <Bold style={styles.error}>Email non valida</Bold> : <View style={styles.separator} />}
+                    {this.state.emailError ? <Bold style={FormStyles.error}>Email non valida</Bold> : <View style={styles.separator} />}
                     <TextInput
-                        style={this.state.passwordError ? styles.inputError : styles.input}
+                        style={this.state.passwordError ? FormStyles.inputError : FormStyles.input}
                         placeholder='Password'
                         secureTextEntry={true}
                         autoCapitalize="none"
@@ -175,9 +176,9 @@ export default class SignUpScreenUser extends AvoidingView {
                         ref={(input) => this.password = input}
                         onSubmitEditing={() => this.repassword.focus()}
                     />
-                    {this.state.passwordError ? <Bold style={styles.error}>Password non valida</Bold> : <View style={styles.separator} />}
+                    {this.state.passwordError ? <Bold style={FormStyles.error}>Password non valida</Bold> : <View style={styles.separator} />}
                     <TextInput
-                        style={this.state.repasswordError ? styles.inputError : styles.input}
+                        style={this.state.repasswordError ? FormStyles.inputError : FormStyles.input}
                         placeholder='Ripeti Password'
                         autoCapitalize="none"
                         secureTextEntry={true}
@@ -185,7 +186,7 @@ export default class SignUpScreenUser extends AvoidingView {
                         onChangeText={val => this.onChangeText('repassword', val)}
                         ref={(input) => this.repassword = input}
                     />
-                    {this.state.repasswordError ? <Bold style={styles.error}>Le password non corrispondono</Bold> : <View style={styles.separator} />}
+                    {this.state.repasswordError ? <Bold style={FormStyles.error}>Le password non corrispondono</Bold> : <View style={styles.separator} />}
                 </View>
                 <View style={styles.buttonsContainer}>
                     <RoundButtonEmpty onPress={this.handleSubmit} isLong={true} fontColor={"#DD1E63"} text={"Registrati"} fontColor={"#DD1E63"} color={"#DD1E63"}></RoundButtonEmpty>
@@ -205,62 +206,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#FFFFFF"
     },
-    input: {
-        width: "100%",
-        height: 55,
-        padding: 8,
-        borderBottomWidth: 0.5,
-        color: '#5F5E5E',
-        borderRadius: 14,
-        fontSize: isSmallDevice ? 14 : 16,
-        fontWeight: '500',
-    },
-    inputError: {
-        width: "100%",
-        height: 55,
-        padding: 8,
-        borderBottomWidth: 0.5,
-        borderBottomColor: "red",
-        color: '#5F5E5E',
-        borderRadius: 14,
-        fontSize: isSmallDevice ? 14 : 16,
-        fontWeight: '500',
-    },
-    inputHalf: {
-        width: "100%",
-        height: 55,
-        padding: 8,
-        borderBottomWidth: 0.5,
-        color: '#5F5E5E',
-        borderRadius: 14,
-        fontSize: isSmallDevice ? 14 : 16,
-        fontWeight: '500',
-    },
-    inputHalfError: {
-        width: "100%",
-        height: 55,
-        padding: 8,
-        borderBottomWidth: 0.5,
-        color: '#5F5E5E',
-        borderRadius: 14,
-        borderBottomColor: "red",
-        fontSize: isSmallDevice ? 14 : 16,
-        fontWeight: '500',
-    },
-    inputHalfContainer: {
-        flexDirection: "column",
-        width: "50%"
-    },
-    inputHalfsContainer: {
-        flexDirection: "row"
-    },
     imageContainer: {
         alignItems: "center",
         justifyContent: "flex-start",
         marginTop: 20
     },
     formContainer: {
-        margin: isSmallDevice ? 30 : 40,
+        margin: 30,
         marginTop: isSmallDevice ? 40 : 60,
         justifyContent: "center",
     },
@@ -272,14 +224,6 @@ const styles = StyleSheet.create({
     buttonText: {
         margin: isSmallDevice ? 5 : 15,
         color: "#AC8A8A"
-    },
-    error: {
-        color: "red",
-        textAlign: "right",
-        fontSize: isSmallDevice ? 10 : 12,
-        marginRight: 10,
-        marginTop: 2.5,
-        marginBottom: -10
     },
     separator: { height: 5 }
 })

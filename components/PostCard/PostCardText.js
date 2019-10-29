@@ -28,11 +28,12 @@ const MainText = ({ date, field }) => {
         </View>
     )
 }
-export const PostCardText = ({ post: { title, date, field, location } }) => {
+
+export const PostCardText = ({ post: { title, date, field, comune, regione } }) => {
     return (
         <View style={styles.container}>
             <Bold style={styles.title}>{fixOverflow(title, titleLimit)}</Bold>
-            <LocationWithText points={20} style={styles.location} location={location} color={"#DD1E63"} textColor={"#ADBFC5"} />
+            <LocationWithText points={20} style={styles.location} comune={comune} regione={regione} color={"#DD1E63"} textColor={"#ADBFC5"} />
             {MainText({ date, field })}
         </View>
     )
@@ -78,7 +79,8 @@ export default createFragmentContainer(PostCardText, {
                 title
                 startDate
                 field
-                location
+                comune
+                regione
         }
     `,
 });

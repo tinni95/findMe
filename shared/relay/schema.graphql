@@ -111,10 +111,10 @@ type Mutation {
   createPosition(title: String!, description: String!, field: String!, available: Int!, postId: ID!): Position!
   updatePosition(available: Int!, id: ID!): Position!
   deletePosition(id: ID!): Position!
-  createPost(title: String!, description: String!, field: String!, startDate: DateTime!): Post!
-  updatePost(id: ID!, title: String, description: String): Post!
+  createPost(title: String!, description: String!, field: String!, startDate: DateTime!, regione: String!, provincia: String!, comune: String!): Post!
+  updatePost(id: ID!, title: String, description: String, location: String): Post!
   deletePost(id: ID!): Post!
-  signup(email: String!, password: String!, name: String!): AuthPayload
+  signup(email: String!, password: String!, nome: String!, cognome: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
 }
 
@@ -350,7 +350,9 @@ type Post implements Node {
   updatedAt: DateTime!
   title: String!
   field: String!
-  location: String
+  regione: String!
+  provincia: String!
+  comune: String!
   description: String!
   views: Int!
   postedBy(where: UserWhereInput): User!
@@ -531,46 +533,126 @@ input PostWhereInput {
 
   """All values not ending with the given string."""
   field_not_ends_with: String
-  location: String
+  regione: String
 
   """All values that are not equal to given value."""
-  location_not: String
+  regione_not: String
 
   """All values that are contained in given list."""
-  location_in: [String!]
+  regione_in: [String!]
 
   """All values that are not contained in given list."""
-  location_not_in: [String!]
+  regione_not_in: [String!]
 
   """All values less than the given value."""
-  location_lt: String
+  regione_lt: String
 
   """All values less than or equal the given value."""
-  location_lte: String
+  regione_lte: String
 
   """All values greater than the given value."""
-  location_gt: String
+  regione_gt: String
 
   """All values greater than or equal the given value."""
-  location_gte: String
+  regione_gte: String
 
   """All values containing the given string."""
-  location_contains: String
+  regione_contains: String
 
   """All values not containing the given string."""
-  location_not_contains: String
+  regione_not_contains: String
 
   """All values starting with the given string."""
-  location_starts_with: String
+  regione_starts_with: String
 
   """All values not starting with the given string."""
-  location_not_starts_with: String
+  regione_not_starts_with: String
 
   """All values ending with the given string."""
-  location_ends_with: String
+  regione_ends_with: String
 
   """All values not ending with the given string."""
-  location_not_ends_with: String
+  regione_not_ends_with: String
+  provincia: String
+
+  """All values that are not equal to given value."""
+  provincia_not: String
+
+  """All values that are contained in given list."""
+  provincia_in: [String!]
+
+  """All values that are not contained in given list."""
+  provincia_not_in: [String!]
+
+  """All values less than the given value."""
+  provincia_lt: String
+
+  """All values less than or equal the given value."""
+  provincia_lte: String
+
+  """All values greater than the given value."""
+  provincia_gt: String
+
+  """All values greater than or equal the given value."""
+  provincia_gte: String
+
+  """All values containing the given string."""
+  provincia_contains: String
+
+  """All values not containing the given string."""
+  provincia_not_contains: String
+
+  """All values starting with the given string."""
+  provincia_starts_with: String
+
+  """All values not starting with the given string."""
+  provincia_not_starts_with: String
+
+  """All values ending with the given string."""
+  provincia_ends_with: String
+
+  """All values not ending with the given string."""
+  provincia_not_ends_with: String
+  comune: String
+
+  """All values that are not equal to given value."""
+  comune_not: String
+
+  """All values that are contained in given list."""
+  comune_in: [String!]
+
+  """All values that are not contained in given list."""
+  comune_not_in: [String!]
+
+  """All values less than the given value."""
+  comune_lt: String
+
+  """All values less than or equal the given value."""
+  comune_lte: String
+
+  """All values greater than the given value."""
+  comune_gt: String
+
+  """All values greater than or equal the given value."""
+  comune_gte: String
+
+  """All values containing the given string."""
+  comune_contains: String
+
+  """All values not containing the given string."""
+  comune_not_contains: String
+
+  """All values starting with the given string."""
+  comune_starts_with: String
+
+  """All values not starting with the given string."""
+  comune_not_starts_with: String
+
+  """All values ending with the given string."""
+  comune_ends_with: String
+
+  """All values not ending with the given string."""
+  comune_not_ends_with: String
   description: String
 
   """All values that are not equal to given value."""
@@ -680,6 +762,8 @@ type User {
   email: String!
   posts: [Post!]!
   applications: [Application!]!
+  nome: String!
+  cognome: String!
 }
 
 enum UserOrderByInput {
@@ -689,8 +773,10 @@ enum UserOrderByInput {
   email_DESC
   password_ASC
   password_DESC
-  name_ASC
-  name_DESC
+  nome_ASC
+  nome_DESC
+  cognome_ASC
+  cognome_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -826,46 +912,86 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   password_not_ends_with: String
-  name: String
+  nome: String
 
   """All values that are not equal to given value."""
-  name_not: String
+  nome_not: String
 
   """All values that are contained in given list."""
-  name_in: [String!]
+  nome_in: [String!]
 
   """All values that are not contained in given list."""
-  name_not_in: [String!]
+  nome_not_in: [String!]
 
   """All values less than the given value."""
-  name_lt: String
+  nome_lt: String
 
   """All values less than or equal the given value."""
-  name_lte: String
+  nome_lte: String
 
   """All values greater than the given value."""
-  name_gt: String
+  nome_gt: String
 
   """All values greater than or equal the given value."""
-  name_gte: String
+  nome_gte: String
 
   """All values containing the given string."""
-  name_contains: String
+  nome_contains: String
 
   """All values not containing the given string."""
-  name_not_contains: String
+  nome_not_contains: String
 
   """All values starting with the given string."""
-  name_starts_with: String
+  nome_starts_with: String
 
   """All values not starting with the given string."""
-  name_not_starts_with: String
+  nome_not_starts_with: String
 
   """All values ending with the given string."""
-  name_ends_with: String
+  nome_ends_with: String
 
   """All values not ending with the given string."""
-  name_not_ends_with: String
+  nome_not_ends_with: String
+  cognome: String
+
+  """All values that are not equal to given value."""
+  cognome_not: String
+
+  """All values that are contained in given list."""
+  cognome_in: [String!]
+
+  """All values that are not contained in given list."""
+  cognome_not_in: [String!]
+
+  """All values less than the given value."""
+  cognome_lt: String
+
+  """All values less than or equal the given value."""
+  cognome_lte: String
+
+  """All values greater than the given value."""
+  cognome_gt: String
+
+  """All values greater than or equal the given value."""
+  cognome_gte: String
+
+  """All values containing the given string."""
+  cognome_contains: String
+
+  """All values not containing the given string."""
+  cognome_not_contains: String
+
+  """All values starting with the given string."""
+  cognome_starts_with: String
+
+  """All values not starting with the given string."""
+  cognome_not_starts_with: String
+
+  """All values ending with the given string."""
+  cognome_ends_with: String
+
+  """All values not ending with the given string."""
+  cognome_not_ends_with: String
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput

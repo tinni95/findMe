@@ -5,9 +5,10 @@ import { SignUp } from "../../mutations/AuthenticationStack";
 import { isSmallDevice } from "../../constants/Layout"
 import { AsyncStorage } from "react-native";
 import { Bold } from "../../components/StyledText"
-const TOKEN_KEY = "apsofjkcaoisll032ir";
+import { TOKEN_KEY } from "../../shared/Token";
 import RoundButtonEmpty from "../../components/shared/RoundButtonEmptySignUpScreen";
 import { validateEmail, validateName, validatePassword, validateRePassword } from "./validators"
+import FormStyles from "./FormStyles"
 
 const _asyncStorageSaveToken = async token => {
     await AsyncStorage.setItem(TOKEN_KEY, token);
@@ -98,9 +99,9 @@ export default class SignUpScreenCompany extends AvoidingView {
                 }
                 <ScrollView>
                     <View style={styles.formContainer}>
-                        <Bold style={{ marginTop: 20, color: "#5F5E5E" }}>Contatto Personale</Bold>
+                        <Bold style={{ marginLeft: 5, marginBottom: 15, color: "#5F5E5E" }}>Contatto Personale</Bold>
                         <TextInput
-                            style={this.state.emailError ? styles.inputError : styles.input}
+                            style={this.state.emailError ? FormStyles.inputError : FormStyles.input}
                             placeholder='Email'
                             autoCapitalize="none"
                             placeholderTextColor='#ADADAD'
@@ -108,9 +109,9 @@ export default class SignUpScreenCompany extends AvoidingView {
                             ref={(input) => this.email = input}
                             onSubmitEditing={() => this.password.focus()}
                         />
-                        {this.state.emailError ? <Bold style={styles.error}>Email non valida</Bold> : <View style={styles.separator} />}
+                        {this.state.emailError ? <Bold style={FormStyles.error}>Email non valida</Bold> : <View style={styles.separator} />}
                         <TextInput
-                            style={this.state.passwordError ? styles.inputError : styles.input}
+                            style={this.state.passwordError ? FormStyles.inputError : FormStyles.input}
                             placeholder='Password'
                             secureTextEntry={true}
                             autoCapitalize="none"
@@ -119,9 +120,9 @@ export default class SignUpScreenCompany extends AvoidingView {
                             ref={(input) => this.password = input}
                             onSubmitEditing={() => this.repassword.focus()}
                         />
-                        {this.state.passwordError ? <Bold style={styles.error}>Password non valida</Bold> : <View style={styles.separator} />}
+                        {this.state.passwordError ? <Bold style={FormStyles.error}>Password non valida</Bold> : <View style={styles.separator} />}
                         <TextInput
-                            style={this.state.repasswordError ? styles.inputError : styles.input}
+                            style={this.state.repasswordError ? FormStyles.inputError : FormStyles.input}
                             placeholder='Ripeti Password'
                             autoCapitalize="none"
                             secureTextEntry={true}
@@ -130,10 +131,10 @@ export default class SignUpScreenCompany extends AvoidingView {
                             ref={(input) => this.repassword = input}
                             onSubmitEditing={() => this.companyName.focus()}
                         />
-                        {this.state.repasswordError ? <Bold style={styles.error}>Le password non corrispondono</Bold> : <View style={styles.separator} />}
-                        <Bold style={{ marginTop: 20, color: "#5F5E5E" }}>Compagnia</Bold>
+                        {this.state.repasswordError ? <Bold style={FormStyles.error}>Le password non corrispondono</Bold> : <View style={styles.separator} />}
+                        <Bold style={{ marginLeft: 5, marginTop: 10, marginBottom: 15, color: "#5F5E5E" }}>Compagnia</Bold>
                         <TextInput
-                            style={this.state.companyNameError ? styles.inputError : styles.input}
+                            style={this.state.companyNameError ? FormStyles.inputError : FormStyles.input}
                             placeholder='Nome Compagnia'
                             autoCapitalize="none"
                             placeholderTextColor='#ADADAD'
@@ -141,9 +142,9 @@ export default class SignUpScreenCompany extends AvoidingView {
                             onSubmitEditing={() => this.companySector.focus()}
                             ref={(input) => this.companyName = input}
                         />
-                        {this.state.companyNameError ? <Bold style={styles.error}>Campo obbligatorio</Bold> : <View style={styles.separator} />}
+                        {this.state.companyNameError ? <Bold style={FormStyles.error}>Campo obbligatorio</Bold> : <View style={styles.separator} />}
                         <TextInput
-                            style={this.state.companySectorError ? styles.inputError : styles.input}
+                            style={this.state.companySectorError ? FormStyles.inputError : FormStyles.input}
                             placeholder='Settore'
                             autoCapitalize="none"
                             placeholderTextColor='#ADADAD'
@@ -151,7 +152,7 @@ export default class SignUpScreenCompany extends AvoidingView {
                             onChangeText={val => this.onChangeText('companySector', val)}
                             onSubmitEditing={this.handleSubmit}
                         />
-                        {this.state.companySectorError ? <Bold style={styles.error}>Campo obbligatorio</Bold> : <View style={styles.separator} />}
+                        {this.state.companySectorError ? <Bold style={FormStyles.error}>Campo obbligatorio</Bold> : <View style={styles.separator} />}
                     </View>
                     {this.state.keyboardShown ? <View style={{ height: 500 }}></View> : null}
                 </ScrollView>
@@ -170,62 +171,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#FFFFFF"
     },
-    input: {
-        width: "100%",
-        height: 55,
-        padding: 8,
-        borderBottomWidth: 0.5,
-        color: '#5F5E5E',
-        borderRadius: 14,
-        fontSize: isSmallDevice ? 14 : 16,
-        fontWeight: '500',
-    },
-    inputError: {
-        width: "100%",
-        height: 55,
-        padding: 8,
-        borderBottomWidth: 0.5,
-        borderBottomColor: "red",
-        color: '#5F5E5E',
-        borderRadius: 14,
-        fontSize: isSmallDevice ? 14 : 16,
-        fontWeight: '500',
-    },
-    inputHalf: {
-        width: "100%",
-        height: 55,
-        padding: 8,
-        borderBottomWidth: 0.5,
-        color: '#5F5E5E',
-        borderRadius: 14,
-        fontSize: isSmallDevice ? 14 : 16,
-        fontWeight: '500',
-    },
-    inputHalfError: {
-        width: "100%",
-        height: 55,
-        padding: 8,
-        borderBottomWidth: 0.5,
-        color: '#5F5E5E',
-        borderRadius: 14,
-        borderBottomColor: "red",
-        fontSize: isSmallDevice ? 14 : 16,
-        fontWeight: '500',
-    },
-    inputHalfContainer: {
-        flexDirection: "column",
-        width: "50%"
-    },
-    inputHalfsContainer: {
-        flexDirection: "row"
-    },
     imageContainer: {
         alignItems: "center",
         justifyContent: "flex-start",
         marginTop: 20
     },
     formContainer: {
-        margin: isSmallDevice ? 20 : 30,
+        margin: isSmallDevice ? 20 : 20,
         marginTop: isSmallDevice ? 40 : 60,
         justifyContent: "center",
     },
@@ -237,14 +189,6 @@ const styles = StyleSheet.create({
     buttonText: {
         margin: isSmallDevice ? 5 : 15,
         color: "#AC8A8A"
-    },
-    error: {
-        color: "red",
-        textAlign: "right",
-        fontSize: isSmallDevice ? 10 : 12,
-        marginRight: 10,
-        marginTop: 2.5,
-        marginBottom: -10
     },
     separator: { height: 5 }
 })

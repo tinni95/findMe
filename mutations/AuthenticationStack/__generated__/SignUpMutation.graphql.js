@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 77c48d9a7e6bb46b295a8b3ceb4da417
+ * @relayHash 7797f380b116c019fd0d23f18ea548b0
  */
 
 /* eslint-disable */
@@ -12,7 +12,8 @@ import type { ConcreteRequest } from 'relay-runtime';
 export type SignUpMutationVariables = {|
   email: string,
   password: string,
-  name: string,
+  nome: string,
+  cognome: string,
 |};
 export type SignUpMutationResponse = {|
   +signup: ?{|
@@ -30,9 +31,10 @@ export type SignUpMutation = {|
 mutation SignUpMutation(
   $email: String!
   $password: String!
-  $name: String!
+  $nome: String!
+  $cognome: String!
 ) {
-  signup(email: $email, password: $password, name: $name) {
+  signup(email: $email, password: $password, nome: $nome, cognome: $cognome) {
     token
   }
 }
@@ -54,7 +56,13 @@ var v0 = [
   },
   {
     "kind": "LocalArgument",
-    "name": "name",
+    "name": "nome",
+    "type": "String!",
+    "defaultValue": null
+  },
+  {
+    "kind": "LocalArgument",
+    "name": "cognome",
     "type": "String!",
     "defaultValue": null
   }
@@ -68,13 +76,18 @@ v1 = [
     "args": [
       {
         "kind": "Variable",
+        "name": "cognome",
+        "variableName": "cognome"
+      },
+      {
+        "kind": "Variable",
         "name": "email",
         "variableName": "email"
       },
       {
         "kind": "Variable",
-        "name": "name",
-        "variableName": "name"
+        "name": "nome",
+        "variableName": "nome"
       },
       {
         "kind": "Variable",
@@ -115,11 +128,11 @@ return {
     "operationKind": "mutation",
     "name": "SignUpMutation",
     "id": null,
-    "text": "mutation SignUpMutation(\n  $email: String!\n  $password: String!\n  $name: String!\n) {\n  signup(email: $email, password: $password, name: $name) {\n    token\n  }\n}\n",
+    "text": "mutation SignUpMutation(\n  $email: String!\n  $password: String!\n  $nome: String!\n  $cognome: String!\n) {\n  signup(email: $email, password: $password, nome: $nome, cognome: $cognome) {\n    token\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '48e7ca7680d2dd51d0cf65673f7e2d77';
+(node/*: any*/).hash = '05b7083307509c559579a070d0b73c50';
 module.exports = node;

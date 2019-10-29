@@ -7,12 +7,14 @@ export const SignUpMutation = graphql`
     mutation SignUpMutation(
         $email: String!
         $password: String!
-        $name: String!
+        $nome: String!
+        $cognome: String!
     ) {
         signup(
             email: $email
             password: $password
-            name: $name
+            nome: $nome
+            cognome: $cognome
         ) {
           token
         }
@@ -22,14 +24,16 @@ export const SignUpMutation = graphql`
 export async function SignUp({
     email,
     password,
-    name
+    nome,
+    cognome
 }) {
     const response = commitMutation(environment, {
         mutation: SignUpMutation,
         variables: {
             email,
             password,
-            name
+            nome,
+            cognome
         },
     }).then(response => {
         return response

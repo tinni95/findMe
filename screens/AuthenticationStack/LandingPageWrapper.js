@@ -1,18 +1,23 @@
 import React from "react";
 import FindMeSpinner from "../../shared/relay/FindMeSpinner";
 import { AsyncStorage } from "react-native";
-const TOKEN_KEY = "apsofjkcaoisll032ir";
+import { TOKEN_KEY } from "../../shared/Token"
 
 const _asyncStorageGetToken = async () => {
-    await AsyncStorage.getItem(TOKEN_KEY);
+    return await AsyncStorage.getItem(TOKEN_KEY);
 };
 
 export default class LandingPageWrapper extends React.Component {
 
     async componentDidMount() {
         const token = await _asyncStorageGetToken();
-        if (token) this.props.navigation.navigate("MainTabNavigator");
-        else this.props.navigation.navigate("LandingPage");
+        console.log(token);
+        if (token) {
+            this.props.navigation.navigate("MainTabNavigator");
+        }
+        else {
+            this.props.navigation.navigate("LandingPage");
+        }
     }
 
     render() {

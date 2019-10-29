@@ -1,1 +1,1 @@
-export default Token = "apsofjkcaoisll032ir";
+export const TOKEN_KEY = "aspsofjkcaoisll032ir";

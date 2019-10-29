@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 337ed66d4e9b1cd21f8075837c25856d
+ * @relayHash 8cf48476c6a97beeeeff7b0d1add4682
  */
 
 /* eslint-disable */
@@ -49,7 +49,8 @@ fragment PostCardText_post on Post {
   title
   startDate
   field
-  location
+  comune
+  regione
 }
 
 fragment Fields_post on Post {
@@ -152,7 +153,14 @@ return {
           {
             "kind": "ScalarField",
             "alias": null,
-            "name": "location",
+            "name": "comune",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "regione",
             "args": null,
             "storageKey": null
           },
@@ -191,7 +199,7 @@ return {
     "operationKind": "query",
     "name": "ExploreQueryRendererQuery",
     "id": null,
-    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...Explore_post\n    ...PostCard_post\n    id\n  }\n}\n\nfragment Explore_post on Post {\n  title\n  description\n}\n\nfragment PostCard_post on Post {\n  id\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  startDate\n  field\n  location\n}\n\nfragment Fields_post on Post {\n  positions {\n    available\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n",
+    "text": "query ExploreQueryRendererQuery {\n  postsFeed {\n    ...Explore_post\n    ...PostCard_post\n    id\n  }\n}\n\nfragment Explore_post on Post {\n  title\n  description\n}\n\nfragment PostCard_post on Post {\n  id\n  ...PostCardText_post\n  ...Fields_post\n  ...Views_post\n}\n\nfragment PostCardText_post on Post {\n  title\n  startDate\n  field\n  comune\n  regione\n}\n\nfragment Fields_post on Post {\n  positions {\n    available\n    field\n    id\n  }\n}\n\nfragment Views_post on Post {\n  views\n}\n",
     "metadata": {}
   }
 };

@@ -10,10 +10,12 @@ import {
 import { AsyncStorage } from "react-native";
 import { graphlEndPoint } from "../urls";
 import { retryDelayInMillisecondsForAttemptNumber } from "./exponentialBackoff";
-const TOKEN_KEY = "apsosfjkcaoisll032ir";
+import { TOKEN_KEY } from "../Token"
 
 const _asyncStorageGetToken = async () => {
-    return await AsyncStorage.getItem(TOKEN_KEY);
+    const token = await AsyncStorage.getItem(TOKEN_KEY);
+    console.log(token);
+    return token
 };
 
 const middlewares = [

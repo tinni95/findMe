@@ -1,11 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import Profile from '../../components/TabBarIcons/Profile';
-import SettingsScreen from '../../screens/SettingsScreen';
+import ProfilePageQueryRenderer from '../../screens/ProfileStack';
 
 const ProfileStack = createStackNavigator(
     {
-        SettingsScreen,
+        ProfilePageQueryRenderer,
     }
 );
 
