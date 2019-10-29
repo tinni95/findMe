@@ -129,8 +129,8 @@ export default class SignUpScreenCompany extends AvoidingView {
             {this.state.emailError ? (
               <Bold style={FormStyles.error}>Email non valida</Bold>
             ) : (
-              <View style={styles.separator} />
-            )}
+                <View style={styles.separator} />
+              )}
             <TextInput
               style={this.state.passwordError ? FormStyles.inputError : FormStyles.input}
               placeholder="Password"
@@ -144,8 +144,8 @@ export default class SignUpScreenCompany extends AvoidingView {
             {this.state.passwordError ? (
               <Bold style={FormStyles.error}>Password non valida</Bold>
             ) : (
-              <View style={styles.separator} />
-            )}
+                <View style={styles.separator} />
+              )}
             <TextInput
               style={this.state.repasswordError ? FormStyles.inputError : FormStyles.input}
               placeholder="Ripeti Password"
@@ -159,9 +159,9 @@ export default class SignUpScreenCompany extends AvoidingView {
             {this.state.repasswordError ? (
               <Bold style={FormStyles.error}>Le password non corrispondono</Bold>
             ) : (
-              <View style={styles.separator} />
-            )}
-            <Bold style={{ marginLeft: 5, marginTop: 10, marginBottom: 15, color: '#5F5E5E' }}>
+                <View style={styles.separator} />
+              )}
+            <Bold style={{ marginLeft: 5, marginTop: 15, marginBottom: 15, color: '#5F5E5E' }}>
               Compagnia
             </Bold>
             <TextInput
@@ -176,8 +176,8 @@ export default class SignUpScreenCompany extends AvoidingView {
             {this.state.companyNameError ? (
               <Bold style={FormStyles.error}>Campo obbligatorio</Bold>
             ) : (
-              <View style={styles.separator} />
-            )}
+                <View style={styles.separator} />
+              )}
             <TextInput
               style={this.state.companySectorError ? FormStyles.inputError : FormStyles.input}
               placeholder="Settore"
@@ -190,8 +190,8 @@ export default class SignUpScreenCompany extends AvoidingView {
             {this.state.companySectorError ? (
               <Bold style={FormStyles.error}>Campo obbligatorio</Bold>
             ) : (
-              <View style={styles.separator} />
-            )}
+                <View style={styles.separator} />
+              )}
           </View>
           {this.state.keyboardShown ? <View style={{ height: 500 }} /> : null}
         </ScrollView>

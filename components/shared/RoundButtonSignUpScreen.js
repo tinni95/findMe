@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   container: {
     margin: 10,
     borderRadius: 25,
-    borderWidth: 1,
     padding: isSmallDevice ? 7.5 : 10,
     height: isSmallDevice ? 30 : 40
   },

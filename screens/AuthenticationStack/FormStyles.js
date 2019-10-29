@@ -9,6 +9,7 @@ export default FormStyles = StyleSheet.create({
     borderBottomWidth: 0.5,
     color: '#5F5E5E',
     borderRadius: 14,
+    borderBottomColor: '#B19393',
     fontSize: isSmallDevice ? 14 : 16,
     fontWeight: '500'
   },
@@ -30,6 +31,7 @@ export default FormStyles = StyleSheet.create({
     borderBottomWidth: 0.5,
     color: '#5F5E5E',
     borderRadius: 14,
+    borderBottomColor: '#B19393',
     fontSize: isSmallDevice ? 14 : 16,
     fontWeight: '500'
   },
