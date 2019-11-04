@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Bold, Light } from '../../../components/StyledText';
 
-export default FiltersModalHeader = ({ setModalVisible }) => {
+export const FiltersModalHeader = ({ setModalVisible }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => setModalVisible(false)}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import LinksScreen from '../../screens/LinksScreen';
-import House from '../../components/TabBarIcons/House';
+import TabBarIcon from '../../components/TabBarIcon';
 
 const LinksStack = createStackNavigator({
   LinksScreen
@@ -9,7 +9,7 @@ const LinksStack = createStackNavigator({
 
 LinksStack.navigationOptions = {
   tabBarLabel: 'Esplora',
-  tabBarIcon: ({ focused }) => <House focused={focused} />
+  tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-home"} focused={focused} />
 };
 
 LinksStack.path = '';

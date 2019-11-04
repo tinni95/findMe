@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, View, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default InsertFlowHome = ({ navigation: { navigate } }) => {
+export const InsertFlowHome = ({ navigation: { navigate } }) => {
   return (
     <View style={styles.container}>
       <Image

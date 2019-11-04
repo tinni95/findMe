@@ -2,14 +2,13 @@ import React from 'react';
 import { View, StyleSheet, Image, TextInput, AsyncStorage } from 'react-native';
 import * as Facebook from 'expo-facebook';
 import AvoidingView from './AvoidingView';
-import { SignUp } from '../../mutations/AuthenticationStack';
 import { isSmallDevice } from '../../constants/Layout';
 import { Bold } from '../../components/StyledText';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButtonEmpty from '../../components/shared/RoundButtonEmptySignUpScreen';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { validateEmail, validateName, validatePassword, validateRePassword } from './validators';
-import FormStyles from './FormStyles';
+import {FormStyles} from './FormStyles';
 
 const _asyncStorageSaveToken = async token => {
   await AsyncStorage.setItem(TOKEN_KEY, token);

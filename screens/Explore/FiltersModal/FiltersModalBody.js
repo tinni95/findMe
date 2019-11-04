@@ -3,7 +3,7 @@ import { View, StyleSheet, Platform } from 'react-native';
 import { Bold, Light } from '../../../components/StyledText';
 import { width } from '../../../constants/Layout';
 
-export default FiltersModalBody = ({ setModalVisible }) => {
+export const FiltersModalBody = ({ setModalVisible }) => {
   return <View style={styles.container} />;
 };
 

@@ -1,4 +1,3 @@
-import InsertFlowHome from './InsertFlowHome';
-import InsertSecondScreen from './step2';
+import {InsertFlowHome} from './InsertFlowHome';
 
-export { InsertFlowHome, InsertSecondScreen };
+export { InsertFlowHome };

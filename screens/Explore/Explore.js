@@ -1,12 +1,10 @@
 import React from 'react';
-import { View, ScrollView, Modal, StyleSheet } from 'react-native';
-import { graphql, createFragmentContainer } from 'react-relay';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import PostCard from '../../components/PostCard';
 
 import SearchHeader from '../../components/SearchHeader';
-import FiltersModal from './FiltersModal';
 
-export class Explore extends React.Component {
+export default class Explore extends React.Component {
   state = {
     search: '',
     modalVisible: false
@@ -37,10 +35,7 @@ export class Explore extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <FiltersModal
-          modalVisible={this.state.modalVisible}
-          setModalVisible={this.setModalVisible}
-        />
+
         <SearchHeader
           setModalVisible={this.setModalVisible}
           search={this.state.search}
@@ -68,11 +63,3 @@ Explore.navigationOptions = {
   header: null
 };
 
-export default createFragmentContainer(Explore, {
-  post: graphql`
-    fragment Explore_post on Post {
-      title
-      description
-    }
-  `
-});

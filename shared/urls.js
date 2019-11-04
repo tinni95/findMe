@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import {Platform} from "react-native";
 
 const getLocalHostName = () => {
   // assumes you are running on LAN mode and running the server locally on port 5000
@@ -10,4 +11,4 @@ const getLocalHostName = () => {
   return hostname;
 };
 
-export const graphlEndPoint = 'http://localhost:4000/'.replace('localhost', getLocalHostName());
+export const graphlEndPoint = Platform.OS === "web"? "http://localhost:4000/":'http://localhost:4000/'.replace('localhost', getLocalHostName());

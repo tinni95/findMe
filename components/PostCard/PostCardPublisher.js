@@ -1,18 +1,16 @@
 import React from 'react';
 import { Text, StyleSheet, Image, View } from 'react-native';
-import People from '../../assets/images/people.svg';
 import { isSmallDevice } from '../../constants/Layout';
 
 const authorInfo = () => {
   return (
     <View style={styles.authorInfo}>
-      <People style={{ marginTop: -5, marginLeft: 2 }} width={20} height={20} fill="#3B3B3B" />
       <Text style={styles.authorInfoText}>Membri (2)</Text>
     </View>
   );
 };
 
-export default PostCardPublisher = ({ post: { positions } }) => {
+export const PostCardPublisher = ({ post: { positions } }) => {
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>

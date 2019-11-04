@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, View } from 'react-native';
-import FiltersModalHeader from './FiltersModalHeader';
-import FiltersModalBody from './FiltersModalBody';
+import {FiltersModalHeader} from './FiltersModalHeader';
+import {FiltersModalBody} from './FiltersModalBody';
 
 export default class FiltersModal extends React.Component {
   render() {

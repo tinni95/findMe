@@ -78,15 +78,3 @@ const styles = StyleSheet.create({
     flex: 9
   }
 });
-
-export default createFragmentContainer(PostCardText, {
-  post: graphql`
-    fragment PostCardText_post on Post {
-      title
-      startDate
-      field
-      comune
-      regione
-    }
-  `
-});

@@ -1,15 +1,15 @@
 import React from 'react';
 import { StyleSheet, View, Platform } from 'react-native';
-import { graphql, createFragmentContainer } from 'react-relay';
 import { LinearGradient } from 'expo-linear-gradient';
 import { width } from '../../constants/Layout';
-import PostCardPublisher from './PostCardPublisher';
-import PostCardText from './PostCardText';
-import Fields from './Fields';
+import {PostCardPublisher} from './PostCardPublisher';
+import {PostCardText} from './PostCardText';
+import {Fields} from './Fields';
 import RoundButton from '../shared/RoundButton';
 
-export const PostCard = ({ post, navigation: { navigate } }) => {
+export const PostCard = ({ post, navigation }) => {
   return (
+    <View style={styles.wrapper}>
     <View style={styles.card}>
       <View style={styles.body}>
         <PostCardPublisher post={post} />
@@ -22,7 +22,7 @@ export const PostCard = ({ post, navigation: { navigate } }) => {
           <RoundButton
             text="Scopri di Più"
             onPress={() =>
-              navigate('PostScreenQueryRenderer', {
+              navigation.navigate('PostScreenQueryRenderer', {
                 id: post.id
               })
             }
@@ -31,10 +31,14 @@ export const PostCard = ({ post, navigation: { navigate } }) => {
         </View>
       </View>
     </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapper:{
+    alignItems:"center"
+  },
   card: {
     height: 200,
     width,
@@ -49,6 +53,11 @@ const styles = StyleSheet.create({
       },
       android: {
         elevation: 20
+      },
+      web:{
+        borderBottomColor: '#EBEBEB',
+        borderBottomWidth: 4,
+        width:"50%"
       }
     })
   },
@@ -71,13 +80,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default createFragmentContainer(PostCard, {
-  post: graphql`
-    fragment PostCard_post on Post {
-      id
-      ...PostCardText_post
-      ...Fields_post
-      ...Views_post
-    }
-  `
-});

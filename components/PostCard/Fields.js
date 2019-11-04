@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { graphql, createFragmentContainer } from 'react-relay';
 import FieldIconRound from '../FieldIcons';
 
 export const Fields = ({ post: { positions } }) => {
@@ -29,13 +28,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default createFragmentContainer(Fields, {
-  post: graphql`
-    fragment Fields_post on Post {
-      positions {
-        available
-        field
-      }
-    }
-  `
-});
+

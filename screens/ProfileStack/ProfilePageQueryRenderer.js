@@ -1,30 +1,25 @@
 import React from 'react';
-import FindMeRelayQueryRenderer from '../../shared/relay/FindMeRelayQueryRenderer';
-import ProfilePage from './ProfilePage';
-import environment from '../../shared/relay/environment';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import ProfilePage from "./ProfilePage"
+import FindMeSpinner from "../../shared/FindMeSpinner"
+import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 
-export default class ProfilePageQueryRenderer extends React.Component {
-  render() {
-    return (
-      <FindMeRelayQueryRenderer
-        environment={environment}
-        query={graphql`
-          query ProfilePageQueryRendererQuery {
-            currentUser {
-              email
-            }
-          }
-        `}
-        render={this.queryRender}
-      />
-    );
+const User = gql`
+  {
+    currentUser {
+      email
+    }
   }
+`;
 
-  queryRender = ({ props: { currentUser } }) => {
-    return <ProfilePage navigation={this.props.navigation} user={currentUser} />;
-  };
+export default function ProfilePageRenderer() {
+  const { loading, error, data } = useQuery(User);
+
+  if (loading) return <FindMeSpinner/>;
+  if (error) return <FindMeGraphQlErrorDisplay/>;
+
+  return <ProfilePage user={data.currentUser} />;
 }
 
-ProfilePageQueryRenderer.navigationOptions = {
-  header: null
-};
+

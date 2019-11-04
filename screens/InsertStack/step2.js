@@ -31,7 +31,7 @@ const onPageChange = (setCurrentPosition, currentPosition) => {
   setCurrentPosition(currentPosition);
 };
 
-export default InsertSecondScreen = ({ navigation: { navigate } }) => {
+export const InsertSecondScreen = ({ navigation: { navigate } }) => {
   const [currentPosition, setCurrentPosition] = useState(0);
 
   return (

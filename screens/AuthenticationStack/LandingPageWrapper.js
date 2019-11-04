@@ -1,6 +1,6 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
-import FindMeSpinner from '../../shared/relay/FindMeSpinner';
+import FindMeSpinner from '../../shared/FindMeSpinner';
 import { TOKEN_KEY } from '../../shared/Token';
 
 const _asyncStorageGetToken = async () => {
@@ -14,7 +14,7 @@ export default class LandingPageWrapper extends React.Component {
     if (token) {
       this.props.navigation.navigate('MainTabNavigator');
     } else {
-      this.props.navigation.navigate('LandingPage');
+      this.props.navigation.navigate('MainTabNavigator');
     }
   }
 

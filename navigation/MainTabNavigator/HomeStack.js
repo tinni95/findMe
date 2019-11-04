@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import Lamp from '../../components/TabBarIcons/Lamp';
+import TabBarIcon from '../../components/TabBarIcon';
 import ExploreQueryRenderer from '../../screens/Explore';
 import PostScreenQueryRenderer from '../../screens/Post';
 
@@ -11,7 +11,7 @@ const HomeStack = createStackNavigator({
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Post idea',
-  tabBarIcon: ({ focused }) => <Lamp focused={focused} />
+  tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-bulb"} focused={focused} />
 };
 
 HomeStack.path = '';

@@ -1,37 +1,21 @@
 import React from 'react';
-import { StyleSheet, Image, View, Platform } from 'react-native';
-import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import { StyleSheet, View, Platform, ScrollView } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
-import PostScreenHeader from '../../components/PostScreenHeader';
+import {PostScreenHeader} from '../../components/PostScreenHeader';
 import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import Tabs from '../../components/shared/Tabs';
-import PositionCard from '../../components/PositionCard';
+import {PositionCard} from '../../components/PositionCard';
 
 export default class PostScreen extends React.Component {
   positionCards = () => {
-    return this.props.post.positions.map((position) => {
-      return <PositionCard navigation={this.props.navigation} key={position.id} position={position} />;
+    return this.props.post.positions.map((position,index) => {
+      return <PositionCard navigation={this.props.navigation} key={index} position={position} />;
     });
   };
 
   render() {
     return (
-      <ParallaxScrollView
-        style={styles.parallaxScrollView}
-        showsVerticalScrollIndicator={false}
-        parallaxHeaderHeight={150}
-        renderBackground={() => (
-          <Image resizeMode="contain" source={require('../../assets/images/postHeader.png')} />
-        )}
-        renderForeground={() => (
-          <View style={{ height: 300, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <PostScreenHeader
-              name={"Giovanni D'Amico"}
-              image={require('../../assets/images/placeholder.png')}
-            />
-          </View>
-        )}>
         <View style={styles.contentContainer}>
           <Bold style={styles.title}>{this.props.post.title}</Bold>
           <LocationWithText
@@ -56,9 +40,10 @@ export default class PostScreen extends React.Component {
               </View>
             )}
           />
+          <ScrollView style={{height:500}}>
+          {this.positionCards()}
+          </ScrollView>
         </View>
-        {this.positionCards()}
-      </ParallaxScrollView>
     );
   }
 }
@@ -88,19 +73,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   contentContainer: {
-    marginTop: 5,
-    backgroundColor: 'white',
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      }
-    })
+    flex:1,
   }
 });
 

@@ -8,6 +8,7 @@ import Engineering from '../../assets/images/engineer.svg';
 import Movie from '../../assets/images/masks.svg';
 import Other from '../../assets/images/worldwide.svg';
 import Law from '../../assets/images/auction.svg';
+import { Ionicons } from "@expo/vector-icons";
 
 const components = {
   Science,
@@ -25,11 +26,11 @@ export default function FieldIcon(props) {
     components[props.field] === undefined ? components.Other : components[props.field];
 
   return (
-    <FieldIcon
-      style={{ marginTop: 8 }}
-      width={props.size ? props.size : 20}
-      height={props.size ? props.size : 20}
-      fill={props.color}
-    />
+    <Ionicons
+    name={"ios-add"}
+    size={26}
+    style={{ marginBottom: -3 }}
+    color={"black"}
+  />
   );
 }

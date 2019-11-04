@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet, Image, TextInput, AsyncStorage } from 'react-native';
 import AvoidingView from './AvoidingView';
-import { SignUp } from '../../mutations/AuthenticationStack';
 import { isSmallDevice } from '../../constants/Layout';
 
 import { Bold } from '../../components/StyledText';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButtonEmpty from '../../components/shared/RoundButtonEmptySignUpScreen';
 import { validateEmail, validateName, validatePassword, validateRePassword } from './validators';
-import FormStyles from './FormStyles';
+import {FormStyles} from './FormStyles';
 
 const _asyncStorageSaveToken = async token => {
   await AsyncStorage.setItem(TOKEN_KEY, token);

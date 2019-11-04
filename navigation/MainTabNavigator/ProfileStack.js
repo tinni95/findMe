@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import Profile from '../../components/TabBarIcons/Profile';
+import TabBarIcon from '../../components/TabBarIcon';
 import ProfilePageQueryRenderer from '../../screens/ProfileStack';
 
 const ProfileStack = createStackNavigator({
@@ -9,7 +9,7 @@ const ProfileStack = createStackNavigator({
 
 ProfileStack.navigationOptions = {
   tabBarLabel: 'Profilo',
-  tabBarIcon: ({ focused }) => <Profile focused={focused} />
+  tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-contact"} focused={focused} />
 };
 
 ProfileStack.path = '';

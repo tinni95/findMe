@@ -1,37 +1,35 @@
 import React from 'react';
-import FindMeRelayQueryRenderer from '../../shared/relay/FindMeRelayQueryRenderer';
-import PostScreen from './PostScreen';
-import environment from '../../shared/relay/environment';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import FindMeSpinner from "../../shared/FindMeSpinner"
+import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
+import PostScreen from "./PostScreen";
 
-export default class PostScreenQueryRenderer extends React.Component {
-  render() {
-    return (
-      <FindMeRelayQueryRenderer
-        environment={environment}
-        query={graphql`
-          query PostScreenQueryRendererQuery($postId: ID!) {
-            singlePost(id: $postId) {
-              description
-              title
-              comune
-              regione
-              positions {
-                title
-                available
-                field
-              }
-            }
-          }
-        `}
-        variables={{
-          postId: this.props.navigation.getParam('id')
-        }}
-        render={this.queryRender}
-      />
-    );
+const Post = gql`
+query PostScreenQueryRendererQuery($postId: ID!) {
+  singlePost(id: $postId) {
+    id
+    description
+    title
+    comune
+    regione
+    positions {
+      title
+      available
+      field
+    }
   }
-
-  queryRender = ({ props: { singlePost } }) => {
-    return <PostScreen post={singlePost} />;
-  };
 }
+`;
+
+export default function ProfilePageQueryRenderer({navigation}) {
+  console.log(navigation)
+  const { loading, error, data } = useQuery(Post,{ variables: { postId:navigation.getParam("id") }});
+
+  if (loading) return <FindMeSpinner/>;
+  if (error) return <FindMeGraphQlErrorDisplay/>;
+
+  return <PostScreen post={data.singlePost} />;
+}
+
+

@@ -2,10 +2,25 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 import AppNavigator from './navigation/AppNavigator';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+import {graphlEndPoint} from "./shared/urls";
+import {TOKEN_KEY} from "./shared/Token"
+
+const client = new ApolloClient({
+  request: async (operation) => {
+    const token = await AsyncStorage.getItem(TOKEN_KEY);
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    })
+  },
+  uri:graphlEndPoint
+})
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -20,10 +35,12 @@ export default function App(props) {
     );
   }
   return (
+    <ApolloProvider client={client}>
     <View style={styles.container}>
       {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
       <AppNavigator />
     </View>
+    </ApolloProvider>
   );
 }
 

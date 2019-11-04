@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { Bold } from './StyledText';
 
-export default function PostScreenHeader(props) {
+export function PostScreenHeader(props) {
   return (
     <View style={styles.container}>
       <Image resizeMode="contain" style={styles.image} source={props.image} />

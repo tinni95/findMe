@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Image, TextInput, AsyncStorage, StyleSheet } from 'react-native';
-import { Login } from '../../mutations/AuthenticationStack';
 import AvoidingView from './AvoidingView';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { isSmallDevice } from '../../constants/Layout';
-import FormStyles from './FormStyles';
+import {FormStyles} from './FormStyles';
 
 const _asyncStorageSaveToken = async token => {
     await AsyncStorage.setItem(TOKEN_KEY, token);

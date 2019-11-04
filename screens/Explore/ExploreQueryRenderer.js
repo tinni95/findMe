@@ -1,30 +1,38 @@
 import React from 'react';
-import FindMeRelayQueryRenderer from '../../shared/relay/FindMeRelayQueryRenderer';
-import Explore from './Explore';
-import environment from '../../shared/relay/environment';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import Explore from "./Explore"
+import FindMeSpinner from "../../shared/FindMeSpinner"
+import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 
-export default class ExploreQueryRenderer extends React.Component {
-  render() {
-    return (
-      <FindMeRelayQueryRenderer
-        environment={environment}
-        query={graphql`
-          query ExploreQueryRendererQuery {
-            postsFeed {
-              ...Explore_post
-              ...PostCard_post
-            }
-          }
-        `}
-        render={this.queryRender}
-      />
-    );
+const posts = gql`
+{
+  postsFeed {
+    id
+    title
+    description
+    startDate
+    field
+    comune
+    regione
+    positions{
+    id
+    available
+    field
+    }
   }
-
-  queryRender = ({ props: { postsFeed } }) => {
-    return <Explore navigation={this.props.navigation} posts={postsFeed} />;
-  };
 }
+`;
+
+export default function ExploreQueryRenderer({navigation}) {
+  const { loading, error, data } = useQuery(posts);
+
+  if (loading) return <FindMeSpinner/>;
+  if (error) return <FindMeGraphQlErrorDisplay/>;
+
+  return <Explore posts={data.postsFeed} navigation={navigation} />;
+}
+
 
 ExploreQueryRenderer.navigationOptions = {
   header: null

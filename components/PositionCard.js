@@ -3,7 +3,7 @@ import { View, StyleSheet, Platform } from 'react-native';
 import { Bold, Body, Light } from './StyledText';
 import FieldIconRound from './FieldIcons';
 import RoundButton from './shared/RoundButton';
-export default function PositionCard({ position }) {
+export function PositionCard({ position }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -74,7 +74,9 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   headerTextDescription: {
-    ...this.headerText,
+    margin: 10,
+    marginTop: 7.5,
+    marginBottom: 5,
     fontSize: 22
   },
   header: {
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
     marginRight: 5
   },
   container: {
+    height: Platform.OS=="web"?500:undefined,
     marginTop: 15,
     backgroundColor: 'white',
     ...Platform.select({
@@ -96,6 +99,11 @@ const styles = StyleSheet.create({
       },
       android: {
         elevation: 20
+      },
+      web:{
+        borderTopColor: '#EBEBEB',
+        borderTopWidth: 4,
+        width:"60%"
       }
     })
   },

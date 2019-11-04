@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
 
-export default FormStyles = StyleSheet.create({
+export const FormStyles = StyleSheet.create({
   input: {
     width: '100%',
     height: 45,
