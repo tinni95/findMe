@@ -8,12 +8,12 @@ import { isSmallDevice } from '../../constants/Layout';
 
 export default function SearchHeader({ setSearch, search, setModalVisible }) {
   return (
-    <LinearGradient colors={['#053144', '#26547C']} style={styles.container}>
+    <View style={styles.container}>
       <SearchBarComponent search={search} setSearch={setSearch} />
       <View style={styles.footer}>
         <FilterButton onPress={() => setModalVisible(true)} />
       </View>
-    </LinearGradient>
+    </View>
   );
 }
 
@@ -24,8 +24,10 @@ SearchHeader.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#02394D',
-    flex: isSmallDevice ? 1.9 : 1.4
+    backgroundColor: '#FFFFFF',
+    flex: isSmallDevice ? 1.9 : 1.4,
+    borderBottomColor:"#EBEBEB",
+    borderBottomWidth:0.3
   },
   footer: {
     flexDirection: 'row',

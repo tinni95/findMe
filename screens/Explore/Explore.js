@@ -35,7 +35,6 @@ export default class Explore extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-
         <SearchHeader
           setModalVisible={this.setModalVisible}
           search={this.state.search}

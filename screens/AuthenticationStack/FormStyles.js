@@ -8,7 +8,6 @@ export const FormStyles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 0.5,
     color: '#5F5E5E',
-    borderRadius: 14,
     borderBottomColor: '#B19393',
     fontSize: isSmallDevice ? 14 : 16,
     fontWeight: '500'
@@ -20,7 +19,6 @@ export const FormStyles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: 'red',
     color: '#5F5E5E',
-    borderRadius: 14,
     fontSize: isSmallDevice ? 14 : 16,
     fontWeight: '500'
   },
@@ -30,7 +28,6 @@ export const FormStyles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 0.5,
     color: '#5F5E5E',
-    borderRadius: 14,
     borderBottomColor: '#B19393',
     fontSize: isSmallDevice ? 14 : 16,
     fontWeight: '500'
@@ -41,7 +38,6 @@ export const FormStyles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 0.5,
     color: '#5F5E5E',
-    borderRadius: 14,
     borderBottomColor: 'red',
     fontSize: isSmallDevice ? 14 : 16,
     fontWeight: '500'
