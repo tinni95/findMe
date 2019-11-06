@@ -1,12 +1,12 @@
-import { createBrowserApp } from '@react-navigation/web';
-import { createSwitchNavigator } from 'react-navigation';
-import MainTabNavigator from './MainTabNavigator';
-import AuthenticationStack from './AuthenticationStack';
+import { createBrowserApp } from "@react-navigation/web";
+import { createSwitchNavigator } from "react-navigation";
+import MainTabNavigator from "./MainTabNavigator";
+import AuthenticationStack from "./AuthenticationStack";
 
 const switchNavigator = createSwitchNavigator({
   AuthenticationStack,
   MainTabNavigator
 });
-switchNavigator.path = '';
+switchNavigator.path = "";
 
-export default createBrowserApp(switchNavigator, { history: 'hash' });
+export default createBrowserApp(switchNavigator, { history: "hash" });

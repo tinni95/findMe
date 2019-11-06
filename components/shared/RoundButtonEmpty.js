@@ -9,7 +9,7 @@ export default function RoundButton(props) {
       <View
         style={[
           styles.container,
-          { borderColor: props.color, width: props.isLong ? 200 : undefined }
+          { borderColor: props.color, width: props.isLong ? 200 : 150 }
         ]}>
         <Bold style={[styles.text, { color: props.fontColor }]}>{props.text}</Bold>
       </View>
@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     borderWidth: 1,
     padding: isSmallDevice ? 7.5 : 10,
-    height: isSmallDevice ? 30 : 40
+    height: isSmallDevice ? 30 : 40,
+    marginBottom:15
   },
   text: {
     textAlign: 'center',

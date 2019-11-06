@@ -6,8 +6,8 @@ import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 
 const posts = gql`
-{
-  postsFeed {
+  query posts($filter:String,$settore:[String!]){
+  postsFeed(filter:$filter, settore: $settore) {
     id
     title
     description
@@ -22,10 +22,15 @@ const posts = gql`
     }
   }
 }
+
 `;
 
 export default function ExploreQueryRenderer({navigation}) {
-  const { loading, error, data } = useQuery(posts);
+  const filter = navigation.getParam("filter") || "";
+  const settore = navigation.getParam("settore") || null;
+  const { loading, error, data } = useQuery(posts,{
+    variables: {filter,settore}
+  });
 
   if (loading) return <FindMeSpinner/>;
   if (error) return <FindMeGraphQlErrorDisplay/>;

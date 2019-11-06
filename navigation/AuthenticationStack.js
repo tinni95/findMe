@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from "react-navigation";
 
 import {
   LoginScreen,
@@ -6,7 +6,7 @@ import {
   LandingPage,
   SignUpScreenUser,
   SignUpScreenCompany
-} from '../screens/AuthenticationStack';
+} from "../screens/AuthenticationStack";
 
 export default createStackNavigator({
   LandingPageWrapper,

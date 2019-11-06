@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
-import { Bold, Body, Light } from './StyledText';
-import FieldIconRound from './FieldIcons';
-import RoundButton from './shared/RoundButton';
+import React from "react";
+import { View, StyleSheet, Platform } from "react-native";
+import { Bold, Body, Light } from "./StyledText";
+import FieldIconRound from "./FieldIcons";
+import RoundButton from "./shared/RoundButton";
 export function PositionCard({ position }) {
   return (
     <View style={styles.container}>
@@ -28,16 +28,30 @@ export function PositionCard({ position }) {
         </View>
         <View style={styles.DescriptionItem}>
           <Body style={styles.DescriptionItemTitle}>Ruoli Principali</Body>
-          <Light style={styles.DescriptionItemBody}>-Organizzazione periodica eventi e feedback delle attività</Light>
-          <Light style={styles.DescriptionItemBody}>-Portavoce evangelistic nelle università e classi</Light>
-          <Light style={styles.DescriptionItemBody}>-social media communication</Light>
+          <Light style={styles.DescriptionItemBody}>
+            -Organizzazione periodica eventi e feedback delle attività
+          </Light>
+          <Light style={styles.DescriptionItemBody}>
+            -Portavoce evangelistic nelle università e classi
+          </Light>
+          <Light style={styles.DescriptionItemBody}>
+            -social media communication
+          </Light>
         </View>
         <View style={styles.spacer} />
         <View style={styles.DescriptionItem}>
-          <Body style={styles.DescriptionItemTitle}>Qualificazioni Richieste</Body>
-          <Light style={styles.DescriptionItemBody}>-Laurea magistrale in informatica</Light>
-          <Light style={styles.DescriptionItemBody}>-Conoscenza di Graphql e c++</Light>
-          <Light style={styles.DescriptionItemBody}>-5 anni di esperienza nello sviluppo android</Light>
+          <Body style={styles.DescriptionItemTitle}>
+            Qualificazioni Richieste
+          </Body>
+          <Light style={styles.DescriptionItemBody}>
+            -Laurea magistrale in informatica
+          </Light>
+          <Light style={styles.DescriptionItemBody}>
+            -Conoscenza di Graphql e c++
+          </Light>
+          <Light style={styles.DescriptionItemBody}>
+            -5 anni di esperienza nello sviluppo android
+          </Light>
         </View>
         <View style={styles.ButtonWrapper}>
           <RoundButton text={"CANDIDATI"} color={"#DD1E63"} />
@@ -60,7 +74,7 @@ const styles = StyleSheet.create({
   descriptionHeader: {
     paddingBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#D0D0D0'
+    borderBottomColor: "#D0D0D0"
   },
   description: {
     marginRight: 10,
@@ -80,19 +94,19 @@ const styles = StyleSheet.create({
     fontSize: 22
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   iconContainer: {
     marginRight: 5
   },
   container: {
-    height: Platform.OS=="web"?500:undefined,
+    height: Platform.OS == "web" ? 500 : undefined,
     marginTop: 15,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     ...Platform.select({
       ios: {
-        shadowColor: 'black',
+        shadowColor: "black",
         shadowOffset: { height: -15 },
         shadowOpacity: 0.1,
         shadowRadius: 3
@@ -100,30 +114,30 @@ const styles = StyleSheet.create({
       android: {
         elevation: 20
       },
-      web:{
-        borderTopColor: '#EBEBEB',
+      web: {
+        borderTopColor: "#EBEBEB",
         borderTopWidth: 4,
-        width:"60%"
+        width: "60%"
       }
     })
   },
   columns: {
     margin: 10,
     marginTop: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   column: {
-    flexDirection: 'column',
-    alignItems: 'flex-start'
+    flexDirection: "column",
+    alignItems: "flex-start"
   },
   columnHeader: {
     fontSize: 10,
-    color: '#ADADAD'
+    color: "#ADADAD"
   },
   columnText: {
     fontSize: 12,
-    color: '#002C3C'
+    color: "#002C3C"
   },
   spacer: {
     height: 10
