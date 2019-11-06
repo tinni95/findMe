@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     margin:Platform.OS == "web" ? 20: 10
   },
   subContainer:{
+    flex:1,
     flexDirection:"row"
   }
 });
