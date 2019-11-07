@@ -29,7 +29,13 @@ return (
         </View>
     </View>
 )}
-
+FiltersPage.navigationOptions={
+    title:"Filtri",
+    headerTintColor: '#5F5E5E',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+}
 const styles=StyleSheet.create({
 container:{
     flex:1
