@@ -56,7 +56,7 @@ export default class Explore extends React.Component {
           </View>
           </View>
           :
-          <View>
+          <View style={{flex:1}}>
           <Bold style={styles.resultText}>{this.props.posts.length} risultati</Bold>
           <ScrollView>{this.renderPosts()}</ScrollView>
           </View>

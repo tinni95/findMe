@@ -27,7 +27,8 @@ const posts = gql`
 
 export default function ExploreQueryRenderer({navigation}) {
   const filter = navigation.getParam("filter") || "";
-  const settore = navigation.getParam("settore") || null;
+  let settore = navigation.getParam("settore") || null;
+  settore = settore&&settore.length== 0 ? null :settore;
   const { loading, error, data } = useQuery(posts,{
 
     variables: settore?{filter,settore} : {filter}
