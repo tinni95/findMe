@@ -20,7 +20,7 @@ export const Fields = ({ post: { positions } }) => {
   else{
    fields = positions.map((position, index) => {
     return (
-      <Tooltip key={index} popover={<Text>{position.field}</Text>}>
+      <Tooltip key={index} backgroundColor={"#10476C"} popover={<Text style={{color:"white"}}>{position.field}</Text>}>
       <FieldIconRound
         available={position.available}
         color="#26547C"
