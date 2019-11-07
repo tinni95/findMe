@@ -1,202 +1,124 @@
-import React from 'react';
+import React, {useState,useRef} from 'react';
 import { View, ScrollView, StyleSheet, Image, TextInput, AsyncStorage } from 'react-native';
 import AvoidingView from './AvoidingView';
 import { isSmallDevice } from '../../constants/Layout';
-
+import FormTextInput from "./FormTextInput";
 import { Bold } from '../../components/StyledText';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButtonEmpty from '../../components/shared/RoundButtonEmptySignUpScreen';
 import { validateEmail, validateName, validatePassword, validateRePassword } from './validators';
-import {FormStyles} from './FormStyles';
 
 const _asyncStorageSaveToken = async token => {
   await AsyncStorage.setItem(TOKEN_KEY, token);
 };
 
-export default class SignUpScreenCompany extends AvoidingView {
-  constructor(props) {
-    super(props);
-    this.state = {
-      companySector: '',
-      companyName: '',
-      email: '',
-      password: '',
-      repassword: '',
-      companySectorError: '',
-      companyNameError: '',
-      emailError: '',
-      passwordError: '',
-      repasswordError: ''
-    };
-  }
+export default function SignUpScreenCompany(){
+  const [companySector,setCompanySector]= useState("");
+  const [companySectorError,setCompanySectorError]= useState("");
+  const [companyName,setCompanyName]= useState("");
+  const [companyNameError,setCompanyNameError]= useState("");
+  const [email,setEmail]= useState("");
+  const [emailError,setEmailError]= useState("");
+  const [password,setPassword]= useState("");
+  const [passwordError,setPasswordError]= useState("");
+  const [repassword,setRepassword]= useState("");
+  const [repasswordError,setRepasswordError]= useState("");
+  const passwordInput = useRef();
+  const repasswordInput = useRef();
+  const companyNameInput = useRef();
+  const companySectorInput = useRef();
 
-  onChangeText = (key, val) => {
-    this.setState({ [key]: val });
-  };
-
-  signUp = async () => {
-    const { email, password, name } = this.state;
-    try {
-      const { token } = await SignUp({
-        email,
-        password,
-        name,
-        onError: () => alert('questa email è gia in uso'),
-        onCompleted: () => null
-      });
-      fail();
-    } catch (error) {
-      console.log(error);
-      return;
-    }
-
-    await _asyncStorageSaveToken(token);
-    console.log(token);
-    this.props.navigation.navigate('MainTabNavigator');
-  };
-
-  validateForm = () => {
-    const {
-      emailError,
-      companySectorError,
-      passwordError,
-      companyNameError,
-      repasswordError
-    } = this.state;
-    return (
+  const validateForm = () => {
       !emailError && !passwordError && !repasswordError && !companyNameError && !companySectorError
-    );
   };
 
-  handleSubmit = async () => {
-    if (!validateEmail(this.state.email)) {
-      await this.setState({ emailError: true });
+  const handleSubmit = async () => {
+    if (!validateEmail(email)) {
+      await setEmailError(true);
     } else {
-      await this.setState({ emailError: false });
+      await setEmailError(false);
     }
-    if (!validatePassword(this.state.password)) {
-      await this.setState({ passwordError: true });
+    if (!validatePassword(password)) {
+      await setPasswordError(true);
     } else {
-      await this.setState({ passwordError: false });
+      await setPasswordError(false);
     }
-    if (!validateRePassword(this.state.password, this.state.repassword)) {
-      await this.setState({ repasswordError: true });
+    if (!validateRePassword(password, repassword)) {
+      await setRepasswordError(true);
     } else {
-      await this.setState({ repasswordError: false });
+      await setRepasswordError(false);
     }
-    if (!validateName(this.state.companyName)) {
-      await this.setState({ companyNameError: true });
+    if (!validateName(companyName)) {
+      await setCompanyNameError(true);
     } else {
-      await this.setState({ companyNameError: false });
+      await setCompanyNameError(false);
     }
-    if (!validateName(this.state.companySector)) {
-      await this.setState({ companySectorError: true });
+    if (!validateName(companySector)) {
+      await setCompanySectorError(true);
     } else {
-      await this.setState({ companySectorError: false });
+      await setCompanySectorError(false);
     }
-    if (this.validateForm()) {
-      this.signUp();
+    if (validateForm()) {
+      console.log("valid")
     }
   };
 
-  render() {
     return (
       <View style={styles.container}>
-        {this.state.keyboardShown ? null : (
-          <View style={styles.imageContainer}>
-            <Image
-              style={styles.header}
-              source={require('../../assets/images/logo_negative.png')}
-              resizeMode="contain"
-            />
-          </View>
-        )}
         <ScrollView>
           <View style={styles.formContainer}>
             <Bold style={{ marginLeft: 5, marginBottom: 15, color: '#5F5E5E' }}>
               Contatto Personale
             </Bold>
-            <TextInput
-              style={this.state.emailError ? FormStyles.inputError : FormStyles.input}
-              placeholder="Email"
-              autoCapitalize="none"
-              placeholderTextColor="#ADADAD"
-              onChangeText={val => this.onChangeText('email', val)}
-              ref={input => (this.email = input)}
-              onSubmitEditing={() => this.password.focus()}
-            />
-            {this.state.emailError ? (
-              <Bold style={FormStyles.error}>Email non valida</Bold>
-            ) : (
-                <View style={styles.separator} />
-              )}
-            <TextInput
-              style={this.state.passwordError ? FormStyles.inputError : FormStyles.input}
-              placeholder="Password"
-              secureTextEntry
-              autoCapitalize="none"
-              placeholderTextColor="#ADADAD"
-              onChangeText={val => this.onChangeText('password', val)}
-              ref={input => (this.password = input)}
-              onSubmitEditing={() => this.repassword.focus()}
-            />
-            {this.state.passwordError ? (
-              <Bold style={FormStyles.error}>Password non valida</Bold>
-            ) : (
-                <View style={styles.separator} />
-              )}
-            <TextInput
-              style={this.state.repasswordError ? FormStyles.inputError : FormStyles.input}
-              placeholder="Ripeti Password"
-              autoCapitalize="none"
-              secureTextEntry
-              placeholderTextColor="#ADADAD"
-              onChangeText={val => this.onChangeText('repassword', val)}
-              ref={input => (this.repassword = input)}
-              onSubmitEditing={() => this.companyName.focus()}
-            />
-            {this.state.repasswordError ? (
-              <Bold style={FormStyles.error}>Le password non corrispondono</Bold>
-            ) : (
-                <View style={styles.separator} />
-              )}
+            <FormTextInput 
+            placeholder="Email"
+            onChangeText={val => setEmail(val)}
+            errorText="Email non valida"
+            error={emailError}
+            nextInput={() => passwordInput.current.focus()}
+             />
+            <FormTextInput 
+            placeholder="Password"
+            secureTextEntry={true}
+            onChangeText={val => setPassword(val)}
+            errorText="Password non valida"
+            error={passwordError}
+            reference={passwordInput}
+            nextInput={() => repasswordInput.current.focus()}
+             />
+            <FormTextInput 
+            placeholder="Ripeti Password"
+            secureTextEntry={true}
+            onChangeText={val => setRepassword(val)}
+            errorText="Le password non corrispondono"
+            error={repasswordError}
+            reference={repasswordInput}
+            nextInput={() => companyNameInput.current.focus()}
+             />
             <Bold style={{ marginLeft: 5, marginTop: 15, marginBottom: 15, color: '#5F5E5E' }}>
               Compagnia
             </Bold>
-            <TextInput
-              style={this.state.companyNameError ? FormStyles.inputError : FormStyles.input}
-              placeholder="Nome Compagnia"
-              autoCapitalize="none"
-              placeholderTextColor="#ADADAD"
-              onChangeText={val => this.onChangeText('companyName', val)}
-              onSubmitEditing={() => this.companySector.focus()}
-              ref={input => (this.companyName = input)}
-            />
-            {this.state.companyNameError ? (
-              <Bold style={FormStyles.error}>Campo obbligatorio</Bold>
-            ) : (
-                <View style={styles.separator} />
-              )}
-            <TextInput
-              style={this.state.companySectorError ? FormStyles.inputError : FormStyles.input}
-              placeholder="Settore"
-              autoCapitalize="none"
-              placeholderTextColor="#ADADAD"
-              ref={input => (this.companySector = input)}
-              onChangeText={val => this.onChangeText('companySector', val)}
-              onSubmitEditing={this.handleSubmit}
-            />
-            {this.state.companySectorError ? (
-              <Bold style={FormStyles.error}>Campo obbligatorio</Bold>
-            ) : (
-                <View style={styles.separator} />
-              )}
+            <FormTextInput 
+            placeholder="Nome Compagnia"
+            onChangeText={val => setCompanyName(val)}
+            errorText="Campo Obbligatorio"
+            error={companyNameError}
+            reference={companyNameInput}
+            nextInput={() => companySectorInput.current.focus()}
+             />
+        <FormTextInput 
+            placeholder="Settore"
+            onChangeText={val => setCompanySector(val)}
+            errorText="Campo Obbligatorio"
+            error={companySectorError}
+            reference={companySectorInput}
+             />
           </View>
-          {this.state.keyboardShown ? <View style={{ height: 500 }} /> : null}
+
         </ScrollView>
         <View style={styles.buttonsContainer}>
           <RoundButtonEmpty
-            onPress={this.handleSubmit}
+            onPress={handleSubmit}
             isLong
             fontColor="#DD1E63"
             text="Registrati"
@@ -207,7 +129,7 @@ export default class SignUpScreenCompany extends AvoidingView {
       </View>
     );
   }
-}
+
 
 const styles = StyleSheet.create({
   container: {

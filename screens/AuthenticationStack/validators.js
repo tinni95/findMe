@@ -16,3 +16,4 @@ export const validatePassword = password => {
 export const validateRePassword = (password, repassword) => {
   return password === repassword;
 };
+
