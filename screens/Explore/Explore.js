@@ -38,6 +38,7 @@ export default class Explore extends React.Component {
     return (
       <View style={styles.container}>
         <SearchHeader
+          settore={this.props.settore} 
           setModalVisible={this.setModalVisible}
           search={this.state.search}
           navigation={this.props.navigation}
@@ -47,7 +48,7 @@ export default class Explore extends React.Component {
           {Platform.OS=="web" ? 
           <View style={styles.subContainer}>
           <View style={{flex:1}}>
-          <FiltersPage navigation={this.props.navigation}/>
+          <FiltersPage settore={this.props.settore} navigation={this.props.navigation}/>
           </View>
           <View style={{flex:4}}>
           <Bold style={styles.resultText}>{this.props.posts.length} risultati</Bold>

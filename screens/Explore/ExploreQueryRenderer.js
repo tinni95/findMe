@@ -29,13 +29,14 @@ export default function ExploreQueryRenderer({navigation}) {
   const filter = navigation.getParam("filter") || "";
   const settore = navigation.getParam("settore") || null;
   const { loading, error, data } = useQuery(posts,{
-    variables: {filter,settore}
+
+    variables: settore?{filter,settore} : {filter}
   });
 
   if (loading) return <FindMeSpinner/>;
   if (error) return <FindMeGraphQlErrorDisplay/>;
 
-  return <Explore posts={data.postsFeed} navigation={navigation} />;
+  return <Explore posts={data.postsFeed} settore={settore} navigation={navigation} />;
 }
 
 

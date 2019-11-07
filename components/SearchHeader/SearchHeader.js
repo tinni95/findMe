@@ -6,10 +6,12 @@ import SearchBarComponent from './SearchBarComponent';
 import FilterButton from './FilterButton';
 import { isSmallDevice } from '../../constants/Layout';
 
-export default function SearchHeader({ navigation,setSearch, search, setModalVisible }) {
+export default function SearchHeader({ navigation,setSearch, search, settore }) {
   return (
     <View style={styles.container}>
-           <FilterButton onPress={() => navigation.navigate("FiltersPage")} />
+           <FilterButton onPress={() => navigation.navigate("FiltersPage",{
+             settore
+           })} />
       <SearchBarComponent navigation={navigation} search={search} setSearch={setSearch} />
     </View>
   );

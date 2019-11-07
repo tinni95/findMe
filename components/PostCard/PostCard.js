@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   card: {
     height: Platform.OS == "web"?250:200,
     marginTop: 15,
+    width:Platform.OS == "web"? undefined : width,
     backgroundColor: 'white',
     ...Platform.select({
       ios: {

@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
-import {View,StyleSheet} from "react-native";
+import {View,StyleSheet,Platform} from "react-native";
 import {RoundFilters} from "./components/RoundFilters";
 import RoundButton from '../../../components/shared/RoundButtonEmpty';
 
-const Settori =["Aereonautica", "Fashion", "Economics","Engineering"]
+const Settori =["Aereonautica", "Fashion","Engineering"]
 
-export default function FiltersPage({navigation}){
-    const [items,setItems] = useState([]);
+export default function FiltersPage({navigation,settore}){
+
+    settore= Platform =="web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
+    const [items,setItems] = useState(settore);
     const addItem= item => {
         setItems([...items,item]);
     };
@@ -15,11 +17,15 @@ export default function FiltersPage({navigation}){
     };
 return (
     <View style={styles.container}>
-        <RoundFilters addItem={addItem} removeItem={removeItem} settori={Settori}/>
+        <RoundFilters addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore}/>
         <View style={styles.buttonWrapper}>
-        <RoundButton onPress={()=>navigation.navigate("ExploreQueryRenderer",{
-            settore:items
-        })} color={"#5EDDDC"} text={"APPLICA"}/>
+        <RoundButton onPress={ () => {
+            navigation.navigate("ExploreQueryRenderer",{
+                settore:items
+            })
+            console.log(settore)
+           }}
+         color={"#5EDDDC"} text={"APPLICA"}/>
         </View>
     </View>
 )}
