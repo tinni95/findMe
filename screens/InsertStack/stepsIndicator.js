@@ -29,10 +29,10 @@ export const StepsIndicator = ({active,navigation:{navigate}}) => {
       navigate("InsertFlowHome");
      }
      else if(step==1){
-      navigate("step2");
+      navigate("Posizioni");
     }
     else if(step==2){
-      navigate("step3");
+      navigate("Anteprima");
     }
    }}}
    stepCount={3}

@@ -3,20 +3,20 @@ import { TouchableOpacity, View, StyleSheet,Platform } from 'react-native';
 import { Light } from '../../components/StyledText';
 import {StepsIndicator} from "./stepsIndicator";
 
-export const step2 = ({ navigation}) => {
-  return (  
-    <View style={styles.container}>
-    <View style={styles.header}>
-    <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
+export const Anteprima = ({ navigation }) => {
+    return(
+      <View style={styles.container}>
+      <View style={styles.header}>
+      <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
+      </View>
+      <View style={styles.body}>
+      <Light>Step 3</Light>
+      </View>
     </View>
-    <View style={styles.body}>
-    <Light>Step 2</Light>
-    </View>
-  </View>
     )
 };
 
-step2.navigationOptions = {
+Anteprima.navigationOptions = {
   header: null
 };
 const styles = StyleSheet.create({
