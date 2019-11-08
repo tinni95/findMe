@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {} from 'react';
 import { TouchableOpacity, View, StyleSheet,Platform } from 'react-native';
 import { Light } from '../../components/StyledText';
 import {StepsIndicator} from "./stepsIndicator";
-
-export const InsertFlowHome = ({ navigation}) => {
-  console.log(navigation);
+export function InsertFlowHome ({navigation}) {
+  
   return (
     <View style={styles.container}>
-      <StepsIndicator active={1} navigation={navigation}/>
+      <View style={styles.header}>
+      <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
+      </View>
       <View style={styles.body}>
+      <Light>Step 1</Light>
       </View>
     </View>
   )
@@ -20,10 +22,14 @@ InsertFlowHome.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
-    marginTop:20
+    marginTop:40
   },
   body:{
-    flex:5
+    flex:7,
+    flexDirection:"row",
+    backgroundColor: 'white',
+  },
+  header:{
+    flex:2
   }
 });

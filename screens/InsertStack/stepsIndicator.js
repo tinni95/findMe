@@ -1,152 +1,43 @@
-import React from 'react';
-import { TouchableWithoutFeedback, View, StyleSheet,Platform, ImageBackground } from 'react-native';
-import { Light } from '../../components/StyledText';
+import React from "react";
+import StepIndicator from 'react-native-step-indicator';
+const labels = ["Descrizione","Posizioni","Anteprima"];
+const customStyles={
+  stepStrokeCurrentColor: '#10476C',
+  stepStrokeFinishedColor: '#10476C',
+  stepStrokeUnFinishedColor: '#707070',
+  stepStrokeWidth:1.5,
+  separatorFinishedColor: '#10476C',
+  separatorUnFinishedColor: '#707070',
+  stepIndicatorFinishedColor: 'white',
+  stepIndicatorUnFinishedColor: 'white',
+  stepIndicatorLabelUnFinishedColor: 'grey',
+  stepIndicatorLabelCurrentColor: 'black',
+  stepIndicatorLabelFinishedColor: '#707070',
+  labelColor:"#707070",
+  currentStepLabelColor:"#10476C"
+}
 
-export const StepsIndicator = ({active, navigation:{navigate}}) => {
-    if(active==1){
-        return (
-            <View style={styles.container}>
-            <View style={styles.separator} />
-            <ImageBackground style={styles.stepsContainer} source={require("../../assets/images/line.png")}>
-            <View style={styles.activeWrapper}>
-            <View style={[styles.circleActive]}>
-            <Light style={styles.textActive}>1</Light>
-            </View>
-            </View>
-            <TouchableWithoutFeedback onPress={() => navigate("step2")} style={styles.activeWrapper}>
-            <View>
-            <View style={[styles.circle]}>
-            <Light style={styles.text}>2</Light>
-            </View>
-            </View>
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={() => navigate("step3")} style={styles.activeWrapper}>
-            <View>
-            <View style={[styles.circle]}>
-            <Light style={styles.text}>3</Light>
-            </View>
-            </View>
-            </TouchableWithoutFeedback>
-            </ImageBackground>
-            <View style={styles.separator} />
-            </View>
-        );
+export const StepsIndicator = ({active,navigation:{navigate}}) => {
+  return(
+  <StepIndicator
+   onPress={(step) => {{
+     console.log(step);
+     if(step==active){
+       null
+     }
+     else if(step==0){
+      navigate("InsertFlowHome");
+     }
+     else if(step==1){
+      navigate("step2");
     }
-    else if(active==2){
-        return (
-            <View style={styles.container}>
-            <View style={styles.separator} />
-            <ImageBackground style={styles.stepsContainer} source={require("../../assets/images/line.png")}>
-            <TouchableWithoutFeedback onPress={()=>navigate("InsertFlowHome")} style={styles.activeWrapper}>
-            <View>
-            <View style={[styles.circle]}>
-            <Light style={styles.text}>1</Light>
-            </View>
-            </View>
-            </TouchableWithoutFeedback>
-            <View style={styles.activeWrapper}>
-            <View style={[styles.circleActive]}>
-            <Light style={styles.textActive}>2</Light>
-            </View>
-            </View>
-            <TouchableWithoutFeedback onPress={()=>navigate("step3")} style={styles.activeWrapper}>
-            <View>
-            <View style={[styles.circle]}>
-            <Light style={styles.text}>3</Light>
-            </View>
-            </View>
-            </TouchableWithoutFeedback>
-            </ImageBackground>
-            <View style={styles.separator} />
-            </View>
-        );
+    else if(step==2){
+      navigate("step3");
     }
-    else{
-        return (
-            <View style={styles.container}>
-                  <View style={styles.separator} />
-            <ImageBackground style={styles.stepsContainer} source={require("../../assets/images/line.png")}>
-            <TouchableWithoutFeedback onPress={()=>navigate("InsertFlowHome")} style={styles.activeWrapper}>
-            <View>
-            <View style={[styles.circle]}>
-            <Light style={styles.text}>1</Light>
-            </View>
-            </View>
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={()=>navigate("step2")} style={styles.activeWrapper}>
-            <View>
-            <View style={[styles.circle]}>
-            <Light style={styles.text}>2</Light>
-            </View>
-            </View>
-            </TouchableWithoutFeedback>
-            <View style={styles.activeWrapper}>
-            <View style={[styles.circleActive]}>
-            <Light style={styles.textActive}>3</Light>
-            </View>
-            </View>
-            </ImageBackground>
-            <View style={styles.separator} />
-            </View>
-        );
-    }
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-    flexDirection:"row"
-  },
-  stepsContainer:{
-      flex:1,
-    alignSelf: 'center',
-    justifyContent:"center",
-    alignItems:"center",
-    flexDirection:"row",
-  },
-  circle:{
-    backgroundColor:"white",
-    margin:20,
-    width: Platform.OS=="web"?100:50,
-    height: Platform.OS=="web"?100:50,
-    alignItems:"center",
-    justifyContent:"center",
-    borderColor:"black",
-    borderRadius:Platform.OS=="web"?50:25,
-    borderWidth:1
-  },
-  circleActive:{
-    backgroundColor:"white",
-    margin:20,
-    width: Platform.OS=="web"?100:50,
-    height: Platform.OS=="web"?100:50,
-    alignItems:"center",
-    justifyContent:"center",
-    borderColor:"#26547C",
-    borderRadius:Platform.OS=="web"?50:25,
-    borderWidth:3
-  },
-  body:{
-    flex:5
-  },
-  line:{
-    borderBottomColor: 'black',
-    backgroundColor:"black",
-    margin:10,
-    position:"absolute",
-    alignSelf:'center',
-    borderBottomWidth: 2,
-},
-    text:{
-        fontSize:Platform.OS=="web"?40:20,
-        color:"#D4C3C3"
-    },
-    textActive:{
-        fontSize:Platform.OS=="web"?40:20
-    },
-    activeWrapper:{
-      flex:4
-    },
-    separator:{flex:1}
-});
+   }}}
+   stepCount={3}
+   currentPosition={active}
+   labels={labels}
+   customStyles={customStyles}
+/>)
+}

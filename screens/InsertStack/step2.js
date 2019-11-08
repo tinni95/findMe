@@ -4,11 +4,16 @@ import { Light } from '../../components/StyledText';
 import {StepsIndicator} from "./stepsIndicator";
 
 export const step2 = ({ navigation}) => {
-  return (  <View style={styles.container}>
-    <StepsIndicator active={2} navigation={navigation}/>
-    <View style={styles.body}>
+  return (  
+    <View style={styles.container}>
+    <View style={styles.header}>
+    <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
     </View>
-  </View>)
+    <View style={styles.body}>
+    <Light>Step 2</Light>
+    </View>
+  </View>
+    )
 };
 
 step2.navigationOptions = {
@@ -17,10 +22,14 @@ step2.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
-    marginTop:20
+    marginTop:40
   },
   body:{
-    flex:5
+    flex:7,
+    flexDirection:"row",
+    backgroundColor: 'white',
+  },
+  header:{
+    flex:2
   }
 });

@@ -6,10 +6,13 @@ import {StepsIndicator} from "./stepsIndicator";
 export const step3 = ({ navigation }) => {
     return(
       <View style={styles.container}>
-      <StepsIndicator active={3} navigation={navigation}/>
+      <View style={styles.header}>
+      <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
+      </View>
       <View style={styles.body}>
+      <Light>Step 3</Light>
       </View>
-      </View>
+    </View>
     )
 };
 
@@ -19,10 +22,14 @@ step3.navigationOptions = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
-    marginTop:20
+    marginTop:40
   },
   body:{
-    flex:5
+    flex:7,
+    flexDirection:"row",
+    backgroundColor: 'white',
+  },
+  header:{
+    flex:2
   }
 });
