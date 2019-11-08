@@ -17,7 +17,7 @@ export default function FiltersPage({navigation,settore}){
     };
 return (
     <View style={styles.container}>
-        <RoundFilters addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore}/>
+        <RoundFilters wrapperStyle={{margin:20}} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore}/>
         <View style={styles.buttonWrapper}>
         <RoundButton onPress={ () => {
             navigation.navigate("ExploreQueryRenderer",{
