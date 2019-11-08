@@ -2,7 +2,7 @@ import React, {useState,useRef} from 'react';
 import { View, ScrollView, StyleSheet, Image, TextInput, AsyncStorage } from 'react-native';
 import AvoidingView from './AvoidingView';
 import { isSmallDevice } from '../../constants/Layout';
-import FormTextInput from "./FormTextInput";
+import FormTextInput from "../shared/Form/FormTextInput";
 import { Bold } from '../../components/StyledText';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButtonEmpty from '../../components/shared/RoundButtonEmptySignUpScreen';

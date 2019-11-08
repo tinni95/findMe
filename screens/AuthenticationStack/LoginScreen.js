@@ -4,7 +4,7 @@ import AvoidingView from './AvoidingView';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { isSmallDevice } from '../../constants/Layout';
-import {FormStyles} from './FormStyles';
+import {FormStyles} from '../shared/Form/FormStyles';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import FindMeSpinner from "../../shared/FindMeSpinner";

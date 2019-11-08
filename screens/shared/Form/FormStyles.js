@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { isSmallDevice } from '../../constants/Layout';
+import { isSmallDevice } from '../../../constants/Layout';
 
 export const FormStyles = StyleSheet.create({
   input: {
