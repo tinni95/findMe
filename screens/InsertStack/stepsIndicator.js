@@ -6,96 +6,87 @@ export const StepsIndicator = ({active, navigation:{navigate}}) => {
     if(active==1){
         return (
             <View style={styles.container}>
+            <View style={styles.separator} />
             <ImageBackground style={styles.stepsContainer} source={require("../../assets/images/line.png")}>
             <View style={styles.activeWrapper}>
-            <View style={[styles.circleActive,{marginLeft:0}]}>
+            <View style={[styles.circleActive]}>
             <Light style={styles.textActive}>1</Light>
             </View>
-            <Light style={{textAlign:"center",right:15}}>Descrizione</Light>
             </View>
             <TouchableWithoutFeedback onPress={() => navigate("step2")} style={styles.activeWrapper}>
             <View>
-            <View style={[styles.circle,{marginLeft:10}]}>
+            <View style={[styles.circle]}>
             <Light style={styles.text}>2</Light>
             </View>
-            <Light style={{textAlign:"center",right:15}}> </Light>
             </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback onPress={() => navigate("step3")} style={styles.activeWrapper}>
             <View>
-            <View style={[styles.circle,{marginRight:0}]}>
+            <View style={[styles.circle]}>
             <Light style={styles.text}>3</Light>
             </View>
-            <Light style={{textAlign:"center",right:15}}> </Light>
             </View>
             </TouchableWithoutFeedback>
             </ImageBackground>
-            <View style={styles.body}>
-            </View>
+            <View style={styles.separator} />
             </View>
         );
     }
     else if(active==2){
         return (
             <View style={styles.container}>
+            <View style={styles.separator} />
             <ImageBackground style={styles.stepsContainer} source={require("../../assets/images/line.png")}>
             <TouchableWithoutFeedback onPress={()=>navigate("InsertFlowHome")} style={styles.activeWrapper}>
             <View>
-            <View style={[styles.circle,{marginLeft:0}]}>
+            <View style={[styles.circle]}>
             <Light style={styles.text}>1</Light>
             </View>
-            <Light style={{textAlign:"center",right:15}}> </Light>
             </View>
             </TouchableWithoutFeedback>
             <View style={styles.activeWrapper}>
-            <View style={[styles.circleActive,{marginLeft:10}]}>
+            <View style={[styles.circleActive]}>
             <Light style={styles.textActive}>2</Light>
             </View>
-            <Light style={{textAlign:"center",right:15}}>Descrizione</Light>
             </View>
             <TouchableWithoutFeedback onPress={()=>navigate("step3")} style={styles.activeWrapper}>
             <View>
-            <View style={[styles.circle,{marginRight:0}]}>
+            <View style={[styles.circle]}>
             <Light style={styles.text}>3</Light>
             </View>
-            <Light style={{textAlign:"center",right:15}}> </Light>
             </View>
             </TouchableWithoutFeedback>
             </ImageBackground>
-            <View style={styles.body}>
-            </View>
+            <View style={styles.separator} />
             </View>
         );
     }
     else{
         return (
             <View style={styles.container}>
+                  <View style={styles.separator} />
             <ImageBackground style={styles.stepsContainer} source={require("../../assets/images/line.png")}>
             <TouchableWithoutFeedback onPress={()=>navigate("InsertFlowHome")} style={styles.activeWrapper}>
             <View>
-            <View style={[styles.circle,{marginLeft:0}]}>
+            <View style={[styles.circle]}>
             <Light style={styles.text}>1</Light>
             </View>
-            <Light style={{textAlign:"center",right:15}}> </Light>
             </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback onPress={()=>navigate("step2")} style={styles.activeWrapper}>
             <View>
-            <View style={[styles.circle,{marginLeft:20}]}>
+            <View style={[styles.circle]}>
             <Light style={styles.text}>2</Light>
             </View>
-            <Light style={{textAlign:"center",right:15}}> </Light>
             </View>
             </TouchableWithoutFeedback>
             <View style={styles.activeWrapper}>
-            <View style={[styles.circleActive,{marginRight:0}]}>
+            <View style={[styles.circleActive]}>
             <Light style={styles.textActive}>3</Light>
             </View>
-            <Light style={{textAlign:"center",right:15}}>Anteprima</Light>
             </View>
             </ImageBackground>
-            <View style={styles.body}>
-            </View>
+            <View style={styles.separator} />
             </View>
         );
     }
@@ -104,7 +95,8 @@ export const StepsIndicator = ({active, navigation:{navigate}}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF'
+    backgroundColor: '#FFF',
+    flexDirection:"row"
   },
   stepsContainer:{
       flex:1,
@@ -114,7 +106,6 @@ const styles = StyleSheet.create({
     flexDirection:"row",
   },
   circle:{
-    top:7.5,
     backgroundColor:"white",
     margin:20,
     width: Platform.OS=="web"?100:50,
@@ -126,7 +117,6 @@ const styles = StyleSheet.create({
     borderWidth:1
   },
   circleActive:{
-    top:7.5,
     backgroundColor:"white",
     margin:20,
     width: Platform.OS=="web"?100:50,
@@ -156,6 +146,7 @@ const styles = StyleSheet.create({
         fontSize:Platform.OS=="web"?40:20
     },
     activeWrapper:{
-        flexDirection:"column"
-    }
+      flex:4
+    },
+    separator:{flex:1}
 });

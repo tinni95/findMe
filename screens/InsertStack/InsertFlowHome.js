@@ -5,7 +5,13 @@ import {StepsIndicator} from "./stepsIndicator";
 
 export const InsertFlowHome = ({ navigation}) => {
   console.log(navigation);
-  return (<StepsIndicator active={1} navigation={navigation}></StepsIndicator>)
+  return (
+    <View style={styles.container}>
+      <StepsIndicator active={1} navigation={navigation}/>
+      <View style={styles.body}>
+      </View>
+    </View>
+  )
 };
 
 InsertFlowHome.navigationOptions = {
@@ -17,4 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     marginTop:20
   },
+  body:{
+    flex:5
+  }
 });

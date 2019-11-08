@@ -4,7 +4,13 @@ import { Light } from '../../components/StyledText';
 import {StepsIndicator} from "./stepsIndicator";
 
 export const step3 = ({ navigation }) => {
-    return (<StepsIndicator active={3} navigation={navigation}></StepsIndicator>)
+    return(
+      <View style={styles.container}>
+      <StepsIndicator active={3} navigation={navigation}/>
+      <View style={styles.body}>
+      </View>
+      </View>
+    )
 };
 
 step3.navigationOptions = {
@@ -16,4 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     marginTop:20
   },
+  body:{
+    flex:5
+  }
 });
