@@ -6,7 +6,7 @@ import FormTextInput from "../shared/Form/FormTextInput";
 import FormTextInputLarge from "../shared/Form/FormTextInputLarge";
 import {RoundFilters} from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const Settori =["Aereonautica", "Fashion","Ingegneria", "Ristorazione", "Intrattenimento","Cinofilia","Musica","Arte","Teatro"];
 
 export function Posizioni ({navigation,settore}) {
@@ -32,7 +32,7 @@ export function Posizioni ({navigation,settore}) {
       <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
       </View>
       <View style={styles.body}>
-        <ScrollView >
+        <KeyboardAwareScrollView >
         <FormTextInput 
         placeholder="Titolo Posizione"
         onChangeText={val => setTitle(val)}
@@ -52,7 +52,7 @@ export function Posizioni ({navigation,settore}) {
         <View style={styles.buttonWrapper}>
        <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"}onPress={()=>handlePress()}/>
        </View>
-       </ScrollView>
+       </KeyboardAwareScrollView>
       </View>
     </View>
   )
