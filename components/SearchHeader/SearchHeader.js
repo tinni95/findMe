@@ -6,14 +6,14 @@ import SearchBarComponent from './SearchBarComponent';
 import FilterButton from './FilterButton';
 import { isSmallDevice } from '../../constants/Layout';
 
-export default function SearchHeader({ setSearch, search, setModalVisible }) {
+export default function SearchHeader({ navigation,setSearch, search, settore }) {
   return (
-    <LinearGradient colors={['#053144', '#26547C']} style={styles.container}>
-      <SearchBarComponent search={search} setSearch={setSearch} />
-      <View style={styles.footer}>
-        <FilterButton onPress={() => setModalVisible(true)} />
-      </View>
-    </LinearGradient>
+    <View style={styles.container}>
+           <FilterButton onPress={() => navigation.navigate("FiltersPage",{
+             settore
+           })} />
+      <SearchBarComponent navigation={navigation} search={search} setSearch={setSearch} />
+    </View>
   );
 }
 
@@ -24,11 +24,11 @@ SearchHeader.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#02394D',
-    flex: isSmallDevice ? 1.9 : 1.4
+    alignItems:"center",
+    backgroundColor: '#FFFFFF',
+    borderBottomColor:"#EBEBEB",
+    borderBottomWidth:0.3,
+    flexDirection:"row"
   },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+
 });

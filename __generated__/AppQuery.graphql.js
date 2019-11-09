@@ -5,7 +5,7 @@
 
 /* eslint-disable */
 
-'use strict';
+"use strict";
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
@@ -21,7 +21,6 @@ export type AppQuery = {|
 |};
 */
 
-
 /*
 query AppQuery {
   posts {
@@ -30,51 +29,51 @@ query AppQuery {
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
-var v0 = [
-  {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "posts",
-    "storageKey": null,
-    "args": null,
-    "concreteType": "Post",
-    "plural": true,
-    "selections": [
-      {
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "id",
-        "args": null,
-        "storageKey": null
-      }
-    ]
-  }
-];
-return {
-  "kind": "Request",
-  "fragment": {
-    "kind": "Fragment",
-    "name": "AppQuery",
-    "type": "Query",
-    "metadata": null,
-    "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
-  },
-  "operation": {
-    "kind": "Operation",
-    "name": "AppQuery",
-    "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
-  },
-  "params": {
-    "operationKind": "query",
-    "name": "AppQuery",
-    "id": null,
-    "text": "query AppQuery {\n  posts {\n    id\n  }\n}\n",
-    "metadata": {}
-  }
-};
+const node /*: ConcreteRequest*/ = (function() {
+  var v0 = [
+    {
+      kind: "LinkedField",
+      alias: null,
+      name: "posts",
+      storageKey: null,
+      args: null,
+      concreteType: "Post",
+      plural: true,
+      selections: [
+        {
+          kind: "ScalarField",
+          alias: null,
+          name: "id",
+          args: null,
+          storageKey: null
+        }
+      ]
+    }
+  ];
+  return {
+    kind: "Request",
+    fragment: {
+      kind: "Fragment",
+      name: "AppQuery",
+      type: "Query",
+      metadata: null,
+      argumentDefinitions: [],
+      selections: (v0 /*: any*/)
+    },
+    operation: {
+      kind: "Operation",
+      name: "AppQuery",
+      argumentDefinitions: [],
+      selections: (v0 /*: any*/)
+    },
+    params: {
+      operationKind: "query",
+      name: "AppQuery",
+      id: null,
+      text: "query AppQuery {\n  posts {\n    id\n  }\n}\n",
+      metadata: {}
+    }
+  };
 })();
 // prettier-ignore
 (node/*: any*/).hash = '7bad0e0c9e866b0692eb2b7c079af706';

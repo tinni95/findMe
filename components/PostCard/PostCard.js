@@ -5,7 +5,7 @@ import { width } from '../../constants/Layout';
 import {PostCardPublisher} from './PostCardPublisher';
 import {PostCardText} from './PostCardText';
 import {Fields} from './Fields';
-import RoundButton from '../shared/RoundButton';
+import RoundButtonEmpty from '../shared/RoundButtonEmpty';
 
 export const PostCard = ({ post, navigation }) => {
   return (
@@ -19,7 +19,8 @@ export const PostCard = ({ post, navigation }) => {
       <View style={styles.footer}>
         <Fields post={post} />
         <View style={styles.buttonContainer}>
-          <RoundButton
+          <RoundButtonEmpty
+            fontColor={"#5DD9D8"}
             text="Scopri di Più"
             onPress={() =>
               navigation.navigate('PostScreenQueryRenderer', {
@@ -37,12 +38,12 @@ export const PostCard = ({ post, navigation }) => {
 
 const styles = StyleSheet.create({
   wrapper:{
-    alignItems:"center"
+    alignItems:"center",
   },
   card: {
-    height: 200,
-    width,
+    height: Platform.OS == "web"?250:200,
     marginTop: 15,
+    width:Platform.OS == "web"? undefined : width,
     backgroundColor: 'white',
     ...Platform.select({
       ios: {
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
       web:{
         borderBottomColor: '#EBEBEB',
         borderBottomWidth: 4,
-        width:"50%"
+        width:"80%",
       }
     })
   },

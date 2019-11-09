@@ -1,9 +1,13 @@
-import { ActivityIndicator, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { ActivityIndicator, StyleSheet } from "react-native";
+import PropTypes from "prop-types";
+import React from "react";
 
 const FindMeSpinner = ({ color }) => (
-  <ActivityIndicator color={color} size="large" style={styles.activityIndicator} />
+  <ActivityIndicator
+    color={color}
+    size="large"
+    style={styles.activityIndicator}
+  />
 );
 
 FindMeSpinner.propTypes = {
@@ -11,13 +15,13 @@ FindMeSpinner.propTypes = {
 };
 
 FindMeSpinner.defaultProps = {
-  color: 'blue'
+  color: "blue"
 };
 
 const styles = StyleSheet.create({
   activityIndicator: {
     flex: 1,
-    justifyContent: 'flex-start'
+    justifyContent: "flex-start"
   }
 });
 

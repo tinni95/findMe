@@ -7,7 +7,7 @@ import { Light, Bold } from '../../components/StyledText';
 import RoundButtonEmpty from '../../components/shared/RoundButtonEmpty';
 import RoundButton from '../../components/shared/RoundButton';
 
-export default LandingPage = ({ navigation: { navigate } }) => {
+export const LandingPage = ({ navigation: { navigate } }) => {
   return (
     <LinearGradient
       colors={['#0F406A', '#6D90AD']}

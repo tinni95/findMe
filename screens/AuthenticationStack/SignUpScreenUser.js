@@ -8,7 +8,7 @@ import { TOKEN_KEY } from '../../shared/Token';
 import RoundButtonEmpty from '../../components/shared/RoundButtonEmptySignUpScreen';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { validateEmail, validateName, validatePassword, validateRePassword } from './validators';
-import {FormStyles} from './FormStyles';
+import {FormStyles} from '../shared/Form/FormStyles';
 
 const _asyncStorageSaveToken = async token => {
   await AsyncStorage.setItem(TOKEN_KEY, token);

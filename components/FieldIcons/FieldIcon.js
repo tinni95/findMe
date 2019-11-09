@@ -1,24 +1,14 @@
 import React from 'react';
-import { Text } from 'react-native';
-import Science from '../../assets/images/laboratory.svg';
-import It from '../../assets/images/auction.svg';
-import Wellbeing from '../../assets/images/heart.svg';
-import Economics from '../../assets/images/economics.svg';
-import Engineering from '../../assets/images/engineer.svg';
-import Movie from '../../assets/images/masks.svg';
-import Other from '../../assets/images/worldwide.svg';
-import Law from '../../assets/images/auction.svg';
-import { Ionicons } from "@expo/vector-icons";
+import {Image} from "react-native";
 
 const components = {
-  Science,
-  It,
-  Wellbeing,
-  Economics,
-  Engineering,
-  Movie,
-  Other,
-  Law
+  Science: require('../../assets/images/laboratory.png'),
+  It: require('../../assets/images/computer.png'),
+  Economics: require('../../assets/images/economics.png'),
+  Engineering:require('../../assets/images/engineer.png'),
+  Movie:require('../../assets/images/masks.png'),
+  Other:require('../../assets/images/worldwide.png'),
+  Law:require('../../assets/images/auction.png')
 };
 
 export default function FieldIcon(props) {
@@ -26,11 +16,9 @@ export default function FieldIcon(props) {
     components[props.field] === undefined ? components.Other : components[props.field];
 
   return (
-    <Ionicons
-    name={"ios-add"}
-    size={26}
-    style={{ marginBottom: -3 }}
-    color={"black"}
+    <Image
+    source={FieldIcon}  
+    style={{width:25,height:25}}
   />
   );
 }

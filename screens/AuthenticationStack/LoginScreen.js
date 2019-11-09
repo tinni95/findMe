@@ -1,71 +1,70 @@
-import React from 'react';
-import { View, Image, TextInput, AsyncStorage, StyleSheet } from 'react-native';
+import React ,{useState}from 'react';
+import { View, Image,Text, TextInput, AsyncStorage, StyleSheet } from 'react-native';
 import AvoidingView from './AvoidingView';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { isSmallDevice } from '../../constants/Layout';
-import {FormStyles} from './FormStyles';
+import {FormStyles} from '../shared/Form/FormStyles';
+import gql from 'graphql-tag';
+import { useMutation } from '@apollo/react-hooks';
+import FindMeSpinner from "../../shared/FindMeSpinner";
 
-const _asyncStorageSaveToken = async token => {
-    await AsyncStorage.setItem(TOKEN_KEY, token);
-};
+const LOGIN_MUTATION = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password:$password) {
+        token
+    }
+  }
+`;
 
-export default class LoginScreen extends AvoidingView {
-    state = {
-        email: '',
-        password: ''
-    };
-
-    login = async () => {
-        let { email, password } = this.state;
-        email = email.toString().toLowerCase();
-        const response = await Login({ email, password });
-        if (response && response.login) {
-            const { token } = response.login;
-            await _asyncStorageSaveToken(token);
-            this.props.navigation.navigate('MainTabNavigator');
-        } else {
-            const { message } = response.res.errors[0];
-            if (message === 'No such a user') {
-                alert("l'email inserita non è riconosciuta");
-            } else if (message === 'Invalid password') {
-                alert('la password non è corretta');
-            } else {
-                alert('si è verificato un errore, per favore riprova più tardi');
+export default function LoginScreen ({navigation}) {
+    const [
+        login,
+        { loading: mutationLoading, error: mutationError,error,data },
+      ] = useMutation(LOGIN_MUTATION,
+        {
+            onCompleted: async ({ login }) => {
+                await AsyncStorage.setItem(TOKEN_KEY, login.token);
+                navigation.navigate("MainTabNavigator")
             }
-        }
-    };
-
-    render() {
+          });
+      const [email, setEmail] = useState("");
+      const [password, setPassword] = useState("");
+      const emailError=mutationError && error.message.toString().includes("user");
+      const passwordError=mutationError && error.message.toString().includes("password");
+        
         return (
+            mutationLoading ? 
+            <FindMeSpinner/>
+            :
             <View style={styles.container}>
-                <View style={styles.imageContainer}>
-                    <Image
-                        style={styles.header}
-                        source={require('../../assets/images/logo_negative.png')}
-                        resizeMode="contain"
-                    />
-                </View>
                 <View style={styles.formContainer}>
                     <TextInput
-                        style={FormStyles.input}
-                        autoCompleteType="email"
+                        style={emailError?FormStyles.inputError : FormStyles.input}
                         placeholder="Email"
-                        label="Email"
-                        value={this.state.email}
-                        onChangeText={email => this.setState({ email })}
+                        value={email}
+                        onChangeText={email => setEmail(email)}
                     />
+                {emailError &&
+                <Text style={FormStyles.error}>email invalida</Text>
+                }
                     <TextInput
-                        style={FormStyles.input}
+                        style={passwordError?FormStyles.inputError : FormStyles.input}
                         placeholder="Password"
                         secureTextEntry
-                        value={this.state.password}
-                        onChangeText={password => this.setState({ password })}
+                        value={password}
+                        onChangeText={password => setPassword(password)}
                     />
+                       {passwordError &&
+                <Text style={FormStyles.error}>password invalida</Text>
+                }
                 </View>
                 <View style={styles.buttonsContainer}>
                     <RoundButton
-                        onPress={this.login}
+                        onPress={() => {
+                            let emails = email.toString().toLowerCase();
+                            login({variables: { email:emails,password}});
+                        }}
                         isLong
                         fontColor="#DD1E63"
                         text="ACCEDI"
@@ -74,7 +73,6 @@ export default class LoginScreen extends AvoidingView {
                 </View>
             </View>
         );
-    }
 }
 
 const styles = StyleSheet.create({

@@ -20,6 +20,9 @@ class SearchBarComponent extends React.Component {
         style={styles.container}
         placeholder="Type Here..."
         onChangeText={this.updateSearch}
+        onSubmitEditing={() => this.props.navigation.navigate("ExploreQueryRenderer",{
+          filter:this.props.search.toLowerCase()
+        })}
         value={this.props.search}
       />
     );
@@ -28,9 +31,10 @@ class SearchBarComponent extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex:8,
+    height:50,
     margin: 10,
     marginTop: 50,
-    width: width - 20
   }
 });
 

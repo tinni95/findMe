@@ -1,10 +1,14 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation';
 import { InsertFlowHome } from '../../screens/InsertStack';
+import { Posizioni } from '../../screens/InsertStack/Posizioni';
+import {Anteprima}  from '../../screens/InsertStack/Anteprima';
 import TabBarIcon from '../../components/TabBarIcon';
 
-const InsertStack = createStackNavigator({
+const InsertStack = createSwitchNavigator({
   InsertFlowHome,
+  Posizioni,
+  Anteprima
 });
 
 InsertStack.navigationOptions = {
