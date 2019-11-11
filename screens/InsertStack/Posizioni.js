@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { TouchableOpacity,ScrollView,View, StyleSheet,Platform } from 'react-native';
-import { Light, Bold } from '../../components/StyledText';
+import {StepsLabel} from "./StepsLabel";
 import {StepsIndicator} from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import FormTextInputLarge from "../shared/Form/FormTextInputLarge";
@@ -8,7 +8,23 @@ import {RoundFilters} from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const Settori =["Aereonautica", "Fashion","Ingegneria", "Ristorazione", "Intrattenimento","Cinofilia","Musica","Arte","Teatro"];
-
+const autoCompleteItems= [
+  {
+    name:"passsa",
+    id:"sad",
+    settore:"Aereonautica"
+  },
+  {
+    name:"dasd",
+    id:"sa21321d",
+    settore:"Aereonautica"
+  },
+  {
+    name:"pusst",
+    id:"das",
+    settore:"Aereonautica"
+  }
+]
 export function Posizioni ({navigation,settore}) {
   const passedTitle= navigation.getParam("item") || null
   const [title,setTitle]= useState("");
@@ -40,7 +56,7 @@ export function Posizioni ({navigation,settore}) {
         <KeyboardAwareScrollView >
         <FormTextInput 
         value={title}
-        onFocus={()=>navigation.navigate("AutoComplete")}
+        onFocus={()=>navigation.navigate("AutoComplete",{path:"Posizioni",items:autoCompleteItems})}
         placeholder="Titolo Posizione"
         errorText="Campo Obbligatorio"
         error={titleError}
@@ -51,9 +67,7 @@ export function Posizioni ({navigation,settore}) {
         errorText="Campo Obbligatorio"
         error={descriptionError}
           />
-      <Bold style={styles.textHeading}>
-      Settore
-      </Bold>
+        <StepsLabel text="Categorie (es. Economia, Ingegneria...)"/>
        <RoundFilters maximum={1} items={items} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore}/>
         <View style={styles.buttonWrapper}>
        <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"}onPress={()=>handlePress()}/>
@@ -88,12 +102,6 @@ const styles = StyleSheet.create({
 
   },
   header:{
-    flex:2
+    flex:1.5
   },
-  textHeading:{
-     marginLeft: 5, 
-     marginBottom: 15, 
-     marginTop:25,
-     color: '#5F5E5E' 
-  }
 });

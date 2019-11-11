@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   header:{
-    flex:2
+    flex:1.5
   }
 });

@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 
   },
   header:{
-    flex:2
+    flex:1.5
   },
   textHeading:{
      marginLeft: 5, 
