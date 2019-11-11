@@ -36,7 +36,7 @@ export function Posizioni ({navigation,settore}) {
     passedTitle? setTitle(passedTitle.name) : null
   })
   const [items,setItems] = useState(settore);
-  const addItem= item => {ì
+  const addItem= item => {
       setItems([item]);
   };
   const removeItem= item => {

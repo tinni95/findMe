@@ -1,5 +1,5 @@
 import React, {useEffect, useRef,useState} from "react";
-import { TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
+import {ScrollView, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
 import { FormStyles } from "./Form/FormStyles";
 import { Bold } from '../../components/StyledText';
   
@@ -26,9 +26,9 @@ export function AutoComplete({ navigation }){
                 <Bold style={styles.cancelButton}>Cancella</Bold>
             </TouchableOpacity>
         </View>
-        <View style={{marginTop:25}}>
+        <ScrollView style={{marginTop:25}}>
         {renderItems}
-        </View>
+        </ScrollView>
     </View>)
 }
 
