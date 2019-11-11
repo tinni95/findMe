@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { TouchableOpacity,ScrollView,View, StyleSheet,Platform } from 'react-native';
 import { Light, Bold } from '../../components/StyledText';
 import {StepsIndicator} from "./stepsIndicator";
@@ -10,11 +10,15 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const Settori =["Aereonautica", "Fashion","Ingegneria", "Ristorazione", "Intrattenimento","Cinofilia","Musica","Arte","Teatro"];
 
 export function Posizioni ({navigation,settore}) {
+  const passedTitle= navigation.getParam("item") || null
   const [title,setTitle]= useState("");
   const [description,setDescription]= useState("");
   const [titleError,setTitleError]= useState("");
   const [descriptionError,setDescriptionError]= useState("");
   settore= Platform =="web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
+  useEffect(()=>{
+    passedTitle? setTitle(passedTitle.name) : null
+  })
   const [items,setItems] = useState(settore);
   const addItem= item => {
     if(items.length<1)
@@ -24,8 +28,9 @@ export function Posizioni ({navigation,settore}) {
       setItems(items.filter(i=> i!== item));
   };
   const handlePress = () => {
-    navigation.navigate("Posizioni");
+    navigation.navigate("AutoComplete");
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -34,8 +39,9 @@ export function Posizioni ({navigation,settore}) {
       <View style={styles.body}>
         <KeyboardAwareScrollView >
         <FormTextInput 
+        value={title}
+        onFocus={()=>navigation.navigate("AutoComplete")}
         placeholder="Titolo Posizione"
-        onChangeText={val => setTitle(val)}
         errorText="Campo Obbligatorio"
         error={titleError}
           />
