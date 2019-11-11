@@ -44,7 +44,7 @@ export function Posizioni ({navigation,settore}) {
       setItems(items.filter(i=> i!== item));
   };
   const handlePress = () => {
-    navigation.navigate("AutoComplete");
+    navigation.navigate("Anteprima");
   }
 
   return (

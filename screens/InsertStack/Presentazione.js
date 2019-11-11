@@ -1,14 +1,16 @@
 import React, {useState,useEffect} from 'react';
-import { View, StyleSheet,Platform } from 'react-native';
+import { View, StyleSheet,Platform,TextInput } from 'react-native';
 import {StepsIndicator} from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import {StepsLabel} from "./StepsLabel";
+import WithErrorString from "../shared/Form/WithErrorString";
+import {FormStyles} from "../shared/Form/FormStyles";
 import {RoundFilters} from "../Explore/FiltersStack/components/RoundFilters";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RoundButton from '../../components/shared/RoundButton';
+
 const Posizioni = [
    {name: "C.E.O", id:1}, {name: "C.T.O",id:2} ,{id:3,name: "Amministratore"},{id:4,name: "Direttore"},{id:5,name: "Finanziatore"}
-]
+];
 const Settori =["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 
 export function Presentazione ({ navigation }){
@@ -17,14 +19,16 @@ export function Presentazione ({ navigation }){
     const [items,setItems] = useState([]);
     const [titleError,setTitleError]= useState("");
     const addItem= item => {
-        if(items.length<1)
-          setItems([...items,item]);
-      };
-      const removeItem= item => {
-          setItems(items.filter(i=> i!== item));
+        setItems([item]);
       };
       const handlePress = () => {
+          console.log(items);
+          if(title.length===0){
+            setTitleError(true)
+          }
+          else{
         navigation.navigate("InsertFlowHome");
+          }
       }
       useEffect(()=>{
         passedTitle? setTitle(passedTitle.name) : null
@@ -36,15 +40,20 @@ export function Presentazione ({ navigation }){
       </View>
       <View style={styles.body}>
       <StepsLabel text={"Mi Propongo Come*"}/>
-      <RoundFilters maximum={1} items={items} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={[]}/>
+      <RoundFilters maximum={1} items={items} addItem={addItem} settori={Settori} settoreAttivi={[]}/>
       <View style={styles.PosizioniTitleWrapper}>
-      <FormTextInput 
-        value={title}
-        onFocus={()=>navigation.navigate("AutoComplete",{path:"Presentazione",items:Posizioni})}
-        placeholder="Posizione (es. CEO, Programmatore)"
+      <WithErrorString 
         errorText="Campo Obbligatorio"
         error={titleError}
-          />
+          >
+        <FormTextInput
+            error={titleError}
+            style={titleError ? FormStyles.inputError : FormStyles.input}
+            value={title}
+            onFocus={()=>navigation.navigate("AutoComplete",{path:"Presentazione",items:Posizioni})}
+            placeholder="Posizione (es. CEO, Programmatore)"
+        />
+        </WithErrorString>
         </View>
         <View style={styles.buttonWrapper}>
        <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"}onPress={()=>handlePress()}/>
