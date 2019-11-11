@@ -7,6 +7,7 @@ import WithErrorString from "../shared/Form/WithErrorString";
 import FormTextInputLarge from "../shared/Form/FormTextInputLarge";
 import {RoundFilters} from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
+import {StepsLabel,StepsLabelError} from "./StepsLabel";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const Settori =["Aereonautica", "Fashion","Ingegneria", "Ristorazione", "Intrattenimento","Cinofilia","Musica","Arte","Teatro"];
 
@@ -14,6 +15,7 @@ export function InsertFlowHome ({navigation,settore}) {
   const [title,setTitle]= useState("");
   const [description,setDescription]= useState("");
   const [titleError,setTitleError]= useState("");
+  const [settoreError,setSettoreError]= useState("");
   const [descriptionError,setDescriptionError]= useState("");
   settore= Platform =="web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
   const [items,setItems] = useState(settore);
@@ -29,6 +31,15 @@ export function InsertFlowHome ({navigation,settore}) {
       setTitleError(true);
     }
     else{
+      setTitleError(false)
+    }
+    if(items.length===0){
+    setSettoreError(true);
+    }
+    else{
+      setSettoreError(false); 
+    }
+    if(items.length>0&&title.length>0){
     navigation.navigate("Posizioni");
     }
   }
@@ -49,9 +60,11 @@ export function InsertFlowHome ({navigation,settore}) {
         error={titleError}
           />
           </WithErrorString>
-      <Bold style={styles.textHeading}>
-      Settore
-      </Bold>
+          {settoreError?
+      <StepsLabelError text={"Categoria"}/>
+              :
+      <StepsLabel text={"Categoria (es. Economia,Ingegneria..)"}/>
+      }
        <RoundFilters maximum={3} items={items} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore}/>
        <FormTextInputLarge
         placeholder="Descrizione"

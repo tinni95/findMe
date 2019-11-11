@@ -17,7 +17,7 @@ export const FormStyles = StyleSheet.create({
     height: 45,
     padding: 8,
     borderBottomWidth: 0.5,
-    borderBottomColor: 'red',
+    borderBottomColor: '#DD1E63',
     color: '#5F5E5E',
     fontSize: isSmallDevice ? 14 : 16,
     fontWeight: '500'
@@ -38,7 +38,7 @@ export const FormStyles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 0.5,
     color: '#5F5E5E',
-    borderBottomColor: 'red',
+    borderBottomColor: '#DD1E63',
     fontSize: isSmallDevice ? 14 : 16,
     fontWeight: '500'
   },
@@ -50,7 +50,7 @@ export const FormStyles = StyleSheet.create({
     flexDirection: 'row'
   },
   error: {
-    color: 'red',
+    color: '#DD1E63',
     textAlign: 'right',
     fontSize: isSmallDevice ? 10 : 12,
     marginRight: 10,

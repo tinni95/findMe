@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import { View, StyleSheet,Platform,TextInput } from 'react-native';
 import {StepsIndicator} from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
-import {StepsLabel} from "./StepsLabel";
+import {StepsLabel,StepsLabelError} from "./StepsLabel";
 import WithErrorString from "../shared/Form/WithErrorString";
 import {FormStyles} from "../shared/Form/FormStyles";
 import {RoundFilters} from "../Explore/FiltersStack/components/RoundFilters";
@@ -18,16 +18,25 @@ export function Presentazione ({ navigation }){
     const [title,setTitle]= useState("");
     const [items,setItems] = useState([]);
     const [titleError,setTitleError]= useState("");
+    const [itemsError,setItemsError]= useState("");
     const addItem= item => {
         setItems([item]);
       };
       const handlePress = () => {
-          console.log(items);
           if(title.length===0){
             setTitleError(true)
           }
           else{
-        navigation.navigate("InsertFlowHome");
+            setTitleError(false)
+          }
+          if(items.length===0){
+            setItemsError(true)
+          }
+          else{
+            setItemsError(false)
+          }
+          if(title.length>0&& items.length>0){
+            navigation.navigate("InsertFlowHome");
           }
       }
       useEffect(()=>{
@@ -39,7 +48,11 @@ export function Presentazione ({ navigation }){
       <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
       </View>
       <View style={styles.body}>
-      <StepsLabel text={"Mi Propongo Come*"}/>
+        {itemsError?
+              <StepsLabelError text={"Mi Propongo Come"}/>
+              :
+      <StepsLabel text={"Mi Propongo Come"}/>
+      }
       <RoundFilters maximum={1} items={items} addItem={addItem} settori={Settori} settoreAttivi={[]}/>
       <View style={styles.PosizioniTitleWrapper}>
       <WithErrorString 
