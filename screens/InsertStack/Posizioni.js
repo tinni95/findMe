@@ -34,7 +34,7 @@ export function Posizioni ({navigation,settore}) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
+      <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
       </View>
       <View style={styles.body}>
         <KeyboardAwareScrollView >

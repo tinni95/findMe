@@ -32,7 +32,7 @@ export function InsertFlowHome ({navigation,settore}) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
+      <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
       </View>
       <View style={styles.body}>
         <KeyboardAwareScrollView >
