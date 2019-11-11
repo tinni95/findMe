@@ -1,13 +1,13 @@
 import React from 'react';
 import { createSwitchNavigator } from 'react-navigation';
-import { InsertFlowHome } from '../../screens/InsertStack';
-import { Posizioni } from '../../screens/InsertStack/Posizioni';
-import {Anteprima}  from '../../screens/InsertStack/Anteprima';
-import TabBarIcon from '../../components/TabBarIcon';
+import { InsertFlowHome } from '../../../screens/InsertStack';
+import { PosizioniSwitch } from './PosizioniSwitch';
+import {Anteprima}  from '../../../screens/InsertStack/Anteprima';
+import TabBarIcon from '../../../components/TabBarIcon';
 
-const InsertStack = createSwitchNavigator({
+export const InsertStack = createSwitchNavigator({
   InsertFlowHome,
-  Posizioni,
+  Posizioni:PosizioniSwitch,
   Anteprima
 });
 
