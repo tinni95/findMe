@@ -3,6 +3,7 @@ import { TouchableOpacity,ScrollView,View, StyleSheet,Platform } from 'react-nat
 import { Light, Bold } from '../../components/StyledText';
 import {StepsIndicator} from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
+import WithErrorString from "../shared/Form/WithErrorString";
 import FormTextInputLarge from "../shared/Form/FormTextInputLarge";
 import {RoundFilters} from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
@@ -15,8 +16,6 @@ export function InsertFlowHome ({navigation,settore}) {
   const [titleError,setTitleError]= useState("");
   const [descriptionError,setDescriptionError]= useState("");
   settore= Platform =="web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
-  
-
   const [items,setItems] = useState(settore);
   const addItem= item => {
     if(items.length<3||items.includes(items))
@@ -26,22 +25,30 @@ export function InsertFlowHome ({navigation,settore}) {
       setItems(items.filter(i=> i!== item));
   };
   const handlePress = () => {
+    if(title.length===0){
+      setTitleError(true);
+    }
+    else{
     navigation.navigate("Posizioni");
-    console.log(items);
+    }
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
+      <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
       </View>
       <View style={styles.body}>
         <KeyboardAwareScrollView >
+        <WithErrorString 
+            error={titleError}
+            errorText={"Campo Obbligatorio"}>
         <FormTextInput 
         placeholder="Titolo Post Idea"
         onChangeText={val => setTitle(val)}
-        errorText="Campo Obbligatorio"
         error={titleError}
           />
+          </WithErrorString>
       <Bold style={styles.textHeading}>
       Settore
       </Bold>
@@ -85,7 +92,7 @@ const styles = StyleSheet.create({
 
   },
   header:{
-    flex:2
+    flex:1.5
   },
   textHeading:{
      marginLeft: 5, 

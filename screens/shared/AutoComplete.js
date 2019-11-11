@@ -2,34 +2,16 @@ import React, {useEffect, useRef,useState} from "react";
 import { TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
 import { FormStyles } from "./Form/FormStyles";
 import { Bold } from '../../components/StyledText';
-import { setContext } from "apollo-link-context";
-
-const items= [
-    {
-      name:"cacca",
-      id:"sad",
-      settore:"Aereonautica"
-    },
-    {
-      name:"dasd",
-      id:"sa21321d",
-      settore:"Aereonautica"
-    },
-    {
-      name:"pusst",
-      id:"das",
-      settore:"Aereonautica"
-    }
-  ]
   
 export function AutoComplete({ navigation }){
+    let items=navigation.getParam("items") || "";
+    let path=navigation.getParam("path") || "";
     const [text,setText] = useState("");
     const passwordInput = useRef();
     let filteredItems=items.filter(item=> item.name.toLowerCase().includes(text.toLowerCase()));
-    console.log(filteredItems);
     filteredItems= filteredItems.length == 0 ? [{name:text,id:"123edwa"}] : filteredItems;
     const renderItems= filteredItems.map(item=>{
-       return <TouchableOpacity onPress={()=> navigation.navigate("Posizioni",{item})} key={item.id} style={styles.item}><Bold style={styles.itemText}>{item.name}</Bold></TouchableOpacity>
+       return <TouchableOpacity onPress={()=> navigation.navigate(path,{item})} key={item.id} style={styles.item}><Bold style={styles.itemText}>{item.name}</Bold></TouchableOpacity>
     })
 
     
@@ -40,7 +22,7 @@ export function AutoComplete({ navigation }){
     return (<View style={styles.container}>
         <View style={styles.textContainer}>
             <TextInput style={[FormStyles.input, styles.input]} ref={passwordInput} onChangeText={text=> setText(text)}/>
-            <TouchableOpacity style={styles.cancelContainer} onPress={() => navigation.navigate("Posizioni")}>
+            <TouchableOpacity style={styles.cancelContainer} onPress={() => navigation.goBack()}>
                 <Bold style={styles.cancelButton}>Cancella</Bold>
             </TouchableOpacity>
         </View>

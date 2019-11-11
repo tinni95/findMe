@@ -7,7 +7,7 @@ export const Anteprima = ({ navigation }) => {
     return(
       <View style={styles.container}>
       <View style={styles.header}>
-      <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
+      <StepsIndicator navigation={navigation} active={3}></StepsIndicator>
       </View>
       <View style={styles.body}>
       <Light>Step 3</Light>
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   header:{
-    flex:2
+    flex:1.5
   }
 });

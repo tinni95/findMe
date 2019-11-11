@@ -1,6 +1,6 @@
 import React from "react";
 import StepIndicator from 'react-native-step-indicator';
-const labels = ["Descrizione","Posizioni","Anteprima"];
+const labels = ["Presentazione","Descrizione","Posizioni","Anteprima"];
 const customStyles={
   stepStrokeCurrentColor: '#10476C',
   stepStrokeFinishedColor: '#10476C',
@@ -26,16 +26,19 @@ export const StepsIndicator = ({active,navigation:{navigate}}) => {
        null
      }
      else if(step==0){
-      navigate("InsertFlowHome");
+      navigate("Presentazione");
      }
      else if(step==1){
-      navigate("Posizioni");
+      navigate("InsertFlowHome");
     }
     else if(step==2){
+      navigate("Posizioni");
+    }
+    else{
       navigate("Anteprima");
     }
    }}}
-   stepCount={3}
+   stepCount={4}
    currentPosition={active}
    labels={labels}
    customStyles={customStyles}
