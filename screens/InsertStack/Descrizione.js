@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, ScrollView, View, StyleSheet, Platform } from 'react-native';
-import { Light, Bold } from '../../components/StyledText';
+import { View, StyleSheet, Platform } from 'react-native';
 import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import WithErrorString from "../shared/Form/WithErrorString";
-import FormTextInputLarge from "../shared/Form/FormTextInputLarge";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
 import { StepsLabel, StepsLabelError } from "./StepsLabel";
@@ -46,13 +44,19 @@ export function Descrizione({ navigation, settore }) {
     else {
       setTitleError(false)
     }
+    if (description.length === 0) {
+      setDescriptionError(true);
+    }
+    else {
+      setDescriptionError(false)
+    }
     if (categories.length === 0) {
       setSettoreError(true);
     }
     else {
       setSettoreError(false);
     }
-    if (categories.length > 0 && title.length > 0) {
+    if (categories.length > 0 && title.length > 0 && description.length > 0) {
       client.writeData({
         data: {
           postDescription: description,
@@ -88,7 +92,7 @@ export function Descrizione({ navigation, settore }) {
           }
           <RoundFilters maximum={3} items={categories} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore} />
           {descriptionError ?
-            <StepsLabelError text={"Descrizione *"} />
+            <StepsLabelError text={"Descrizione"} />
             :
             <StepsLabel text={"Descrizione"} />
           }
@@ -103,6 +107,7 @@ export function Descrizione({ navigation, settore }) {
             error={descriptionError}
             value={description}
           />
+
           <View style={styles.buttonWrapper}>
             <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
           </View>
