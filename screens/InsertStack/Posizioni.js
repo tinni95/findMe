@@ -85,7 +85,6 @@ export function Posizioni({ navigation, settore }) {
       setPosizioniError(false)
     }
     if (posizioni.length > 0) {
-      console.log(posizioni)
       navigation.navigate("Anteprima");
     }
   }
@@ -151,6 +150,7 @@ export function Posizioni({ navigation, settore }) {
             <FormTextInput
               value={title}
               onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
+              onChangeText={val => setTitle(val)}
               placeholder="Titolo Posizione"
               error={titleError}
             />
