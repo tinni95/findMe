@@ -13,6 +13,7 @@ import gql from 'graphql-tag';
 const POST_PRESENTAZIONE = gql`
   query PresentazioneQuery {
     postLocation @client
+    postOwnerIndex @client
   }
 `;
 const Posizioni = [
@@ -23,6 +24,7 @@ const Settori = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Fin
 export function Presentazione({ navigation }) {
     const client = useApolloClient();
     const { data } = useQuery(POST_PRESENTAZIONE);
+    const activeIndex = data.postOwnerIndex;
     const passedTitle = navigation.getParam("item") || null
     const passedLocation = navigation.getParam("location") || data.postLocation
     const [title, setTitle] = useState("");
@@ -47,13 +49,17 @@ export function Presentazione({ navigation }) {
             setItemsError(false)
         }
         if (title.length > 0 && items.length > 0) {
-            client.writeData({ data: { postLocation: location } });
+            client.writeData({ data: { 
+                postLocation: location, 
+                postOwnerIndex: Settori.indexOf(items[0])
+             } });
             navigation.navigate("InsertFlowHome");
         }
     }
     useEffect(() => {
         passedTitle ? setTitle(passedTitle.name) : null
         passedLocation ? setLocation(passedLocation) : null
+        activeIndex !==-1 ? setItems([Settori[activeIndex]]): null
     })
     return (
         <View style={styles.container}>
@@ -73,7 +79,7 @@ export function Presentazione({ navigation }) {
                     :
                     <StepsLabel text={"Mi Propongo Come"} />
                 }
-                <RoundFilters maximum={1} items={items} addItem={addItem} settori={Settori} settoreAttivi={0} />
+                <RoundFilters maximum={1} items={items} addItem={addItem} settori={Settori} settoreAttivi={activeIndex} />
                 <View style={styles.PosizioniTitleWrapper}>
                     <WithErrorString
                         errorText="Campo Obbligatorio"
