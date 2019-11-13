@@ -15,7 +15,9 @@ const Settori =["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Fina
 
 export function Presentazione ({ navigation }){
     const passedTitle= navigation.getParam("item") || null
+    const passedLocation= navigation.getParam("location") || null
     const [title,setTitle]= useState("");
+    const [location,setLocation]= useState("");
     const [items,setItems] = useState([]);
     const [titleError,setTitleError]= useState("");
     const [itemsError,setItemsError]= useState("");
@@ -36,11 +38,15 @@ export function Presentazione ({ navigation }){
             setItemsError(false)
           }
           if(title.length>0&& items.length>0){
+              console.log(location);
+              console.log(title);
+              console.log(items);
             navigation.navigate("InsertFlowHome");
           }
       }
       useEffect(()=>{
         passedTitle? setTitle(passedTitle.name) : null
+        passedLocation? setLocation(passedLocation) : null
       })
     return(
       <View style={styles.container}>
@@ -48,6 +54,13 @@ export function Presentazione ({ navigation }){
       <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
       </View>
       <View style={styles.body}>
+      <FormTextInput
+            error={titleError}
+            style={titleError ? FormStyles.inputError : FormStyles.input}
+            value={location}
+            onFocus={()=>navigation.navigate("AutoCompleteLocation",{path:"Presentazione",items:Posizioni})}
+            placeholder="Località"
+        />
         {itemsError?
               <StepsLabelError text={"Mi Propongo Come"}/>
               :
