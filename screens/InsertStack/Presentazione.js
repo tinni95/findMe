@@ -31,6 +31,7 @@ export function Presentazione({ navigation }) {
     const [position, setPosition] = useState("");
     const [location, setLocation] = useState("");
     const [items, setItems] = useState([]);
+    const [locationError, setLocationError] = useState("");
     const [positionError, setPositionError] = useState("");
     const [itemsError, setItemsError] = useState("");
     const addItem = item => {
@@ -49,7 +50,13 @@ export function Presentazione({ navigation }) {
         else {
             setItemsError(false)
         }
-        if (position.length > 0 && items.length > 0) {
+        if (location.length === 0) {
+            setLocationError(true)
+        }
+        else {
+            setLocationError(false)
+        }
+        if (position.length > 0 && items.length > 0 && location.length>0) {
             client.writeData({ data: { 
                 postLocation: location, 
                 postOwnerPosition:position,
@@ -69,13 +76,18 @@ export function Presentazione({ navigation }) {
                 <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
             </View>
             <View style={styles.body}>
+            <WithErrorString
+                        errorText="Campo Obbligatorio"
+                        error={locationError}
+                    >
                 <FormTextInput
-                    error={positionError}
-                    style={positionError ? FormStyles.inputError : FormStyles.input}
+                    error={locationError}
+                    style={locationError ? FormStyles.inputError : FormStyles.input}
                     value={location}
                     onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione", items: Posizioni })}
                     placeholder="Località"
                 />
+                </WithErrorString>
                 {itemsError ?
                     <StepsLabelError text={"Mi Propongo Come"} />
                     :
