@@ -31,6 +31,7 @@ const client = new ApolloClient({
 cache.writeData({
   data: {
     postLocation: "",
+    postOwnerPosition:"",
     postOwnerIndex:-1
   },
 });

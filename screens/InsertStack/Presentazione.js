@@ -14,6 +14,7 @@ const POST_PRESENTAZIONE = gql`
   query PresentazioneQuery {
     postLocation @client
     postOwnerIndex @client
+    postOwnerPosition @client
   }
 `;
 const Posizioni = [
@@ -25,22 +26,22 @@ export function Presentazione({ navigation }) {
     const client = useApolloClient();
     const { data } = useQuery(POST_PRESENTAZIONE);
     const activeIndex = data.postOwnerIndex;
-    const passedTitle = navigation.getParam("item") || null
+    const passedTitle = navigation.getParam("item") || data.postOwnerPosition
     const passedLocation = navigation.getParam("location") || data.postLocation
-    const [title, setTitle] = useState("");
+    const [position, setPosition] = useState("");
     const [location, setLocation] = useState("");
     const [items, setItems] = useState([]);
-    const [titleError, setTitleError] = useState("");
+    const [positionError, setPositionError] = useState("");
     const [itemsError, setItemsError] = useState("");
     const addItem = item => {
         setItems([item]);
     };
     const handlePress = () => {
-        if (title.length === 0) {
-            setTitleError(true)
+        if (position.length === 0) {
+            setPositionError(true)
         }
         else {
-            setTitleError(false)
+            setPositionError(false)
         }
         if (items.length === 0) {
             setItemsError(true)
@@ -48,16 +49,17 @@ export function Presentazione({ navigation }) {
         else {
             setItemsError(false)
         }
-        if (title.length > 0 && items.length > 0) {
+        if (position.length > 0 && items.length > 0) {
             client.writeData({ data: { 
                 postLocation: location, 
+                postOwnerPosition:position,
                 postOwnerIndex: Settori.indexOf(items[0])
              } });
             navigation.navigate("InsertFlowHome");
         }
     }
     useEffect(() => {
-        passedTitle ? setTitle(passedTitle.name) : null
+        passedTitle ? setPosition(passedTitle.name?passedTitle.name:passedTitle ) : null
         passedLocation ? setLocation(passedLocation) : null
         activeIndex !==-1 ? setItems([Settori[activeIndex]]): null
     })
@@ -68,8 +70,8 @@ export function Presentazione({ navigation }) {
             </View>
             <View style={styles.body}>
                 <FormTextInput
-                    error={titleError}
-                    style={titleError ? FormStyles.inputError : FormStyles.input}
+                    error={positionError}
+                    style={positionError ? FormStyles.inputError : FormStyles.input}
                     value={location}
                     onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione", items: Posizioni })}
                     placeholder="Località"
@@ -83,12 +85,12 @@ export function Presentazione({ navigation }) {
                 <View style={styles.PosizioniTitleWrapper}>
                     <WithErrorString
                         errorText="Campo Obbligatorio"
-                        error={titleError}
+                        error={positionError}
                     >
                         <FormTextInput
-                            error={titleError}
-                            style={titleError ? FormStyles.inputError : FormStyles.input}
-                            value={title}
+                            error={positionError}
+                            style={positionError ? FormStyles.inputError : FormStyles.input}
+                            value={position}
                             onFocus={() => navigation.navigate("AutoComplete", { path: "Presentazione", items: Posizioni })}
                             placeholder="Posizione (es. CEO, Programmatore)"
                         />
