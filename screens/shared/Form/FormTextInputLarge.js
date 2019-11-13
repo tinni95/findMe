@@ -8,21 +8,10 @@ export default function FormTextInputLarge({placeholder,reference,error,secureTe
      <View>
       <Bold style={styles.textHeading}>{placeholder}</Bold>
     <TextInput
-        style={{
-          margin:5,
-          padding:5,
-          borderColor: '#ADADAD',
-          borderWidth: 1,
-          height:75,
-        }
-        }
         multiline
         numberOfLines={4}
-        numberOfLines={4}
-        secureTextEntry={secureTextEntry}
         placeholderTextColor="#ADADAD"
         onChangeText={onChangeText}
-        ref={reference}
         editable
         onSubmitEditing={nextInput}
     />

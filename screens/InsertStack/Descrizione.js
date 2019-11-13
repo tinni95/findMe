@@ -83,13 +83,22 @@ export function Descrizione ({navigation,settore}) {
       <StepsLabel text={"Categoria (es. Economia,Ingegneria..)"}/>
       }
        <RoundFilters maximum={3} items={items} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore}/>
-       <FormTextInputLarge
+       {descriptionError?
+      <StepsLabelError text={"Descrizione *"}/>
+              :
+      <StepsLabel text={"Descrizione"}/>
+      }
+       <FormTextInput
+        large="true"
+        multiline
+        numberOfLines={4}
         placeholder="Descrizione"
+        placeholderTextColor="#ADADAD"
         onChangeText={val => setDescription(val)}
-        value={description}
-        errorText="Campo Obbligatorio"
+        editable
         error={descriptionError}
-          />
+        value={description}
+        />
         <View style={styles.buttonWrapper}>
        <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={()=>handlePress()}/>
        </View>
