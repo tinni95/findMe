@@ -16,6 +16,7 @@ const POST_DESCRIZIONE = gql`
   query DescrizioneQuery {
     postTitle @client
     postDescription @client
+    postCategories @client
   }
 `;
 
@@ -29,14 +30,14 @@ export function Descrizione({ navigation, settore }) {
   const [titleError, setTitleError] = useState("");
   const [settoreError, setSettoreError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
-  settore = Platform == "web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
-  const [items, setItems] = useState(settore);
+  settore = data.postCategories;
+  const [categories, setCategories] = useState(settore);
   const addItem = item => {
-    if (items.length < 3 || items.includes(items))
-      setItems([...items, item]);
+    if (categories.length < 3 || categories.includes(categories))
+      setCategories([...categories, item]);
   };
   const removeItem = item => {
-    setItems(items.filter(i => i !== item));
+    setCategories(categories.filter(i => i !== item));
   };
   const handlePress = () => {
     if (title.length === 0) {
@@ -45,17 +46,18 @@ export function Descrizione({ navigation, settore }) {
     else {
       setTitleError(false)
     }
-    if (items.length === 0) {
+    if (categories.length === 0) {
       setSettoreError(true);
     }
     else {
       setSettoreError(false);
     }
-    if (items.length > 0 && title.length > 0) {
+    if (categories.length > 0 && title.length > 0) {
       client.writeData({
         data: {
           postDescription: description,
-          postTitle: title
+          postTitle: title,
+          postCategories: categories
         }
       });
       navigation.navigate("Posizioni");
@@ -84,7 +86,7 @@ export function Descrizione({ navigation, settore }) {
             :
             <StepsLabel text={"Categoria (es. Economia,Ingegneria..)"} />
           }
-          <RoundFilters maximum={3} items={items} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore} />
+          <RoundFilters maximum={3} items={categories} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore} />
           {descriptionError ?
             <StepsLabelError text={"Descrizione *"} />
             :
