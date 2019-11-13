@@ -32,6 +32,8 @@ cache.writeData({
   data: {
     postLocation: "",
     postOwnerPosition:"",
+    postTitle: "",
+    postDescription:"",
     postOwnerIndex:-1
   },
 });

@@ -21,7 +21,6 @@ export const StepsIndicator = ({active,navigation:{navigate}}) => {
   return(
   <StepIndicator
    onPress={(step) => {{
-     console.log(step);
      if(step==active){
        null
      }

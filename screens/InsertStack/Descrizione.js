@@ -8,12 +8,24 @@ import FormTextInputLarge from "../shared/Form/FormTextInputLarge";
 import {RoundFilters} from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
 import {StepsLabel,StepsLabelError} from "./StepsLabel";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+
+const POST_DESCRIZIONE = gql`
+  query DescrizioneQuery {
+    postTitle @client
+    postDescription @client
+  }
+`;
+
 const Settori =["Aereonautica", "Fashion","Ingegneria", "Ristorazione", "Intrattenimento","Cinofilia","Musica","Arte","Teatro"];
 
 export function Descrizione ({navigation,settore}) {
-  const [title,setTitle]= useState("");
-  const [description,setDescription]= useState("");
+  const client = useApolloClient();
+  const { data } = useQuery(POST_DESCRIZIONE);
+  const [title,setTitle]= useState(data.postTitle||"");
+  const [description,setDescription]= useState(data.postDescription||"");
   const [titleError,setTitleError]= useState("");
   const [settoreError,setSettoreError]= useState("");
   const [descriptionError,setDescriptionError]= useState("");
@@ -40,6 +52,10 @@ export function Descrizione ({navigation,settore}) {
       setSettoreError(false); 
     }
     if(items.length>0&&title.length>0){
+      client.writeData({ data: { 
+        postDescription:description,
+        postTitle:title
+     } });
     navigation.navigate("Posizioni");
     }
   }
@@ -57,6 +73,7 @@ export function Descrizione ({navigation,settore}) {
         <FormTextInput 
         placeholder="Titolo Post Idea"
         onChangeText={val => setTitle(val)}
+        value={title}
         error={titleError}
           />
           </WithErrorString>
@@ -69,6 +86,7 @@ export function Descrizione ({navigation,settore}) {
        <FormTextInputLarge
         placeholder="Descrizione"
         onChangeText={val => setDescription(val)}
+        value={description}
         errorText="Campo Obbligatorio"
         error={descriptionError}
           />
