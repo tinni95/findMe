@@ -4,20 +4,20 @@ import { RoundFilterItem } from "./RoundFilterItem";
 import RoundButton from "../../../../components/shared/RoundButton";
 
 export function RoundFilters({ maximum, settori, addItem, removeItem, settoreAttivi, wrapperStyle, items }) {
-    let filters,active;
-    const [selected,setSelected]=useState(settoreAttivi);
+    let filters, active;
+    const [selected, setSelected] = useState(settoreAttivi);
     if (maximum == 1) {
         filters = settori.map((settore, index) => {
-        active=index===selected
+            active = index === selected
             return (
                 <View key={index} style={{ margin: 5 }}>
-                    <RoundButton styleProps={{borderWidth:0.5,borderColor:"#707070"}} 
+                    <RoundButton styleProps={{ borderWidth: 0.5, borderColor: "#707070" }}
                         text={settore} textColor={active ? "#FFF" : "#5F5E5E"}
-                        color={active?"#DD1E63":"#FFF"} 
-                        onPress={()=>{
+                        color={active ? "#DD1E63" : "#FFF"}
+                        onPress={() => {
                             addItem(settore);
                             setSelected(index)
-                            }}/>
+                        }} />
                 </View>
             )
         })

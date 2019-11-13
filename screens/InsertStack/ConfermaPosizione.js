@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
-import { StepsLabel } from "./StepsLabel";
+import { StepsLabel, StepsLabelError } from "./StepsLabel";
+import { AddButton } from "./AddButton";
+import WithErrorString from "../shared/Form/WithErrorString";
 import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
@@ -25,34 +27,57 @@ const autoCompleteItems = [
         settore: "Aereonautica"
     }
 ]
-export function ConfermaPosizione({ navigation, settore }) {
-    const passedTitle = navigation.getParam("item") || null
-    const [title, setTitle] = useState("");
+export function ConfermaPosizione({ navigation }) {
+    const [title, setTitle] = useState(navigation.getParam("title"));
+    const [description, setDescription] = useState(navigation.getParam("description"));
+    const [categoria, setCategoria] = useState([]);
+    const activeIndex = navigation.getParam("categoria");
     const [socio, setSocio] = useState([]);
+    const activeIndexSocio = navigation.getParam("socio");
     const [socioError, setSocioError] = useState(false);
-    const [description, setDescription] = useState("");
-    const [titleError, setTitleError] = useState("");
-    const [descriptionError, setDescriptionError] = useState("");
-    settore = Platform == "web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
+    const [titleError, setTitleError] = useState(false);
+    const [descriptionError, setDescriptionError] = useState(false);
+    const [categoriaError, setCategoriaError] = useState(false);
     useEffect(() => {
-        passedTitle ? setTitle(passedTitle.name) : null
+        setCategoria([Settori[activeIndex]])
+        setSocio([TipoSocio[activeIndexSocio]])
     })
-    const [items, setItems] = useState(settore);
     const addItem1 = item => {
         setSocio([item]);
     };
     const addItem = item => {
-        setItems([item]);
+        setCategoria([item]);
     };
+
     const handlePress = () => {
-        navigation.navigate("Anteprima");
+        if (description.length === 0) {
+            setDescriptionError(true)
+        } else {
+            setDescriptionError(false)
+        }
+        if (categoria.length === 0) {
+            setCategoriaError(true)
+        } else {
+            setCategoriaError(false)
+        }
+        if (socio.length === 0) {
+            setSocioError(true)
+        } else {
+            setSocioError(false)
+        }
+        if (title.length === 0) {
+            setTitleError(true)
+        } else {
+            setTitleError(false)
+        }
+        if (title.length > 0 && socio.length > 0 && categoria.length > 0 && description.length > 0) {
+            navigation.navigate("Posizioni", { refresh: true });
+        }
     }
+
     if (socio == "Socio Finanziatore") {
         return (
             <View style={styles.container}>
-                <View style={styles.header}>
-                    <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
-                </View>
                 <View style={styles.body}>
                     <KeyboardAwareScrollView >
                         {socioError ?
@@ -60,10 +85,10 @@ export function ConfermaPosizione({ navigation, settore }) {
                             :
                             <StepsLabel text={"Cosa Cerco"} />
                         }
-                        <RoundFilters maximum={1} items={items} addItem={addItem1} settori={TipoSocio} settoreAttivi={[]} />
+                        <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
                         <View style={{ height: 15 }}></View>
                         {descriptionError ?
-                            <StepsLabelError text={"Descrizione*"} />
+                            <StepsLabelError text={"Descrizione"} />
                             :
                             <StepsLabel text={"Descrizione"} />
                         }
@@ -88,9 +113,6 @@ export function ConfermaPosizione({ navigation, settore }) {
     }
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
-            </View>
             <View style={styles.body}>
                 <KeyboardAwareScrollView >
                     {socioError ?
@@ -98,17 +120,21 @@ export function ConfermaPosizione({ navigation, settore }) {
                         :
                         <StepsLabel text={"Mi Propongo Come"} />
                     }
-                    <RoundFilters maximum={1} items={items} addItem={addItem1} settori={TipoSocio} settoreAttivi={[]} />
+                    <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
                     <View style={{ height: 15 }}></View>
-                    <FormTextInput
-                        value={title}
-                        onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
-                        placeholder="Titolo Posizione"
-                        errorText="Campo Obbligatorio"
+                    <WithErrorString
                         error={titleError}
-                    />
+                        errorText={"Campo Obbligatorio"}>
+                        <FormTextInput
+                            value={title}
+                            onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
+                            onChangeText={val => setTitle(val)}
+                            placeholder="Titolo Posizione"
+                            error={titleError}
+                        />
+                    </WithErrorString>
                     {descriptionError ?
-                        <StepsLabelError text={"Descrizione*"} />
+                        <StepsLabelError text={"Descrizione"} />
                         :
                         <StepsLabel text={"Descrizione"} />
                     }
@@ -123,10 +149,11 @@ export function ConfermaPosizione({ navigation, settore }) {
                         error={descriptionError}
                         value={description}
                     />
-                    <StepsLabel text="Categorie (es. Economia, Ingegneria...)" />
-                    <RoundFilters maximum={1} items={items} addItem={addItem} settori={Settori} settoreAttivi={settore} />
+                    {categoriaError ? <StepsLabelError text="Categoria" /> :
+                        <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
+                    <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={activeIndex} />
                     <View style={styles.buttonWrapper}>
-                        <RoundButton text={"CONFERMA"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+                        <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
                     </View>
                 </KeyboardAwareScrollView>
             </View>
@@ -134,10 +161,12 @@ export function ConfermaPosizione({ navigation, settore }) {
     )
 };
 
-Posizioni.navigationOptions = {
-    header: null
-};
 const styles = StyleSheet.create({
+    aggiungiWrapper: {
+        alignItems: "center",
+        flexDirection: "column",
+        margin: 20
+    },
     buttonWrapper: {
         alignItems: "center",
         margin: 20

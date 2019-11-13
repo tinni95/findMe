@@ -30,6 +30,7 @@ const autoCompleteItems = [
 export function Posizioni({ navigation, settore }) {
   const posizioni = [];
   const passedTitle = navigation.getParam("item") || null
+  const refresh = navigation.getParam("refresh") || null
   const [title, setTitle] = useState("");
   const [socio, setSocio] = useState([]);
   const [posizioniError, setPosizioniError] = useState(false);
@@ -38,11 +39,21 @@ export function Posizioni({ navigation, settore }) {
   const [titleError, setTitleError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [categoriaError, setCategoriaError] = useState("");
+  const [categoria, setCategoria] = useState(settore);
   settore = Platform == "web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
   useEffect(() => {
     passedTitle ? setTitle(passedTitle.name) : null
+    refresh ? resetState() : null
   })
-  const [categoria, setCategoria] = useState(settore);
+
+  const resetState = () => {
+    setTitle("");
+    setDescription("");
+    setSocio([]);
+    setCategoria([]);
+    settore = [];
+
+  }
   const addItem1 = item => {
     setSocio([item]);
   };
@@ -51,11 +62,6 @@ export function Posizioni({ navigation, settore }) {
   };
 
   const handleAggiungi = () => {
-    if (description.length === 0) {
-      setDescriptionError(true)
-    } else {
-      setDescriptionError(false)
-    }
     if (description.length === 0) {
       setDescriptionError(true)
     } else {
@@ -75,6 +81,14 @@ export function Posizioni({ navigation, settore }) {
       setTitleError(true)
     } else {
       setTitleError(false)
+    }
+    if (description.length > 0 && categoria.length > 0 && socio.length > 0 && title.length > 0) {
+      navigation.navigate("ConfermaPosizione", {
+        description,
+        categoria: Settori.indexOf(categoria[0]),
+        socio: TipoSocio.indexOf(socio[0])
+        , title
+      })
     }
   }
 
