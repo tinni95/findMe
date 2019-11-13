@@ -5,7 +5,7 @@ import RoundButton from "../../../../components/shared/RoundButton";
 
 export function RoundFilters({ maximum, settori, addItem, removeItem, settoreAttivi, wrapperStyle, items }) {
     let filters,active;
-    const [selected,setSelected]=useState("");
+    const [selected,setSelected]=useState(settoreAttivi);
     if (maximum == 1) {
         filters = settori.map((settore, index) => {
         active=index===selected

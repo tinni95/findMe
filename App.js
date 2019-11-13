@@ -9,6 +9,9 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import {graphlEndPoint} from "./shared/urls";
 import {TOKEN_KEY} from "./shared/Token"
+import { resolvers, typeDefs } from './resolvers';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   request: async (operation) => {
@@ -19,8 +22,17 @@ const client = new ApolloClient({
       }
     })
   },
-  uri:graphlEndPoint
+  uri:graphlEndPoint,
+  cache,
+  resolvers,
+  typeDefs
 })
+
+cache.writeData({
+  data: {
+    postLocation: "",
+  },
+});
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
