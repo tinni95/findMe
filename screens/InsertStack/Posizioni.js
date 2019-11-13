@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
-import { StepsLabel } from "./StepsLabel";
+import { StepsLabel, StepsLabelError } from "./StepsLabel";
 import { AddButton } from "./AddButton";
+import WithErrorString from "../shared/Form/WithErrorString";
 import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
@@ -27,26 +28,66 @@ const autoCompleteItems = [
   }
 ]
 export function Posizioni({ navigation, settore }) {
+  const posizioni = [];
   const passedTitle = navigation.getParam("item") || null
   const [title, setTitle] = useState("");
   const [socio, setSocio] = useState([]);
+  const [posizioniError, setPosizioniError] = useState(false);
   const [socioError, setSocioError] = useState(false);
   const [description, setDescription] = useState("");
   const [titleError, setTitleError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
+  const [categoriaError, setCategoriaError] = useState("");
   settore = Platform == "web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
   useEffect(() => {
     passedTitle ? setTitle(passedTitle.name) : null
   })
-  const [items, setItems] = useState(settore);
+  const [categoria, setCategoria] = useState(settore);
   const addItem1 = item => {
     setSocio([item]);
   };
   const addItem = item => {
-    setItems([item]);
+    setCategoria([item]);
   };
+
+  const handleAggiungi = () => {
+    if (description.length === 0) {
+      setDescriptionError(true)
+    } else {
+      setDescriptionError(false)
+    }
+    if (description.length === 0) {
+      setDescriptionError(true)
+    } else {
+      setDescriptionError(false)
+    }
+    if (categoria.length === 0) {
+      setCategoriaError(true)
+    } else {
+      setCategoriaError(false)
+    }
+    if (socio.length === 0) {
+      setSocioError(true)
+    } else {
+      setSocioError(false)
+    }
+    if (title.length === 0) {
+      setTitleError(true)
+    } else {
+      setTitleError(false)
+    }
+  }
+
   const handlePress = () => {
-    navigation.navigate("Anteprima");
+    if (posizioni.length < 1) {
+      setPosizioniError(true)
+    } else {
+      setPosizioniError(false)
+    }
+    if (posizioni.length > 0) {
+      console.log(posizioni)
+      navigation.navigate("Anteprima");
+    }
   }
   if (socio == "Socio Finanziatore") {
     return (
@@ -61,10 +102,10 @@ export function Posizioni({ navigation, settore }) {
               :
               <StepsLabel text={"Cosa Cerco"} />
             }
-            <RoundFilters maximum={1} items={items} addItem={addItem1} settori={TipoSocio} settoreAttivi={[]} />
+            <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={[]} />
             <View style={{ height: 15 }}></View>
             {descriptionError ?
-              <StepsLabelError text={"Descrizione*"} />
+              <StepsLabelError text={"Descrizione"} />
               :
               <StepsLabel text={"Descrizione"} />
             }
@@ -80,10 +121,7 @@ export function Posizioni({ navigation, settore }) {
               value={description}
             />
             <View style={styles.aggiungiWrapper}>
-              <View>
-                <StepsLabel text="Aggiungi Una Posizione" />
-              </View>
-              <AddButton text={"+ Aggiungi Posizione"}></AddButton>
+              <AddButton onPress={() => handlePress()} text={"+ Aggiungi Posizione"} />
             </View>
             <View style={styles.buttonWrapper}>
               <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
@@ -105,17 +143,20 @@ export function Posizioni({ navigation, settore }) {
             :
             <StepsLabel text={"Mi Propongo Come"} />
           }
-          <RoundFilters maximum={1} items={items} addItem={addItem1} settori={TipoSocio} settoreAttivi={[]} />
+          <RoundFilters maximum={1} items={categoria} addItem={addItem1} settori={TipoSocio} settoreAttivi={[]} />
           <View style={{ height: 15 }}></View>
-          <FormTextInput
-            value={title}
-            onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
-            placeholder="Titolo Posizione"
-            errorText="Campo Obbligatorio"
+          <WithErrorString
             error={titleError}
-          />
+            errorText={"Campo Obbligatorio"}>
+            <FormTextInput
+              value={title}
+              onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
+              placeholder="Titolo Posizione"
+              error={titleError}
+            />
+          </WithErrorString>
           {descriptionError ?
-            <StepsLabelError text={"Descrizione*"} />
+            <StepsLabelError text={"Descrizione"} />
             :
             <StepsLabel text={"Descrizione"} />
           }
@@ -130,13 +171,15 @@ export function Posizioni({ navigation, settore }) {
             error={descriptionError}
             value={description}
           />
-          <StepsLabel text="Categorie (es. Economia, Ingegneria...)" />
-          <RoundFilters maximum={1} items={items} addItem={addItem} settori={Settori} settoreAttivi={settore} />
+          {categoriaError ? <StepsLabelError text="Categoria" /> :
+            <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
+          <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={settore} />
           <View style={styles.aggiungiWrapper}>
             <View>
-              <StepsLabel text="Aggiungi Una Posizione" />
+              {posizioniError ? <StepsLabelError text="Aggiungi Una Posizione" /> :
+                <StepsLabel text="Aggiungi Una Posizione" />}
             </View>
-            <AddButton text={"+ Aggiungi Posizione"}></AddButton>
+            <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
           </View>
           <View style={styles.buttonWrapper}>
             <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />

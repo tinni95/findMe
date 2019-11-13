@@ -1,13 +1,15 @@
 import React from 'react'
 import { Body } from '../../components/StyledText';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-export const AddButton = (props) => {
+export const AddButton = ({ onPress, style, text }) => {
     return (
-        <TouchableOpacity onPress={props.onPress} style={styles.aggiungiButton}>
-            <Body style={[props.style, styles.textHeading]}>
-                {props.text}
-            </Body>
+        <TouchableOpacity onPress={onPress}>
+            <View style={styles.aggiungiButton}>
+                <Body style={[style, styles.textHeading]}>
+                    {text}
+                </Body>
+            </View>
         </TouchableOpacity>
     )
 }
