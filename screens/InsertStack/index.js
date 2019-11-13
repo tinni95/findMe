@@ -1,3 +1,3 @@
-import {InsertFlowHome} from './InsertFlowHome';
+import {Descrizione} from './Descrizione';
 
-export { InsertFlowHome };
+export { Descrizione };

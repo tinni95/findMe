@@ -11,7 +11,7 @@ import {StepsLabel,StepsLabelError} from "./StepsLabel";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const Settori =["Aereonautica", "Fashion","Ingegneria", "Ristorazione", "Intrattenimento","Cinofilia","Musica","Arte","Teatro"];
 
-export function InsertFlowHome ({navigation,settore}) {
+export function Descrizione ({navigation,settore}) {
   const [title,setTitle]= useState("");
   const [description,setDescription]= useState("");
   const [titleError,setTitleError]= useState("");
@@ -81,7 +81,7 @@ export function InsertFlowHome ({navigation,settore}) {
   )
 };
 
-InsertFlowHome.navigationOptions = {
+Descrizione.navigationOptions = {
   header: null
 };
 const styles = StyleSheet.create({

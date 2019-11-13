@@ -62,7 +62,7 @@ export function Presentazione({ navigation }) {
                 postOwnerPosition:position,
                 postOwnerIndex: Settori.indexOf(items[0])
              } });
-            navigation.navigate("InsertFlowHome");
+            navigation.navigate("Descrizione");
         }
     }
     useEffect(() => {

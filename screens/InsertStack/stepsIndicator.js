@@ -29,7 +29,7 @@ export const StepsIndicator = ({active,navigation:{navigate}}) => {
       navigate("Presentazione");
      }
      else if(step==1){
-      navigate("InsertFlowHome");
+      navigate("Descrizione");
     }
     else if(step==2){
       navigate("Posizioni");
