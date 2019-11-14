@@ -7,7 +7,21 @@ import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+
+const POST_POSIZIONI = gql`
+  query PosizioniQuery {
+    postPositions @client{
+      field
+      type
+      description
+      title
+    }
+  }
+`;
+
 const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 const autoCompleteItems = [
@@ -28,8 +42,9 @@ const autoCompleteItems = [
   }
 ]
 export function Posizioni({ navigation, settore }) {
-  const posizioni = [];
-  const passedTitle = navigation.getParam("item") || null
+  const { data } = useQuery(POST_POSIZIONI);
+  const posizioni = data.postPositions || [];
+  let passedTitle = navigation.getParam("item") || null
   const refresh = navigation.getParam("refresh") || null
   const [title, setTitle] = useState("");
   const [socio, setSocio] = useState([]);
@@ -43,7 +58,6 @@ export function Posizioni({ navigation, settore }) {
   settore = Platform == "web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
   useEffect(() => {
     passedTitle ? setTitle(passedTitle.name) : null
-    refresh ? resetState() : null
   })
 
   const resetState = () => {
@@ -52,8 +66,9 @@ export function Posizioni({ navigation, settore }) {
     setSocio([]);
     setCategoria([]);
     settore = [];
-
+    passedTitle = null;
   }
+
   const addItem1 = item => {
     setSocio([item]);
   };
@@ -88,7 +103,8 @@ export function Posizioni({ navigation, settore }) {
         categoria: Settori.indexOf(categoria[0]),
         socio: TipoSocio.indexOf(socio[0])
         , title
-      })
+      });
+      resetState();
     }
   }
 
@@ -189,10 +205,16 @@ export function Posizioni({ navigation, settore }) {
             <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
           <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={settore} />
           <View style={styles.aggiungiWrapper}>
-            <View>
-              {posizioniError ? <StepsLabelError text="Aggiungi Una Posizione" /> :
-                <StepsLabel text="Aggiungi Una Posizione" />}
-            </View>
+            {posizioni.length == 0 ?
+              <View>
+                {posizioniError ? <StepsLabelError text="Aggiungi Una Posizione" /> :
+                  <StepsLabel text="Aggiungi Una Posizione" />}
+              </View>
+              :
+              <View>
+                {posizioniError ? <StepsLabelError text="Hai Aggiunto una posizione" /> :
+                  <StepsLabel text="Hai Aggiunto una posizione" />}
+              </View>}
             <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
           </View>
           <View style={styles.buttonWrapper}>

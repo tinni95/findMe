@@ -8,6 +8,8 @@ import FormTextInput from "../shared/Form/FormTextInput";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useApolloClient } from '@apollo/react-hooks';
+
 const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 const autoCompleteItems = [
@@ -28,6 +30,7 @@ const autoCompleteItems = [
     }
 ]
 export function ConfermaPosizione({ navigation }) {
+    const client = useApolloClient();
     const [title, setTitle] = useState(navigation.getParam("title"));
     const [description, setDescription] = useState(navigation.getParam("description"));
     const [categoria, setCategoria] = useState([]);
@@ -71,6 +74,17 @@ export function ConfermaPosizione({ navigation }) {
             setTitleError(false)
         }
         if (title.length > 0 && socio.length > 0 && categoria.length > 0 && description.length > 0) {
+            client.writeData({
+                data: {
+                    postPositions: [{
+                        __typename: 'data',
+                        title,
+                        type: socio[0],
+                        field: categoria[0],
+                        description,
+                    }]
+                }
+            });
             navigation.navigate("Posizioni", { refresh: true });
         }
     }
@@ -161,6 +175,9 @@ export function ConfermaPosizione({ navigation }) {
     )
 };
 
+ConfermaPosizione.navigationOptions = {
+    title: "Conferma Posizione"
+}
 const styles = StyleSheet.create({
     aggiungiWrapper: {
         alignItems: "center",

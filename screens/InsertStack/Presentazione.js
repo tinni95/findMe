@@ -30,6 +30,11 @@ export function Presentazione({ navigation }) {
     const passedLocation = navigation.getParam("location") || data.postLocation
     const [position, setPosition] = useState("");
     const [location, setLocation] = useState("");
+    useEffect(() => {
+        passedTitle ? setPosition(passedTitle.name ? passedTitle.name : passedTitle) : null
+        passedLocation ? setLocation(passedLocation) : null
+        activeIndex !== -1 ? setItems([Settori[activeIndex]]) : null
+    })
     const [items, setItems] = useState([]);
     const [locationError, setLocationError] = useState("");
     const [positionError, setPositionError] = useState("");
@@ -56,37 +61,35 @@ export function Presentazione({ navigation }) {
         else {
             setLocationError(false)
         }
-        if (position.length > 0 && items.length > 0 && location.length>0) {
-            client.writeData({ data: { 
-                postLocation: location, 
-                postOwnerPosition:position,
-                postOwnerIndex: Settori.indexOf(items[0])
-             } });
+        if (position.length > 0 && items.length > 0 && location.length > 0) {
+            client.writeData({
+                data: {
+                    postLocation: location,
+                    postOwnerPosition: position,
+                    postOwnerIndex: Settori.indexOf(items[0])
+                }
+            });
             navigation.navigate("Descrizione");
         }
     }
-    useEffect(() => {
-        passedTitle ? setPosition(passedTitle.name?passedTitle.name:passedTitle ) : null
-        passedLocation ? setLocation(passedLocation) : null
-        activeIndex !==-1 ? setItems([Settori[activeIndex]]): null
-    })
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
             </View>
             <View style={styles.body}>
-            <WithErrorString
-                        errorText="Campo Obbligatorio"
-                        error={locationError}
-                    >
-                <FormTextInput
+                <WithErrorString
+                    errorText="Campo Obbligatorio"
                     error={locationError}
-                    style={locationError ? FormStyles.inputError : FormStyles.input}
-                    value={location}
-                    onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione", items: Posizioni })}
-                    placeholder="Località"
-                />
+                >
+                    <FormTextInput
+                        error={locationError}
+                        style={locationError ? FormStyles.inputError : FormStyles.input}
+                        value={location}
+                        onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione", items: Posizioni })}
+                        placeholder="Località"
+                    />
                 </WithErrorString>
                 {itemsError ?
                     <StepsLabelError text={"Mi Propongo Come"} />
