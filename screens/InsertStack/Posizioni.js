@@ -212,8 +212,8 @@ export function Posizioni({ navigation, settore }) {
               </View>
               :
               <View>
-                {posizioniError ? <StepsLabelError text="Hai Aggiunto una posizione" /> :
-                  <StepsLabel text="Hai Aggiunto una posizione" />}
+                {posizioniError ? <StepsLabelError text={`Hai Aggiunto ` + posizioni.length + ` posizione`} /> :
+                  <StepsLabel text={`Hai Aggiunto ` + posizioni.length + ` posizione`} />}
               </View>}
             <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
           </View>

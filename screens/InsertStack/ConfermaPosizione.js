@@ -8,8 +8,19 @@ import FormTextInput from "../shared/Form/FormTextInput";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
+const POST_POSIZIONI = gql`
+  query PosizioniQuery {
+    postPositions @client{
+      field
+      type
+      description
+      title
+    }
+  }
+`;
 const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 const autoCompleteItems = [
@@ -30,7 +41,9 @@ const autoCompleteItems = [
     }
 ]
 export function ConfermaPosizione({ navigation }) {
+    const { data } = useQuery(POST_POSIZIONI);
     const client = useApolloClient();
+    const posizioni = data.postPositions || []
     const [title, setTitle] = useState(navigation.getParam("title"));
     const [description, setDescription] = useState(navigation.getParam("description"));
     const [categoria, setCategoria] = useState([]);
@@ -74,15 +87,18 @@ export function ConfermaPosizione({ navigation }) {
             setTitleError(false)
         }
         if (title.length > 0 && socio.length > 0 && categoria.length > 0 && description.length > 0) {
+
+            const posizione = {
+                __typename: 'data',
+                title,
+                type: socio[0],
+                field: categoria[0],
+                description,
+            }
+
             client.writeData({
                 data: {
-                    postPositions: [{
-                        __typename: 'data',
-                        title,
-                        type: socio[0],
-                        field: categoria[0],
-                        description,
-                    }]
+                    postPositions: [...posizioni, posizione]
                 }
             });
             navigation.navigate("Posizioni", { refresh: true });
