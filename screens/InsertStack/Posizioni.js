@@ -213,7 +213,7 @@ export function Posizioni({ navigation, settore }) {
               :
               <View style={{ flexDirection: "row" }}>
                 <StepsLabel text={`Hai Aggiunto`} />
-                <StepsLabel style={styles.link} text={posizioni.length + ` posizione`} />
+                <StepsLabel style={styles.link} text={posizioni.length + ` posizione`} onPress={() => navigation.navigate("ModificaPosizioni")} />
               </View>}
             <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
           </View>

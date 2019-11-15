@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 
 export const StepsLabel = (props) => {
     return (
-        <Bold style={[styles.textHeading, props.style]}>
+        <Bold {...props} style={[styles.textHeading, props.style]}>
             {props.text}
         </Bold>
     )
