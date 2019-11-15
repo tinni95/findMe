@@ -54,10 +54,9 @@ export function Posizioni({ navigation, settore }) {
   const [titleError, setTitleError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [categoriaError, setCategoriaError] = useState("");
-  const [categoria, setCategoria] = useState(settore);
-  settore = Platform == "web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
+  const [categoria, setCategoria] = useState([]);
   useEffect(() => {
-    passedTitle ? setTitle(passedTitle.name) : null
+    passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
   })
 
   const resetState = () => {
