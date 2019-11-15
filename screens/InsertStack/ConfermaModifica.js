@@ -54,18 +54,8 @@ export function ConfermaModifica({ navigation }) {
     const [descriptionError, setDescriptionError] = useState(false);
     const [categoriaError, setCategoriaError] = useState(false);
     let posizioni = data.postPositions || []
-    let posizione, oldPosition, oldPositionIndex;
 
     useEffect(() => {
-        posizione = {
-            __typename: 'data',
-            title,
-            type: socio[0],
-            field: categoria[0],
-            description,
-        }
-        oldPosition = posizioni.filter(posizion => _.isEqual(posizion, posizione))
-        oldPositionIndex = posizioni.indexOf(oldPosition[0]);
         setCategoria([Settori[activeIndex]])
         setSocio([TipoSocio[activeIndexSocio]])
         passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
@@ -100,16 +90,14 @@ export function ConfermaModifica({ navigation }) {
             setTitleError(false)
         }
         if (title.length > 0 && socio.length > 0 && categoria.length > 0 && description.length > 0) {
-            fosizione = {
+            const posizione = {
                 __typename: 'data',
                 title,
                 type: socio[0],
                 field: categoria[0],
                 description,
             }
-            posizioni.splice(oldPositionIndex, oldPositionIndex, fosizione);
-            console.log("posizione", fosizione)
-            console.log("lorusso", oldPosition)
+
             client.writeData({
                 data: {
                     postPositions: posizioni
