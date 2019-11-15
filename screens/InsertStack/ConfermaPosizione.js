@@ -67,13 +67,13 @@ export function ConfermaPosizione({ navigation }) {
         setCategoria([item]);
     };
 
-    const handlePress = () => {
+    const handlePress = (bool) => {
         if (description.length === 0) {
             setDescriptionError(true)
         } else {
             setDescriptionError(false)
         }
-        if (categoria.length === 0) {
+        if (categoria.length === 0 || bool) {
             setCategoriaError(true)
         } else {
             setCategoriaError(false)
@@ -83,18 +83,18 @@ export function ConfermaPosizione({ navigation }) {
         } else {
             setSocioError(false)
         }
-        if (title.length === 0) {
+        if (title.length === 0 || bool) {
             setTitleError(true)
         } else {
             setTitleError(false)
         }
-        if (title.length > 0 && socio.length > 0 && categoria.length > 0 && description.length > 0) {
+        if ((title.length > 0 && socio.length > 0 && categoria.length > 0) || bool && description.length > 0) {
 
             const posizione = {
                 __typename: 'data',
-                title,
+                title: title || "Finanziatore",
                 type: socio[0],
-                field: categoria[0],
+                field: categoria[0] || "Economia",
                 description,
             }
 
@@ -108,6 +108,7 @@ export function ConfermaPosizione({ navigation }) {
     }
 
     if (socio == "Socio Finanziatore") {
+
         return (
             <View style={styles.container}>
                 <View style={styles.body}>
@@ -136,7 +137,7 @@ export function ConfermaPosizione({ navigation }) {
                             value={description}
                         />
                         <View style={styles.buttonWrapper}>
-                            <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+                            <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress(true)} />
                         </View>
                     </KeyboardAwareScrollView>
                 </View>
@@ -148,9 +149,9 @@ export function ConfermaPosizione({ navigation }) {
             <View style={styles.body}>
                 <KeyboardAwareScrollView >
                     {socioError ?
-                        <StepsLabelError text={"Mi Propongo Come"} />
+                        <StepsLabelError text={"Cosa Cerco"} />
                         :
-                        <StepsLabel text={"Mi Propongo Come"} />
+                        <StepsLabel text={"Cosa Cerco"} />
                     }
                     <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
                     <View style={{ height: 15 }}></View>

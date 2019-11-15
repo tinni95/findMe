@@ -64,9 +64,9 @@ export function Posizioni({ navigation, settore }) {
   }, [passedTitle])
 
   useEffect(() => {
-    console.log(passedSettore);
     resetState();
   }, [passedSettore])
+
 
   const resetState = () => {
     passedTitle = null
@@ -83,13 +83,13 @@ export function Posizioni({ navigation, settore }) {
     setCategoria([item]);
   };
 
-  const handleAggiungi = () => {
+  const handleAggiungi = (bool) => {
     if (description.length === 0) {
       setDescriptionError(true)
     } else {
       setDescriptionError(false)
     }
-    if (categoria.length === 0) {
+    if (categoria.length === 0 || bool) {
       setCategoriaError(true)
     } else {
       setCategoriaError(false)
@@ -99,13 +99,13 @@ export function Posizioni({ navigation, settore }) {
     } else {
       setSocioError(false)
     }
-    if (title.length === 0) {
+    if (title.length === 0 || bool) {
       setTitleError(true)
     } else {
       setTitleError(false)
     }
 
-    if (description.length > 0 && categoria.length > 0 && socio.length > 0 && title.length > 0) {
+    if (description.length > 0 && (categoria.length > 0 && socio.length > 0 && title.length > 0) || bool) {
       navigation.navigate("ConfermaPosizione", {
         description,
         categoria: Settori.indexOf(categoria[0]),
@@ -157,7 +157,17 @@ export function Posizioni({ navigation, settore }) {
               value={description}
             />
             <View style={styles.aggiungiWrapper}>
-              <AddButton onPress={() => handlePress()} text={"+ Aggiungi Posizione"} />
+              {posizioni.length == 0 ?
+                <View>
+                  {posizioniError ? <StepsLabelError text="Aggiungi Una Posizione" /> :
+                    <StepsLabel text="Aggiungi Una Posizione" />}
+                </View>
+                :
+                <View style={{ flexDirection: "row" }}>
+                  <StepsLabel text={`Hai Aggiunto`} />
+                  <StepsLabel style={styles.link} text={posizioni.length + (posizioni.length == 1 ? ` posizione` : ` posizioni`)} onPress={() => navigation.navigate("ModificaPosizioni")} />
+                </View>}
+              <AddButton onPress={() => handleAggiungi(true)} text={"+ Aggiungi Posizione"} />
             </View>
             <View style={styles.buttonWrapper}>
               <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
@@ -175,9 +185,9 @@ export function Posizioni({ navigation, settore }) {
       <View style={styles.body}>
         <KeyboardAwareScrollView >
           {socioError ?
-            <StepsLabelError text={"Mi Propongo Come"} />
+            <StepsLabelError text={"Cosa Cerco"} />
             :
-            <StepsLabel text={"Mi Propongo Come"} />
+            <StepsLabel text={"Cosa Cerco"} />
           }
           <RoundFilters maximum={1} items={categoria} addItem={addItem1} settori={TipoSocio} settoreAttivi={passedSettore} />
           <View style={{ height: 15 }}></View>

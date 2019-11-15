@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Platform } from "react-native";
 import { PositionCard } from "../../components/PositionCard"
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -23,15 +23,15 @@ export function ModificaPosizioni({ navigation }) {
 
     return (
         <View style={{ flex: 1 }}>
-            <ScrollView>
+            <ScrollView style={Platform.OS == "web" ? { height: 500 } : null}>
                 {posizioni.map((position) => {
                     return (
                         <PositionCard buttonOnPress={() =>
                             navigation.navigate("ConfermaModifica", {
                                 description: position.description,
                                 categoria: Settori.indexOf(position.field),
-                                socio: TipoSocio.indexOf(position.type)
-                                , title: position.title
+                                socio: TipoSocio.indexOf(position.type),
+                                title: position.title
                             })} buttonText={"MODIFICA"} position={position}></PositionCard>
                     );
                 })}
