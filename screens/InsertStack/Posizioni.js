@@ -55,6 +55,7 @@ export function Posizioni({ navigation, settore }) {
   const [descriptionError, setDescriptionError] = useState("");
   const [categoriaError, setCategoriaError] = useState("");
   const [categoria, setCategoria] = useState([]);
+
   useEffect(() => {
     passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
   })
@@ -210,9 +211,9 @@ export function Posizioni({ navigation, settore }) {
                   <StepsLabel text="Aggiungi Una Posizione" />}
               </View>
               :
-              <View>
-                {posizioniError ? <StepsLabelError text={`Hai Aggiunto ` + posizioni.length + ` posizione`} /> :
-                  <StepsLabel text={`Hai Aggiunto ` + posizioni.length + ` posizione`} />}
+              <View style={{ flexDirection: "row" }}>
+                <StepsLabel text={`Hai Aggiunto`} />
+                <StepsLabel style={styles.link} text={posizioni.length + ` posizione`} />
               </View>}
             <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
           </View>
@@ -256,4 +257,8 @@ const styles = StyleSheet.create({
   header: {
     flex: 1.5
   },
+  link: {
+    color: "#26547C",
+    textDecorationLine: "underline",
+  }
 });

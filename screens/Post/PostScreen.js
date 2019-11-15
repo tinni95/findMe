@@ -10,7 +10,7 @@ import { PositionCard } from '../../components/PositionCard';
 export default class PostScreen extends React.Component {
   positionCards = () => {
     return this.props.post.positions.map((position, index) => {
-      return <PositionCard navigation={this.props.navigation} key={index} position={position} />;
+      return <PositionCard buttonText={"CANDIDATI"} navigation={this.props.navigation} key={index} position={position} />;
     });
   };
 

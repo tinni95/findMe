@@ -3,7 +3,7 @@ import { View, StyleSheet, Platform } from "react-native";
 import { Bold, Body, Light } from "./StyledText";
 import FieldIconRound from "./FieldIcons";
 import RoundButton from "./shared/RoundButton";
-export function PositionCard({ position }) {
+export function PositionCard({ position, buttonText }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -52,7 +52,7 @@ export function PositionCard({ position }) {
           </Light>
         </View>
         <View style={styles.ButtonWrapper}>
-          <RoundButton text={"CANDIDATI"} textColor={"white"} color={"#DD1E63"} />
+          <RoundButton text={buttonText} textColor={"white"} color={"#DD1E63"} />
         </View>
       </View>
     </View>
