@@ -18,8 +18,6 @@ export function PositionCard({ position }) {
           <Bold style={styles.columnText}>24/10/1995</Bold>
         </View>
         <View style={styles.column}>
-          <Bold style={styles.columnHeader}>Posizioni Disponibili</Bold>
-          <Bold style={styles.columnText}>{position.available}</Bold>
         </View>
       </View>
       <View style={styles.description}>
