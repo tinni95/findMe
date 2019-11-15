@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import { StepsLabel, StepsLabelError } from "./StepsLabel";
-import { AddButton } from "./AddButton";
 import WithErrorString from "../shared/Form/WithErrorString";
-import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+var _ = require('lodash');
 
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -40,12 +39,11 @@ const autoCompleteItems = [
         settore: "Aereonautica"
     }
 ]
-export function ConfermaPosizione({ navigation }) {
+export function ConfermaModifica({ navigation }) {
     const { data } = useQuery(POST_POSIZIONI);
     const client = useApolloClient();
-    const posizioni = data.postPositions || []
-    let passedTitle = navigation.getParam("item") || null
     const [title, setTitle] = useState(navigation.getParam("title"));
+    let passedTitle = navigation.getParam("item") || null
     const [description, setDescription] = useState(navigation.getParam("description"));
     const [categoria, setCategoria] = useState([]);
     const activeIndex = navigation.getParam("categoria");
@@ -55,11 +53,24 @@ export function ConfermaPosizione({ navigation }) {
     const [titleError, setTitleError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
     const [categoriaError, setCategoriaError] = useState(false);
+    let posizioni = data.postPositions || []
+    let posizione, oldPosition, oldPositionIndex;
+
     useEffect(() => {
+        posizione = {
+            __typename: 'data',
+            title,
+            type: socio[0],
+            field: categoria[0],
+            description,
+        }
+        oldPosition = posizioni.filter(posizion => _.isEqual(posizion, posizione))
+        oldPositionIndex = posizioni.indexOf(oldPosition[0]);
         setCategoria([Settori[activeIndex]])
         setSocio([TipoSocio[activeIndexSocio]])
         passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
-    })
+    }, [passedTitle])
+
     const addItem1 = item => {
         setSocio([item]);
     };
@@ -89,21 +100,22 @@ export function ConfermaPosizione({ navigation }) {
             setTitleError(false)
         }
         if (title.length > 0 && socio.length > 0 && categoria.length > 0 && description.length > 0) {
-
-            const posizione = {
+            fosizione = {
                 __typename: 'data',
                 title,
                 type: socio[0],
                 field: categoria[0],
                 description,
             }
-
+            posizioni.splice(oldPositionIndex, oldPositionIndex, fosizione);
+            console.log("posizione", fosizione)
+            console.log("lorusso", oldPosition)
             client.writeData({
                 data: {
-                    postPositions: [...posizioni, posizione]
+                    postPositions: posizioni
                 }
             });
-            navigation.navigate("Posizioni", { refresh: true });
+            navigation.navigate("ModificaPosizioni", { refresh: true });
         }
     }
 
@@ -159,7 +171,7 @@ export function ConfermaPosizione({ navigation }) {
                         errorText={"Campo Obbligatorio"}>
                         <FormTextInput
                             value={title}
-                            onFocus={() => navigation.navigate("AutoComplete", { path: "ConfermaPosizione", items: autoCompleteItems })}
+                            onFocus={() => navigation.navigate("AutoComplete", { path: "ConfermaModifica", items: autoCompleteItems })}
                             onChangeText={val => setTitle(val)}
                             placeholder="Titolo Posizione"
                             error={titleError}
@@ -193,9 +205,10 @@ export function ConfermaPosizione({ navigation }) {
     )
 };
 
-ConfermaPosizione.navigationOptions = {
-    title: "Conferma Posizione"
+ConfermaModifica.navigationOptions = {
+    title: "Modifica Posizione"
 }
+
 const styles = StyleSheet.create({
     aggiungiWrapper: {
         alignItems: "center",
