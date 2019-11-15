@@ -92,9 +92,9 @@ export function ConfermaPosizione({ navigation }) {
 
             const posizione = {
                 __typename: 'data',
-                title: title || "Finanziatore",
+                title: socio == "Socio Finanziatore" ? "Finanziatore" : title,
                 type: socio[0],
-                field: categoria[0] || "Economia",
+                field: socio == "Socio Finanziatore" ? "Economia" : categoria[0],
                 description,
             }
 
