@@ -7,11 +7,10 @@ export function RoundFilters({ maximum, settori, addItem, removeItem, settoreAtt
 
     const [selected, setSelected] = useState(settoreAttivi);
     useEffect(() => {
-        if (reset != null) {
+        if (reset != null)
             setSelected(-1)
-            console.log("bastard")
-        }
     }, [reset])
+
     let filters, active;
     if (maximum == 1) {
         filters = settori.map((settore, index) => {

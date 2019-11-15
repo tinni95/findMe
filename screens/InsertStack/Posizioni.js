@@ -8,7 +8,7 @@ import FormTextInput from "../shared/Form/FormTextInput";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 const POST_POSIZIONI = gql`
@@ -43,10 +43,7 @@ const autoCompleteItems = [
 ]
 
 export function Posizioni({ navigation, settore }) {
-  const { data } = useQuery(POST_POSIZIONI);
-  const posizioni = data.postPositions || [];
-  let passedTitle = navigation.getParam("item") || null
-  let refresh = navigation.getParam("refresh") || null
+  //Hooks
   const [title, setTitle] = useState("");
   const [socio, setSocio] = useState([]);
   const [posizioniError, setPosizioniError] = useState(false);
@@ -56,14 +53,20 @@ export function Posizioni({ navigation, settore }) {
   const [descriptionError, setDescriptionError] = useState("");
   const [categoriaError, setCategoriaError] = useState("");
   const [categoria, setCategoria] = useState([]);
+  //Data
+  const { data } = useQuery(POST_POSIZIONI);
+  const posizioni = data.postPositions || [];
+  let passedTitle = navigation.getParam("item") || null
+  let refresh = navigation.getParam("refresh") || null
 
   useEffect(() => {
     passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
   }, [passedTitle])
 
   useEffect(() => {
-    refresh !== null ? resetState() : null
-  }, [])
+    console.log("refresh", refresh);
+    refresh ? resetState() : null
+  }, [refresh])
 
   const resetState = () => {
     passedTitle = null
@@ -72,7 +75,7 @@ export function Posizioni({ navigation, settore }) {
     setSocio([]);
     setCategoria([]);
     settore = [];
-    refresh = !refresh
+
   }
 
   const addItem1 = item => {
@@ -105,13 +108,14 @@ export function Posizioni({ navigation, settore }) {
     }
 
     if (description.length > 0 && categoria.length > 0 && socio.length > 0 && title.length > 0) {
+      refresh = !refresh;
+      console.log(refresh)
       navigation.navigate("ConfermaPosizione", {
         description,
         categoria: Settori.indexOf(categoria[0]),
         socio: TipoSocio.indexOf(socio[0])
         , title
       });
-      resetState();
     }
   }
 
