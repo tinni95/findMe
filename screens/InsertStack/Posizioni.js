@@ -41,11 +41,12 @@ const autoCompleteItems = [
     settore: "Aereonautica"
   }
 ]
+
 export function Posizioni({ navigation, settore }) {
   const { data } = useQuery(POST_POSIZIONI);
   const posizioni = data.postPositions || [];
   let passedTitle = navigation.getParam("item") || null
-  const refresh = navigation.getParam("refresh") || null
+  let refresh = navigation.getParam("refresh") || null
   const [title, setTitle] = useState("");
   const [socio, setSocio] = useState([]);
   const [posizioniError, setPosizioniError] = useState(false);
@@ -58,15 +59,20 @@ export function Posizioni({ navigation, settore }) {
 
   useEffect(() => {
     passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
-  })
+  }, [passedTitle])
+
+  useEffect(() => {
+    refresh !== null ? resetState() : null
+  }, [])
 
   const resetState = () => {
+    passedTitle = null
     setTitle("");
     setDescription("");
     setSocio([]);
     setCategoria([]);
     settore = [];
-    passedTitle = null;
+    refresh = !refresh
   }
 
   const addItem1 = item => {
@@ -97,6 +103,7 @@ export function Posizioni({ navigation, settore }) {
     } else {
       setTitleError(false)
     }
+
     if (description.length > 0 && categoria.length > 0 && socio.length > 0 && title.length > 0) {
       navigation.navigate("ConfermaPosizione", {
         description,
@@ -172,7 +179,7 @@ export function Posizioni({ navigation, settore }) {
             :
             <StepsLabel text={"Mi Propongo Come"} />
           }
-          <RoundFilters maximum={1} items={categoria} addItem={addItem1} settori={TipoSocio} settoreAttivi={[]} />
+          <RoundFilters maximum={1} reset={refresh} items={categoria} addItem={addItem1} settori={TipoSocio} settoreAttivi={-1} />
           <View style={{ height: 15 }}></View>
           <WithErrorString
             error={titleError}
@@ -203,7 +210,7 @@ export function Posizioni({ navigation, settore }) {
           />
           {categoriaError ? <StepsLabelError text="Categoria" /> :
             <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-          <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={settore} />
+          <RoundFilters maximum={1} reset={refresh} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={settore} />
           <View style={styles.aggiungiWrapper}>
             {posizioni.length == 0 ?
               <View>
@@ -213,7 +220,7 @@ export function Posizioni({ navigation, settore }) {
               :
               <View style={{ flexDirection: "row" }}>
                 <StepsLabel text={`Hai Aggiunto`} />
-                <StepsLabel style={styles.link} text={posizioni.length + ` posizione`} onPress={() => navigation.navigate("ModificaPosizioni")} />
+                <StepsLabel style={styles.link} text={posizioni.length + (posizioni.length == 1 ? ` posizione` : ` posizioni`)} onPress={() => navigation.navigate("ModificaPosizioni")} />
               </View>}
             <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
           </View>

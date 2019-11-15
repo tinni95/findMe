@@ -103,7 +103,7 @@ export function ConfermaPosizione({ navigation }) {
                     postPositions: [...posizioni, posizione]
                 }
             });
-            navigation.navigate("Posizioni", { refresh: true });
+            navigation.navigate("Posizioni", { refresh: true, item: null });
         }
     }
 

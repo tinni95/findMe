@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RoundFilterItem } from "./RoundFilterItem";
 import RoundButton from "../../../../components/shared/RoundButton";
 
-export function RoundFilters({ maximum, settori, addItem, removeItem, settoreAttivi, wrapperStyle, items }) {
-    let filters, active;
+export function RoundFilters({ maximum, settori, addItem, removeItem, settoreAttivi, wrapperStyle, items, reset }) {
+
     const [selected, setSelected] = useState(settoreAttivi);
+    useEffect(() => {
+        if (reset != null) {
+            setSelected(-1)
+            console.log("bastard")
+        }
+    }, [reset])
+    let filters, active;
     if (maximum == 1) {
         filters = settori.map((settore, index) => {
             active = index === selected
