@@ -17,6 +17,7 @@ const posts = gql`
     regione
     positions{
     id
+    description
     field
     }
   }
@@ -29,7 +30,6 @@ export default function ExploreQueryRenderer({ navigation }) {
   let settore = navigation.getParam("settore") || null;
   settore = settore && settore.length == 0 ? null : settore;
   const { loading, error, data } = useQuery(posts, {
-
     variables: settore ? { filter, settore } : { filter }
   });
 
