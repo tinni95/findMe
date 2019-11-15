@@ -17,7 +17,6 @@ const posts = gql`
     regione
     positions{
     id
-    available
     field
     }
   }
@@ -25,17 +24,17 @@ const posts = gql`
 
 `;
 
-export default function ExploreQueryRenderer({navigation}) {
+export default function ExploreQueryRenderer({ navigation }) {
   const filter = navigation.getParam("filter") || "";
   let settore = navigation.getParam("settore") || null;
-  settore = settore&&settore.length== 0 ? null :settore;
-  const { loading, error, data } = useQuery(posts,{
+  settore = settore && settore.length == 0 ? null : settore;
+  const { loading, error, data } = useQuery(posts, {
 
-    variables: settore?{filter,settore} : {filter}
+    variables: settore ? { filter, settore } : { filter }
   });
 
-  if (loading) return <FindMeSpinner/>;
-  if (error) return <FindMeGraphQlErrorDisplay/>;
+  if (loading) return <FindMeSpinner />;
+  if (error) return <FindMeGraphQlErrorDisplay />;
 
   return <Explore posts={data.postsFeed} settore={settore} navigation={navigation} />;
 }

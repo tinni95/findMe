@@ -6,7 +6,6 @@ export default function FieldIconRound(props) {
   return (
     <View style={styles.container}>
       <FieldIcon {...props} />
-      {props.available > 1 ? <Text style={styles.bottomText}>{props.available}</Text> : null}
     </View>
   );
 }
