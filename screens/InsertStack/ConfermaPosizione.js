@@ -73,7 +73,7 @@ export function ConfermaPosizione({ navigation }) {
         } else {
             setDescriptionError(false)
         }
-        if (categoria.length === 0 || bool) {
+        if (categoria.length === 0 && !bool) {
             setCategoriaError(true)
         } else {
             setCategoriaError(false)
@@ -83,7 +83,7 @@ export function ConfermaPosizione({ navigation }) {
         } else {
             setSocioError(false)
         }
-        if (title.length === 0 || bool) {
+        if (title.length === 0 && !bool) {
             setTitleError(true)
         } else {
             setTitleError(false)
