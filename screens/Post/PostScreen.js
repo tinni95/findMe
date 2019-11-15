@@ -1,49 +1,49 @@
 import React from 'react';
 import { StyleSheet, View, Platform, ScrollView } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
-import {PostScreenHeader} from '../../components/PostScreenHeader';
+import { PostScreenHeader } from '../../components/PostScreenHeader';
 import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import Tabs from '../../components/shared/Tabs';
-import {PositionCard} from '../../components/PositionCard';
+import { PositionCard } from '../../components/PositionCard';
 
 export default class PostScreen extends React.Component {
   positionCards = () => {
-    return this.props.post.positions.map((position,index) => {
+    return this.props.post.positions.map((position, index) => {
       return <PositionCard navigation={this.props.navigation} key={index} position={position} />;
     });
   };
 
   render() {
     return (
-        <View style={styles.contentContainer}>
-          <Bold style={styles.title}>{this.props.post.title}</Bold>
-          <LocationWithText
-            points={25}
-            fontSize={isSmallDevice ? 18 : 20}
-            style={styles.location}
-            regione={this.props.post.regione}
-            comune={this.props.post.comune}
-          />
-          <Tabs
-            style={{ marginLeft: 5 }}
-            tab1Title="Desrizione"
-            tab2Title="Team"
-            tab1Content={() => (
-              <View style={styles.tabContainer}>
-                <Light style={styles.body}>{this.props.post.description}</Light>
-              </View>
-            )}
-            tab2Content={() => (
-              <View style={styles.tabContainer}>
-                <Light style={styles.body}>blabllallal</Light>
-              </View>
-            )}
-          />
-          <ScrollView style={{height:500}}>
+      <View style={styles.contentContainer}>
+        <Bold style={styles.title}>{this.props.post.title}</Bold>
+        <LocationWithText
+          points={25}
+          fontSize={isSmallDevice ? 18 : 20}
+          style={styles.location}
+          regione={this.props.post.regione}
+          comune={this.props.post.comune}
+        />
+        <Tabs
+          style={{ marginLeft: 5 }}
+          tab1Title="Desrizione"
+          tab2Title="Team"
+          tab1Content={() => (
+            <View style={styles.tabContainer}>
+              <Light style={styles.body}>{this.props.post.description}</Light>
+            </View>
+          )}
+          tab2Content={() => (
+            <View style={styles.tabContainer}>
+              <Light style={styles.body}>blabllallal</Light>
+            </View>
+          )}
+        />
+        <ScrollView style={{ height: 500 }}>
           {this.positionCards()}
-          </ScrollView>
-        </View>
+        </ScrollView>
+      </View>
     );
   }
 }
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   contentContainer: {
-    flex:1,
+    flex: 1,
   }
 });
 

@@ -54,7 +54,7 @@ export function PositionCard({ position }) {
           </Light>
         </View>
         <View style={styles.ButtonWrapper}>
-          <RoundButton text={"CANDIDATI"} color={"#DD1E63"} />
+          <RoundButton text={"CANDIDATI"} textColor={"white"} color={"#DD1E63"} />
         </View>
       </View>
     </View>
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   headerTextDescription: {
-    margin: 10,
+
     marginTop: 7.5,
     marginBottom: 5,
     fontSize: 22
