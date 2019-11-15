@@ -89,7 +89,7 @@ export function Posizioni({ navigation, settore }) {
     } else {
       setDescriptionError(false)
     }
-    if (categoria.length === 0 || bool) {
+    if (categoria.length === 0 && !bool) {
       setCategoriaError(true)
     } else {
       setCategoriaError(false)
@@ -99,7 +99,7 @@ export function Posizioni({ navigation, settore }) {
     } else {
       setSocioError(false)
     }
-    if (title.length === 0 || bool) {
+    if (title.length === 0 && !bool) {
       setTitleError(true)
     } else {
       setTitleError(false)
