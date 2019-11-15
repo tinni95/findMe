@@ -7,9 +7,8 @@ export function RoundFilters({ maximum, settori, addItem, removeItem, settoreAtt
 
     const [selected, setSelected] = useState(settoreAttivi);
     useEffect(() => {
-        if (reset != null)
-            setSelected(-1)
-    }, [reset])
+        setSelected(settoreAttivi)
+    }, [settoreAttivi])
 
     let filters, active;
     if (maximum == 1) {

@@ -103,7 +103,7 @@ export function ConfermaPosizione({ navigation }) {
                     postPositions: [...posizioni, posizione]
                 }
             });
-            navigation.navigate("Posizioni", { refresh: true, item: null });
+            navigation.navigate("Posizioni", { settore: Math.floor((Math.random() * -1000)), item: null });
         }
     }
 
@@ -219,7 +219,6 @@ const styles = StyleSheet.create({
         flex: 8,
         marginLeft: Platform.OS == "web" ? 100 : 20,
         marginRight: Platform.OS == "web" ? 100 : 20,
-
     },
     header: {
         flex: 1.5

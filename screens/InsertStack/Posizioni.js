@@ -57,16 +57,16 @@ export function Posizioni({ navigation, settore }) {
   const { data } = useQuery(POST_POSIZIONI);
   const posizioni = data.postPositions || [];
   let passedTitle = navigation.getParam("item") || null
-  let refresh = navigation.getParam("refresh") || null
+  let passedSettore = navigation.getParam("settore") || null
 
   useEffect(() => {
     passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
   }, [passedTitle])
 
   useEffect(() => {
-    console.log("refresh", refresh);
-    refresh ? resetState() : null
-  }, [refresh])
+    console.log(passedSettore);
+    resetState();
+  }, [passedSettore])
 
   const resetState = () => {
     passedTitle = null
@@ -74,8 +74,6 @@ export function Posizioni({ navigation, settore }) {
     setDescription("");
     setSocio([]);
     setCategoria([]);
-    settore = [];
-
   }
 
   const addItem1 = item => {
@@ -108,8 +106,6 @@ export function Posizioni({ navigation, settore }) {
     }
 
     if (description.length > 0 && categoria.length > 0 && socio.length > 0 && title.length > 0) {
-      refresh = !refresh;
-      console.log(refresh)
       navigation.navigate("ConfermaPosizione", {
         description,
         categoria: Settori.indexOf(categoria[0]),
@@ -142,7 +138,7 @@ export function Posizioni({ navigation, settore }) {
               :
               <StepsLabel text={"Cosa Cerco"} />
             }
-            <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={[]} />
+            <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={passedSettore} />
             <View style={{ height: 15 }}></View>
             {descriptionError ?
               <StepsLabelError text={"Descrizione"} />
@@ -183,7 +179,7 @@ export function Posizioni({ navigation, settore }) {
             :
             <StepsLabel text={"Mi Propongo Come"} />
           }
-          <RoundFilters maximum={1} reset={refresh} items={categoria} addItem={addItem1} settori={TipoSocio} settoreAttivi={-1} />
+          <RoundFilters maximum={1} items={categoria} addItem={addItem1} settori={TipoSocio} settoreAttivi={passedSettore} />
           <View style={{ height: 15 }}></View>
           <WithErrorString
             error={titleError}
@@ -214,7 +210,7 @@ export function Posizioni({ navigation, settore }) {
           />
           {categoriaError ? <StepsLabelError text="Categoria" /> :
             <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-          <RoundFilters maximum={1} reset={refresh} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={settore} />
+          <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={passedSettore} />
           <View style={styles.aggiungiWrapper}>
             {posizioni.length == 0 ?
               <View>
