@@ -18,7 +18,7 @@ const POST_DESCRIZIONE = gql`
   }
 `;
 
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
+const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
 
 export function Descrizione({ navigation, settore }) {
   const client = useApolloClient();
@@ -123,7 +123,7 @@ Descrizione.navigationOptions = {
 const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: "center",
-    margin: 20
+    margin: 60
   },
   inputWrapper: {
     flex: 1,

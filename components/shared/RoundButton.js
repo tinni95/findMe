@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Avenir } from '../StyledText';
+import { Light, Bold } from '../StyledText';
 import { isSmallDevice } from '../../constants/Layout';
 
-export default function RoundButton({onPress,textColor,text,color,styleProps}) {
+export default function RoundButton({ isLight, onPress, textColor, text, color, styleProps }) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={[styles.container,styleProps, { backgroundColor: color}]}>
-        <Avenir style={[styles.text, {color:textColor}]}>{text}</Avenir>
+      <View style={[styles.container, styleProps, { backgroundColor: color }]}>
+        {isLight ? <Light style={[styles.text, { color: textColor }]}>{text}</Light> :
+          <Bold style={[styles.text, { color: textColor }]}>{text}</Bold>}
       </View>
     </TouchableOpacity>
   );

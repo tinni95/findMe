@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Platform, ScrollView } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
-import { PostScreenHeader } from '../../components/PostScreenHeader';
 import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import Tabs from '../../components/shared/Tabs';

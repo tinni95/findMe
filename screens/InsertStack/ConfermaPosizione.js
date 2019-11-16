@@ -21,7 +21,7 @@ const POST_POSIZIONI = gql`
     }
   }
 `;
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
+const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Fashion", "Ingegneria", "Ristorazione", "Fantozzi", "Cinofilia", "Musica", "Arte", "Teatro"];
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 const autoCompleteItems = [
     {
@@ -113,31 +113,34 @@ export function ConfermaPosizione({ navigation }) {
             <View style={styles.container}>
                 <View style={styles.body}>
                     <KeyboardAwareScrollView >
-                        {socioError ?
-                            <StepsLabelError text={"Cosa Cerco"} />
-                            :
-                            <StepsLabel text={"Cosa Cerco"} />
-                        }
-                        <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
-                        <View style={{ height: 15 }}></View>
-                        {descriptionError ?
-                            <StepsLabelError text={"Descrizione"} />
-                            :
-                            <StepsLabel text={"Descrizione"} />
-                        }
-                        <FormTextInput
-                            large="true"
-                            multiline
-                            numberOfLines={4}
-                            placeholder="Descrizione"
-                            placeholderTextColor="#ADADAD"
-                            onChangeText={val => setDescription(val)}
-                            editable
-                            error={descriptionError}
-                            value={description}
-                        />
+                        <View opacity={0.6}>
+                            {socioError ?
+                                <StepsLabelError text={"Cosa Cerco"} />
+                                :
+                                <StepsLabel text={"Cosa Cerco"} />
+                            }
+                            <RoundFilters inactive={true} maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
+                            <View style={{ height: 15 }}></View>
+                            {descriptionError ?
+                                <StepsLabelError text={"Descrizione"} />
+                                :
+                                <StepsLabel text={"Descrizione"} />
+                            }
+                            <FormTextInput
+                                editable={false}
+                                large="true"
+                                multiline
+                                numberOfLines={4}
+                                placeholder="Descrizione"
+                                placeholderTextColor="#ADADAD"
+                                onChangeText={val => setDescription(val)}
+                                editable
+                                error={descriptionError}
+                                value={description}
+                            />
+                        </View>
                         <View style={styles.buttonWrapper}>
-                            <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress(true)} />
+                            <RoundButton text={"CONFERMA"} color={"#10476C"} textColor={"white"} onPress={() => handlePress(true)} />
                         </View>
                     </KeyboardAwareScrollView>
                 </View>
@@ -147,50 +150,54 @@ export function ConfermaPosizione({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.body}>
-                <KeyboardAwareScrollView >
-                    {socioError ?
-                        <StepsLabelError text={"Cosa Cerco"} />
-                        :
-                        <StepsLabel text={"Cosa Cerco"} />
-                    }
-                    <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
-                    <View style={{ height: 15 }}></View>
-                    <WithErrorString
-                        error={titleError}
-                        errorText={"Campo Obbligatorio"}>
-                        <FormTextInput
-                            value={title}
-                            onFocus={() => navigation.navigate("AutoComplete", { path: "ConfermaPosizione", items: autoCompleteItems })}
-                            onChangeText={val => setTitle(val)}
-                            placeholder="Titolo Posizione"
+                <KeyboardAwareScrollView>
+                    <View opacity={0.6}>
+                        {
+                            socioError ?
+                                <StepsLabelError text={"Cosa Cerco"} />
+                                :
+                                <StepsLabel text={"Cosa Cerco"} />
+                        }
+                        <RoundFilters maximum={1} inactive={true} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
+                        <View style={{ height: 15 }}></View>
+                        <WithErrorString
                             error={titleError}
+                            errorText={"Campo Obbligatorio"}>
+                            <FormTextInput
+                                editable={false}
+                                value={title}
+                                onFocus={() => navigation.navigate("AutoComplete", { path: "ConfermaPosizione", items: autoCompleteItems })}
+                                onChangeText={val => setTitle(val)}
+                                placeholder="Titolo Posizione"
+                                error={titleError}
+                            />
+                        </WithErrorString>
+                        {descriptionError ?
+                            <StepsLabelError text={"Descrizione"} />
+                            :
+                            <StepsLabel text={"Descrizione"} />
+                        }
+                        <FormTextInput
+                            editable={false}
+                            large="true"
+                            multiline
+                            numberOfLines={4}
+                            placeholder="Descrizione"
+                            placeholderTextColor="#ADADAD"
+                            onChangeText={val => setDescription(val)}
+                            error={descriptionError}
+                            value={description}
                         />
-                    </WithErrorString>
-                    {descriptionError ?
-                        <StepsLabelError text={"Descrizione"} />
-                        :
-                        <StepsLabel text={"Descrizione"} />
-                    }
-                    <FormTextInput
-                        large="true"
-                        multiline
-                        numberOfLines={4}
-                        placeholder="Descrizione"
-                        placeholderTextColor="#ADADAD"
-                        onChangeText={val => setDescription(val)}
-                        editable
-                        error={descriptionError}
-                        value={description}
-                    />
-                    {categoriaError ? <StepsLabelError text="Categoria" /> :
-                        <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-                    <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={activeIndex} />
+                        {categoriaError ? <StepsLabelError text="Categoria" /> :
+                            <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
+                        <RoundFilters inactive={true} maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={activeIndex} />
+                    </View>
                     <View style={styles.buttonWrapper}>
-                        <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+                        <RoundButton text={"CONFERMA"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
                     </View>
                 </KeyboardAwareScrollView>
             </View>
-        </View>
+        </View >
     )
 };
 
@@ -205,7 +212,7 @@ const styles = StyleSheet.create({
     },
     buttonWrapper: {
         alignItems: "center",
-        margin: 20
+        margin: 60
     },
     inputWrapper: {
         flex: 1,

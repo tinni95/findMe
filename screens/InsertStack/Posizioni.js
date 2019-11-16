@@ -22,7 +22,7 @@ const POST_POSIZIONI = gql`
   }
 `;
 
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
+const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Fashion", "Ingegneria", "Ristorazione", "Fantozzi", "Cinofilia", "Musica", "Arte", "Teatro"];
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 const autoCompleteItems = [
   {
@@ -250,11 +250,13 @@ const styles = StyleSheet.create({
   aggiungiWrapper: {
     alignItems: "center",
     flexDirection: "column",
-    margin: 20
+    margin: 20,
+    marginBottom: 10
   },
   buttonWrapper: {
     alignItems: "center",
-    margin: 20
+    margin: 60,
+    marginTop: 50
   },
   inputWrapper: {
     flex: 1,
