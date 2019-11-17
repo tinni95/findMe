@@ -7,6 +7,7 @@ import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
+import RoundButtonEmptyUniversal from '../../components/shared/RoundButtonEmptyUniversal';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -132,7 +133,7 @@ export function Posizioni({ navigation, settore }) {
           <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
         </View>
         <View style={styles.body}>
-          <KeyboardAwareScrollView >
+          <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
             {socioError ?
               <StepsLabelError text={"Cosa Cerco"} />
               :
@@ -183,7 +184,7 @@ export function Posizioni({ navigation, settore }) {
         <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
       </View>
       <View style={styles.body}>
-        <KeyboardAwareScrollView >
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
           {socioError ?
             <StepsLabelError text={"Cosa Cerco"} />
             :
@@ -235,7 +236,8 @@ export function Posizioni({ navigation, settore }) {
             <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
           </View>
           <View style={styles.buttonWrapper}>
-            <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+            <RoundButtonEmptyUniversal text={"INDIETRO"} color={"#10476C"} onPress={() => navigation.navigate("Descrizione")} />
+            <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
           </View>
         </KeyboardAwareScrollView>
       </View>
@@ -255,8 +257,11 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     alignItems: "center",
-    margin: 60,
-    marginTop: 50
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 28,
+    marginTop: 40,
+    marginBottom: 40
   },
   inputWrapper: {
     flex: 1,

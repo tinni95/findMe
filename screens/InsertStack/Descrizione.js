@@ -5,6 +5,7 @@ import FormTextInput from "../shared/Form/FormTextInput";
 import WithErrorString from "../shared/Form/WithErrorString";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
+import RoundButtonEmptyUniversal from '../../components/shared/RoundButtonEmptyUniversal';
 import { StepsLabel, StepsLabelError } from "./StepsLabel";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
@@ -74,12 +75,17 @@ export function Descrizione({ navigation, settore }) {
         <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
       </View>
       <View style={styles.body}>
-        <KeyboardAwareScrollView >
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+          {settoreError ?
+            <StepsLabelError text={"Inserisci Titolo"} />
+            :
+            <StepsLabel text={"Inserisci Titolo"} />
+          }
           <WithErrorString
             error={titleError}
             errorText={"Campo Obbligatorio"}>
             <FormTextInput
-              placeholder="Titolo Post Idea"
+              placeholder="Titolo Post Idea (es. `Sviluppo App`)"
               onChangeText={val => setTitle(val)}
               value={title}
               error={titleError}
@@ -109,11 +115,12 @@ export function Descrizione({ navigation, settore }) {
           />
 
           <View style={styles.buttonWrapper}>
-            <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+            <RoundButtonEmptyUniversal text={"INDIETRO"} color={"#10476C"} onPress={() => navigation.navigate("Presentazione")} />
+            <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
           </View>
         </KeyboardAwareScrollView>
       </View>
-    </View>
+    </View >
   )
 };
 
@@ -123,7 +130,11 @@ Descrizione.navigationOptions = {
 const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: "center",
-    margin: 60
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 28,
+    marginTop: 40,
+    marginBottom: 40
   },
   inputWrapper: {
     flex: 1,
@@ -138,7 +149,6 @@ const styles = StyleSheet.create({
     flex: 8,
     marginLeft: Platform.OS == "web" ? 100 : 20,
     marginRight: Platform.OS == "web" ? 100 : 20,
-
   },
   header: {
     flex: 1.5

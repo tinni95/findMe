@@ -79,6 +79,11 @@ export function Presentazione({ navigation }) {
                 <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
             </View>
             <View style={styles.body}>
+                {locationError ?
+                    <StepsLabelError text={"Scegli Località"} />
+                    :
+                    <StepsLabel text={"Scegli Località"} />
+                }
                 <WithErrorString
                     errorText="Campo Obbligatorio"
                     error={locationError}
@@ -98,6 +103,11 @@ export function Presentazione({ navigation }) {
                 }
                 <RoundFilters maximum={1} items={items} addItem={addItem} settori={Settori} settoreAttivi={activeIndex} />
                 <View style={styles.PosizioniTitleWrapper}>
+                    {locationError ?
+                        <StepsLabelError text={"La Mia Posizione"} />
+                        :
+                        <StepsLabel text={"La Mia Posizione"} />
+                    }
                     <WithErrorString
                         errorText="Campo Obbligatorio"
                         error={positionError}
@@ -112,7 +122,7 @@ export function Presentazione({ navigation }) {
                     </WithErrorString>
                 </View>
                 <View style={styles.buttonWrapper}>
-                    <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+                    <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
                 </View>
             </View>
         </View>
