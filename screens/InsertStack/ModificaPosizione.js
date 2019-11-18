@@ -8,6 +8,7 @@ import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { indexOfPosition } from "./helpers"
 var _ = require('lodash');
 
 const POST_POSIZIONI = gql`
@@ -20,7 +21,7 @@ const POST_POSIZIONI = gql`
     }
   }
 `;
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
+const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Economia"];
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 const autoCompleteItems = [
     {
@@ -39,14 +40,14 @@ const autoCompleteItems = [
         settore: "Aereonautica"
     }
 ]
-export function ConfermaModifica({ navigation }) {
+export function ModificaPosizione({ navigation }) {
     const { data } = useQuery(POST_POSIZIONI);
     const client = useApolloClient();
     const [title, setTitle] = useState(navigation.getParam("title"));
     let passedTitle = navigation.getParam("item") || null
     const [description, setDescription] = useState(navigation.getParam("description"));
     const [categoria, setCategoria] = useState([]);
-    const activeIndex = navigation.getParam("categoria");
+    const activeIndexCategoria = navigation.getParam("categoria");
     const [socio, setSocio] = useState([]);
     const activeIndexSocio = navigation.getParam("socio");
     const [socioError, setSocioError] = useState(false);
@@ -56,10 +57,22 @@ export function ConfermaModifica({ navigation }) {
     let posizioni = data.postPositions || []
 
     useEffect(() => {
-        setCategoria([Settori[activeIndex]])
+        setCategoria([Settori[activeIndexCategoria]])
         setSocio([TipoSocio[activeIndexSocio]])
         passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
     }, [passedTitle])
+
+    useEffect(() => {
+        const posizione = {
+            __typename: 'data',
+            title,
+            type: TipoSocio[activeIndexSocio],
+            field: Settori[activeIndexCategoria],
+            description
+        }
+        const positionInArray = indexOfPosition(posizioni, posizione)
+        console.log("positionInArray", positionInArray);
+    }, [])
 
     const addItem1 = item => {
         setSocio([item]);
@@ -159,7 +172,7 @@ export function ConfermaModifica({ navigation }) {
                         errorText={"Campo Obbligatorio"}>
                         <FormTextInput
                             value={title}
-                            onFocus={() => navigation.navigate("AutoComplete", { path: "ConfermaModifica", items: autoCompleteItems })}
+                            onFocus={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: autoCompleteItems })}
                             onChangeText={val => setTitle(val)}
                             placeholder="Titolo Posizione"
                             error={titleError}
@@ -183,7 +196,7 @@ export function ConfermaModifica({ navigation }) {
                     />
                     {categoriaError ? <StepsLabelError text="Categoria" /> :
                         <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-                    <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={activeIndex} />
+                    <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={activeIndexCategoria} />
                     <View style={styles.buttonWrapper}>
                         <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
                     </View>
@@ -193,7 +206,7 @@ export function ConfermaModifica({ navigation }) {
     )
 };
 
-ConfermaModifica.navigationOptions = {
+ModificaPosizione.navigationOptions = {
     title: "Modifica Posizione"
 }
 

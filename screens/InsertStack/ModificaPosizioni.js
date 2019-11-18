@@ -3,7 +3,7 @@ import { ScrollView, View, Platform } from "react-native";
 import { PositionCard } from "../../components/PositionCard"
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
+const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Economia"];
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -26,7 +26,7 @@ export function ModificaPosizioni({ navigation }) {
                 {posizioni.map((position) => {
                     return (
                         <PositionCard buttonOnPress={() =>
-                            navigation.navigate("ConfermaModifica", {
+                            navigation.navigate("ModificaPosizione", {
                                 description: position.description,
                                 categoria: Settori.indexOf(position.field),
                                 socio: TipoSocio.indexOf(position.type),
