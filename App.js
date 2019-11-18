@@ -34,7 +34,7 @@ cache.writeData({
     postOwnerPosition: "",
     postTitle: "",
     postDescription: "",
-    postOwnerIndex: -1,
+    postOwner: "",
     postCategories: [],
     postPositions: []
   },

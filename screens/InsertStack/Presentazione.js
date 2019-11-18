@@ -5,7 +5,7 @@ import FormTextInput from "../shared/Form/FormTextInput";
 import { StepsLabel, StepsLabelError } from "./StepsLabel";
 import WithErrorString from "../shared/Form/WithErrorString";
 import { FormStyles } from "../shared/Form/FormStyles";
-import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
+import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne";
 import RoundButton from '../../components/shared/RoundButton';
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -13,35 +13,39 @@ import gql from 'graphql-tag';
 const POST_PRESENTAZIONE = gql`
   query PresentazioneQuery {
     postLocation @client
-    postOwnerIndex @client
+    postOwner @client
     postOwnerPosition @client
   }
 `;
+
 const Posizioni = [
     { name: "C.E.O", id: 1 }, { name: "C.T.O", id: 2 }, { id: 3, name: "Amministratore" }, { id: 4, name: "Direttore" }, { id: 5, name: "Finanziatore" }
 ];
-const Settori = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
+
+const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 
 export function Presentazione({ navigation }) {
     const client = useApolloClient();
     const { data } = useQuery(POST_PRESENTAZIONE);
-    const activeIndex = data.postOwnerIndex;
+    const activeIndex = TipoSocio.indexOf(data.postOwner);
     const passedTitle = navigation.getParam("item") || data.postOwnerPosition
     const passedLocation = navigation.getParam("location") || data.postLocation
     const [position, setPosition] = useState("");
     const [location, setLocation] = useState("");
+    const [postOwner, setPostOwner] = useState("");
+    const [locationError, setLocationError] = useState("");
+    const [positionError, setPositionError] = useState("");
+    const [postOwnerError, setPostOwnerError] = useState("");
+
     useEffect(() => {
         passedTitle ? setPosition(passedTitle.name ? passedTitle.name : passedTitle) : null
         passedLocation ? setLocation(passedLocation) : null
-        activeIndex !== -1 ? setItems([Settori[activeIndex]]) : null
     })
-    const [items, setItems] = useState([]);
-    const [locationError, setLocationError] = useState("");
-    const [positionError, setPositionError] = useState("");
-    const [itemsError, setItemsError] = useState("");
-    const addItem = item => {
-        setItems([item]);
-    };
+
+    useEffect(() => {
+        activeIndex !== -1 ? setPostOwner(data.postOwner) : null
+    }, [])
+
     const handlePress = () => {
         if (position.length === 0) {
             setPositionError(true)
@@ -49,11 +53,11 @@ export function Presentazione({ navigation }) {
         else {
             setPositionError(false)
         }
-        if (items.length === 0) {
-            setItemsError(true)
+        if (postOwner.length === 0) {
+            postOwnerError(true)
         }
         else {
-            setItemsError(false)
+            setPostOwnerError(false)
         }
         if (location.length === 0) {
             setLocationError(true)
@@ -61,12 +65,15 @@ export function Presentazione({ navigation }) {
         else {
             setLocationError(false)
         }
-        if (position.length > 0 && items.length > 0 && location.length > 0) {
+        if (position.length > 0 && postOwner.length > 0 && location.length > 0) {
+            console.log(position);
+            console.log(location);
+            console.log(postOwner);
             client.writeData({
                 data: {
                     postLocation: location,
                     postOwnerPosition: position,
-                    postOwnerIndex: Settori.indexOf(items[0])
+                    postOwner
                 }
             });
             navigation.navigate("Descrizione");
@@ -96,17 +103,17 @@ export function Presentazione({ navigation }) {
                         placeholder="Località"
                     />
                 </WithErrorString>
-                {itemsError ?
+                {postOwnerError ?
                     <StepsLabelError text={"Mi Propongo Come"} />
                     :
                     <StepsLabel text={"Mi Propongo Come"} />
                 }
-                <RoundFilters maximum={1} items={items} addItem={addItem} settori={Settori} settoreAttivi={activeIndex} />
+                <RoundFiltersOne setItem={tipoSocio => setPostOwner(tipoSocio)} settori={TipoSocio} settoreAttivi={activeIndex} />
                 <View style={styles.PosizioniTitleWrapper}>
                     {locationError ?
-                        <StepsLabelError text={"La Mia Posizione"} />
+                        <StepsLabelError text={"La Mia Funzione"} />
                         :
-                        <StepsLabel text={"La Mia Posizione"} />
+                        <StepsLabel text={"La Mia Funzione"} />
                     }
                     <WithErrorString
                         errorText="Campo Obbligatorio"

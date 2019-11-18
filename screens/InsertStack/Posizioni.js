@@ -172,7 +172,6 @@ export function Posizioni({ navigation, settore }) {
                 onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
                 onChangeText={val => setTitle(val)}
                 placeholder="Titolo Posizione"
-                error={titleError}
               />
             </WithErrorString>
             : null}
@@ -189,7 +188,6 @@ export function Posizioni({ navigation, settore }) {
             placeholderTextColor="#ADADAD"
             onChangeText={val => setDescription(val)}
             editable
-            error={descriptionError}
             value={description}
           />
           {socio != "Socio Finanziatore" ?

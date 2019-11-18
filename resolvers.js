@@ -10,7 +10,7 @@ type localPosition{
 
 extend type Query{
     postLocation: String!
-    postOwnerIndex: Int!
+    postOwner: String!
     postOwnerPosition:String!
     postTitle:String!
     postDescription:String!
