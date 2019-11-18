@@ -54,6 +54,7 @@ export function ModificaPosizione({ navigation }) {
     const [titleError, setTitleError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
     const [categoriaError, setCategoriaError] = useState(false);
+    const [positionInArray, setPositionInArray] = useState(-1)
     let posizioni = data.postPositions || []
 
     useEffect(() => {
@@ -70,8 +71,7 @@ export function ModificaPosizione({ navigation }) {
             field: Settori[activeIndexCategoria],
             description
         }
-        const positionInArray = indexOfPosition(posizioni, posizione)
-        console.log("positionInArray", positionInArray);
+        setPositionInArray(indexOfPosition(posizioni, posizione));
     }, [])
 
     const addItem1 = item => {
@@ -110,7 +110,7 @@ export function ModificaPosizione({ navigation }) {
                 field: categoria[0],
                 description,
             }
-
+            posizioni[positionInArray] = posizione
             client.writeData({
                 data: {
                     postPositions: posizioni
