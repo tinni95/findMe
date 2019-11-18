@@ -147,43 +147,7 @@ export function Posizioni({ navigation, settore }) {
       navigation.navigate("Anteprima");
     }
   }
-  if (socio == "Socio Finanziatore") {
-    return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
-        </View>
-        <View style={styles.body}>
-          <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-            {socioError ?
-              <StepsLabelError text={"Cosa Cerco"} />
-              :
-              <StepsLabel text={"Cosa Cerco"} />
-            }
-            <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={passedSettore} />
-            <View style={{ height: 15 }}></View>
-            {descriptionError ?
-              <StepsLabelError text={"Descrizione"} />
-              :
-              <StepsLabel text={"Descrizione"} />
-            }
-            <FormTextInput
-              large="true"
-              multiline
-              numberOfLines={4}
-              placeholder="Descrizione"
-              placeholderTextColor="#ADADAD"
-              onChangeText={val => setDescription(val)}
-              editable
-              error={descriptionError}
-              value={description}
-            />
-            {buttons()}
-          </KeyboardAwareScrollView>
-        </View>
-      </View>
-    )
-  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -198,17 +162,19 @@ export function Posizioni({ navigation, settore }) {
           }
           <RoundFilters maximum={1} items={categoria} addItem={addItem1} settori={TipoSocio} settoreAttivi={passedSettore} />
           <View style={{ height: 15 }}></View>
-          <WithErrorString
-            error={titleError}
-            errorText={"Campo Obbligatorio"}>
-            <FormTextInput
-              value={title}
-              onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
-              onChangeText={val => setTitle(val)}
-              placeholder="Titolo Posizione"
+          {socio != "Socio Finanziatore" ?
+            < WithErrorString
               error={titleError}
-            />
-          </WithErrorString>
+              errorText={"Campo Obbligatorio"}>
+              <FormTextInput
+                value={title}
+                onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
+                onChangeText={val => setTitle(val)}
+                placeholder="Titolo Posizione"
+                error={titleError}
+              />
+            </WithErrorString>
+            : null}
           {descriptionError ?
             <StepsLabelError text={"Descrizione"} />
             :
@@ -225,13 +191,16 @@ export function Posizioni({ navigation, settore }) {
             error={descriptionError}
             value={description}
           />
-          {categoriaError ? <StepsLabelError text="Categoria" /> :
-            <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-          <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={passedSettore} />
+          {socio != "Socio Finanziatore" ?
+            <View>{categoriaError ? <StepsLabelError text="Categoria" /> :
+              <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
+              <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={passedSettore} />
+            </View>
+            : null}
           {buttons()}
         </KeyboardAwareScrollView>
       </View>
-    </View>
+    </View >
   )
 };
 
