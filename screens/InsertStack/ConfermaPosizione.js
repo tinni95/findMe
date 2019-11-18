@@ -36,8 +36,8 @@ export function ConfermaPosizione({ navigation }) {
         let posizione = {
             __typename: 'data',
             title: socio == "Socio Finanziatore" ? "Finanziatore" : title,
-            type: socio[0],
-            field: socio == "Socio Finanziatore" ? "Economia" : categoria[0],
+            type: socio,
+            field: socio == "Socio Finanziatore" ? "Economia" : categoria,
             description,
         }
         console.log(posizione);

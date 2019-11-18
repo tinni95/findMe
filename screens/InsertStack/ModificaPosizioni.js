@@ -1,10 +1,9 @@
 import React from 'react'
 import { ScrollView, View, Platform } from "react-native";
-import { PositionCard } from "../../components/PositionCard"
-import { useQuery } from '@apollo/react-hooks';
+import { PositionCardModifica } from "../../components/PositionCardModifica"
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Economia"];
-const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
+const shortid = require('shortid');
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
     postPositions @client{
@@ -17,21 +16,33 @@ const POST_POSIZIONI = gql`
 `;
 
 export function ModificaPosizioni({ navigation }) {
-    const { data } = useQuery(POST_POSIZIONI);
+    const client = useApolloClient();
+    const removeItem = index => {
+        posizioni.splice(index, 1)
+        client.writeData({
+            data: {
+                postPositions: posizioni
+            }
+        });
+        refetch();
+    }
+    const { data, refetch } = useQuery(POST_POSIZIONI);
     const posizioni = data.postPositions || []
 
     return (
         <View style={{ flex: 1 }}>
             <ScrollView style={Platform.OS == "web" ? { height: 500 } : null}>
-                {posizioni.map((position) => {
+                {posizioni.map((position, index) => {
                     return (
-                        <PositionCard buttonOnPress={() =>
+                        <PositionCardModifica key={shortid.generate()} buttonOnPress={() =>
                             navigation.navigate("ModificaPosizione", {
                                 description: position.description,
-                                categoria: Settori.indexOf(position.field),
-                                socio: TipoSocio.indexOf(position.type),
+                                categoria: position.field,
+                                socio: position.type,
                                 title: position.title
-                            })} buttonText={"MODIFICA"} position={position}></PositionCard>
+                            })}
+                            trashOnPress={() => removeItem(index)}
+                            buttonText={"MODIFICA"} position={position}></PositionCardModifica>
                     );
                 })}
             </ScrollView>

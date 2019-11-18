@@ -12,7 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
-
+import { Settori, TipoSocio, autoCompleteItems } from "./helpers";
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
     postPositions @client{
@@ -24,37 +24,17 @@ const POST_POSIZIONI = gql`
   }
 `;
 
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
-const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
-const autoCompleteItems = [
-  {
-    name: "passsa",
-    id: "sad",
-    settore: "Aereonautica"
-  },
-  {
-    name: "dasd",
-    id: "sa21321d",
-    settore: "Aereonautica"
-  },
-  {
-    name: "pusst",
-    id: "das",
-    settore: "Aereonautica"
-  }
-]
-
 export function Posizioni({ navigation, settore }) {
   //Hooks
   const [title, setTitle] = useState("");
-  const [socio, setSocio] = useState([]);
+  const [socio, setSocio] = useState("");
   const [posizioniError, setPosizioniError] = useState(false);
   const [socioError, setSocioError] = useState(false);
   const [description, setDescription] = useState("");
   const [titleError, setTitleError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
   const [categoriaError, setCategoriaError] = useState("");
-  const [categoria, setCategoria] = useState([]);
+  const [categoria, setCategoria] = useState("");
   //Data
   const { data } = useQuery(POST_POSIZIONI);
   const posizioni = data.postPositions || [];
@@ -157,7 +137,7 @@ export function Posizioni({ navigation, settore }) {
           <RoundFiltersOne setItem={item => setSocio(item)} settori={TipoSocio} settoreAttivi={passedSettore} />
           <View style={{ height: 15 }}></View>
           {socio != "Socio Finanziatore" ?
-            < WithErrorString
+            <WithErrorString
               error={titleError}
               errorText={"Campo Obbligatorio"}>
               <FormTextInput
@@ -178,7 +158,7 @@ export function Posizioni({ navigation, settore }) {
             large="true"
             multiline
             numberOfLines={4}
-            placeholder="Descrizione"
+            placeholder="Esempio Descrizione"
             style={FormStyles.large}
             placeholderTextColor="#ADADAD"
             onChangeText={val => setDescription(val)}

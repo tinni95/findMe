@@ -3,12 +3,13 @@ import { View, StyleSheet, Platform } from 'react-native';
 import { StepsLabel, StepsLabelError } from "./StepsLabel";
 import WithErrorString from "../shared/Form/WithErrorString";
 import FormTextInput from "../shared/Form/FormTextInput";
-import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { indexOfPosition } from "./helpers"
+import { indexOfPosition, Settori, TipoSocio, autoCompleteItems } from "./helpers"
+import { FormStyles } from "../shared/Form/FormStyles";
+import RoundFiltersOne from '../Explore/FiltersStack/components/RoundFiltersOne';
 var _ = require('lodash');
 
 const POST_POSIZIONI = gql`
@@ -21,35 +22,17 @@ const POST_POSIZIONI = gql`
     }
   }
 `;
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Economia"];
-const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
-const autoCompleteItems = [
-    {
-        name: "passsa",
-        id: "sad",
-        settore: "Aereonautica"
-    },
-    {
-        name: "dasd",
-        id: "sa21321d",
-        settore: "Aereonautica"
-    },
-    {
-        name: "pusst",
-        id: "das",
-        settore: "Aereonautica"
-    }
-]
+
 export function ModificaPosizione({ navigation }) {
     const { data } = useQuery(POST_POSIZIONI);
     const client = useApolloClient();
     const [title, setTitle] = useState(navigation.getParam("title"));
     let passedTitle = navigation.getParam("item") || null
     const [description, setDescription] = useState(navigation.getParam("description"));
-    const [categoria, setCategoria] = useState([]);
-    const activeIndexCategoria = navigation.getParam("categoria");
-    const activeIndexSocio = navigation.getParam("socio");
-    const [socio, setSocio] = useState(TipoSocio[activeIndexSocio]);
+    const [categoria, setCategoria] = useState(navigation.getParam("categoria"));
+    const activeIndexCategoria = Settori.indexOf(categoria);
+    const [socio, setSocio] = useState(navigation.getParam("socio"));
+    const activeIndexSocio = TipoSocio.indexOf(socio);
     const [socioError, setSocioError] = useState(false);
     const [titleError, setTitleError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
@@ -62,6 +45,7 @@ export function ModificaPosizione({ navigation }) {
     }, [passedTitle])
 
     useEffect(() => {
+        console.log("yo")
         const posizione = {
             __typename: 'data',
             title,
@@ -70,14 +54,10 @@ export function ModificaPosizione({ navigation }) {
             description
         }
         setPositionInArray(indexOfPosition(posizioni, posizione));
+        console.log(posizioni);
+        console.log(posizione);
+        console.log(positionInArray)
     }, [])
-
-    const addItem1 = item => {
-        setSocio([item]);
-    };
-    const addItem = item => {
-        setCategoria([item]);
-    };
 
     const handlePress = (bool) => {
         if (description.length === 0) {
@@ -109,7 +89,9 @@ export function ModificaPosizione({ navigation }) {
                 field: socio == "Socio Finanziatore" ? "Economia" : categoria,
                 description,
             }
+            console.log(positionInArray)
             posizioni[positionInArray] = posizione
+            console.log("posizioni", posizioni);
             client.writeData({
                 data: {
                     postPositions: posizioni
@@ -117,43 +99,6 @@ export function ModificaPosizione({ navigation }) {
             });
             navigation.navigate("ModificaPosizioni", { refresh: true });
         }
-    }
-
-    if (socio == "Socio Finanziatore") {
-        return (
-            <View style={styles.container}>
-                <View style={styles.body}>
-                    <KeyboardAwareScrollView >
-                        {socioError ?
-                            <StepsLabelError text={"Cosa Cerco"} />
-                            :
-                            <StepsLabel text={"Cosa Cerco"} />
-                        }
-                        <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
-                        <View style={{ height: 15 }}></View>
-                        {descriptionError ?
-                            <StepsLabelError text={"Descrizione"} />
-                            :
-                            <StepsLabel text={"Descrizione"} />
-                        }
-                        <FormTextInput
-                            large="true"
-                            multiline
-                            numberOfLines={4}
-                            placeholder="Descrizione"
-                            placeholderTextColor="#ADADAD"
-                            onChangeText={val => setDescription(val)}
-                            editable
-                            error={descriptionError}
-                            value={description}
-                        />
-                        <View style={styles.buttonWrapper}>
-                            <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress(true)} />
-                        </View>
-                    </KeyboardAwareScrollView>
-                </View>
-            </View>
-        )
     }
     return (
         <View style={styles.container}>
@@ -164,19 +109,21 @@ export function ModificaPosizione({ navigation }) {
                         :
                         <StepsLabel text={"Mi Propongo Come"} />
                     }
-                    <RoundFilters maximum={1} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
+                    <RoundFiltersOne settori={TipoSocio} setItem={item => setSocio(item)} settoreAttivi={activeIndexSocio} />
                     <View style={{ height: 15 }}></View>
-                    <WithErrorString
-                        error={titleError}
-                        errorText={"Campo Obbligatorio"}>
-                        <FormTextInput
-                            value={title}
-                            onFocus={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: autoCompleteItems })}
-                            onChangeText={val => setTitle(val)}
-                            placeholder="Titolo Posizione"
+                    {socio != "Socio Finanziatore" ?
+                        <WithErrorString
                             error={titleError}
-                        />
-                    </WithErrorString>
+                            errorText={"Campo Obbligatorio"}>
+                            <FormTextInput
+                                value={title}
+                                onFocus={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: autoCompleteItems })}
+                                onChangeText={val => setTitle(val)}
+                                placeholder="Titolo Posizione"
+                                style={titleError ? FormStyles.inputError : FormStyles.input}
+                            />
+                        </WithErrorString>
+                        : null}
                     {descriptionError ?
                         <StepsLabelError text={"Descrizione"} />
                         :
@@ -190,14 +137,18 @@ export function ModificaPosizione({ navigation }) {
                         placeholderTextColor="#ADADAD"
                         onChangeText={val => setDescription(val)}
                         editable
-                        error={descriptionError}
+                        style={FormStyles.large}
                         value={description}
                     />
-                    {categoriaError ? <StepsLabelError text="Categoria" /> :
-                        <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-                    <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={activeIndexCategoria} />
+                    {socio != "Socio Finanziatore" ?
+                        <View>
+                            {categoriaError ? <StepsLabelError text="Categoria" /> :
+                                <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
+                            <RoundFiltersOne settori={Settori} setItem={item => setCategoria(item)} settoreAttivi={activeIndexCategoria} />
+                        </View>
+                        : null}
                     <View style={styles.buttonWrapper}>
-                        <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+                        <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => socio != "Socio Finanziatore" ? handlePress() : handlePress(true)} />
                     </View>
                 </KeyboardAwareScrollView>
             </View>
