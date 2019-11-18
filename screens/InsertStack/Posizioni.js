@@ -115,7 +115,7 @@ export function Posizioni({ navigation, settore }) {
       });
     }
   }
-  const buttons = () => {
+  const buttons = (bool) => {
     return (
       <View>
         <View style={styles.aggiungiWrapper}>
@@ -129,7 +129,7 @@ export function Posizioni({ navigation, settore }) {
               <StepsLabel text={`Hai Aggiunto`} />
               <StepsLabel style={styles.link} text={posizioni.length + (posizioni.length == 1 ? ` posizione` : ` posizioni`)} onPress={() => navigation.navigate("ModificaPosizioni")} />
             </View>}
-          <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
+          <AddButton onPress={() => handleAggiungi(bool)} text={"+ Aggiungi Posizione"} />
         </View>
         <View style={styles.buttonWrapper}>
           <RoundButtonEmptyUniversal text={"INDIETRO"} color={"#10476C"} onPress={() => navigation.navigate("Descrizione")} />
@@ -197,7 +197,7 @@ export function Posizioni({ navigation, settore }) {
               <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={passedSettore} />
             </View>
             : null}
-          {buttons()}
+          {socio !== "Socio Finanziatore" ? buttons(true) : buttons()}
         </KeyboardAwareScrollView>
       </View>
     </View >
