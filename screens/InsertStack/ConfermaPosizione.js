@@ -38,12 +38,6 @@ export function ConfermaPosizione({ navigation }) {
         setSocio([TipoSocio[activeIndexSocio]])
         passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
     })
-    const addItem1 = item => {
-        setSocio([item]);
-    };
-    const addItem = item => {
-        setCategoria([item]);
-    };
 
     const handlePress = () => {
         const posizione = {
@@ -67,7 +61,7 @@ export function ConfermaPosizione({ navigation }) {
                 <KeyboardAwareScrollView>
                     <View opacity={0.6}>
                         <StepsLabel text={"Cosa Cerco"} />
-                        <RoundFilters maximum={1} inactive={true} items={socio} addItem={addItem1} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
+                        <RoundFilters maximum={1} inactive={true} items={socio} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
                         <View style={{ height: 15 }}></View>
                         {socio != "Socio Finanziatore" ?
                             <FormTextInput
@@ -91,7 +85,7 @@ export function ConfermaPosizione({ navigation }) {
                         {socio != "Socio Finanziatore" ?
                             <View>
                                 <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />
-                                <RoundFilters inactive={true} maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={activeIndex} />
+                                <RoundFilters inactive={true} maximum={1} items={categoria} settori={Settori} settoreAttivi={activeIndex} />
                             </View>
                             : null}
                     </View>

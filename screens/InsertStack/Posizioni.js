@@ -85,6 +85,7 @@ export function Posizioni({ navigation, settore }) {
   };
 
   const handleAggiungi = (bool) => {
+    console.log(socio)
     if (description.length === 0) {
       setDescriptionError(true)
     } else {
@@ -106,7 +107,7 @@ export function Posizioni({ navigation, settore }) {
       setTitleError(false)
     }
 
-    if (description.length > 0 && (categoria.length > 0 && socio.length > 0 && title.length > 0) || bool) {
+    if (description.length > 0 && ((categoria.length > 0 && socio.length > 0 && title.length > 0) || bool)) {
       navigation.navigate("ConfermaPosizione", {
         description,
         categoria: Settori.indexOf(categoria[0]),
@@ -197,7 +198,7 @@ export function Posizioni({ navigation, settore }) {
               <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={passedSettore} />
             </View>
             : null}
-          {socio !== "Socio Finanziatore" ? buttons(true) : buttons()}
+          {socio == "Socio Finanziatore" ? buttons(true) : buttons()}
         </KeyboardAwareScrollView>
       </View>
     </View >
