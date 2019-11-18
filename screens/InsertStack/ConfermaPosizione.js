@@ -166,7 +166,6 @@ export function ConfermaPosizione({ navigation }) {
                             <FormTextInput
                                 editable={false}
                                 value={title}
-                                onFocus={() => navigation.navigate("AutoComplete", { path: "ConfermaPosizione", items: autoCompleteItems })}
                                 onChangeText={val => setTitle(val)}
                                 placeholder="Titolo Posizione"
                                 error={titleError}

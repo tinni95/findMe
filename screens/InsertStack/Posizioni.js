@@ -115,7 +115,28 @@ export function Posizioni({ navigation, settore }) {
       });
     }
   }
-
+  const buttons = () => {
+    return (
+      <View>
+        <View style={styles.aggiungiWrapper}>
+          {posizioni.length == 0 ?
+            <View>
+              {posizioniError ? <StepsLabelError text="Aggiungi Una Posizione" /> :
+                <StepsLabel text="Aggiungi Una Posizione" />}
+            </View>
+            :
+            <View style={{ flexDirection: "row" }}>
+              <StepsLabel text={`Hai Aggiunto`} />
+              <StepsLabel style={styles.link} text={posizioni.length + (posizioni.length == 1 ? ` posizione` : ` posizioni`)} onPress={() => navigation.navigate("ModificaPosizioni")} />
+            </View>}
+          <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
+        </View>
+        <View style={styles.buttonWrapper}>
+          <RoundButtonEmptyUniversal text={"INDIETRO"} color={"#10476C"} onPress={() => navigation.navigate("Descrizione")} />
+          <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+        </View>
+      </View>)
+  }
   const handlePress = () => {
     if (posizioni.length < 1) {
       setPosizioniError(true)
@@ -157,22 +178,7 @@ export function Posizioni({ navigation, settore }) {
               error={descriptionError}
               value={description}
             />
-            <View style={styles.aggiungiWrapper}>
-              {posizioni.length == 0 ?
-                <View>
-                  {posizioniError ? <StepsLabelError text="Aggiungi Una Posizione" /> :
-                    <StepsLabel text="Aggiungi Una Posizione" />}
-                </View>
-                :
-                <View style={{ flexDirection: "row" }}>
-                  <StepsLabel text={`Hai Aggiunto`} />
-                  <StepsLabel style={styles.link} text={posizioni.length + (posizioni.length == 1 ? ` posizione` : ` posizioni`)} onPress={() => navigation.navigate("ModificaPosizioni")} />
-                </View>}
-              <AddButton onPress={() => handleAggiungi(true)} text={"+ Aggiungi Posizione"} />
-            </View>
-            <View style={styles.buttonWrapper}>
-              <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
-            </View>
+            {buttons()}
           </KeyboardAwareScrollView>
         </View>
       </View>
@@ -222,23 +228,7 @@ export function Posizioni({ navigation, settore }) {
           {categoriaError ? <StepsLabelError text="Categoria" /> :
             <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
           <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={passedSettore} />
-          <View style={styles.aggiungiWrapper}>
-            {posizioni.length == 0 ?
-              <View>
-                {posizioniError ? <StepsLabelError text="Aggiungi Una Posizione" /> :
-                  <StepsLabel text="Aggiungi Una Posizione" />}
-              </View>
-              :
-              <View style={{ flexDirection: "row" }}>
-                <StepsLabel text={`Hai Aggiunto`} />
-                <StepsLabel style={styles.link} text={posizioni.length + (posizioni.length == 1 ? ` posizione` : ` posizioni`)} onPress={() => navigation.navigate("ModificaPosizioni")} />
-              </View>}
-            <AddButton onPress={() => handleAggiungi()} text={"+ Aggiungi Posizione"} />
-          </View>
-          <View style={styles.buttonWrapper}>
-            <RoundButtonEmptyUniversal text={"INDIETRO"} color={"#10476C"} onPress={() => navigation.navigate("Descrizione")} />
-            <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
-          </View>
+          {buttons()}
         </KeyboardAwareScrollView>
       </View>
     </View>
