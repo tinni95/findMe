@@ -1,15 +1,20 @@
 import React from "react";
-import { View, StyleSheet, Platform } from "react-native";
+import { View, StyleSheet, Platform, Text } from "react-native";
 import { Bold, Body, Light } from "./StyledText";
 import FieldIconRound from "./FieldIcons";
 import RoundButton from "./shared/RoundButton";
+import { Tooltip } from "react-native-elements";
 export function PositionCard({ position, buttonText, buttonOnPress }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Bold style={styles.headerText}>{position.title}</Bold>
         <View style={styles.iconContainer}>
-          <FieldIconRound size={25} field={position.field} color="#60E1E0" />
+          {Platform.OS == "web" ? <FieldIconRound size={25} field={position.field} color="#60E1E0" /> :
+            <Tooltip backgroundColor={"#10476C"} popover={<Text style={{ color: "white" }}>{position.field}</Text>}>
+              <FieldIconRound size={25} field={position.field} color="#60E1E0" />
+            </Tooltip>
+          }
         </View>
       </View>
       <View style={styles.description}>

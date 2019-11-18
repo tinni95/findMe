@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RoundFilterItem } from "./RoundFilterItem";
 import RoundButton from "../../../../components/shared/RoundButton";
-import { Bold } from '../../../../components/StyledText';
-import { isBigDevice } from "../../../../constants/Layout"
-export function RoundFilters({ inactive, maximum, settori, addItem, removeItem, settoreAttivi, wrapperStyle, items, reset }) {
-    const [altro, setAltro] = useState(false);
+
+export function RoundFilters({ inactive, maximum, settori, addItem, removeItem, settoreAttivi, wrapperStyle, items }) {
     const [selected, setSelected] = useState(settoreAttivi);
     useEffect(() => {
         setSelected(settoreAttivi)

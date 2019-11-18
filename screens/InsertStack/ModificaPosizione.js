@@ -48,8 +48,8 @@ export function ModificaPosizione({ navigation }) {
     const [description, setDescription] = useState(navigation.getParam("description"));
     const [categoria, setCategoria] = useState([]);
     const activeIndexCategoria = navigation.getParam("categoria");
-    const [socio, setSocio] = useState([]);
     const activeIndexSocio = navigation.getParam("socio");
+    const [socio, setSocio] = useState(TipoSocio[activeIndexSocio]);
     const [socioError, setSocioError] = useState(false);
     const [titleError, setTitleError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
@@ -58,8 +58,6 @@ export function ModificaPosizione({ navigation }) {
     let posizioni = data.postPositions || []
 
     useEffect(() => {
-        setCategoria([Settori[activeIndexCategoria]])
-        setSocio([TipoSocio[activeIndexSocio]])
         passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
     }, [passedTitle])
 
@@ -81,13 +79,13 @@ export function ModificaPosizione({ navigation }) {
         setCategoria([item]);
     };
 
-    const handlePress = () => {
+    const handlePress = (bool) => {
         if (description.length === 0) {
             setDescriptionError(true)
         } else {
             setDescriptionError(false)
         }
-        if (categoria.length === 0) {
+        if (categoria.length === 0 && !bool) {
             setCategoriaError(true)
         } else {
             setCategoriaError(false)
@@ -97,17 +95,18 @@ export function ModificaPosizione({ navigation }) {
         } else {
             setSocioError(false)
         }
-        if (title.length === 0) {
+        if (title.length === 0 && !bool) {
             setTitleError(true)
         } else {
             setTitleError(false)
         }
-        if (title.length > 0 && socio.length > 0 && categoria.length > 0 && description.length > 0) {
+
+        if (description.length > 0 && ((categoria.length > 0 && socio.length > 0 && title.length > 0) || bool)) {
             const posizione = {
                 __typename: 'data',
-                title,
-                type: socio[0],
-                field: categoria[0],
+                title: socio == "Socio Finanziatore" ? "Finanziatore" : title,
+                type: socio,
+                field: socio == "Socio Finanziatore" ? "Economia" : categoria,
                 description,
             }
             posizioni[positionInArray] = posizione
@@ -149,7 +148,7 @@ export function ModificaPosizione({ navigation }) {
                             value={description}
                         />
                         <View style={styles.buttonWrapper}>
-                            <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+                            <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => handlePress(true)} />
                         </View>
                     </KeyboardAwareScrollView>
                 </View>
