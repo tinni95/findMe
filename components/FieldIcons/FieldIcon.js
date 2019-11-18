@@ -1,14 +1,14 @@
 import React from 'react';
-import {Image} from "react-native";
+import { Image } from "react-native";
 
 const components = {
   Science: require('../../assets/images/laboratory.png'),
   It: require('../../assets/images/computer.png'),
   Economics: require('../../assets/images/economics.png'),
-  Engineering:require('../../assets/images/engineer.png'),
-  Movie:require('../../assets/images/masks.png'),
-  Other:require('../../assets/images/worldwide.png'),
-  Law:require('../../assets/images/auction.png')
+  Engineering: require('../../assets/images/engineer.png'),
+  Movie: require('../../assets/images/masks.png'),
+  Other: require('../../assets/images/worldwide.png'),
+  Law: require('../../assets/images/auction.png')
 };
 
 export default function FieldIcon(props) {
@@ -17,8 +17,8 @@ export default function FieldIcon(props) {
 
   return (
     <Image
-    source={FieldIcon}  
-    style={{width:25,height:25}}
-  />
+      source={FieldIcon}
+      style={{ width: 28, height: 30 }}
+    />
   );
 }

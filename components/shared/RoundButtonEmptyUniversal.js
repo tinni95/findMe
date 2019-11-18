@@ -11,24 +11,22 @@ export default function RoundButton(props) {
           styles.container,
           { borderColor: props.color, width: props.isLong ? 200 : null }
         ]}>
-        <Bold style={[styles.text, { color: props.fontColor }]}>{props.text}</Bold>
+        <Bold style={[styles.text, { color: props.color }]}>{props.text}</Bold>
       </View>
     </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
-    borderRadius: 25,
+    borderRadius: 20,
     borderWidth: 1,
-    padding: isSmallDevice ? 7.5 : 10,
-    height: isSmallDevice ? 30 : 40,
-    marginBottom: 15
+    alignSelf: 'flex-start',
+    padding: 10
   },
   text: {
     textAlign: 'center',
     color: 'white',
-    fontSize: isSmallDevice ? 11 : 12,
+    fontSize: isSmallDevice ? 12 : 15,
     marginLeft: 2
   }
 });

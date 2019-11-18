@@ -3,7 +3,7 @@ import { View, StyleSheet, Platform } from "react-native";
 import { Bold, Body, Light } from "./StyledText";
 import FieldIconRound from "./FieldIcons";
 import RoundButton from "./shared/RoundButton";
-export function PositionCard({ position }) {
+export function PositionCard({ position, buttonText, buttonOnPress }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -12,49 +12,22 @@ export function PositionCard({ position }) {
           <FieldIconRound size={25} field={position.field} color="#60E1E0" />
         </View>
       </View>
-      <View style={styles.columns}>
-        <View style={styles.column}>
-          <Bold style={styles.columnHeader}>Data Inizio</Bold>
-          <Bold style={styles.columnText}>24/10/1995</Bold>
-        </View>
-        <View style={styles.column}>
-          <Bold style={styles.columnHeader}>Posizioni Disponibili</Bold>
-          <Bold style={styles.columnText}>{position.available}</Bold>
-        </View>
-      </View>
       <View style={styles.description}>
-        <View style={styles.descriptionHeader}>
-          <Bold style={styles.headerTextDescription}>Descrizione Lavoro</Bold>
-        </View>
         <View style={styles.DescriptionItem}>
-          <Body style={styles.DescriptionItemTitle}>Ruoli Principali</Body>
+          <Body style={styles.DescriptionItemTitle}>Qualifiche</Body>
           <Light style={styles.DescriptionItemBody}>
-            -Organizzazione periodica eventi e feedback delle attività
-          </Light>
-          <Light style={styles.DescriptionItemBody}>
-            -Portavoce evangelistic nelle università e classi
-          </Light>
-          <Light style={styles.DescriptionItemBody}>
-            -social media communication
+            - Esempio Qualifica
           </Light>
         </View>
         <View style={styles.spacer} />
         <View style={styles.DescriptionItem}>
-          <Body style={styles.DescriptionItemTitle}>
-            Qualificazioni Richieste
-          </Body>
+          <Body style={styles.DescriptionItemTitle}>Descrizione</Body>
           <Light style={styles.DescriptionItemBody}>
-            -Laurea magistrale in informatica
-          </Light>
-          <Light style={styles.DescriptionItemBody}>
-            -Conoscenza di Graphql e c++
-          </Light>
-          <Light style={styles.DescriptionItemBody}>
-            -5 anni di esperienza nello sviluppo android
+            {position.description || "esempio descrizione"}
           </Light>
         </View>
         <View style={styles.ButtonWrapper}>
-          <RoundButton text={"CANDIDATI"} color={"#DD1E63"} />
+          <RoundButton onPress={buttonOnPress} text={buttonText} textColor={"white"} color={"#DD1E63"} />
         </View>
       </View>
     </View>
@@ -71,11 +44,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5
   },
-  descriptionHeader: {
-    paddingBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#D0D0D0"
-  },
   description: {
     marginRight: 10,
     marginLeft: 10,
@@ -87,18 +55,16 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 25
   },
-  headerTextDescription: {
-    margin: 10,
-    marginTop: 7.5,
-    marginBottom: 5,
-    fontSize: 22
-  },
   header: {
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#D0D0D0",
     flexDirection: "row",
     justifyContent: "space-between"
   },
   iconContainer: {
-    marginRight: 5
+    marginRight: 5,
+    marginTop: 5
   },
   container: {
     height: Platform.OS == "web" ? 500 : undefined,
@@ -121,26 +87,9 @@ const styles = StyleSheet.create({
       }
     })
   },
-  columns: {
-    margin: 10,
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  column: {
-    flexDirection: "column",
-    alignItems: "flex-start"
-  },
-  columnHeader: {
-    fontSize: 10,
-    color: "#ADADAD"
-  },
-  columnText: {
-    fontSize: 12,
-    color: "#002C3C"
-  },
+
   spacer: {
-    height: 10
+    height: 20
   },
   ButtonWrapper: {
     justifyContent: "center",

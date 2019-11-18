@@ -15,19 +15,18 @@ query PostScreenQueryRendererQuery($postId: ID!) {
     regione
     positions {
       title
-      available
       field
     }
   }
 }
 `;
 
-export default function ProfilePageQueryRenderer({navigation}) {
+export default function ProfilePageQueryRenderer({ navigation }) {
   console.log(navigation)
-  const { loading, error, data } = useQuery(Post,{ variables: { postId:navigation.getParam("id") }});
+  const { loading, error, data } = useQuery(Post, { variables: { postId: navigation.getParam("id") } });
 
-  if (loading) return <FindMeSpinner/>;
-  if (error) return <FindMeGraphQlErrorDisplay/>;
+  if (loading) return <FindMeSpinner />;
+  if (error) return <FindMeGraphQlErrorDisplay />;
 
   return <PostScreen post={data.singlePost} />;
 }

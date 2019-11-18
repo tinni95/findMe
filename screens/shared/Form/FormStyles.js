@@ -56,5 +56,12 @@ export const FormStyles = StyleSheet.create({
     marginRight: 10,
     marginTop: 2.5,
     marginBottom: -10
+  },
+  large:{
+    margin:5,
+    padding:5,
+    borderColor: '#ADADAD',
+    borderWidth: 1,
+    height:75,
   }
 });
