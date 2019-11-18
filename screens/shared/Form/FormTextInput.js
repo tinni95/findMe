@@ -7,14 +7,12 @@ export default function FormTextInput(props) {
       return (
          <TextInput
             {...props}
-            style={[props.error ? FormStyles.large : FormStyles.large]}
          />
       )
    }
    return (
       <TextInput
          {...props}
-         style={props.error ? FormStyles.inputError : FormStyles.input}
       />
    )
 }

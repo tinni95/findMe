@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Platform, TextInput } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import { StepsLabel, StepsLabelError } from "./StepsLabel";
@@ -54,7 +54,7 @@ export function Presentazione({ navigation }) {
             setPositionError(false)
         }
         if (postOwner.length === 0) {
-            postOwnerError(true)
+            setPostOwnerError(true)
         }
         else {
             setPostOwnerError(false)
@@ -96,7 +96,6 @@ export function Presentazione({ navigation }) {
                     error={locationError}
                 >
                     <FormTextInput
-                        error={locationError}
                         style={locationError ? FormStyles.inputError : FormStyles.input}
                         value={location}
                         onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione", items: Posizioni })}
@@ -110,7 +109,7 @@ export function Presentazione({ navigation }) {
                 }
                 <RoundFiltersOne setItem={tipoSocio => setPostOwner(tipoSocio)} settori={TipoSocio} settoreAttivi={activeIndex} />
                 <View style={styles.PosizioniTitleWrapper}>
-                    {locationError ?
+                    {positionError ?
                         <StepsLabelError text={"La Mia Funzione"} />
                         :
                         <StepsLabel text={"La Mia Funzione"} />
@@ -120,7 +119,6 @@ export function Presentazione({ navigation }) {
                         error={positionError}
                     >
                         <FormTextInput
-                            error={positionError}
                             style={positionError ? FormStyles.inputError : FormStyles.input}
                             value={position}
                             onFocus={() => navigation.navigate("AutoComplete", { path: "Presentazione", items: Posizioni })}

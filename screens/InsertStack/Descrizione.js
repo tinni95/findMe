@@ -10,6 +10,7 @@ import { StepsLabel, StepsLabelError } from "./StepsLabel";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { FormStyles } from "../shared/Form/FormStyles";
 
 const POST_DESCRIZIONE = gql`
   query DescrizioneQuery {
@@ -19,9 +20,9 @@ const POST_DESCRIZIONE = gql`
   }
 `;
 
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
+const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
 
-export function Descrizione({ navigation, settore }) {
+export function Descrizione({ navigation }) {
   const client = useApolloClient();
   const { data } = useQuery(POST_DESCRIZIONE);
   const [title, setTitle] = useState(data.postTitle || "");
@@ -29,8 +30,9 @@ export function Descrizione({ navigation, settore }) {
   const [titleError, setTitleError] = useState("");
   const [settoreError, setSettoreError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
-  settore = data.postCategories;
+  const settore = data.postCategories;
   const [categories, setCategories] = useState(settore);
+
   const addItem = item => {
     if (categories.length < 3 || categories.includes(categories))
       setCategories([...categories, item]);
@@ -58,6 +60,10 @@ export function Descrizione({ navigation, settore }) {
       setSettoreError(false);
     }
     if (categories.length > 0 && title.length > 0 && description.length > 0) {
+      console.log(categories);
+      console.log(title);
+      console.log(description);
+
       client.writeData({
         data: {
           postDescription: description,
@@ -88,7 +94,7 @@ export function Descrizione({ navigation, settore }) {
               placeholder="Titolo Post Idea (es. `Sviluppo App`)"
               onChangeText={val => setTitle(val)}
               value={title}
-              error={titleError}
+              style={titleError ? FormStyles.inputError : FormStyles.input}
             />
           </WithErrorString>
           {settoreError ?
@@ -110,7 +116,7 @@ export function Descrizione({ navigation, settore }) {
             placeholderTextColor="#ADADAD"
             onChangeText={val => setDescription(val)}
             editable
-            error={descriptionError}
+            style={FormStyles.large}
             value={description}
           />
 
