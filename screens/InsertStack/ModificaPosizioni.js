@@ -19,7 +19,6 @@ const POST_POSIZIONI = gql`
 export function ModificaPosizioni({ navigation }) {
     const { data } = useQuery(POST_POSIZIONI);
     const posizioni = data.postPositions || []
-    console.log(posizioni)
 
     return (
         <View style={{ flex: 1 }}>

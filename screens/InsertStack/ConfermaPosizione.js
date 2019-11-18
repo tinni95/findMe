@@ -7,6 +7,7 @@ import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { indexOfPosition } from "./helpers";
 
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -40,14 +41,18 @@ export function ConfermaPosizione({ navigation }) {
     })
 
     const handlePress = () => {
-        const posizione = {
+        let posizione = {
             __typename: 'data',
             title: socio == "Socio Finanziatore" ? "Finanziatore" : title,
             type: socio[0],
             field: socio == "Socio Finanziatore" ? "Economia" : categoria[0],
             description,
         }
-
+        var PositionIndex = indexOfPosition(posizioni, posizione);
+        console.log(PositionIndex)
+        if (PositionIndex != -1) {
+            return alert("è gia stata aggiunta questa posizione, devi cambiare almeno un campo")
+        }
         client.writeData({
             data: {
                 postPositions: [...posizioni, posizione]
