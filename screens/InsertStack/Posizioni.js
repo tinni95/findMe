@@ -5,12 +5,13 @@ import { AddButton } from "./AddButton";
 import WithErrorString from "../shared/Form/WithErrorString";
 import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
-import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
+import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne";
 import RoundButton from '../../components/shared/RoundButton';
 import RoundButtonEmptyUniversal from '../../components/shared/RoundButtonEmptyUniversal';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { FormStyles } from "../shared/Form/FormStyles";
 
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -23,7 +24,7 @@ const POST_POSIZIONI = gql`
   }
 `;
 
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Fashion", "Ingegneria", "Ristorazione", "Fantozzi", "Cinofilia", "Musica", "Arte", "Teatro"];
+const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 const autoCompleteItems = [
   {
@@ -73,19 +74,11 @@ export function Posizioni({ navigation, settore }) {
     passedTitle = null
     setTitle("");
     setDescription("");
-    setSocio([]);
-    setCategoria([]);
+    setSocio("");
+    setCategoria("");
   }
 
-  const addItem1 = item => {
-    setSocio([item]);
-  };
-  const addItem = item => {
-    setCategoria([item]);
-  };
-
   const handleAggiungi = (bool) => {
-    console.log(socio)
     if (description.length === 0) {
       setDescriptionError(true)
     } else {
@@ -110,9 +103,9 @@ export function Posizioni({ navigation, settore }) {
     if (description.length > 0 && ((categoria.length > 0 && socio.length > 0 && title.length > 0) || bool)) {
       navigation.navigate("ConfermaPosizione", {
         description,
-        categoria: Settori.indexOf(categoria[0]),
-        socio: TipoSocio.indexOf(socio[0])
-        , title
+        categoria,
+        socio,
+        title
       });
     }
   }
@@ -161,7 +154,7 @@ export function Posizioni({ navigation, settore }) {
             :
             <StepsLabel text={"Cosa Cerco"} />
           }
-          <RoundFilters maximum={1} items={categoria} addItem={addItem1} settori={TipoSocio} settoreAttivi={passedSettore} />
+          <RoundFiltersOne setItem={item => setSocio(item)} settori={TipoSocio} settoreAttivi={passedSettore} />
           <View style={{ height: 15 }}></View>
           {socio != "Socio Finanziatore" ?
             < WithErrorString
@@ -169,6 +162,7 @@ export function Posizioni({ navigation, settore }) {
               errorText={"Campo Obbligatorio"}>
               <FormTextInput
                 value={title}
+                style={titleError ? FormStyles.inputError : FormStyles.input}
                 onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
                 onChangeText={val => setTitle(val)}
                 placeholder="Titolo Posizione"
@@ -185,6 +179,7 @@ export function Posizioni({ navigation, settore }) {
             multiline
             numberOfLines={4}
             placeholder="Descrizione"
+            style={FormStyles.large}
             placeholderTextColor="#ADADAD"
             onChangeText={val => setDescription(val)}
             editable
@@ -193,7 +188,7 @@ export function Posizioni({ navigation, settore }) {
           {socio != "Socio Finanziatore" ?
             <View>{categoriaError ? <StepsLabelError text="Categoria" /> :
               <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-              <RoundFilters maximum={1} items={categoria} addItem={addItem} settori={Settori} settoreAttivi={passedSettore} />
+              <RoundFiltersOne setItem={item => setCategoria(item)} settori={Settori} settoreAttivi={passedSettore} />
             </View>
             : null}
           {socio == "Socio Finanziatore" ? buttons(true) : buttons()}

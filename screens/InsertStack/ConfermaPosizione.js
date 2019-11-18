@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
-import { StepsLabel, StepsLabelError } from "./StepsLabel";
+import { StepsLabel } from "./StepsLabel";
 import FormTextInput from "../shared/Form/FormTextInput";
-import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
+import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne";
 import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { indexOfPosition } from "./helpers";
+import { indexOfPosition, Settori, TipoSocio } from "./helpers";
+import { FormStyles } from "../shared/Form/FormStyles";
 
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -19,26 +20,17 @@ const POST_POSIZIONI = gql`
     }
   }
 `;
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro", "Fashion", "Ingegneria", "Ristorazione", "Fantozzi", "Cinofilia", "Musica", "Arte", "Teatro"];
-const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 
 export function ConfermaPosizione({ navigation }) {
     const { data } = useQuery(POST_POSIZIONI);
     const client = useApolloClient();
     const posizioni = data.postPositions || []
-    let passedTitle = navigation.getParam("item") || null
-    const [title, setTitle] = useState(navigation.getParam("title"));
-    const [description, setDescription] = useState(navigation.getParam("description"));
-    const [categoria, setCategoria] = useState([]);
-    const activeIndex = navigation.getParam("categoria");
-    const [socio, setSocio] = useState([]);
-    const activeIndexSocio = navigation.getParam("socio");
-
-    useEffect(() => {
-        setCategoria([Settori[activeIndex]])
-        setSocio([TipoSocio[activeIndexSocio]])
-        passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
-    })
+    const title = navigation.getParam("title");
+    const description = navigation.getParam("description");
+    const categoria = navigation.getParam("categoria");
+    const activeIndex = Settori.indexOf(categoria);
+    const socio = navigation.getParam("socio");
+    const activeIndexSocio = TipoSocio.indexOf(socio);
 
     const handlePress = () => {
         let posizione = {
@@ -48,8 +40,8 @@ export function ConfermaPosizione({ navigation }) {
             field: socio == "Socio Finanziatore" ? "Economia" : categoria[0],
             description,
         }
+        console.log(posizione);
         var PositionIndex = indexOfPosition(posizioni, posizione);
-        console.log(PositionIndex)
         if (PositionIndex != -1) {
             return alert("è gia stata aggiunta questa posizione, devi cambiare almeno un campo")
         }
@@ -66,13 +58,13 @@ export function ConfermaPosizione({ navigation }) {
                 <KeyboardAwareScrollView>
                     <View opacity={0.6}>
                         <StepsLabel text={"Cosa Cerco"} />
-                        <RoundFilters maximum={1} inactive={true} items={socio} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
+                        <RoundFiltersOne inactive={true} settori={TipoSocio} settoreAttivi={activeIndexSocio} />
                         <View style={{ height: 15 }}></View>
                         {socio != "Socio Finanziatore" ?
                             <FormTextInput
                                 editable={false}
+                                style={FormStyles.input}
                                 value={title}
-                                onChangeText={val => setTitle(val)}
                                 placeholder="Titolo Posizione"
                             />
                             : null}
@@ -81,16 +73,16 @@ export function ConfermaPosizione({ navigation }) {
                             editable={false}
                             large="true"
                             multiline
+                            style={FormStyles.large}
                             numberOfLines={4}
                             placeholder="Descrizione"
                             placeholderTextColor="#ADADAD"
-                            onChangeText={val => setDescription(val)}
                             value={description}
                         />
                         {socio != "Socio Finanziatore" ?
                             <View>
                                 <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />
-                                <RoundFilters inactive={true} maximum={1} items={categoria} settori={Settori} settoreAttivi={activeIndex} />
+                                <RoundFiltersOne inactive={true} settori={Settori} settoreAttivi={activeIndex} />
                             </View>
                             : null}
                     </View>
