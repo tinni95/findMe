@@ -10,6 +10,7 @@ import RoundButton from '../../components/shared/RoundButton';
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { isBigDevice } from '../../constants/Layout';
+import { TitoliPosizioni } from './helpers';
 
 const POST_PRESENTAZIONE = gql`
   query PresentazioneQuery {
@@ -19,9 +20,6 @@ const POST_PRESENTAZIONE = gql`
   }
 `;
 
-const Posizioni = [
-    { name: "C.E.O", id: 1 }, { name: "C.T.O", id: 2 }, { id: 3, name: "Amministratore" }, { id: 4, name: "Direttore" }, { id: 5, name: "Finanziatore" }
-];
 
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 
@@ -99,7 +97,7 @@ export function Presentazione({ navigation }) {
                     <FormTextInput
                         style={locationError ? FormStyles.inputError : FormStyles.input}
                         value={location}
-                        onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione", items: Posizioni })}
+                        onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione" })}
                         placeholder="Località"
                     />
                 </WithErrorString>
@@ -122,7 +120,7 @@ export function Presentazione({ navigation }) {
                         <FormTextInput
                             style={positionError ? FormStyles.inputError : FormStyles.input}
                             value={position}
-                            onFocus={() => navigation.navigate("AutoComplete", { path: "Presentazione", items: Posizioni })}
+                            onFocus={() => navigation.navigate("AutoComplete", { path: "Presentazione", items: TitoliPosizioni })}
                             placeholder="Posizione (es. CEO, Programmatore)"
                         />
                     </WithErrorString>

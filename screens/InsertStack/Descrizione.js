@@ -12,7 +12,7 @@ import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
 import { isBigDevice } from '../../constants/Layout';
-
+import { Settori } from "./helpers";
 const POST_DESCRIZIONE = gql`
   query DescrizioneQuery {
     postTitle @client
@@ -22,7 +22,6 @@ const POST_DESCRIZIONE = gql`
   }
 `;
 
-const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intrattenimento", "Cinofilia", "Musica", "Arte", "Teatro"];
 
 export function Descrizione({ navigation }) {
   const client = useApolloClient();

@@ -57,11 +57,19 @@ export const FormStyles = StyleSheet.create({
     marginTop: 2.5,
     marginBottom: -10
   },
-  large:{
-    margin:5,
-    padding:5,
+  large: {
+    margin: 5,
+    padding: 5,
     borderColor: '#ADADAD',
     borderWidth: 1,
-    height:75,
+    height: 75,
+  },
+  requisiti: {
+    margin: 5,
+    padding: 5,
+    borderColor: '#ADADAD',
+    borderWidth: 1,
+    alignContent: "center",
+    height: 30,
   }
 });

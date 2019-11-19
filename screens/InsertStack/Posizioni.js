@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { StepsLabel, StepsLabelError } from "./StepsLabel";
 import { AddButton } from "./AddButton";
 import WithErrorString from "../shared/Form/WithErrorString";
@@ -12,8 +12,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
-import { Settori, TipoSocio, autoCompleteItems } from "./helpers";
+import { Settori, TipoSocio, TitoliPosizioni } from "./helpers";
 import { isBigDevice } from '../../constants/Layout';
+import { Light } from "../../components/StyledText";
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
     postPositions @client{
@@ -31,31 +32,31 @@ export function Posizioni({ navigation, settore }) {
   //Hooks
   const [title, setTitle] = useState("");
   const [socio, setSocio] = useState("");
-  const [posizioniError, setPosizioniError] = useState(false);
-  const [socioError, setSocioError] = useState(false);
-  const [description, setDescription] = useState("");
-  const [titleError, setTitleError] = useState("");
-  const [descriptionError, setDescriptionError] = useState("");
-  const [categoriaError, setCategoriaError] = useState("");
   const [categoria, setCategoria] = useState("");
+  const [requisiti, setRequisiti] = useState([]);
+  const [description, setDescription] = useState("");
+  const [titleError, setTitleError] = useState(false);
+  const [socioError, setSocioError] = useState(false);
+  const [posizioniError, setPosizioniError] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(false);
+  const [categoriaError, setCategoriaError] = useState(false);
+  const [requisitiError, setRequisitiError] = useState(false);
   //Data
   const { data } = useQuery(POST_POSIZIONI);
   const posizioni = data.postPositions || [];
-  let passedTitle = navigation.getParam("item") || null
+  let passedTitle = navigation.getParam("for") == "Titoli" ? navigation.getParam("item") || null : null
+  let passedRequisito = navigation.getParam("for") == "Requisiti" ? navigation.getParam("item") || null : null
   let passedSettore = navigation.getParam("settore") || null
-  //if first page data is missing, we go back to it
+
+  //Autocomplete titolo
   useEffect(() => {
-    if (data.postLocation === "") {
-      navigation.navigate("Presentazione")
-    }
-    else if (data.postTitle === "") {
-      navigation.navigate("Descrizione")
-    }
-  }, [])
-  //Autocomplete
-  useEffect(() => {
-    passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
+    passedTitle ? setTitle(passedTitle) : null
   }, [passedTitle])
+  //Autocomplete requisiti
+  useEffect(() => {
+    passedRequisito ? setRequisiti([...requisiti, passedRequisito]) : null
+    console.log(requisiti);
+  }, [passedRequisito])
   //reset when added a position
   useEffect(() => {
     resetState();
@@ -86,13 +87,18 @@ export function Posizioni({ navigation, settore }) {
     } else {
       setSocioError(false)
     }
+    if (requisiti.length === 0 && !bool) {
+      setRequisitiError(true)
+    } else {
+      setRequisitiError(false)
+    }
     if (title.length === 0 && !bool) {
       setTitleError(true)
     } else {
       setTitleError(false)
     }
 
-    if (description.length > 0 && ((categoria.length > 0 && socio.length > 0 && title.length > 0) || bool)) {
+    if (description.length > 0 && ((categoria.length > 0 && socio.length > 0 && title.length > 0 && requisiti.length > 0) || bool)) {
       navigation.navigate("ConfermaPosizione", {
         description,
         categoria,
@@ -155,12 +161,30 @@ export function Posizioni({ navigation, settore }) {
               <FormTextInput
                 value={title}
                 style={titleError ? FormStyles.inputError : FormStyles.input}
-                onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: autoCompleteItems })}
+                onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: TitoliPosizioni, for: "Titoli" })}
                 onChangeText={val => setTitle(val)}
                 placeholder="Titolo Posizione"
               />
             </WithErrorString>
             : null}
+          {socio != "Socio Finanziatore" ?
+            <View>{categoriaError ? <StepsLabelError text="Categoria" /> :
+              <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
+              <RoundFiltersOne setItem={item => setCategoria(item)} settori={Settori} settoreAttivi={passedSettore} />
+            </View>
+            : null}
+          {requisitiError ?
+            <StepsLabelError text={"Requisiti"} />
+            :
+            <StepsLabel text={"Requisiti"} />
+          }
+          <View style={FormStyles.requisiti}>
+            <TouchableWithoutFeedback onPress={() => {
+              navigation.navigate("AutoComplete", { path: "Posizioni", items: TitoliPosizioni, for: "Requisiti" })
+            }}>
+              <Light>AGGIUNGI REQUISITO +</Light>
+            </TouchableWithoutFeedback>
+          </View>
           {descriptionError ?
             <StepsLabelError text={"Descrizione"} />
             :
@@ -177,12 +201,6 @@ export function Posizioni({ navigation, settore }) {
             editable
             value={description}
           />
-          {socio != "Socio Finanziatore" ?
-            <View>{categoriaError ? <StepsLabelError text="Categoria" /> :
-              <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-              <RoundFiltersOne setItem={item => setCategoria(item)} settori={Settori} settoreAttivi={passedSettore} />
-            </View>
-            : null}
           {socio == "Socio Finanziatore" ? buttons(true) : buttons()}
         </KeyboardAwareScrollView>
       </View>
