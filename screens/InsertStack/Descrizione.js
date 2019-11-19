@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
@@ -18,6 +18,7 @@ const POST_DESCRIZIONE = gql`
     postTitle @client
     postDescription @client
     postCategories @client
+    postLocation @client
   }
 `;
 
@@ -26,6 +27,9 @@ const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intra
 export function Descrizione({ navigation }) {
   const client = useApolloClient();
   const { data } = useQuery(POST_DESCRIZIONE);
+  useEffect(() => {
+    data.postLocation === "" ? navigation.navigate("Presentazione") : null
+  }, [])
   const [title, setTitle] = useState(data.postTitle || "");
   const [description, setDescription] = useState(data.postDescription || "");
   const [titleError, setTitleError] = useState("");

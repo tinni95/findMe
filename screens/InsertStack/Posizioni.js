@@ -22,6 +22,7 @@ const POST_POSIZIONI = gql`
       description
       title
     }
+    postLocation @client
   }
 `;
 
@@ -41,6 +42,10 @@ export function Posizioni({ navigation, settore }) {
   const posizioni = data.postPositions || [];
   let passedTitle = navigation.getParam("item") || null
   let passedSettore = navigation.getParam("settore") || null
+
+  useEffect(() => {
+    data.postLocation === "" ? navigation.navigate("Presentazione") : null
+  }, [])
 
   useEffect(() => {
     passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
