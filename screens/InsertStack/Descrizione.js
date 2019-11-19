@@ -27,9 +27,11 @@ const Settori = ["Aereonautica", "Fashion", "Ingegneria", "Ristorazione", "Intra
 export function Descrizione({ navigation }) {
   const client = useApolloClient();
   const { data } = useQuery(POST_DESCRIZIONE);
+  //if first page data is missing, we go back to it
   useEffect(() => {
     data.postLocation === "" ? navigation.navigate("Presentazione") : null
   }, [])
+
   const [title, setTitle] = useState(data.postTitle || "");
   const [description, setDescription] = useState(data.postDescription || "");
   const [titleError, setTitleError] = useState("");

@@ -23,6 +23,7 @@ const POST_POSIZIONI = gql`
       title
     }
     postLocation @client
+    postTitle @client
   }
 `;
 
@@ -42,15 +43,20 @@ export function Posizioni({ navigation, settore }) {
   const posizioni = data.postPositions || [];
   let passedTitle = navigation.getParam("item") || null
   let passedSettore = navigation.getParam("settore") || null
-
+  //if first page data is missing, we go back to it
   useEffect(() => {
-    data.postLocation === "" ? navigation.navigate("Presentazione") : null
+    if (data.postLocation === "") {
+      navigation.navigate("Presentazione")
+    }
+    else if (data.postTitle === "") {
+      navigation.navigate("Descrizione")
+    }
   }, [])
-
+  //Autocomplete
   useEffect(() => {
     passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
   }, [passedTitle])
-
+  //reset when added a position
   useEffect(() => {
     resetState();
   }, [passedSettore])
