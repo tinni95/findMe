@@ -9,6 +9,7 @@ import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne"
 import RoundButton from '../../components/shared/RoundButton';
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { isBigDevice } from '../../constants/Layout';
 
 const POST_PRESENTAZIONE = gql`
   query PresentazioneQuery {
@@ -155,8 +156,8 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 8,
-        marginLeft: Platform.OS == "web" ? 100 : 20,
-        marginRight: Platform.OS == "web" ? 100 : 20,
+        marginLeft: isBigDevice ? 100 : 20,
+        marginRight: isBigDevice ? 100 : 20,
     },
     header: {
         flex: 1.5

@@ -9,6 +9,7 @@ import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { indexOfPosition, Settori, TipoSocio } from "./helpers";
 import { FormStyles } from "../shared/Form/FormStyles";
+import { isBigDevice } from '../../constants/Layout';
 
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -119,8 +120,8 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 8,
-        marginLeft: Platform.OS == "web" ? 100 : 20,
-        marginRight: Platform.OS == "web" ? 100 : 20,
+        marginLeft: isBigDevice ? 100 : 20,
+        marginRight: isBigDevice ? 100 : 20,
     },
     header: {
         flex: 1.5

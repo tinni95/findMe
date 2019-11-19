@@ -5,6 +5,7 @@ import FieldIconRound from "./FieldIcons";
 import RoundButton from "./shared/RoundButton";
 import { Tooltip } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
+import { isBigDevice } from "../constants/Layout";
 export function PositionCardModifica({ position, buttonText, buttonOnPress, trashOnPress }) {
   return (
     <View style={styles.container}>
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
       web: {
         borderTopColor: "#EBEBEB",
         borderTopWidth: 4,
-        width: "60%"
+        width: isBigDevice ? "60%" : "100%"
       }
     })
   },

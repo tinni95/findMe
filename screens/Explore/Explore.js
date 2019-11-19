@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet,Platform } from 'react-native';
+import { View, ScrollView, StyleSheet, Platform } from 'react-native';
 import PostCard from '../../components/PostCard';
-import {Bold} from "../../components/StyledText";
+import { Bold } from "../../components/StyledText";
 import SearchHeader from '../../components/SearchHeader';
 import FiltersPage from './FiltersStack/FiltersPage';
+import { isBigDevice } from '../../constants/Layout';
 
 export default class Explore extends React.Component {
   state = {
@@ -38,30 +39,30 @@ export default class Explore extends React.Component {
     return (
       <View style={styles.container}>
         <SearchHeader
-          settore={this.props.settore} 
+          settore={this.props.settore}
           setModalVisible={this.setModalVisible}
           search={this.state.search}
           navigation={this.props.navigation}
           setSearch={this.updateSearch}
         />
         <View style={styles.postBody}>
-          {Platform.OS=="web" ? 
-          <View style={styles.subContainer}>
-          <View style={{flex:1}}>
-          <FiltersPage settore={this.props.settore} navigation={this.props.navigation}/>
-          </View>
-          <View style={{flex:4}}>
-          <Bold style={styles.resultText}>{this.props.posts.length} risultati</Bold>
-          <ScrollView>{this.renderPosts()}</ScrollView>
-          </View>
-          </View>
-          :
-          <View style={{flex:1}}>
-          <Bold style={styles.resultText}>{this.props.posts.length} risultati</Bold>
-          <ScrollView>{this.renderPosts()}</ScrollView>
-          </View>
-        }
-  
+          {isBigDevice ?
+            <View style={styles.subContainer}>
+              <View style={{ flex: 1 }}>
+                <FiltersPage settore={this.props.settore} navigation={this.props.navigation} />
+              </View>
+              <View style={{ flex: 4 }}>
+                <Bold style={styles.resultText}>{this.props.posts.length} risultati</Bold>
+                <ScrollView>{this.renderPosts()}</ScrollView>
+              </View>
+            </View>
+            :
+            <View style={{ flex: 1 }}>
+              <Bold style={styles.resultText}>{this.props.posts.length} risultati</Bold>
+              <ScrollView>{this.renderPosts()}</ScrollView>
+            </View>
+          }
+
         </View>
       </View>
     );
@@ -76,14 +77,14 @@ const styles = StyleSheet.create({
   postBody: {
     flex: 5
   },
-  resultText:{
-    textAlign:"center",
-    fontSize:Platform.OS == "web" ? 25: 20,
-    margin:Platform.OS == "web" ? 20: 10
+  resultText: {
+    textAlign: "center",
+    fontSize: Platform.OS == "web" ? 25 : 20,
+    margin: Platform.OS == "web" ? 20 : 10
   },
-  subContainer:{
-    flex:1,
-    flexDirection:"row"
+  subContainer: {
+    flex: 1,
+    flexDirection: "row"
   }
 });
 

@@ -4,6 +4,7 @@ import { Bold, Body, Light } from "./StyledText";
 import FieldIconRound from "./FieldIcons";
 import RoundButton from "./shared/RoundButton";
 import { Tooltip } from "react-native-elements";
+import { isBigDevice } from "../constants/Layout";
 export function PositionCard({ position, buttonText, buttonOnPress }) {
   return (
     <View style={styles.container}>
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
       web: {
         borderTopColor: "#EBEBEB",
         borderTopWidth: 4,
-        width: "60%"
+        width: isBigDevice ? "60%" : "100%"
       }
     })
   },

@@ -10,6 +10,7 @@ import gql from 'graphql-tag';
 import { indexOfPosition, Settori, TipoSocio, autoCompleteItems } from "./helpers"
 import { FormStyles } from "../shared/Form/FormStyles";
 import RoundFiltersOne from '../Explore/FiltersStack/components/RoundFiltersOne';
+import { isBigDevice } from '../../constants/Layout';
 var _ = require('lodash');
 
 const POST_POSIZIONI = gql`
@@ -89,9 +90,7 @@ export function ModificaPosizione({ navigation }) {
                 field: socio == "Socio Finanziatore" ? "Economia" : categoria,
                 description,
             }
-            console.log(positionInArray)
             posizioni[positionInArray] = posizione
-            console.log("posizioni", posizioni);
             client.writeData({
                 data: {
                     postPositions: posizioni
@@ -181,8 +180,8 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 8,
-        marginLeft: Platform.OS == "web" ? 100 : 20,
-        marginRight: Platform.OS == "web" ? 100 : 20,
+        marginLeft: isBigDevice ? 100 : 20,
+        marginRight: isBigDevice ? 100 : 20,
 
     },
     header: {

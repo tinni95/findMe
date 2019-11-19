@@ -11,6 +11,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
+import { isBigDevice } from '../../constants/Layout';
 
 const POST_DESCRIZIONE = gql`
   query DescrizioneQuery {
@@ -153,8 +154,8 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 8,
-    marginLeft: Platform.OS == "web" ? 100 : 20,
-    marginRight: Platform.OS == "web" ? 100 : 20,
+    marginLeft: isBigDevice ? 100 : 20,
+    marginRight: isBigDevice ? 100 : 20,
   },
   header: {
     flex: 1.5

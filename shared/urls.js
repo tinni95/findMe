@@ -16,5 +16,5 @@ const getLocalHostName = () => {
 
 export const graphlEndPoint =
   Platform.OS === "web"
-    ? "http://localhost:4000/"
+    ? "http://172.20.10.2:4000/"
     : "http://localhost:4000/".replace("localhost", getLocalHostName());
