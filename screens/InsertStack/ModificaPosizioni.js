@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, Platform } from "react-native";
+import { ScrollView, View, Platform, Text } from "react-native";
 import { PositionCardModifica } from "../../components/PositionCardModifica"
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -24,7 +24,7 @@ export function ModificaPosizioni({ navigation }) {
                 postPositions: posizioni
             }
         });
-        refetch();
+        navigation.navigate("ModificaPosizioni", { refresh: true });
     }
     const { data, refetch } = useQuery(POST_POSIZIONI);
     const posizioni = data.postPositions || []
@@ -51,6 +51,7 @@ export function ModificaPosizioni({ navigation }) {
 };
 
 
-ModificaPosizioni.navigationOptions = {
-    title: "Modifica Posizioni"
-}
+ModificaPosizioni.navigationOptions = ({ navigation }) => ({
+    title: "Modifica Posizioni",
+    headerLeft: <Text onPress={() => navigation.navigate("Posizioni", { refresh: true })}>BacK</Text>,
+})
