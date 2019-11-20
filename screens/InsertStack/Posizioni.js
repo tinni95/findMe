@@ -14,7 +14,8 @@ import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
 import { Settori, TipoSocio, TitoliPosizioni } from "./helpers";
 import { isBigDevice } from '../../constants/Layout';
-import { Light } from "../../components/StyledText";
+import { Light, Bold } from "../../components/StyledText";
+var shortid = require("shortid")
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
     postPositions @client{
@@ -129,6 +130,11 @@ export function Posizioni({ navigation, settore }) {
         </View>
       </View>)
   }
+  const requirements = () => {
+    return requisiti.map(requisito => {
+      return <View style={{ margin: 5 }}><RoundButton isLight={true} key={shortid.generate()} text={requisito} textColor={"white"} color={"#26547C"}></RoundButton></View>
+    })
+  }
   const handlePress = () => {
     if (posizioni.length < 1) {
       setPosizioniError(true)
@@ -173,18 +179,29 @@ export function Posizioni({ navigation, settore }) {
               <RoundFiltersOne setItem={item => setCategoria(item)} settori={Settori} settoreAttivi={passedSettore} />
             </View>
             : null}
-          {requisitiError ?
-            <StepsLabelError text={"Requisiti"} />
-            :
-            <StepsLabel text={"Requisiti"} />
-          }
-          <View style={FormStyles.requisiti}>
-            <TouchableWithoutFeedback onPress={() => {
-              navigation.navigate("AutoComplete", { path: "Posizioni", items: TitoliPosizioni, for: "Requisiti" })
-            }}>
-              <Light>AGGIUNGI REQUISITO +</Light>
-            </TouchableWithoutFeedback>
-          </View>
+          {socio != "Socio Finanziatore" ?
+            <View>
+              {requisitiError ?
+                <StepsLabelError text={"Requisiti"} />
+                :
+                <StepsLabel text={"Requisiti"} />
+              }
+              {requisiti.length == 0 ?
+                <View style={FormStyles.requisiti}>
+                  <TouchableWithoutFeedback onPress={() => {
+                    navigation.navigate("AutoComplete", { path: "Posizioni", items: TitoliPosizioni, for: "Requisiti" })
+                  }}>
+                    <Light>AGGIUNGI REQUISITO +</Light>
+                  </TouchableWithoutFeedback>
+                </View>
+                :
+                <View style={FormStyles.requisitiL}>
+                  {requirements()}
+                  <Light onPress={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: TitoliPosizioni, for: "Requisiti" })} style={{ fontSize: 40, color: "#26547C", marginLeft: 10, alignSelf: "center" }}>+</Light>
+                </View>
+              }
+            </View>
+            : null}
           {descriptionError ?
             <StepsLabelError text={"Descrizione"} />
             :

@@ -7,23 +7,6 @@ export const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operat
 
 export const TitoliPosizioni = ["co-fondatore", "C.E.O", "C.F.O", "C.T.O", "C.O.O", "Ingegnere", "Social Media Manager", "Ux/Ui designer", "Tecnico di marketing", "Digital marketer", "Tecnico della pubblicità", "Contabile", "Front-End Developer", "Back-End Developer", "Full-Stack Developer", "Customer Support", "Risorse Umane", "Legale", "Vendite"]
 
-export const autoCompleteItems = [
-    {
-        name: "passsa",
-        id: "sad",
-        settore: "Aereonautica"
-    },
-    {
-        name: "dasd",
-        id: "sa21321d",
-        settore: "Aereonautica"
-    },
-    {
-        name: "pusst",
-        id: "das",
-        settore: "Aereonautica"
-    }
-]
 export const indexOfPosition = (positions, position) => {
     let toReturn = -1;
     positions.forEach((temp, index) => {

@@ -7,7 +7,7 @@ import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { indexOfPosition, Settori, TipoSocio, autoCompleteItems } from "./helpers"
+import { indexOfPosition, Settori, TipoSocio, autoCompleteItems, TitoliPosizioni } from "./helpers"
 import { FormStyles } from "../shared/Form/FormStyles";
 import RoundFiltersOne from '../Explore/FiltersStack/components/RoundFiltersOne';
 import { isBigDevice } from '../../constants/Layout';
@@ -42,11 +42,10 @@ export function ModificaPosizione({ navigation }) {
     let posizioni = data.postPositions || []
 
     useEffect(() => {
-        passedTitle ? setTitle(passedTitle.name ? passedTitle.name : "") : null
+        passedTitle ? setTitle(passedTitle) : null
     }, [passedTitle])
 
     useEffect(() => {
-        console.log("yo")
         const posizione = {
             __typename: 'data',
             title,
@@ -55,9 +54,6 @@ export function ModificaPosizione({ navigation }) {
             description
         }
         setPositionInArray(indexOfPosition(posizioni, posizione));
-        console.log(posizioni);
-        console.log(posizione);
-        console.log(positionInArray)
     }, [])
 
     const handlePress = (bool) => {
@@ -116,7 +112,7 @@ export function ModificaPosizione({ navigation }) {
                             errorText={"Campo Obbligatorio"}>
                             <FormTextInput
                                 value={title}
-                                onFocus={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: autoCompleteItems })}
+                                onFocus={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: TitoliPosizioni })}
                                 onChangeText={val => setTitle(val)}
                                 placeholder="Titolo Posizione"
                                 style={titleError ? FormStyles.inputError : FormStyles.input}

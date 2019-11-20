@@ -71,5 +71,12 @@ export const FormStyles = StyleSheet.create({
     borderWidth: 1,
     alignContent: "center",
     height: 30,
+  },
+  requisitiL: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+
+    borderWidth: 1,
+    borderColor: '#ADADAD',
   }
 });
