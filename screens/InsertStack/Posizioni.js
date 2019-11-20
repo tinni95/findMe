@@ -15,6 +15,7 @@ import { FormStyles } from "../shared/Form/FormStyles";
 import { Settori, TipoSocio, TitoliPosizioni } from "./helpers";
 import { isBigDevice } from '../../constants/Layout';
 import { Light, Bold } from "../../components/StyledText";
+import { Ionicons } from '@expo/vector-icons';
 var shortid = require("shortid")
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -31,6 +32,7 @@ const POST_POSIZIONI = gql`
 
 export function Posizioni({ navigation, settore }) {
   //Hooks
+  const [active, setActive] = useState("");
   const [title, setTitle] = useState("");
   const [socio, setSocio] = useState("");
   const [categoria, setCategoria] = useState("");
@@ -55,7 +57,9 @@ export function Posizioni({ navigation, settore }) {
   }, [passedTitle])
   //Autocomplete requisiti
   useEffect(() => {
-    passedRequisito ? setRequisiti([...requisiti, passedRequisito]) : null
+    passedRequisito ?
+      requisiti.includes(passedRequisito) ? null : setRequisiti([...requisiti, passedRequisito])
+      : null
     console.log(requisiti);
   }, [passedRequisito])
   //reset when added a position
@@ -131,8 +135,24 @@ export function Posizioni({ navigation, settore }) {
       </View>)
   }
   const requirements = () => {
-    return requisiti.map(requisito => {
-      return <View style={{ margin: 5 }}><RoundButton isLight={true} key={shortid.generate()} text={requisito} textColor={"white"} color={"#26547C"}></RoundButton></View>
+    return requisiti.map((requisito, index) => {
+      let isActive = active === index
+      return <View style={{ margin: 5 }}>
+        {isActive ?
+          <Ionicons
+            name={"ios-close"}
+            size={25}
+            style={{ marginBottom: -30, zIndex: 1, backgroundColor: "grey", width: 15, heigth: 15, borderRadius: 7.5, alignContent: "center" }}
+            color={"black"}
+          /> : null}
+        <RoundButton onPress={() => {
+          if (isActive) {
+            let newRequisiti = requisiti.filter(el => el != requisiti[index])
+            setRequisiti(newRequisiti)
+            setActive(-1)
+          }
+          else { setActive(index) }
+        }} isLight={true} key={shortid.generate()} text={requisito} textColor={"white"} color={isActive ? "#DD1E63" : "#26547C"}></RoundButton></View>
     })
   }
   const handlePress = () => {
