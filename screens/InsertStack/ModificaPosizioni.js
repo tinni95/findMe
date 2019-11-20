@@ -1,8 +1,9 @@
 import React from 'react'
-import { ScrollView, View, Platform, Text } from "react-native";
+import { ScrollView, View, Platform, TouchableOpacity } from "react-native";
 import { PositionCardModifica } from "../../components/PositionCardModifica"
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { Ionicons } from '@expo/vector-icons';
 const shortid = require('shortid');
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -53,5 +54,13 @@ export function ModificaPosizioni({ navigation }) {
 
 ModificaPosizioni.navigationOptions = ({ navigation }) => ({
     title: "Modifica Posizioni",
-    headerLeft: <Text onPress={() => navigation.navigate("Posizioni", { refresh: true })}>BacK</Text>,
+    headerLeft:
+        <TouchableOpacity onPress={() => navigation.navigate("Posizioni", { refresh: true })}>
+            <Ionicons
+                name={"md-arrow-back"}
+                size={25}
+                style={{ padding: 7.5, paddingLeft: 15 }}
+                color={"#5F5E5E"}
+            />
+        </TouchableOpacity>
 })

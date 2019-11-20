@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
 import { FormStyles } from "./Form/FormStyles";
-import { Bold } from '../../components/StyledText';
+import { Bold, Light } from '../../components/StyledText';
 const shortid = require('shortid');
 
 export function AutoComplete({ navigation }) {
@@ -13,7 +13,7 @@ export function AutoComplete({ navigation }) {
     let filteredItems = items.filter(item => item.toLowerCase().includes(text.toLowerCase()));
     filteredItems = filteredItems.length == 0 ? [text] : filteredItems;
     const renderItems = filteredItems.map(item => {
-        return <TouchableOpacity onPress={() => navigation.navigate(path, { item, for: isFor })} key={shortid.generate()} style={styles.item}><Bold style={styles.itemText}>{item}</Bold></TouchableOpacity>
+        return <TouchableOpacity onPress={() => navigation.navigate(path, { item, for: isFor })} key={shortid.generate()} style={styles.item}><Light style={styles.itemText}>{item}</Light></TouchableOpacity>
     })
 
     useEffect(() => {

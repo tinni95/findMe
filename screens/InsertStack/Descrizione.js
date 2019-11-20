@@ -104,9 +104,9 @@ export function Descrizione({ navigation }) {
             />
           </WithErrorString>
           {settoreError ?
-            <StepsLabelError text={"Categoria"} />
+            <StepsLabelError text={"Categorie"} />
             :
-            <StepsLabel text={"Categoria (es. Economia,Ingegneria..)"} />
+            <StepsLabel text={"Categorie (es. Economia,Ingegneria..)"} />
           }
           <RoundFilters maximum={3} items={categories} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore} />
           {descriptionError ?
