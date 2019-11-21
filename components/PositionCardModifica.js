@@ -39,7 +39,7 @@ export function PositionCardModifica({ position, buttonText, buttonOnPress, tras
           </Light>
         </View>
         <View style={styles.spacer} />
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
           <View style={styles.ButtonWrapper}>
             <RoundButton onPress={buttonOnPress} text={buttonText} textColor={"white"} color={"#10476C"} />
           </View>
@@ -92,8 +92,9 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   container: {
-    height: Platform.OS == "web" ? 500 : undefined,
+    height: Platform.OS == "web" ? 300 : undefined,
     marginTop: 15,
+    marginBottom: 30,
     backgroundColor: "white",
     ...Platform.select({
       ios: {
@@ -122,11 +123,9 @@ const styles = StyleSheet.create({
     height: 20
   },
   ButtonWrapper: {
-    alignItems: "center",
-    flex: 5,
+    alignSelf: "center",
   },
   trashWrapper: {
-    alignItems: "center",
-    flex: 1,
+    alignSelf: "flex-end",
   }
 });
