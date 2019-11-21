@@ -7,6 +7,7 @@ import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { ScrollView } from 'react-native-gesture-handler';
 import RoundButton from '../../components/shared/RoundButton';
+import { isBigDevice } from '../../constants/Layout';
 
 const POST_ANTEPRIMA = gql`
   query DescrizioneQuery {
@@ -77,10 +78,9 @@ const styles = StyleSheet.create({
     marginTop: 40
   },
   body: {
-    margin: 10,
-    flex: 7,
-    flexDirection: "row",
-    backgroundColor: 'white',
+    flex: 8,
+    marginLeft: isBigDevice ? 100 : 20,
+    marginRight: isBigDevice ? 100 : 20,
   },
   header: {
     flex: 1.5
