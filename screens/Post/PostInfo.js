@@ -36,7 +36,8 @@ export default function PostInfo({ fields, tipoSocio, posizione, pubblicatoDa })
 const styles = StyleSheet.create({
     container: {
         flexDirection: "column",
-        margin: 10
+        margin: 10,
+        marginTop: 20
     },
     line: {
         flexDirection: "row",

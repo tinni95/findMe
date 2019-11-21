@@ -6,7 +6,7 @@ import RoundButton from "./shared/RoundButton";
 import { Tooltip } from "react-native-elements";
 import { isBigDevice } from "../constants/Layout";
 var shortid = require("shortid")
-export function PositionCard({ position, buttonText, buttonOnPress }) {
+export function PositionCard({ position, buttonText, buttonOnPress, button }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -20,15 +20,20 @@ export function PositionCard({ position, buttonText, buttonOnPress }) {
         </View>
       </View>
       <View style={styles.description}>
-        <View style={styles.DescriptionItem}>
-          <Body style={styles.DescriptionItemTitle}>Requisiti</Body>
-          {position.requisiti.map(requisito => {
-            return <Light key={shortid.generate()} style={styles.DescriptionItemBody}>
-              - {requisito}
-            </Light>
-          })}
-        </View>
-        <View style={styles.spacer} />
+        {position.requisiti ?
+          <View style={styles.DescriptionItem}>
+            {position.requisiti.length > 0 ?
+              <Body style={styles.DescriptionItemTitle}>Requisiti</Body>
+              : null
+            }
+            {position.requisiti.map(requisito => {
+              return <Light key={shortid.generate()} style={styles.DescriptionItemBody}>
+                - {requisito}
+              </Light>
+            })}
+            <View style={styles.spacer} />
+          </View>
+          : null}
         <View style={styles.DescriptionItem}>
           <Body style={styles.DescriptionItemTitle}>Descrizione</Body>
           <Light style={styles.DescriptionItemBody}>
@@ -36,7 +41,9 @@ export function PositionCard({ position, buttonText, buttonOnPress }) {
           </Light>
         </View>
         <View style={styles.ButtonWrapper}>
-          <RoundButton onPress={buttonOnPress} text={buttonText} textColor={"white"} color={"#DD1E63"} />
+          {button ? null :
+            <RoundButton onPress={buttonOnPress} text={buttonText} textColor={"white"} color={"#DD1E63"} />
+          }
         </View>
       </View>
     </View>

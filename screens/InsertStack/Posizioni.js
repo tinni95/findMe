@@ -52,6 +52,15 @@ export function Posizioni({ navigation, settore }) {
   let passedRequisito = navigation.getParam("for") == "Requisiti" ? navigation.getParam("item") || null : null
   let passedSettore = navigation.getParam("settore") || null
 
+  //if first page data is missing, we go back to it
+  useEffect(() => {
+    if (data.postLocation === "") {
+      navigation.navigate("Presentazione")
+    }
+    else if (data.postTitle === "") {
+      navigation.navigate("Descrizione")
+    }
+  }, [])
   //Autocomplete titolo
   useEffect(() => {
     passedTitle ? setTitle(passedTitle) : null

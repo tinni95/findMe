@@ -1,39 +1,45 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { TouchableWithoutFeedback, View, ScrollView, StyleSheet } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
 import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
 
-export default function PostScreen({ post, navigation }) {
+export default function PostScreenConfirm({ post, navigation }) {
 
   const positionCards = () => {
     return post.positions.map((position, index) => {
-      return <PositionCard buttonText={"CANDIDATI"} navigation={navigation} key={index} position={position} />;
+      return <PositionCard button={"false"} navigation={navigation} key={index} position={position} />;
     });
   };
   console.log(post);
   return (
     <View style={styles.contentContainer}>
-      <Bold style={styles.title}>{post.title}</Bold>
-      <LocationWithText
-        points={25}
-        fontSize={isSmallDevice ? 18 : 20}
-        style={styles.location}
-        regione={post.regione}
-        comune={post.comune}
-      />
-      <PostInfo tipoSocio={post.tipoSocio} pubblicatoDa={post.pubblicatoDa}
+      <TouchableWithoutFeedback onPress={() => console.log("Descrizione")}>
+        <Bold style={styles.title}>{post.title}</Bold>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => console.log("Presentazione")}>
+        <LocationWithText
+          points={25}
+          fontSize={isSmallDevice ? 18 : 20}
+          style={styles.location}
+          regione={post.regione}
+          comune={post.comune}
+        />
+      </TouchableWithoutFeedback>
+      <PostInfo withredirect={"true"} tipoSocio={post.tipoSocio} pubblicatoDa={post.pubblicatoDa}
         fields={post.fields}
         posizione={post.posizione} />
-      <View style={styles.DesriptionContainer}>
-        <Bold style={styles.titleSm}>Descrizione</Bold>
-        <Light style={styles.body}>{post.description}</Light>
-      </View>
-      <ScrollView style={{ height: 500 }}>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate("Descrizione")}>
+        <View style={styles.DesriptionContainer}>
+          <Bold style={styles.titleSm}>Descrizione</Bold>
+          <Light style={styles.body}>{post.description}</Light>
+        </View>
+      </TouchableWithoutFeedback>
+      <View>
         {positionCards()}
-      </ScrollView>
+      </View>
     </View>
   );
 }
