@@ -7,13 +7,13 @@ import { isSmallDevice } from '../../constants/Layout';
 export default function LocationWithText(props) {
   return (
     <View style={[styles.container, props.style]}>
-       <Ionicons
+      <Ionicons
         name={"ios-pin"}
         size={22}
-        style={{ marginBottom: 10, marginLeft:3 }}
+        style={{ marginLeft: 3, marginTop: 3 }}
         color={"#DD1E63"}
-  />
-      <Body style={[styles.text, { fontSize: props.fontSize }]}>
+      />
+      <Body style={[styles.text, { bottom: 5, fontSize: props.fontSize }]}>
         {`${props.comune}, ${props.regione}`}
       </Body>
     </View>
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     color: '#AFA9A9',
     fontSize: 15,
     marginLeft: 5,
-    marginTop:4
+    marginTop: 4
   }
 });

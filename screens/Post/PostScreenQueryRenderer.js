@@ -13,6 +13,10 @@ query PostScreenQueryRendererQuery($postId: ID!) {
     title
     comune
     regione
+    fields
+    tipoSocio
+    posizione
+    pubblicatoDa
     positions {
       title
       field

@@ -12,7 +12,7 @@ const posts = gql`
     title
     description
     startDate
-    field
+    fields
     comune
     regione
     positions{
