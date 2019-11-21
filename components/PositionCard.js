@@ -5,6 +5,7 @@ import FieldIconRound from "./FieldIcons";
 import RoundButton from "./shared/RoundButton";
 import { Tooltip } from "react-native-elements";
 import { isBigDevice } from "../constants/Layout";
+var shortid = require("shortid")
 export function PositionCard({ position, buttonText, buttonOnPress }) {
   return (
     <View style={styles.container}>
@@ -20,10 +21,12 @@ export function PositionCard({ position, buttonText, buttonOnPress }) {
       </View>
       <View style={styles.description}>
         <View style={styles.DescriptionItem}>
-          <Body style={styles.DescriptionItemTitle}>Qualifiche</Body>
-          <Light style={styles.DescriptionItemBody}>
-            - Esempio Qualifica
-          </Light>
+          <Body style={styles.DescriptionItemTitle}>Requisiti</Body>
+          {position.requisiti.map(requisito => {
+            return <Light key={shortid.generate()} style={styles.DescriptionItemBody}>
+              - {requisito}
+            </Light>
+          })}
         </View>
         <View style={styles.spacer} />
         <View style={styles.DescriptionItem}>

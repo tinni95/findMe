@@ -10,13 +10,15 @@ import gql from 'graphql-tag';
 import { indexOfPosition, Settori, TipoSocio } from "./helpers";
 import { FormStyles } from "../shared/Form/FormStyles";
 import { isBigDevice } from '../../constants/Layout';
-
+import { StepsIndicator } from "./stepsIndicator";
+var shortid = require("shortid")
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
     postPositions @client{
       field
       type
       description
+      requisiti
       title
     }
   }
@@ -29,6 +31,7 @@ export function ConfermaPosizione({ navigation }) {
     const title = navigation.getParam("title");
     const description = navigation.getParam("description");
     const categoria = navigation.getParam("categoria");
+    const requisiti = navigation.getParam("requisiti");
     const activeIndex = Settori.indexOf(categoria);
     const socio = navigation.getParam("socio");
     const activeIndexSocio = TipoSocio.indexOf(socio);
@@ -40,8 +43,8 @@ export function ConfermaPosizione({ navigation }) {
             type: socio,
             field: socio == "Socio Finanziatore" ? "Economia" : categoria,
             description,
+            requisiti
         }
-        console.log(posizione);
         var PositionIndex = indexOfPosition(posizioni, posizione);
         if (PositionIndex != -1) {
             return alert("è gia stata aggiunta questa posizione, devi cambiare almeno un campo")
@@ -82,13 +85,27 @@ export function ConfermaPosizione({ navigation }) {
                         />
                         {socio != "Socio Finanziatore" ?
                             <View>
-                                <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />
+                                <StepsLabel text="Requisiti" />
+                                {
+                                    <View style={FormStyles.requisitiL}>
+                                        {requisiti.map(requisito => {
+                                            return <View
+                                                key={shortid.generate()}
+                                                style={{ margin: 5, flexDirection: "row" }}><RoundButton isLight={true} text={requisito} textColor={"white"} color={"#26547C"}></RoundButton></View>
+                                        })}
+
+                                    </View>
+                                }
+                                <StepsLabel text="Categoria" />
                                 <RoundFiltersOne inactive={true} settori={Settori} settoreAttivi={activeIndex} />
                             </View>
                             : null}
                     </View>
                     <View style={styles.buttonWrapper}>
-                        <RoundButton text={"CONFERMA"} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+                        <RoundButton text={"Annulla"} color={"#DD1E63"}
+                            textColor={"white"} onPress={() => navigation.goBack()} />
+                        <RoundButton text={"CONFERMA"} color={"#10476C"}
+                            textColor={"white"} onPress={() => handlePress()} />
                     </View>
                 </KeyboardAwareScrollView>
             </View>
@@ -97,7 +114,8 @@ export function ConfermaPosizione({ navigation }) {
 };
 
 ConfermaPosizione.navigationOptions = {
-    title: "Conferma Posizione"
+    title: "Conferma Posizione",
+    header: null
 }
 const styles = StyleSheet.create({
     aggiungiWrapper: {
@@ -107,7 +125,11 @@ const styles = StyleSheet.create({
     },
     buttonWrapper: {
         alignItems: "center",
-        margin: 60
+        flexDirection: "row",
+        justifyContent: "space-between",
+        margin: 28,
+        marginTop: 40,
+        marginBottom: 40
     },
     inputWrapper: {
         flex: 1,

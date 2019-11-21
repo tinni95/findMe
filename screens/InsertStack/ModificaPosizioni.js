@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, Platform, TouchableOpacity } from "react-native";
+import { ScrollView, View, TouchableOpacity } from "react-native";
 import { PositionCardModifica } from "../../components/PositionCardModifica"
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -12,6 +12,7 @@ const POST_POSIZIONI = gql`
       type
       description
       title
+      requisiti
     }
   }
 `;
@@ -32,7 +33,7 @@ export function ModificaPosizioni({ navigation }) {
 
     return (
         <View style={{ flex: 1 }}>
-            <ScrollView style={Platform.OS == "web" ? { height: 500 } : null}>
+            <ScrollView >
                 {posizioni.map((position, index) => {
                     return (
                         <PositionCardModifica key={shortid.generate()} buttonOnPress={() =>
@@ -40,7 +41,8 @@ export function ModificaPosizioni({ navigation }) {
                                 description: position.description,
                                 categoria: position.field,
                                 socio: position.type,
-                                title: position.title
+                                title: position.title,
+                                requisiti: position.requisiti
                             })}
                             trashOnPress={() => removeItem(index)}
                             buttonText={"MODIFICA"} position={position}></PositionCardModifica>

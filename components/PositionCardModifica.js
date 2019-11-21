@@ -6,6 +6,7 @@ import RoundButton from "./shared/RoundButton";
 import { Tooltip } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
 import { isBigDevice } from "../constants/Layout";
+var shortid = require("shortid")
 export function PositionCardModifica({ position, buttonText, buttonOnPress, trashOnPress }) {
   return (
     <View style={styles.container}>
@@ -20,12 +21,16 @@ export function PositionCardModifica({ position, buttonText, buttonOnPress, tras
         </View>
       </View>
       <View style={styles.description}>
-        <View style={styles.DescriptionItem}>
-          <Body style={styles.DescriptionItemTitle}>Qualifiche</Body>
-          <Light style={styles.DescriptionItemBody}>
-            - Esempio Qualifica
-          </Light>
-        </View>
+        {position.requisiti.length > 0 ?
+          <View style={styles.DescriptionItem}>
+            <Body style={styles.DescriptionItemTitle}>Requisiti</Body>
+            {position.requisiti.map(requisito => {
+              return <Light key={shortid.generate()} style={styles.DescriptionItemBody}>
+                - {requisito}
+              </Light>
+            })}
+          </View>
+          : null}
         <View style={styles.spacer} />
         <View style={styles.DescriptionItem}>
           <Body style={styles.DescriptionItemTitle}>Descrizione</Body>
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
       web: {
         borderTopColor: "#EBEBEB",
         borderTopWidth: 4,
-        width: isBigDevice ? "60%" : "100%"
+        width: isBigDevice ? "100%" : "100%"
       }
     })
   },

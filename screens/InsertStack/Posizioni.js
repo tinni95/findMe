@@ -14,8 +14,9 @@ import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
 import { Settori, TipoSocio, TitoliPosizioni } from "./helpers";
 import { isBigDevice } from '../../constants/Layout';
-import { Light, Bold } from "../../components/StyledText";
+import { Light } from "../../components/StyledText";
 import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 var shortid = require("shortid")
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -58,9 +59,8 @@ export function Posizioni({ navigation, settore }) {
   //Autocomplete requisiti
   useEffect(() => {
     passedRequisito ?
-      requisiti.includes(passedRequisito) ? null : setRequisiti([...requisiti, passedRequisito])
+      requisiti.includes(passedRequisito.trim()) ? null : setRequisiti([...requisiti, passedRequisito])
       : null
-    console.log(requisiti);
   }, [passedRequisito])
   //reset when added a position
   useEffect(() => {
@@ -74,6 +74,7 @@ export function Posizioni({ navigation, settore }) {
     setDescription("");
     setSocio("");
     setCategoria("");
+    setRequisiti([]);
   }
 
   const handleAggiungi = (bool) => {
@@ -108,7 +109,8 @@ export function Posizioni({ navigation, settore }) {
         description,
         categoria,
         socio,
-        title
+        title,
+        requisiti
       });
     }
   }
@@ -134,25 +136,30 @@ export function Posizioni({ navigation, settore }) {
         </View>
       </View>)
   }
+
   const requirements = () => {
     return requisiti.map((requisito, index) => {
       let isActive = active === index
-      return <View style={{ margin: 5 }}>
+      return <View key={shortid.generate()} style={{ margin: 5, flexDirection: "row" }}>
+        <RoundButton
+          onPress={() => {
+            if (isActive) {
+              let newRequisiti = requisiti.filter(el => el != requisiti[index])
+              setRequisiti(newRequisiti)
+              setActive(-1)
+            }
+            else {
+              setActive(index);
+            }
+          }}
+          isLight={true} text={requisito} textColor={"white"} color={isActive ? "#DD1E63" : "#26547C"}></RoundButton>
         {isActive ?
           <Ionicons
             name={"ios-close"}
-            size={25}
-            style={{ marginBottom: -30, zIndex: 1, backgroundColor: "grey", width: 15, heigth: 15, borderRadius: 7.5, alignContent: "center" }}
-            color={"black"}
-          /> : null}
-        <RoundButton onPress={() => {
-          if (isActive) {
-            let newRequisiti = requisiti.filter(el => el != requisiti[index])
-            setRequisiti(newRequisiti)
-            setActive(-1)
-          }
-          else { setActive(index) }
-        }} isLight={true} key={shortid.generate()} text={requisito} textColor={"white"} color={isActive ? "#DD1E63" : "#26547C"}></RoundButton></View>
+            size={30}
+            color={"#989090"}
+            style={{ marginTop: -10, padding: 5 }}
+          /> : null}</View>
     })
   }
   const handlePress = () => {
@@ -276,7 +283,6 @@ const styles = StyleSheet.create({
     flex: 8,
     marginLeft: isBigDevice ? 100 : 20,
     marginRight: isBigDevice ? 100 : 20,
-
   },
   header: {
     flex: 1.5

@@ -16,6 +16,7 @@ query PostScreenQueryRendererQuery($postId: ID!) {
     positions {
       title
       field
+      requisiti
     }
   }
 }

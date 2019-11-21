@@ -18,6 +18,7 @@ const posts = gql`
     positions{
     id
     description
+    requisiti
     field
     }
   }

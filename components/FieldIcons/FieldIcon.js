@@ -3,7 +3,7 @@ import { Image } from "react-native";
 
 const components = {
   Science: require('../../assets/images/laboratory.png'),
-  It: require('../../assets/images/computer.png'),
+  It: require('../../assets/images/Computer.png'),
   Economics: require('../../assets/images/economics.png'),
   Engineering: require('../../assets/images/engineer.png'),
   Movie: require('../../assets/images/masks.png'),

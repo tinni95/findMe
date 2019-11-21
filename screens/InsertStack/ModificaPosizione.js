@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { StepsLabel, StepsLabelError } from "./StepsLabel";
 import WithErrorString from "../shared/Form/WithErrorString";
 import FormTextInput from "../shared/Form/FormTextInput";
@@ -7,11 +7,14 @@ import RoundButton from '../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { indexOfPosition, Settori, TipoSocio, autoCompleteItems, TitoliPosizioni } from "./helpers"
+import { indexOfPosition, Settori, TipoSocio, TitoliPosizioni } from "./helpers"
 import { FormStyles } from "../shared/Form/FormStyles";
 import RoundFiltersOne from '../Explore/FiltersStack/components/RoundFiltersOne';
 import { isBigDevice } from '../../constants/Layout';
+import { Light } from '../../components/StyledText';
+import { Ionicons } from '@expo/vector-icons';
 var _ = require('lodash');
+var shortid = require('shortid');
 
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -27,23 +30,34 @@ const POST_POSIZIONI = gql`
 export function ModificaPosizione({ navigation }) {
     const { data } = useQuery(POST_POSIZIONI);
     const client = useApolloClient();
+    const [requisiti, setRequisiti] = useState(navigation.getParam("requisiti"))
+    const [active, setActive] = useState("");
     const [title, setTitle] = useState(navigation.getParam("title"));
-    let passedTitle = navigation.getParam("item") || null
     const [description, setDescription] = useState(navigation.getParam("description"));
     const [categoria, setCategoria] = useState(navigation.getParam("categoria"));
     const activeIndexCategoria = Settori.indexOf(categoria);
     const [socio, setSocio] = useState(navigation.getParam("socio"));
     const activeIndexSocio = TipoSocio.indexOf(socio);
+    const [requisitiError, setRequisitiError] = useState(false);
     const [socioError, setSocioError] = useState(false);
     const [titleError, setTitleError] = useState(false);
     const [descriptionError, setDescriptionError] = useState(false);
     const [categoriaError, setCategoriaError] = useState(false);
     const [positionInArray, setPositionInArray] = useState(-1)
     let posizioni = data.postPositions || []
+    let passedTitle = navigation.getParam("for") == "Titoli" ? navigation.getParam("item") || null : null
+    let passedRequisito = navigation.getParam("for") == "Requisiti" ? navigation.getParam("item") || null : null
 
+    //Autocomplete titolo
     useEffect(() => {
         passedTitle ? setTitle(passedTitle) : null
     }, [passedTitle])
+    //Autocomplete requisiti
+    useEffect(() => {
+        passedRequisito ?
+            requisiti.includes(passedRequisito.trim()) ? null : setRequisiti([...requisiti, passedRequisito])
+            : null
+    }, [passedRequisito])
 
     useEffect(() => {
         const posizione = {
@@ -56,11 +70,42 @@ export function ModificaPosizione({ navigation }) {
         setPositionInArray(indexOfPosition(posizioni, posizione));
     }, [])
 
+    const requirements = () => {
+        return requisiti.map((requisito, index) => {
+            let isActive = active === index
+            return <View key={shortid.generate()} style={{ margin: 5, flexDirection: "row" }}>
+                <RoundButton
+                    onPress={() => {
+                        if (isActive) {
+                            let newRequisiti = requisiti.filter(el => el != requisiti[index])
+                            setRequisiti(newRequisiti)
+                            setActive(-1)
+                        }
+                        else {
+                            setActive(index);
+                        }
+                    }}
+                    isLight={true} text={requisito} textColor={"white"} color={isActive ? "#DD1E63" : "#26547C"}></RoundButton>
+                {isActive ?
+                    <Ionicons
+                        name={"ios-close"}
+                        size={30}
+                        color={"#989090"}
+                        style={{ marginTop: -10, padding: 5 }}
+                    /> : null}</View>
+        })
+    }
+
     const handlePress = (bool) => {
         if (description.length === 0) {
             setDescriptionError(true)
         } else {
             setDescriptionError(false)
+        }
+        if (requisiti.length === 0 && !bool) {
+            setRequisitiError(true)
+        } else {
+            setRequisitiError(false)
         }
         if (categoria.length === 0 && !bool) {
             setCategoriaError(true)
@@ -78,13 +123,15 @@ export function ModificaPosizione({ navigation }) {
             setTitleError(false)
         }
 
-        if (description.length > 0 && ((categoria.length > 0 && socio.length > 0 && title.length > 0) || bool)) {
+        if (description.length > 0 && ((categoria.length > 0 && socio.length > 0 && title.length > 0 &&
+            requisiti.length > 0) || bool)) {
             const posizione = {
                 __typename: 'data',
                 title: socio == "Socio Finanziatore" ? "Finanziatore" : title,
                 type: socio,
                 field: socio == "Socio Finanziatore" ? "Economia" : categoria,
                 description,
+                requisiti: socio == "Socio Finanziatore" ? [] : requisiti
             }
             posizioni[positionInArray] = posizione
             client.writeData({
@@ -100,9 +147,9 @@ export function ModificaPosizione({ navigation }) {
             <View style={styles.body}>
                 <KeyboardAwareScrollView >
                     {socioError ?
-                        <StepsLabelError text={"Mi Propongo Come"} />
+                        <StepsLabelError text={"Cosa Cerco"} />
                         :
-                        <StepsLabel text={"Mi Propongo Come"} />
+                        <StepsLabel text={"Cosa Cerco"} />
                     }
                     <RoundFiltersOne settori={TipoSocio} setItem={item => setSocio(item)} settoreAttivi={activeIndexSocio} />
                     <View style={{ height: 15 }}></View>
@@ -112,12 +159,35 @@ export function ModificaPosizione({ navigation }) {
                             errorText={"Campo Obbligatorio"}>
                             <FormTextInput
                                 value={title}
-                                onFocus={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: TitoliPosizioni })}
+                                onFocus={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: TitoliPosizioni, for: "Title" })}
                                 onChangeText={val => setTitle(val)}
                                 placeholder="Titolo Posizione"
                                 style={titleError ? FormStyles.inputError : FormStyles.input}
                             />
                         </WithErrorString>
+                        : null}
+                    {socio != "Socio Finanziatore" ?
+                        <View>
+                            {categoriaError ? <StepsLabelError text="Categoria" /> :
+                                <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
+                            <RoundFiltersOne settori={Settori} setItem={item => setCategoria(item)} settoreAttivi={activeIndexCategoria} />
+                            {requisitiError ? <StepsLabelError text="Requisiti" /> :
+                                <StepsLabel text="Requisiti" />}
+                            {requisiti.length == 0 ?
+                                <View style={FormStyles.requisiti}>
+                                    <TouchableWithoutFeedback onPress={() => {
+                                        navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: TitoliPosizioni, for: "Requisiti" })
+                                    }}>
+                                        <Light>AGGIUNGI REQUISITO +</Light>
+                                    </TouchableWithoutFeedback>
+                                </View>
+                                :
+                                <View style={FormStyles.requisitiL}>
+                                    {requirements()}
+                                    <Light onPress={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: TitoliPosizioni, for: "Requisiti" })} style={{ fontSize: 40, color: "#26547C", marginLeft: 10, alignSelf: "center" }}>+</Light>
+                                </View>
+                            }
+                        </View>
                         : null}
                     {descriptionError ?
                         <StepsLabelError text={"Descrizione"} />
@@ -135,14 +205,9 @@ export function ModificaPosizione({ navigation }) {
                         style={FormStyles.large}
                         value={description}
                     />
-                    {socio != "Socio Finanziatore" ?
-                        <View>
-                            {categoriaError ? <StepsLabelError text="Categoria" /> :
-                                <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-                            <RoundFiltersOne settori={Settori} setItem={item => setCategoria(item)} settoreAttivi={activeIndexCategoria} />
-                        </View>
-                        : null}
                     <View style={styles.buttonWrapper}>
+                        <RoundButton text={"Annulla"} color={"#DD1E63"}
+                            textColor={"white"} onPress={() => navigation.goBack()} />
                         <RoundButton text={"PROCEDI"} color={"#10476C"} textColor={"white"} onPress={() => socio != "Socio Finanziatore" ? handlePress() : handlePress(true)} />
                     </View>
                 </KeyboardAwareScrollView>
@@ -152,7 +217,7 @@ export function ModificaPosizione({ navigation }) {
 };
 
 ModificaPosizione.navigationOptions = {
-    title: "Modifica Posizione"
+    header: null
 }
 
 const styles = StyleSheet.create({
@@ -163,7 +228,11 @@ const styles = StyleSheet.create({
     },
     buttonWrapper: {
         alignItems: "center",
-        margin: 20
+        flexDirection: "row",
+        justifyContent: "space-between",
+        margin: 28,
+        marginTop: 40,
+        marginBottom: 40
     },
     inputWrapper: {
         flex: 1,
