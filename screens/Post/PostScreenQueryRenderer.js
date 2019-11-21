@@ -23,7 +23,6 @@ query PostScreenQueryRendererQuery($postId: ID!) {
 `;
 
 export default function ProfilePageQueryRenderer({ navigation }) {
-  console.log(navigation)
   const { loading, error, data } = useQuery(Post, { variables: { postId: navigation.getParam("id") } });
 
   if (loading) return <FindMeSpinner />;

@@ -129,7 +129,7 @@ export function ModificaPosizione({ navigation }) {
                 __typename: 'data',
                 title: socio == "Socio Finanziatore" ? "Finanziatore" : title,
                 type: socio,
-                field: socio == "Socio Finanziatore" ? "Economia" : categoria,
+                field: socio == "Socio Finanziatore" ? "Servizi Finanziari" : categoria,
                 description,
                 requisiti: socio == "Socio Finanziatore" ? [] : requisiti
             }
