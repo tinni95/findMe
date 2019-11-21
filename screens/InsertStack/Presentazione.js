@@ -27,7 +27,7 @@ export function Presentazione({ navigation }) {
     const client = useApolloClient();
     const { data } = useQuery(POST_PRESENTAZIONE);
     const activeIndex = TipoSocio.indexOf(data.postOwner);
-    const passedTitle = navigation.getParam("item") || data.postOwnerPosition
+    const passedTitle = navigation.getParam("title") || data.postOwnerPosition
     const passedLocation = navigation.getParam("location") || data.postLocation
     const [position, setPosition] = useState("");
     const [location, setLocation] = useState("");

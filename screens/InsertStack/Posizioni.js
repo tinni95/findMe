@@ -12,11 +12,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
-import { Settori, TipoSocio, TitoliPosizioni } from "./helpers";
+import { Settori, TipoSocio, TitoliPosizioni, Requisiti } from "./helpers";
 import { isBigDevice } from '../../constants/Layout';
 import { Light } from "../../components/StyledText";
 import { Ionicons } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+
 var shortid = require("shortid")
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
@@ -48,10 +48,11 @@ export function Posizioni({ navigation, settore }) {
   //Data
   const { data } = useQuery(POST_POSIZIONI);
   const posizioni = data.postPositions || [];
-  let passedTitle = navigation.getParam("for") == "Titoli" ? navigation.getParam("item") || null : null
-  let passedRequisito = navigation.getParam("for") == "Requisiti" ? navigation.getParam("item") || null : null
+  let passedCategoria = navigation.getParam("for") == "Titoli" ? navigation.getParam("categoria") || null : null
+  let passedTitle = navigation.getParam("for") == "Titoli" ? navigation.getParam("title") || null : null
+  let passedRequisito = navigation.getParam("for") == "Requisiti" ? navigation.getParam("title") || null : null
   let passedSettore = navigation.getParam("settore") || null
-
+  let passedCategoriaIndex = Settori.indexOf(passedCategoria);
   //if first page data is missing, we go back to it
   useEffect(() => {
     if (data.postLocation === "") {
@@ -61,6 +62,11 @@ export function Posizioni({ navigation, settore }) {
       navigation.navigate("Descrizione")
     }
   }, [])
+  //Autocomplete categoria
+  useEffect(() => {
+    passedCategoria ? setCategoria(passedCategoria) : null
+    console.log(passedCategoria);
+  }, [passedCategoria])
   //Autocomplete titolo
   useEffect(() => {
     passedTitle ? setTitle(passedTitle) : null
@@ -212,7 +218,7 @@ export function Posizioni({ navigation, settore }) {
           {socio != "Socio Finanziatore" ?
             <View>{categoriaError ? <StepsLabelError text="Categoria" /> :
               <StepsLabel text="Categoria (es. Economia, Ingegneria...)" />}
-              <RoundFiltersOne setItem={item => setCategoria(item)} settori={Settori} settoreAttivi={passedSettore} />
+              <RoundFiltersOne setItem={item => setCategoria(item)} settori={Settori} settoreAttivi={passedCategoriaIndex} />
             </View>
             : null}
           {socio != "Socio Finanziatore" ?
@@ -225,7 +231,7 @@ export function Posizioni({ navigation, settore }) {
               {requisiti.length == 0 ?
                 <View style={FormStyles.requisiti}>
                   <TouchableWithoutFeedback onPress={() => {
-                    navigation.navigate("AutoComplete", { path: "Posizioni", items: TitoliPosizioni, for: "Requisiti" })
+                    navigation.navigate("AutoComplete", { path: "Posizioni", items: Requisiti, for: "Requisiti" })
                   }}>
                     <Light>AGGIUNGI REQUISITO +</Light>
                   </TouchableWithoutFeedback>
@@ -233,7 +239,7 @@ export function Posizioni({ navigation, settore }) {
                 :
                 <View style={FormStyles.requisitiL}>
                   {requirements()}
-                  <Light onPress={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: TitoliPosizioni, for: "Requisiti" })} style={{ fontSize: 40, color: "#26547C", marginLeft: 10, alignSelf: "center" }}>+</Light>
+                  <Light onPress={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: Requisiti, for: "Requisiti" })} style={{ fontSize: 40, color: "#26547C", marginLeft: 10, alignSelf: "center" }}>+</Light>
                 </View>
               }
             </View>

@@ -10,10 +10,11 @@ export function AutoComplete({ navigation }) {
     let isFor = navigation.getParam("for") || "";
     const [text, setText] = useState("");
     const passwordInput = useRef();
-    let filteredItems = items.filter(item => item.toLowerCase().includes(text.toLowerCase()));
+    let filteredItems = items.filter(item => isFor != "Requisiti" ? item.titolo.toLowerCase().includes(text.toLowerCase()) : item.toLowerCase().includes(text.toLowerCase()));
     filteredItems = filteredItems.length == 0 ? [text] : filteredItems;
     const renderItems = filteredItems.map(item => {
-        return <TouchableOpacity onPress={() => navigation.navigate(path, { item, for: isFor })} key={shortid.generate()} style={styles.item}><Light style={styles.itemText}>{item}</Light></TouchableOpacity>
+        let objectToPass = isFor == "Requisiti" ? { title: item, for: isFor } : { title: item.titolo, categoria: item.categoria, for: isFor };
+        return <TouchableOpacity onPress={() => navigation.navigate(path, objectToPass)} key={shortid.generate()} style={styles.item}><Light style={styles.itemText}>{isFor == "Requisiti" ? item : item.titolo}</Light></TouchableOpacity>
     })
 
     useEffect(() => {

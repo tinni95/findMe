@@ -45,8 +45,8 @@ export function ModificaPosizione({ navigation }) {
     const [categoriaError, setCategoriaError] = useState(false);
     const [positionInArray, setPositionInArray] = useState(-1)
     let posizioni = data.postPositions || []
-    let passedTitle = navigation.getParam("for") == "Titoli" ? navigation.getParam("item") || null : null
-    let passedRequisito = navigation.getParam("for") == "Requisiti" ? navigation.getParam("item") || null : null
+    let passedTitle = navigation.getParam("for") == "Titoli" ? navigation.getParam("title") || null : null
+    let passedRequisito = navigation.getParam("for") == "Requisiti" ? navigation.getParam("title") || null : null
 
     //Autocomplete titolo
     useEffect(() => {
