@@ -24,13 +24,13 @@ export default function PostScreen({ post, navigation }) {
         regione={post.regione}
         comune={post.comune}
       />
-      <View style={styles.DesriptionContainer}>
-        <Bold style={styles.titleSm}>Description</Bold>
-        <Light style={styles.body}>{post.description}</Light>
-      </View>
       <PostInfo tipoSocio={post.tipoSocio} pubblicatoDa={post.pubblicatoDa}
         fields={post.fields}
         posizione={post.posizione} />
+      <View style={styles.DesriptionContainer}>
+        <Bold style={styles.titleSm}>Descrizione</Bold>
+        <Light style={styles.body}>{post.description}</Light>
+      </View>
       <ScrollView style={{ height: 500 }}>
         {positionCards()}
       </ScrollView>
