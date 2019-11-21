@@ -159,7 +159,7 @@ export function ModificaPosizione({ navigation }) {
                             errorText={"Campo Obbligatorio"}>
                             <FormTextInput
                                 value={title}
-                                onFocus={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: TitoliPosizioni, for: "Title" })}
+                                onFocus={() => navigation.navigate("AutoComplete", { path: "ModificaPosizione", items: TitoliPosizioni, for: "Titoli" })}
                                 onChangeText={val => setTitle(val)}
                                 placeholder="Titolo Posizione"
                                 style={titleError ? FormStyles.inputError : FormStyles.input}
