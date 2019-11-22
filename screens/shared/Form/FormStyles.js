@@ -23,7 +23,7 @@ export const FormStyles = StyleSheet.create({
     fontWeight: '500'
   },
   inputHalf: {
-    width: '100%',
+    width: '95%',
     height: 45,
     padding: 8,
     borderBottomWidth: 0.5,
@@ -33,7 +33,7 @@ export const FormStyles = StyleSheet.create({
     fontWeight: '500'
   },
   inputHalfError: {
-    width: '100%',
+    width: '95%',
     height: 45,
     padding: 8,
     borderBottomWidth: 0.5,

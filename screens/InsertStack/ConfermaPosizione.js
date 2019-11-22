@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { StepsLabel } from "./StepsLabel";
 import FormTextInput from "../shared/Form/FormTextInput";
 import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne";
@@ -10,7 +10,7 @@ import gql from 'graphql-tag';
 import { indexOfPosition, Settori, TipoSocio } from "./helpers";
 import { FormStyles } from "../shared/Form/FormStyles";
 import { isBigDevice } from '../../constants/Layout';
-import { StepsIndicator } from "./stepsIndicator";
+
 var shortid = require("shortid")
 const POST_POSIZIONI = gql`
   query PosizioniQuery {

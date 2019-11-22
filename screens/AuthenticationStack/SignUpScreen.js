@@ -7,6 +7,7 @@ import RoundButtonEmpty from '../../components/shared/RoundButtonEmptySignUpScre
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { validateEmail, validateName, validatePassword, validateRePassword } from './validators';
 import { FormStyles } from '../shared/Form/FormStyles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const _asyncStorageSaveToken = async token => {
   await AsyncStorage.setItem(TOKEN_KEY, token);
@@ -64,7 +65,7 @@ export default function SignUpScreenUser({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAwareScrollView style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.header}
@@ -140,7 +141,6 @@ export default function SignUpScreenUser({ navigation }) {
           placeholderTextColor="#ADADAD"
           onChangeText={val => setRepassword(val)}
           ref={repasswordInput}
-          onSubmitEditing={() => buttonInput.current.focus()}
         />
         {repasswordError ? (
           <Bold style={FormStyles.error}>Le password non corrispondono</Bold>
@@ -167,7 +167,7 @@ export default function SignUpScreenUser({ navigation }) {
         />
         <RoundButtonEmpty bold isLong fontColor="#794545" text="Google" color="#white" />
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 
