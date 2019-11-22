@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableWithoutFeedback, View, ScrollView, StyleSheet } from 'react-native';
-import { isSmallDevice } from '../../constants/Layout';
+import { TouchableWithoutFeedback, View, Platform, StyleSheet } from 'react-native';
+import { isSmallDevice, isBigDevice } from '../../constants/Layout';
 import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
@@ -79,5 +79,5 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-  }
+  },
 });

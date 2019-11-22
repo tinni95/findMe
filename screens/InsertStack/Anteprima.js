@@ -8,7 +8,7 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { ScrollView } from 'react-native-gesture-handler';
 import RoundButton from '../../components/shared/RoundButton';
-import { isBigDevice } from '../../constants/Layout';
+import { isBigDevice, width } from '../../constants/Layout';
 
 const POST_ANTEPRIMA = gql`
   query DescrizioneQuery {
@@ -62,9 +62,11 @@ export const Anteprima = ({ navigation, user }) => {
       <View style={styles.body}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <PostScreenConfirm navigation={navigation} post={post} user={user} isHidden={checked}></PostScreenConfirm>
+          <View style={styles.line}></View>
           <View style={styles.buttonWrapper}>
             {Platform.OS == "ios" ?
               <Checkbox
+                containerStyle={{ backgroundColor: "white" }}
                 title='Nascondi Profilo'
                 checked={checked}
                 onPress={() => setChecked(!checked)}
@@ -108,7 +110,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignContent: "center",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+  },
+  line: {
+    width: width,
+    height: 15,
+    backgroundColor: "#EBEBEB"
   },
   checkBoxWrapper: { flexDirection: "row", alignItems: "center", justifyContent: "center" }
 });
