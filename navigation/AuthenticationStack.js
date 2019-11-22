@@ -4,14 +4,12 @@ import {
   LoginScreen,
   LandingPageWrapper,
   LandingPage,
-  SignUpScreenUser,
-  SignUpScreenCompany
+  SignUpScreen
 } from "../screens/AuthenticationStack";
 
 export default createStackNavigator({
   LandingPageWrapper,
   LandingPage,
   LoginScreen,
-  SignUpScreenUser,
-  SignUpScreenCompany
+  SignUpScreen
 });

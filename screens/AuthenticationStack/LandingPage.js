@@ -1,9 +1,8 @@
 import React from 'react';
-import { Image, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Image, View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { width } from '../../constants/Layout';
-import { Light, Bold } from '../../components/StyledText';
+import { Light } from '../../components/StyledText';
 import RoundButtonEmpty from '../../components/shared/RoundButtonEmpty';
 import RoundButton from '../../components/shared/RoundButton';
 
@@ -28,7 +27,7 @@ export const LandingPage = ({ navigation: { navigate } }) => {
             <RoundButtonEmpty
               fontColor="white"
               color="#5EDDDC"
-              onPress={() => navigate('SignUpScreenUser')}
+              onPress={() => navigate('SignUpScreen')}
               text="REGISTRATI"
             />
           </View>
@@ -36,7 +35,7 @@ export const LandingPage = ({ navigation: { navigate } }) => {
         <View style={styles.buttonFooterWrapper}>
           <Light style={styles.register}>Hai già un account?</Light>
           <View style={styles.roundButtons}>
-            <RoundButton onPress={() => navigate('LoginScreen')} color="#DD1E63" text="Accedi" />
+            <RoundButton textColor={"white"} onPress={() => navigate('LoginScreen')} color="#DD1E63" text="ACCEDI" />
           </View>
         </View>
       </View>
