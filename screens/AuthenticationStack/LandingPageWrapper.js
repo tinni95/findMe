@@ -1,28 +1,23 @@
-import React from 'react';
-import { AsyncStorage } from 'react-native';
+import React, { useEffect } from 'react';
 import FindMeSpinner from '../../shared/FindMeSpinner';
-import { TOKEN_KEY } from '../../shared/Token';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
-const _asyncStorageGetToken = async () => {
-  return await AsyncStorage.getItem(TOKEN_KEY);
-};
-
-export default class LandingPageWrapper extends React.Component {
-  async componentDidMount() {
-    const token = await _asyncStorageGetToken();
-    console.log("token", token);
-    if (token) {
-      this.props.navigation.navigate('MainTabNavigator');
-    } else {
-      this.props.navigation.navigate('LandingPage');
+const User = gql`
+  {
+    currentUser {
+    nome
     }
   }
+`;
 
-  render() {
-    return <FindMeSpinner />;
-  }
+export default function LandingPageWrapper({ navigation }) {
+  const { loading, error, data } = useQuery(User);
+  useEffect(() => {
+    data ? navigation.navigate('MainTabNavigator') && console.log(data) :
+      navigation.navigate('LandingPage');
+  }, [])
+
+  return <FindMeSpinner />;
 }
 
-LandingPageWrapper.navigationOptions = {
-  header: null
-};

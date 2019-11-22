@@ -4,7 +4,7 @@ import { CheckBox as Checkbox } from 'react-native-elements'
 import { Light } from '../../components/StyledText';
 import { StepsIndicator } from "./stepsIndicator";
 import PostScreenConfirm from "../../screens/Post/PostScreenConfirm";
-import { useQuery } from '@apollo/react-hooks';
+import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { ScrollView } from 'react-native-gesture-handler';
 import RoundButton from '../../components/shared/RoundButton';
@@ -29,8 +29,16 @@ const POST_ANTEPRIMA = gql`
 `;
 
 export const Anteprima = ({ navigation, user }) => {
+  const client = useApolloClient();
   const { data } = useQuery(POST_ANTEPRIMA);
   const [checked, setChecked] = useState(false);
+  const pubblica = () => {
+    client.writeData({
+      data: {
+
+      }
+    });
+  }
   //if first page data is missing, we go back to it
   useEffect(() => {
     if (data.postLocation === "") {
@@ -80,7 +88,7 @@ export const Anteprima = ({ navigation, user }) => {
                 <Light style={{ margin: 5 }}>Nascondi Profilo</Light>
               </View>
             }
-            <RoundButton styleProps={{ margin: 25 }} text={"PUBBLICA POST IDEA"}
+            <RoundButton onPress={() => pubblica()} styleProps={{ margin: 25 }} text={"PUBBLICA POST IDEA"}
               color={"#10476C"} textColor={"white"} />
           </View>
         </ScrollView>
