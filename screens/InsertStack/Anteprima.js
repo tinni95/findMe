@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, CheckBox } from 'react-native';
+import { View, StyleSheet, CheckBox, Platform } from 'react-native';
+import { CheckBox as Checkbox } from 'react-native-elements'
 import { Light } from '../../components/StyledText';
 import { StepsIndicator } from "./stepsIndicator";
 import PostScreenConfirm from "../../screens/Post/PostScreenConfirm";
@@ -59,17 +60,25 @@ export const Anteprima = ({ navigation, user }) => {
         <StepsIndicator navigation={navigation} active={3}></StepsIndicator>
       </View>
       <View style={styles.body}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <PostScreenConfirm navigation={navigation} post={post} user={user} isHidden={checked}></PostScreenConfirm>
           <View style={styles.buttonWrapper}>
-            <View style={styles.checkBoxWrapper}>
-              <CheckBox
-                style={{ margin: 5 }}
-                value={checked}
-                onValueChange={() => setChecked(!checked)}
-              ></CheckBox>
-              <Light style={{ margin: 5 }}>Nascondi Profilo</Light>
-            </View>
+            {Platform.OS == "ios" ?
+              <Checkbox
+                title='Nascondi Profilo'
+                checked={checked}
+                onPress={() => setChecked(!checked)}
+              ></Checkbox>
+              :
+              <View style={styles.checkBoxWrapper}>
+                <CheckBox
+                  style={{ margin: 5 }}
+                  value={checked}
+                  onValueChange={() => setChecked(!checked)}
+                ></CheckBox>
+                <Light style={{ margin: 5 }}>Nascondi Profilo</Light>
+              </View>
+            }
             <RoundButton styleProps={{ margin: 25 }} text={"PUBBLICA POST IDEA"}
               color={"#10476C"} textColor={"white"} />
           </View>
