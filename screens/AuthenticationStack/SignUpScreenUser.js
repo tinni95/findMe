@@ -1,233 +1,174 @@
-import React from 'react';
-import { View, StyleSheet, Image, TextInput, AsyncStorage } from 'react-native';
-import * as Facebook from 'expo-facebook';
-import AvoidingView from './AvoidingView';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, Image, AsyncStorage, TextInput } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
 import { Bold } from '../../components/StyledText';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButtonEmpty from '../../components/shared/RoundButtonEmptySignUpScreen';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { validateEmail, validateName, validatePassword, validateRePassword } from './validators';
-import {FormStyles} from '../shared/Form/FormStyles';
+import { FormStyles } from '../shared/Form/FormStyles';
 
 const _asyncStorageSaveToken = async token => {
   await AsyncStorage.setItem(TOKEN_KEY, token);
 };
 
-export default class SignUpScreenUser extends AvoidingView {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nome: '',
-      cognome: '',
-      email: '',
-      password: '',
-      repassword: '',
-      nameError: '',
-      surnameError: '',
-      emailError: '',
-      passwordError: '',
-      repasswordError: ''
-    };
-  }
+export default function SignUpScreenUser({ navigation }) {
+  const [name, setName] = useState("")
+  const [surname, setSurname] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [repassword, setRepassword] = useState("")
+  const [nameError, setNameError] = useState(false)
+  const [surnameError, setSurnameError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const [repasswordError, setRepasswordError] = useState(false)
+  let surnameInput = useRef();
+  let emailInput = useRef();
+  let passwordInput = useRef();
+  let repasswordInput = useRef();
 
-  facebook = async () => {
-    try {
-      const {
-        type,
-        token,
-        expires,
-        permissions,
-        declinedPermissions
-      } = await Facebook.logInWithReadPermissionsAsync('822183698200481', {
-        permissions: ['public_profile']
-      });
-      if (type === 'success') {
-        // Get the user's name using Facebook's Graph API
-        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-        console.log('Logged in!', `Hi ${await response.json()}!`);
-      } else {
-        // type === 'cancel'
-      }
-    } catch ({ message }) {
-      alert(`Facebook Login Error: ${message}`);
-    }
-  };
-
-  onChangeText = (key, val) => {
-    this.setState({ [key]: val });
-  };
-
-  signUp = async () => {
-    let { email, password, nome, cognome } = this.state;
-    email = email.toString().toLowerCase();
-    const response = await SignUp({ email, password, nome, cognome });
-    if (response && response.signup) {
-      const { token } = response.signup;
-      await _asyncStorageSaveToken(token);
-      this.props.navigation.navigate('MainTabNavigator');
-    } else {
-      const { message } = response.res.errors[0];
-      if (
-        message === 'A unique constraint would be violated on User. Details: Field name = email'
-      ) {
-        alert("l'email inserita è già in uso");
-      } else {
-        alert('si è verificato un errore, per favore riprova più tardi');
-      }
-    }
-  };
-
-  validateForm = () => {
-    const { nameError, surnameError, emailError, passwordError, repasswordError } = this.state;
+  const validateForm = () => {
     return !nameError && !surnameError && !emailError && !passwordError && !repasswordError;
   };
 
-  handleSubmit = async () => {
-    if (!validateName(this.state.nome)) {
-      await this.setState({ nameError: true });
+  const handleSubmit = async () => {
+    if (!validateName(name)) {
+      await setNameError(true)
     } else {
-      await this.setState({ nameError: false });
+      await setNameError(false)
     }
-    if (!validateName(this.state.cognome)) {
-      await this.setState({ surnameError: true });
+    if (!validateName(surname)) {
+      await setSurnameError(true)
     } else {
-      await this.setState({ surnameError: false });
+      await setSurnameError(false)
     }
-    if (!validateEmail(this.state.email)) {
-      await this.setState({ emailError: true });
+    if (!validateEmail(email)) {
+      await setEmailError(true)
     } else {
-      await this.setState({ emailError: false });
+      await setEmailError(false)
     }
-    if (!validatePassword(this.state.password)) {
-      await this.setState({ passwordError: true });
+    if (!validatePassword(password)) {
+      await setPasswordError(true)
     } else {
-      await this.setState({ passwordError: false });
+      await setPasswordError(false)
     }
-    if (!validateRePassword(this.state.password, this.state.repassword)) {
-      await this.setState({ repasswordError: true });
+    if (!validateRePassword(password, repassword)) {
+      await setRepasswordError(true)
     } else {
-      await this.setState({ repasswordError: false });
+      await setRepasswordError(false)
     }
-    if (this.validateForm()) {
-      this.signUp();
+    if (validateForm()) {
+      console.log("valid")
     }
   };
 
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.state.keyboardShown ? null : (
-          <View style={styles.imageContainer}>
-            <Image
-              style={styles.header}
-              source={require('../../assets/images/logo_negative.png')}
-              resizeMode="contain"
-            />
-          </View>
-        )}
-        <View style={styles.formContainer}>
-          <View style={FormStyles.inputHalfsContainer}>
-            <View style={FormStyles.inputHalfContainer}>
-              <TextInput
-                style={this.state.nameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
-                placeholder="Nome"
-                autoCapitalize="none"
-                placeholderTextColor="#ADADAD"
-                onChangeText={val => this.onChangeText('nome', val)}
-                onSubmitEditing={() => this.surname.focus()}
-              />
-              {this.state.nameError ? (
-                <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
-              ) : (
-                <View style={styles.separator} />
-              )}
-            </View>
-
-            <View style={FormStyles.inputHalfContainer}>
-              <TextInput
-                style={this.state.surnameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
-                placeholder="Cognome"
-                autoCapitalize="none"
-                placeholderTextColor="#ADADAD"
-                onChangeText={val => this.onChangeText('cognome', val)}
-                ref={input => (this.surname = input)}
-                onSubmitEditing={() => this.email.focus()}
-              />
-              {this.state.surnameError ? (
-                <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
-              ) : (
-                <View style={styles.separator} />
-              )}
-            </View>
-          </View>
-          <TextInput
-            style={this.state.emailError ? FormStyles.inputError : FormStyles.input}
-            placeholder="Email"
-            autoCapitalize="none"
-            placeholderTextColor="#ADADAD"
-            onChangeText={val => this.onChangeText('email', val)}
-            ref={input => (this.email = input)}
-            onSubmitEditing={() => this.password.focus()}
-          />
-          {this.state.emailError ? (
-            <Bold style={FormStyles.error}>Email non valida</Bold>
-          ) : (
-            <View style={styles.separator} />
-          )}
-          <TextInput
-            style={this.state.passwordError ? FormStyles.inputError : FormStyles.input}
-            placeholder="Password"
-            secureTextEntry
-            autoCapitalize="none"
-            placeholderTextColor="#ADADAD"
-            onChangeText={val => this.onChangeText('password', val)}
-            ref={input => (this.password = input)}
-            onSubmitEditing={() => this.repassword.focus()}
-          />
-          {this.state.passwordError ? (
-            <Bold style={FormStyles.error}>Password non valida</Bold>
-          ) : (
-            <View style={styles.separator} />
-          )}
-          <TextInput
-            style={this.state.repasswordError ? FormStyles.inputError : FormStyles.input}
-            placeholder="Ripeti Password"
-            autoCapitalize="none"
-            secureTextEntry
-            placeholderTextColor="#ADADAD"
-            onChangeText={val => this.onChangeText('repassword', val)}
-            ref={input => (this.repassword = input)}
-          />
-          {this.state.repasswordError ? (
-            <Bold style={FormStyles.error}>Le password non corrispondono</Bold>
-          ) : (
-            <View style={styles.separator} />
-          )}
-        </View>
-        <View style={styles.buttonsContainer}>
-          <RoundButtonEmpty
-            onPress={this.handleSubmit}
-            isLong
-            fontColor="#DD1E63"
-            text="Registrati"
-            fontColor="#DD1E63"
-            color="#DD1E63"
-          />
-          <Bold style={styles.buttonText}>O continua Con</Bold>
-          <RoundButton
-            onPress={this.facebook}
-            bold
-            isLong
-            fontColor="#10436E"
-            text="Facebook"
-            color="#10436E"
-          />
-          <RoundButtonEmpty bold isLong fontColor="#794545" text="Google" color="#white" />
-        </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.header}
+          source={require('../../assets/images/logo_negative.png')}
+          resizeMode="contain"
+        />
       </View>
-    );
-  }
+      <View style={styles.formContainer}>
+        <View style={FormStyles.inputHalfsContainer}>
+          <View style={FormStyles.inputHalfContainer}>
+            <TextInput
+              style={nameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
+              placeholder="Nome"
+              placeholderTextColor="#ADADAD"
+              onChangeText={val => setName(val)}
+              onSubmitEditing={() => surnameInput.current.focus()}
+            />
+            {nameError ? (
+              <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
+            ) : (
+                <View style={styles.separator} />
+              )}
+          </View>
+          <View style={FormStyles.inputHalfContainer}>
+            <TextInput
+              style={surnameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
+              placeholder="Cognome"
+              placeholderTextColor="#ADADAD"
+              onChangeText={val => setSurname(val)}
+              ref={surnameInput}
+              onSubmitEditing={() => emailInput.current.focus()}
+            />
+            {surnameError ? (
+              <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
+            ) : (
+                <View style={styles.separator} />
+              )}
+          </View>
+        </View>
+        <TextInput
+          style={emailError ? FormStyles.inputError : FormStyles.input}
+          placeholder="Email"
+          placeholderTextColor="#ADADAD"
+          onChangeText={val => setEmail(val)}
+          ref={emailInput}
+          onSubmitEditing={() => passwordInput.current.focus()}
+        />
+        {emailError ? (
+          <Bold style={FormStyles.error}>Email non valida</Bold>
+        ) : (
+            <View style={styles.separator} />
+          )}
+        <TextInput
+          style={passwordError ? FormStyles.inputError : FormStyles.input}
+          placeholder="Password"
+          secureTextEntry
+          autoCapitalize="none"
+          placeholderTextColor="#ADADAD"
+          onChangeText={val => setPassword(val)}
+          ref={passwordInput}
+          onSubmitEditing={() => repasswordInput.current.focus()}
+        />
+        {passwordError ? (
+          <Bold style={FormStyles.error}>Password non valida</Bold>
+        ) : (
+            <View style={styles.separator} />
+          )}
+        <TextInput
+          style={repasswordError ? FormStyles.inputError : FormStyles.input}
+          placeholder="Ripeti Password"
+          autoCapitalize="none"
+          secureTextEntry
+          placeholderTextColor="#ADADAD"
+          onChangeText={val => setRepassword(val)}
+          ref={repasswordInput}
+          onSubmitEditing={() => buttonInput.current.focus()}
+        />
+        {repasswordError ? (
+          <Bold style={FormStyles.error}>Le password non corrispondono</Bold>
+        ) : (
+            <View style={styles.separator} />
+          )}
+      </View>
+      <View style={styles.buttonsContainer}>
+        <RoundButtonEmpty
+          onPress={handleSubmit}
+          isLong
+          fontColor="#DD1E63"
+          text="Registrati"
+          fontColor="#DD1E63"
+          color="#DD1E63"
+        />
+        <Bold style={styles.buttonText}>O continua Con</Bold>
+        <RoundButton
+          bold
+          isLong
+          fontColor="#10436E"
+          text="Facebook"
+          color="#10436E"
+        />
+        <RoundButtonEmpty bold isLong fontColor="#794545" text="Google" color="#white" />
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
