@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Bold, Body } from '../../components/StyledText';
 
-export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden }) {
+export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden, pubblicatoDa }) {
     const stringify = (fields) => {
         return fields.map((field, index) => {
             if (index !== fields.length - 1) {
@@ -18,13 +18,19 @@ export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden 
                 <Body style={styles.grigio}> {stringify(fields)}</Body>
             </View>
             <View style={styles.line}>
-                <Body>Pubblicato Da:</Body>
-                {!isHidden ?
-                    <Body style={styles.grigio}>
-                        {" " + user.nome} {user.cognome}</Body> :
-                    <Body style={styles.grigio}>
-                        {" " + user.nome[0] + "."}   {user.cognome}</Body>}
-
+                {user ?
+                    <View>
+                        <Body>Pubblicato Da:</Body>
+                        {!isHidden ?
+                            <Body style={styles.grigio}>
+                                {" " + user.nome} {user.cognome}</Body> :
+                            <Body style={styles.grigio}>
+                                {" " + user.nome[0] + "."}   {user.cognome}</Body>}
+                    </View>
+                    : <View style={{ flexDirection: "row" }}>
+                        <Body>Pubblicato Da: </Body>
+                        <Body style={styles.grigio}>{pubblicatoDa}</Body>
+                    </View>}
             </View>
             <View style={styles.line}>
                 <Body>Si Propone Come:</Body>
