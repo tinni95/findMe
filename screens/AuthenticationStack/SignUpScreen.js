@@ -7,13 +7,34 @@ import RoundButtonEmpty from '../../components/shared/RoundButtonEmptySignUpScre
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { validateEmail, validateName, validatePassword, validateRePassword } from './validators';
 import { FormStyles } from '../shared/Form/FormStyles';
+import gql from 'graphql-tag';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useMutation } from '@apollo/react-hooks';
+import FindMeSpinner from '../../shared/FindMeSpinner';
 
+const SIGNUP_MUTATION = gql`
+  mutation signup($email: String!, $password: String!,$nome: String!, $cognome: String!) {
+    signup(email: $email, password:$password,
+      nome:$nome, cognome:$cognome) {
+        token
+    }
+  }
+`;
 const _asyncStorageSaveToken = async token => {
   await AsyncStorage.setItem(TOKEN_KEY, token);
 };
 
 export default function SignUpScreenUser({ navigation }) {
+  const [
+    signup,
+    { loading: mutationLoading, error: mutationError, error, data },
+  ] = useMutation(SIGNUP_MUTATION,
+    {
+      onCompleted: async ({ signup }) => {
+        await AsyncStorage.setItem(TOKEN_KEY, signup.token);
+        navigation.navigate("MainTabNavigator")
+      }
+    });
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
   const [email, setEmail] = useState("")
@@ -24,22 +45,20 @@ export default function SignUpScreenUser({ navigation }) {
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [repasswordError, setRepasswordError] = useState(false)
+  const emailUsed = mutationError && error.message.toString().includes("A unique constraint would be violated on User");
   let surnameInput = useRef();
   let emailInput = useRef();
   let passwordInput = useRef();
   let repasswordInput = useRef();
 
-  const validateForm = () => {
-    return !nameError && !surnameError && !emailError && !passwordError && !repasswordError;
-  };
-
+  //The Function called when Registrati button pressed
   const handleSubmit = async () => {
     if (!validateName(name)) {
       await setNameError(true)
     } else {
       await setNameError(false)
     }
-    if (!validateName(surname)) {
+    if (!validateName(surname) || emailUsed) {
       await setSurnameError(true)
     } else {
       await setSurnameError(false)
@@ -60,114 +79,143 @@ export default function SignUpScreenUser({ navigation }) {
       await setRepasswordError(false)
     }
     if (validateForm()) {
-      console.log("valid")
+      setEmail(email.toLowerCase())
+      signup({ variables: { email, password, nome: name, cognome: surname } })
     }
   };
 
+  //Signup Function
+  const signUp = async () => {
+    setEmail(email.toString().toLowerCase())
+    const response = await SignUp({ email, password, nome, cognome });
+    if (response && response.signup) {
+      const { token } = response.signup;
+      await _asyncStorageSaveToken(token);
+      navigation.navigate('MainTabNavigator');
+    } else {
+      const { message } = response.res.errors[0];
+      if (
+        message === 'A unique constraint would be violated on User. Details: Field name = email'
+      ) {
+        alert("l'email inserita è già in uso");
+      } else {
+        alert('si è verificato un errore, per favore riprova più tardi');
+      }
+    }
+  };
+
+  //TO validate the form
+  const validateForm = () => {
+    return !nameError && !surnameError && !emailError && !passwordError && !repasswordError;
+  };
+
   return (
-    <KeyboardAwareScrollView style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.header}
-          source={require('../../assets/images/logo_negative.png')}
-          resizeMode="contain"
-        />
-      </View>
-      <View style={styles.formContainer}>
-        <View style={FormStyles.inputHalfsContainer}>
-          <View style={FormStyles.inputHalfContainer}>
-            <TextInput
-              style={nameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
-              placeholder="Nome"
-              placeholderTextColor="#ADADAD"
-              onChangeText={val => setName(val)}
-              onSubmitEditing={() => surnameInput.current.focus()}
-            />
-            {nameError ? (
-              <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
-            ) : (
-                <View style={styles.separator} />
-              )}
-          </View>
-          <View style={FormStyles.inputHalfContainer}>
-            <TextInput
-              style={surnameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
-              placeholder="Cognome"
-              placeholderTextColor="#ADADAD"
-              onChangeText={val => setSurname(val)}
-              ref={surnameInput}
-              onSubmitEditing={() => emailInput.current.focus()}
-            />
-            {surnameError ? (
-              <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
-            ) : (
-                <View style={styles.separator} />
-              )}
-          </View>
+    mutationLoading ?
+      <FindMeSpinner />
+      :
+      <KeyboardAwareScrollView style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.header}
+            source={require('../../assets/images/logo_negative.png')}
+            resizeMode="contain"
+          />
         </View>
-        <TextInput
-          style={emailError ? FormStyles.inputError : FormStyles.input}
-          placeholder="Email"
-          placeholderTextColor="#ADADAD"
-          onChangeText={val => setEmail(val)}
-          ref={emailInput}
-          onSubmitEditing={() => passwordInput.current.focus()}
-        />
-        {emailError ? (
-          <Bold style={FormStyles.error}>Email non valida</Bold>
-        ) : (
-            <View style={styles.separator} />
-          )}
-        <TextInput
-          style={passwordError ? FormStyles.inputError : FormStyles.input}
-          placeholder="Password"
-          secureTextEntry
-          autoCapitalize="none"
-          placeholderTextColor="#ADADAD"
-          onChangeText={val => setPassword(val)}
-          ref={passwordInput}
-          onSubmitEditing={() => repasswordInput.current.focus()}
-        />
-        {passwordError ? (
-          <Bold style={FormStyles.error}>Password non valida</Bold>
-        ) : (
-            <View style={styles.separator} />
-          )}
-        <TextInput
-          style={repasswordError ? FormStyles.inputError : FormStyles.input}
-          placeholder="Ripeti Password"
-          autoCapitalize="none"
-          secureTextEntry
-          placeholderTextColor="#ADADAD"
-          onChangeText={val => setRepassword(val)}
-          ref={repasswordInput}
-        />
-        {repasswordError ? (
-          <Bold style={FormStyles.error}>Le password non corrispondono</Bold>
-        ) : (
-            <View style={styles.separator} />
-          )}
-      </View>
-      <View style={styles.buttonsContainer}>
-        <RoundButtonEmpty
-          onPress={handleSubmit}
-          isLong
-          fontColor="#DD1E63"
-          text="Registrati"
-          fontColor="#DD1E63"
-          color="#DD1E63"
-        />
-        <Bold style={styles.buttonText}>O continua Con</Bold>
-        <RoundButton
-          bold
-          isLong
-          fontColor="#10436E"
-          text="Facebook"
-          color="#10436E"
-        />
-        <RoundButtonEmpty bold isLong fontColor="#794545" text="Google" color="#white" />
-      </View>
-    </KeyboardAwareScrollView>
+        <View style={styles.formContainer}>
+          <View style={FormStyles.inputHalfsContainer}>
+            <View style={FormStyles.inputHalfContainer}>
+              <TextInput
+                style={nameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
+                placeholder="Nome"
+                placeholderTextColor="#ADADAD"
+                onChangeText={val => setName(val)}
+                onSubmitEditing={() => surnameInput.current.focus()}
+              />
+              {nameError ? (
+                <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
+              ) : (
+                  <View style={styles.separator} />
+                )}
+            </View>
+            <View style={FormStyles.inputHalfContainer}>
+              <TextInput
+                style={surnameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
+                placeholder="Cognome"
+                placeholderTextColor="#ADADAD"
+                onChangeText={val => setSurname(val)}
+                ref={surnameInput}
+                onSubmitEditing={() => emailInput.current.focus()}
+              />
+              {surnameError ? (
+                <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
+              ) : (
+                  <View style={styles.separator} />
+                )}
+            </View>
+          </View>
+          <TextInput
+            style={emailError ? FormStyles.inputError : FormStyles.input}
+            placeholder="Email"
+            placeholderTextColor="#ADADAD"
+            onChangeText={val => setEmail(val)}
+            ref={emailInput}
+            onSubmitEditing={() => passwordInput.current.focus()}
+          />
+          {emailError ? (
+            <Bold style={FormStyles.error}>Email non valida</Bold>
+          ) : (
+              <View style={styles.separator} />
+            )}
+          <TextInput
+            style={passwordError ? FormStyles.inputError : FormStyles.input}
+            placeholder="Password"
+            secureTextEntry
+            autoCapitalize="none"
+            placeholderTextColor="#ADADAD"
+            onChangeText={val => setPassword(val)}
+            ref={passwordInput}
+            onSubmitEditing={() => repasswordInput.current.focus()}
+          />
+          {passwordError ? (
+            <Bold style={FormStyles.error}>Password non valida</Bold>
+          ) : (
+              <View style={styles.separator} />
+            )}
+          <TextInput
+            style={repasswordError ? FormStyles.inputError : FormStyles.input}
+            placeholder="Ripeti Password"
+            autoCapitalize="none"
+            secureTextEntry
+            placeholderTextColor="#ADADAD"
+            onChangeText={val => setRepassword(val)}
+            ref={repasswordInput}
+          />
+          {repasswordError ? (
+            <Bold style={FormStyles.error}>Le password non corrispondono</Bold>
+          ) : (
+              <View style={styles.separator} />
+            )}
+        </View>
+        <View style={styles.buttonsContainer}>
+          <RoundButtonEmpty
+            onPress={handleSubmit}
+            isLong
+            fontColor="#DD1E63"
+            text="Registrati"
+            fontColor="#DD1E63"
+            color="#DD1E63"
+          />
+          <Bold style={styles.buttonText}>O continua Con</Bold>
+          <RoundButton
+            bold
+            isLong
+            fontColor="#10436E"
+            text="Facebook"
+            color="#10436E"
+          />
+          <RoundButtonEmpty bold isLong fontColor="#794545" text="Google" color="#white" />
+        </View>
+      </KeyboardAwareScrollView>
   );
 }
 
