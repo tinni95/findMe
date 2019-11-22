@@ -3,14 +3,14 @@ import { createSwitchNavigator } from 'react-navigation';
 import { Descrizione } from '../../../screens/InsertStack';
 import { PresentazioneSwitch } from './PresentazioneSwitch';
 import { PosizioniModal } from './PosizioniModal';
-import { Anteprima } from '../../../screens/InsertStack/Anteprima';
+import AnteprimaQueryRenderer from '../../../screens/InsertStack/AnteprimaQueryRenderer';
 import TabBarIcon from '../../../components/TabBarIcon';
 
 export const InsertStack = createSwitchNavigator({
   PresentazioneSwitch,
   Descrizione,
   Posizioni: PosizioniModal,
-  Anteprima
+  Anteprima: AnteprimaQueryRenderer
 });
 
 InsertStack.navigationOptions = {

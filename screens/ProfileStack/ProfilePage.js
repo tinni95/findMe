@@ -1,8 +1,27 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View, StyleSheet, AsyncStorage } from 'react-native';
+import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
+import { TOKEN_KEY } from '../../shared/Token';
 
-export default class ProfilePage extends React.Component {
-  render() {
-    return <Text>{this.props.user.email}</Text>;
+export default function ProfilePage({ user, navigation }) {
+
+  const logout = async () => {
+    await AsyncStorage.removeItem(TOKEN_KEY);
+    navigation.navigate("AuthenticationStack")
   }
+
+  return (
+    <View style={styles.container}>
+      <Text>{user.email}</Text>
+      <RoundButton fontColor="white"
+        isLong color="#DD1E63" text={"LOGOUT"}
+        onPress={() => logout()}
+      ></RoundButton>
+    </View>);
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+})

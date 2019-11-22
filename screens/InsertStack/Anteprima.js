@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, CheckBox } from 'react-native';
 import { Light } from '../../components/StyledText';
 import { StepsIndicator } from "./stepsIndicator";
 import PostScreenConfirm from "../../screens/Post/PostScreenConfirm";
-import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { ScrollView } from 'react-native-gesture-handler';
 import RoundButton from '../../components/shared/RoundButton';
@@ -27,8 +27,10 @@ const POST_ANTEPRIMA = gql`
   }
 `;
 
-export const Anteprima = ({ navigation }) => {
+export const Anteprima = ({ navigation, user }) => {
   const { data } = useQuery(POST_ANTEPRIMA);
+  console.log("user", user)
+  const [checked, setChecked] = useState(false);
   //if first page data is missing, we go back to it
   useEffect(() => {
     if (data.postLocation === "") {
@@ -46,7 +48,7 @@ export const Anteprima = ({ navigation }) => {
     title: data.postTitle,
     description: data.postDescription,
     positions: data.postPositions,
-    pubblicatoDa: data.postOwner,
+    tipoSocio: data.postOwner,
     posizione: data.postOwnerPosition,
     regione: "Campania",
     comune: "Caserta"
@@ -58,9 +60,17 @@ export const Anteprima = ({ navigation }) => {
       </View>
       <View style={styles.body}>
         <ScrollView>
-          <PostScreenConfirm navigation={navigation} post={post}></PostScreenConfirm>
+          <PostScreenConfirm navigation={navigation} post={post} user={user} isHidden={checked}></PostScreenConfirm>
           <View style={styles.buttonWrapper}>
-            <RoundButton text={"PUBBLICA POST IDEA"}
+            <View style={styles.checkBoxWrapper}>
+              <CheckBox
+                style={{ margin: 5 }}
+                value={checked}
+                onValueChange={() => setChecked(!checked)}
+              ></CheckBox>
+              <Light style={{ margin: 5 }}>Nascondi Profilo</Light>
+            </View>
+            <RoundButton styleProps={{ margin: 25 }} text={"PUBBLICA POST IDEA"}
               color={"#10476C"} textColor={"white"} />
           </View>
         </ScrollView>
@@ -86,8 +96,10 @@ const styles = StyleSheet.create({
     flex: 1.5
   },
   buttonWrapper: {
+    flexDirection: "column",
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center"
-  }
+  },
+  checkBoxWrapper: { flexDirection: "row", alignItems: "center", justifyContent: "center" }
 });

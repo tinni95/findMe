@@ -43,9 +43,10 @@ export default function SignUpScreenUser({ navigation }) {
   const [nameError, setNameError] = useState(false)
   const [surnameError, setSurnameError] = useState(false)
   const [emailError, setEmailError] = useState(false)
+  const [emailUsed, setEmailUsed] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [repasswordError, setRepasswordError] = useState(false)
-  const emailUsed = mutationError && error.message.toString().includes("A unique constraint would be violated on User");
+  const isEmailUsed = mutationError && error.message.toString().includes("A unique constraint would be violated on User");
   let surnameInput = useRef();
   let emailInput = useRef();
   let passwordInput = useRef();
@@ -58,7 +59,7 @@ export default function SignUpScreenUser({ navigation }) {
     } else {
       await setNameError(false)
     }
-    if (!validateName(surname) || emailUsed) {
+    if (!validateName(surname) || isEmailUsed) {
       await setSurnameError(true)
     } else {
       await setSurnameError(false)
@@ -106,7 +107,7 @@ export default function SignUpScreenUser({ navigation }) {
 
   //TO validate the form
   const validateForm = () => {
-    return !nameError && !surnameError && !emailError && !passwordError && !repasswordError;
+    return !isEmailUsed && !nameError && !surnameError && !emailError && !passwordError && !repasswordError;
   };
 
   return (
@@ -154,7 +155,7 @@ export default function SignUpScreenUser({ navigation }) {
             </View>
           </View>
           <TextInput
-            style={emailError ? FormStyles.inputError : FormStyles.input}
+            style={emailError || emailUsed ? FormStyles.inputError : FormStyles.input}
             placeholder="Email"
             placeholderTextColor="#ADADAD"
             onChangeText={val => setEmail(val)}
@@ -163,9 +164,11 @@ export default function SignUpScreenUser({ navigation }) {
           />
           {emailError ? (
             <Bold style={FormStyles.error}>Email non valida</Bold>
+          ) : emailUsed ? (
+            <Bold style={FormStyles.error}>Email già in uso</Bold>
           ) : (
-              <View style={styles.separator} />
-            )}
+                <View style={styles.separator} />
+              )}
           <TextInput
             style={passwordError ? FormStyles.inputError : FormStyles.input}
             placeholder="Password"

@@ -13,13 +13,13 @@ const User = gql`
   }
 `;
 
-export default function ProfilePageRenderer() {
+export default function ProfilePageRenderer({ navigation }) {
   const { loading, error, data } = useQuery(User);
 
-  if (loading) return <FindMeSpinner/>;
-  if (error) return <FindMeGraphQlErrorDisplay/>;
+  if (loading) return <FindMeSpinner />;
+  if (error) return <FindMeGraphQlErrorDisplay />;
 
-  return <ProfilePage user={data.currentUser} />;
+  return <ProfilePage navigation={navigation} user={data.currentUser} />;
 }
 
 

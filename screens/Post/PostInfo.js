@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Bold, Body } from '../../components/StyledText';
 
-export default function PostInfo({ fields, tipoSocio, posizione, pubblicatoDa }) {
+export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden }) {
     const stringify = (fields) => {
         return fields.map((field, index) => {
             if (index !== fields.length - 1) {
@@ -19,7 +19,12 @@ export default function PostInfo({ fields, tipoSocio, posizione, pubblicatoDa })
             </View>
             <View style={styles.line}>
                 <Body>Pubblicato Da:</Body>
-                <Body style={styles.grigio}> {pubblicatoDa}</Body>
+                {!isHidden ?
+                    <Body style={styles.grigio}>
+                        {" " + user.nome} {user.cognome}</Body> :
+                    <Body style={styles.grigio}>
+                        {" " + user.nome[0] + "."}   {user.cognome}</Body>}
+
             </View>
             <View style={styles.line}>
                 <Body>Si Propone Come:</Body>

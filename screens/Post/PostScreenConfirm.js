@@ -6,14 +6,12 @@ import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
 
-export default function PostScreenConfirm({ post, navigation }) {
-
+export default function PostScreenConfirm({ post, isHidden, user, navigation }) {
   const positionCards = () => {
     return post.positions.map((position, index) => {
       return <PositionCard button={"false"} navigation={navigation} key={index} position={position} />;
     });
   };
-  console.log(post);
   return (
     <View style={styles.contentContainer}>
       <TouchableWithoutFeedback onPress={() => console.log("Descrizione")}>
@@ -28,7 +26,9 @@ export default function PostScreenConfirm({ post, navigation }) {
           comune={post.comune}
         />
       </TouchableWithoutFeedback>
-      <PostInfo withredirect={"true"} tipoSocio={post.tipoSocio} pubblicatoDa={post.pubblicatoDa}
+      <PostInfo isHidden={isHidden}
+        withredirect={"true"} tipoSocio={post.tipoSocio}
+        user={user}
         fields={post.fields}
         posizione={post.posizione} />
       <TouchableWithoutFeedback onPress={() => navigation.navigate("Descrizione")}>
