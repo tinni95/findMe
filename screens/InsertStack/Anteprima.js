@@ -30,7 +30,6 @@ const POST_ANTEPRIMA = gql`
 
 export const Anteprima = ({ navigation, user }) => {
   const { data } = useQuery(POST_ANTEPRIMA);
-  console.log("user", user)
   const [checked, setChecked] = useState(false);
   //if first page data is missing, we go back to it
   useEffect(() => {

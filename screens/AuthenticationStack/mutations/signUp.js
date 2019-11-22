@@ -10,7 +10,6 @@ const signUpMutation = gql`
 `;
 
 export function SignUp() {
-  console.log("h");
   const [signUpMutation, { data }] = useMutation(signUpMutation);
   return signUpMutation({ variables: { nome, cognome, email, password } });
 }

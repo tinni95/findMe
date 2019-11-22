@@ -65,9 +65,6 @@ export function Presentazione({ navigation }) {
             setLocationError(false)
         }
         if (position.length > 0 && postOwner.length > 0 && location.length > 0) {
-            console.log(position);
-            console.log(location);
-            console.log(postOwner);
             client.writeData({
                 data: {
                     postLocation: location,

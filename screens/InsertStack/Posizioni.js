@@ -65,7 +65,6 @@ export function Posizioni({ navigation, settore }) {
   //Autocomplete categoria
   useEffect(() => {
     passedCategoria ? setCategoria(passedCategoria) : null
-    console.log(passedCategoria);
   }, [passedCategoria])
   //Autocomplete titolo
   useEffect(() => {

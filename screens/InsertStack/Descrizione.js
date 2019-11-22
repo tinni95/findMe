@@ -66,9 +66,6 @@ export function Descrizione({ navigation }) {
       setSettoreError(false);
     }
     if (categories.length > 0 && title.length > 0 && description.length > 0) {
-      console.log(categories);
-      console.log(title);
-      console.log(description);
 
       client.writeData({
         data: {

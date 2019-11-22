@@ -15,12 +15,11 @@ const User = gql`
 `;
 
 export default function AnteprimaPageRenderer({ navigation }) {
-    const { loading, error, data } = useQuery(User);
-    console.log("data", data)
-    if (loading) return <FindMeSpinner />;
-    if (error) return <FindMeGraphQlErrorDisplay />;
+  const { loading, error, data } = useQuery(User);
+  if (loading) return <FindMeSpinner />;
+  if (error) return <FindMeGraphQlErrorDisplay />;
 
-    return <Anteprima navigation={navigation} user={data.currentUser} />;
+  return <Anteprima navigation={navigation} user={data.currentUser} />;
 }
 
 

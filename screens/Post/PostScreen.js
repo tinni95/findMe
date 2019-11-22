@@ -13,7 +13,6 @@ export default function PostScreen({ post, navigation }) {
       return <PositionCard buttonText={"CANDIDATI"} navigation={navigation} key={index} position={position} />;
     });
   };
-  console.log(post);
   return (
     <View style={styles.contentContainer}>
       <Bold style={styles.title}>{post.title}</Bold>
