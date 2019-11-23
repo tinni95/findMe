@@ -13,9 +13,9 @@ const User = gql`
 
 export default function LandingPageWrapper({ navigation }) {
   const { loading, error, data } = useQuery(User);
-
+  console.log("landing", data)
   useEffect(() => {
-    data ? navigation.navigate('MainTabNavigator') :
+    data && data.currentUser ? navigation.navigate('MainTabNavigator') :
       navigation.navigate('LandingPage');
   }, [data])
 

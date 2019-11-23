@@ -13,12 +13,12 @@ const User = gql`
   }
 `;
 
-export default function ProfilePageRenderer({ navigation }) {
+export default function ProfilePagPeRenderer({ navigation }) {
   const { loading, error, data } = useQuery(User);
 
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
-
+  if (!data || !data.currentUser) navigation.navigate("AuthenticationStack")
   return <ProfilePage navigation={navigation} user={data.currentUser} />;
 }
 

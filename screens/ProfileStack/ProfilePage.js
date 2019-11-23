@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, StyleSheet, AsyncStorage } from 'react-native';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { TOKEN_KEY } from '../../shared/Token';

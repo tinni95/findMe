@@ -1,16 +1,19 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Vibration } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
 import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
+import * as Haptics from 'expo-haptics';
 
 export default function PostScreen({ post, navigation }) {
 
   const positionCards = () => {
     return post.positions.map((position, index) => {
-      return <PositionCard buttonText={"CANDIDATI"} navigation={navigation} key={index} position={position} />;
+      return <PositionCard buttonOnPress={() => {
+        Haptics.selectionAsync()
+      }} buttonText={"CANDIDATI"} navigation={navigation} key={index} position={position} />;
     });
   };
   return (
