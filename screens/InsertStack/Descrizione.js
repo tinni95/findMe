@@ -6,15 +6,14 @@ import WithErrorString from "../shared/Form/WithErrorString";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
 import RoundButtonEmptyUniversal from '../../components/shared/RoundButtonEmptyUniversal';
-import { StepsLabel, StepsLabelError } from "./StepsLabel";
+import StepsLabel, { StepsLabelWithHint } from "../shared/StepsLabel";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
 import { isBigDevice } from '../../constants/Layout';
 import { Settori } from "./helpers";
-import CustomTooltip from '../shared/CustomTooltip';
-import { Light } from '../../components/StyledText';
+
 
 const POST_DESCRIZIONE = gql`
   query DescrizioneQuery {
@@ -88,11 +87,7 @@ export function Descrizione({ navigation }) {
       </View>
       <View style={styles.body}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-          {settoreError ?
-            <StepsLabelError text={"Inserisci Titolo"} />
-            :
-            <StepsLabel text={"Inserisci Titolo"} />
-          }
+          <StepsLabel error={titleError} text={"Inserisci Titolo"} />
           <WithErrorString
             error={titleError}
             errorText={"Campo Obbligatorio"}>
@@ -104,23 +99,12 @@ export function Descrizione({ navigation }) {
             />
           </WithErrorString>
           <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center" }}>
-            {settoreError ?
-              <StepsLabelError text={"Categorie"} />
-              :
-              <StepsLabel text={"Categorie"} />
-            }
-            {Platform.OS == "web" ?
-              <TouchableOpacity onPress={() => alert("Puoi aggiungere un massimo di 3 categorie")} style={{ height: 20, width: 20, marginTop: 7.5, marginLeft: 5, borderRadius: 10, backgroundColor: "#EBEBEB", justifyContent: "center", alignItems: "center" }}><Light style={{ fontSize: 14 }}>?</Light></TouchableOpacity>
-              :
-              <CustomTooltip questionMark={() => <View style={{ height: 20, width: 20, marginTop: 7.5, marginLeft: 5, borderRadius: 10, backgroundColor: "#EBEBEB", justifyContent: "center", alignItems: "center" }}><Light style={{ fontSize: 14 }}>?</Light></View>} tooltipText={"Puoi aggiungere un massimo di 3 categorie"}></CustomTooltip>
-            }
+            <StepsLabelWithHint error={settoreError}
+              tooltipText={"Queste sono le categorie della tua idea, puoi sceglierne massimo 3"}
+              text={"Categorie"} />
           </View>
           <RoundFilters maximum={3} items={categories} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore} />
-          {descriptionError ?
-            <StepsLabelError text={"Descrizione"} />
-            :
-            <StepsLabel text={"Descrizione"} />
-          }
+          <StepsLabel error={descriptionError} text={"Descrizione"} />
           <FormTextInput
             large="true"
             multiline
@@ -132,7 +116,6 @@ export function Descrizione({ navigation }) {
             style={FormStyles.large}
             value={description}
           />
-
           <View style={styles.buttonWrapper}>
             <RoundButtonEmptyUniversal text={"INDIETRO"} color={"#10476C"} onPress={() => navigation.navigate("Presentazione")} />
             <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />

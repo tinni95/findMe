@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { StepsLabel } from "./StepsLabel";
+import { StepsLabel } from "../shared/StepsLabel";
 import FormTextInput from "../shared/Form/FormTextInput";
 import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne";
 import RoundButton from '../../components/shared/RoundButton';
