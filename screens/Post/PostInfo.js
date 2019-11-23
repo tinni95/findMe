@@ -19,7 +19,7 @@ export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden,
             </View>
             <View style={styles.line}>
                 {user ?
-                    <View>
+                    <View style={{ flexDirection: "row" }}>
                         <Body>Pubblicato Da:</Body>
                         {!isHidden ?
                             <Body style={styles.grigio}>

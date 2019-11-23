@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
   line: {
     width: width,
-    height: 15,
+    height: 2.5,
     backgroundColor: "#EBEBEB"
   },
   checkBoxWrapper: { flexDirection: "row", alignItems: "center", justifyContent: "center" }

@@ -1,7 +1,7 @@
 import React from "react";
 var _ = require("lodash");
 
-export const Settori = ["Abbigliamento", "Alberghiero", "Arte e Cultura", "Bar e Ristorazione", "Benessere e Salute", "Edilizia", "Energia e Ambiente", "Formazione", "Forniture", "Informatica e Telecomunicazioni", "Intrattenimento", "Marketing", "Direzione", "Motori", "Servizi per Privati", "Servizi per Aziende", "Servizi di Intermediazione", "Servizi Finanziari", "Servizi Immobiliari", "Sport", "Trasporti", "Turismo", "Vendita al Dettaglio", "Economia", "Scienze", "Altro"];
+export const Settori = ["Abbigliamento", "Alberghiero", "Arte e Cultura", "Bar e Ristorazione", "Benessere e Salute", "Edilizia", "Energia e Ambiente", "Formazione", "Forniture", "Informatica e Telecomunicazioni", "Intrattenimento", "Marketing", "Direzione", "Motori", "Servizi Finanziari", "Servizi Immobiliari", "Servizi Professionali", "Sport", "Trasporti", "Turismo", "Vendita al Dettaglio", "Economia", "Scienze", "Altro"];
 
 export const Requisiti = [
     "Laurea Di Primo Livello",
@@ -47,7 +47,7 @@ export const TitoliPosizioni = [
         categoria: "Direzione"
     }, {
         titolo: "Contabile",
-        categoria: "Servizi per Aziende"
+        categoria: "Servizi Professionali"
     }, {
         titolo: "Front-End Developer",
         categoria: "Informatica e Telecomunicazioni"
@@ -59,22 +59,18 @@ export const TitoliPosizioni = [
         categoria: "Informatica e Telecomunicazioni"
     }, {
         titolo: "Customer Support",
-        categoria: "Servizi per Aziende"
+        categoria: "Servizi Professionali"
     }, {
         titolo: "Risorse Umane",
-        categoria: "Servizi per Aziende"
+        categoria: "Servizi Professionali"
     },
     {
         titolo: "Legale",
-        categoria: "Servizi per Aziende"
-    },
-    {
-        titolo: "Legale",
-        categoria: "Servizi per Privati"
+        categoria: "Servizi Professionali"
     },
     {
         titolo: "Vendite",
-        categoria: "Servizi per Aziende"
+        categoria: "Servizi Professionali"
     },
     {
         titolo: "Designer di interni",
@@ -162,25 +158,16 @@ export const TitoliPosizioni = [
     },
     {
         titolo: "Consulente Aziendale",
-        categoria: "Servizi per Aziende"
+        categoria: "Servizi Professionali"
     },
     {
         titolo: "Commercialista",
-        categoria: "Servizi per Aziende"
+        categoria: "Servizi Professionali"
     },
     {
         titolo: "Contabile",
-        categoria: "Servizi per Aziende"
+        categoria: "Servizi Professionali"
     },
-    {
-        titolo: "Contabile",
-        categoria: "Servizi per Aziende"
-    },
-    {
-        titolo: "Contabile",
-        categoria: "Analista Finanziaro"
-    },
-
 ]
 
 export const indexOfPosition = (positions, position) => {

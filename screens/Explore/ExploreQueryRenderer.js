@@ -11,7 +11,6 @@ const posts = gql`
     id
     title
     description
-    startDate
     fields
     comune
     regione

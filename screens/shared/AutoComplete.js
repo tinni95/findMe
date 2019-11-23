@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
+import { ScrollView, TextInput, View, StyleSheet, TouchableOpacity, Keyboard } from "react-native";
 import { FormStyles } from "./Form/FormStyles";
 import { Bold, Light } from '../../components/StyledText';
+import { Ionicons } from '@expo/vector-icons';
 const shortid = require('shortid');
 
 export function AutoComplete({ navigation }) {
@@ -13,8 +14,15 @@ export function AutoComplete({ navigation }) {
     let filteredItems = items.filter(item => isFor != "Requisiti" ? item.titolo.toLowerCase().includes(text.toLowerCase()) : item.toLowerCase().includes(text.toLowerCase()));
     filteredItems = filteredItems.length == 0 ? [text] : filteredItems;
     const renderItems = filteredItems.map(item => {
-        let objectToPass = isFor == "Requisiti" ? { title: item, for: isFor } : { title: item.titolo, categoria: item.categoria, for: isFor };
-        return <TouchableOpacity onPress={() => navigation.navigate(path, objectToPass)} key={shortid.generate()} style={styles.item}><Light style={styles.itemText}>{isFor == "Requisiti" ? item : item.titolo}</Light></TouchableOpacity>
+        let objectToPass = isFor == "Requisiti" || filteredItems[0] == text ? { title: item, for: isFor } : { title: item.titolo, categoria: item.categoria, for: isFor };
+        return <TouchableOpacity onPress={() => navigation.navigate(path, objectToPass)} key={shortid.generate()} style={styles.item}>
+            <Ionicons
+                name={"ios-search"}
+                size={22}
+                style={{ padding: 5 }}
+                color={"#26547C"}
+            /><Light style={styles.itemText}>{isFor == "Requisiti" || filteredItems[0] == text ? item : item.titolo}</Light>
+        </TouchableOpacity>
     })
 
     useEffect(() => {
@@ -30,7 +38,7 @@ export function AutoComplete({ navigation }) {
                 <Bold style={styles.cancelButton}>Cancella</Bold>
             </TouchableOpacity>
         </View>
-        <ScrollView style={{ marginTop: 25 }}>
+        <ScrollView onScrollBeginDrag={Keyboard.dismiss} style={{ marginTop: 25 }}>
             {renderItems}
         </ScrollView>
     </View>)
@@ -61,7 +69,8 @@ const styles = StyleSheet.create({
     item: {
         marginLeft: 15,
         borderBottomWidth: 0.5,
-        borderBottomColor: "#B19393"
+        borderBottomColor: "#B19393",
+        flexDirection: "row"
     },
     itemText: {
         color: "#26547C",

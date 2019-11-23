@@ -23,7 +23,7 @@ export default function PostScreen({ post, navigation }) {
         regione={post.regione}
         comune={post.comune}
       />
-      <PostInfo tipoSocio={post.tipoSocio} pubblicatoDa={post.pubblicatoDa}
+      <PostInfo tipoSocio={post.type} pubblicatoDa={post.pubblicatoDa}
         fields={post.fields}
         posizione={post.posizione} />
       <View style={styles.DesriptionContainer}>

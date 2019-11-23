@@ -13,10 +13,11 @@ const User = gql`
 
 export default function LandingPageWrapper({ navigation }) {
   const { loading, error, data } = useQuery(User);
+
   useEffect(() => {
-    data ? navigation.navigate('MainTabNavigator') && console.log(data) :
+    data ? navigation.navigate('MainTabNavigator') :
       navigation.navigate('LandingPage');
-  }, [])
+  }, [data])
 
   return <FindMeSpinner />;
 }

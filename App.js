@@ -16,6 +16,7 @@ const cache = new InMemoryCache();
 const client = new ApolloClient({
   request: async (operation) => {
     const token = await AsyncStorage.getItem(TOKEN_KEY);
+    console.log("token", token)
     operation.setContext({
       headers: {
         authorization: token ? `Bearer ${token}` : ''

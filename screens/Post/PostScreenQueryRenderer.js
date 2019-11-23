@@ -14,7 +14,7 @@ query PostScreenQueryRendererQuery($postId: ID!) {
     comune
     regione
     fields
-    tipoSocio
+    type
     posizione
     pubblicatoDa
     positions {

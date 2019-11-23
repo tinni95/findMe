@@ -39,7 +39,7 @@ export function PositionCardModifica({ position, buttonText, buttonOnPress, tras
           </Light>
         </View>
         <View style={styles.spacer} />
-        <View style={{ marginTop: 10, flexDirection: "row", justifyContent: "space-between" }}>
+        <View style={{ marginTop: 20, flexDirection: "row", justifyContent: "space-between" }}>
           <View style={styles.ButtonWrapper}>
             <RoundButton onPress={buttonOnPress} text={buttonText} textColor={"white"} color={"#10476C"} />
           </View>
