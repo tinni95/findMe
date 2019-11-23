@@ -84,6 +84,7 @@ export function Posizioni({ navigation, settore }) {
 
   const resetState = () => {
     passedTitle = null
+    passedCategoria = null
     setTitle("");
     setDescription("");
     setSocio("");
@@ -238,7 +239,10 @@ export function Posizioni({ navigation, settore }) {
                 :
                 <View style={FormStyles.requisitiL}>
                   {requirements()}
-                  <Light onPress={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: Requisiti, for: "Requisiti" })} style={{ fontSize: 40, color: "#26547C", marginLeft: 10, alignSelf: "center" }}>+</Light>
+                  <Light onPress={() => {
+                    setActive(-1);
+                    navigation.navigate("AutoComplete", { path: "Posizioni", items: Requisiti, for: "Requisiti" })
+                  }} style={{ fontSize: 40, color: "#26547C", marginLeft: 10, alignSelf: "center" }}>+</Light>
                 </View>
               }
             </View>
