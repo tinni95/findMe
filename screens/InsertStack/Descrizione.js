@@ -13,6 +13,10 @@ import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
 import { isBigDevice } from '../../constants/Layout';
 import { Settori } from "./helpers";
+import TooltipButtonInfo from '../shared/TooltipButtonInfo';
+import CustomTooltip from '../shared/CustomTooltip';
+import { Light } from '../../components/StyledText';
+
 const POST_DESCRIZIONE = gql`
   query DescrizioneQuery {
     postTitle @client
@@ -100,11 +104,14 @@ export function Descrizione({ navigation }) {
               style={titleError ? FormStyles.inputError : FormStyles.input}
             />
           </WithErrorString>
-          {settoreError ?
-            <StepsLabelError text={"Categorie"} />
-            :
-            <StepsLabel text={"Categorie (es. Economia,Ingegneria..)"} />
-          }
+          <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center" }}>
+            {settoreError ?
+              <StepsLabelError text={"Categorie"} />
+              :
+              <StepsLabel text={"Categorie"} />
+            }
+            <CustomTooltip questionMark={() => <View style={{ height: 20, width: 20, marginTop: 7.5, marginLeft: 5, borderRadius: 10, backgroundColor: "#EBEBEB", justifyContent: "center", alignItems: "center" }}><Light style={{ fontSize: 14 }}>?</Light></View>} tooltipText={"Puoi aggiungere un massimo di 3 categorie"}></CustomTooltip>
+          </View>
           <RoundFilters maximum={3} items={categories} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore} />
           {descriptionError ?
             <StepsLabelError text={"Descrizione"} />

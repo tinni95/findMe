@@ -103,7 +103,9 @@ export function Presentazione({ navigation }) {
                     :
                     <StepsLabel text={"Mi Propongo Come"} />
                 }
+                <View style={styles.spacer} />
                 <RoundFiltersOne setItem={tipoSocio => setPostOwner(tipoSocio)} settori={TipoSocio} settoreAttivi={activeIndex} />
+                <View style={styles.spacer} />
                 <View style={styles.PosizioniTitleWrapper}>
                     {positionError ?
                         <StepsLabelError text={"La Mia Funzione"} />
@@ -157,7 +159,5 @@ const styles = StyleSheet.create({
     header: {
         flex: 1.5
     },
-    PosizioniTitleWrapper: {
-        marginTop: 20
-    }
+    spacer: { height: 10 }
 });

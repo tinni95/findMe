@@ -32,6 +32,6 @@ export default function RoundFiltersOne({ inactive, settori, setItem, settoreAtt
 const styles = StyleSheet.create({
     wrapper: {
         flexDirection: "row",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
     }
 });
