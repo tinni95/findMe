@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import { StepsIndicator } from "./stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import WithErrorString from "../shared/Form/WithErrorString";
@@ -13,7 +13,6 @@ import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
 import { isBigDevice } from '../../constants/Layout';
 import { Settori } from "./helpers";
-import TooltipButtonInfo from '../shared/TooltipButtonInfo';
 import CustomTooltip from '../shared/CustomTooltip';
 import { Light } from '../../components/StyledText';
 
@@ -110,7 +109,11 @@ export function Descrizione({ navigation }) {
               :
               <StepsLabel text={"Categorie"} />
             }
-            <CustomTooltip questionMark={() => <View style={{ height: 20, width: 20, marginTop: 7.5, marginLeft: 5, borderRadius: 10, backgroundColor: "#EBEBEB", justifyContent: "center", alignItems: "center" }}><Light style={{ fontSize: 14 }}>?</Light></View>} tooltipText={"Puoi aggiungere un massimo di 3 categorie"}></CustomTooltip>
+            {Platform.OS == "web" ?
+              <TouchableOpacity onPress={() => alert("Puoi aggiungere un massimo di 3 categorie")} style={{ height: 20, width: 20, marginTop: 7.5, marginLeft: 5, borderRadius: 10, backgroundColor: "#EBEBEB", justifyContent: "center", alignItems: "center" }}><Light style={{ fontSize: 14 }}>?</Light></TouchableOpacity>
+              :
+              <CustomTooltip questionMark={() => <View style={{ height: 20, width: 20, marginTop: 7.5, marginLeft: 5, borderRadius: 10, backgroundColor: "#EBEBEB", justifyContent: "center", alignItems: "center" }}><Light style={{ fontSize: 14 }}>?</Light></View>} tooltipText={"Puoi aggiungere un massimo di 3 categorie"}></CustomTooltip>
+            }
           </View>
           <RoundFilters maximum={3} items={categories} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore} />
           {descriptionError ?
