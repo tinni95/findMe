@@ -1,13 +1,13 @@
-import React ,{useState}from 'react';
-import { View, Image,Text, TextInput, AsyncStorage, StyleSheet } from 'react-native';
-import AvoidingView from './AvoidingView';
+import React, { useState } from 'react';
+import { View, Text, TextInput, AsyncStorage, StyleSheet } from 'react-native';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { isSmallDevice } from '../../constants/Layout';
-import {FormStyles} from '../shared/Form/FormStyles';
+import { FormStyles } from '../shared/Form/FormStyles';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import FindMeSpinner from "../../shared/FindMeSpinner";
+import Colors from '../../constants/Colors';
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -17,62 +17,59 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-export default function LoginScreen ({navigation}) {
+export default function LoginScreen({ navigation }) {
     const [
         login,
-        { loading: mutationLoading, error: mutationError,error,data },
-      ] = useMutation(LOGIN_MUTATION,
+        { loading: mutationLoading, error: mutationError, error, data },
+    ] = useMutation(LOGIN_MUTATION,
         {
             onCompleted: async ({ login }) => {
-                await AsyncStorage.setItem(TOKEN_KEY, login.token);
-                navigation.navigate("MainTabNavigator")
+                AsyncStorage.setItem(TOKEN_KEY, login.token).then(() => {
+                    navigation.navigate("MainTabNavigator")
+                })
             }
-          });
-      const [email, setEmail] = useState("");
-      const [password, setPassword] = useState("");
-      const emailError=mutationError && error.message.toString().includes("user");
-      const passwordError=mutationError && error.message.toString().includes("password");
-        
-        return (
-            mutationLoading ? 
-            <FindMeSpinner/>
+        });
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const emailError = mutationError && error.message.toString().includes("user");
+    const passwordError = mutationError && error.message.toString().includes("password");
+
+    return (
+        mutationLoading ?
+            <FindMeSpinner />
             :
             <View style={styles.container}>
                 <View style={styles.formContainer}>
                     <TextInput
-                        style={emailError?FormStyles.inputError : FormStyles.input}
+                        style={emailError ? FormStyles.inputError : FormStyles.input}
                         placeholder="Email"
                         value={email}
                         onChangeText={email => setEmail(email)}
                     />
-                {emailError &&
-                <Text style={FormStyles.error}>email invalida</Text>
-                }
+                    {emailError && <Text style={FormStyles.error}>email invalida</Text>}
                     <TextInput
-                        style={passwordError?FormStyles.inputError : FormStyles.input}
+                        style={passwordError ? FormStyles.inputError : FormStyles.input}
                         placeholder="Password"
                         secureTextEntry
                         value={password}
                         onChangeText={password => setPassword(password)}
                     />
-                       {passwordError &&
-                <Text style={FormStyles.error}>password invalida</Text>
-                }
+                    {passwordError && <Text style={FormStyles.error}>password invalida</Text>}
                 </View>
                 <View style={styles.buttonsContainer}>
                     <RoundButton
                         onPress={() => {
                             let emails = email.toString().toLowerCase();
-                            login({variables: { email:emails,password}});
+                            login({ variables: { email: emails, password } });
                         }}
                         isLong
-                        fontColor="#DD1E63"
+                        fontColor={Colors.red}
                         text="ACCEDI"
-                        color="#DD1E63"
+                        color={Colors.red}
                     />
                 </View>
             </View>
-        );
+    );
 }
 
 const styles = StyleSheet.create({

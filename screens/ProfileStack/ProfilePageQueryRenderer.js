@@ -9,6 +9,8 @@ const User = gql`
   {
     currentUser {
       email
+      nome
+      cognome
     }
   }
 `;

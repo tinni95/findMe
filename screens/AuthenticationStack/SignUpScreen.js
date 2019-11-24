@@ -20,9 +20,6 @@ const SIGNUP_MUTATION = gql`
     }
   }
 `;
-const _asyncStorageSaveToken = async token => {
-  await AsyncStorage.setItem(TOKEN_KEY, token);
-};
 
 export default function SignUpScreenUser({ navigation }) {
   const [
@@ -80,28 +77,8 @@ export default function SignUpScreenUser({ navigation }) {
       await setRepasswordError(false)
     }
     if (validateForm()) {
-      setEmail(email.toLowerCase())
-      signup({ variables: { email, password, nome: name, cognome: surname } })
-    }
-  };
-
-  //Signup Function
-  const signUp = async () => {
-    setEmail(email.toString().toLowerCase())
-    const response = await SignUp({ email, password, nome, cognome });
-    if (response && response.signup) {
-      const { token } = response.signup;
-      await _asyncStorageSaveToken(token);
-      navigation.navigate('MainTabNavigator');
-    } else {
-      const { message } = response.res.errors[0];
-      if (
-        message === 'A unique constraint would be violated on User. Details: Field name = email'
-      ) {
-        alert("l'email inserita è già in uso");
-      } else {
-        alert('si è verificato un errore, per favore riprova più tardi');
-      }
+      let emails = email.toLowerCase();
+      signup({ variables: { email: emails, password, nome: name, cognome: surname } })
     }
   };
 

@@ -4,7 +4,7 @@ import { CheckBox as Checkbox } from 'react-native-elements'
 import { Light } from '../../components/StyledText';
 import { StepsIndicator } from "./stepsIndicator";
 import PostScreenConfirm from "../../screens/Post/PostScreenConfirm";
-import { useApolloClient, useQuery } from '@apollo/react-hooks';
+import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { ScrollView } from 'react-native-gesture-handler';
 import RoundButton from '../../components/shared/RoundButton';
@@ -28,16 +28,44 @@ const POST_ANTEPRIMA = gql`
   }
 `;
 
+const CREATEPOST_MUTATION = gql`
+mutation createPost($title: String!, $description: String!,$regione: String!, $comune: String!, $fields:PostCreatefieldsInput!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyInput!) {
+  createPost(title: $title, description:$description, regione:$regione,comune:$comune,fields:$fields,type:$type,posizione:$posizione, pubblicatoDa:$pubblicatoDa,positions:$positions) {
+      title
+  }
+}`;
+
 export const Anteprima = ({ navigation, user }) => {
   const client = useApolloClient();
+  const [createPost] = useMutation(CREATEPOST_MUTATION,
+    {
+      onCompleted: async ({ createPost }) => {
+        alert("il post " + createPost.title + " è stato pubblicato")
+        client.writeData({
+          data: {}
+        });
+      }
+    });
   const { data } = useQuery(POST_ANTEPRIMA);
   const [checked, setChecked] = useState(false);
   const pubblica = () => {
-    client.writeData({
-      data: {
-
+    data.postPositions.forEach(position => {
+      delete position["__typename"]
+    })
+    createPost({
+      variables: {
+        title: data.postTitle,
+        description: data.postDescription,
+        posizione: data.postOwnerPosition,
+        regione: "campania",
+        comune: "macerata",
+        fields: { set: data.postCategories },
+        type: data.postOwnerPosition,
+        pubblicatoDa: checked ? user.nome[0] + user.cognome : user.nome + " " + user.cognome,
+        posizione: data.postOwnerPosition,
+        positions: { create: data.postPositions }
       }
-    });
+    })
   }
   //if first page data is missing, we go back to it
   useEffect(() => {
