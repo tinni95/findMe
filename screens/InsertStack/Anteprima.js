@@ -42,8 +42,17 @@ export const Anteprima = ({ navigation, user }) => {
       onCompleted: async ({ createPost }) => {
         alert("il post " + createPost.title + " è stato pubblicato")
         client.writeData({
-          data: {}
+          data: {
+            postLocation: "",
+            postOwnerPosition: "",
+            postTitle: "",
+            postDescription: "",
+            postOwner: "",
+            postCategories: [],
+            postPositions: []
+          },
         });
+        navigation.navigate("Presentazione")
       }
     });
   const { data } = useQuery(POST_ANTEPRIMA);
@@ -78,7 +87,7 @@ export const Anteprima = ({ navigation, user }) => {
     else if (data.postPositions === "") {
       navigation.navigate("Posizioni")
     }
-  }, [])
+  }, [data])
   const post = {
     fields: data.postCategories,
     title: data.postTitle,
