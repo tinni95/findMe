@@ -6,9 +6,10 @@ import { TOKEN_KEY } from '../../shared/Token';
 export default function ProfilePage({ user, navigation }) {
 
   const logout = async () => {
-    AsyncStorage.removeItem(TOKEN_KEY).then(() => {
+    AsyncStorage.setItem(TOKEN_KEY, (null)).then(() => {
       navigation.navigate("AuthenticationStack")
     })
+
   }
 
   return (

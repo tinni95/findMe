@@ -1,7 +1,7 @@
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
-import React, { useState } from 'react';
-import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AppNavigator from './navigation/AppNavigator';
 import ApolloClient from 'apollo-boost';
@@ -10,23 +10,8 @@ import { graphlEndPoint } from "./shared/urls";
 import { TOKEN_KEY } from "./shared/Token"
 import { resolvers, typeDefs } from './resolvers';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-const cache = new InMemoryCache();
 
-const client = new ApolloClient({
-  request: async (operation) => {
-    const token = await AsyncStorage.getItem(TOKEN_KEY);
-    console.log("token", token)
-    operation.setContext({
-      headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
-    })
-  },
-  uri: graphlEndPoint,
-  cache,
-  resolvers,
-  typeDefs
-})
+const cache = new InMemoryCache();
 
 cache.writeData({
   data: {
@@ -42,8 +27,35 @@ cache.writeData({
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+  const [client, setClient] = useState(null)
+  let token;
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
+  async function fetchToken() {
+    token = await AsyncStorage.getItem(TOKEN_KEY);
+    console.log("token", token)
+  }
+  async function makeClient() {
+    setClient(await new ApolloClient({
+      request: (operation) => {
+        operation.setContext({
+          headers: {
+            authorization: token ? `Bearer ${token}` : ''
+          }
+        })
+      },
+      uri: graphlEndPoint,
+      cache,
+      resolvers,
+      typeDefs
+    }))
+  }
+
+
+  useEffect(() => {
+    fetchToken().then(() => makeClient())
+  }, [])
+
+  if (!isLoadingComplete || !client) {
     return (
       <AppLoading
         startAsync={loadResourcesAsync}
@@ -55,7 +67,6 @@ export default function App(props) {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <AppNavigator />
       </View>
     </ApolloProvider>

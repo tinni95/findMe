@@ -42,7 +42,6 @@ export function Presentazione({ navigation }) {
     })
 
     useEffect(() => {
-        console.log("activeIndex", activeIndex)
         activeIndex !== -1 ? setPostOwner(data.postOwner) : null
     }, [])
 
