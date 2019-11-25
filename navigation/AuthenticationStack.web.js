@@ -1,3 +1,4 @@
+import { createBrowserApp } from "@react-navigation/web";
 import { createStackNavigator } from "react-navigation";
 
 import {
@@ -7,8 +8,10 @@ import {
   SignUpScreen
 } from "../screens/AuthenticationStack";
 
-export default createStackNavigator({
+const stackNavigator = createStackNavigator({
   LandingPage,
   LoginScreen,
   SignUpScreen
 });
+
+export default createBrowserApp(stackNavigator, { history: "hash" });

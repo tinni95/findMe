@@ -21,7 +21,7 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-export default function SignUpScreenUser({ navigation }) {
+export default function SignUpScreen({ navigation, changeLoginState }) {
   const [
     signup,
     { loading: mutationLoading, error: mutationError, error, data },
@@ -29,7 +29,7 @@ export default function SignUpScreenUser({ navigation }) {
     {
       onCompleted: async ({ signup }) => {
         await AsyncStorage.setItem(TOKEN_KEY, signup.token);
-        navigation.navigate("MainTabNavigator")
+        changeLoginState();
       }
     });
   const [name, setName] = useState("")

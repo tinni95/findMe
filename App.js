@@ -10,6 +10,8 @@ import { graphlEndPoint } from "./shared/urls";
 import { TOKEN_KEY } from "./shared/Token"
 import { resolvers, typeDefs } from './resolvers';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import MainTabNavigator from './navigation/MainTabNavigator/MainTabNavigator';
+import AuthenticationStack from './navigation/AuthenticationStack';
 
 const cache = new InMemoryCache();
 
@@ -28,12 +30,14 @@ cache.writeData({
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
+  const [loggedin, setLoggedin] = useState(false)
   let token;
 
   async function fetchToken() {
     token = await AsyncStorage.getItem(TOKEN_KEY);
     console.log("token", token)
   }
+
   async function makeClient() {
     setClient(await new ApolloClient({
       request: (operation) => {
@@ -49,7 +53,6 @@ export default function App(props) {
       typeDefs
     }))
   }
-
 
   useEffect(() => {
     fetchToken().then(() => makeClient())
@@ -67,7 +70,8 @@ export default function App(props) {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        <AppNavigator />
+        {loggedin ? <MainTabNavigator screenProps={{ changeLoginState: () => setLoggedin(!loggedin) }} /> :
+          <AuthenticationStack screenProps={{ changeLoginState: () => setLoggedin(!loggedin) }} />}
       </View>
     </ApolloProvider>
   );
