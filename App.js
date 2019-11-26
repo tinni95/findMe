@@ -3,13 +3,14 @@ import * as Font from 'expo-font';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import AppNavigator from './navigation/AppNavigator';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { graphlEndPoint } from "./shared/urls";
 import { TOKEN_KEY } from "./shared/Token"
 import { resolvers, typeDefs } from './resolvers';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import MainTabNavigator from './navigation/MainTabNavigator/MainTabNavigator';
+import AuthenticationStack from './navigation/AuthenticationStack';
 
 const cache = new InMemoryCache();
 
@@ -25,15 +26,16 @@ cache.writeData({
   },
 });
 
-export default function App(props) {
+export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
+  const [loggedin, setLoggedin] = useState(false)
   let token;
 
   async function fetchToken() {
     token = await AsyncStorage.getItem(TOKEN_KEY);
-    console.log("token", token)
   }
+
   async function makeClient() {
     setClient(await new ApolloClient({
       request: (operation) => {
@@ -50,9 +52,16 @@ export default function App(props) {
     }))
   }
 
+  function login() {
+    fetchToken().then(() => makeClient()).then(() => setLoggedin(!loggedin))
+  }
+
+  function logout() {
+    fetchToken().then(() => makeClient()).then(() => setLoggedin(!loggedin))
+  }
 
   useEffect(() => {
-    fetchToken().then(() => makeClient())
+    fetchToken().then(() => makeClient()).then(() => token ? setLoggedin(true) : setLoggedin(false))
   }, [])
 
   if (!isLoadingComplete || !client) {
@@ -67,7 +76,8 @@ export default function App(props) {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        <AppNavigator />
+        {loggedin ? <MainTabNavigator screenProps={{ changeLoginState: () => logout() }} /> :
+          <AuthenticationStack screenProps={{ changeLoginState: () => login() }} />}
       </View>
     </ApolloProvider>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import ProfilePage from "./ProfilePage"
@@ -15,13 +15,12 @@ const User = gql`
   }
 `;
 
-export default function ProfilePagPeRenderer({ navigation }) {
+export default function ProfilePageRenderer({ navigation, screenProps }) {
   const { loading, error, data } = useQuery(User);
-
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
   if (!data || !data.currentUser) navigation.navigate("AuthenticationStack")
-  return <ProfilePage navigation={navigation} user={data.currentUser} />;
+  return <ProfilePage screenProps={screenProps} navigation={navigation} user={data.currentUser} />;
 }
 
 

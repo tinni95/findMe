@@ -21,7 +21,7 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-export default function SignUpScreenUser({ navigation }) {
+export default function SignUpScreen({ screenProps }) {
   const [
     signup,
     { loading: mutationLoading, error: mutationError, error, data },
@@ -29,7 +29,7 @@ export default function SignUpScreenUser({ navigation }) {
     {
       onCompleted: async ({ signup }) => {
         await AsyncStorage.setItem(TOKEN_KEY, signup.token);
-        navigation.navigate("MainTabNavigator")
+        screenProps.changeLoginState();
       }
     });
   const [name, setName] = useState("")
@@ -40,7 +40,6 @@ export default function SignUpScreenUser({ navigation }) {
   const [nameError, setNameError] = useState(false)
   const [surnameError, setSurnameError] = useState(false)
   const [emailError, setEmailError] = useState(false)
-  const [emailUsed, setEmailUsed] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [repasswordError, setRepasswordError] = useState(false)
   const isEmailUsed = mutationError && error.message.toString().includes("A unique constraint would be violated on User");
@@ -56,7 +55,7 @@ export default function SignUpScreenUser({ navigation }) {
     } else {
       await setNameError(false)
     }
-    if (!validateName(surname) || isEmailUsed) {
+    if (!validateName(surname)) {
       await setSurnameError(true)
     } else {
       await setSurnameError(false)
@@ -132,7 +131,7 @@ export default function SignUpScreenUser({ navigation }) {
             </View>
           </View>
           <TextInput
-            style={emailError || emailUsed ? FormStyles.inputError : FormStyles.input}
+            style={emailError || isEmailUsed ? FormStyles.inputError : FormStyles.input}
             placeholder="Email"
             placeholderTextColor="#ADADAD"
             onChangeText={val => setEmail(val)}
@@ -141,8 +140,8 @@ export default function SignUpScreenUser({ navigation }) {
           />
           {emailError ? (
             <Bold style={FormStyles.error}>Email non valida</Bold>
-          ) : emailUsed ? (
-            <Bold style={FormStyles.error}>Email già in uso</Bold>
+          ) : isEmailUsed ? (
+            alert("l'e-mail è gia in uso ")
           ) : (
                 <View style={styles.separator} />
               )}

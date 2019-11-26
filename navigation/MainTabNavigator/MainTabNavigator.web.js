@@ -1,4 +1,5 @@
-import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
+import { createBrowserApp } from "@react-navigation/web";
+import { createBottomTabNavigator } from 'react-navigation';
 import HomeStack from './HomeStack';
 import LinksStack from './LinksStack';
 import InsertStack from './InsertStack';
@@ -15,4 +16,4 @@ const MainTabNavigator = createBottomTabNavigator({
 
 MainTabNavigator.path = '';
 
-export default createAppContainer(MainTabNavigator);
+export default createBrowserApp(MainTabNavigator, { history: "hash" });

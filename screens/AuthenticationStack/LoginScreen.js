@@ -17,7 +17,7 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ screenProps }) {
     const [
         login,
         { loading: mutationLoading, error: mutationError, error, data },
@@ -25,7 +25,7 @@ export default function LoginScreen({ navigation }) {
         {
             onCompleted: async ({ login }) => {
                 AsyncStorage.setItem(TOKEN_KEY, login.token).then(() => {
-                    navigation.navigate("MainTabNavigator")
+                    screenProps.changeLoginState()
                 })
             }
         });
