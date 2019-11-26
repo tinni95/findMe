@@ -3,11 +3,11 @@ import { Text, View, StyleSheet, AsyncStorage } from 'react-native';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { TOKEN_KEY } from '../../shared/Token';
 
-export default function ProfilePage({ user, navigation }) {
+export default function ProfilePage({ user, screenProps }) {
 
   const logout = async () => {
     AsyncStorage.removeItem(TOKEN_KEY).then(() => {
-      navigation.navigate("AuthenticationStack")
+      screenProps.changeLoginState();
     })
 
   }

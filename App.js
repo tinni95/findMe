@@ -35,7 +35,6 @@ export default function App(props) {
 
   async function fetchToken() {
     token = await AsyncStorage.getItem(TOKEN_KEY);
-    console.log("token", token)
   }
 
   async function makeClient() {
@@ -52,6 +51,10 @@ export default function App(props) {
       resolvers,
       typeDefs
     }))
+  }
+
+  function changeLoginState() {
+    fetchToken().then(() => makeClient()).then(() => setLoggedin(!loggedin))
   }
 
   useEffect(() => {
@@ -71,7 +74,7 @@ export default function App(props) {
     <ApolloProvider client={client}>
       <View style={styles.container}>
         {loggedin ? <MainTabNavigator screenProps={{ changeLoginState: () => setLoggedin(!loggedin) }} /> :
-          <AuthenticationStack screenProps={{ changeLoginState: () => setLoggedin(!loggedin) }} />}
+          <AuthenticationStack screenProps={{ changeLoginState: () => changeLoginState() }} />}
       </View>
     </ApolloProvider>
   );
