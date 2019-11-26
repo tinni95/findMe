@@ -10,7 +10,7 @@ const MainTabNavigator = createBottomTabNavigator({
   HomeStack,
   InsertStack,
   ServiziStack,
-  ProfileStack
+  ProfileStack: props => <ProfileStack {...props}></ProfileStack>
 });
 
 MainTabNavigator.path = '';

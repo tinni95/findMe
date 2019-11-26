@@ -53,7 +53,11 @@ export default function App(props) {
     }))
   }
 
-  function changeLoginState() {
+  function login() {
+    fetchToken().then(() => makeClient()).then(() => setLoggedin(!loggedin))
+  }
+
+  function logout() {
     fetchToken().then(() => makeClient()).then(() => setLoggedin(!loggedin))
   }
 
@@ -73,8 +77,8 @@ export default function App(props) {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        {loggedin ? <MainTabNavigator screenProps={{ changeLoginState: () => setLoggedin(!loggedin) }} /> :
-          <AuthenticationStack screenProps={{ changeLoginState: () => changeLoginState() }} />}
+        {loggedin ? <MainTabNavigator screenProps={{ changeLoginState: () => logout() }} /> :
+          <AuthenticationStack screenProps={{ changeLoginState: () => login() }} />}
       </View>
     </ApolloProvider>
   );

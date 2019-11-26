@@ -2,7 +2,6 @@ import { createStackNavigator } from "react-navigation";
 
 import {
   LoginScreen,
-  LandingPageWrapper,
   LandingPage,
   SignUpScreen
 } from "../screens/AuthenticationStack";
