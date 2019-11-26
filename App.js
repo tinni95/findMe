@@ -3,7 +3,6 @@ import * as Font from 'expo-font';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import AppNavigator from './navigation/AppNavigator';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { graphlEndPoint } from "./shared/urls";
@@ -27,7 +26,7 @@ cache.writeData({
   },
 });
 
-export default function App(props) {
+export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
   const [loggedin, setLoggedin] = useState(false)
@@ -62,7 +61,7 @@ export default function App(props) {
   }
 
   useEffect(() => {
-    fetchToken().then(() => makeClient())
+    fetchToken().then(() => makeClient()).then(() => token ? setLoggedin(true) : setLoggedin(false))
   }, [])
 
   if (!isLoadingComplete || !client) {

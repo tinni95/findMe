@@ -56,7 +56,7 @@ export default function SignUpScreen({ screenProps }) {
     } else {
       await setNameError(false)
     }
-    if (!validateName(surname) || isEmailUsed) {
+    if (!validateName(surname)) {
       await setSurnameError(true)
     } else {
       await setSurnameError(false)
