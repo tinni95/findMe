@@ -4,7 +4,7 @@ import TabBarIcon from '../../components/TabBarIcon';
 import ProfilePageQueryRenderer from '../../screens/ProfileStack';
 
 const ProfileStack = createStackNavigator({
-  ProfilePageQueryRenderer: props => <ProfilePageQueryRenderer {...props}></ProfilePageQueryRenderer>
+  ProfilePageQueryRenderer
 });
 
 ProfileStack.navigationOptions = {

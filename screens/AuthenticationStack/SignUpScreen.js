@@ -21,7 +21,7 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-export default function SignUpScreen({ navigation, screenProps }) {
+export default function SignUpScreen({ screenProps }) {
   const [
     signup,
     { loading: mutationLoading, error: mutationError, error, data },
