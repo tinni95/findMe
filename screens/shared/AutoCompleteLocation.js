@@ -3,17 +3,32 @@ import { ScrollView, TextInput, View, StyleSheet, TouchableOpacity } from "react
 import { FormStyles } from "./Form/FormStyles";
 import { Light, Bold } from '../../components/StyledText';
 import { comuni } from "./comuni";
+import { Ionicons } from "@expo/vector-icons";
+import Colors from "../../constants/Colors";
 const shortid = require('shortid');
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
 export function AutoCompleteLocation({ navigation }) {
     let path = navigation.getParam("path") || "";
-    const [text, setText] = useState("null");
+    const [text, setText] = useState("");
+    const [location, setLocation] = useState("");
     const Input = useRef();
     let filteredComuni = comuni.filter(comune => comune.città.toLowerCase().includes(text.toLowerCase())).slice(0, 25)
     const renderItems = filteredComuni.map(item => {
         return <TouchableOpacity onPress={() => navigation.navigate(path, { location: item.città + ", " + item.provincia + ", " + item.regione })} key={shortid.generate()} style={styles.item}><Light style={styles.itemText}>{item.città + ", " + item.provincia + ", " + item.regione}</Light></TouchableOpacity>
     })
 
+    const getLocation = async () => {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            alert("devi attivare il permesso nelle opzioni")
+        }
+
+        let newLocation = await Location.getCurrentPositionAsync({});
+        setLocation(newLocation);
+        console.log(newLocation);
+    };
 
     useEffect(() => {
         Input.current.focus()
@@ -27,7 +42,17 @@ export function AutoCompleteLocation({ navigation }) {
             </TouchableOpacity>
         </View>
         <ScrollView style={{ marginTop: 25 }}>
-            {renderItems}
+            {text.length == 0 ?
+                <TouchableOpacity onPress={() => getLocation()} style={[styles.item, { flexDirection: "row" }]}>
+                    <Ionicons
+                        name={"ios-pin"}
+                        size={25}
+                        style={{ marginLeft: 3, marginTop: 3 }}
+                        color={Colors.blue}
+                    />
+                    <Light style={styles.itemText}> Usa Posizione Corrente</Light>
+                </TouchableOpacity> :
+                renderItems}
         </ScrollView>
     </View>)
 }
