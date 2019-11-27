@@ -42,7 +42,7 @@ export default function SignUpScreen({ screenProps }) {
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [repasswordError, setRepasswordError] = useState(false)
-  const isEmailUsed = mutationError && error.message.toString().includes("A unique constraint would be violated on User");
+  let isEmailUsed = mutationError && error.message.toString().includes("A unique constraint would be violated on User");
   let surnameInput = useRef();
   let emailInput = useRef();
   let passwordInput = useRef();
@@ -141,7 +141,7 @@ export default function SignUpScreen({ screenProps }) {
           {emailError ? (
             <Bold style={FormStyles.error}>Email non valida</Bold>
           ) : isEmailUsed ? (
-            alert("l'e-mail è gia in uso ")
+            <Bold style={FormStyles.error}>Email gia in uso</Bold>
           ) : (
                 <View style={styles.separator} />
               )}
