@@ -1,2465 +1,3856 @@
-export const italia ={
-    "regioni": [
-        {
-            "province": [
-                {
-                    "code": "CH", 
-                    "comuni": [
+export const comuni =[
                         {
                             "code": "069001", 
                             "cap": "66040", 
-                            "nome": "Altino"
+                            "nome": "Altino",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069002", 
                             "cap": "66044", 
-                            "nome": "Archi"
+                            "nome": "Archi",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069003", 
                             "cap": "66010", 
-                            "nome": "Ari"
+                            "nome": "Ari",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069004", 
                             "cap": "66030", 
-                            "nome": "Arielli"
+                            "nome": "Arielli",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069005", 
                             "cap": "66041", 
-                            "nome": "Atessa"
+                            "nome": "Atessa",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069006", 
                             "cap": "66042", 
-                            "nome": "Bomba"
+                            "nome": "Bomba",  "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069007", 
                             "cap": "66040", 
-                            "nome": "Borrello"
+                            "nome": "Borrello",  "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069008", 
                             "cap": "66011", 
-                            "nome": "Bucchianico"
+                            "nome": "Bucchianico", "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069010", 
                             "cap": "66010", 
-                            "nome": "Canosa Sannita"
+                            "nome": "Canosa Sannita",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069011", 
                             "cap": "66030", 
-                            "nome": "Carpineto Sinello"
+                            "nome": "Carpineto Sinello",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069012", 
                             "cap": "66050", 
-                            "nome": "Carunchio"
+                            "nome": "Carunchio",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069013", 
                             "cap": "66010", 
-                            "nome": "Casacanditella"
+                            "nome": "Casacanditella",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069014", 
                             "cap": "66031", 
-                            "nome": "Casalanguida"
+                            "nome": "Casalanguida",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069015", 
                             "cap": "66021", 
-                            "nome": "Casalbordino"
+                            "nome": "Casalbordino",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069016", 
                             "cap": "66012", 
-                            "nome": "Casalincontrada"
+                            "nome": "Casalincontrada",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069017", 
                             "cap": "66043", 
-                            "nome": "Casoli"
+                            "nome": "Casoli",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069018", 
                             "cap": "66032", 
-                            "nome": "Castel Frentano"
+                            "nome": "Castel Frentano",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069019", 
                             "cap": "66040", 
-                            "nome": "Castelguidone"
+                            "nome": "Castelguidone",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069020", 
                             "cap": "66033", 
-                            "nome": "Castiglione Messer Marino"
+                            "nome": "Castiglione Messer Marino",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069021", 
                             "cap": "66050", 
-                            "nome": "Celenza sul Trigno"
+                            "nome": "Celenza sul Trigno",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069022", 
                             "cap": "66100", 
-                            "nome": "Chieti"
+                            "nome": "Chieti",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069023", 
                             "cap": "66040", 
-                            "nome": "Civitaluparella"
+                            "nome": "Civitaluparella",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069024", 
                             "cap": "66010", 
-                            "nome": "Civitella Messer Raimondo"
+                            "nome": "Civitella Messer Raimondo",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069025", 
                             "cap": "66010", 
-                            "nome": "Colledimacine"
+                            "nome": "Colledimacine",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069026", 
                             "cap": "66040", 
-                            "nome": "Colledimezzo"
+                            "nome": "Colledimezzo",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069027", 
                             "cap": "66014", 
-                            "nome": "Crecchio"
+                            "nome": "Crecchio",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069028", 
                             "cap": "66051", 
-                            "nome": "Cupello"
+                            "nome": "Cupello",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069029", 
                             "cap": "66050", 
-                            "nome": "Dogliola"
+                            "nome": "Dogliola",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069104", 
                             "cap": "66040", 
-                            "nome": "Fallo"
+                            "nome": "Fallo",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069030", 
                             "cap": "66010", 
-                            "nome": "Fara Filiorum Petri"
+                            "nome": "Fara Filiorum Petri",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069031", 
                             "cap": "66015", 
-                            "nome": "Fara San Martino"
+                            "nome": "Fara San Martino",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069032", 
                             "cap": "66030", 
-                            "nome": "Filetto"
+                            "nome": "Filetto",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069033", 
                             "cap": "66022", 
-                            "nome": "Fossacesia"
+                            "nome": "Fossacesia",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069034", 
                             "cap": "66050", 
-                            "nome": "Fraine"
+                            "nome": "Fraine",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069035", 
                             "cap": "66023", 
-                            "nome": "Francavilla al Mare"
+                            "nome": "Francavilla al Mare",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069036", 
                             "cap": "66050", 
-                            "nome": "Fresagrandinaria"
+                            "nome": "Fresagrandinaria",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069037", 
                             "cap": "66030", 
-                            "nome": "Frisa"
+                            "nome": "Frisa",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069038", 
                             "cap": "66050", 
-                            "nome": "Furci"
+                            "nome": "Furci",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069039", 
                             "cap": "66040", 
-                            "nome": "Gamberale"
+                            "nome": "Gamberale",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069040", 
                             "cap": "66010", 
-                            "nome": "Gessopalena"
+                            "nome": "Gessopalena",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069041", 
                             "cap": "66052", 
-                            "nome": "Gissi"
+                            "nome": "Gissi",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069042", 
                             "cap": "66010", 
-                            "nome": "Giuliano Teatino"
+                            "nome": "Giuliano Teatino",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069043", 
                             "cap": "66016", 
-                            "nome": "Guardiagrele"
+                            "nome": "Guardiagrele",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069044", 
                             "cap": "66050", 
-                            "nome": "Guilmi"
+                            "nome": "Guilmi",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069045", 
                             "cap": "66010", 
-                            "nome": "Lama dei Peligni"
+                            "nome": "Lama dei Peligni",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069046", 
                             "cap": "66034", 
-                            "nome": "Lanciano"
+                            "nome": "Lanciano",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069047", 
                             "cap": "66050", 
-                            "nome": "Lentella"
+                            "nome": "Lentella",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069048", 
                             "cap": "66010", 
-                            "nome": "Lettopalena"
+                            "nome": "Lettopalena",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069049", 
                             "cap": "66050", 
-                            "nome": "Liscia"
+                            "nome": "Liscia",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069050", 
                             "cap": "66010", 
-                            "nome": "Miglianico"
+                            "nome": "Miglianico",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069051", 
                             "cap": "66030", 
-                            "nome": "Montazzoli"
+                            "nome": "Montazzoli",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069009", 
                             "cap": "66040", 
-                            "nome": "Montebello sul Sangro"
+                            "nome": "Montebello sul Sangro",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069052", 
                             "cap": "66040", 
-                            "nome": "Monteferrante"
+                            "nome": "Monteferrante",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069053", 
                             "cap": "66040", 
-                            "nome": "Montelapiano"
+                            "nome": "Montelapiano",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069054", 
                             "cap": "66010", 
-                            "nome": "Montenerodomo"
+                            "nome": "Montenerodomo",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069055", 
                             "cap": "66050", 
-                            "nome": "Monteodorisio"
+                            "nome": "Monteodorisio",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069056", 
                             "cap": "66030", 
-                            "nome": "Mozzagrogna"
+                            "nome": "Mozzagrogna",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069057", 
                             "cap": "66036", 
-                            "nome": "Orsogna"
+                            "nome": "Orsogna",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069058", 
                             "cap": "66026", 
-                            "nome": "Ortona"
+                            "nome": "Ortona",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069059", 
                             "cap": "66020", 
-                            "nome": "Paglieta"
+                            "nome": "Paglieta",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069060", 
                             "cap": "66017", 
-                            "nome": "Palena"
+                            "nome": "Palena",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069061", 
                             "cap": "66050", 
-                            "nome": "Palmoli"
+                            "nome": "Palmoli",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069062", 
                             "cap": "66010", 
-                            "nome": "Palombaro"
+                            "nome": "Palombaro",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069063", 
                             "cap": "66040", 
-                            "nome": "Pennadomo"
+                            "nome": "Pennadomo",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069064", 
                             "cap": "66010", 
-                            "nome": "Pennapiedimonte"
+                            "nome": "Pennapiedimonte",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069065", 
                             "cap": "66040", 
-                            "nome": "Perano"
+                            "nome": "Perano",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069103", 
                             "cap": "66040", 
-                            "nome": "Pietraferrazzana"
+                            "nome": "Pietraferrazzana",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069066", 
                             "cap": "66040", 
-                            "nome": "Pizzoferrato"
+                            "nome": "Pizzoferrato",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069067", 
                             "cap": "66030", 
-                            "nome": "Poggiofiorito"
+                            "nome": "Poggiofiorito",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069068", 
                             "cap": "66020", 
-                            "nome": "Pollutri"
+                            "nome": "Pollutri",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069069", 
                             "cap": "66010", 
-                            "nome": "Pretoro"
+                            "nome": "Pretoro",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069070", 
                             "cap": "66040", 
-                            "nome": "Quadri"
+                            "nome": "Quadri",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069071", 
                             "cap": "66010", 
-                            "nome": "Rapino"
+                            "nome": "Rapino",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069072", 
                             "cap": "66010", 
-                            "nome": "Ripa Teatina"
+                            "nome": "Ripa Teatina",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069074", 
                             "cap": "66020", 
-                            "nome": "Rocca San Giovanni"
+                            "nome": "Rocca San Giovanni",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069073", 
                             "cap": "66010", 
-                            "nome": "Roccamontepiano"
+                            "nome": "Roccamontepiano",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069075", 
                             "cap": "66040", 
-                            "nome": "Roccascalegna"
+                            "nome": "Roccascalegna",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069076", 
                             "cap": "66050", 
-                            "nome": "Roccaspinalveti"
+                            "nome": "Roccaspinalveti",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069077", 
                             "cap": "66040", 
-                            "nome": "Roio del Sangro"
+                            "nome": "Roio del Sangro",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069078", 
                             "cap": "66040", 
-                            "nome": "Rosello"
+                            "nome": "Rosello",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069079", 
                             "cap": "66050", 
-                            "nome": "San Buono"
+                            "nome": "San Buono",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069080", 
                             "cap": "66050", 
-                            "nome": "San Giovanni Lipioni"
+                            "nome": "San Giovanni Lipioni",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069081", 
                             "cap": "66020", 
-                            "nome": "San Giovanni Teatino"
+                            "nome": "San Giovanni Teatino",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069082", 
                             "cap": "66010", 
-                            "nome": "San Martino sulla Marrucina"
+                            "nome": "San Martino sulla Marrucina",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069083", 
                             "cap": "66050", 
-                            "nome": "San Salvo"
+                            "nome": "San Salvo",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069086", 
                             "cap": "66038", 
-                            "nome": "San Vito Chietino"
+                            "nome": "San Vito Chietino",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069084", 
                             "cap": "66030", 
-                            "nome": "Santa Maria Imbaro"
+                            "nome": "Santa Maria Imbaro",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069085", 
                             "cap": "66037", 
-                            "nome": "Sant'Eusanio del Sangro"
+                            "nome": "Sant'Eusanio del Sangro",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069087", 
                             "cap": "66020", 
-                            "nome": "Scerni"
+                            "nome": "Scerni",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069088", 
                             "cap": "66045", 
-                            "nome": "Schiavi di Abruzzo"
+                            "nome": "Schiavi di Abruzzo",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069089", 
                             "cap": "66018", 
-                            "nome": "Taranta Peligna"
+                            "nome": "Taranta Peligna",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069090", 
                             "cap": "66010", 
-                            "nome": "Tollo"
+                            "nome": "Tollo",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069091", 
                             "cap": "66020", 
-                            "nome": "Torino di Sangro"
+                            "nome": "Torino di Sangro",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069092", 
                             "cap": "66046", 
-                            "nome": "Tornareccio"
+                            "nome": "Tornareccio",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069093", 
                             "cap": "66050", 
-                            "nome": "Torrebruna"
+                            "nome": "Torrebruna",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069094", 
                             "cap": "66010", 
-                            "nome": "Torrevecchia Teatina"
+                            "nome": "Torrevecchia Teatina",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069095", 
                             "cap": "66019", 
-                            "nome": "Torricella Peligna"
+                            "nome": "Torricella Peligna",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069096", 
                             "cap": "66030", 
-                            "nome": "Treglio"
+                            "nome": "Treglio",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069097", 
                             "cap": "66050", 
-                            "nome": "Tufillo"
+                            "nome": "Tufillo",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069098", 
                             "cap": "66010", 
-                            "nome": "Vacri"
+                            "nome": "Vacri",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069099", 
                             "cap": "66054", 
-                            "nome": "Vasto"
+                            "nome": "Vasto",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069102", 
                             "cap": "66047", 
-                            "nome": "Villa Santa Maria"
+                            "nome": "Villa Santa Maria",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069100", 
                             "cap": "66020", 
-                            "nome": "Villalfonsina"
+                            "nome": "Villalfonsina",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "069101", 
                             "cap": "66010", 
-                            "nome": "Villamagna"
-                        }
-                    ], 
-                    "nome": "Chieti"
-                }, 
-                {
-                    "code": "AQ", 
-                    "comuni": [
+                            "nome": "Villamagna",
+                            "provincia":"Chieti",
+                            "codiceProvincia": "CH",
+                            "regione":"Abruzzo"
+                        },
                         {
                             "code": "066001", 
                             "cap": "67020", 
-                            "nome": "Acciano"
+                            "nome": "Acciano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066002", 
                             "cap": "67041", 
-                            "nome": "Aielli"
+                            "nome": "Aielli",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066003", 
                             "cap": "67030", 
-                            "nome": "Alfedena"
+                            "nome": "Alfedena",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066004", 
                             "cap": "67030", 
-                            "nome": "Anversa degli Abruzzi"
+                            "nome": "Anversa degli Abruzzi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066005", 
                             "cap": "67030", 
-                            "nome": "Ateleta"
+                            "nome": "Ateleta",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066006", 
                             "cap": "67051", 
-                            "nome": "Avezzano"
+                            "nome": "Avezzano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066007", 
                             "cap": "67052", 
-                            "nome": "Balsorano"
+                            "nome": "Balsorano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066008", 
                             "cap": "67010", 
-                            "nome": "Barete"
+                            "nome": "Barete",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066009", 
                             "cap": "67021", 
-                            "nome": "Barisciano"
+                            "nome": "Barisciano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066010", 
                             "cap": "67030", 
-                            "nome": "Barrea"
+                            "nome": "Barrea",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066011", 
                             "cap": "67050", 
-                            "nome": "Bisegna"
+                            "nome": "Bisegna",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066012", 
                             "cap": "67030", 
-                            "nome": "Bugnara"
+                            "nome": "Bugnara",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066013", 
                             "cap": "67012", 
-                            "nome": "Cagnano Amiterno"
+                            "nome": "Cagnano Amiterno",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066014", 
                             "cap": "67020", 
-                            "nome": "Calascio"
+                            "nome": "Calascio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066015", 
                             "cap": "67030", 
-                            "nome": "Campo di Giove"
+                            "nome": "Campo di Giove",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066016", 
                             "cap": "67013", 
-                            "nome": "Campotosto"
+                            "nome": "Campotosto",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066017", 
                             "cap": "67050", 
-                            "nome": "Canistro"
+                            "nome": "Canistro",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066018", 
                             "cap": "67030", 
-                            "nome": "Cansano"
+                            "nome": "Cansano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066019", 
                             "cap": "67022", 
-                            "nome": "Capestrano"
+                            "nome": "Capestrano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066020", 
                             "cap": "67053", 
-                            "nome": "Capistrello"
+                            "nome": "Capistrello",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066021", 
                             "cap": "67014", 
-                            "nome": "Capitignano"
+                            "nome": "Capitignano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066022", 
                             "cap": "67020", 
-                            "nome": "Caporciano"
+                            "nome": "Caporciano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066023", 
                             "cap": "67060", 
-                            "nome": "Cappadocia"
+                            "nome": "Cappadocia",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066024", 
                             "cap": "67020", 
-                            "nome": "Carapelle Calvisio"
+                            "nome": "Carapelle Calvisio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066025", 
                             "cap": "67061", 
-                            "nome": "Carsoli"
+                            "nome": "Carsoli",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066026", 
                             "cap": "67023", 
-                            "nome": "Castel del Monte"
+                            "nome": "Castel del Monte",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066027", 
                             "cap": "67020", 
-                            "nome": "Castel di Ieri"
+                            "nome": "Castel di Ieri",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066028", 
                             "cap": "67031", 
-                            "nome": "Castel di Sangro"
+                            "nome": "Castel di Sangro",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066029", 
                             "cap": "67050", 
-                            "nome": "Castellafiume"
+                            "nome": "Castellafiume",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066030", 
                             "cap": "67020", 
-                            "nome": "Castelvecchio Calvisio"
+                            "nome": "Castelvecchio Calvisio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066031", 
                             "cap": "67024", 
-                            "nome": "Castelvecchio Subequo"
+                            "nome": "Castelvecchio Subequo",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066032", 
                             "cap": "67043", 
-                            "nome": "Celano"
+                            "nome": "Celano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066033", 
                             "cap": "67044", 
-                            "nome": "Cerchio"
+                            "nome": "Cerchio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066034", 
                             "cap": "67050", 
-                            "nome": "Civita d'Antino"
+                            "nome": "Civita d'Antino",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066035", 
                             "cap": "67030", 
-                            "nome": "Civitella Alfedena"
+                            "nome": "Civitella Alfedena",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066036", 
                             "cap": "67054", 
-                            "nome": "Civitella Roveto"
+                            "nome": "Civitella Roveto",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066037", 
                             "cap": "67030", 
-                            "nome": "Cocullo"
+                            "nome": "Cocullo",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066038", 
                             "cap": "67040", 
-                            "nome": "Collarmele"
+                            "nome": "Collarmele",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066039", 
                             "cap": "67050", 
-                            "nome": "Collelongo"
+                            "nome": "Collelongo",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066040", 
                             "cap": "67020", 
-                            "nome": "Collepietro"
+                            "nome": "Collepietro",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066041", 
                             "cap": "67030", 
-                            "nome": "Corfinio"
+                            "nome": "Corfinio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066042", 
                             "cap": "67020", 
-                            "nome": "Fagnano Alto"
+                            "nome": "Fagnano Alto",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066043", 
                             "cap": "67020", 
-                            "nome": "Fontecchio"
+                            "nome": "Fontecchio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066044", 
                             "cap": "67020", 
-                            "nome": "Fossa"
+                            "nome": "Fossa",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066045", 
                             "cap": "67020", 
-                            "nome": "Gagliano Aterno"
+                            "nome": "Gagliano Aterno",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066046", 
                             "cap": "67055", 
-                            "nome": "Gioia dei Marsi"
+                            "nome": "Gioia dei Marsi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066047", 
                             "cap": "67030", 
-                            "nome": "Goriano Sicoli"
+                            "nome": "Goriano Sicoli",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066048", 
                             "cap": "67030", 
-                            "nome": "Introdacqua"
+                            "nome": "Introdacqua",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066049", 
                             "cap": "67100", 
-                            "nome": "L'Aquila"
+                            "nome": "L'Aquila",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066050", 
                             "cap": "67050", 
-                            "nome": "Lecce nei Marsi"
+                            "nome": "Lecce nei Marsi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066051", 
                             "cap": "67056", 
-                            "nome": "Luco dei Marsi"
+                            "nome": "Luco dei Marsi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066052", 
                             "cap": "67045", 
-                            "nome": "Lucoli"
+                            "nome": "Lucoli",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066053", 
                             "cap": "67062", 
-                            "nome": "Magliano de' Marsi"
+                            "nome": "Magliano de' Marsi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066054", 
                             "cap": "67050", 
-                            "nome": "Massa d'Albe"
+                            "nome": "Massa d'Albe",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066055", 
                             "cap": "67020", 
-                            "nome": "Molina Aterno"
+                            "nome": "Molina Aterno",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066056", 
                             "cap": "67015", 
-                            "nome": "Montereale"
+                            "nome": "Montereale",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066057", 
                             "cap": "67050", 
-                            "nome": "Morino"
+                            "nome": "Morino",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066058", 
                             "cap": "67020", 
-                            "nome": "Navelli"
+                            "nome": "Navelli",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066059", 
                             "cap": "67040", 
-                            "nome": "Ocre"
+                            "nome": "Ocre",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066060", 
                             "cap": "67025", 
-                            "nome": "Ofena"
+                            "nome": "Ofena",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066061", 
                             "cap": "67030", 
-                            "nome": "Opi"
+                            "nome": "Opi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066062", 
                             "cap": "67063", 
-                            "nome": "Oricola"
+                            "nome": "Oricola",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066063", 
                             "cap": "67050", 
-                            "nome": "Ortona dei Marsi"
+                            "nome": "Ortona dei Marsi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066064", 
                             "cap": "67050", 
-                            "nome": "Ortucchio"
+                            "nome": "Ortucchio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066065", 
                             "cap": "67046", 
-                            "nome": "Ovindoli"
+                            "nome": "Ovindoli",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066066", 
                             "cap": "67030", 
-                            "nome": "Pacentro"
+                            "nome": "Pacentro",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066067", 
                             "cap": "67064", 
-                            "nome": "Pereto"
+                            "nome": "Pereto",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066068", 
                             "cap": "67032", 
-                            "nome": "Pescasseroli"
+                            "nome": "Pescasseroli",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066069", 
                             "cap": "67057", 
-                            "nome": "Pescina"
+                            "nome": "Pescina",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066070", 
                             "cap": "67033", 
-                            "nome": "Pescocostanzo"
+                            "nome": "Pescocostanzo",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066071", 
                             "cap": "67034", 
-                            "nome": "Pettorano sul Gizio"
+                            "nome": "Pettorano sul Gizio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066072", 
                             "cap": "67017", 
-                            "nome": "Pizzoli"
+                            "nome": "Pizzoli",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066073", 
                             "cap": "67026", 
-                            "nome": "Poggio Picenze"
+                            "nome": "Poggio Picenze",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066074", 
                             "cap": "67020", 
-                            "nome": "Prata d'Ansidonia"
+                            "nome": "Prata d'Ansidonia",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066075", 
                             "cap": "67035", 
-                            "nome": "Pratola Peligna"
+                            "nome": "Pratola Peligna",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066076", 
                             "cap": "67030", 
-                            "nome": "Prezza"
+                            "nome": "Prezza",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066077", 
                             "cap": "67027", 
-                            "nome": "Raiano"
+                            "nome": "Raiano",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066078", 
                             "cap": "67036", 
-                            "nome": "Rivisondoli"
+                            "nome": "Rivisondoli",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066080", 
                             "cap": "67066", 
-                            "nome": "Rocca di Botte"
+                            "nome": "Rocca di Botte",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066081", 
                             "cap": "67047", 
-                            "nome": "Rocca di Cambio"
+                            "nome": "Rocca di Cambio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066082", 
                             "cap": "67048", 
-                            "nome": "Rocca di Mezzo"
+                            "nome": "Rocca di Mezzo",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066083", 
                             "cap": "67030", 
-                            "nome": "Rocca Pia"
+                            "nome": "Rocca Pia",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066079", 
                             "cap": "67030", 
-                            "nome": "Roccacasale"
+                            "nome": "Roccacasale",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066084", 
                             "cap": "67037", 
-                            "nome": "Roccaraso"
+                            "nome": "Roccaraso",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066085", 
                             "cap": "67058", 
-                            "nome": "San Benedetto dei Marsi"
+                            "nome": "San Benedetto dei Marsi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066086", 
                             "cap": "67020", 
-                            "nome": "San Benedetto in Perillis"
+                            "nome": "San Benedetto in Perillis",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066087", 
                             "cap": "67028", 
-                            "nome": "San Demetrio ne' Vestini"
+                            "nome": "San Demetrio ne' Vestini",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066088", 
                             "cap": "67020", 
-                            "nome": "San Pio delle Camere"
+                            "nome": "San Pio delle Camere",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066092", 
                             "cap": "67050", 
-                            "nome": "San Vincenzo Valle Roveto"
+                            "nome": "San Vincenzo Valle Roveto",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066089", 
                             "cap": "67067", 
-                            "nome": "Sante Marie"
+                            "nome": "Sante Marie",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066090", 
                             "cap": "67020", 
-                            "nome": "Sant'Eusanio Forconese"
+                            "nome": "Sant'Eusanio Forconese",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066091", 
                             "cap": "67020", 
-                            "nome": "Santo Stefano di Sessanio"
+                            "nome": "Santo Stefano di Sessanio",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066093", 
                             "cap": "67038", 
-                            "nome": "Scanno"
+                            "nome": "Scanno",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066094", 
                             "cap": "67030", 
-                            "nome": "Scontrone"
+                            "nome": "Scontrone",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066095", 
                             "cap": "67019", 
-                            "nome": "Scoppito"
+                            "nome": "Scoppito",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066096", 
                             "cap": "67068", 
-                            "nome": "Scurcola Marsicana"
+                            "nome": "Scurcola Marsicana",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066097", 
                             "cap": "67029", 
-                            "nome": "Secinaro"
+                            "nome": "Secinaro",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066098", 
                             "cap": "67039", 
-                            "nome": "Sulmona"
+                            "nome": "Sulmona",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066099", 
                             "cap": "67069", 
-                            "nome": "Tagliacozzo"
+                            "nome": "Tagliacozzo",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066100", 
                             "cap": "67020", 
-                            "nome": "Tione degli Abruzzi"
+                            "nome": "Tione degli Abruzzi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066101", 
                             "cap": "67049", 
-                            "nome": "Tornimparte"
+                            "nome": "Tornimparte",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066102", 
                             "cap": "67059", 
-                            "nome": "Trasacco"
+                            "nome": "Trasacco",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066104", 
                             "cap": "67020", 
-                            "nome": "Villa Santa Lucia degli Abruzzi"
+                            "nome": "Villa Santa Lucia degli Abruzzi",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066105", 
                             "cap": "67020", 
-                            "nome": "Villa Sant'Angelo"
+                            "nome": "Villa Sant'Angelo",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066103", 
                             "cap": "67030", 
-                            "nome": "Villalago"
+                            "nome": "Villalago",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066106", 
                             "cap": "67050", 
-                            "nome": "Villavallelonga"
+                            "nome": "Villavallelonga",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066107", 
                             "cap": "67030", 
-                            "nome": "Villetta Barrea"
+                            "nome": "Villetta Barrea",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "066108", 
                             "cap": "67030", 
-                            "nome": "Vittorito"
-                        }
-                    ], 
-                    "nome": "L'Aquila"
-                }, 
-                {
-                    "code": "PE", 
-                    "comuni": [
+                            "nome": "Vittorito",
+                            "provincia":"Aquila",
+                            "codiceProvincia": "AQ",
+                            "regione":"Abruzzo"
+                        },
                         {
                             "code": "068001", 
                             "cap": "65020", 
-                            "nome": "Abbateggio"
+                            "nome": "Abbateggio",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068002", 
                             "cap": "65020", 
-                            "nome": "Alanno"
+                            "nome": "Alanno",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068003", 
                             "cap": "65020", 
-                            "nome": "Bolognano"
+                            "nome": "Bolognano",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068004", 
                             "cap": "65010", 
-                            "nome": "Brittoli"
+                            "nome": "Brittoli",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068005", 
                             "cap": "65022", 
-                            "nome": "Bussi sul Tirino"
+                            "nome": "Bussi sul Tirino",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068006", 
                             "cap": "65010", 
-                            "nome": "Cappelle sul Tavo"
+                            "nome": "Cappelle sul Tavo",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068007", 
                             "cap": "65023", 
-                            "nome": "Caramanico Terme"
+                            "nome": "Caramanico Terme",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068008", 
                             "cap": "65010", 
-                            "nome": "Carpineto della Nora"
+                            "nome": "Carpineto della Nora",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068009", 
                             "cap": "65020", 
-                            "nome": "Castiglione a Casauria"
+                            "nome": "Castiglione a Casauria",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068010", 
                             "cap": "65011", 
-                            "nome": "Catignano"
+                            "nome": "Catignano",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068011", 
                             "cap": "65012", 
-                            "nome": "Cepagatti"
+                            "nome": "Cepagatti",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068012", 
                             "cap": "65013", 
-                            "nome": "Citt\u00e0 Sant'Angelo"
+                            "nome": "Citt\u00e0 Sant'Angelo",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068013", 
                             "cap": "65010", 
-                            "nome": "Civitaquana"
+                            "nome": "Civitaquana",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068014", 
                             "cap": "65010", 
-                            "nome": "Civitella Casanova"
+                            "nome": "Civitella Casanova",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068015", 
                             "cap": "65010", 
-                            "nome": "Collecorvino"
+                            "nome": "Collecorvino",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068016", 
                             "cap": "65020", 
-                            "nome": "Corvara"
+                            "nome": "Corvara",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068017", 
                             "cap": "65020", 
-                            "nome": "Cugnoli"
+                            "nome": "Cugnoli",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068018", 
                             "cap": "65010", 
-                            "nome": "Elice"
+                            "nome": "Elice",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068019", 
                             "cap": "65010", 
-                            "nome": "Farindola"
+                            "nome": "Farindola",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068020", 
                             "cap": "65020", 
-                            "nome": "Lettomanoppello"
+                            "nome": "Lettomanoppello",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068021", 
                             "cap": "65014", 
-                            "nome": "Loreto Aprutino"
+                            "nome": "Loreto Aprutino",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068022", 
                             "cap": "65024", 
-                            "nome": "Manoppello"
+                            "nome": "Manoppello",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068023", 
                             "cap": "65010", 
-                            "nome": "Montebello di Bertona"
+                            "nome": "Montebello di Bertona",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068024", 
                             "cap": "65015", 
-                            "nome": "Montesilvano"
+                            "nome": "Montesilvano",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068025", 
                             "cap": "65010", 
-                            "nome": "Moscufo"
+                            "nome": "Moscufo",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068026", 
                             "cap": "65010", 
-                            "nome": "Nocciano"
+                            "nome": "Nocciano",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068027", 
                             "cap": "65017", 
-                            "nome": "Penne"
+                            "nome": "Penne",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068028", 
                             "cap": "6512x", 
-                            "nome": "Pescara"
+                            "nome": "Pescara",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068029", 
                             "cap": "65020", 
-                            "nome": "Pescosansonesco"
+                            "nome": "Pescosansonesco",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068030", 
                             "cap": "65019", 
-                            "nome": "Pianella"
+                            "nome": "Pianella",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068031", 
                             "cap": "65010", 
-                            "nome": "Picciano"
+                            "nome": "Picciano",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068032", 
                             "cap": "65020", 
-                            "nome": "Pietranico"
+                            "nome": "Pietranico",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068033", 
                             "cap": "65026", 
-                            "nome": "Popoli"
+                            "nome": "Popoli",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068034", 
                             "cap": "65020", 
-                            "nome": "Roccamorice"
+                            "nome": "Roccamorice",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068035", 
                             "cap": "65020", 
-                            "nome": "Rosciano"
+                            "nome": "Rosciano",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068036", 
                             "cap": "65020", 
-                            "nome": "Salle"
+                            "nome": "Salle",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068038", 
                             "cap": "65020", 
-                            "nome": "San Valentino in Abruzzo Citeriore"
+                            "nome": "San Valentino in Abruzzo Citeriore",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068037", 
                             "cap": "65020", 
-                            "nome": "Sant'Eufemia a Maiella"
+                            "nome": "Sant'Eufemia a Maiella",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068039", 
                             "cap": "65027", 
-                            "nome": "Scafa"
+                            "nome": "Scafa",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068040", 
                             "cap": "65025", 
-                            "nome": "Serramonacesca"
+                            "nome": "Serramonacesca",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068041", 
                             "cap": "65010", 
-                            "nome": "Spoltore"
+                            "nome": "Spoltore",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068042", 
                             "cap": "65028", 
-                            "nome": "Tocco da Casauria"
+                            "nome": "Tocco da Casauria",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068043", 
                             "cap": "65029", 
-                            "nome": "Torre De' Passeri"
+                            "nome": "Torre De' Passeri",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068044", 
                             "cap": "65020", 
-                            "nome": "Turrivalignani"
+                            "nome": "Turrivalignani",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068045", 
                             "cap": "65010", 
-                            "nome": "Vicoli"
+                            "nome": "Vicoli",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "068046", 
                             "cap": "65010", 
-                            "nome": "Villa Celiera"
-                        }
-                    ], 
-                    "nome": "Pescara"
-                }, 
-                {
-                    "code": "TE", 
-                    "comuni": [
+                            "nome": "Villa Celiera",
+                            "provincia":"Pescara",
+                            "codiceProvincia": "PE",
+                            "regione":"Abruzzo"
+                        },
                         {
                             "code": "067001", 
                             "cap": "64011", 
-                            "nome": "Alba Adriatica"
+                            "nome": "Alba Adriatica",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067002", 
                             "cap": "64010", 
-                            "nome": "Ancarano"
+                            "nome": "Ancarano",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067003", 
                             "cap": "64031", 
-                            "nome": "Arsita"
+                            "nome": "Arsita",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067004", 
                             "cap": "64032", 
-                            "nome": "Atri"
+                            "nome": "Atri",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067005", 
                             "cap": "64030", 
-                            "nome": "Basciano"
+                            "nome": "Basciano",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067006", 
                             "cap": "64020", 
-                            "nome": "Bellante"
+                            "nome": "Bellante",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067007", 
                             "cap": "64033", 
-                            "nome": "Bisenti"
+                            "nome": "Bisenti",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067008", 
                             "cap": "64012", 
-                            "nome": "Campli"
+                            "nome": "Campli",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067009", 
                             "cap": "64020", 
-                            "nome": "Canzano"
+                            "nome": "Canzano",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067010", 
                             "cap": "64030", 
-                            "nome": "Castel Castagna"
+                            "nome": "Castel Castagna",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067011", 
                             "cap": "64020", 
-                            "nome": "Castellalto"
+                            "nome": "Castellalto",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067012", 
                             "cap": "64041", 
-                            "nome": "Castelli"
+                            "nome": "Castelli",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067013", 
                             "cap": "64034", 
-                            "nome": "Castiglione Messer Raimondo"
+                            "nome": "Castiglione Messer Raimondo",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067014", 
                             "cap": "64035", 
-                            "nome": "Castilenti"
+                            "nome": "Castilenti",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067015", 
                             "cap": "64036", 
-                            "nome": "Cellino Attanasio"
+                            "nome": "Cellino Attanasio",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067016", 
                             "cap": "64037", 
-                            "nome": "Cermignano"
+                            "nome": "Cermignano",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067017", 
                             "cap": "64010", 
-                            "nome": "Civitella del Tronto"
+                            "nome": "Civitella del Tronto",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067018", 
                             "cap": "64042", 
-                            "nome": "Colledara"
+                            "nome": "Colledara",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067019", 
                             "cap": "64010", 
-                            "nome": "Colonnella"
+                            "nome": "Colonnella",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067020", 
                             "cap": "64010", 
-                            "nome": "Controguerra"
+                            "nome": "Controguerra",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067021", 
                             "cap": "64013", 
-                            "nome": "Corropoli"
+                            "nome": "Corropoli",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067022", 
                             "cap": "64040", 
-                            "nome": "Cortino"
+                            "nome": "Cortino",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067023", 
                             "cap": "64043", 
-                            "nome": "Crognaleto"
+                            "nome": "Crognaleto",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067024", 
                             "cap": "64044", 
-                            "nome": "Fano Adriano"
+                            "nome": "Fano Adriano",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067025", 
                             "cap": "64021", 
-                            "nome": "Giulianova"
+                            "nome": "Giulianova",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067026", 
                             "cap": "64045", 
-                            "nome": "Isola del Gran Sasso d'Italia"
+                            "nome": "Isola del Gran Sasso d'Italia",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067047", 
                             "cap": "64014", 
-                            "nome": "Martinsicuro"
+                            "nome": "Martinsicuro",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067027", 
                             "cap": "64030", 
-                            "nome": "Montefino"
+                            "nome": "Montefino",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067028", 
                             "cap": "64046", 
-                            "nome": "Montorio al Vomano"
+                            "nome": "Montorio al Vomano",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067029", 
                             "cap": "64020", 
-                            "nome": "Morro d'Oro"
+                            "nome": "Morro d'Oro",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067030", 
                             "cap": "64023", 
-                            "nome": "Mosciano Sant'Angelo"
+                            "nome": "Mosciano Sant'Angelo",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067031", 
                             "cap": "64015", 
-                            "nome": "Nereto"
+                            "nome": "Nereto",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067032", 
                             "cap": "64024", 
-                            "nome": "Notaresco"
+                            "nome": "Notaresco",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067033", 
                             "cap": "64039", 
-                            "nome": "Penna Sant'Andrea"
+                            "nome": "Penna Sant'Andrea",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067034", 
                             "cap": "64047", 
-                            "nome": "Pietracamela"
+                            "nome": "Pietracamela",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067035", 
                             "cap": "64025", 
-                            "nome": "Pineto"
+                            "nome": "Pineto",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067036", 
                             "cap": "64010", 
-                            "nome": "Rocca Santa Maria"
+                            "nome": "Rocca Santa Maria",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067037", 
                             "cap": "64026", 
-                            "nome": "Roseto degli Abruzzi"
+                            "nome": "Roseto degli Abruzzi",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067038", 
                             "cap": "64016", 
-                            "nome": "Sant'Egidio alla Vibrata"
+                            "nome": "Sant'Egidio alla Vibrata",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067039", 
                             "cap": "64027", 
-                            "nome": "Sant'Omero"
+                            "nome": "Sant'Omero",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067040", 
                             "cap": "64028", 
-                            "nome": "Silvi"
+                            "nome": "Silvi",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067041", 
                             "cap": "64100", 
-                            "nome": "Teramo"
+                            "nome": "Teramo",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067042", 
                             "cap": "64010", 
-                            "nome": "Torano Nuovo"
+                            "nome": "Torano Nuovo",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067043", 
                             "cap": "64010", 
-                            "nome": "Torricella Sicura"
+                            "nome": "Torricella Sicura",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067044", 
                             "cap": "64018", 
-                            "nome": "Tortoreto"
+                            "nome": "Tortoreto",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067045", 
                             "cap": "64049", 
-                            "nome": "Tossicia"
+                            "nome": "Tossicia",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
                         }, 
                         {
                             "code": "067046", 
                             "cap": "64010", 
-                            "nome": "Valle Castellana"
-                        }
-                    ], 
-                    "nome": "Teramo"
-                }
-            ], 
-            "nome": "Abruzzo"
-        }, 
-        {
-            "province": [
-                {
-                    "code": "MT", 
-                    "comuni": [
+                            "nome": "Valle Castellana",
+                            "provincia":"Teramo",
+                            "codiceProvincia": "TE",
+                            "regione":"Abruzzo"
+                        },
                         {
                             "code": "077001", 
                             "cap": "75011", 
-                            "nome": "Accettura"
+                            "nome": "Accettura",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077002", 
                             "cap": "75010", 
-                            "nome": "Aliano"
+                            "nome": "Aliano",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077003", 
                             "cap": "75012", 
-                            "nome": "Bernalda"
+                            "nome": "Bernalda",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077004", 
                             "cap": "75010", 
-                            "nome": "Calciano"
+                            "nome": "Calciano",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077005", 
                             "cap": "75010", 
-                            "nome": "Cirigliano"
+                            "nome": "Cirigliano",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077006", 
                             "cap": "75021", 
-                            "nome": "Colobraro"
+                            "nome": "Colobraro",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077007", 
                             "cap": "75010", 
-                            "nome": "Craco"
+                            "nome": "Craco",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077008", 
                             "cap": "75013", 
-                            "nome": "Ferrandina"
+                            "nome": "Ferrandina",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077009", 
                             "cap": "75010", 
-                            "nome": "Garaguso"
+                            "nome": "Garaguso",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077010", 
                             "cap": "75010", 
-                            "nome": "Gorgoglione"
+                            "nome": "Gorgoglione",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077011", 
                             "cap": "75014", 
-                            "nome": "Grassano"
+                            "nome": "Grassano",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077012", 
                             "cap": "75010", 
-                            "nome": "Grottole"
+                            "nome": "Grottole",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077013", 
                             "cap": "75022", 
-                            "nome": "Irsina"
+                            "nome": "Irsina",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077014", 
                             "cap": "75100", 
-                            "nome": "Matera"
+                            "nome": "Matera",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077015", 
                             "cap": "75010", 
-                            "nome": "Miglionico"
+                            "nome": "Miglionico",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077016", 
                             "cap": "75023", 
-                            "nome": "Montalbano Jonico"
+                            "nome": "Montalbano Jonico",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077017", 
                             "cap": "75024", 
-                            "nome": "Montescaglioso"
+                            "nome": "Montescaglioso",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077018", 
                             "cap": "75020", 
-                            "nome": "Nova Siri"
+                            "nome": "Nova Siri",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077019", 
                             "cap": "75010", 
-                            "nome": "Oliveto Lucano"
+                            "nome": "Oliveto Lucano",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077020", 
                             "cap": "75015", 
-                            "nome": "Pisticci"
+                            "nome": "Pisticci",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077021", 
                             "cap": "75025", 
-                            "nome": "Policoro"
+                            "nome": "Policoro",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077022", 
                             "cap": "75016", 
-                            "nome": "Pomarico"
+                            "nome": "Pomarico",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077023", 
                             "cap": "75026", 
-                            "nome": "Rotondella"
+                            "nome": "Rotondella",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077024", 
                             "cap": "75017", 
-                            "nome": "Salandra"
+                            "nome": "Salandra",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077025", 
                             "cap": "75027", 
-                            "nome": "San Giorgio Lucano"
+                            "nome": "San Giorgio Lucano",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077026", 
                             "cap": "75010", 
-                            "nome": "San Mauro Forte"
+                            "nome": "San Mauro Forte",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077031", 
                             "cap": "75020", 
-                            "nome": "Scanzano Jonico"
+                            "nome": "Scanzano Jonico",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077027", 
                             "cap": "75018", 
-                            "nome": "Stigliano"
+                            "nome": "Stigliano",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077028", 
                             "cap": "75019", 
-                            "nome": "Tricarico"
+                            "nome": "Tricarico",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077029", 
                             "cap": "75028", 
-                            "nome": "Tursi"
+                            "nome": "Tursi",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "077030", 
                             "cap": "75029", 
-                            "nome": "Valsinni"
-                        }
-                    ], 
-                    "nome": "Matera"
-                }, 
-                {
-                    "code": "PZ", 
-                    "comuni": [
+                            "nome": "Valsinni",
+                            "provincia":"Matera",
+                            "codiceProvincia": "MT",
+                            "regione":"Basilicata"
+                        },
                         {
                             "code": "076001", 
                             "cap": "85010", 
-                            "nome": "Abriola"
+                            "nome": "Abriola",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076002", 
                             "cap": "85011", 
-                            "nome": "Acerenza"
+                            "nome": "Acerenza",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076003", 
                             "cap": "85010", 
-                            "nome": "Albano di Lucania"
+                            "nome": "Albano di Lucania",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076004", 
                             "cap": "85010", 
-                            "nome": "Anzi"
+                            "nome": "Anzi",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076005", 
                             "cap": "85010", 
-                            "nome": "Armento"
+                            "nome": "Armento",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076006", 
                             "cap": "85020", 
-                            "nome": "Atella"
+                            "nome": "Atella",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076007", 
                             "cap": "85021", 
-                            "nome": "Avigliano"
+                            "nome": "Avigliano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076008", 
                             "cap": "85050", 
-                            "nome": "Balvano"
+                            "nome": "Balvano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076009", 
                             "cap": "85010", 
-                            "nome": "Banzi"
+                            "nome": "Banzi",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076010", 
                             "cap": "85050", 
-                            "nome": "Baragiano"
+                            "nome": "Baragiano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076011", 
                             "cap": "85022", 
-                            "nome": "Barile"
+                            "nome": "Barile",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076012", 
                             "cap": "85051", 
-                            "nome": "Bella"
+                            "nome": "Bella",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076013", 
                             "cap": "85050", 
-                            "nome": "Brienza"
+                            "nome": "Brienza",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076014", 
                             "cap": "85010", 
-                            "nome": "Brindisi Montagna"
+                            "nome": "Brindisi Montagna",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076015", 
                             "cap": "85010", 
-                            "nome": "Calvello"
+                            "nome": "Calvello",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076016", 
                             "cap": "85030", 
-                            "nome": "Calvera"
+                            "nome": "Calvera",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076017", 
                             "cap": "85010", 
-                            "nome": "Campomaggiore"
+                            "nome": "Campomaggiore",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076018", 
                             "cap": "85010", 
-                            "nome": "Cancellara"
+                            "nome": "Cancellara",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076019", 
                             "cap": "85030", 
-                            "nome": "Carbone"
+                            "nome": "Carbone",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076021", 
                             "cap": "85050", 
-                            "nome": "Castelgrande"
+                            "nome": "Castelgrande",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076022", 
                             "cap": "85040", 
-                            "nome": "Castelluccio Inferiore"
+                            "nome": "Castelluccio Inferiore",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076023", 
                             "cap": "85040", 
-                            "nome": "Castelluccio Superiore"
+                            "nome": "Castelluccio Superiore",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076024", 
                             "cap": "85010", 
-                            "nome": "Castelmezzano"
+                            "nome": "Castelmezzano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076025", 
                             "cap": "85031", 
-                            "nome": "Castelsaraceno"
+                            "nome": "Castelsaraceno",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076026", 
                             "cap": "85030", 
-                            "nome": "Castronuovo di Sant'Andrea"
+                            "nome": "Castronuovo di Sant'Andrea",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076027", 
                             "cap": "85030", 
-                            "nome": "Cersosimo"
+                            "nome": "Cersosimo",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076028", 
                             "cap": "85032", 
-                            "nome": "Chiaromonte"
+                            "nome": "Chiaromonte",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076029", 
                             "cap": "85012", 
-                            "nome": "Corleto Perticara"
+                            "nome": "Corleto Perticara",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076030", 
                             "cap": "85033", 
-                            "nome": "Episcopia"
+                            "nome": "Episcopia",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076031", 
                             "cap": "85034", 
-                            "nome": "Fardella"
+                            "nome": "Fardella",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076032", 
                             "cap": "85020", 
-                            "nome": "Filiano"
+                            "nome": "Filiano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076033", 
                             "cap": "85023", 
-                            "nome": "Forenza"
+                            "nome": "Forenza",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076034", 
                             "cap": "85034", 
-                            "nome": "Francavilla in Sinni"
+                            "nome": "Francavilla in Sinni",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076035", 
                             "cap": "85010", 
-                            "nome": "Gallicchio"
+                            "nome": "Gallicchio",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076036", 
                             "cap": "85013", 
-                            "nome": "Genzano di Lucania"
+                            "nome": "Genzano di Lucania",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076099", 
                             "cap": "85020", 
-                            "nome": "Ginestra"
+                            "nome": "Ginestra",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076037", 
                             "cap": "85050", 
-                            "nome": "Grumento Nova"
+                            "nome": "Grumento Nova",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076038", 
                             "cap": "85010", 
-                            "nome": "Guardia Perticara"
+                            "nome": "Guardia Perticara",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076039", 
                             "cap": "85042", 
-                            "nome": "Lagonegro"
+                            "nome": "Lagonegro",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076040", 
                             "cap": "85043", 
-                            "nome": "Latronico"
+                            "nome": "Latronico",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076041", 
                             "cap": "85014", 
-                            "nome": "Laurenzana"
+                            "nome": "Laurenzana",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076042", 
                             "cap": "85044", 
-                            "nome": "Lauria"
+                            "nome": "Lauria",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076043", 
                             "cap": "85024", 
-                            "nome": "Lavello"
+                            "nome": "Lavello",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076044", 
                             "cap": "85046", 
-                            "nome": "Maratea"
+                            "nome": "Maratea",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076045", 
                             "cap": "85052", 
-                            "nome": "Marsico Nuovo"
+                            "nome": "Marsico Nuovo",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076046", 
                             "cap": "85050", 
-                            "nome": "Marsicovetere"
+                            "nome": "Marsicovetere",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076047", 
                             "cap": "85020", 
-                            "nome": "Maschito"
+                            "nome": "Maschito",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076048", 
                             "cap": "85025", 
-                            "nome": "Melfi"
+                            "nome": "Melfi",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076049", 
                             "cap": "85010", 
-                            "nome": "Missanello"
+                            "nome": "Missanello",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076050", 
                             "cap": "85047", 
-                            "nome": "Moliterno"
+                            "nome": "Moliterno",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076051", 
                             "cap": "85020", 
-                            "nome": "Montemilone"
+                            "nome": "Montemilone",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076052", 
                             "cap": "85053", 
-                            "nome": "Montemurro"
+                            "nome": "Montemurro",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076053", 
                             "cap": "85054", 
-                            "nome": "Muro Lucano"
+                            "nome": "Muro Lucano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076054", 
                             "cap": "85040", 
-                            "nome": "Nemoli"
+                            "nome": "Nemoli",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076055", 
                             "cap": "85035", 
-                            "nome": "Noepoli"
+                            "nome": "Noepoli",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076056", 
                             "cap": "85015", 
-                            "nome": "Oppido Lucano"
+                            "nome": "Oppido Lucano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076057", 
                             "cap": "85026", 
-                            "nome": "Palazzo San Gervasio"
+                            "nome": "Palazzo San Gervasio",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076100", 
                             "cap": "85050", 
-                            "nome": "Paterno"
+                            "nome": "Paterno",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076058", 
                             "cap": "85020", 
-                            "nome": "Pescopagano"
+                            "nome": "Pescopagano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076059", 
                             "cap": "85055", 
-                            "nome": "Picerno"
+                            "nome": "Picerno",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076060", 
                             "cap": "85016", 
-                            "nome": "Pietragalla"
+                            "nome": "Pietragalla",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076061", 
                             "cap": "85010", 
-                            "nome": "Pietrapertosa"
+                            "nome": "Pietrapertosa",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076062", 
                             "cap": "85010", 
-                            "nome": "Pignola"
+                            "nome": "Pignola",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076063", 
                             "cap": "85100", 
-                            "nome": "Potenza"
+                            "nome": "Potenza",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076064", 
                             "cap": "85027", 
-                            "nome": "Rapolla"
+                            "nome": "Rapolla",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076065", 
                             "cap": "85020", 
-                            "nome": "Rapone"
+                            "nome": "Rapone",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076066", 
                             "cap": "85028", 
-                            "nome": "Rionero in Vulture"
+                            "nome": "Rionero in Vulture",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076067", 
                             "cap": "85020", 
-                            "nome": "Ripacandida"
+                            "nome": "Ripacandida",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076068", 
                             "cap": "85040", 
-                            "nome": "Rivello"
+                            "nome": "Rivello",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076069", 
                             "cap": "85036", 
-                            "nome": "Roccanova"
+                            "nome": "Roccanova",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076070", 
                             "cap": "85048", 
-                            "nome": "Rotonda"
+                            "nome": "Rotonda",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076071", 
                             "cap": "85056", 
-                            "nome": "Ruoti"
+                            "nome": "Ruoti",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076072", 
                             "cap": "85020", 
-                            "nome": "Ruvo del Monte"
+                            "nome": "Ruvo del Monte",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076073", 
                             "cap": "85010", 
-                            "nome": "San Chirico Nuovo"
+                            "nome": "San Chirico Nuovo",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076074", 
                             "cap": "85030", 
-                            "nome": "San Chirico Raparo"
+                            "nome": "San Chirico Raparo",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076075", 
                             "cap": "85030", 
-                            "nome": "San Costantino Albanese"
+                            "nome": "San Costantino Albanese",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076076", 
                             "cap": "85020", 
-                            "nome": "San Fele"
+                            "nome": "San Fele",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076077", 
                             "cap": "85030", 
-                            "nome": "San Martino d'Agri"
+                            "nome": "San Martino d'Agri",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076020", 
                             "cap": "85030", 
-                            "nome": "San Paolo Albanese"
+                            "nome": "San Paolo Albanese",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076078", 
                             "cap": "85030", 
-                            "nome": "San Severino Lucano"
+                            "nome": "San Severino Lucano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076079", 
                             "cap": "85050", 
-                            "nome": "Sant'Angelo Le Fratte"
+                            "nome": "Sant'Angelo Le Fratte",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076080", 
                             "cap": "85037", 
-                            "nome": "Sant'Arcangelo"
+                            "nome": "Sant'Arcangelo",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076081", 
                             "cap": "85050", 
-                            "nome": "Sarconi"
+                            "nome": "Sarconi",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076082", 
                             "cap": "85050", 
-                            "nome": "Sasso di Castalda"
+                            "nome": "Sasso di Castalda",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076083", 
                             "cap": "85050", 
-                            "nome": "Satriano di Lucania"
+                            "nome": "Satriano di Lucania",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076084", 
                             "cap": "85050", 
-                            "nome": "Savoia di Lucania"
+                            "nome": "Savoia di Lucania",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076085", 
                             "cap": "85038", 
-                            "nome": "Senise"
+                            "nome": "Senise",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076086", 
                             "cap": "85039", 
-                            "nome": "Spinoso"
+                            "nome": "Spinoso",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076087", 
                             "cap": "85032", 
-                            "nome": "Teana"
+                            "nome": "Teana",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076088", 
                             "cap": "85030", 
-                            "nome": "Terranova di Pollino"
+                            "nome": "Terranova di Pollino",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076089", 
                             "cap": "85050", 
-                            "nome": "Tito"
+                            "nome": "Tito",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076090", 
                             "cap": "85017", 
-                            "nome": "Tolve"
+                            "nome": "Tolve",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076091", 
                             "cap": "85057", 
-                            "nome": "Tramutola"
+                            "nome": "Tramutola",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076092", 
                             "cap": "85049", 
-                            "nome": "Trecchina"
+                            "nome": "Trecchina",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076093", 
                             "cap": "85018", 
-                            "nome": "Trivigno"
+                            "nome": "Trivigno",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076094", 
                             "cap": "85010", 
-                            "nome": "Vaglio Basilicata"
+                            "nome": "Vaglio Basilicata",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076095", 
                             "cap": "85029", 
-                            "nome": "Venosa"
+                            "nome": "Venosa",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076096", 
                             "cap": "85058", 
-                            "nome": "Vietri di Potenza"
+                            "nome": "Vietri di Potenza",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076097", 
                             "cap": "85040", 
-                            "nome": "Viggianello"
+                            "nome": "Viggianello",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
                         }, 
                         {
                             "code": "076098", 
                             "cap": "85059", 
-                            "nome": "Viggiano"
-                        }
-                    ], 
-                    "nome": "Potenza"
-                }
-            ], 
-            "nome": "Basilicata"
-        }, 
-        {
-            "province": [
-                {
-                    "code": "CZ", 
-                    "comuni": [
+                            "nome": "Viggiano",
+                            "provincia":"Potenza",
+                            "codiceProvincia": "PZ",
+                            "regione":"Basilicata"
+                        },
                         {
                             "code": "079002", 
                             "cap": "88055", 
-                            "nome": "Albi"
+                            "nome": "Albi",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079003", 
                             "cap": "88050", 
-                            "nome": "Amaroni"
+                            "nome": "Amaroni",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079004", 
                             "cap": "88040", 
-                            "nome": "Amato"
+                            "nome": "Amato",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079005", 
                             "cap": "88050", 
-                            "nome": "Andali"
+                            "nome": "Andali",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079007", 
                             "cap": "88060", 
-                            "nome": "Argusto"
+                            "nome": "Argusto",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079008", 
                             "cap": "88060", 
-                            "nome": "Badolato"
+                            "nome": "Badolato",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079009", 
                             "cap": "88050", 
-                            "nome": "Belcastro"
+                            "nome": "Belcastro",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079011", 
                             "cap": "88021", 
-                            "nome": "Borgia"
+                            "nome": "Borgia",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079012", 
                             "cap": "88070", 
-                            "nome": "Botricello"
+                            "nome": "Botricello",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079017", 
                             "cap": "88050", 
-                            "nome": "Caraffa di Catanzaro"
+                            "nome": "Caraffa di Catanzaro",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079018", 
                             "cap": "88062", 
-                            "nome": "Cardinale"
+                            "nome": "Cardinale",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079020", 
                             "cap": "88040", 
-                            "nome": "Carlopoli"
+                            "nome": "Carlopoli",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079023", 
                             "cap": "88100", 
-                            "nome": "Catanzaro"
+                            "nome": "Catanzaro",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079024", 
                             "cap": "88067", 
-                            "nome": "Cenadi"
+                            "nome": "Cenadi",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079025", 
                             "cap": "88067", 
-                            "nome": "Centrache"
+                            "nome": "Centrache",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079027", 
                             "cap": "88050", 
-                            "nome": "Cerva"
+                            "nome": "Cerva",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079029", 
                             "cap": "88064", 
-                            "nome": "Chiaravalle Centrale"
+                            "nome": "Chiaravalle Centrale",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079030", 
                             "cap": "88040", 
-                            "nome": "Cicala"
+                            "nome": "Cicala",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079033", 
                             "cap": "88040", 
-                            "nome": "Conflenti"
+                            "nome": "Conflenti",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079034", 
                             "cap": "88020", 
-                            "nome": "Cortale"
+                            "nome": "Cortale",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079036", 
                             "cap": "88051", 
-                            "nome": "Cropani"
+                            "nome": "Cropani",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079039", 
                             "cap": "88022", 
-                            "nome": "Curinga"
+                            "nome": "Curinga",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079042", 
                             "cap": "88060", 
-                            "nome": "Davoli"
+                            "nome": "Davoli",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079043", 
                             "cap": "88041", 
-                            "nome": "Decollatura"
+                            "nome": "Decollatura",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079047", 
                             "cap": "88042", 
-                            "nome": "Falerna"
+                            "nome": "Falerna",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079048", 
                             "cap": "88040", 
-                            "nome": "Feroleto Antico"
+                            "nome": "Feroleto Antico",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079052", 
                             "cap": "88050", 
-                            "nome": "Fossato Serralta"
+                            "nome": "Fossato Serralta",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079055", 
                             "cap": "88060", 
-                            "nome": "Gagliato"
+                            "nome": "Gagliato",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079056", 
                             "cap": "88060", 
-                            "nome": "Gasperina"
+                            "nome": "Gasperina",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079058", 
                             "cap": "88045", 
-                            "nome": "Gimigliano"
+                            "nome": "Gimigliano",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079059", 
                             "cap": "88024", 
-                            "nome": "Girifalco"
+                            "nome": "Girifalco",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079060", 
                             "cap": "88040", 
-                            "nome": "Gizzeria"
+                            "nome": "Gizzeria",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079061", 
                             "cap": "88065", 
-                            "nome": "Guardavalle"
+                            "nome": "Guardavalle",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079063", 
                             "cap": "88060", 
-                            "nome": "Isca sullo Ionio"
+                            "nome": "Isca sullo Ionio",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079065", 
                             "cap": "88020", 
-                            "nome": "Jacurso"
+                            "nome": "Jacurso",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079160", 
                             "cap": "88046", 
-                            "nome": "Lamezia Terme"
+                            "nome": "Lamezia Terme",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079068", 
                             "cap": "88050", 
-                            "nome": "Magisano"
+                            "nome": "Magisano",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079069", 
                             "cap": "88025", 
-                            "nome": "Maida"
+                            "nome": "Maida",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079071", 
                             "cap": "88050", 
-                            "nome": "Marcedusa"
+                            "nome": "Marcedusa",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079072", 
                             "cap": "88044", 
-                            "nome": "Marcellinara"
+                            "nome": "Marcellinara",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079073", 
                             "cap": "88040", 
-                            "nome": "Martirano"
+                            "nome": "Martirano",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079074", 
                             "cap": "88040", 
-                            "nome": "Martirano Lombardo"
+                            "nome": "Martirano Lombardo",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079077", 
                             "cap": "88040", 
-                            "nome": "Miglierina"
+                            "nome": "Miglierina",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079080", 
                             "cap": "88060", 
-                            "nome": "Montauro"
+                            "nome": "Montauro",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079081", 
                             "cap": "88060", 
-                            "nome": "Montepaone"
+                            "nome": "Montepaone",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079083", 
                             "cap": "88040", 
-                            "nome": "Motta Santa Lucia"
+                            "nome": "Motta Santa Lucia",
+                            "provincia":"Catanzaro",
+                            "codiceProvincia": "CZ",
+                            "regione":"Calabria"
                         }, 
                         {
                             "code": "079087", 
