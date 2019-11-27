@@ -43,12 +43,11 @@ const styles = StyleSheet.create({
   card: {
     height: isBigDevice ? 250 : 200,
     marginTop: 15,
-    width: isBigDevice ? undefined : width,
+    width: isBigDevice ? undefined : width - 10,
     backgroundColor: 'white',
     ...Platform.select({
       ios: {
         shadowColor: 'black',
-        shadowOffset: { height: -3 },
         shadowOpacity: 0.1,
         shadowRadius: 3
       },
@@ -71,8 +70,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   buttonContainer: {
-    marginLeft: 50,
-    marginTop: 10,
+    alignItems: "center",
+    margin: 5,
     flex: 6
   },
   line: {

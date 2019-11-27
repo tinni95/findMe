@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
 import { FormStyles } from "./Form/FormStyles";
-import { Bold } from '../../components/StyledText';
+import { Light, Bold } from '../../components/StyledText';
 import { comuni } from "./comuni";
 const shortid = require('shortid');
 
@@ -9,9 +9,9 @@ export function AutoCompleteLocation({ navigation }) {
     let path = navigation.getParam("path") || "";
     const [text, setText] = useState("null");
     const Input = useRef();
-    let filteredComuni = comuni.filter(comune => comune.città.includes(text)).slice(10)
+    let filteredComuni = comuni.filter(comune => comune.città.toLowerCase().includes(text.toLowerCase())).slice(0, 10)
     const renderItems = filteredComuni.map(item => {
-        return <TouchableOpacity onPress={() => navigation.navigate(path, { location: item.città })} key={shortid.generate()} style={styles.item}><Bold style={styles.itemText}>{item.città}</Bold></TouchableOpacity>
+        return <TouchableOpacity onPress={() => navigation.navigate(path, { location: item.città + ", " + item.provincia + ", " + item.regione })} key={shortid.generate()} style={styles.item}><Light style={styles.itemText}>{item.città + ", " + item.provincia + ", " + item.regione}</Light></TouchableOpacity>
     })
 
 

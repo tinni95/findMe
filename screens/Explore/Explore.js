@@ -45,14 +45,16 @@ export default function Explore({ posts, settore, navigation, refetch }) {
               <FiltersPage settore={settore} navigation={navigation} />
             </View>
             <View style={{ flex: 4 }}>
-              <Bold style={styles.resultText}>{posts.length} risultati</Bold>
-              <ScrollView>{renderPosts()}</ScrollView>
+              <ScrollView>
+                <Bold style={styles.resultText}>{posts.length} risultati</Bold>{renderPosts()}</ScrollView>
             </View>
           </View>
           :
-          <View style={{ flex: 1 }}>
-            <Bold style={styles.resultText}>{posts.length} risultati</Bold>
-            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>{renderPosts()}</ScrollView>
+          <View style={{
+            flex: 1
+          }}>
+            <ScrollView style={{ zIndex: 1 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+              <Bold style={styles.resultText}>{posts.length} risultati</Bold>{renderPosts()}</ScrollView>
           </View>
         }
       </View>
@@ -71,8 +73,9 @@ const styles = StyleSheet.create({
   },
   resultText: {
     textAlign: "center",
-    fontSize: Platform.OS == "web" ? 25 : 20,
-    margin: Platform.OS == "web" ? 20 : 10
+    fontSize: Platform.OS == "web" ? 22 : 18,
+    margin: Platform.OS == "web" ? 20 : 10,
+
   },
   subContainer: {
     flex: 1,
