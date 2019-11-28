@@ -48,7 +48,10 @@ const styles = StyleSheet.create({
         borderBottomColor: "#B19393",
         flex: 4
     },
-    cancelButton: { marginRight: 2.5, color: "#26547C" },
+    cancelButton: {
+        marginRight: 2.5,
+        color: "#26547C"
+    },
     cancelContainer: {
         flex: 1.5,
         justifyContent: 'center',
