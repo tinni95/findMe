@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { ExpoLinksView } from "@expo/samples";
+import { useQuery } from "react-apollo";
+import gql from "graphql-tag";
 
-export default function LinksScreen() {
+const User = gql`
+{
+  currentUser{
+    presentazione
+  }
+}`
+
+export default function LinksScreen({ navigation }) {
+  const { data } = useQuery(User)
+  const [go, setGo] = useState(null)
+  if (data) {
+    if (data.currentUser) {
+      data.currentUser.presentazione == null && !go ?
+        setGo(true) :
+        null
+    }
+  }
+
+  useEffect(() => {
+    go ? navigation.navigate("UserInfo") : null
+  })
+
   return (
     <ScrollView style={styles.container}>
       {/**
