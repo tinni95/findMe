@@ -3,17 +3,17 @@ import * as Font from 'expo-font';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { graphlEndPoint } from "./shared/urls";
 import { TOKEN_KEY } from "./shared/Token"
 import { resolvers, typeDefs } from './resolvers';
-import { InMemoryCache } from 'apollo-cache-inmemory';
 import MainTabNavigator from './navigation/MainTabNavigator/MainTabNavigator';
 import AuthenticationStack from './navigation/AuthenticationStack';
-
+import { ApolloClient } from 'apollo-client';
+import { setContext } from 'apollo-link-context';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createUploadLink } from "apollo-upload-client";
 const cache = new InMemoryCache();
-
 cache.writeData({
   data: {
     postLocation: "",
@@ -37,19 +37,25 @@ export default function App() {
   }
 
   async function makeClient() {
-    setClient(await new ApolloClient({
-      request: (operation) => {
-        operation.setContext({
-          headers: {
-            authorization: token ? `Bearer ${token}` : ''
-          }
-        })
-      },
+    let authLink = setContext((_, { headers }) => {
+      return {
+        headers: {
+          ...headers,
+          authorization: token ? `Bearer ${token}` : "",
+        }
+      }
+    });
+
+    let httpLink = createUploadLink({
       uri: graphlEndPoint,
-      cache,
-      resolvers,
-      typeDefs
-    }))
+    });
+
+    setClient(
+      new ApolloClient({
+        link: authLink.concat(httpLink),
+        cache
+      })
+    )
   }
 
   function login() {

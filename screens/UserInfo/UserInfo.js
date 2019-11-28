@@ -7,6 +7,29 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 export default function UserInfo() {
+    const getPermissionAsync = async () => {
+        if (Platform.OS == "ios") {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
+    }
+
+    const PickImage = async () => {
+        await getPermissionAsync();
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1
+        });
+        console.log(result);
+        if (!result.cancelled) {
+            setImage(result.uri)
+        }
+    };
+
     const [image, setImage] = useState("http://hwattsup.website/AppBackEnd/images/placeholder.jpeg");
     const pen = require("../../assets/images/pen.png")
     return <View style={styles.container}>
@@ -16,7 +39,7 @@ export default function UserInfo() {
             </TouchableOpacity>
         </View>
         <View style={styles.imageContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => PickImage()}>
                 <Image source={{ uri: image }} style={{ width: 150, height: 150, borderRadius: 75 }} />
                 <View style={styles.penWrapper}>
                     <Image source={pen} style={{ width: 30, height: 30 }} />

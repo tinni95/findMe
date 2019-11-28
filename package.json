@@ -25,6 +25,7 @@
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-link-context": "^1.0.19",
     "apollo-link-http": "^1.5.16",
+    "apollo-upload-client": "^11.0.0",
     "babel-plugin-relay": "^6.0.0",
     "expo": "^35.0.0",
     "expo-asset": "^7.0.0",
