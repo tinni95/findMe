@@ -5,8 +5,28 @@ import { width } from '../../constants/Layout'
 import { Bold } from '../../components/StyledText'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import gql from 'graphql-tag'
+import { useMutation } from '@apollo/react-hooks';
+const { ReactNativeFile } = require('apollo-upload-client')
 
-export default function UserInfo() {
+const UPDATEUSER_MUTATION = gql`
+mutation updateUser($email: String, $password: String,$nome: String, $cognome: String, $locationString:String,$picture:Upload,$presentazione:String, $DoB:DateTime) {
+        updateUser(email: $email, password:$password, nome:$nome,cognome:$cognome,locationString:$locationString,picture:$picture,presentazione:$presentazione, DoB:$DoB) {
+        pictureUrl
+    }
+}`;
+
+export default function UserInfo({ navigation }) {
+    const [
+        updateUser,
+        { loading: mutationLoading, error: mutationError, error, data },
+    ] = useMutation(UPDATEUSER_MUTATION,
+        {
+            onCompleted: async ({ updateUser }) => {
+                console.log(updateUser)
+            }
+        });
+
     const getPermissionAsync = async () => {
         if (Platform.OS == "ios") {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -19,7 +39,7 @@ export default function UserInfo() {
     const PickImage = async () => {
         await getPermissionAsync();
         let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1
@@ -30,11 +50,24 @@ export default function UserInfo() {
         }
     };
 
-    const [image, setImage] = useState("http://hwattsup.website/AppBackEnd/images/placeholder.jpeg");
+    const uploadImage = () => {
+        if (image == initialString) {
+            return alert("image not selected")
+        }
+        const file = new ReactNativeFile({
+            uri: image,
+            name: navigation.getParam("email") + ".jpg",
+            type: 'image/jpeg'
+        })
+        updateUser({ variables: { picture: file } })
+    }
+
+    const initialString = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg"
+    const [image, setImage] = useState(initialString);
     const pen = require("../../assets/images/pen.png")
     return <View style={styles.container}>
         <View style={styles.header}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity onPress={() => uploadImage()} style={styles.button}>
                 <Bold style={{ color: "white" }}>Salva</Bold>
             </TouchableOpacity>
         </View>

@@ -8,6 +8,7 @@ const User = gql`
 {
   currentUser{
     presentazione
+    email
   }
 }`
 
@@ -23,7 +24,7 @@ export default function LinksScreen({ navigation }) {
   }
 
   useEffect(() => {
-    go ? navigation.navigate("UserInfo") : null
+    go ? navigation.navigate("UserInfo", { email: data.currentUser.email }) : null
   })
 
   return (
