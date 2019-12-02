@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, StyleSheet, Image, AsyncStorage, TextInput } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
 import { Bold } from '../../components/StyledText';
@@ -42,11 +42,17 @@ export default function SignUpScreen({ screenProps }) {
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
   const [repasswordError, setRepasswordError] = useState(false)
-  let isEmailUsed = mutationError && error.message.toString().includes("A unique constraint would be violated on User");
+  let isEmailUsed;
   let surnameInput = useRef();
   let emailInput = useRef();
   let passwordInput = useRef();
   let repasswordInput = useRef();
+
+  useEffect(() => {
+    isEmailUsed = mutationError && error.message.toString().includes("A unique constraint would be violated on User");
+    isEmailUsed ?
+      alert("l'email è gia in uso") : null
+  }, [mutationError])
 
   //The Function called when Registrati button pressed
   const handleSubmit = async () => {
