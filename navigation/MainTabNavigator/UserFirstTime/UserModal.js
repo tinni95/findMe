@@ -8,7 +8,6 @@ import TabBarIcon from "../../../components/TabBarIcon";
 const UserModal = createStackNavigator(
     {
         LinksStack: LinksStack,
-        UserInfo: UserInfo
     },
     {
         mode: 'modal',
