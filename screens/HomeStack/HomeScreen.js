@@ -4,6 +4,7 @@ import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import Header from "./Header";
 import Filters from "./Filters";
+import { All, Mondo, Italia, Lists } from "./Rss";
 var axios = require("axios");
 
 const User = gql`
@@ -29,7 +30,11 @@ export default function LinksScreen({ navigation }) {
   }
 
   useEffect(() => {
-    console.log(filters)
+    let lists = []
+    lists = filters.map(filter => {
+      return Lists[filter]
+    })
+    var merged = [].concat.apply([], lists);
   }, [filters])
 
   useEffect(() => {
@@ -37,10 +42,8 @@ export default function LinksScreen({ navigation }) {
   }, [])
 
   useEffect(() => {
-    axios.get("https://api.rss2json.com/v1/api.json?rss_url=https://www.ilsole24ore.com/rss/mondo--medio-oriente.xml").then((res) => {
-      console.log("Hello");
-    }, [])
-  })
+    All([...Lists[7], ...Lists[6]]);
+  }, [])
 
   return (
     <ScrollView style={styles.container}>
@@ -49,7 +52,6 @@ export default function LinksScreen({ navigation }) {
         filters={filters}
         addFilter={item => setFilters([...filters, item])}
         removeFilter={item => setFilters(filters.filter(i => i !== item))}></Filters>
-      {feeds.forEach(feed => { return <Text>hi</Text> })}
     </ScrollView>
   );
 }
