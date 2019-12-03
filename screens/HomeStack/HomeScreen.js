@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, View, StyleSheet, Text } from "react-native";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import Header from "./Header";
@@ -34,7 +34,9 @@ export default function LinksScreen({ navigation }) {
   const renderFeeds = () => {
     console.log(feeds)
     return feeds.map(feed => {
-      return <FeedCard key={shortid.generate()} Card={feed}></FeedCard>
+      return <View style={styles.feedContainer}>
+        <FeedCard key={shortid.generate()} Card={feed}></FeedCard>
+      </View>
 
     })
   }
@@ -91,5 +93,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: "#fff"
+  },
+  feedContainer: {
+    backgroundColor: "#E5E5E5",
+    alignContent: "center"
   }
 });
