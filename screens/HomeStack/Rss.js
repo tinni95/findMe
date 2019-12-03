@@ -1,5 +1,4 @@
-var RSSCombiner = require('rss-combiner');
-var parseString = require('xml2js').parseString;
+
 
 export const Mondo = [
     "https://www.ilsole24ore.com/rss/mondo--europa.xml",
@@ -61,17 +60,3 @@ export const Tech = [
 export const Lists = [
     Mondo, Italia, Economia, Finanza, Risparmio, Norme, Management, Cultura, Tech
 ]
-export const All = async (feedLinks) => {
-    var feedConfig = {
-        size: 20,
-        feeds: feedLinks,
-        pubDate: new Date()
-    };
-    RSSCombiner(feedConfig)
-        .then(function (combinedFeed) {
-            var xml = combinedFeed.xml();
-            parseString(xml, function (err, result) {
-                console.dir(result);
-            });
-        });
-}

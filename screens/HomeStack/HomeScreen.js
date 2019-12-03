@@ -5,8 +5,10 @@ import gql from "graphql-tag";
 import Header from "./Header";
 import Filters from "./Filters";
 import { All, Mondo, Italia, Lists } from "./Rss";
-var axios = require("axios");
-
+import FeedCard from "./FeedCard";
+var RSSCombiner = require('rss-combiner');
+var parseString = require('xml2js').parseString;
+var shortid = require("shortid")
 const User = gql`
 {
   currentUser{
@@ -20,7 +22,7 @@ export default function LinksScreen({ navigation }) {
   const [go, setGo] = useState(null)
   const [search, setSearch] = useState("")
   const [filters, setFilters] = useState([])
-  const [feeds, setFeeds] = useState([<Text>Hello</Text>])
+  const [feeds, setFeeds] = useState([])
   if (data) {
     if (data.currentUser) {
       data.currentUser.presentazione == null && !go ?
@@ -29,20 +31,40 @@ export default function LinksScreen({ navigation }) {
     }
   }
 
+  const renderFeeds = () => {
+    console.log(feeds)
+    return feeds.map(feed => {
+      return <FeedCard key={shortid.generate()} Card={feed}></FeedCard>
+
+    })
+  }
+
+  const rss = async (feedLinks) => {
+    var feedConfig = {
+      size: 20,
+      feeds: feedLinks,
+      pubDate: new Date()
+    };
+    RSSCombiner(feedConfig)
+      .then(function (combinedFeed) {
+        var xml = combinedFeed.xml();
+        parseString(xml, function (err, result) {
+          setFeeds(result.rss.channel[0].item)
+        });
+      });
+  }
+
   useEffect(() => {
     let lists = []
     lists = filters.map(filter => {
       return Lists[filter]
     })
     var merged = [].concat.apply([], lists);
+    rss(merged);
   }, [filters])
 
   useEffect(() => {
     go ? navigation.navigate("UserInfo", { email: data.currentUser.email }) : null
-  }, [])
-
-  useEffect(() => {
-    All([...Lists[7], ...Lists[6]]);
   }, [])
 
   return (
@@ -52,6 +74,10 @@ export default function LinksScreen({ navigation }) {
         filters={filters}
         addFilter={item => setFilters([...filters, item])}
         removeFilter={item => setFilters(filters.filter(i => i !== item))}></Filters>
+      {
+        feeds.length > 0 ?
+          renderFeeds() : null
+      }
     </ScrollView>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TouchableOpacity, StyleSheet, View, Image, Platform } from "react-native"
 import Colors from '../../constants/Colors'
 import { width } from '../../constants/Layout'
@@ -8,6 +8,8 @@ import * as Permissions from 'expo-permissions';
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks';
 const { ReactNativeFile } = require('apollo-upload-client')
+import { Linking } from 'expo';
+
 
 const UPDATEUSER_MUTATION = gql`
 mutation updateUser($email: String, $password: String,$nome: String, $cognome: String, $locationString:String,$picture:Upload,$presentazione:String, $DoB:DateTime) {
@@ -17,6 +19,7 @@ mutation updateUser($email: String, $password: String,$nome: String, $cognome: S
 }`;
 
 export default function UserInfo({ navigation }) {
+
     const [
         updateUser,
         { loading: mutationLoading, error: mutationError, error, data },
