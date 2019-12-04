@@ -1,8 +1,9 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import UserInfo from '../screens/UserInfo';
+import UserInfoModal from './UserInfoModal';
 import MainTabNavigator from "./MainTabNavigator"
+
 const UserModal = createSwitchNavigator({
-    UserInfo,
+    UserInfoModal,
     MainTabNavigator
 });
 
