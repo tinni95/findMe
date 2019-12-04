@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { graphql, createFragmentContainer } from 'react-relay';
 import moment from 'moment';
 import LocationWithText from '../shared/LocationWithText';
 import { Bold, Body } from '../StyledText';

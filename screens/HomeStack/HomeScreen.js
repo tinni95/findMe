@@ -4,10 +4,7 @@ import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
 import Header from "./Header";
 import Filters from "./Filters";
-import { All, Mondo, Italia, Lists } from "./Rss";
 import FeedCard from "./FeedCard";
-var RSSCombiner = require('rss-combiner');
-var parseString = require('xml2js').parseString;
 var shortid = require("shortid")
 const User = gql`
 {
@@ -40,30 +37,6 @@ export default function LinksScreen({ navigation }) {
 
     })
   }
-
-  const rss = async (feedLinks) => {
-    var feedConfig = {
-      size: 20,
-      feeds: feedLinks,
-      pubDate: new Date()
-    };
-    RSSCombiner(feedConfig)
-      .then(function (combinedFeed) {
-        var xml = combinedFeed.xml();
-        parseString(xml, function (err, result) {
-          setFeeds(result.rss.channel[0].item)
-        });
-      });
-  }
-
-  useEffect(() => {
-    let lists = []
-    lists = filters.map(filter => {
-      return Lists[filter]
-    })
-    var merged = [].concat.apply([], lists);
-    rss(merged);
-  }, [filters])
 
   useEffect(() => {
     go ? navigation.navigate("UserInfo", { email: data.currentUser.email }) : null

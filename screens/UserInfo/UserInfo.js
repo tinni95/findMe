@@ -8,7 +8,6 @@ import * as Permissions from 'expo-permissions';
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks';
 const { ReactNativeFile } = require('apollo-upload-client')
-import { Linking } from 'expo';
 
 
 const UPDATEUSER_MUTATION = gql`
@@ -45,7 +44,8 @@ export default function UserInfo({ navigation }) {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 1
+            quality: 1,
+            base64: true
         });
         console.log(result);
         if (!result.cancelled) {
@@ -60,7 +60,8 @@ export default function UserInfo({ navigation }) {
         const file = new ReactNativeFile({
             uri: image,
             name: navigation.getParam("email") + ".jpg",
-            type: 'image/jpeg'
+            type: 'image/jpeg',
+            base64: true
         })
         updateUser({ variables: { picture: file } })
     }
