@@ -11,6 +11,7 @@ const User = gql`
       email
       nome
       cognome
+      pictureUrl
     }
   }
 `;

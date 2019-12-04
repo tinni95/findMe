@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TouchableOpacity, StyleSheet, View, Image, Platform } from "react-native"
+import { TouchableOpacity, ScrollView, StyleSheet, View, Image, Platform } from "react-native"
 import Colors from '../../constants/Colors'
 import { width } from '../../constants/Layout'
 import { Bold } from '../../components/StyledText'
@@ -25,7 +25,7 @@ export default function UserInfo({ navigation }) {
     ] = useMutation(UPDATEUSER_MUTATION,
         {
             onCompleted: async ({ updateUser }) => {
-                console.log(updateUser)
+                navigation.navigate("LinksScreen")
             }
         });
 
@@ -47,7 +47,7 @@ export default function UserInfo({ navigation }) {
             quality: 1,
             base64: true
         });
-        console.log(result);
+        console.log(result.uri);
         if (!result.cancelled) {
             setImage(result.uri)
         }
@@ -75,14 +75,14 @@ export default function UserInfo({ navigation }) {
                 <Bold style={{ color: "white" }}>Salva</Bold>
             </TouchableOpacity>
         </View>
-        <View style={styles.imageContainer}>
+        <ScrollView contentContainerStyle={styles.imageContainer}>
             <TouchableOpacity onPress={() => PickImage()}>
                 <Image source={{ uri: image }} style={{ width: 150, height: 150, borderRadius: 75 }} />
                 <View style={styles.penWrapper}>
                     <Image source={pen} style={{ width: 30, height: 30 }} />
                 </View>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     </View>
 }
 

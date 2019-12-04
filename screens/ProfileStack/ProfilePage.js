@@ -17,6 +17,7 @@ export default function ProfilePage({ user, screenProps }) {
       <Text>{user.email}</Text>
       <Text>{user.nome}</Text>
       <Text>{user.cognome}</Text>
+      <Text>{user.pictureUrl}</Text>
       <RoundButton fontColor="white"
         isLong color="#DD1E63" text={"LOGOUT"}
         onPress={() => logout()}

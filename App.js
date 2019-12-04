@@ -6,25 +6,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { graphlEndPoint } from "./shared/urls";
 import { TOKEN_KEY } from "./shared/Token"
-import { resolvers, typeDefs } from './resolvers';
-import MainTabNavigator from './navigation/MainTabNavigator/MainTabNavigator';
+import MainTabNavigatorWrapper from './navigation/MainTabNavigatorWrapper';
 import AuthenticationStack from './navigation/AuthenticationStack';
 import { ApolloClient } from 'apollo-client';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from "apollo-upload-client";
-const cache = new InMemoryCache();
-cache.writeData({
-  data: {
-    postLocation: "",
-    postOwnerPosition: "",
-    postTitle: "",
-    postDescription: "",
-    postOwner: "",
-    postCategories: [],
-    postPositions: []
-  },
-});
 
 export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -38,6 +25,18 @@ export default function App() {
   }
 
   async function makeClient() {
+    const cache = new InMemoryCache();
+    cache.writeData({
+      data: {
+        postLocation: "",
+        postOwnerPosition: "",
+        postTitle: "",
+        postDescription: "",
+        postOwner: "",
+        postCategories: [],
+        postPositions: []
+      },
+    });
     let authLink = setContext((_, { headers }) => {
       return {
         headers: {
@@ -60,11 +59,11 @@ export default function App() {
   }
 
   function login() {
-    fetchToken().then(() => makeClient()).then(() => setLoggedin(!loggedin))
+    fetchToken().then(() => makeClient()).then(() => { setLoggedin(true); console.log("client", client) })
   }
 
   function logout() {
-    fetchToken().then(() => makeClient()).then(() => setLoggedin(!loggedin))
+    fetchToken().then(() => makeClient()).then(() => setLoggedin(false))
   }
 
   useEffect(() => {
@@ -83,7 +82,7 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        {loggedin ? <MainTabNavigator screenProps={{ changeLoginState: () => logout() }} /> :
+        {loggedin ? <MainTabNavigatorWrapper screenProps={{ changeLoginState: () => logout() }} /> :
           <AuthenticationStack screenProps={{ changeLoginState: () => login() }} />}
       </View>
     </ApolloProvider>
