@@ -7,7 +7,14 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import FormTextInput from "../shared/Form/FormTextInput";
+import WithErrorString from "../shared/Form/WithErrorString";
+import StepsLabel, { StepsLabelWithHint } from "../shared/StepsLabel";
+import { FormStyles } from '../shared/Form/FormStyles'
 const { ReactNativeFile } = require('apollo-upload-client')
+import moment from "moment";
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 
 const UPDATEUSER_MUTATION = gql`
@@ -17,17 +24,31 @@ mutation updateUser($email: String, $password: String,$nome: String, $cognome: S
     }
 }`;
 
-export default function UserInfo({ navigation }) {
+export default function UserInfo({ navigation, screenProps }) {
+    const [visibleDate, setVisibleDate] = useState(false)
+    const [nome, setNome] = useState(screenProps.currentUser.nome)
+    const [nomeError, setNomeError] = useState(false)
+    const [cognome, setCognome] = useState(screenProps.currentUser.cognome)
+    const [cognomeError, setCognomeError] = useState(false)
+    const [DoB, setDoB] = useState("")
+    const [DoBError, setDoBError] = useState(false)
+    const [location, setLocation] = useState("")
+    const [locationError, setLocationError] = useState(false)
+    const [presentazione, setPresentazione] = useState("")
+    const [presentazioneError, setPresentazioneError] = useState(false)
 
-    const [
-        updateUser,
-        { loading: mutationLoading, error: mutationError, error, data },
-    ] = useMutation(UPDATEUSER_MUTATION,
+    const [updateUser] = useMutation(UPDATEUSER_MUTATION,
         {
             onCompleted: async ({ updateUser }) => {
                 navigation.navigate("LinksScreen")
             }
         });
+
+    const _handleDatePicked = (dates) => {
+        console.log('A date has been picked: ', dates);
+        setVisibleDate(false)
+        setDoB(moment(dates).format("YYYY-MM-DD"))
+    };
 
     const getPermissionAsync = async () => {
         if (Platform.OS == "ios") {
@@ -53,13 +74,37 @@ export default function UserInfo({ navigation }) {
         }
     };
 
-    const uploadImage = () => {
+    const handlePress = () => {
+        if (nome.length === 0) {
+            setNomeError(true);
+        }
+        else {
+            setNomeError(false)
+        }
+        if (cognome.length === 0) {
+            setCognomeError(true);
+        }
+        else {
+            setCognomeError(false)
+        }
+        if (DoB.length === 0) {
+            setDoBError(true);
+        }
+        else {
+            setDoBError(false)
+        }
         if (image == initialString) {
             return alert("image not selected")
         }
+        if (nome.length > 0 && cognome.length > 0) {
+            submit()
+        }
+    }
+
+    const submit = () => {
         const file = new ReactNativeFile({
             uri: image,
-            name: navigation.getParam("email") + ".jpg",
+            name: screenProps.email + ".jpg",
             type: 'image/jpeg',
             base64: true
         })
@@ -69,20 +114,59 @@ export default function UserInfo({ navigation }) {
     const initialString = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg"
     const [image, setImage] = useState(initialString);
     const pen = require("../../assets/images/pen.png")
+
     return <View style={styles.container}>
         <View style={styles.header}>
-            <TouchableOpacity onPress={() => uploadImage()} style={styles.button}>
+            <TouchableOpacity onPress={() => handlePress()} style={styles.button}>
                 <Bold style={{ color: "white" }}>Salva</Bold>
             </TouchableOpacity>
         </View>
-        <ScrollView contentContainerStyle={styles.imageContainer}>
-            <TouchableOpacity onPress={() => PickImage()}>
-                <Image source={{ uri: image }} style={{ width: 150, height: 150, borderRadius: 75 }} />
-                <View style={styles.penWrapper}>
-                    <Image source={pen} style={{ width: 30, height: 30 }} />
-                </View>
-            </TouchableOpacity>
-        </ScrollView>
+        <KeyboardAwareScrollView contentContainerStyle={{ margin: 30 }}>
+            <View style={styles.imageContainer}>
+                <TouchableOpacity onPress={() => PickImage()}>
+                    <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 50 }} />
+                    <View style={styles.penWrapper}>
+                        <Image source={pen} style={{ width: 20, height: 20 }} />
+                    </View>
+                </TouchableOpacity>
+            </View>
+            <StepsLabel error={nomeError} text={"Nome"} />
+            <WithErrorString
+                error={nomeError}
+                errorText={"Campo Obbligatorio"}>
+                <FormTextInput
+                    placeholder={"Nome"}
+                    onChangeText={val => setNome(val)}
+                    value={nome}
+                    style={nomeError ? FormStyles.inputError : FormStyles.input}
+                />
+            </WithErrorString>
+            <StepsLabel error={cognomeError} text={"Cognome"} />
+            <WithErrorString
+                error={cognomeError}
+                errorText={"Campo Obbligatorio"}>
+                <FormTextInput
+                    placeholder={"Cognome"}
+                    onChangeText={val => setCognome(val)}
+                    value={cognome}
+                    style={cognomeError ? FormStyles.inputError : FormStyles.input}
+                />
+            </WithErrorString>
+            <StepsLabel error={cognomeError} text={"Data Di Nascita"} />
+            <WithErrorString
+                error={DoBError}
+                errorText={"Campo Obbligatorio"}>
+                <TouchableOpacity onPress={() => setVisibleDate(true)}>
+                    <FormTextInput
+                        pointerEvents="none"
+                        editable={false}
+                        value={DoB}
+                        style={cognomeError ? FormStyles.inputError : FormStyles.input}
+                    />
+                </TouchableOpacity>
+            </WithErrorString>
+            <DateTimePicker isVisible={visibleDate} onConfirm={_handleDatePicked} onCancel={() => setVisibleDate(false)} maximumDate={new Date()} />
+        </KeyboardAwareScrollView>
     </View>
 }
 

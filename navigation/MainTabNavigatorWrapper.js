@@ -10,8 +10,9 @@ const User = gql`
 {
   currentUser{
     pictureUrl
-    presentazione
     email
+    nome
+    cognome
   }
 }`
 
@@ -24,7 +25,7 @@ export default function MainTabNavigatorWrapper({ screenProps }) {
   if (data) {
     if (data.currentUser) {
       if (data.currentUser.pictureUrl == null) {
-        return <UserModal />
+        return <UserModal screenProps={{ currentUser: data.currentUser }} />
       }
       else { return <MainTabNavigator screenProps={screenProps} /> }
     }
