@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, View, StyleSheet, AsyncStorage, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { Modal, View, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { TOKEN_KEY } from '../../shared/Token';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
@@ -26,16 +26,22 @@ const User = gql`
 
 export default function ProfilePage({ navigation }) {
   const isRefetch = navigation.getParam("refetch") || false
-  useEffect(() => {
-    isRefetch ? refetch() : null
-  }, [isRefetch])
+  const [showAll, setShowAll] = useState(false)
   const [modalVisbile, setModalVisible] = useState(false)
   const { loading, error, data, refetch } = useQuery(User, {
-    fetchPolicy: 'no-cache',
     onCompleted: async ({ currentUser }) => {
       navigation.setParams({ currentUser })
     }
   });
+
+  useEffect(() => {
+    isRefetch ? refetch() : null
+  }, [isRefetch])
+
+  useEffect(() => {
+    data ? navigation.setParams({ currentUser: data.currentUser }) : null
+  }, [data])
+
   const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
   const images = [{ url: image }]
   if (loading) return <FindMeSpinner />;
@@ -64,7 +70,9 @@ export default function ProfilePage({ navigation }) {
         <Bold style={{ marginTop: 10, fontSize: 18 }}>{data.currentUser.nome + " " + data.currentUser.cognome}</Bold>
         <LocationWithText comune={data.currentUser.locationString.split(",")[0]} regione={data.currentUser.locationString.split(",")[2]} />
         <View style={{ height: 15 }}></View>
-        <Light>{data.currentUser.presentazione}</Light>
+        {data.currentUser.presentazione.length < 75 || showAll ?
+          <Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "center", margin: 20 }}><Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
+        }
       </View>
       <View style={styles.infoWrapper}></View>
     </View>);
@@ -77,9 +85,7 @@ const styles = StyleSheet.create({
   userWrapper: {
     justifyContent: "center",
     alignItems: "center",
-    flex: 1.5
   },
-  infoWrapper: { flex: 2 }
 })
 
 ProfilePage.navigationOptions = ({ navigation }) => {

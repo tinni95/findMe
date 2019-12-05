@@ -55,7 +55,7 @@ export default function UserInfo({ navigation, screenProps }) {
     const [updateUser] = useMutation(UPDATEUSER_MUTATION,
         {
             onCompleted: async ({ updateUser }) => {
-                currentUser.presentazione ? navigation.navigate("ProfilePage", { refetch: true }) : navigation.navigate("LinksScreen")
+                currentUser.presentazione ? navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) }) : navigation.navigate("LinksScreen")
             }
         });
 
@@ -150,7 +150,7 @@ export default function UserInfo({ navigation, screenProps }) {
             </TouchableOpacity>
         </View>
         <View style={{ flex: 8 }}>
-            <KeyboardAwareScrollView
+            <ScrollView
                 ref={scrollview}
                 contentContainerStyle={{ margin: 30 }}>
                 {!zoom &&
@@ -230,7 +230,7 @@ export default function UserInfo({ navigation, screenProps }) {
                 {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
                 <DateTimePicker isVisible={visibleDate} onConfirm={_handleDatePicked} onCancel={() => setVisibleDate(false)} maximumDate={new Date()} />
                 <View style={{ height: 50 }}></View>
-            </KeyboardAwareScrollView>
+            </ScrollView>
         </View>
     </View>
 }
