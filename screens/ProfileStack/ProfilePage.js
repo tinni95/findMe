@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   userWrapper: {
+    marginTop: 20,
     justifyContent: "center",
     alignItems: "center",
   },
