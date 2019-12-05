@@ -1,3 +1,3 @@
-import ProfilePageQueryRenderer from './ProfilePageQueryRenderer';
+import ProfilePage from './ProfilePage';
 
-export default ProfilePageQueryRenderer;
+export default ProfilePage;

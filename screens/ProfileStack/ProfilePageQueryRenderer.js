@@ -12,6 +12,7 @@ const User = gql`
       nome
       cognome
       pictureUrl
+      locationString
     }
   }
 `;

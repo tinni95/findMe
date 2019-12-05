@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../../components/TabBarIcon';
-import ProfilePageQueryRenderer from '../../screens/ProfileStack';
+import ProfilePage from '../../screens/ProfileStack';
 
 const ProfileStack = createStackNavigator({
-  ProfilePageQueryRenderer
+  ProfilePage
 });
 
 ProfileStack.navigationOptions = {

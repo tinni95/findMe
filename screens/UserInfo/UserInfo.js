@@ -19,11 +19,12 @@ import RoundButton from '../../components/shared/RoundButtonSignUpScreen'
 
 
 const UPDATEUSER_MUTATION = gql`
-mutation updateUser($email: String, $password: String,$nome: String, $cognome: String, $locationString:String,$picture:Upload,$presentazione:String, $DoB:DateTime) {
+mutation updateUser($email: String, $password: String,$nome: String, $cognome: String, $locationString:String,$picture:Upload,$presentazione:String, $DoB:String) {
         updateUser(email: $email, password:$password, nome:$nome,cognome:$cognome,locationString:$locationString,picture:$picture,presentazione:$presentazione, DoB:$DoB) {
         pictureUrl
     }
 }`;
+
 
 export default function UserInfo({ navigation, screenProps }) {
     //passedLocation (autocomplete)
@@ -73,6 +74,7 @@ export default function UserInfo({ navigation, screenProps }) {
     }
 
     const PickImage = async () => {
+        console.log("yo");
         await getPermissionAsync();
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -81,7 +83,7 @@ export default function UserInfo({ navigation, screenProps }) {
             quality: 1,
             base64: true
         });
-        console.log(result.uri);
+        console.log("result", result.uri);
         if (!result.cancelled) {
             setImage(result.uri)
         }
@@ -121,7 +123,7 @@ export default function UserInfo({ navigation, screenProps }) {
         if (image == initialString) {
             return alert("image not selected")
         }
-        if (nome.length > 0 && cognome.length > 0) {
+        if (nome.length > 0 && cognome.length > 0 && DoB.length > 0 && location.length > 0 && presentazione.length > 0 && image != initialString) {
             submit()
         }
     }
@@ -129,11 +131,11 @@ export default function UserInfo({ navigation, screenProps }) {
     const submit = () => {
         const file = new ReactNativeFile({
             uri: image,
-            name: "caccas.jpg",
+            name: screenProps.currentUser.email + ".jpg",
             type: 'image/jpeg',
-            base64: true
+
         })
-        updateUser({ variables: { picture: file } })
+        updateUser({ variables: { picture: file, DoB, nome, cognome, presentazione, locationString: location } })
     }
 
     const initialString = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg"

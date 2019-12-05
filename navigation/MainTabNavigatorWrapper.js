@@ -9,16 +9,17 @@ import FindMeGraphQlErrorDisplay from "../shared/FindMeSpinner"
 const User = gql`
 {
   currentUser{
-    pictureUrl
     email
     nome
     cognome
+    pictureUrl
+    locationString
   }
 }`
 
 export default function MainTabNavigatorWrapper({ screenProps }) {
-  const { loading, error, data } = useQuery(User)
-  console.log(data)
+  const { loading, error, data } = useQuery(User, { fetchPolicy: 'no-cache' })
+  console.log("data", data)
 
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
