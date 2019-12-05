@@ -1,17 +1,37 @@
 import React from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../../components/TabBarIcon';
 import ProfilePage from '../../screens/ProfileStack';
+import Logout from '../../screens/ProfileStack/Logout';
+
+const LogoutStack = createStackNavigator({
+  Logout
+});
 
 const ProfileStack = createStackNavigator({
   ProfilePage
 });
 
-ProfileStack.navigationOptions = {
+const ProfileDrawer = createDrawerNavigator(
+  {
+    Profilo: ProfileStack,
+    Logout: LogoutStack
+  },
+  {
+    drawerPosition: 'left',
+    getCustomActionCreators: (route, stateKey) => {
+      return {
+        toggleOuterDrawer: () => DrawerActions.toggleDrawer({ key: stateKey }),
+      };
+    },
+  }
+);
+
+ProfileDrawer.navigationOptions = {
   tabBarLabel: 'Profilo',
   tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-contact"} focused={focused} />
 };
 
-ProfileStack.path = '';
+ProfileDrawer.path = '';
 
-export default ProfileStack;
+export default ProfileDrawer;

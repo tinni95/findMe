@@ -75,28 +75,31 @@ const styles = StyleSheet.create({
   infoWrapper: { flex: 2 }
 })
 
-ProfilePage.navigationOptions = {
-  title: "Profilo",
-  headerStyle: {
-    borderBottomWidth: 0.1,
-  },
-  headerTitleStyle: {
-    fontSize: 20,
-    fontFamily: "sequel-sans"
-  },
-  headerRight: (
-    <TouchableOpacity>
-      <Image source={require("../../assets/images/pen.png")} style={{ width: 25, height: 25, marginRight: 15 }} />
-    </TouchableOpacity>
-  ),
-  headerLeft: (
-    <TouchableOpacity>
-      <Ionicons
-        name={"ios-menu"}
-        size={30}
-        style={{ marginLeft: 10 }}
-        color={Colors.blue}
-      ></Ionicons>
-    </TouchableOpacity>
-  ),
+ProfilePage.navigationOptions = ({ navigation }) => {
+
+  return {
+    title: "Profilo",
+    headerStyle: {
+      borderBottomWidth: 0.1,
+    },
+    headerTitleStyle: {
+      fontSize: 20,
+      fontFamily: "sequel-sans"
+    },
+    headerRight: (
+      <TouchableOpacity>
+        <Image source={require("../../assets/images/pen.png")} style={{ width: 25, height: 25, marginRight: 15 }} />
+      </TouchableOpacity>
+    ),
+    headerLeft: (
+      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+        <Ionicons
+          name={"ios-menu"}
+          size={30}
+          style={{ marginLeft: 10 }}
+          color={Colors.blue}
+        ></Ionicons>
+      </TouchableOpacity>
+    )
+  }
 }
