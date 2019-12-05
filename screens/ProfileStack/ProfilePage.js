@@ -9,6 +9,8 @@ import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
+import { Bold } from '../../components/StyledText';
+import LocationWithText from '../../components/shared/LocationWithText';
 
 const User = gql`
   {
@@ -24,33 +26,36 @@ const User = gql`
 
 export default function ProfilePage({ screenProps }) {
   const { loading, error, data } = useQuery(User);
+  const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg"
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
   const logout = async () => {
     AsyncStorage.removeItem(TOKEN_KEY).then(() => {
       screenProps.changeLoginState();
     })
-
   }
-
+  console.log(data)
   return (
     <View style={styles.container}>
-      <Text>{data.currentUser.email}</Text>
-      <Text>{data.currentUser.nome}</Text>
-      <Text>{data.currentUser.cognome}</Text>
-      <Text>{data.currentUser.locationString}</Text>
-      <Text>{data.currentUser.pictureUrl}</Text>
-      <RoundButton fontColor="white"
-        isLong color="#DD1E63" text={"LOGOUT"}
-        onPress={() => logout()}
-      ></RoundButton>
+      <View style={styles.userWrapper}>
+        <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 50 }} />
+        <Bold style={{ marginTop: 10, fontSize: 18 }}>{data.currentUser.nome + " " + data.currentUser.cognome}</Bold>
+        <LocationWithText comune={data.currentUser.locationString.split(",")[0]} regione={data.currentUser.locationString.split(",")[2]} />
+      </View>
+      <View style={styles.infoWrapper}></View>
     </View>);
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  }
+  },
+  userWrapper: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1.5
+  },
+  infoWrapper: { flex: 2 }
 })
 
 ProfilePage.navigationOptions = {
