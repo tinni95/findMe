@@ -31,17 +31,19 @@ export default function UserInfo({ navigation, screenProps }) {
     const passedLocation = navigation.getParam("location") || ""
 
     //hooks
+    const currentUser = screenProps.currentUser ? screenProps.currentUser : navigation.getParam("currentUser")
+    console.log(navigation.getParam("currentUser"))
     const [zoom, setZoom] = useState(false)
     const [visibleDate, setVisibleDate] = useState(false)
-    const [nome, setNome] = useState(screenProps.currentUser.nome)
+    const [nome, setNome] = useState(currentUser.nome)
     const [nomeError, setNomeError] = useState(false)
-    const [cognome, setCognome] = useState(screenProps.currentUser.cognome)
+    const [cognome, setCognome] = useState(currentUser.cognome)
     const [cognomeError, setCognomeError] = useState(false)
-    const [DoB, setDoB] = useState("")
+    const [DoB, setDoB] = useState(currentUser.DoB ? currentUser.DoB : "")
     const [DoBError, setDoBError] = useState(false)
-    const [location, setLocation] = useState("")
+    const [location, setLocation] = useState(currentUser.locationString ? currentUser.locationString : "")
     const [locationError, setLocationError] = useState(false)
-    const [presentazione, setPresentazione] = useState("")
+    const [presentazione, setPresentazione] = useState(currentUser.presentazione ? currentUser.presentazione : "")
     const [presentazioneError, setPresentazioneError] = useState(false)
     //useEffect
     useEffect(() => {
@@ -53,8 +55,7 @@ export default function UserInfo({ navigation, screenProps }) {
     const [updateUser] = useMutation(UPDATEUSER_MUTATION,
         {
             onCompleted: async ({ updateUser }) => {
-                console.log(updateUser)
-                navigation.navigate("LinksScreen")
+                currentUser.presentazione ? navigation.navigate("ProfilePage", { refetch: true }) : navigation.navigate("LinksScreen")
             }
         });
 
@@ -131,7 +132,7 @@ export default function UserInfo({ navigation, screenProps }) {
     const submit = () => {
         const file = new ReactNativeFile({
             uri: image,
-            name: screenProps.currentUser.email + ".jpg",
+            name: currentUser.email + ".jpg",
             type: 'image/jpeg',
 
         })

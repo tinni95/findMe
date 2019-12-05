@@ -3,13 +3,14 @@ import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../../components/TabBarIcon';
 import ProfilePage from '../../screens/ProfileStack';
 import Logout from '../../screens/ProfileStack/Logout';
-
+import UserInfoModal from '../UserInfoModal';
 const LogoutStack = createStackNavigator({
   Logout
 });
 
 const ProfileStack = createStackNavigator({
-  ProfilePage
+  ProfilePage,
+  UserInfoModal
 });
 
 const ProfileDrawer = createDrawerNavigator(

@@ -7,7 +7,7 @@ import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
-import { Bold } from '../../components/StyledText';
+import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import ImageViewer from 'react-native-image-zoom-viewer';
 const User = gql`
@@ -18,24 +18,29 @@ const User = gql`
       cognome
       pictureUrl
       locationString
+      presentazione
+      DoB
     }
   }
 `;
 
-export default function ProfilePage({ screenProps }) {
+export default function ProfilePage({ navigation }) {
+  const isRefetch = navigation.getParam("refetch") || false
+  useEffect(() => {
+    isRefetch ? refetch() : null
+  }, [isRefetch])
   const [modalVisbile, setModalVisible] = useState(false)
-  const { loading, error, data } = useQuery(User);
+  const { loading, error, data, refetch } = useQuery(User, {
+    fetchPolicy: 'no-cache',
+    onCompleted: async ({ currentUser }) => {
+      navigation.setParams({ currentUser })
+    }
+  });
   const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
   const images = [{ url: image }]
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
 
-  const logout = async () => {
-    AsyncStorage.removeItem(TOKEN_KEY).then(() => {
-      screenProps.changeLoginState();
-    })
-  }
-  console.log(data)
   return (
     <View style={styles.container}>
       <View style={styles.userWrapper}>
@@ -58,6 +63,8 @@ export default function ProfilePage({ screenProps }) {
         </Modal>
         <Bold style={{ marginTop: 10, fontSize: 18 }}>{data.currentUser.nome + " " + data.currentUser.cognome}</Bold>
         <LocationWithText comune={data.currentUser.locationString.split(",")[0]} regione={data.currentUser.locationString.split(",")[2]} />
+        <View style={{ height: 15 }}></View>
+        <Light>{data.currentUser.presentazione}</Light>
       </View>
       <View style={styles.infoWrapper}></View>
     </View>);
@@ -76,7 +83,6 @@ const styles = StyleSheet.create({
 })
 
 ProfilePage.navigationOptions = ({ navigation }) => {
-
   return {
     title: "Profilo",
     headerStyle: {
@@ -87,7 +93,7 @@ ProfilePage.navigationOptions = ({ navigation }) => {
       fontFamily: "sequel-sans"
     },
     headerRight: (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("UserInfo", { currentUser: navigation.getParam("currentUser") })}>
         <Image source={require("../../assets/images/pen.png")} style={{ width: 25, height: 25, marginRight: 15 }} />
       </TouchableOpacity>
     ),
