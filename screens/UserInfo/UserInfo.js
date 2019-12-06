@@ -7,7 +7,6 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import gql from 'graphql-tag'
 import { useMutation } from '@apollo/react-hooks';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FormTextInput from "../shared/Form/FormTextInput";
 import WithErrorString from "../shared/Form/WithErrorString";
 import StepsLabel, { StepsLabelWithHint } from "../shared/StepsLabel";

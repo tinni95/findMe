@@ -23,7 +23,7 @@ const User = gql`
       presentazione
       DoB
       formazioni{
-        titolo
+        link
         corso
         istituto
         dataFine
@@ -85,11 +85,11 @@ export default function ProfilePage({ navigation }) {
         }
       </View>
       <View style={styles.infoWrapper}>
-        <ItemsBlock items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
+        <ItemsBlock onPress={() => navigation.navigate("FormazioniScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock items={data.currentUser.formazioni} title={"Esperienze"}></ItemsBlock>
+        <ItemsBlock navigation={navigation} items={data.currentUser.formazioni} title={"Esperienze"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock items={data.currentUser.formazioni} title={"Progetti"}></ItemsBlock>
+        <ItemsBlock navigation={navigation} items={data.currentUser.formazioni} title={"Progetti"}></ItemsBlock>
         <View style={styles.separator}></View>
       </View>
     </ScrollView>);

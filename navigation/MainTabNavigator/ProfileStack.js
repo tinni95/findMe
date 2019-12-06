@@ -3,6 +3,7 @@ import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../../components/TabBarIcon';
 import ProfilePage from '../../screens/ProfileStack';
 import Logout from '../../screens/ProfileStack/Logout';
+import FormazioniScreen from '../../screens/ProfileStack/FormazioniScreen';
 import UserInfoModal from '../UserInfoModal';
 const LogoutStack = createStackNavigator({
   Logout
@@ -10,7 +11,8 @@ const LogoutStack = createStackNavigator({
 
 const ProfileStack = createStackNavigator({
   ProfilePage,
-  UserInfoModal
+  UserInfoModal,
+  FormazioniScreen
 });
 
 const ProfileDrawer = createDrawerNavigator(
