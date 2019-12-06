@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, Modal } from "react-native"
 import WithErrorString from "../shared/Form/WithErrorString";
 import StepsLabel, { StepsLabelWithHint } from "../shared/StepsLabel";
 import FormTextInput from "../shared/Form/FormTextInput";
 import { FormStyles } from "../shared/Form/FormStyles";
 import RoundButton from "../../components/shared/RoundButton";
 import Colors from "../../constants/Colors";
+import MonthSelectorCalendar from 'react-native-month-selector';
+import { TouchableOpacity } from "react-native-gesture-handler";
+import moment from 'moment/min/moment-with-locales'
+moment.locale('it')
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 export default function FormazioniScreen({ navigation }) {
+    const [modalVisible, setModalVisible] = useState(false)
     const [istituto, setIstituto] = useState("")
     const [istitutoError, setIstitutoError] = useState(false)
     const [link, setLink] = useState("")
@@ -15,7 +20,9 @@ export default function FormazioniScreen({ navigation }) {
     const [corso, setCorso] = useState("")
     const [corsoError, setCorsoError] = useState(false)
     const [dataInizio, setDataInizio] = useState("")
-    const [dataFine, setDataFine] = useState("")
+    const [dataInizioError, setDataInizioError] = useState(false)
+    const [dataFine, setDataFine] = useState(moment())
+    const [dataFineError, setDataFineError] = useState(false)
     const [descrizione, setDescrizione] = useState("")
 
     const handlePress = () => {
@@ -54,7 +61,7 @@ export default function FormazioniScreen({ navigation }) {
                 <FormTextInput
                     placeholder="Sito Web"
                     onChangeText={val => setLink(val)}
-                    value={linkError}
+                    value={link}
                     style={istitutoError ? FormStyles.inputError : FormStyles.input}
                 />
             </WithErrorString>
@@ -68,6 +75,48 @@ export default function FormazioniScreen({ navigation }) {
                     style={corsoError ? FormStyles.inputError : FormStyles.input}
                 />
             </WithErrorString>
+            <View style={FormStyles.inputHalfsContainer}>
+                <View style={FormStyles.inputHalfContainer}>
+                    <WithErrorString errorText={"Cambo Obbligatorio"}
+                        error={dataInizioError}>
+                        <TouchableOpacity onPress={() => setModalVisible(true)}>
+                            <FormTextInput
+                                pointerEvents="none"
+                                style={dataInizioError ? FormStyles.inputHalfError : FormStyles.inputHalf}
+                                placeholder="Data Inizio"
+                                placeholderTextColor="#ADADAD"
+                            />
+                        </TouchableOpacity>
+                    </WithErrorString>
+                </View>
+                <View style={FormStyles.inputHalfContainer}>
+                    <WithErrorString errorText={"Campo Obbligatorio"} error={dataFineError}>
+                        <TouchableOpacity onPress={() => setModalVisible(true)}>
+                            <FormTextInput
+                                style={dataFineError ? FormStyles.inputHalfError : FormStyles.inputHalf}
+                                pointerEvents="none"
+                                placeholder="Data Fine"
+                                value={moment(dataFine).format("MMM YYYY")}
+                                placeholderTextColor="#ADADAD"
+                            />
+                        </TouchableOpacity>
+                    </WithErrorString>
+                </View>
+                <Modal
+                    visible={modalVisible}
+                    transparent={false}
+                    onRequestClose={() => setModalVisible(false)}>
+                    <MonthSelectorCalendar
+                        localeSettings={"es"}
+                        localeLanguage={"es"}
+                        selectedDate={dataFine}
+                        onMonthTapped={(date) => {
+                            setModalVisible(false);
+                            setDataFine(moment(date))
+                        }}
+                    />
+                </Modal>
+            </View>
             <View style={styles.buttonWrapper}>
                 <RoundButton onPress={() => handlePress()} text={"CONFERMA"} color={Colors.blue} textColor="white"></RoundButton>
             </View>
