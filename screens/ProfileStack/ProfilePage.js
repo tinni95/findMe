@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, View, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
-import { TOKEN_KEY } from '../../shared/Token';
+import { Modal, View, ScrollView, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import FindMeSpinner from "../../shared/FindMeSpinner"
@@ -10,6 +9,9 @@ import Colors from '../../constants/Colors';
 import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import ImageViewer from 'react-native-image-zoom-viewer';
+import TouchablePen from './TouchablePen';
+import ItemsBlock from './ItemsBlock';
+
 const User = gql`
   {
     currentUser {
@@ -20,6 +22,14 @@ const User = gql`
       locationString
       presentazione
       DoB
+      formazioni{
+        titolo
+        corso
+        istituto
+        dataFine
+        dataInizio
+        descrizione
+      }
     }
   }
 `;
@@ -48,7 +58,7 @@ export default function ProfilePage({ navigation }) {
   if (error) return <FindMeGraphQlErrorDisplay />;
 
   return (
-    <View style={styles.container}>
+    <ScrollView >
       <View style={styles.userWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 50 }} />
@@ -74,19 +84,33 @@ export default function ProfilePage({ navigation }) {
           <Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "center", margin: 20 }}><Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
         }
       </View>
-      <View style={styles.infoWrapper}></View>
-    </View>);
+      <View style={styles.infoWrapper}>
+        <ItemsBlock items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
+        <View style={styles.separator}></View>
+        <ItemsBlock items={data.currentUser.formazioni} title={"Esperienze"}></ItemsBlock>
+        <View style={styles.separator}></View>
+        <ItemsBlock items={data.currentUser.formazioni} title={"Progetti"}></ItemsBlock>
+        <View style={styles.separator}></View>
+      </View>
+    </ScrollView>);
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
   },
+  separator: {
+    height: 30
+  },
   userWrapper: {
     marginTop: 20,
     justifyContent: "center",
     alignItems: "center",
   },
+  infoWrapper: {
+    flex: 1,
+    margin: 20
+  }
 })
 
 ProfilePage.navigationOptions = ({ navigation }) => {
@@ -100,9 +124,7 @@ ProfilePage.navigationOptions = ({ navigation }) => {
       fontFamily: "sequel-sans"
     },
     headerRight: (
-      <TouchableOpacity onPress={() => navigation.navigate("UserInfo", { currentUser: navigation.getParam("currentUser") })}>
-        <Image source={require("../../assets/images/pen.png")} style={{ width: 25, height: 25, marginRight: 15 }} />
-      </TouchableOpacity>
+      <TouchablePen onPress={() => navigation.navigate("UserInfo", { currentUser: navigation.getParam("currentUser") })} size={25}></TouchablePen>
     ),
     headerLeft: (
       <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
