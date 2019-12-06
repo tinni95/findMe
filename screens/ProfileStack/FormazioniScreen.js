@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { View, StyleSheet, ScrollView, Modal } from "react-native"
 import WithErrorString from "../shared/Form/WithErrorString";
 import StepsLabel, { StepsLabelWithHint } from "../shared/StepsLabel";
@@ -6,8 +6,8 @@ import FormTextInput from "../shared/Form/FormTextInput";
 import { FormStyles } from "../shared/Form/FormStyles";
 import RoundButton from "../../components/shared/RoundButton";
 import Colors from "../../constants/Colors";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import moment from 'moment/min/moment-with-locales'
+import DataInizioFine from "./DataInizioFine"
 
 moment.locale('it')
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
@@ -100,6 +100,7 @@ export default function FormazioniScreen({ navigation }) {
                 style={zoom ? FormStyles.xlarge : FormStyles.large}
             />
             {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
+            <DataInizioFine></DataInizioFine>
             <View style={styles.buttonWrapper}>
                 {!zoom && <RoundButton onPress={() => handlePress()} text={"CONFERMA"} color={Colors.blue} textColor="white"></RoundButton>}
             </View>
