@@ -14,12 +14,12 @@ export default function ItemsBlock({ title, items, onPress }) {
         <View>
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Body style={{ color: Colors.blue }}>{title}</Body>
-                {items.length > 0 &&
+                {true &&
                     <TouchablePen size={15}></TouchablePen>
                 }
             </View>
 
-            {items.length == 0 ?
+            {false ?
                 <TouchableOpacity onPress={onPress} style={styles.aggiungiWrapper}>
                     <Bold style={styles.aggiungiButton}>+ Aggiungi {title}</Bold>
                 </TouchableOpacity>

@@ -25,6 +25,7 @@ mutation updateUser($email: String, $password: String,$nome: String, $cognome: S
 }`;
 
 
+
 export default function UserInfo({ navigation, screenProps }) {
     //passedLocation (autocomplete)
     const passedLocation = navigation.getParam("location") || ""
@@ -139,7 +140,7 @@ export default function UserInfo({ navigation, screenProps }) {
     }
 
     const initialString = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg"
-    const [image, setImage] = useState(initialString);
+    const [image, setImage] = useState(require("../../assets/images/placeholder.png"));
     const pen = require("../../assets/images/pen.png")
 
     return <View style={styles.container}>
@@ -156,7 +157,7 @@ export default function UserInfo({ navigation, screenProps }) {
                     <View>
                         <View style={styles.imageContainer}>
                             <TouchableOpacity onPress={() => PickImage()}>
-                                <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 50 }} />
+                                <Image source={image} style={{ width: 100, height: 100, borderRadius: 50 }} />
                                 <View style={styles.penWrapper}>
                                     <Image source={pen} style={{ width: 20, height: 20 }} />
                                 </View>
