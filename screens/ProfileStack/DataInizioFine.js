@@ -37,7 +37,6 @@ export default function DataInizioFine({ dataInizio, setDataInizio, dataFine, se
                                 placeholder="Data Fine"
                                 value={dataFine}
                                 placeholderTextColor="#ADADAD"
-                                onChangeText={val => setDataFine(val)}
                             />
                         </TouchableOpacity>
                     </WithErrorString>

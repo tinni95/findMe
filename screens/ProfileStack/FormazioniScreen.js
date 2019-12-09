@@ -21,8 +21,8 @@ export default function FormazioniScreen({ navigation }) {
     const [corsoError, setCorsoError] = useState(false)
     const [dataInizio, setDataInizio] = useState("")
     const [dataInizioError, setDataInizioError] = useState(false)
-    const [dataFine, setDataFine] = useState(moment())
     const [dataFineError, setDataFineError] = useState(false)
+    const [dataFine, setDataFine] = useState("")
     const [descrizione, setDescrizione] = useState("")
     const [descrizioneError, setDescrizioneError] = useState(false)
 
@@ -33,7 +33,7 @@ export default function FormazioniScreen({ navigation }) {
         else {
             setIstitutoError(false)
         }
-        if (!link.match(LINK_REGEX)) {
+        if (!link.length == 0 && !link.match(LINK_REGEX)) {
             setLinkError(true);
         }
         else {
@@ -50,6 +50,19 @@ export default function FormazioniScreen({ navigation }) {
         }
         else {
             setDescrizioneError(false)
+        }
+        if (dataInizio.length === 0) {
+            setDataInizioError(true);
+        }
+        else {
+            setDataInizioError(false)
+        }
+        if (dataFine.length === 0) {
+
+            setDataFineError(true);
+        }
+        else {
+            setDataFineError(false);
         }
     }
 
@@ -85,7 +98,7 @@ export default function FormazioniScreen({ navigation }) {
                         />
                     </WithErrorString>
                     <DataInizioFine dataInizio={dataInizio} dataFine={dataFine} setDataFine={setDataFine} setDataInizio={setDataInizio}
-                        dataInizioError={dataInizioError} dataFineError={dataFineError}></DataInizioFine>
+                        dataInizioError={dataInizioError} e dataFineError={dataFineError}></DataInizioFine>
                     <View style={styles.separator}></View>
                 </View>}
             <StepsLabel error={descrizioneError} text={"Descrizione"} />

@@ -21,10 +21,10 @@ export default function DataOverlayModal({ fine, modalVisibile, setModalVisible,
             visible={modalVisibile} onClose={() => setModalVisible(false)} closeOnTouchOutside >
             <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-between" }}>
                 <TouchableOpacity onPress={() => handlePick()}>
-                    <Light>Conferma</Light>
+                    <Light style={{ color: Colors.blue }}>Conferma</Light>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setModalVisible(false)}>
-                    <Light>Annulla</Light>
+                    <Light style={{ color: Colors.blue }}>Annulla</Light>
                 </TouchableOpacity>
             </View>
             {fine &&
