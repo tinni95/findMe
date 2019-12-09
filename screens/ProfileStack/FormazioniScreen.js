@@ -8,6 +8,7 @@ import RoundButton from "../../components/shared/RoundButton";
 import Colors from "../../constants/Colors";
 import moment from 'moment/min/moment-with-locales'
 import DataInizioFine from "./DataInizioFine"
+import { invalidDate } from "./helpers";
 
 moment.locale('it')
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
@@ -22,6 +23,7 @@ export default function FormazioniScreen({ navigation }) {
     const [dataInizio, setDataInizio] = useState("")
     const [dataInizioError, setDataInizioError] = useState(false)
     const [dataFineError, setDataFineError] = useState(false)
+    const [datesError, setDatesError] = useState(false)
     const [dataFine, setDataFine] = useState("")
     const [descrizione, setDescrizione] = useState("")
     const [descrizioneError, setDescrizioneError] = useState(false)
@@ -58,12 +60,18 @@ export default function FormazioniScreen({ navigation }) {
             setDataInizioError(false)
         }
         if (dataFine.length === 0) {
-
             setDataFineError(true);
         }
         else {
             setDataFineError(false);
         }
+        if (dataFine.length > 0 && dataInizio.length > 0 && invalidDate(dataInizio, dataFine)) {
+            setDatesError(true);
+        }
+        else {
+            setDatesError(false);
+        }
+
     }
 
     return (
@@ -97,8 +105,10 @@ export default function FormazioniScreen({ navigation }) {
                             style={corsoError ? FormStyles.inputError : FormStyles.input}
                         />
                     </WithErrorString>
-                    <DataInizioFine dataInizio={dataInizio} dataFine={dataFine} setDataFine={setDataFine} setDataInizio={setDataInizio}
-                        dataInizioError={dataInizioError} e dataFineError={dataFineError}></DataInizioFine>
+                    <WithErrorString error={datesError} errorText="Le date non sono valide">
+                        <DataInizioFine dataInizio={dataInizio} dataFine={dataFine} setDataFine={setDataFine} setDataInizio={setDataInizio}
+                            dataInizioError={dataInizioError} e dataFineError={dataFineError}></DataInizioFine>
+                    </WithErrorString>
                     <View style={styles.separator}></View>
                 </View>}
             <StepsLabel error={descrizioneError} text={"Descrizione"} />
