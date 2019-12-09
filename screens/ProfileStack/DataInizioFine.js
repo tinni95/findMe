@@ -1,67 +1,49 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, Picker, Dimensions, TouchableOpacity } from 'react-native';
-import YearMonthPicker from './YearMonthPicker';
+import React, { useState } from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import FormTextInput from '../shared/Form/FormTextInput';
+import { FormStyles } from '../shared/Form/FormStyles';
+import WithErrorString from '../shared/Form/WithErrorString';
+import DataOverlayModal from './DataOverlayModal';
 
-export default class App extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            language: 'java',
-            startYear: 2000,
-            endYear: 2018,
-            selectedYear: 2018,
-            selectedMonth: 5,
-        }
-    }
-
-    showPicker = () => {
-        const { startYear, endYear, selectedYear, selectedMonth } = this.state;
-        this.picker
-            .show({ startYear, endYear, selectedYear, selectedMonth })
-            .then(({ year, month }) => {
-                this.setState({
-                    selectedYear: year,
-                    selectedMonth: month
-                })
-            })
-    }
-
-    render() {
-        const { selectedYear, selectedMonth } = this.state;
-        return (
-            <View style={styles.container}>
-                <TouchableOpacity
-                    style={styles.showPickerBtn}
-                    onPress={this.showPicker}
-                >
-                    <Text>Show Picker</Text>
-                </TouchableOpacity>
-                <Text style={styles.yearMonthText}>{selectedYear}-{selectedMonth}</Text>
-                <YearMonthPicker
-                    ref={(picker) => this.picker = picker}
-                />
+export default function DataInizioFine({ dataInizio, setDataInizio, dataFine, setDataFine, dataInizioError, dataFineError }) {
+    const [modalVisibile, setModalVisible] = useState(false)
+    const [modal1Visibile, setModal1Visible] = useState(false)
+    return (
+        <View>
+            <View style={FormStyles.inputHalfsContainer}>
+                <View style={FormStyles.inputHalfContainer}>
+                    <WithErrorString error={dataInizioError} errorText={"Campo Obbligatorio"}>
+                        <TouchableOpacity
+                            onPress={() => setModalVisible(true)}>
+                            <FormTextInput
+                                editable={false}
+                                pointerEvents="none"
+                                style={dataInizioError ? FormStyles.inputHalfError : FormStyles.inputHalf}
+                                value={dataInizio}
+                                placeholder="Data Inizio"
+                                placeholderTextColor="#ADADAD"
+                            />
+                        </TouchableOpacity>
+                    </WithErrorString>
+                </View>
+                <View style={FormStyles.inputHalfContainer}>
+                    <WithErrorString error={dataFineError} errorText={"Campo Obbligatorio"}>
+                        <TouchableOpacity
+                            onPress={() => setModal1Visible(true)}>
+                            <FormTextInput
+                                editable={false}
+                                pointerEvents="none"
+                                style={dataFineError ? FormStyles.inputHalfError : FormStyles.inputHalf}
+                                placeholder="Data Fine"
+                                value={dataFine}
+                                placeholderTextColor="#ADADAD"
+                                onChangeText={val => setDataFine(val)}
+                            />
+                        </TouchableOpacity>
+                    </WithErrorString>
+                </View>
             </View>
-        );
-    }
+            <DataOverlayModal modalVisibile={modalVisibile} setModalVisible={setModalVisible} setDate={setDataInizio}></DataOverlayModal>
+            <DataOverlayModal fine={true} modalVisibile={modal1Visibile} setModalVisible={setModal1Visible} setDate={setDataFine}></DataOverlayModal>
+        </View>)
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#fff',
-    },
-    showPickerBtn: {
-        height: 44,
-        backgroundColor: '#973BC2',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 16,
-        borderRadius: 6,
-    },
-    yearMonthText: {
-        fontSize: 20,
-        marginTop: 12
-    }
-});

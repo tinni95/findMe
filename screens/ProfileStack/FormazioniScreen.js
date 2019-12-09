@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { View, StyleSheet, ScrollView, Modal } from "react-native"
+import { View, StyleSheet, ScrollView, Modal, Text } from "react-native"
 import WithErrorString from "../shared/Form/WithErrorString";
 import StepsLabel, { StepsLabelWithHint } from "../shared/StepsLabel";
 import FormTextInput from "../shared/Form/FormTextInput";
@@ -84,6 +84,8 @@ export default function FormazioniScreen({ navigation }) {
                             style={corsoError ? FormStyles.inputError : FormStyles.input}
                         />
                     </WithErrorString>
+                    <DataInizioFine dataInizio={dataInizio} dataFine={dataFine} setDataFine={setDataFine} setDataInizio={setDataInizio}
+                        dataInizioError={dataInizioError} dataFineError={dataFineError}></DataInizioFine>
                     <View style={styles.separator}></View>
                 </View>}
             <StepsLabel error={descrizioneError} text={"Descrizione"} />
@@ -100,7 +102,6 @@ export default function FormazioniScreen({ navigation }) {
                 style={zoom ? FormStyles.xlarge : FormStyles.large}
             />
             {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
-            <DataInizioFine></DataInizioFine>
             <View style={styles.buttonWrapper}>
                 {!zoom && <RoundButton onPress={() => handlePress()} text={"CONFERMA"} color={Colors.blue} textColor="white"></RoundButton>}
             </View>

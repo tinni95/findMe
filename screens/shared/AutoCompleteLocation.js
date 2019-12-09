@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
+import { ScrollView, TextInput, Keyboard, View, StyleSheet, TouchableOpacity } from "react-native";
 import { FormStyles } from "./Form/FormStyles";
 import { Body, Bold } from '../../components/StyledText';
 import { comuni } from "./comuni";
@@ -26,7 +26,7 @@ export function AutoCompleteLocation({ navigation }) {
                 <Bold style={styles.cancelButton}>Cancella</Bold>
             </TouchableOpacity>
         </View>
-        <ScrollView style={{ marginTop: 25 }}>
+        <ScrollView onScrollBeginDrag={Keyboard.dismiss} style={{ marginTop: 25 }}>
             {renderItems}
         </ScrollView>
     </View>)

@@ -12,8 +12,6 @@ const posts = gql`
     title
     description
     fields
-    comune
-    regione
     positions{
     id
     description
