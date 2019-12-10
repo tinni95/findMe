@@ -85,7 +85,7 @@ export default function ProfilePage({ navigation }) {
         }
       </View>
       <View style={styles.infoWrapper}>
-        <ItemsBlock onPress={() => navigation.navigate("FormazioniScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
+        <ItemsBlock onPress={() => navigation.navigate("FormazioneEditScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
         <View style={styles.separator}></View>
         <ItemsBlock navigation={navigation} items={data.currentUser.formazioni} title={"Esperienze"}></ItemsBlock>
         <View style={styles.separator}></View>

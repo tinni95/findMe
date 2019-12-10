@@ -6,13 +6,22 @@ import FormTextInput from "../shared/Form/FormTextInput";
 import { FormStyles } from "../shared/Form/FormStyles";
 import RoundButton from "../../components/shared/RoundButton";
 import Colors from "../../constants/Colors";
-import moment from 'moment/min/moment-with-locales'
 import DataInizioFine from "./DataInizioFine"
 import { invalidDate } from "./helpers";
-
-moment.locale('it')
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag'
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
-export default function FormazioniScreen({ navigation }) {
+
+const UPDATEUSER_MUTATION = gql`
+mutation updateUser($formazioni:  FormazioneCreateManyInput) {
+        updateUser(formazioni:$formazioni) {
+            formazioni{
+                id
+              }
+    }
+}`;
+
+export default function FormazioneEditScreen({ navigation }) {
     const [zoom, setZoom] = useState(false)
     const [istituto, setIstituto] = useState("")
     const [istitutoError, setIstitutoError] = useState(false)
@@ -27,49 +36,91 @@ export default function FormazioniScreen({ navigation }) {
     const [dataFine, setDataFine] = useState("")
     const [descrizione, setDescrizione] = useState("")
     const [descrizioneError, setDescrizioneError] = useState(false)
+    //mutation
+    const [updateUser] = useMutation(UPDATEUSER_MUTATION,
+        {
+            onCompleted: async ({ updateUser }) => {
+                console.log(updateUser)
+                navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
+            }
+        });
 
-    const handlePress = () => {
+    const handlePress = async () => {
         if (istituto.length === 0) {
             setIstitutoError(true);
+            valid = false
         }
         else {
             setIstitutoError(false)
+            valid = true
         }
         if (!link.length == 0 && !link.match(LINK_REGEX)) {
             setLinkError(true);
+            valid = false
         }
         else {
             setLinkError(false)
+            valid = true
         }
+
         if (corso.length === 0) {
             setCorsoError(true);
+            valid = false
         }
         else {
             setCorsoError(false)
+            valid = true
         }
         if (descrizione.length === 0) {
             setDescrizioneError(true);
+            valid = false
         }
         else {
             setDescrizioneError(false)
+            valid = true
         }
         if (dataInizio.length === 0) {
             setDataInizioError(true);
+            valid = false
         }
         else {
             setDataInizioError(false)
+            valid = true
         }
         if (dataFine.length === 0) {
             setDataFineError(true);
+            valid = false
         }
         else {
             setDataFineError(false);
+            valid = true
         }
         if (dataFine.length > 0 && dataInizio.length > 0 && invalidDate(dataInizio, dataFine)) {
             setDatesError(true);
+            valid = false
         }
         else {
             setDatesError(false);
+            valid = true
+        }
+        if (istituto.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && corso.length > 0 && descrizione.length > 0 && dataInizio.length > 0
+            && dataFine.length > 0 && !invalidDate(dataInizio, dataFine)) {
+            updateUser(
+                {
+                    variables: {
+                        formazioni: {
+                            create: {
+                                istituto,
+                                link,
+                                descrizione,
+                                dataInizio,
+                                dataFine,
+                                corso
+                            }
+                        }
+                    }
+                }
+            )
         }
 
     }
@@ -133,7 +184,7 @@ export default function FormazioniScreen({ navigation }) {
 
 }
 
-FormazioniScreen.navigationOptions = {
+FormazioneEditScreen.navigationOptions = {
     title: "Aggiungi Formazione"
 }
 const styles = StyleSheet.create({
