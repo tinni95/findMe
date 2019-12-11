@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView, TextInput, View, StyleSheet, TouchableOpacity } from "react-native";
+import { ScrollView, TextInput, Keyboard, View, StyleSheet, TouchableOpacity } from "react-native";
 import { FormStyles } from "./Form/FormStyles";
-import { Light, Bold } from '../../components/StyledText';
+import { Body, Bold } from '../../components/StyledText';
 import { comuni } from "./comuni";
 const shortid = require('shortid');
 
@@ -11,7 +11,7 @@ export function AutoCompleteLocation({ navigation }) {
     const Input = useRef();
     let filteredComuni = comuni.filter(comune => comune.città.toLowerCase().includes(text.toLowerCase())).slice(0, 25)
     const renderItems = filteredComuni.map(item => {
-        return <TouchableOpacity onPress={() => navigation.navigate(path, { location: item.città + ", " + item.provincia + ", " + item.regione })} key={shortid.generate()} style={styles.item}><Light style={styles.itemText}>{item.città + ", " + item.provincia + ", " + item.regione}</Light></TouchableOpacity>
+        return <TouchableOpacity onPress={() => navigation.navigate(path, { location: item.città + ", " + item.provincia + ", " + item.regione })} key={shortid.generate()} style={styles.item}><Body style={styles.itemText}>{item.città + ", " + item.provincia + ", " + item.regione}</Body></TouchableOpacity>
     })
 
 
@@ -26,7 +26,7 @@ export function AutoCompleteLocation({ navigation }) {
                 <Bold style={styles.cancelButton}>Cancella</Bold>
             </TouchableOpacity>
         </View>
-        <ScrollView style={{ marginTop: 25 }}>
+        <ScrollView onScrollBeginDrag={Keyboard.dismiss} style={{ marginTop: 25 }}>
             {renderItems}
         </ScrollView>
     </View>)
@@ -66,6 +66,6 @@ const styles = StyleSheet.create({
         color: "#26547C",
         margin: 5,
         marginBottom: 10,
-        fontSize: 18
+        fontSize: 16
     }
 })

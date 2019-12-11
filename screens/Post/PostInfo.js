@@ -3,19 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import { Bold, Body } from '../../components/StyledText';
 
 export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden, pubblicatoDa }) {
-    const stringify = (fields) => {
-        return fields.map((field, index) => {
-            if (index !== fields.length - 1) {
-                return field + ", "
-            }
-            else return field
-        })
-    }
+
     return (
         <View style={styles.container}>
             <View style={styles.line}>
                 <Body>Categoria:</Body>
-                <Body style={styles.grigio}> {stringify(fields)}</Body>
+                <Body style={styles.grigio}> {fields}</Body>
             </View>
             <View style={styles.line}>
                 {user ?

@@ -14,16 +14,10 @@ export default function ItemsBlock({ title, items, onPress }) {
         <View>
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <Body style={{ color: Colors.blue }}>{title}</Body>
-                {items.length > 0 &&
-                    <TouchablePen size={15}></TouchablePen>
-                }
+                <TouchablePen onPress={onPress} size={15}></TouchablePen>
             </View>
 
-            {items.length == 0 ?
-                <TouchableOpacity onPress={onPress} style={styles.aggiungiWrapper}>
-                    <Bold style={styles.aggiungiButton}>+ Aggiungi {title}</Bold>
-                </TouchableOpacity>
-                :
+            {items.length > 0 &&
                 title == "Formazione" && items.map(item => {
                     return <FormazioneCard key={shortid.generate()} item={item}></FormazioneCard>
                 }) ||

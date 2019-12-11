@@ -26,8 +26,7 @@ mutation updateUser($email: String, $password: String,$nome: String, $cognome: S
 
 
 
-export default function UserInfo({ navigation, screenProps }) {
-    //passedLocation (autocomplete)
+export default function UserInfoAfter({ navigation, screenProps }) {
     const passedLocation = navigation.getParam("location") || ""
 
     //hooks

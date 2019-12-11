@@ -1,10 +1,12 @@
 import { createSwitchNavigator } from 'react-navigation';
 import UserInfo from '../screens/UserInfo';
 import { createBrowserApp } from "@react-navigation/web";
-const MainTabNavigator = createSwitchNavigator({
-    UserInfo
+import MainTabNavigator from "./MainTabNavigator"
+
+const UserModal = createSwitchNavigator({
+    MainTabNavigator
 });
 
-MainTabNavigator.path = '';
+UserModal.path = '';
 
-export default createBrowserApp(MainTabNavigator);
+export default createBrowserApp(UserModal);

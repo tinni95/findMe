@@ -29,8 +29,8 @@ const POST_ANTEPRIMA = gql`
 `;
 
 const CREATEPOST_MUTATION = gql`
-mutation createPost($title: String!, $description: String!,$regione: String!, $comune: String!, $fields:PostCreatefieldsInput!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyInput!) {
-  createPost(title: $title, description:$description, regione:$regione,comune:$comune,fields:$fields,type:$type,posizione:$posizione, pubblicatoDa:$pubblicatoDa,positions:$positions) {
+mutation createPost($title: String!, $description: String!,$locationString: String!, $fields:String!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyInput!) {
+  createPost(title: $title, description:$description, locationString:$locationString,fields:$fields,type:$type,posizione:$posizione, pubblicatoDa:$pubblicatoDa,positions:$positions) {
       title
   }
 }`;
@@ -66,9 +66,8 @@ export const Anteprima = ({ navigation, user }) => {
         title: data.postTitle,
         description: data.postDescription,
         posizione: data.postOwnerPosition,
-        regione: "campania",
-        comune: "macerata",
-        fields: { set: data.postCategories },
+        locationString: data.postLocation,
+        fields: data.postCategories.join(),
         type: data.postOwnerPosition,
         pubblicatoDa: checked ? user.nome[0] + user.cognome : user.nome + " " + user.cognome,
         posizione: data.postOwnerPosition,

@@ -11,10 +11,10 @@ export default function FormazioneCard({ item }) {
             <View style={styles.textContainer}>
                 <View style={{ flexDirection: "column", textAlign: "center" }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                        <Body style={styles.textHeader}>Computer Science</Body>
-                        <Body style={styles.textDate}>Giu 2019 - Set 2019</Body>
+                        <Body style={styles.textHeader}>{item.corso}</Body>
+                        <Body style={styles.textDate}>{item.dataInizio}- {item.dataFine}</Body>
                     </View>
-                    <Bold style={styles.textSubHeader}>Heriot-Watt University</Bold>
+                    <Bold style={styles.textSubHeader}>{item.istituto}</Bold>
                 </View>
             </View>
         </View>

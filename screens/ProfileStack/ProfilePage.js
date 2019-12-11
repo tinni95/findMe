@@ -51,9 +51,8 @@ export default function ProfilePage({ navigation }) {
   useEffect(() => {
     data ? navigation.setParams({ currentUser: data.currentUser }) : null
   }, [data])
-
   const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
-  const images = [{ url: image }]
+  const images = [{ uri: image }]
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
 
@@ -85,7 +84,7 @@ export default function ProfilePage({ navigation }) {
         }
       </View>
       <View style={styles.infoWrapper}>
-        <ItemsBlock onPress={() => navigation.navigate("FormazioniScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
+        <ItemsBlock onPress={() => navigation.navigate("FormazioneEditScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
         <View style={styles.separator}></View>
         <ItemsBlock navigation={navigation} items={data.currentUser.formazioni} title={"Esperienze"}></ItemsBlock>
         <View style={styles.separator}></View>
