@@ -23,8 +23,8 @@ export default function PostScreen({ post, navigation }) {
         points={25}
         fontSize={isSmallDevice ? 18 : 20}
         style={styles.location}
-        regione={post.regione}
-        comune={post.comune}
+        comune={post.locationString.split(",")[0]}
+        regione={post.locationString.split(",")[2]}
       />
       <PostInfo tipoSocio={post.type} pubblicatoDa={post.pubblicatoDa}
         fields={post.fields}

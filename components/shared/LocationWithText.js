@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Light } from '../StyledText';
+import { Body } from '../StyledText';
 import { isSmallDevice } from '../../constants/Layout';
 
 export default function LocationWithText(props) {
@@ -13,9 +13,9 @@ export default function LocationWithText(props) {
         style={{ marginLeft: 3, marginTop: 3 }}
         color={"#DD1E63"}
       />
-      <Light style={[styles.text, { top: 3.5, fontSize: props.fontSize }]}>
+      <Body style={[styles.text, { top: 3.5, fontSize: props.fontSize }]}>
         {`${props.comune}, ${props.regione}`}
-      </Light>
+      </Body>
     </View>
   );
 }
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginTop: isSmallDevice ? 3 : 7
   },
   text: {
-    color: 'black',
+    color: '#AFA9A9',
     fontSize: 15,
     marginLeft: 5,
     marginTop: 4
