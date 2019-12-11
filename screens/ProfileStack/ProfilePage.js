@@ -30,6 +30,14 @@ const User = gql`
         dataInizio
         descrizione
       }
+      esperienze{
+        link
+        compagnia
+        titolo
+        dataFine
+        dataInizio
+        descrizione
+      }
     }
   }
 `;
@@ -86,7 +94,7 @@ export default function ProfilePage({ navigation }) {
       <View style={styles.infoWrapper}>
         <ItemsBlock onPress={() => navigation.navigate("FormazioneEditScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock navigation={navigation} items={data.currentUser.formazioni} title={"Esperienze"}></ItemsBlock>
+        <ItemsBlock navigation={navigation} items={data.currentUser.esperienze} title={"Esperienze"}></ItemsBlock>
         <View style={styles.separator}></View>
         <ItemsBlock navigation={navigation} items={data.currentUser.formazioni} title={"Progetti"}></ItemsBlock>
         <View style={styles.separator}></View>
