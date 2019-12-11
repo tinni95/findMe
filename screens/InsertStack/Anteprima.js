@@ -29,7 +29,7 @@ const POST_ANTEPRIMA = gql`
 `;
 
 const CREATEPOST_MUTATION = gql`
-mutation createPost($title: String!, $description: String!,$locationString: String!, $fields:PostCreatefieldsInput!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyInput!) {
+mutation createPost($title: String!, $description: String!,$locationString: String!, $fields:String!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyInput!) {
   createPost(title: $title, description:$description, locationString:$locationString,fields:$fields,type:$type,posizione:$posizione, pubblicatoDa:$pubblicatoDa,positions:$positions) {
       title
   }
@@ -67,7 +67,7 @@ export const Anteprima = ({ navigation, user }) => {
         description: data.postDescription,
         posizione: data.postOwnerPosition,
         locationString: data.postLocation,
-        fields: { set: data.postCategories },
+        fields: data.postCategories.join(),
         type: data.postOwnerPosition,
         pubblicatoDa: checked ? user.nome[0] + user.cognome : user.nome + " " + user.cognome,
         posizione: data.postOwnerPosition,

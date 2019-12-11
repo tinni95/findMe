@@ -12,6 +12,7 @@ const posts = gql`
     title
     description
     fields
+    locationString
     positions{
     id
     description

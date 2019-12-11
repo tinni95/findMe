@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import moment from 'moment';
 import LocationWithText from '../shared/LocationWithText';
 import { Bold, Body } from '../StyledText';
 import { isSmallDevice } from '../../constants/Layout';
+
 
 const titleLimit = 50;
 
@@ -12,7 +13,7 @@ const fixOverflow = (text, limit) => {
     return text.length > limit ? `${text.substring(0, limit - 3)}...` : text;
   }
 };
-const MainText = ({ date, field }) => {
+const MainText = ({ date, fields }) => {
   return (
     <View style={styles.mainTextContainer}>
       <View style={styles.mainTextColumn}>
@@ -21,25 +22,25 @@ const MainText = ({ date, field }) => {
       </View>
       <View style={styles.mainTextColumn}>
         <Bold style={styles.columnHeader}>Settore</Bold>
-        <Bold style={styles.columnBody}>{field}</Bold>
+        <Bold style={styles.columnBody}>{fixOverflow(fields, 15)}</Bold>
       </View>
     </View>
   );
 };
 
-export const PostCardText = ({ post: { title, date, field, comune, regione } }) => {
+export const PostCardText = ({ post: { title, date, fields, locationString } }) => {
   return (
     <View style={styles.container}>
       <Bold style={styles.title}>{fixOverflow(title, titleLimit)}</Bold>
       <LocationWithText
         points={20}
         style={styles.location}
-        comune={comune}
-        regione={regione}
+        comune={locationString.split(",")[0]}
+        regione={locationString.split(",")[2]}
         color="#DD1E63"
         textColor="#ADBFC5"
       />
-      {MainText({ date, field })}
+      {MainText({ date, fields })}
     </View>
   );
 };
