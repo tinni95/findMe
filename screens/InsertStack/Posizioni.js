@@ -15,6 +15,7 @@ import { Settori, TipoSocio, TitoliPosizioni, Requisiti } from "./helpers";
 import { isBigDevice } from '../../constants/Layout';
 import { Light } from "../../components/StyledText";
 import { Ionicons } from '@expo/vector-icons';
+import Colors from '../../constants/Colors';
 
 var shortid = require("shortid")
 const POST_POSIZIONI = gql`
@@ -53,15 +54,7 @@ export function Posizioni({ navigation, settore }) {
   let passedRequisito = navigation.getParam("for") == "Requisiti" ? navigation.getParam("title") || null : null
   let passedSettore = navigation.getParam("settore") || null
   let passedCategoriaIndex = Settori.indexOf(passedCategoria);
-  //if first page data is missing, we go back to it
-  useEffect(() => {
-    if (data.postLocation === "") {
-      navigation.navigate("Presentazione")
-    }
-    else if (data.postTitle === "") {
-      navigation.navigate("Descrizione")
-    }
-  }, [])
+
   //Autocomplete categoria
   useEffect(() => {
     passedCategoria ? setCategoria(passedCategoria) : null
@@ -81,6 +74,10 @@ export function Posizioni({ navigation, settore }) {
     resetState();
   }, [passedSettore])
 
+  const refreshSettore = () => {
+    passedCategoriaIndex = Settori.indexOf(categoria);
+    passedSettore = TipoSocio.indexOf(socio)
+  }
 
   const resetState = () => {
     passedTitle = null
@@ -195,6 +192,7 @@ export function Posizioni({ navigation, settore }) {
         <ScrollView showsVerticalScrollIndicator={false}>
           {!zoom &&
             <View>
+              {refreshSettore()}
               <StepsLabel error={socioError} text={"Cosa Cerco"} />
               <RoundFiltersOne setItem={item => setSocio(item)} settori={TipoSocio} settoreAttivi={passedSettore} />
               <View style={{ height: 15 }}></View>
