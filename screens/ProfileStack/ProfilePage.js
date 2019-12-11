@@ -51,9 +51,8 @@ export default function ProfilePage({ navigation }) {
   useEffect(() => {
     data ? navigation.setParams({ currentUser: data.currentUser }) : null
   }, [data])
-
-  const image = "../../assets/images/placeholder.png";
-  const images = [{ uri: require(image) }]
+  const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
+  const images = [{ uri: image }]
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
 
@@ -61,7 +60,7 @@ export default function ProfilePage({ navigation }) {
     <ScrollView >
       <View style={styles.userWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Image source={require(image)} style={{ width: 100, height: 100, borderRadius: 50 }} />
+          <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 50 }} />
         </TouchableOpacity>
         <Modal
           visible={modalVisbile}

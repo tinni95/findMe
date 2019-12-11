@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { AutoCompleteLocation } from "../screens/shared/AutoCompleteLocation"
 import UserInfo from '../screens/UserInfo';
 
-export default UserInfoModal = createStackNavigator(
+const UserInfoModal = createStackNavigator(
     {
         UserInfo,
         AutoCompleteLocation
@@ -13,3 +13,7 @@ export default UserInfoModal = createStackNavigator(
         headerMode: 'none',
     }
 );
+
+UserInfoModal.path = '';
+
+export default UserInfoModal 

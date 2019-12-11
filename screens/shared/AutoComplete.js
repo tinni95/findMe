@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, TextInput, View, StyleSheet, TouchableOpacity, Keyboard } from "react-native";
 import { FormStyles } from "./Form/FormStyles";
-import { Bold, Light } from '../../components/StyledText';
+import { Bold, Body } from '../../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
 const shortid = require('shortid');
 
@@ -21,7 +21,7 @@ export function AutoComplete({ navigation }) {
                 size={22}
                 style={{ padding: 5 }}
                 color={"#26547C"}
-            /><Light style={styles.itemText}>{isFor == "Requisiti" || filteredItems[0] == text ? item : item.titolo}</Light>
+            /><Body style={styles.itemText}>{isFor == "Requisiti" || filteredItems[0] == text ? item : item.titolo}</Body>
         </TouchableOpacity>
     })
 

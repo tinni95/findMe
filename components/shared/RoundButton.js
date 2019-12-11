@@ -3,9 +3,9 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Light, Bold } from '../StyledText';
 import { isSmallDevice } from '../../constants/Layout';
 
-export default function RoundButton({ isLight, onPress, textColor, text, color, styleProps }) {
+export default function RoundButton({ isLight, onPress, textColor, text, color, styleProps, style }) {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity style={[style]} onPress={onPress}>
       <View style={[styles.container, styleProps, { backgroundColor: color }]}>
         {isLight ? <Light style={[styles.text, { color: textColor }]}>{text}</Light> :
           <Bold style={[styles.text, { color: textColor }]}>{text}</Bold>}

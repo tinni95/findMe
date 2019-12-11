@@ -12,7 +12,7 @@ import { ApolloClient } from 'apollo-client';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from "apollo-upload-client";
-
+import { resolvers, typeDefs } from "./resolvers"
 export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
@@ -53,7 +53,9 @@ export default function App() {
     setClient(
       new ApolloClient({
         link: authLink.concat(httpLink),
-        cache
+        cache,
+        resolvers,
+        typeDefs
       })
     )
   }
