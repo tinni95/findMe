@@ -102,9 +102,11 @@ export default function ProfilePage({ navigation }) {
       <View style={styles.infoWrapper}>
         <ItemsBlock onPress={() => navigation.navigate("FormazioneEditScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock navigation={navigation} items={data.currentUser.esperienze} title={"Esperienze"}></ItemsBlock>
+        <ItemsBlock navigation={navigation} onPress={() => navigation.navigate("EsperienzeEditScreen")}
+          items={data.currentUser.esperienze} title={"Esperienze"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock navigation={navigation} items={data.currentUser.progetti} title={"Progetti"}></ItemsBlock>
+        <ItemsBlock navigation={navigation} onPress={() => navigation.navigate("ProgettiEditScreen")}
+          items={data.currentUser.progetti} title={"Progetti"}></ItemsBlock>
         <View style={styles.separator}></View>
       </View>
     </ScrollView>);

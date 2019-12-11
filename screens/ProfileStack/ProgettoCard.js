@@ -11,10 +11,10 @@ export default function ProgettoCard({ item }) {
             <View style={styles.textContainer}>
                 <View style={{ flexDirection: "column", textAlign: "center" }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                        <Body style={styles.textHeader}>Heriot-Wattsapp</Body>
-                        <Body style={styles.textDate}>Giu 2019 - Set 2019</Body>
+                        <Body style={styles.textHeader}>{item.titolo}</Body>
+                        <Body style={styles.textDate}>{item.startDate} - {item.endDate}</Body>
                     </View>
-                    <Bold style={styles.textSubHeader}>Di Gruppo</Bold>
+                    <Bold style={styles.textSubHeader}>{item.sottoTitolo}</Bold>
                 </View>
             </View>
         </View>

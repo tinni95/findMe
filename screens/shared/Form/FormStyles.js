@@ -61,14 +61,14 @@ export const FormStyles = StyleSheet.create({
     margin: 5,
     padding: 5,
     borderColor: '#ADADAD',
-    borderWidth: 1,
+    borderWidth: 0.5,
     height: 75,
   },
   xlarge: {
     margin: 5,
     padding: 5,
     borderColor: '#ADADAD',
-    borderWidth: 1,
+    borderWidth: 0.5,
     height: 200,
   },
   requisiti: {

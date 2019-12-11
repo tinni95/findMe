@@ -16,22 +16,22 @@ import { Bold } from "../../components/StyledText";
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
 const UPDATEUSER_MUTATION = gql`
-mutation updateUser($formazioni:  FormazioneCreateManyInput) {
-        updateUser(formazioni:$formazioni) {
-            formazioni{
+mutation updateUser($progetti:  ProgettoCreateManyInput) {
+        updateUser(progetti:$progetti) {
+            progetti{
                 id
               }
     }
 }`;
 
-export default function FormazioneEditScreen({ navigation }) {
+export default function ProgettiEditScreen({ navigation }) {
     const [zoom, setZoom] = useState(false)
-    const [istituto, setIstituto] = useState("")
-    const [istitutoError, setIstitutoError] = useState(false)
+    const [titolo, setTitolo] = useState("")
+    const [titoloError, setTitoloError] = useState(false)
+    const [sottoTitolo, setSottoTitolo] = useState("")
+    const [sottoTitoloError, setSottoTitoloError] = useState(false)
     const [link, setLink] = useState("")
     const [linkError, setLinkError] = useState(false)
-    const [corso, setCorso] = useState("")
-    const [corsoError, setCorsoError] = useState(false)
     const [dataInizio, setDataInizio] = useState("")
     const [dataInizioError, setDataInizioError] = useState(false)
     const [dataFineError, setDataFineError] = useState(false)
@@ -48,12 +48,20 @@ export default function FormazioneEditScreen({ navigation }) {
         });
 
     const handlePress = async () => {
-        if (istituto.length === 0) {
-            setIstitutoError(true);
+        if (titolo.length === 0) {
+            setTitoloError(true);
             valid = false
         }
         else {
-            setIstitutoError(false)
+            setTitoloError(false)
+            valid = true
+        }
+        if (sottoTitolo.length === 0) {
+            setSottoTitoloError(true);
+            valid = false
+        }
+        else {
+            setSottoTitoloError(false)
             valid = true
         }
         if (!link.length == 0 && !link.match(LINK_REGEX)) {
@@ -62,15 +70,6 @@ export default function FormazioneEditScreen({ navigation }) {
         }
         else {
             setLinkError(false)
-            valid = true
-        }
-
-        if (corso.length === 0) {
-            setCorsoError(true);
-            valid = false
-        }
-        else {
-            setCorsoError(false)
             valid = true
         }
         if (descrizione.length === 0) {
@@ -105,19 +104,19 @@ export default function FormazioneEditScreen({ navigation }) {
             setDatesError(false);
             valid = true
         }
-        if (istituto.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && corso.length > 0 && descrizione.length > 0 && dataInizio.length > 0
+        if (titolo.length > 0 && sottoTitolo.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && descrizione.length > 0 && dataInizio.length > 0
             && dataFine.length > 0 && !invalidDate(dataInizio, dataFine)) {
             updateUser(
                 {
                     variables: {
-                        formazioni: {
+                        progetti: {
                             create: {
-                                istituto,
+                                titolo,
+                                sottoTitolo,
                                 link,
                                 descrizione,
                                 dataInizio,
                                 dataFine,
-                                corso
                             }
                         }
                     }
@@ -131,33 +130,34 @@ export default function FormazioneEditScreen({ navigation }) {
         <ScrollView style={styles.container}>
             {!zoom &&
                 <View>
-                    <StepsLabel text={"Istituto"} />
-                    <WithErrorString error={istitutoError} errorText={"Campo Obbligatorio"}>
+                    <StepsLabel text={"Titolo"} />
+                    <WithErrorString error={titoloError} errorText={"Campo Obbligatorio"}>
                         <FormTextInput
-                            placeholder="Nome"
-                            onChangeText={val => setIstituto(val)}
-                            value={istituto}
-                            style={istitutoError ? FormStyles.inputError : FormStyles.input}
+                            placeholder=""
+                            onChangeText={val => setTitolo(val)}
+                            value={titolo}
+                            style={titoloError ? FormStyles.inputError : FormStyles.input}
                         />
                     </WithErrorString>
+                    <StepsLabelWithHint text={"Sotto titolo"} tooltipText={"una breve sintesi in 3 parole"} />
+                    <WithErrorString error={sottoTitoloError} errorText={"Campo Obbligatorio"}>
+                        <FormTextInput
+                            placeholder=""
+                            onChangeText={val => setSottoTitolo(val)}
+                            value={sottoTitolo}
+                            style={sottoTitoloError ? FormStyles.inputError : FormStyles.input}
+                        />
+                    </WithErrorString>
+                    <StepsLabelWithHint text={"Link Progetto"} tooltipText={"link a progetto"} />
                     <WithErrorString error={linkError} errorText={"Non è un link"}>
                         <FormTextInput
-                            placeholder="Sito Web"
+                            placeholder=""
                             onChangeText={val => setLink(val)}
                             value={link}
                             style={linkError ? FormStyles.inputError : FormStyles.input}
                         />
                     </WithErrorString>
                     <View style={styles.separator}></View>
-                    <StepsLabel text={"Corso Di Studi"} />
-                    <WithErrorString error={corsoError} errorText={"Campo Obbligatorio"}>
-                        <FormTextInput
-                            placeholder="Titolo"
-                            onChangeText={val => setCorso(val)}
-                            value={corso}
-                            style={corsoError ? FormStyles.inputError : FormStyles.input}
-                        />
-                    </WithErrorString>
                     <WithErrorString error={datesError} errorText="Le date non sono valide">
                         <DataInizioFine dataInizio={dataInizio} dataFine={dataFine} setDataFine={setDataFine} setDataInizio={setDataInizio}
                             dataInizioError={dataInizioError} e dataFineError={dataFineError}></DataInizioFine>
@@ -169,7 +169,6 @@ export default function FormazioneEditScreen({ navigation }) {
                 large="true"
                 multiline
                 numberOfLines={4}
-                placeholder="Titolo"
                 onChangeText={val => setDescrizione(val)}
                 value={descrizione}
                 onFocus={() => setZoom(true)}
@@ -186,9 +185,9 @@ export default function FormazioneEditScreen({ navigation }) {
 
 }
 
-FormazioneEditScreen.navigationOptions = ({ navigation }) => {
+ProgettiEditScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "FORMAZIONE",
+        title: "PROGETTO",
         headerStyle: {
             ...Platform.select({
                 ios: {

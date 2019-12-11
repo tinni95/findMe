@@ -4,6 +4,8 @@ import TabBarIcon from '../../components/TabBarIcon';
 import ProfilePage from '../../screens/ProfileStack';
 import Logout from '../../screens/ProfileStack/Logout';
 import FormazioneEditScreen from '../../screens/ProfileStack/FormazioneEditScreen';
+import EsperienzeEditScreen from '../../screens/ProfileStack/EsperienzeEditScreen';
+import ProgettiEditScreen from '../../screens/ProfileStack/ProgettiEditScreen';
 import UserInfoModal from '../UserInfoModal';
 const LogoutStack = createStackNavigator({
   Logout
@@ -12,7 +14,9 @@ const LogoutStack = createStackNavigator({
 const ProfileStack = createStackNavigator({
   ProfilePage,
   UserInfoModal,
-  FormazioneEditScreen
+  FormazioneEditScreen,
+  EsperienzeEditScreen,
+  ProgettiEditScreen
 });
 
 const ProfileDrawer = createDrawerNavigator(

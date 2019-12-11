@@ -16,22 +16,22 @@ import { Bold } from "../../components/StyledText";
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
 const UPDATEUSER_MUTATION = gql`
-mutation updateUser($formazioni:  FormazioneCreateManyInput) {
-        updateUser(formazioni:$formazioni) {
-            formazioni{
+mutation updateUser($esperienze:  EsperienzaCreateManyInput) {
+        updateUser(esperienze:$esperienze) {
+            esperienze{
                 id
               }
     }
 }`;
 
-export default function FormazioneEditScreen({ navigation }) {
+export default function EsperienzeEditScreen({ navigation }) {
     const [zoom, setZoom] = useState(false)
-    const [istituto, setIstituto] = useState("")
-    const [istitutoError, setIstitutoError] = useState(false)
+    const [compagnia, setCompagnia] = useState("")
+    const [compagniaError, setCompagniaError] = useState(false)
     const [link, setLink] = useState("")
     const [linkError, setLinkError] = useState(false)
-    const [corso, setCorso] = useState("")
-    const [corsoError, setCorsoError] = useState(false)
+    const [posizione, setPosizione] = useState("")
+    const [posizioneError, setPosizioneError] = useState(false)
     const [dataInizio, setDataInizio] = useState("")
     const [dataInizioError, setDataInizioError] = useState(false)
     const [dataFineError, setDataFineError] = useState(false)
@@ -43,17 +43,18 @@ export default function FormazioneEditScreen({ navigation }) {
     const [updateUser] = useMutation(UPDATEUSER_MUTATION,
         {
             onCompleted: async ({ updateUser }) => {
+                console.log(updateUser)
                 navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
             }
         });
 
     const handlePress = async () => {
-        if (istituto.length === 0) {
-            setIstitutoError(true);
+        if (compagnia.length === 0) {
+            setCompagniaError(true);
             valid = false
         }
         else {
-            setIstitutoError(false)
+            setCompagniaError(false)
             valid = true
         }
         if (!link.length == 0 && !link.match(LINK_REGEX)) {
@@ -65,12 +66,12 @@ export default function FormazioneEditScreen({ navigation }) {
             valid = true
         }
 
-        if (corso.length === 0) {
-            setCorsoError(true);
+        if (posizione.length === 0) {
+            setPosizioneError(true);
             valid = false
         }
         else {
-            setCorsoError(false)
+            setPosizioneError(false)
             valid = true
         }
         if (descrizione.length === 0) {
@@ -105,25 +106,26 @@ export default function FormazioneEditScreen({ navigation }) {
             setDatesError(false);
             valid = true
         }
-        if (istituto.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && corso.length > 0 && descrizione.length > 0 && dataInizio.length > 0
+        if (compagnia.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && posizione.length > 0 && descrizione.length > 0 && dataInizio.length > 0
             && dataFine.length > 0 && !invalidDate(dataInizio, dataFine)) {
+            console.log("yea")
             updateUser(
                 {
                     variables: {
-                        formazioni: {
+                        esperienze: {
                             create: {
-                                istituto,
+                                compagnia,
                                 link,
                                 descrizione,
                                 dataInizio,
                                 dataFine,
-                                corso
+                                titolo: posizione
                             }
                         }
                     }
                 }
             )
-        }
+        } else { console.log("no") }
 
     }
 
@@ -131,13 +133,13 @@ export default function FormazioneEditScreen({ navigation }) {
         <ScrollView style={styles.container}>
             {!zoom &&
                 <View>
-                    <StepsLabel text={"Istituto"} />
-                    <WithErrorString error={istitutoError} errorText={"Campo Obbligatorio"}>
+                    <StepsLabel text={"Compagnia"} />
+                    <WithErrorString error={compagniaError} errorText={"Campo Obbligatorio"}>
                         <FormTextInput
                             placeholder="Nome"
-                            onChangeText={val => setIstituto(val)}
-                            value={istituto}
-                            style={istitutoError ? FormStyles.inputError : FormStyles.input}
+                            onChangeText={val => setCompagnia(val)}
+                            value={compagnia}
+                            style={compagniaError ? FormStyles.inputError : FormStyles.input}
                         />
                     </WithErrorString>
                     <WithErrorString error={linkError} errorText={"Non è un link"}>
@@ -149,13 +151,13 @@ export default function FormazioneEditScreen({ navigation }) {
                         />
                     </WithErrorString>
                     <View style={styles.separator}></View>
-                    <StepsLabel text={"Corso Di Studi"} />
-                    <WithErrorString error={corsoError} errorText={"Campo Obbligatorio"}>
+                    <StepsLabel text={"Posizione"} />
+                    <WithErrorString error={posizioneError} errorText={"Campo Obbligatorio"}>
                         <FormTextInput
                             placeholder="Titolo"
-                            onChangeText={val => setCorso(val)}
-                            value={corso}
-                            style={corsoError ? FormStyles.inputError : FormStyles.input}
+                            onChangeText={val => setPosizione(val)}
+                            value={posizione}
+                            style={posizioneError ? FormStyles.inputError : FormStyles.input}
                         />
                     </WithErrorString>
                     <WithErrorString error={datesError} errorText="Le date non sono valide">
@@ -186,9 +188,9 @@ export default function FormazioneEditScreen({ navigation }) {
 
 }
 
-FormazioneEditScreen.navigationOptions = ({ navigation }) => {
+EsperienzeEditScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "FORMAZIONE",
+        title: "ESPERIENZA",
         headerStyle: {
             ...Platform.select({
                 ios: {
