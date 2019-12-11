@@ -38,6 +38,14 @@ const User = gql`
         dataInizio
         descrizione
       }
+      progetti{
+        link
+        sottoTitolo
+        titolo
+        dataFine
+        dataInizio
+        descrizione
+      }
     }
   }
 `;
@@ -96,7 +104,7 @@ export default function ProfilePage({ navigation }) {
         <View style={styles.separator}></View>
         <ItemsBlock navigation={navigation} items={data.currentUser.esperienze} title={"Esperienze"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock navigation={navigation} items={data.currentUser.formazioni} title={"Progetti"}></ItemsBlock>
+        <ItemsBlock navigation={navigation} items={data.currentUser.progetti} title={"Progetti"}></ItemsBlock>
         <View style={styles.separator}></View>
       </View>
     </ScrollView>);
