@@ -96,14 +96,19 @@ export default function ProfilePage({ navigation }) {
           <ImageViewer menus={({ cancel }) => cancel ? setModalVisible(false) : null} imageUrls={images} />
         </Modal>
         <Bold style={{ marginTop: 10, fontSize: 18 }}>{data.currentUser.nome + " " + data.currentUser.cognome}</Bold>
-        <LocationWithText comune={data.currentUser.locationString.split(",")[0]} regione={data.currentUser.locationString.split(",")[2]} />
-        <View style={{ height: 15 }}></View>
-        {data.currentUser.presentazione.length < 75 || showAll ?
-          <Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "center", margin: 20 }}><Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
+        {data.currentUser.locationString &&
+          <LocationWithText comune={data.currentUser.locationString.split(",")[0]} regione={data.currentUser.locationString.split(",")[2]} />
         }
+        <View style={{ height: 15 }}></View>
+        {data.currentUser.presentazione ? (data.currentUser.presentazione.length < 75 || showAll) ?
+          <Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "center", margin: 20 }}><Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
+          : null}
       </View>
       <View style={styles.infoWrapper}>
-        <ItemsBlock refetch={refetch} onPress={() => navigation.navigate("FormazioneEditScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
+        <ItemsBlock refetch={refetch} onPress={
+          () =>
+            data.currentUser.formazioni.length == 0 ? navigation.navigate("FormazioneEditScreen") :
+              navigation.navigate("FormazioniScreen", { formazioni: data.currentUser.formazioni })} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
         <View style={styles.separator}></View>
         <ItemsBlock refetch={refetch} navigation={navigation} onPress={() => navigation.navigate("EsperienzeEditScreen")}
           items={data.currentUser.esperienze} title={"Esperienze"}></ItemsBlock>

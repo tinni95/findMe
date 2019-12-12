@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView, Platform, TouchableOpacity } from "react-native"
 import WithErrorString from "../../shared/Form/WithErrorString";
-import StepsLabel, { StepsLabelWithHint } from "../../shared/StepsLabel";
+import StepsLabel from "../../shared/StepsLabel";
 import FormTextInput from "../../shared/Form/FormTextInput";
 import { FormStyles } from "../../shared/Form/FormStyles";
 import RoundButton from "../../../components/shared/RoundButton";
@@ -24,20 +24,30 @@ mutation updateUser($formazioni:  FormazioneCreateManyInput) {
     }
 }`;
 
+const UPDATEFORMAZIONE_MUTATION = gql`
+mutation updateFormazione($id: ID!, $istituto:String,
+    $corso:String,$dataInizio:String,$dataFine:String,$link:String,$descrizione:String) {
+        updateFormazione(id: $id, istituto:$istituto,
+    corso:$corso,dataInizio:$dataInizio,dataFine:$dataFine,link:$link,descrizione:$descrizione) {
+                id
+    }
+}`;
+
 export default function FormazioneEditScreen({ navigation }) {
+    const formazione = navigation.getParam("formazione")
     const [zoom, setZoom] = useState(false)
-    const [istituto, setIstituto] = useState("")
+    const [istituto, setIstituto] = useState(formazione ? formazione.istituto : "")
     const [istitutoError, setIstitutoError] = useState(false)
-    const [link, setLink] = useState("")
+    const [link, setLink] = useState(formazione ? formazione.link : "")
     const [linkError, setLinkError] = useState(false)
-    const [corso, setCorso] = useState("")
+    const [corso, setCorso] = useState(formazione ? formazione.corso : "")
     const [corsoError, setCorsoError] = useState(false)
-    const [dataInizio, setDataInizio] = useState("")
+    const [dataInizio, setDataInizio] = useState(formazione ? formazione.dataInizio : "")
     const [dataInizioError, setDataInizioError] = useState(false)
     const [dataFineError, setDataFineError] = useState(false)
     const [datesError, setDatesError] = useState(false)
-    const [dataFine, setDataFine] = useState("")
-    const [descrizione, setDescrizione] = useState("")
+    const [dataFine, setDataFine] = useState(formazione ? formazione.dataFine : "")
+    const [descrizione, setDescrizione] = useState(formazione ? formazione.descrizione : "")
     const [descrizioneError, setDescrizioneError] = useState(false)
     //mutation
     const [updateUser] = useMutation(UPDATEUSER_MUTATION,
@@ -46,7 +56,12 @@ export default function FormazioneEditScreen({ navigation }) {
                 navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
             }
         });
-
+    const [updateFormazione] = useMutation(UPDATEFORMAZIONE_MUTATION,
+        {
+            onCompleted: async ({ updateFormazione }) => {
+                navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
+            }
+        });
     const handlePress = async () => {
         if (istituto.length === 0) {
             setIstitutoError(true);
@@ -107,22 +122,37 @@ export default function FormazioneEditScreen({ navigation }) {
         }
         if (istituto.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && corso.length > 0 && descrizione.length > 0 && dataInizio.length > 0
             && dataFine.length > 0 && !invalidDate(dataInizio, dataFine)) {
-            updateUser(
-                {
-                    variables: {
-                        formazioni: {
-                            create: {
-                                istituto,
-                                link,
-                                descrizione,
-                                dataInizio,
-                                dataFine,
-                                corso
+            formazione ?
+                updateFormazione(
+                    {
+                        variables: {
+                            id: formazione.id,
+                            istituto,
+                            link,
+                            descrizione,
+                            corso,
+                            dataInizio,
+                            dataFine
+                        }
+                    }
+                )
+                :
+                updateUser(
+                    {
+                        variables: {
+                            formazioni: {
+                                create: {
+                                    istituto,
+                                    link,
+                                    descrizione,
+                                    dataInizio,
+                                    dataFine,
+                                    corso
+                                }
                             }
                         }
                     }
-                }
-            )
+                )
         }
 
     }
