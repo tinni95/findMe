@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScrollView, View, TouchableOpacity } from "react-native";
-import { PositionCardModifica } from "../../components/PositionCardModifica"
+import { PositionCardModifica } from "../../../components/PositionCardModifica"
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,7 +17,7 @@ const POST_POSIZIONI = gql`
   }
 `;
 
-export function ModificaPosizioni({ navigation }) {
+export default function ModificaPosizioni({ navigation }) {
     const client = useApolloClient();
     const removeItem = index => {
         posizioni.splice(index, 1)

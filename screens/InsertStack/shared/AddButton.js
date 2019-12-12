@@ -1,5 +1,5 @@
 import React from 'react'
-import { Body } from '../../components/StyledText';
+import { Body } from '../../../components/StyledText';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 export const AddButton = ({ onPress, style, text }) => {

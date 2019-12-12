@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, CheckBox, Platform } from 'react-native';
 import { CheckBox as Checkbox } from 'react-native-elements'
-import { Light } from '../../components/StyledText';
-import { StepsIndicator } from "./stepsIndicator";
-import PostScreenConfirm from "../../screens/Post/PostScreenConfirm";
+import { Light } from '../../../components/StyledText';
+import { StepsIndicator } from "../shared/stepsIndicator";
+import PostScreenConfirm from "../../Post/PostScreenConfirm";
 import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { ScrollView } from 'react-native-gesture-handler';
-import RoundButton from '../../components/shared/RoundButton';
-import { isBigDevice, width } from '../../constants/Layout';
+import RoundButton from '../../../components/shared/RoundButton';
+import { isBigDevice, width } from '../../../constants/Layout';
+import { parsePositions } from './helpers';
 
 const POST_ANTEPRIMA = gql`
   query DescrizioneQuery {
@@ -35,7 +36,8 @@ mutation createPost($title: String!, $description: String!,$locationString: Stri
   }
 }`;
 
-export const Anteprima = ({ navigation, user }) => {
+export default Anteprima = ({ navigation, user }) => {
+
   const client = useApolloClient();
   const [createPost] = useMutation(CREATEPOST_MUTATION,
     {
@@ -71,7 +73,7 @@ export const Anteprima = ({ navigation, user }) => {
         type: data.postOwnerPosition,
         pubblicatoDa: checked ? user.nome[0] + user.cognome : user.nome + " " + user.cognome,
         posizione: data.postOwnerPosition,
-        positions: { create: data.postPositions }
+        positions: { create: parsePositions(data.postPositions) }
       }
     })
   }

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import { StepsLabel, StepsLabelError } from "./StepsLabel";
-import WithErrorString from "../shared/Form/WithErrorString";
-import FormTextInput from "../shared/Form/FormTextInput";
-import RoundButton from '../../components/shared/RoundButton';
+import StepsLabel from "../../shared/StepsLabel";
+import WithErrorString from "../../shared/Form/WithErrorString";
+import FormTextInput from "../../shared/Form/FormTextInput";
+import RoundButton from '../../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { indexOfPosition, Settori, TipoSocio, TitoliPosizioni } from "./helpers"
-import { FormStyles } from "../shared/Form/FormStyles";
-import RoundFiltersOne from '../Explore/FiltersStack/components/RoundFiltersOne';
-import { isBigDevice } from '../../constants/Layout';
-import { Light } from '../../components/StyledText';
+import { indexOfPosition, Settori, TipoSocio, TitoliPosizioni } from "../shared/helpers"
+import { FormStyles } from "../../shared/Form/FormStyles";
+import RoundFiltersOne from '../../Explore/FiltersStack/components/RoundFiltersOne';
+import { isBigDevice } from '../../../constants/Layout';
+import { Light } from '../../../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
 var _ = require('lodash');
 var shortid = require('shortid');
@@ -27,7 +27,7 @@ const POST_POSIZIONI = gql`
   }
 `;
 
-export function ModificaPosizione({ navigation }) {
+export default function ModificaPosizione({ navigation }) {
     const { data } = useQuery(POST_POSIZIONI);
     const client = useApolloClient();
     const [requisiti, setRequisiti] = useState(navigation.getParam("requisiti"))
@@ -146,11 +146,7 @@ export function ModificaPosizione({ navigation }) {
         <View style={styles.container}>
             <View style={styles.body}>
                 <KeyboardAwareScrollView >
-                    {socioError ?
-                        <StepsLabelError text={"Cosa Cerco"} />
-                        :
-                        <StepsLabel text={"Cosa Cerco"} />
-                    }
+                    <StepsLabel error={socioError} text={"Cosa Cerco"} />
                     <RoundFiltersOne settori={TipoSocio} setItem={item => setSocio(item)} settoreAttivi={activeIndexSocio} />
                     <View style={{ height: 15 }}></View>
                     {socio != "Socio Finanziatore" ?
@@ -189,11 +185,7 @@ export function ModificaPosizione({ navigation }) {
                             }
                         </View>
                         : null}
-                    {descriptionError ?
-                        <StepsLabelError text={"Descrizione"} />
-                        :
-                        <StepsLabel text={"Descrizione"} />
-                    }
+                    <StepsLabel error={descriptionError} text={"Descrizione"} />
                     <FormTextInput
                         large="true"
                         multiline

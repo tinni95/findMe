@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import StepsLabel from "../shared/StepsLabel";
-import { AddButton } from "./AddButton";
-import WithErrorString from "../shared/Form/WithErrorString";
-import { StepsIndicator } from "./stepsIndicator";
-import FormTextInput from "../shared/Form/FormTextInput";
-import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne";
-import RoundButton from '../../components/shared/RoundButton';
-import RoundButtonEmptyUniversal from '../../components/shared/RoundButtonEmptyUniversal';
+import StepsLabel from "../../shared/StepsLabel";
+import { AddButton } from "../shared/AddButton";
+import WithErrorString from "../../shared/Form/WithErrorString";
+import { StepsIndicator } from "../shared/stepsIndicator";
+import FormTextInput from "../../shared/Form/FormTextInput";
+import RoundFiltersOne from "../../Explore/FiltersStack/components/RoundFiltersOne";
+import RoundButton from '../../../components/shared/RoundButton';
+import RoundButtonEmptyUniversal from '../../../components/shared/RoundButtonEmptyUniversal';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { FormStyles } from "../shared/Form/FormStyles";
-import { Settori, TipoSocio, TitoliPosizioni, Requisiti } from "./helpers";
-import { isBigDevice } from '../../constants/Layout';
-import { Light } from "../../components/StyledText";
+import { FormStyles } from "../../shared/Form/FormStyles";
+import { Settori, TipoSocio, TitoliPosizioni, Requisiti } from "../shared/helpers";
+import { isBigDevice } from '../../../constants/Layout';
+import { Light } from "../../../components/StyledText";
 import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../constants/Colors';
+import Colors from '../../../constants/Colors';
 
 var shortid = require("shortid")
 const POST_POSIZIONI = gql`
@@ -31,7 +31,7 @@ const POST_POSIZIONI = gql`
   }
 `;
 
-export function Posizioni({ navigation, settore }) {
+export default function Posizioni({ navigation, settore }) {
   //Hooks
   const [zoom, setZoom] = useState(false)
   const [active, setActive] = useState("");

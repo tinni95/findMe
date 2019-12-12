@@ -1,9 +1,9 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { Anteprima } from "./Anteprima"
-import FindMeSpinner from "../../shared/FindMeSpinner"
-import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
+import Anteprima from "./Anteprima"
+import FindMeSpinner from "../../../shared/FindMeSpinner"
+import FindMeGraphQlErrorDisplay from "../../../shared/FindMeSpinner"
 
 const User = gql`
   {

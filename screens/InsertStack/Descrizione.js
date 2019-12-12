@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import { StepsIndicator } from "./stepsIndicator";
+import { StepsIndicator } from "./shared/stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import WithErrorString from "../shared/Form/WithErrorString";
 import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
@@ -11,7 +11,7 @@ import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FormStyles } from "../shared/Form/FormStyles";
 import { isBigDevice } from '../../constants/Layout';
-import { Settori } from "./helpers";
+import { Settori } from "./shared/helpers";
 import Colors from '../../constants/Colors';
 
 
@@ -25,7 +25,7 @@ const POST_DESCRIZIONE = gql`
 `;
 
 
-export function Descrizione({ navigation }) {
+export default function Descrizione({ navigation }) {
   const client = useApolloClient();
   const { data } = useQuery(POST_DESCRIZIONE);
   const refreshSettore = () => {

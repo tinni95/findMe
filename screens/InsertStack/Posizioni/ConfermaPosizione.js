@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { StepsLabel } from "../shared/StepsLabel";
-import FormTextInput from "../shared/Form/FormTextInput";
-import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne";
-import RoundButton from '../../components/shared/RoundButton';
+import StepsLabel from "../../shared/StepsLabel";
+import FormTextInput from "../../shared/Form/FormTextInput";
+import RoundFiltersOne from "../../Explore/FiltersStack/components/RoundFiltersOne";
+import RoundButton from '../../../components/shared/RoundButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import { indexOfPosition, Settori, TipoSocio } from "./helpers";
-import { FormStyles } from "../shared/Form/FormStyles";
-import { isBigDevice } from '../../constants/Layout';
+import { indexOfPosition, Settori, TipoSocio } from "../shared/helpers";
+import { FormStyles } from "../../shared/Form/FormStyles";
+import { isBigDevice } from '../../../constants/Layout';
 
 var shortid = require("shortid")
 const POST_POSIZIONI = gql`
@@ -24,7 +24,7 @@ const POST_POSIZIONI = gql`
   }
 `;
 
-export function ConfermaPosizione({ navigation }) {
+export default function ConfermaPosizione({ navigation }) {
     const { data } = useQuery(POST_POSIZIONI);
     const client = useApolloClient();
     const posizioni = data.postPositions || []

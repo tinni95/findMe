@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
-import { StepsIndicator } from "./stepsIndicator";
+import { StepsIndicator } from "./shared/stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
-import { StepsLabel, StepsLabelError } from "./StepsLabel";
+import StepsLabel from "../shared/StepsLabel";
 import WithErrorString from "../shared/Form/WithErrorString";
 import { FormStyles } from "../shared/Form/FormStyles";
 import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne";
@@ -10,7 +10,7 @@ import RoundButton from '../../components/shared/RoundButton';
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { isBigDevice } from '../../constants/Layout';
-import { TitoliPosizioni } from './helpers';
+import { TitoliPosizioni } from './shared/helpers';
 
 const POST_PRESENTAZIONE = gql`
   query PresentazioneQuery {
@@ -23,7 +23,7 @@ const POST_PRESENTAZIONE = gql`
 
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 
-export function Presentazione({ navigation }) {
+export default function Presentazione({ navigation }) {
     const client = useApolloClient();
     const { data } = useQuery(POST_PRESENTAZIONE);
     const activeIndex = TipoSocio.indexOf(data.postOwner) || -1;
@@ -82,11 +82,7 @@ export function Presentazione({ navigation }) {
                 <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
             </View>
             <View style={styles.body}>
-                {locationError ?
-                    <StepsLabelError text={"Scegli Località"} />
-                    :
-                    <StepsLabel text={"Scegli Località"} />
-                }
+                <StepsLabel text={"Scegli Località"} error={locationError} />
                 <WithErrorString
                     errorText="Campo Obbligatorio"
                     error={locationError}
@@ -98,20 +94,12 @@ export function Presentazione({ navigation }) {
                         placeholder="Località"
                     />
                 </WithErrorString>
-                {postOwnerError ?
-                    <StepsLabelError text={"Mi Propongo Come"} />
-                    :
-                    <StepsLabel text={"Mi Propongo Come"} />
-                }
+                <StepsLabel error={postOwnerError} text={"Mi Propongo Come"} />
                 <View style={styles.spacer} />
                 <RoundFiltersOne setItem={tipoSocio => setPostOwner(tipoSocio)} settori={TipoSocio} settoreAttivi={activeIndex} />
                 <View style={styles.spacer} />
                 <View style={styles.PosizioniTitleWrapper}>
-                    {positionError ?
-                        <StepsLabelError text={"La Mia Funzione"} />
-                        :
-                        <StepsLabel text={"La Mia Funzione"} />
-                    }
+                    <StepsLabel error={positionError} text={"La Mia Funzione"} />
                     <WithErrorString
                         errorText="Campo Obbligatorio"
                         error={positionError}
