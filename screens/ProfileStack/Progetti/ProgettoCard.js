@@ -1,20 +1,20 @@
 import React from "react"
 import { View, StyleSheet, Image } from "react-native";
-import { Body, Bold } from "../../components/StyledText";
+import { Body, Bold } from "../../../components/StyledText";
 
-export default function FormazioneCard({ item }) {
+export default function ProgettoCard({ item }) {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image style={{ height: 23, width: 27 }} source={require("../../assets/images/hat.png")}></Image>
+                <Image style={{ height: 28, width: 18 }} source={require("../../../assets/images/lamp.png")}></Image>
             </View>
             <View style={styles.textContainer}>
                 <View style={{ flexDirection: "column", textAlign: "center" }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                        <Body style={styles.textHeader}>{item.corso}</Body>
-                        <Body style={styles.textDate}>{item.dataInizio}- {item.dataFine}</Body>
+                        <Body style={styles.textHeader}>{item.titolo}</Body>
+                        <Body style={styles.textDate}>{item.dataInizio} - {item.dataFine}</Body>
                     </View>
-                    <Bold style={styles.textSubHeader}>{item.istituto}</Bold>
+                    <Bold style={styles.textSubHeader}>{item.sottoTitolo}</Bold>
                 </View>
             </View>
         </View>

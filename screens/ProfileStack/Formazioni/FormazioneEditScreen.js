@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView, Platform, TouchableOpacity } from "react-native"
-import WithErrorString from "../shared/Form/WithErrorString";
-import StepsLabel, { StepsLabelWithHint } from "../shared/StepsLabel";
-import FormTextInput from "../shared/Form/FormTextInput";
-import { FormStyles } from "../shared/Form/FormStyles";
-import RoundButton from "../../components/shared/RoundButton";
-import Colors from "../../constants/Colors";
-import DataInizioFine from "./DataInizioFine"
-import { invalidDate } from "./helpers";
+import WithErrorString from "../../shared/Form/WithErrorString";
+import StepsLabel, { StepsLabelWithHint } from "../../shared/StepsLabel";
+import FormTextInput from "../../shared/Form/FormTextInput";
+import { FormStyles } from "../../shared/Form/FormStyles";
+import RoundButton from "../../../components/shared/RoundButton";
+import Colors from "../../../constants/Colors";
+import DataInizioFine from "../DataInizioFine"
+import { invalidDate } from "../helpers";
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
 import { Ionicons } from "@expo/vector-icons";
-import { Bold } from "../../components/StyledText";
+import { Bold } from "../../../components/StyledText";
 
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 

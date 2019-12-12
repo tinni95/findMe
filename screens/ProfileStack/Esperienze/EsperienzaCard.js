@@ -1,20 +1,21 @@
 import React from "react"
 import { View, StyleSheet, Image } from "react-native";
-import { Body, Bold } from "../../components/StyledText";
+import { Bold, Body } from "../../../components/StyledText";
 
-export default function ProgettoCard({ item }) {
+
+export default function EsperienzaCard({ item }) {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image style={{ height: 28, width: 18 }} source={require("../../assets/images/lamp.png")}></Image>
+                <Image style={{ height: 23, width: 27 }} source={require("../../../assets/images/valigia.png")}></Image>
             </View>
             <View style={styles.textContainer}>
                 <View style={{ flexDirection: "column", textAlign: "center" }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <Body style={styles.textHeader}>{item.titolo}</Body>
-                        <Body style={styles.textDate}>{item.startDate} - {item.endDate}</Body>
+                        <Body style={styles.textDate}>{item.dataInizio} - {item.dataFine}</Body>
                     </View>
-                    <Bold style={styles.textSubHeader}>{item.sottoTitolo}</Bold>
+                    <Bold style={styles.textSubHeader}>{item.compagnia}</Bold>
                 </View>
             </View>
         </View>

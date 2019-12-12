@@ -3,9 +3,9 @@ import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../../components/TabBarIcon';
 import ProfilePage from '../../screens/ProfileStack';
 import Logout from '../../screens/ProfileStack/Logout';
-import FormazioneEditScreen from '../../screens/ProfileStack/FormazioneEditScreen';
-import EsperienzeEditScreen from '../../screens/ProfileStack/EsperienzeEditScreen';
-import ProgettiEditScreen from '../../screens/ProfileStack/ProgettiEditScreen';
+import FormazioneEditScreen from '../../screens/ProfileStack/Formazioni/FormazioneEditScreen';
+import EsperienzeEditScreen from '../../screens/ProfileStack/Esperienze/EsperienzeEditScreen';
+import ProgettiEditScreen from '../../screens/ProfileStack/Progetti/ProgettiEditScreen';
 import UserInfoModal from '../UserInfoModal';
 const LogoutStack = createStackNavigator({
   Logout

@@ -1,6 +1,5 @@
 import React from "react";
-import { TextInput, View } from "react-native";
-import { FormStyles } from "./FormStyles";
+import { TextInput } from "react-native";
 
 export default function FormTextInput(props) {
    if (props.large == "true") {
