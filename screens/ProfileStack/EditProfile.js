@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import { TouchableOpacity, ScrollView, StyleSheet, View, Image, Platform } from "react-native"
 import Colors from '../../constants/Colors'
 import { width } from '../../constants/Layout'
-import { Bold } from '../../components/StyledText'
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import gql from 'graphql-tag'
@@ -26,7 +25,8 @@ mutation updateUser($email: String, $password: String,$nome: String, $cognome: S
 
 
 
-export default function UserInfoAfter({ navigation, screenProps }) {
+export default function EditProfile({ navigation, screenProps }) {
+    //passedLocation (autocomplete)
     const passedLocation = navigation.getParam("location") || ""
 
     //hooks
@@ -39,11 +39,8 @@ export default function UserInfoAfter({ navigation, screenProps }) {
     const [cognome, setCognome] = useState(currentUser.cognome)
     const [cognomeError, setCognomeError] = useState(false)
     const [DoB, setDoB] = useState(currentUser.DoB ? currentUser.DoB : "")
-    const [DoBError, setDoBError] = useState(false)
     const [location, setLocation] = useState(currentUser.locationString ? currentUser.locationString : "")
-    const [locationError, setLocationError] = useState(false)
     const [presentazione, setPresentazione] = useState(currentUser.presentazione ? currentUser.presentazione : "")
-    const [presentazioneError, setPresentazioneError] = useState(false)
     //useEffect
     useEffect(() => {
         passedLocation ? setLocation(passedLocation) : null
@@ -102,53 +99,32 @@ export default function UserInfoAfter({ navigation, screenProps }) {
         else {
             setCognomeError(false)
         }
-        if (DoB.length === 0) {
-            setDoBError(true);
-        }
-        else {
-            setDoBError(false)
-        }
-        if (location.length === 0) {
-            setLocationError(true);
-        }
-        else {
-            setLocationError(false)
-        }
-        if (presentazione.length === 0) {
-            setPresentazioneError(true);
-        }
-        else {
-            setPresentazioneError(false)
-        }
-        if (image == initialString) {
-            return alert("image not selected")
-        }
-        if (nome.length > 0 && cognome.length > 0 && DoB.length > 0 && location.length > 0 && presentazione.length > 0 && image != initialString) {
+        if (nome.length > 0 && cognome.length > 0) {
             submit()
         }
     }
 
     const submit = () => {
-        const file = new ReactNativeFile({
-            uri: image,
-            name: currentUser.email + ".jpg",
-            type: 'image/jpeg',
+        let file;
+        if (image == initialImage) {
+            file = null
+        }
+        else {
+            file = new ReactNativeFile({
+                uri: image,
+                name: currentUser.email + ".jpg",
+                type: 'image/jpeg',
 
-        })
+            })
+        }
         updateUser({ variables: { picture: file, DoB, nome, cognome, presentazione, locationString: location } })
     }
-
-    const initialString = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg"
-    const [image, setImage] = useState(require("../../assets/images/placeholder.png"));
+    const initialImage = require("../../assets/images/placeholder.png")
+    const [image, setImage] = useState(initialImage);
     const pen = require("../../assets/images/pen.png")
 
     return <View style={styles.container}>
-        <View style={styles.header}>
-            <TouchableOpacity onPress={() => handlePress()} style={styles.button}>
-                <Bold style={{ color: "white" }}>Salva</Bold>
-            </TouchableOpacity>
-        </View>
-        <View style={{ flex: 8 }}>
+        <View style={{ flex: 1 }}>
             <ScrollView
                 ref={scrollview}
                 contentContainerStyle={{ margin: 30 }}>
@@ -171,7 +147,6 @@ export default function UserInfoAfter({ navigation, screenProps }) {
                                 onChangeText={val => setNome(val)}
                                 value={nome}
                                 style={nomeError ? FormStyles.inputError : FormStyles.input}
-                                onSubmitEditing={() => cognomeInput.current.focus()}
                             />
                         </WithErrorString>
                         <StepsLabel error={cognomeError} text={"Cognome"} />
@@ -185,34 +160,25 @@ export default function UserInfoAfter({ navigation, screenProps }) {
                                 style={cognomeError ? FormStyles.inputError : FormStyles.input}
                             />
                         </WithErrorString>
-                        <StepsLabel error={DoBError} text={"Data Di Nascita"} />
-                        <WithErrorString
-                            error={DoBError}
-                            errorText={"Campo Obbligatorio"}>
-                            <TouchableOpacity
-                                onPress={() => setVisibleDate(true)}>
-                                <FormTextInput
-                                    pointerEvents="none"
-                                    editable={false}
-                                    value={DoB}
-                                    style={cognomeError ? FormStyles.inputError : FormStyles.input}
-                                />
-                            </TouchableOpacity>
-                        </WithErrorString>
-                        <StepsLabel error={locationError} text={"Città"} />
-                        <WithErrorString
-                            errorText="Campo Obbligatorio"
-                            error={locationError}
-                        >
+                        <StepsLabel text={"Data Di Nascita"} />
+                        <TouchableOpacity
+                            onPress={() => setVisibleDate(true)}>
                             <FormTextInput
-                                style={locationError ? FormStyles.inputError : FormStyles.input}
-                                value={location}
-                                onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "UserInfo" })}
+                                pointerEvents="none"
+                                editable={false}
+                                value={DoB}
+                                style={cognomeError ? FormStyles.inputError : FormStyles.input}
                             />
-                        </WithErrorString>
+                        </TouchableOpacity>
+                        <StepsLabel text={"Città"} />
+                        <FormTextInput
+                            style={FormStyles.input}
+                            value={location}
+                            onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "UserInfo" })}
+                        />
                     </View>
                 }
-                <StepsLabelWithHint error={presentazioneError}
+                <StepsLabelWithHint
                     tooltipText={"Scrivi una biografia che ti serve a descriverti, per aiutare agli altri utenti a capire se sei fatto per la loro attività"}
                     text={"Presentazione"} />
                 <FormTextInput
@@ -228,7 +194,10 @@ export default function UserInfoAfter({ navigation, screenProps }) {
                 />
                 {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
                 <DateTimePicker isVisible={visibleDate} onConfirm={_handleDatePicked} onCancel={() => setVisibleDate(false)} maximumDate={new Date()} />
-                <View style={{ height: 50 }}></View>
+                <View style={styles.buttonWrapper}>
+                    {!zoom && <RoundButton onPress={() => handlePress()} text={"CONFERMA"} color={Colors.blue} textColor="white"></RoundButton>}
+                </View>
+                <View style={{ height: 50 }} />
             </ScrollView>
         </View>
     </View>
@@ -272,5 +241,9 @@ const styles = StyleSheet.create({
         }),
         padding: 7.5,
         borderRadius: 25
-    }
+    },
+    buttonWrapper: {
+        alignItems: "center",
+        margin: 35
+    },
 })

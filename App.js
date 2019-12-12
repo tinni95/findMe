@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { graphlEndPoint } from "./shared/urls";
 import { TOKEN_KEY } from "./shared/Token"
-import MainTabNavigatorWrapper from './navigation/MainTabNavigatorWrapper';
+import MainTabNavigator from './navigation/MainTabNavigator';
 import AuthenticationStack from './navigation/AuthenticationStack';
 import { ApolloClient } from 'apollo-client';
 import { setContext } from 'apollo-link-context';
@@ -84,7 +84,7 @@ export default function App() {
   return (
     <ApolloProvider client={client}>
       <View style={styles.container}>
-        {loggedin ? <MainTabNavigatorWrapper screenProps={{ changeLoginState: () => logout() }} /> :
+        {loggedin ? <MainTabNavigator screenProps={{ changeLoginState: () => logout() }} /> :
           <AuthenticationStack screenProps={{ changeLoginState: () => login() }} />}
       </View>
     </ApolloProvider>

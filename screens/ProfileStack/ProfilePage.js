@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, View, ScrollView, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { Platform, Modal, View, ScrollView, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import FindMeSpinner from "../../shared/FindMeSpinner"
@@ -132,22 +132,33 @@ const styles = StyleSheet.create({
 
 ProfilePage.navigationOptions = ({ navigation }) => {
   return {
-    title: "Profilo",
+    title: "PROFILO",
     headerStyle: {
-      borderBottomWidth: 0.1,
+      ...Platform.select({
+        ios: {
+          shadowColor: "black",
+          shadowOffset: { height: 3 },
+          shadowOpacity: 0.1,
+          shadowRadius: 3
+        },
+        android: {
+          elevation: 20
+        },
+      })
     },
     headerTitleStyle: {
-      fontSize: 20,
-      fontFamily: "sequel-sans"
+      fontFamily: "sequel-sans-bold",
+      color: Colors.blue,
+      fontSize: 12
     },
     headerRight: (
-      <TouchablePen onPress={() => navigation.navigate("UserInfo", { currentUser: navigation.getParam("currentUser") })} size={25}></TouchablePen>
+      <TouchablePen onPress={() => navigation.navigate("EditProfile", { currentUser: navigation.getParam("currentUser") })} size={22}></TouchablePen>
     ),
     headerLeft: (
       <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
         <Ionicons
           name={"ios-menu"}
-          size={30}
+          size={25}
           style={{ marginLeft: 10 }}
           color={Colors.blue}
         ></Ionicons>

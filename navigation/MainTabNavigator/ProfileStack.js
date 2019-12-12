@@ -13,7 +13,7 @@ const LogoutStack = createStackNavigator({
 
 const ProfileStack = createStackNavigator({
   ProfilePage,
-  UserInfoModal,
+  EditProfile: UserInfoModal,
   FormazioneEditScreen,
   EsperienzeEditScreen,
   ProgettiEditScreen
