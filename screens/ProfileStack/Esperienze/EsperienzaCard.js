@@ -3,13 +3,13 @@ import { View, StyleSheet, Image } from "react-native";
 import { Bold, Body } from "../../../components/StyledText";
 
 
-export default function EsperienzaCard({ item }) {
+export default function EsperienzaCard({ item, noBorder }) {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
                 <Image style={{ height: 23, width: 27 }} source={require("../../../assets/images/valigia.png")}></Image>
             </View>
-            <View style={styles.textContainer}>
+            <View style={[styles.textContainer, noBorder]}>
                 <View style={{ flexDirection: "column", textAlign: "center" }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <Body style={styles.textHeader}>{item.titolo}</Body>

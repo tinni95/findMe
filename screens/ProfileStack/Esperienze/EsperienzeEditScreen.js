@@ -24,26 +24,41 @@ mutation updateUser($esperienze:  EsperienzaCreateManyInput) {
     }
 }`;
 
+const UPDATEESPERIENZA_MUTATION = gql`
+mutation updateEsperienza($id: ID!, $compagnia:String,
+    $titolo:String,$dataInizio:String,$dataFine:String,$link:String,$descrizione:String) {
+        updateEsperienza(id: $id, compagnia:$compagnia,
+    titolo:$titolo,dataInizio:$dataInizio,dataFine:$dataFine,link:$link,descrizione:$descrizione) {
+                id
+    }
+}`;
+
 export default function EsperienzeEditScreen({ navigation }) {
+    const esperienza = navigation.getParam("esperienza")
     const [zoom, setZoom] = useState(false)
-    const [compagnia, setCompagnia] = useState("")
+    const [compagnia, setCompagnia] = useState(esperienza ? esperienza.compagnia : "")
     const [compagniaError, setCompagniaError] = useState(false)
-    const [link, setLink] = useState("")
+    const [link, setLink] = useState(esperienza ? esperienza.link : "")
     const [linkError, setLinkError] = useState(false)
-    const [posizione, setPosizione] = useState("")
+    const [posizione, setPosizione] = useState(esperienza ? esperienza.titolo : "")
     const [posizioneError, setPosizioneError] = useState(false)
-    const [dataInizio, setDataInizio] = useState("")
+    const [dataInizio, setDataInizio] = useState(esperienza ? esperienza.dataInizio : "")
     const [dataInizioError, setDataInizioError] = useState(false)
     const [dataFineError, setDataFineError] = useState(false)
     const [datesError, setDatesError] = useState(false)
-    const [dataFine, setDataFine] = useState("")
-    const [descrizione, setDescrizione] = useState("")
+    const [dataFine, setDataFine] = useState(esperienza ? esperienza.dataFine : "")
+    const [descrizione, setDescrizione] = useState(esperienza ? esperienza.descrizione : "")
     const [descrizioneError, setDescrizioneError] = useState(false)
     //mutation
     const [updateUser] = useMutation(UPDATEUSER_MUTATION,
         {
             onCompleted: async ({ updateUser }) => {
-                console.log(updateUser)
+                navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
+            }
+        });
+    const [updateEsperienza] = useMutation(UPDATEESPERIENZA_MUTATION,
+        {
+            onCompleted: async ({ updateEsperienza }) => {
                 navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
             }
         });
@@ -65,7 +80,6 @@ export default function EsperienzeEditScreen({ navigation }) {
             setLinkError(false)
             valid = true
         }
-
         if (posizione.length === 0) {
             setPosizioneError(true);
             valid = false
@@ -108,23 +122,36 @@ export default function EsperienzeEditScreen({ navigation }) {
         }
         if (compagnia.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && posizione.length > 0 && descrizione.length > 0 && dataInizio.length > 0
             && dataFine.length > 0 && !invalidDate(dataInizio, dataFine)) {
-            console.log("yea")
-            updateUser(
-                {
-                    variables: {
-                        esperienze: {
-                            create: {
-                                compagnia,
-                                link,
-                                descrizione,
-                                dataInizio,
-                                dataFine,
-                                titolo: posizione
+            esperienza ?
+                updateEsperienza(
+                    {
+                        variables: {
+                            id: esperienza.id,
+                            compagnia,
+                            titolo: posizione,
+                            dataFine,
+                            dataInizio,
+                            descrizione
+                        }
+                    }
+                )
+                :
+                updateUser(
+                    {
+                        variables: {
+                            esperienze: {
+                                create: {
+                                    compagnia,
+                                    link,
+                                    descrizione,
+                                    dataInizio,
+                                    dataFine,
+                                    titolo: posizione
+                                }
                             }
                         }
                     }
-                }
-            )
+                )
         } else { console.log("no") }
 
     }

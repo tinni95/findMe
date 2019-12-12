@@ -4,15 +4,15 @@ import Colors from "../../../constants/Colors"
 import { Ionicons } from "@expo/vector-icons"
 import Aggiungi from "../shared/Aggiungi"
 let shortid = require("shortid")
-import EsperienzaEditCard from "./EsperienzaEditCard"
+import ProgettoEditCard from "./ProgettoEditCard"
 
-export default function EsperienzeScreen({ navigation }) {
-    const esperienze = navigation.getParam("esperienze")
+export default function ProgettiScreen({ navigation }) {
+    const progetti = navigation.getParam("progetti")
     return (
         <View style={styles.container}>
-            <Aggiungi onPress={() => navigation.navigate("EsperienzeEditScreen")} text={"ESPERIENZA"} />
-            {esperienze.map(esperienza => {
-                return <EsperienzaEditCard navigation={navigation} key={shortid.generate()} esperienza={esperienza} />
+            <Aggiungi onPress={() => navigation.navigate("ProgettiEditScreen")} text={"PROGETTO"} />
+            {progetti.map(progetto => {
+                return <ProgettoEditCard navigation={navigation} key={shortid.generate()} progetto={progetto} />
             })}
         </View>
     )
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
     }
 })
 
-EsperienzeScreen.navigationOptions = ({ navigation }) => {
+ProgettiScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "ESPERIENZE",
+        title: "PROGETTI",
         headerStyle: {
             ...Platform.select({
                 ios: {

@@ -23,25 +23,42 @@ mutation updateUser($progetti:  ProgettoCreateManyInput) {
     }
 }`;
 
+const UPDATEPROGETTO_MUTATION = gql`
+mutation updateProgetto($id: ID!, $titolo:String,
+    $sottoTitolo:String,$dataInizio:String,$dataFine:String,$link:String,$descrizione:String) {
+        updateProgetto(id: $id, titolo:$titolo,
+    sottoTitolo:$sottoTitolo,dataInizio:$dataInizio,dataFine:$dataFine,link:$link,descrizione:$descrizione) {
+                id
+    }
+}`;
+
 export default function ProgettiEditScreen({ navigation }) {
+    const progetto = navigation.getParam("progetto")
     const [zoom, setZoom] = useState(false)
-    const [titolo, setTitolo] = useState("")
+    const [titolo, setTitolo] = useState(progetto ? progetto.titolo : "")
     const [titoloError, setTitoloError] = useState(false)
-    const [sottoTitolo, setSottoTitolo] = useState("")
+    const [sottoTitolo, setSottoTitolo] = useState(progetto ? progetto.sottoTitolo : "")
     const [sottoTitoloError, setSottoTitoloError] = useState(false)
-    const [link, setLink] = useState("")
+    const [link, setLink] = useState(progetto ? progetto.link : "")
     const [linkError, setLinkError] = useState(false)
-    const [dataInizio, setDataInizio] = useState("")
+    const [dataInizio, setDataInizio] = useState(progetto ? progetto.dataInizio : "")
     const [dataInizioError, setDataInizioError] = useState(false)
     const [dataFineError, setDataFineError] = useState(false)
     const [datesError, setDatesError] = useState(false)
-    const [dataFine, setDataFine] = useState("")
-    const [descrizione, setDescrizione] = useState("")
+    const [dataFine, setDataFine] = useState(progetto ? progetto.dataFine : "")
+    const [descrizione, setDescrizione] = useState(progetto ? progetto.descrizione : "")
     const [descrizioneError, setDescrizioneError] = useState(false)
     //mutation
     const [updateUser] = useMutation(UPDATEUSER_MUTATION,
         {
             onCompleted: async ({ updateUser }) => {
+                navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
+            }
+        });
+
+    const [updateProgetto] = useMutation(UPDATEPROGETTO_MUTATION,
+        {
+            onCompleted: async ({ updateProgetto }) => {
                 navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
             }
         });
@@ -105,22 +122,36 @@ export default function ProgettiEditScreen({ navigation }) {
         }
         if (titolo.length > 0 && sottoTitolo.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && descrizione.length > 0 && dataInizio.length > 0
             && dataFine.length > 0 && !invalidDate(dataInizio, dataFine)) {
-            updateUser(
-                {
-                    variables: {
-                        progetti: {
-                            create: {
-                                titolo,
-                                sottoTitolo,
-                                link,
-                                descrizione,
-                                dataInizio,
-                                dataFine,
+            progetto ?
+                updateProgetto(
+                    {
+                        variables: {
+                            id: progetto.id,
+                            dataInizio,
+                            dataFine,
+                            link,
+                            titolo,
+                            sottoTitolo
+                        }
+                    }
+                )
+                :
+                updateUser(
+                    {
+                        variables: {
+                            progetti: {
+                                create: {
+                                    titolo,
+                                    sottoTitolo,
+                                    link,
+                                    descrizione,
+                                    dataInizio,
+                                    dataFine,
+                                }
                             }
                         }
                     }
-                }
-            )
+                )
         }
 
     }

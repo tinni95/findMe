@@ -110,10 +110,18 @@ export default function ProfilePage({ navigation }) {
             data.currentUser.formazioni.length == 0 ? navigation.navigate("FormazioneEditScreen") :
               navigation.navigate("FormazioniScreen", { formazioni: data.currentUser.formazioni })} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock refetch={refetch} navigation={navigation} onPress={() => navigation.navigate("EsperienzeEditScreen")}
+        <ItemsBlock refetch={refetch} navigation={navigation} onPress={
+          () =>
+            data.currentUser.esperienze.length == 0 ? navigation.navigate("EsperienzeEditScreen") :
+              navigation.navigate("EsperienzeScreen", { esperienze: data.currentUser.esperienze })
+        }
           items={data.currentUser.esperienze} title={"Esperienze"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock refetch={refetch} navigation={navigation} onPress={() => navigation.navigate("ProgettiEditScreen")}
+        <ItemsBlock refetch={refetch} navigation={navigation} onPress={
+          () =>
+            data.currentUser.progetti.length == 0 ? navigation.navigate("ProgettiEditScreen") :
+              navigation.navigate("ProgettiScreen", { progetti: data.currentUser.progetti })
+        }
           items={data.currentUser.progetti} title={"Progetti"}></ItemsBlock>
         <View style={styles.separator}></View>
       </View>
