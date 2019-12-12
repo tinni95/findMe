@@ -48,6 +48,7 @@ export default function LoginScreen({ screenProps }) {
                     />
                     {emailError && <Text style={FormStyles.error}>email invalida</Text>}
                     <TextInput
+                        autoCapitalize="none"
                         style={passwordError ? FormStyles.inputError : FormStyles.input}
                         placeholder="Password"
                         secureTextEntry

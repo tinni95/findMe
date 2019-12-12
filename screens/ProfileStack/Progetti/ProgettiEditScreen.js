@@ -181,6 +181,7 @@ export default function ProgettiEditScreen({ navigation }) {
                     <StepsLabelWithHint text={"Link Progetto"} tooltipText={"link a progetto"} />
                     <WithErrorString error={linkError} errorText={"Non è un link"}>
                         <FormTextInput
+                            autoCapitalize="none"
                             placeholder=""
                             onChangeText={val => setLink(val)}
                             value={link}

@@ -153,6 +153,7 @@ export default function SignUpScreen({ screenProps }) {
               )}
           <TextInput
             style={passwordError ? FormStyles.inputError : FormStyles.input}
+            autoCapitalize="none"
             placeholder="Password"
             secureTextEntry
             autoCapitalize="none"

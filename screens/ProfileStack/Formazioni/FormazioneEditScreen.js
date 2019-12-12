@@ -172,6 +172,7 @@ export default function FormazioneEditScreen({ navigation }) {
                     </WithErrorString>
                     <WithErrorString error={linkError} errorText={"Non è un link"}>
                         <FormTextInput
+                            autoCapitalize="none"
                             placeholder="Sito Web"
                             onChangeText={val => setLink(val)}
                             value={link}
