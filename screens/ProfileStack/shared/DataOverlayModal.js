@@ -1,8 +1,8 @@
 import { View, Picker, TouchableOpacity, Platform } from 'react-native';
 import React, { useState } from 'react';
 import Overlay from 'react-native-modal-overlay';
-import { Light, Bold } from '../../components/StyledText';
-import Colors from '../../constants/Colors';
+import { Light, Bold } from '../../../components/StyledText';
+import Colors from '../../../constants/Colors';
 
 export default function DataOverlayModal({ fine, modalVisibile, setModalVisible, setDate }) {
     const [month, setMonth] = useState("Gen")

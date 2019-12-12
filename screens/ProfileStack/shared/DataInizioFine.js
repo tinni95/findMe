@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import FormTextInput from '../shared/Form/FormTextInput';
-import { FormStyles } from '../shared/Form/FormStyles';
-import WithErrorString from '../shared/Form/WithErrorString';
+import FormTextInput from '../../shared/Form/FormTextInput';
+import { FormStyles } from '../../shared/Form/FormStyles';
+import WithErrorString from '../../shared/Form/WithErrorString';
 import DataOverlayModal from './DataOverlayModal';
 
 export default function DataInizioFine({ dataInizio, setDataInizio, dataFine, setDataFine, dataInizioError, dataFineError }) {

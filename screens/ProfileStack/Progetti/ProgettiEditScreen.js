@@ -6,8 +6,8 @@ import FormTextInput from "../../shared/Form/FormTextInput";
 import { FormStyles } from "../../shared/Form/FormStyles";
 import RoundButton from "../../../components/shared/RoundButton";
 import Colors from "../../../constants/Colors";
-import DataInizioFine from "../DataInizioFine"
-import { invalidDate } from "../helpers";
+import DataInizioFine from "../shared/DataInizioFine"
+import { invalidDate } from "../shared/helpers";
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
 import { Ionicons } from "@expo/vector-icons";

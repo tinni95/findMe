@@ -9,8 +9,8 @@ import Colors from '../../constants/Colors';
 import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import TouchablePen from './TouchablePen';
-import ItemsBlock from './ItemsBlock';
+import TouchablePen from './shared/TouchablePen';
+import ItemsBlock from './shared/ItemsBlock';
 
 const User = gql`
   {
