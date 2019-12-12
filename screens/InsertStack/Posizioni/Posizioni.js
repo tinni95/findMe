@@ -181,6 +181,7 @@ export default function Posizioni({ navigation, settore }) {
           /> : null}</View>
     })
   }
+
   const handlePress = () => {
     if (posizioni.length < 1) {
       setPosizioniError(true)

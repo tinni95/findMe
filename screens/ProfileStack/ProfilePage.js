@@ -11,6 +11,7 @@ import LocationWithText from '../../components/shared/LocationWithText';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import TouchablePen from './shared/TouchablePen';
 import ItemsBlock from './shared/ItemsBlock';
+import CompetenzeBlock from "./Competenze/CompetenzeBlock"
 
 const User = gql`
   {
@@ -49,6 +50,7 @@ const User = gql`
         dataInizio
         descrizione
       }
+      competenze
     }
   }
 `;
@@ -123,6 +125,8 @@ export default function ProfilePage({ navigation }) {
               navigation.navigate("ProgettiScreen", { progetti: data.currentUser.progetti })
         }
           items={data.currentUser.progetti} title={"Progetti"}></ItemsBlock>
+        <View style={styles.separator}></View>
+        <CompetenzeBlock competenze={data.currentUser.competenze} onPress={() => navigation.navigate("CompetenzeScreen")}></CompetenzeBlock>
         <View style={styles.separator}></View>
       </View>
     </ScrollView>);

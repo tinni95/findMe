@@ -6,6 +6,7 @@ import Logout from '../../screens/ProfileStack/Logout';
 import FormazioniScreen from '../../screens/ProfileStack/Formazioni/FormazioniScreen';
 import EsperienzeScreen from '../../screens/ProfileStack/Esperienze/EsperienzeScreen';
 import ProgettiScreen from '../../screens/ProfileStack/Progetti/ProgettiScreen';
+import CompetenzeScreen from '../../screens/ProfileStack/Competenze/CompetenzeScreen';
 import FormazioneEditScreen from '../../screens/ProfileStack/Formazioni/FormazioneEditScreen';
 import EsperienzeEditScreen from '../../screens/ProfileStack/Esperienze/EsperienzeEditScreen';
 import ProgettiEditScreen from '../../screens/ProfileStack/Progetti/ProgettiEditScreen';
@@ -21,6 +22,7 @@ const ProfileStack = createStackNavigator({
   EsperienzeScreen,
   ProgettiScreen,
   FormazioneEditScreen,
+  CompetenzeScreen,
   EsperienzeEditScreen,
   ProgettiEditScreen
 });
