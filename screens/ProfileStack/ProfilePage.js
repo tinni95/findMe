@@ -23,6 +23,7 @@ const User = gql`
       presentazione
       DoB
       formazioni{
+        id
         link
         corso
         istituto
@@ -31,6 +32,7 @@ const User = gql`
         descrizione
       }
       esperienze{
+        id
         link
         compagnia
         titolo
@@ -39,6 +41,7 @@ const User = gql`
         descrizione
       }
       progetti{
+        id
         link
         sottoTitolo
         titolo
@@ -100,12 +103,12 @@ export default function ProfilePage({ navigation }) {
         }
       </View>
       <View style={styles.infoWrapper}>
-        <ItemsBlock onPress={() => navigation.navigate("FormazioneEditScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
+        <ItemsBlock refetch={refetch} onPress={() => navigation.navigate("FormazioneEditScreen")} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock navigation={navigation} onPress={() => navigation.navigate("EsperienzeEditScreen")}
+        <ItemsBlock refetch={refetch} navigation={navigation} onPress={() => navigation.navigate("EsperienzeEditScreen")}
           items={data.currentUser.esperienze} title={"Esperienze"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <ItemsBlock navigation={navigation} onPress={() => navigation.navigate("ProgettiEditScreen")}
+        <ItemsBlock refetch={refetch} navigation={navigation} onPress={() => navigation.navigate("ProgettiEditScreen")}
           items={data.currentUser.progetti} title={"Progetti"}></ItemsBlock>
         <View style={styles.separator}></View>
       </View>

@@ -67,6 +67,7 @@
     "react-native-step-indicator": "^0.0.11",
     "react-native-svg": "~9.9.2",
     "react-native-svg-web": "^1.0.1",
+    "react-native-swipeout": "^2.3.6",
     "react-native-testing-library": "^1.11.1",
     "react-native-web": "^0.11.7",
     "react-native-xml2js": "^1.0.3",
