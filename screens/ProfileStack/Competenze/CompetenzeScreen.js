@@ -94,8 +94,10 @@ export default function CompetenzeScreen({ navigation }) {
                 {renderItems}
             </View>
         </ScrollView>
-        <RoundButton text={"conferma"} color={Colors.blue} textColor={"white"}
-            onPress={() => updateUser({ variables: { competenze: { set: competenze } } })}></RoundButton>
+        <View style={styles.buttonWrapper}>
+            <RoundButton text={"conferma"} color={Colors.blue} textColor={"white"}
+                onPress={() => updateUser({ variables: { competenze: { set: competenze } } })}></RoundButton>
+        </View>
     </View>)
 }
 
@@ -114,6 +116,10 @@ const styles = StyleSheet.create({
     },
     spacer: {
         height: 10
+    },
+    buttonWrapper: {
+        alignItems: "center",
+        margin: 35
     }
 })
 

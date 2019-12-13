@@ -13,7 +13,7 @@ export default function CompetenzeBlock({ competenze, onPress }) {
                 <Body style={{ color: Colors.blue }}>Competenze</Body>
                 <UnTouchablePen size={15}></UnTouchablePen>
             </TouchableOpacity>
-            <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10 }}>
+            <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>
                 {competenze.map(competenza => {
                     return <RoundButton key={shortid.generate()} style={{ margin: 5 }} isLight={true} text={competenza} textColor={"white"} color={Colors.blue}></RoundButton>
                 })}

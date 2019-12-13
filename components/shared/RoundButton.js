@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-    fontSize: isSmallDevice ? 12 : 15,
+    fontSize: 13,
     marginLeft: 2
   }
 });
