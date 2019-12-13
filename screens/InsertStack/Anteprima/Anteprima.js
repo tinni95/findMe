@@ -90,14 +90,13 @@ export default Anteprima = ({ navigation, user }) => {
     }
   }, [data])
   const post = {
-    fields: data.postCategories,
+    fields: data.postCategories.join(),
     title: data.postTitle,
     description: data.postDescription,
     positions: data.postPositions,
     tipoSocio: data.postOwner,
     posizione: data.postOwnerPosition,
-    regione: "Campania",
-    comune: "Caserta"
+    locationString: data.postLocation
   }
   return (
     <View style={styles.container}>

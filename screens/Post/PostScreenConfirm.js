@@ -22,8 +22,8 @@ export default function PostScreenConfirm({ post, isHidden, user, navigation }) 
           points={25}
           fontSize={isSmallDevice ? 18 : 20}
           style={styles.location}
-          regione={post.regione}
-          comune={post.comune}
+          regione={post.locationString.split(",")[2]}
+          comune={post.locationString.split(",")[0]}
         />
       </TouchableWithoutFeedback>
       <PostInfo isHidden={isHidden}
