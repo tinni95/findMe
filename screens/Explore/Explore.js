@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, StyleSheet, Platform, RefreshControl } from 'react-native';
 import PostCard from '../../components/PostCard';
 import { Bold } from "../../components/StyledText";
@@ -11,8 +11,8 @@ import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 
 const posts = gql`
-  query posts($filter:String,$settore:[String!]){
-  postsFeed(filter:$filter, settore: $settore) {
+  query posts($filter:String,$settore:[String!],$regione:String){
+  postsFeed(filter:$filter, settore: $settore,regione:$regione) {
     id
     title
     description
@@ -32,12 +32,13 @@ const posts = gql`
 `;
 
 export default function Explore({ navigation }) {
-  const filter = navigation.getParam("filter") || "";
-  let settore = navigation.getParam("settore") || null;
+  const regione = navigation.getParam("regione") || null
+  let settore = navigation.getParam("settore") || null
+  console.log(settore);
   const [search, setSearch] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const { loading, error, data, refetch } = useQuery(posts, {
-    variables: settore ? { filter, settore } : { filter }
+    variables: settore && settore.length > 0 ? { settore, regione, filter: search } : { regione, filter: search }
   });
 
   if (loading) return <FindMeSpinner />;
