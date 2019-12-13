@@ -6,15 +6,34 @@ import { Searchbar } from "react-native-paper"
 import { Requisiti } from "../../InsertStack/shared/helpers"
 import RoundButton from "../../../components/shared/RoundButton"
 import { Body } from "../../../components/StyledText"
+import { useMutation } from '@apollo/react-hooks';
+import gql from "graphql-tag"
 let shortid = require("shortid")
-export default function CompetenzeScreen() {
-    const [competenze, setCompetenze] = useState(["cacca", "pupu"]);
+
+const UPDATEUSER_MUTATION = gql`
+mutation updateUser($competenze: UserUpdatecompetenzeInput) {
+        updateUser(competenze:$competenze) {
+        id
+    }
+}`;
+
+export default function CompetenzeScreen({ navigation }) {
+    //mutation
+    const [updateUser] = useMutation(UPDATEUSER_MUTATION,
+        {
+            onCompleted: async ({ updateUser }) => {
+                navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
+            }
+        });
+    //hooks
+    const [competenze, setCompetenze] = useState(navigation.getParam("competenze"));
     const scrollViewRef = useRef();
     const [text, setText] = useState("");
     const [active, setActive] = useState("");
+    //functions
     let filteredItems = Requisiti.filter(item => item.toLowerCase().includes(text.toLowerCase()))
     filteredItems = filteredItems.length == 0 ? [text] : filteredItems;
-    const renderItems = filteredItems.slice(0, 5).map(item => {
+    const renderItems = filteredItems.slice(0, 10).map(item => {
         return <TouchableOpacity onPress={() => {
             if (!competenze.includes(item)) {
                 setCompetenze([...competenze, item])
@@ -38,7 +57,7 @@ export default function CompetenzeScreen() {
             ></Searchbar>
         </View>
         <ScrollView onContentSizeChange={(contentWidth, contentHeight) => { scrollViewRef.current.scrollToEnd({ animated: true }) }} ref={scrollViewRef} showsHorizontalScrollIndicator={false} horizontal>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginLeft: 20, marginRight: 10 }}>
                 {
                     competenze.map((competenza, index) => {
                         let isActive = active === index
@@ -54,7 +73,7 @@ export default function CompetenzeScreen() {
                                         setActive(index);
                                     }
                                 }}
-                                    isLight={true} style={{ padding: 5 }} key={shortid.generate()} color={isActive ? Colors.red : Colors.blue} textColor="white" text={competenza}>
+                                    isLight={true} key={shortid.generate()} color={isActive ? Colors.red : Colors.blue} textColor="white" text={competenza}>
                                 </RoundButton>
                                 {isActive ?
                                     <Ionicons
@@ -71,8 +90,12 @@ export default function CompetenzeScreen() {
         </ScrollView>
         <View style={styles.spacer}></View>
         <ScrollView onScrollBeginDrag={Keyboard.dismiss} >
-            {renderItems}
+            <View>
+                {renderItems}
+            </View>
         </ScrollView>
+        <RoundButton text={"conferma"} color={Colors.blue} textColor={"white"}
+            onPress={() => updateUser({ variables: { competenze: { set: competenze } } })}></RoundButton>
     </View>)
 }
 

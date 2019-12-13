@@ -31,7 +31,6 @@ export default function EditProfile({ navigation, screenProps }) {
 
     //hooks
     const currentUser = screenProps.currentUser ? screenProps.currentUser : navigation.getParam("currentUser")
-    console.log(navigation.getParam("currentUser"))
     const [zoom, setZoom] = useState(false)
     const [visibleDate, setVisibleDate] = useState(false)
     const [nome, setNome] = useState(currentUser.nome)

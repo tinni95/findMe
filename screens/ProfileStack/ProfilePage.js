@@ -126,7 +126,7 @@ export default function ProfilePage({ navigation }) {
         }
           items={data.currentUser.progetti} title={"Progetti"}></ItemsBlock>
         <View style={styles.separator}></View>
-        <CompetenzeBlock competenze={data.currentUser.competenze} onPress={() => navigation.navigate("CompetenzeScreen")}></CompetenzeBlock>
+        <CompetenzeBlock competenze={data.currentUser.competenze} onPress={() => navigation.navigate("CompetenzeScreen", { competenze: data.currentUser.competenze })}></CompetenzeBlock>
         <View style={styles.separator}></View>
       </View>
     </ScrollView>);
