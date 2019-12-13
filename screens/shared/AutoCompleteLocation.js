@@ -11,7 +11,7 @@ export function AutoCompleteLocation({ navigation }) {
     const Input = useRef();
     let filteredComuni = comuni.filter(comune => comune.città.toLowerCase().includes(text.toLowerCase())).slice(0, 25)
     const renderItems = filteredComuni.map(item => {
-        return <TouchableOpacity onPress={() => navigation.navigate(path, { location: item.città + ", " + item.provincia + ", " + item.regione })} key={shortid.generate()} style={styles.item}><Body style={styles.itemText}>{item.città + ", " + item.provincia + ", " + item.regione}</Body></TouchableOpacity>
+        return <TouchableOpacity onPress={() => navigation.navigate(path, { comune: item.città, regione: item.regione, provincia: item.provincia })} key={shortid.generate()} style={styles.item}><Body style={styles.itemText}>{item.città + ", " + item.provincia + ", " + item.regione}</Body></TouchableOpacity>
     })
 
 

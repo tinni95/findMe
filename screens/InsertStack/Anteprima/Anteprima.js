@@ -13,7 +13,9 @@ import { parsePositions } from './helpers';
 
 const POST_ANTEPRIMA = gql`
   query DescrizioneQuery {
-    postLocation @client
+    postComune @client
+    postRegione @client
+    postProvincia @client
     postOwner @client
     postOwnerPosition @client
     postTitle @client
@@ -30,8 +32,8 @@ const POST_ANTEPRIMA = gql`
 `;
 
 const CREATEPOST_MUTATION = gql`
-mutation createPost($title: String!, $description: String!,$locationString: String!, $fields:String!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyInput!) {
-  createPost(title: $title, description:$description, locationString:$locationString,fields:$fields,type:$type,posizione:$posizione, pubblicatoDa:$pubblicatoDa,positions:$positions) {
+mutation createPost($title: String!, $description: String!,$comune: String!, $regione:String!, $provincia:String!, $fields:String!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyInput!) {
+  createPost(title: $title, description:$description, comune:$comune, regione:$regione, provincia:$provincia,fields:$fields,type:$type,posizione:$posizione, pubblicatoDa:$pubblicatoDa,positions:$positions) {
       title
   }
 }`;
@@ -45,7 +47,9 @@ export default Anteprima = ({ navigation, user }) => {
         alert("il post " + createPost.title + " è stato pubblicato")
         client.writeData({
           data: {
-            postLocation: "",
+            postComune: "",
+            postRegione: "",
+            postProvincia: "",
             postOwnerPosition: "",
             postTitle: "",
             postDescription: "",
@@ -68,7 +72,9 @@ export default Anteprima = ({ navigation, user }) => {
         title: data.postTitle,
         description: data.postDescription,
         posizione: data.postOwnerPosition,
-        locationString: data.postLocation,
+        comune: data.postComune,
+        regione: data.postRegione,
+        provincia: data.postProvincia,
         fields: data.postCategories.join(),
         type: data.postOwnerPosition,
         pubblicatoDa: checked ? user.nome[0] + user.cognome : user.nome + " " + user.cognome,
@@ -79,7 +85,7 @@ export default Anteprima = ({ navigation, user }) => {
   }
   //if first page data is missing, we go back to it
   useEffect(() => {
-    if (data.postLocation === "") {
+    if (data.postRegione === "") {
       navigation.navigate("Presentazione")
     }
     else if (data.postTitle === "") {
@@ -96,7 +102,9 @@ export default Anteprima = ({ navigation, user }) => {
     positions: data.postPositions,
     tipoSocio: data.postOwner,
     posizione: data.postOwnerPosition,
-    locationString: data.postLocation
+    comune: data.postComune,
+    regione: data.postRegione,
+    provincia: data.postProvincia,
   }
   return (
     <View style={styles.container}>

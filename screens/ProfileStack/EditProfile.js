@@ -17,20 +17,23 @@ import RoundButton from '../../components/shared/RoundButtonSignUpScreen'
 
 
 const UPDATEUSER_MUTATION = gql`
-mutation updateUser($email: String, $password: String,$nome: String, $cognome: String, $locationString:String,$picture:Upload,$presentazione:String, $DoB:String) {
-        updateUser(email: $email, password:$password, nome:$nome,cognome:$cognome,locationString:$locationString,picture:$picture,presentazione:$presentazione, DoB:$DoB) {
+mutation updateUser($email: String, $password: String,$nome: String, $cognome: String, $comune:String,$regione:String,$provincia:String,$picture:Upload,$presentazione:String, $DoB:String) {
+        updateUser(email: $email, password:$password, nome:$nome,cognome:$cognome,comune:$comune,
+            regione:$regione,provincia:$provincia,picture:$picture,presentazione:$presentazione, DoB:$DoB) {
         pictureUrl
     }
 }`;
 
 
 
-export default function EditProfile({ navigation, screenProps }) {
+export default function EditProfile({ navigation }) {
     //passedLocation (autocomplete)
-    const passedLocation = navigation.getParam("location") || ""
+    const passedComune = navigation.getParam("comune") || ""
+    const passedRegione = navigation.getParam("regione") || ""
+    const passedProvincia = navigation.getParam("provincia") || ""
 
     //hooks
-    const currentUser = screenProps.currentUser ? screenProps.currentUser : navigation.getParam("currentUser")
+    const currentUser = navigation.getParam("currentUser")
     const [zoom, setZoom] = useState(false)
     const [visibleDate, setVisibleDate] = useState(false)
     const [nome, setNome] = useState(currentUser.nome)
@@ -38,11 +41,15 @@ export default function EditProfile({ navigation, screenProps }) {
     const [cognome, setCognome] = useState(currentUser.cognome)
     const [cognomeError, setCognomeError] = useState(false)
     const [DoB, setDoB] = useState(currentUser.DoB ? currentUser.DoB : "")
-    const [location, setLocation] = useState(currentUser.locationString ? currentUser.locationString : "")
+    const [comune, setComune] = useState(currentUser.comune ? currentUser.comune : "")
+    const [regione, setRegione] = useState(currentUser.regione ? currentUser.regione : "")
+    const [provincia, setProvincia] = useState(currentUser.provincia ? currentUser.provincia : "")
     const [presentazione, setPresentazione] = useState(currentUser.presentazione ? currentUser.presentazione : "")
     //useEffect
     useEffect(() => {
-        passedLocation ? setLocation(passedLocation) : null
+        passedComune ? setComune(passedComune) : null
+        passedProvincia ? setProvincia(passedProvincia) : null
+        passedRegione ? setRegione(passedRegione) : null
     })
 
     let scrollview = useRef();
@@ -50,7 +57,7 @@ export default function EditProfile({ navigation, screenProps }) {
     const [updateUser] = useMutation(UPDATEUSER_MUTATION,
         {
             onCompleted: async ({ updateUser }) => {
-                currentUser.presentazione ? navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) }) : navigation.navigate("LinksScreen")
+                navigation.navigate("ProfilePage", { refetch: Math.floor((Math.random() * -1000)) })
             }
         });
 
@@ -116,7 +123,7 @@ export default function EditProfile({ navigation, screenProps }) {
 
             })
         }
-        updateUser({ variables: { picture: file, DoB, nome, cognome, presentazione, locationString: location } })
+        updateUser({ variables: { picture: file, DoB, nome, cognome, presentazione, comune, regione, provincia } })
     }
     const initialImage = require("../../assets/images/placeholder.png")
     const [image, setImage] = useState(initialImage);
@@ -172,8 +179,8 @@ export default function EditProfile({ navigation, screenProps }) {
                         <StepsLabel text={"Città"} />
                         <FormTextInput
                             style={FormStyles.input}
-                            value={location}
-                            onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "UserInfo" })}
+                            value={comune.length > 0 ? comune + ", " + provincia + ", " + regione : ""}
+                            onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "EditProfile" })}
                         />
                     </View>
                 }

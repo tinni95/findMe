@@ -11,7 +11,9 @@ query PostScreenQueryRendererQuery($postId: ID!) {
     id
     description
     title
-    locationString
+    comune
+    regione
+    provincia
     fields
     type
     posizione

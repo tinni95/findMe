@@ -20,7 +20,9 @@ const User = gql`
       nome
       cognome
       pictureUrl
-      locationString
+      comune
+      regione
+      provincia
       presentazione
       DoB
       formazioni{
@@ -98,8 +100,8 @@ export default function ProfilePage({ navigation }) {
           <ImageViewer menus={({ cancel }) => cancel ? setModalVisible(false) : null} imageUrls={images} />
         </Modal>
         <Bold style={{ marginTop: 10, fontSize: 18 }}>{data.currentUser.nome + " " + data.currentUser.cognome}</Bold>
-        {data.currentUser.locationString &&
-          <LocationWithText comune={data.currentUser.locationString.split(",")[0]} regione={data.currentUser.locationString.split(",")[2]} />
+        {data.currentUser.comune &&
+          <LocationWithText comune={data.currentUser.comune} regione={data.currentUser.regione} />
         }
         <View style={{ height: 15 }}></View>
         {data.currentUser.presentazione ? (data.currentUser.presentazione.length < 75 || showAll) ?

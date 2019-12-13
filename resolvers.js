@@ -9,7 +9,9 @@ type localPosition{
 }
 
 extend type Query{
-    postLocation: String!
+    postComune: String!
+    postRegione: String!
+    postProvincia: String!
     postOwner: String!
     postOwnerPosition:String!
     postTitle:String!

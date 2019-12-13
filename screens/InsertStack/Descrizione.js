@@ -20,7 +20,9 @@ const POST_DESCRIZIONE = gql`
     postTitle @client
     postDescription @client
     postCategories @client
-    postLocation @client
+    postComune @client
+    postRegione @client
+    postProvincia @client
   }
 `;
 
@@ -34,7 +36,7 @@ export default function Descrizione({ navigation }) {
   let settore = data.postCategories;
   //if first page data is missing, we go back to it
   useEffect(() => {
-    data.postLocation === "" ? navigation.navigate("Presentazione") : null
+    data.postProvincia === "" ? navigation.navigate("Presentazione") : null
   }, [])
 
   const [zoom, setZoom] = useState(false)

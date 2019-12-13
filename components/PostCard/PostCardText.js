@@ -28,15 +28,15 @@ const MainText = ({ date, fields }) => {
   );
 };
 
-export const PostCardText = ({ post: { title, date, fields, locationString } }) => {
+export const PostCardText = ({ post: { title, date, fields, comune, regione } }) => {
   return (
     <View style={styles.container}>
       <Bold style={styles.title}>{fixOverflow(title, titleLimit)}</Bold>
       <LocationWithText
         points={20}
         style={styles.location}
-        comune={locationString.split(",")[0]}
-        regione={locationString.split(",")[2]}
+        comune={comune}
+        regione={regione}
         color="#DD1E63"
         textColor="#ADBFC5"
       />

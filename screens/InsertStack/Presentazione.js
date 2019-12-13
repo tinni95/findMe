@@ -14,7 +14,9 @@ import { TitoliPosizioni } from './shared/helpers';
 
 const POST_PRESENTAZIONE = gql`
   query PresentazioneQuery {
-    postLocation @client
+    postRegione @client
+    postComune @client
+    postProvincia @client
     postOwner @client
     postOwnerPosition @client
   }
@@ -28,9 +30,13 @@ export default function Presentazione({ navigation }) {
     const { data } = useQuery(POST_PRESENTAZIONE);
     const activeIndex = TipoSocio.indexOf(data.postOwner) || -1;
     const passedTitle = navigation.getParam("title") || data.postOwnerPosition
-    const passedLocation = navigation.getParam("location") || data.postLocation
+    const passedComune = navigation.getParam("comune") || data.postComune
+    const passedProvincia = navigation.getParam("provincia") || data.postProvincia
+    const passedRegione = navigation.getParam("regione") || data.postRegione
     const [position, setPosition] = useState("");
-    const [location, setLocation] = useState("");
+    const [comune, setComune] = useState("");
+    const [regione, setRegione] = useState("");
+    const [provincia, setProvincia] = useState("");
     const [postOwner, setPostOwner] = useState("");
     const [locationError, setLocationError] = useState("");
     const [positionError, setPositionError] = useState("");
@@ -38,7 +44,9 @@ export default function Presentazione({ navigation }) {
 
     useEffect(() => {
         passedTitle ? setPosition(passedTitle.name ? passedTitle.name : passedTitle) : null
-        passedLocation ? setLocation(passedLocation) : null
+        passedComune ? setComune(passedComune) : null
+        passedRegione ? setRegione(passedRegione) : null
+        passedProvincia ? setProvincia(passedProvincia) : null
     })
 
     useEffect(() => {
@@ -58,16 +66,18 @@ export default function Presentazione({ navigation }) {
         else {
             setPostOwnerError(false)
         }
-        if (location.length === 0) {
+        if (comune.length === 0) {
             setLocationError(true)
         }
         else {
             setLocationError(false)
         }
-        if (position.length > 0 && postOwner.length > 0 && location.length > 0) {
+        if (position.length > 0 && postOwner.length > 0 && comune.length > 0) {
             client.writeData({
                 data: {
-                    postLocation: location,
+                    postRegione: regione,
+                    postComune: comune,
+                    postProvincia: provincia,
                     postOwnerPosition: position,
                     postOwner
                 }
@@ -89,7 +99,7 @@ export default function Presentazione({ navigation }) {
                 >
                     <FormTextInput
                         style={locationError ? FormStyles.inputError : FormStyles.input}
-                        value={location}
+                        value={comune.length > 0 ? comune + ", " + provincia + ", " + regione : ""}
                         onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione" })}
                         placeholder="Località"
                     />

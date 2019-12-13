@@ -26,7 +26,7 @@ const POST_POSIZIONI = gql`
       description
       title
     }
-    postLocation @client
+    postProvincia @client
     postTitle @client
   }
 `;
@@ -56,7 +56,7 @@ export default function Posizioni({ navigation, settore }) {
   let passedCategoriaIndex = Settori.indexOf(passedCategoria);
   //if first page data is missing, we go back to it
   useEffect(() => {
-    if (data.postLocation === "") {
+    if (data.postProvincia === "") {
       navigation.navigate("Presentazione")
     }
     else if (data.postTitle === "") {

@@ -17,7 +17,9 @@ const posts = gql`
     title
     description
     fields
-    locationString
+    comune
+    regione
+    provincia
     positions{
     id
     description

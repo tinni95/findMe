@@ -28,7 +28,9 @@ export default function App() {
     const cache = new InMemoryCache();
     cache.writeData({
       data: {
-        postLocation: "",
+        postComune: "",
+        postRegione: "",
+        postProvincia: "",
         postOwnerPosition: "",
         postTitle: "",
         postDescription: "",
