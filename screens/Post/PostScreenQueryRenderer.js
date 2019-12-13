@@ -4,6 +4,9 @@ import { gql } from 'apollo-boost';
 import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 import PostScreen from "./PostScreen";
+import { Platform } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
 
 const Post = gql`
 query PostScreenQueryRendererQuery($postId: ID!) {
@@ -27,7 +30,7 @@ query PostScreenQueryRendererQuery($postId: ID!) {
 }
 `;
 
-export default function ProfilePageQueryRenderer({ navigation }) {
+export default function PostScreenQueryRenderer({ navigation }) {
   const { loading, error, data } = useQuery(Post, { variables: { postId: navigation.getParam("id") } });
 
   if (loading) return <FindMeSpinner />;
@@ -37,3 +40,30 @@ export default function ProfilePageQueryRenderer({ navigation }) {
 }
 
 
+PostScreenQueryRenderer.navigationOptions = ({ navigation }) => {
+  return {
+    headerStyle: {
+      ...Platform.select({
+        ios: {
+          shadowColor: "black",
+          shadowOffset: { height: 3 },
+          shadowOpacity: 0.1,
+          shadowRadius: 3
+        },
+        android: {
+          elevation: 20
+        },
+      })
+    },
+    headerLeft: (
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Ionicons
+          name={"ios-arrow-back"}
+          size={25}
+          style={{ marginLeft: 10 }}
+          color={"#10476C"}
+        ></Ionicons>
+      </TouchableOpacity>
+    )
+  }
+}
