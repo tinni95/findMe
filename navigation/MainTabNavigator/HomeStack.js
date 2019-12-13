@@ -3,12 +3,12 @@ import { createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../../components/TabBarIcon';
 import Explore from '../../screens/Explore/Explore';
 import PostScreenQueryRenderer from '../../screens/Post';
-import FiltersPage from "../../screens/Explore/FiltersStack";
+import FiltersModal from "./FiltersModal";
 
 const HomeStack = createStackNavigator({
   Explore,
   PostScreenQueryRenderer,
-  FiltersPage,
+  FiltersModal,
 });
 
 HomeStack.navigationOptions = {
