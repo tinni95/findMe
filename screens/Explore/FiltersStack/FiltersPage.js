@@ -1,31 +1,30 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Platform } from "react-native";
+import { View, StyleSheet, Platform, ScrollView } from "react-native";
 import { RoundFilters } from "./components/RoundFilters";
 import RoundButton from '../../../components/shared/RoundButtonEmpty';
+import { Settori } from "../../shared/helpers"
+import { StepsLabel } from '../../shared/StepsLabel';
 
-const Settori = ["Aereonautica", "Fashion", "Engineering"]
-
-export default function FiltersPage({ navigation, settore }) {
+export default function FiltersPage({ navigation, settore, positione }) {
 
     settore = Platform == "web" ? (settore ? settore : []) : (navigation.getParam("settore") || [])
-    const [items, setItems] = useState(settore);
-    const addItem = item => {
-        setItems([...items, item]);
-    };
-    const removeItem = item => {
-        setItems(items.filter(i => i !== item));
-    };
+    posizione = (navigation.getParam("posizione") || [])
+    const [settori, setSettori] = useState(settore);
+    const [posizioni, setPosizioni] = useState(posizione);
     return (
         <View style={styles.container}>
-            <RoundFilters wrapperStyle={{ margin: 20 }} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore} />
-            <View style={styles.buttonWrapper}>
-                <RoundButton onPress={() => {
-                    navigation.navigate("ExploreQueryRenderer", {
-                        settore: items
-                    })
-                }}
-                    color={"#5EDDDC"} text={"APPLICA"} />
-            </View>
+            <ScrollView>
+                <StepsLabel text={"Posizione di preferenza"}></StepsLabel>
+                <RoundFilters hide addItem={item => setPosizioni([...posizioni, item])} removeItem={item => setPosizioni(posizioni.filter(i => i !== item))} settori={Settori} settoreAttivi={settore} />
+                <View style={styles.buttonWrapper}>
+                    <RoundButton onPress={() => {
+                        navigation.navigate("Explore", {
+                            settore: settori
+                        })
+                    }}
+                        color={"#5EDDDC"} text={"APPLICA"} />
+                </View>
+            </ScrollView>
         </View>
     )
 }
@@ -38,7 +37,8 @@ FiltersPage.navigationOptions = {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        margin: 20
     },
     buttonWrapper: {
         flex: 1,
