@@ -7,19 +7,53 @@ import { StepsLabel } from '../../shared/StepsLabel';
 import { Bold } from '../../../components/StyledText';
 import { FormStyles } from '../../shared/Form/FormStyles';
 import { comuni } from "../../shared/comuni";
+import { Ionicons } from '@expo/vector-icons';
 
 export default function FiltersPage({ navigation, settore }) {
-    const passedItem = navigation.getParam("title") || null
-    useEffect(() => {
-        passedItem ? setRegione(passedItem) : null
-    })
     var regioneArray = comuni.map(comune => {
         return comune.regione
     })
-    var norep = [...new Set(regioneArray)]
+    var regioni = [...new Set(regioneArray)]
+    const removeUndefined = (list) => {
+        return list.filter(i => i != undefined)
+    }
+    const provincie = (regione) => {
+        var provinciaArray = comuni.map(comune => {
+            if (comune.regione == regione) {
+                return comune.provincia
+            }
+        })
+        return removeUndefined([...new Set(provinciaArray)])
+    }
+    const comunis = (provincia) => {
+        var comuniArray = comuni.map(comune => {
+            if (comune.provincia == provincia) {
+                return comune.città
+            }
+        })
+        return removeUndefined([...new Set(comuniArray)])
+    }
+
+    const passedItem = navigation.getParam("title") || null
+    const is = navigation.getParam("is") || null
+    useEffect(() => {
+        if (passedItem) {
+            if (is == "regione") {
+                setRegione(passedItem)
+            }
+            if (is == "provincia") {
+                setProvincia(passedItem)
+            }
+            if (is == "comune") {
+                setComune(passedItem)
+            }
+        }
+    })
     settore = (navigation.getParam("settore") || [])
     const [posizioni, setPosizioni] = useState(settore);
-    const [regione, setRegione] = useState("");
+    const [regione, setRegione] = useState(null);
+    const [provincia, setProvincia] = useState(null);
+    const [comune, setComune] = useState(null);
 
     return (
         <View style={styles.container}>
@@ -27,15 +61,24 @@ export default function FiltersPage({ navigation, settore }) {
                 <StepsLabel text={"Posizione di preferenza"}></StepsLabel>
                 <RoundFilters hide addItem={item => setPosizioni([...posizioni, item])} removeItem={item => setPosizioni(posizioni.filter(i => i !== item))} settori={Settori} settoreAttivi={settore} />
                 <StepsLabel text={"Regione"}></StepsLabel>
-                <TouchableOpacity onPress={() => navigation.navigate("AutoComplete", { for: "Requisiti", path: "FiltersPage", items: norep })} style={FormStyles.requisiti}>
-                    <Bold style={{ color: regione == "" ? "#958C8C" : "black" }}>{regione == "" ? "Cerca Regione" : regione}</Bold>
+                <TouchableOpacity onPress={() => navigation.navigate("AutoComplete", { is: "regione", for: "Requisiti", path: "FiltersPage", items: regioni })} style={FormStyles.requisiti}>
+                    <Bold style={{ color: !regione ? "#958C8C" : "black" }}>{!regione ? "Cerca Regione" : regione}</Bold>
+                </TouchableOpacity>
+                <StepsLabel text={"Provincia"}></StepsLabel>
+                <TouchableOpacity onPress={() => regione && navigation.navigate("AutoComplete", { is: "provincia", for: "Requisiti", path: "FiltersPage", items: provincie(regione) })} style={FormStyles.requisiti}>
+                    <Bold style={{ opacity: regione ? 1 : 0.2, color: !provincia ? "#958C8C" : "black" }}>{!provincia ? "Cerca Provincia" : provincia}</Bold>
+                </TouchableOpacity>
+                <StepsLabel text={"Comune"}></StepsLabel>
+                <TouchableOpacity onPress={() => provincia && navigation.navigate("AutoComplete", { is: "comune", for: "Requisiti", path: "FiltersPage", items: comunis(provincia) })} style={FormStyles.requisiti}>
+                    <Bold style={{ opacity: provincia ? 1 : 0.2, color: !comune ? "#958C8C" : "black" }}>{!comune ? "Cerca Comune" : comune}</Bold>
                 </TouchableOpacity>
                 <View style={styles.buttonWrapper}>
                     <RoundButton onPress={() => {
-                        console.log(regione)
                         navigation.navigate("Explore", {
                             settore: posizioni,
-                            regione
+                            regione,
+                            provincia,
+                            comune
                         })
                     }}
                         color={"#5EDDDC"} text={"APPLICA"} />
@@ -44,20 +87,15 @@ export default function FiltersPage({ navigation, settore }) {
         </View>
     )
 }
-FiltersPage.navigationOptions = {
-    title: "Filtri",
-    headerTintColor: '#5F5E5E',
-    headerTitleStyle: {
-        fontWeight: 'bold',
-    },
-}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         margin: 20
     },
     buttonWrapper: {
-        flex: 1,
+        margin: 20,
+        marginTop: 40,
         alignSelf: "center"
     },
     locationInput: {

@@ -33,12 +33,13 @@ const posts = gql`
 
 export default function Explore({ navigation }) {
   const regione = navigation.getParam("regione") || null
+  const comune = navigation.getParam("comune") || null
+  const provincia = navigation.getParam("provincia") || null
   let settore = navigation.getParam("settore") || null
-  console.log(settore);
   const [search, setSearch] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const { loading, error, data, refetch } = useQuery(posts, {
-    variables: settore && settore.length > 0 ? { settore, regione, filter: search } : { regione, filter: search }
+    variables: settore && settore.length > 0 ? { settore, regione, comune, provincia, filter: search } : { regione, comune, provincia, filter: search }
   });
 
   if (loading) return <FindMeSpinner />;

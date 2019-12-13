@@ -9,12 +9,15 @@ export function AutoComplete({ navigation }) {
     let items = navigation.getParam("items") || "";
     let path = navigation.getParam("path") || "";
     let isFor = navigation.getParam("for") || "";
+    let is = navigation.getParam("is") || "";
     const [text, setText] = useState("");
     const passwordInput = useRef();
     let filteredItems = items.filter(item => isFor != "Requisiti" ? item.titolo.toLowerCase().includes(text.toLowerCase()) : item.toLowerCase().includes(text.toLowerCase()));
-    filteredItems = filteredItems.length == 0 ? [text] : filteredItems;
-    const renderItems = filteredItems.map(item => {
-        let objectToPass = isFor == "Requisiti" || filteredItems[0] == text ? { title: item, for: isFor } : { title: item.titolo, categoria: item.categoria, for: isFor };
+    if (is == "") {
+        filteredItems = filteredItems.length == 0 ? [text] : filteredItems;
+    }
+    const renderItems = filteredItems.splice(0, 20).map(item => {
+        let objectToPass = isFor == "Requisiti" || filteredItems[0] == text ? { title: item, for: isFor, is } : { title: item.titolo, categoria: item.categoria, for: isFor };
         return <TouchableOpacity onPress={() => navigation.navigate(path, objectToPass)} key={shortid.generate()} style={styles.item}>
             <Ionicons
                 name={"ios-search"}
