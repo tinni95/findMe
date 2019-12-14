@@ -19,6 +19,7 @@ export const PostCard = ({ post, navigation }) => {
         <View style={styles.footer}>
           <Fields post={post} />
           <View style={styles.buttonContainer}>
+            <View style={{ height: 10 }}></View>
             <RoundButtonEmpty
               fontColor={"#5DD9D8"}
               fontSize={10}
@@ -43,8 +44,9 @@ const styles = StyleSheet.create({
   },
   card: {
     height: isBigDevice ? 250 : 200,
-    marginTop: 15,
-    width: isBigDevice ? undefined : width - 10,
+    marginBottom: 5,
+    paddingBottom: 5,
+    width: isBigDevice ? undefined : width,
     backgroundColor: 'white',
   },
   body: {

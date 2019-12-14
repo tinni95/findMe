@@ -105,7 +105,7 @@ export default function Explore({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: '#F7F4F4'
   },
   postBody: {
     flex: 5

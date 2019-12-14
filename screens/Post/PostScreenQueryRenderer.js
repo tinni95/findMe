@@ -42,19 +42,6 @@ export default function PostScreenQueryRenderer({ navigation }) {
 
 PostScreenQueryRenderer.navigationOptions = ({ navigation }) => {
   return {
-    headerStyle: {
-      ...Platform.select({
-        ios: {
-          shadowColor: "black",
-          shadowOffset: { height: 3 },
-          shadowOpacity: 0.1,
-          shadowRadius: 3
-        },
-        android: {
-          elevation: 20
-        },
-      })
-    },
     headerLeft: (
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Ionicons

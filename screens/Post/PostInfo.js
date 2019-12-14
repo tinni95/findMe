@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     line: {
         flexDirection: "row",
         margin: 5,
+        marginTop: 10,
         marginLeft: 0
     },
     grigio: { color: "#989898" }

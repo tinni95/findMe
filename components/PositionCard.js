@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     marginBottom: 2
   },
   DescriptionItemTitle: {
-    fontSize: 18,
+    fontSize: 14,
     marginTop: 10,
     marginBottom: 5
   },
@@ -67,13 +67,13 @@ const styles = StyleSheet.create({
   },
   headerText: {
     margin: 10,
-    marginTop: 7.5,
+    marginTop: 10,
     marginBottom: 5,
-    fontSize: 25
+    fontSize: 18
   },
   header: {
     paddingBottom: 10,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.3,
     borderBottomColor: "#D0D0D0",
     flexDirection: "row",
     justifyContent: "space-between"
@@ -84,24 +84,8 @@ const styles = StyleSheet.create({
   },
   container: {
     height: Platform.OS == "web" ? 500 : undefined,
-    marginTop: 15,
+    marginTop: 5,
     backgroundColor: "white",
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOffset: { height: -15 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      },
-      web: {
-        borderTopColor: "#EBEBEB",
-        borderTopWidth: 4,
-        width: isBigDevice ? "60%" : "100%"
-      }
-    })
   },
 
   spacer: {

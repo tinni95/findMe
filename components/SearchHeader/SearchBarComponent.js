@@ -18,7 +18,7 @@ class SearchBarComponent extends React.Component {
     return (
       <SearchBar
         platform="ios"
-        inputContainerStyle={{ backgroundColor: "#E5E5E5" }}
+        inputContainerStyle={{ backgroundColor: "#F7F4F4" }}
         containerStyle={styles.container}
         placeholder="Cerca Parola Chiave"
         onChangeText={this.updateSearch}
