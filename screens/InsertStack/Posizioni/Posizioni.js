@@ -43,9 +43,7 @@ export default function Posizioni({ navigation, settore }) {
   const [titleError, setTitleError] = useState(false);
   const [socioError, setSocioError] = useState(false);
   const [posizioniError, setPosizioniError] = useState(false);
-  const [descriptionError, setDescriptionError] = useState(false);
   const [categoriaError, setCategoriaError] = useState(false);
-  const [requisitiError, setRequisitiError] = useState(false);
   //Data
   const { data } = useQuery(POST_POSIZIONI);
   const posizioni = data.postPositions || [];
@@ -99,11 +97,6 @@ export default function Posizioni({ navigation, settore }) {
   }
 
   const handleAggiungi = (bool) => {
-    if (description.length === 0) {
-      setDescriptionError(true)
-    } else {
-      setDescriptionError(false)
-    }
     if (categoria.length === 0 && !bool) {
       setCategoriaError(true)
     } else {
@@ -114,18 +107,13 @@ export default function Posizioni({ navigation, settore }) {
     } else {
       setSocioError(false)
     }
-    if (requisiti.length === 0 && !bool) {
-      setRequisitiError(true)
-    } else {
-      setRequisitiError(false)
-    }
     if (title.length === 0 && !bool) {
       setTitleError(true)
     } else {
       setTitleError(false)
     }
 
-    if (description.length > 0 && ((categoria.length > 0 && socio.length > 0 && title.length > 0 && requisiti.length > 0) || bool)) {
+    if (((categoria.length > 0 && socio.length > 0 && title.length > 0) || bool)) {
       navigation.navigate("ConfermaPosizione", {
         description,
         categoria,
