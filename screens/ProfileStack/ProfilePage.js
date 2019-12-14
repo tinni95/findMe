@@ -83,7 +83,7 @@ export default function ProfilePage({ navigation }) {
     <ScrollView >
       <View style={styles.userWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 50 }} />
+          <Image source={require("../../assets/images/placeholder.png")} style={{ width: 100, height: 100, borderRadius: 50 }} />
         </TouchableOpacity>
         <Modal
           visible={modalVisbile}
@@ -108,6 +108,7 @@ export default function ProfilePage({ navigation }) {
           <Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "center", margin: 20 }}><Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
           : null}
       </View>
+      <View style={{ height: 5, backgroundColor: '#F7F4F4', width: "100%" }}></View>
       <View style={styles.infoWrapper}>
         <ItemsBlock refetch={refetch} onPress={
           () =>

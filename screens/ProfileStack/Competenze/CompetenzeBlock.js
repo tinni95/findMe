@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from "react-native"
 import Colors from "../../../constants/Colors"
 import UnTouchablePen from "../shared/UnTouchablePen"
 import { Body } from "../../../components/StyledText"
-import RoundButton from "../../../components/shared/RoundButton"
+import RoundButtonEmpty2 from "../../../components/shared/RoundButtonEmpty2"
 var shortid = require("shortid")
 
 export default function CompetenzeBlock({ competenze, onPress }) {
@@ -15,7 +15,7 @@ export default function CompetenzeBlock({ competenze, onPress }) {
             </TouchableOpacity>
             <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>
                 {competenze.map(competenza => {
-                    return <RoundButton key={shortid.generate()} style={{ margin: 5 }} isLight={true} text={competenza} textColor={"white"} color={Colors.blue}></RoundButton>
+                    return <RoundButtonEmpty2 key={shortid.generate()} style={{ margin: 5 }} isLight={true} text={competenza} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2 >
                 })}
             </View>
         </View>

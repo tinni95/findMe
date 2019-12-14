@@ -65,7 +65,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
                 title == "Formazione" && items.map(item => {
                     const swipeoutBtns = [
                         {
-                            text: "delete",
+                            text: "elimina",
                             type: "delete",
                             onPress: () => deleteFormazione(
                                 {
@@ -81,7 +81,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
                 title == "Esperienze" && items.map(item => {
                     const swipeoutBtns = [
                         {
-                            text: "delete",
+                            text: "elimina",
                             type: "delete",
                             onPress: () => deleteEsperienza(
                                 {
@@ -97,7 +97,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
                 title == "Progetti" && items.map(item => {
                     const swipeoutBtns = [
                         {
-                            text: "delete",
+                            text: "elimina",
                             type: "delete",
                             onPress: () => deleteProgetto(
                                 {

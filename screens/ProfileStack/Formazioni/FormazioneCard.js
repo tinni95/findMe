@@ -6,7 +6,7 @@ export default function FormazioneCard({ item: { corso, dataInizio, dataFine, is
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image style={{ height: 23, width: 27 }} source={require("../../../assets/images/hat.png")}></Image>
+                <Image style={{ height: 22.5, width: 25 }} resizeMode={"contain"} source={require("../../../assets/images/hat.png")}></Image>
             </View>
             <View style={[styles.textContainer, noBorder]}>
                 <View style={{ flexDirection: "column", textAlign: "center" }}>
