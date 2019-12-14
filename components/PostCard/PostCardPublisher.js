@@ -19,7 +19,6 @@ export const PostCardPublisher = ({ post: { positions } }) => {
           style={styles.image}
           source={require('../../assets/images/placeholder.png')}
         />
-        {authorInfo()}
       </View>
     </View>
   );

@@ -56,7 +56,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
 
     return (
         <View>
-            <TouchableOpacity onPress={onPress} style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <TouchableOpacity onPress={onPress} style={{ flexDirection: "row", justifyContent: "space-between", marginBottom: 10 }}>
                 <Body style={{ color: Colors.blue }}>{title}</Body>
                 <UnTouchablePen size={15}></UnTouchablePen>
             </TouchableOpacity>

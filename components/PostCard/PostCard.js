@@ -21,6 +21,7 @@ export const PostCard = ({ post, navigation }) => {
           <View style={styles.buttonContainer}>
             <RoundButtonEmpty
               fontColor={"#5DD9D8"}
+              fontSize={10}
               text="Scopri di Più"
               onPress={() =>
                 navigation.navigate('PostScreenQueryRenderer', {
@@ -45,21 +46,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     width: isBigDevice ? undefined : width - 10,
     backgroundColor: 'white',
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 20
-      },
-      web: {
-        borderBottomColor: '#EBEBEB',
-        borderBottomWidth: 4,
-        width: "80%",
-      }
-    })
   },
   body: {
     flex: 7,

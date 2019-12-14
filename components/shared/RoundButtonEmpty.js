@@ -11,7 +11,7 @@ export default function RoundButton(props) {
           styles.container,
           { borderColor: props.color, width: props.isLong ? 200 : null }
         ]}>
-        <Bold style={[styles.text, { color: props.fontColor }]}>{props.text}</Bold>
+        <Bold style={[styles.text, { color: props.fontColor, fontSize: props.fontSize }]}>{props.text}</Bold>
       </View>
     </TouchableOpacity>
   );
@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 25,
     borderWidth: 1,
-    padding: isSmallDevice ? 7.5 : 10,
-    height: isSmallDevice ? 30 : 40,
+    padding: isSmallDevice ? 7.5 : 7.5,
+    height: isSmallDevice ? 30 : 30,
     marginBottom: 15
   },
   text: {

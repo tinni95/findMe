@@ -1,5 +1,5 @@
 import React from 'react';
-import { Searchbar } from 'react-native-paper';
+import { SearchBar } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { width } from '../../constants/Layout';
@@ -16,9 +16,11 @@ class SearchBarComponent extends React.Component {
 
   render() {
     return (
-      <Searchbar
-        style={styles.container}
-        placeholder="Type Here..."
+      <SearchBar
+        platform="ios"
+        inputContainerStyle={{ backgroundColor: "#E5E5E5" }}
+        containerStyle={styles.container}
+        placeholder="Cerca Parola Chiave"
         onChangeText={this.updateSearch}
         onSubmitEditing={() => this.props.navigation.navigate("Explore", {
           filter: this.props.search.toLowerCase()
@@ -32,9 +34,8 @@ class SearchBarComponent extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 8,
-    height: 50,
-    margin: 10,
-    marginTop: 50,
+    marginTop: 30,
+    backgroundColor: "white"
   }
 });
 

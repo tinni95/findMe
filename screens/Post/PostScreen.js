@@ -17,7 +17,7 @@ export default function PostScreen({ post, navigation }) {
     });
   };
   return (
-    <View style={styles.contentContainer}>
+    <ScrollView style={styles.contentContainer}>
       <Bold style={styles.title}>{post.title}</Bold>
       <LocationWithText
         points={25}
@@ -33,10 +33,10 @@ export default function PostScreen({ post, navigation }) {
         <Bold style={styles.titleSm}>Descrizione</Bold>
         <Light style={styles.body}>{post.description}</Light>
       </View>
-      <ScrollView style={{ height: 500 }}>
+      <View>
         {positionCards()}
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 

@@ -81,7 +81,8 @@ export default function Explore({ navigation }) {
               </View>
               <View style={{ flex: 4 }}>
                 <ScrollView>
-                  <Bold style={styles.resultText}>{data.postsFeed.length} risultati</Bold>{renderPosts()}</ScrollView>
+                  {renderPosts()}
+                </ScrollView>
               </View>
             </View>
             :
@@ -89,7 +90,7 @@ export default function Explore({ navigation }) {
               flex: 1
             }}>
               <ScrollView style={{ zIndex: 1 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-                <Bold style={styles.resultText}>{data.postsFeed.length} risultati</Bold>{renderPosts()}</ScrollView>
+                {renderPosts()}</ScrollView>
             </View>
           }
         </View>
@@ -111,8 +112,8 @@ const styles = StyleSheet.create({
   },
   resultText: {
     textAlign: "center",
-    fontSize: Platform.OS == "web" ? 22 : 18,
-    margin: Platform.OS == "web" ? 20 : 10,
+    fontSize: Platform.OS == "web" ? 22 : 15,
+    margin: Platform.OS == "web" ? 20 : 7,
 
   },
   subContainer: {
