@@ -24,7 +24,7 @@ export default function ProgettoEditCard({ progetto, navigation }) {
                     <Light>{progetto.descrizione}</Light>
                 </View>
                 {progetto.link.length > 0 &&
-                    <View style={{ marginTop: 20, marginLeft: 6 }}>
+                    <View style={{ marginTop: 10, marginLeft: 6 }}>
                         <Bold onPress={() => WebBrowser.openBrowserAsync(adjustLink(progetto.link))} style={styles.link}>LINK</Bold>
                     </View>
                 }

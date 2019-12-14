@@ -9,8 +9,8 @@ export default function LocationWithText(props) {
     <View style={[styles.container, props.style]}>
       <Ionicons
         name={"ios-pin"}
-        size={22}
-        style={{ marginLeft: 3, marginTop: 3 }}
+        size={props.points || 22}
+        style={{ marginLeft: 3, marginTop: 5 }}
         color={"#DD1E63"}
       />
       <Body style={[styles.text, { top: 3.5, fontSize: props.fontSize }]}>

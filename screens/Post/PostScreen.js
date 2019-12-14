@@ -13,7 +13,7 @@ export default function PostScreen({ post, navigation }) {
     return post.positions.map((position, index) => {
       return <PositionCard buttonOnPress={() => {
         Haptics.selectionAsync()
-      }} buttonText={"CANDIDATI"} navigation={navigation} key={index} position={position} />;
+      }} buttonText={"Candidati"} navigation={navigation} key={index} position={position} />;
     });
   };
   return (
@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   body: {
-    fontSize: 14
+    fontSize: 14,
+    marginLeft: 5
   },
   DesriptionContainer: {
     margin: 5,

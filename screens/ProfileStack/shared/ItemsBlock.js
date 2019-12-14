@@ -65,8 +65,20 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
                 title == "Formazione" && items.map(item => {
                     const swipeoutBtns = [
                         {
-                            text: "elimina",
-                            type: "delete",
+                            component: (
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        margin: 5,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        backgroundColor: Colors.red
+                                    }}
+                                >
+                                    <Body style={{ color: "white" }}>Elimina</Body>
+                                </View>
+                            ),
+                            backgroundColor: "white",
                             onPress: () => deleteFormazione(
                                 {
                                     variables: {
@@ -81,8 +93,20 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
                 title == "Esperienze" && items.map(item => {
                     const swipeoutBtns = [
                         {
-                            text: "elimina",
-                            type: "delete",
+                            component: (
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        margin: 5,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        backgroundColor: Colors.red
+                                    }}
+                                >
+                                    <Body style={{ color: "white" }}>Elimina</Body>
+                                </View>
+                            ),
+                            backgroundColor: "white",
                             onPress: () => deleteEsperienza(
                                 {
                                     variables: {
@@ -97,8 +121,20 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
                 title == "Progetti" && items.map(item => {
                     const swipeoutBtns = [
                         {
-                            text: "elimina",
-                            type: "delete",
+                            component: (
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        margin: 5,
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        backgroundColor: Colors.red
+                                    }}
+                                >
+                                    <Body style={{ color: "white" }}>Elimina</Body>
+                                </View>
+                            ),
+                            backgroundColor: "white",
                             onPress: () => deleteProgetto(
                                 {
                                     variables: {

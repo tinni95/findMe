@@ -24,7 +24,7 @@ export default function EsperienzaEditCard({ esperienza, navigation }) {
                     <Light>{esperienza.descrizione}</Light>
                 </View>
                 {esperienza.link.length > 0 &&
-                    <View style={{ marginTop: 20, marginLeft: 6 }}>
+                    <View style={{ marginTop: 10, marginLeft: 6 }}>
                         <Bold onPress={() => WebBrowser.openBrowserAsync(adjustLink(esperienza.link))} style={styles.link}>LINK</Bold>
                     </View>
                 }

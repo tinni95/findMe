@@ -101,7 +101,10 @@ export default function ProfilePage({ navigation }) {
         </Modal>
         <Bold style={{ marginTop: 10, fontSize: 18 }}>{data.currentUser.nome + " " + data.currentUser.cognome}</Bold>
         {data.currentUser.comune &&
-          <LocationWithText comune={data.currentUser.comune} regione={data.currentUser.regione} />
+          <LocationWithText
+            points={18}
+            fontSize={14}
+            comune={data.currentUser.comune} regione={data.currentUser.regione} />
         }
         <View style={{ height: 15 }}></View>
         {data.currentUser.presentazione ? (data.currentUser.presentazione.length < 75 || showAll) ?
