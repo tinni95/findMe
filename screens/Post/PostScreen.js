@@ -69,7 +69,8 @@ const styles = StyleSheet.create({
   },
   body: {
     fontSize: 14,
-    marginLeft: 5
+    marginLeft: 5,
+    marginTop: 5
   },
   DesriptionContainer: {
     margin: 5,

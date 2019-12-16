@@ -22,6 +22,7 @@ query PostScreenQueryRendererQuery($postId: ID!) {
     posizione
     pubblicatoDa
     positions {
+      description
       title
       field
       requisiti

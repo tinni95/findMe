@@ -213,7 +213,7 @@ export default function Posizioni({ navigation, settore }) {
                 </View>}
               {socio != "Socio Finanziatore" &&
                 <View>
-                  <StepsLabel error={requisitiError} text={"Requisiti"} />
+                  <StepsLabel text={"Requisiti"} />
                   {requisiti.length == 0 ?
                     <View style={FormStyles.requisiti}>
                       <TouchableWithoutFeedback onPress={() => {
@@ -233,7 +233,7 @@ export default function Posizioni({ navigation, settore }) {
                   }
                 </View>}
             </View>}
-          <StepsLabel error={descriptionError} text={"Descrizione"} />
+          <StepsLabel text={"Descrizione"} />
           <FormTextInput
             large="true"
             multiline

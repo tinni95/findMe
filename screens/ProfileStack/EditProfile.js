@@ -201,7 +201,7 @@ export default function EditProfile({ navigation }) {
                 {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
                 <DateTimePicker isVisible={visibleDate} onConfirm={_handleDatePicked} onCancel={() => setVisibleDate(false)} maximumDate={new Date()} />
                 <View style={styles.buttonWrapper}>
-                    {!zoom && <RoundButton onPress={() => handlePress()} text={"CONFERMA"} color={Colors.blue} textColor="white"></RoundButton>}
+                    {!zoom && <RoundButton onPress={() => handlePress()} text={"Conferma"} color={Colors.blue} textColor="white"></RoundButton>}
                 </View>
                 <View style={{ height: 50 }} />
             </ScrollView>

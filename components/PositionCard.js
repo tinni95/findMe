@@ -24,24 +24,27 @@ export function PositionCard({ position, buttonText, buttonOnPress, button }) {
         <View style={styles.description}>
           {position.requisiti ?
             <View style={styles.DescriptionItem}>
-              {position.requisiti.length > 0 ?
-                <Body style={styles.DescriptionItemTitle}>Requisiti</Body>
-                : null
-              }
-              {position.requisiti.map(requisito => {
-                return <Light key={shortid.generate()} style={styles.DescriptionItemBody}>
-                  - {requisito}
-                </Light>
-              })}
+              <Body style={styles.DescriptionItemTitle}>Requisiti</Body>
+              {
+                position.requisiti.length == 0 ? <Light style={styles.DescriptionItemBody}>
+                  Non Specificato
+            </Light>
+                  :
+                  position.requisiti.map(requisito => {
+                    return <Light key={shortid.generate()} style={styles.DescriptionItemBody}>
+                      - {requisito}
+                    </Light>
+                  })}
               <View style={styles.spacer} />
             </View>
             : null}
           <View style={styles.DescriptionItem}>
             <Body style={styles.DescriptionItemTitle}>Descrizione</Body>
             <Light style={styles.DescriptionItemBody}>
-              {position.description || "esempio descrizione"}
+              {position.description || "Non Specificato"}
             </Light>
           </View>
+          <View style={styles.line}></View>
           <View style={styles.ButtonWrapper}>
             {button ? null :
               <RoundButton isMedium={true} onPress={buttonOnPress} text={buttonText} textColor={"white"} color={"#DD1E63"} />
@@ -72,6 +75,11 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     marginBottom: 5,
     fontSize: 18
+  },
+  line: {
+    height: 20,
+    borderBottomWidth: 0.3,
+    borderBottomColor: "#D0D0D0",
   },
   header: {
     paddingBottom: 10,

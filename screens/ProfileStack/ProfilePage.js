@@ -6,7 +6,7 @@ import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
-import { Bold, Light } from '../../components/StyledText';
+import { Bold, Light, Body } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import TouchablePen from './shared/TouchablePen';
@@ -102,15 +102,21 @@ export default function ProfilePage({ navigation }) {
         <Bold style={{ marginTop: 10, fontSize: 18 }}>{data.currentUser.nome + " " + data.currentUser.cognome}</Bold>
         {data.currentUser.comune &&
           <LocationWithText
-            points={18}
-            fontSize={14}
+            points={16}
+            fontSize={12}
             comune={data.currentUser.comune} regione={data.currentUser.regione} />
         }
-        <View style={{ height: 15 }}></View>
-        {data.currentUser.presentazione ? (data.currentUser.presentazione.length < 75 || showAll) ?
-          <Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "center", margin: 20 }}><Light style={{ textAlign: "center", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
+        <View style={{ height: 20 }}></View>
+      </View>
+      <View style={styles.bio}>
+        <Body style={{ color: Colors.blue, marginLeft: 10 }}>Mi Presento</Body>
+        {data.currentUser.presentazione ?
+          (data.currentUser.presentazione.length < 75 || showAll)
+            ? <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "left", margin: 20 }}>
+              <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
           : null}
       </View>
+      <View style={{ height: 5 }}></View>
       <View style={{ height: 5, backgroundColor: '#F7F4F4', width: "100%" }}></View>
       <View style={styles.infoWrapper}>
         <ItemsBlock refetch={refetch} onPress={
@@ -153,6 +159,11 @@ const styles = StyleSheet.create({
   infoWrapper: {
     flex: 1,
     margin: 20
+  },
+  bio: {
+    marginLeft: 10,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
   }
 })
 

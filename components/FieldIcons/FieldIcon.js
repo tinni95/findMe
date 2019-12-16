@@ -17,6 +17,7 @@ export const SettoriDict = {
   "Motori": "Motori",
   "Servizi per Privati": "Cravatta",
   "Servizi per Aziende": "Cravatta",
+  "Servizi Professionali": "Cravatta",
   "Servizi di Intermediazione": "Cravatta",
   "Servizi Finanziari": "Cravatta",
   "Servizi Immobiliari": "Immobiliari",

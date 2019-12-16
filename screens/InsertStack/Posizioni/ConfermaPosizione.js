@@ -104,7 +104,7 @@ export default function ConfermaPosizione({ navigation }) {
                     <View style={styles.buttonWrapper}>
                         <RoundButton text={"Annulla"} color={"#DD1E63"}
                             textColor={"white"} onPress={() => navigation.goBack()} />
-                        <RoundButton text={"CONFERMA"} color={"#10476C"}
+                        <RoundButton text={"Conferma"} color={"#10476C"}
                             textColor={"white"} onPress={() => handlePress()} />
                     </View>
                 </KeyboardAwareScrollView>

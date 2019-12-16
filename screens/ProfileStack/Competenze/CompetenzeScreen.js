@@ -95,7 +95,7 @@ export default function CompetenzeScreen({ navigation }) {
             </View>
         </ScrollView>
         <View style={styles.buttonWrapper}>
-            <RoundButton text={"conferma"} color={Colors.blue} textColor={"white"}
+            <RoundButton text={"Conferma"} color={Colors.blue} textColor={"white"}
                 onPress={() => updateUser({ variables: { competenze: { set: competenze } } })}></RoundButton>
         </View>
     </View>)

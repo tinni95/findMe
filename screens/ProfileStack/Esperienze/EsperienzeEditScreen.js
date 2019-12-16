@@ -209,7 +209,7 @@ export default function EsperienzeEditScreen({ navigation }) {
             />
             {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
             <View style={styles.buttonWrapper}>
-                {!zoom && <RoundButton onPress={() => handlePress()} text={"CONFERMA"} color={Colors.blue} textColor="white"></RoundButton>}
+                {!zoom && <RoundButton onPress={() => handlePress()} text={"Conferma"} color={Colors.blue} textColor="white"></RoundButton>}
             </View>
         </ScrollView>
     )

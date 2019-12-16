@@ -210,7 +210,7 @@ export default function FormazioneEditScreen({ navigation }) {
             />
             {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
             <View style={styles.buttonWrapper}>
-                {!zoom && <RoundButton onPress={() => handlePress()} text={"CONFERMA"} color={Colors.blue} textColor="white"></RoundButton>}
+                {!zoom && <RoundButton onPress={() => handlePress()} text={"Conferma"} color={Colors.blue} textColor="white"></RoundButton>}
             </View>
         </ScrollView>
     )
@@ -239,7 +239,7 @@ FormazioneEditScreen.navigationOptions = ({ navigation }) => {
             fontSize: 12
         },
         headerLeft: (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={{ padding: 5, paddingRight: 10 }} onPress={() => navigation.goBack()}>
                 <Ionicons
                     name={"ios-arrow-back"}
                     size={25}
