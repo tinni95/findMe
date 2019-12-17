@@ -28,7 +28,6 @@ const posts = gql`
     }
   }
 }
-
 `;
 
 export default function Explore({ navigation }) {
