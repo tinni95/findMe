@@ -1,19 +1,69 @@
-import React from "react"
+import React, { useState } from "react"
 import { View, StyleSheet, TouchableOpacity, Dimensions, Platform } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { Ionicons } from "@expo/vector-icons";
+import { useQuery } from '@apollo/react-hooks';
 import Colors from "../../../constants/Colors"
-const FirstRoute = () => (
-    <View style={styles.scene} />
-);
+import gql from "graphql-tag";
 
-const SecondRoute = () => (
-    <View style={styles.scene} />
-);
+const Inviate = gql`
+{
+    applicationsSent{
+      position{
+        title
+        requisiti
+      }
+      post{
+     pubblicatoDa
+      }
+    }
+  }
+`
+
+const Ricevute = gql`
+{
+    applicationsReceived{
+      user{
+        id
+        pictureUrl
+        nome
+        comune
+        regione
+      }
+      position{
+        title
+        field
+      }
+    }
+  }
+`
+
 
 const initialLayout = { width: Dimensions.get('window').width };
 
 export default function AttivitàScreen() {
+    const [posizioniInvitate, setInviate] = useState("");
+    const [posizioniRicecute, setRicevute] = useState("");
+
+    const FirstRoute = () => (
+        <View style={styles.scene} />
+    );
+
+    const SecondRoute = () => (
+        <View style={styles.scene} />
+    );
+    const { loading, error, data, refetch } = useQuery(Inviate, {
+        onCompleted: async ({ applicationsSent }) => {
+            console.log(applicationsSent)
+        }
+    });
+
+    const { loading2, error2, data2, refetch2 } = useQuery(Ricevute, {
+        onCompleted: async ({ applicationsReceived }) => {
+            console.log(applicationsReceived)
+        }
+    });
+
     renderTabBar = props => {
         return (<TabBar
             style={{ backgroundColor: '#FFFFFF', elevation: 0, borderColor: '#B9B0B0', borderBottomWidth: 1, height: 50 }}

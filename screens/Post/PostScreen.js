@@ -6,13 +6,36 @@ import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
 import * as Haptics from 'expo-haptics';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+
+const CREATEAPPLICATION_MUTATION = gql`
+mutation createApplication($postId: ID!, $positionId:ID!) {
+  createApplication(postId:$postId,positionId:$positionId) {
+        id
+    }
+}`;
 
 export default function PostScreen({ post, navigation }) {
+
+  const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
+    {
+      onCompleted: async ({ createApplication }) => {
+        alert("success")
+        console.log(createApplication)
+      }
+    });
+
+  const submitPosition = position => {
+    console.log(position.id, post.id)
+    createApplication({ variables: { positionId: position.id, postId: post.id } })
+    Haptics.selectionAsync()
+  }
 
   const positionCards = () => {
     return post.positions.map((position, index) => {
       return <PositionCard buttonOnPress={() => {
-        Haptics.selectionAsync()
+        submitPosition(position)
       }} buttonText={"Candidati"} navigation={navigation} key={index} position={position} />;
     });
   };
