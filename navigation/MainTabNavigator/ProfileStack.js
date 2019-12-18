@@ -11,8 +11,12 @@ import FormazioneEditScreen from '../../screens/ProfileStack/Formazioni/Formazio
 import EsperienzeEditScreen from '../../screens/ProfileStack/Esperienze/EsperienzeEditScreen';
 import ProgettiEditScreen from '../../screens/ProfileStack/Progetti/ProgettiEditScreen';
 import UserInfoModal from '../UserInfoModal';
+import UserPosts from '../../screens/ProfileStack/UserPosts';
 const LogoutStack = createStackNavigator({
   Logout
+});
+const PostsStack = createStackNavigator({
+  UserPosts
 });
 
 const ProfileStack = createStackNavigator({
@@ -30,7 +34,8 @@ const ProfileStack = createStackNavigator({
 const ProfileDrawer = createDrawerNavigator(
   {
     Profilo: ProfileStack,
-    Logout: LogoutStack
+    Logout: LogoutStack,
+    Posts: PostsStack
   },
   {
     drawerPosition: 'left',

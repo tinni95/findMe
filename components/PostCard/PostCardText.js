@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import moment from 'moment';
 import LocationWithText from '../shared/LocationWithText';
 import { Bold, Body } from '../StyledText';
 import { isSmallDevice } from '../../constants/Layout';
