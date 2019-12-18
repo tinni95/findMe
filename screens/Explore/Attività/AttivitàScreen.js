@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View, StyleSheet, TouchableOpacity, Dimensions, Platform } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Dimensions, Platform, RefreshControl } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from '@apollo/react-hooks';
@@ -8,6 +8,7 @@ import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import SentCard from "./SentCard";
 var shortid = require("shortid")
+
 const Inviate = gql`
 {
     applicationsSent{
@@ -17,6 +18,7 @@ const Inviate = gql`
         requisiti
       }
       post{
+          id
      pubblicatoDa
       }
     }
@@ -44,14 +46,15 @@ const Ricevute = gql`
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-export default function AttivitàScreen() {
+export default function AttivitàScreen({ navigation }) {
     const [posizioniInvitate, setInviate] = useState([]);
     const [posizioniRicecute, setRicevute] = useState("");
+    const [refreshing, setRefreshing] = useState(false);
 
     const FirstRoute = () => (
-        <ScrollView style={{ backgroundColor: "#F7F4F4" }}>
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={{ backgroundColor: "#F7F4F4" }}>
             {posizioniInvitate.length > 0 && posizioniInvitate.map(posizione => {
-                return <SentCard key={shortid.generate()} title={posizione.position.title} field={posizione.position.field}></SentCard>
+                return <SentCard key={shortid.generate()} title={posizione.position.title} field={posizione.position.field} pubblicatoDa={posizione.post.pubblicatoDa} qualifiche={posizione.position.requisiti} id={posizione.post.id} navigation={navigation} />
             })}
         </ScrollView>
     );
@@ -59,12 +62,16 @@ export default function AttivitàScreen() {
     const SecondRoute = () => (
         <View style={styles.scene} />
     );
-    const { loading, error, data, refetch } = useQuery(Inviate, {
+    const { refetch } = useQuery(Inviate, {
         onCompleted: async ({ applicationsSent }) => {
-            console.log(applicationsSent)
             setInviate(applicationsSent)
         }
     });
+
+    const onRefresh = async () => {
+        setRefreshing(true)
+        refetch().then(() => setRefreshing(false))
+    }
 
     const { loading2, error2, data2, refetch2 } = useQuery(Ricevute, {
         onCompleted: async ({ applicationsReceived }) => {
