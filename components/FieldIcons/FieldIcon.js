@@ -55,7 +55,7 @@ export default function FieldIcon(props) {
   return (
     <Image
       source={FieldIcon}
-      style={{ width: 25, height: 25, resizeMode: 'contain' }}
+      style={{ width: props.size || 25, height: props.size || 25, resizeMode: 'contain' }}
     />
   );
 }

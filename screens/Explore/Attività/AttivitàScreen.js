@@ -5,11 +5,14 @@ import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from '@apollo/react-hooks';
 import Colors from "../../../constants/Colors"
 import gql from "graphql-tag";
-
+import { ScrollView } from "react-native-gesture-handler";
+import SentCard from "./SentCard";
+var shortid = require("shortid")
 const Inviate = gql`
 {
     applicationsSent{
       position{
+        field
         title
         requisiti
       }
@@ -42,11 +45,15 @@ const Ricevute = gql`
 const initialLayout = { width: Dimensions.get('window').width };
 
 export default function AttivitàScreen() {
-    const [posizioniInvitate, setInviate] = useState("");
+    const [posizioniInvitate, setInviate] = useState([]);
     const [posizioniRicecute, setRicevute] = useState("");
 
     const FirstRoute = () => (
-        <View style={styles.scene} />
+        <ScrollView style={{ backgroundColor: "#F7F4F4" }}>
+            {posizioniInvitate.length > 0 && posizioniInvitate.map(posizione => {
+                return <SentCard key={shortid.generate()} title={posizione.position.title} field={posizione.position.field}></SentCard>
+            })}
+        </ScrollView>
     );
 
     const SecondRoute = () => (
@@ -55,6 +62,7 @@ export default function AttivitàScreen() {
     const { loading, error, data, refetch } = useQuery(Inviate, {
         onCompleted: async ({ applicationsSent }) => {
             console.log(applicationsSent)
+            setInviate(applicationsSent)
         }
     });
 
