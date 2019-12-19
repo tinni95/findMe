@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
-import { Bold, Light } from '../../components/StyledText';
+import { Bold, Light, Body } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
@@ -10,6 +10,9 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
+import { Ionicons } from '@expo/vector-icons';
+import Colors from '../../constants/Colors';
+import TouchablePen from '../ProfileStack/shared/TouchablePen';
 
 const CREATEAPPLICATION_MUTATION = gql`
 mutation createApplication($postId: ID!, $positionId:ID!) {
@@ -42,19 +45,24 @@ query PostScreenQuery($postId: ID!) {
       requisiti
     }
   }
-}
-`;
-
-const user = gql`
-{
   currentUser{
     id
   }
 }
-`
+`;
+
 
 export default function PostScreen({ navigation }) {
-  const { loading, error, data } = useQuery(Post, { variables: { postId: navigation.getParam("id") } });
+  const { loading, error, data } = useQuery(Post, {
+    variables: {
+      postId: navigation.getParam("id"),
+    },
+    onCompleted: async ({ currentUser, singlePost }) => {
+      const isOwner = currentUser.id === singlePost.postedBy.id
+      navigation.setParams({ isOwner });
+    },
+    fetchPolicy: "no-cache"
+  })
   const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
     {
       onCompleted: async ({ createApplication }) => {
@@ -145,3 +153,41 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7F4F4'
   }
 });
+
+
+PostScreen.navigationOptions = ({ navigation }) => {
+  const isOwner = navigation.getParam("isOwner")
+  return {
+    headerStyle: {
+      ...Platform.select({
+        ios: {
+          shadowColor: "black",
+          shadowOffset: { height: 3 },
+          shadowOpacity: 0.1,
+          shadowRadius: 3
+        },
+        android: {
+          elevation: 20
+        },
+      })
+    },
+    headerTitleStyle: {
+      fontFamily: "sequel-sans-bold",
+      color: Colors.blue,
+      fontSize: 12
+    },
+    headerLeft: (
+      <TouchableOpacity style={{ padding: 5, paddingRight: 10 }} onPress={() => navigation.goBack()}>
+        <Ionicons
+          name={"ios-arrow-back"}
+          size={25}
+          style={{ marginLeft: 10 }}
+          color={Colors.blue}
+        ></Ionicons>
+      </TouchableOpacity>
+    ),
+    headerRight: (
+      isOwner && <TouchablePen size={22}><Bold style={{ color: Colors.blue, marginRight: 20, marginTop: 5 }}>MODIFICA</Bold></TouchablePen>
+    ),
+  }
+}
