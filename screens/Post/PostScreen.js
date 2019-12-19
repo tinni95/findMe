@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
-import { Bold, Light, Body } from '../../components/StyledText';
+import { Bold, Light } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
