@@ -37,7 +37,7 @@ export default PostCardEdit = ({ post, navigation }) => {
                             text="Apri"
                             isLight
                             onPress={() =>
-                                navigation.navigate('PostScreenQueryRenderer', {
+                                navigation.navigate('PostScreen', {
                                     id: post.id
                                 })
                             }

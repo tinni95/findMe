@@ -33,7 +33,7 @@ export default function SentCard({ navigation, field, title, qualifiche, pubblic
         </View>
         <View style={styles.line} />
         <View style={styles.visualizzaWrapper}>
-            <RoundButtonEmpty2 onPress={() => navigation.navigate('PostScreenQueryRenderer', {
+            <RoundButtonEmpty2 onPress={() => navigation.navigate('PostScreen', {
                 id
             })} isLight text={"Visualizza"} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2>
         </View>

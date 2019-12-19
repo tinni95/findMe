@@ -6,6 +6,7 @@ import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
 
+
 export default function PostScreenConfirm({ post, isHidden, user, navigation }) {
   const positionCards = () => {
     return post.positions.map((position, index) => {

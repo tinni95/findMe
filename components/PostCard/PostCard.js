@@ -25,7 +25,7 @@ export const PostCard = ({ post, navigation }) => {
               fontSize={10}
               text="Scopri di Più"
               onPress={() =>
-                navigation.navigate('PostScreenQueryRenderer', {
+                navigation.navigate('PostScreen', {
                   id: post.id
                 })
               }

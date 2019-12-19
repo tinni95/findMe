@@ -6,8 +6,10 @@ import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
 import * as Haptics from 'expo-haptics';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import FindMeSpinner from "../../shared/FindMeSpinner"
+import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 
 const CREATEAPPLICATION_MUTATION = gql`
 mutation createApplication($postId: ID!, $positionId:ID!) {
@@ -16,8 +18,43 @@ mutation createApplication($postId: ID!, $positionId:ID!) {
     }
 }`;
 
-export default function PostScreen({ post, navigation }) {
+const Post = gql`
+query PostScreenQuery($postId: ID!) {
+  singlePost(id: $postId) {
+    id
+    description
+    title
+    comune
+    regione
+    provincia
+    fields
+    type
+    posizione
+    pubblicatoDa
+    postedBy{
+      id
+    }
+    positions {
+      id
+      description
+      title
+      field
+      requisiti
+    }
+  }
+}
+`;
 
+const user = gql`
+{
+  currentUser{
+    id
+  }
+}
+`
+
+export default function PostScreen({ navigation }) {
+  const { loading, error, data } = useQuery(Post, { variables: { postId: navigation.getParam("id") } });
   const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
     {
       onCompleted: async ({ createApplication }) => {
@@ -25,15 +62,17 @@ export default function PostScreen({ post, navigation }) {
         console.log(createApplication)
       }
     });
+  if (loading) return <FindMeSpinner />;
+  if (error) return <FindMeGraphQlErrorDisplay />;
+
 
   const submitPosition = position => {
-    console.log(position.id, post.id)
-    createApplication({ variables: { positionId: position.id, postId: post.id } })
+    createApplication({ variables: { positionId: position.id, postId: data.singlePost.id } })
     Haptics.selectionAsync()
   }
 
   const positionCards = () => {
-    return post.positions.map((position, index) => {
+    return data.singlePost.positions.map((position, index) => {
       return <PositionCard buttonOnPress={() => {
         submitPosition(position)
       }} buttonText={"Candidati"} navigation={navigation} key={index} position={position} />;
@@ -42,20 +81,20 @@ export default function PostScreen({ post, navigation }) {
   return (
     <ScrollView style={styles.contentContainer}>
       <View style={styles.descriptionCard}>
-        <Bold style={styles.title}>{post.title}</Bold>
+        <Bold style={styles.title}>{data.singlePost.title}</Bold>
         <LocationWithText
           points={20}
           fontSize={14}
           style={styles.location}
-          comune={post.comune}
-          regione={post.regione}
+          comune={data.singlePost.comune}
+          regione={data.singlePost.regione}
         />
-        <PostInfo tipoSocio={post.type} pubblicatoDa={post.pubblicatoDa}
-          fields={post.fields}
-          posizione={post.posizione} />
+        <PostInfo tipoSocio={data.singlePost.type} pubblicatoDa={data.singlePost.pubblicatoDa}
+          fields={data.singlePost.fields}
+          posizione={data.singlePost.posizione} />
         <View style={styles.DesriptionContainer}>
           <Bold style={styles.titleSm}>Descrizione</Bold>
-          <Light style={styles.body}>{post.description}</Light>
+          <Light style={styles.body}>{data.singlePost.description}</Light>
         </View>
       </View>
       <View>

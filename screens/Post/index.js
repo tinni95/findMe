@@ -1,3 +1,3 @@
-import PostScreenQueryRenderer from './PostScreenQueryRenderer';
+import PostScreen from './PostScreen';
 
-export default PostScreenQueryRenderer;
+export default PostScreen;
