@@ -83,7 +83,7 @@ export default function PostScreen({ navigation }) {
     return data.singlePost.positions.map((position, index) => {
       return <PositionCard buttonOnPress={() => {
         submitPosition(position)
-      }} buttonText={"Candidati"} navigation={navigation} key={index} position={position} />;
+      }} buttonText={"Candidati"} button={data.currentUser.id === data.singlePost.postedBy.id} navigation={navigation} key={index} position={position} />;
     });
   };
   return (

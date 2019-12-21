@@ -134,8 +134,8 @@ export default function Descrizione({ navigation }) {
           </View>}
           {!zoom &&
             <View style={styles.buttonWrapper}>
-              <RoundButtonEmptyUniversal text={"INDIETRO"} color={"#10476C"} onPress={() => navigation.navigate("Presentazione")} />
-              <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+              <RoundButtonEmptyUniversal text={"Indietro"} color={"#10476C"} onPress={() => navigation.navigate("Presentazione")} />
+              <RoundButton text={"  Avanti  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
             </View>
           }
         </ScrollView>

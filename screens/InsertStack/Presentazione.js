@@ -123,7 +123,7 @@ export default function Presentazione({ navigation }) {
                     </WithErrorString>
                 </View>
                 <View style={styles.buttonWrapper}>
-                    <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+                    <RoundButton text={"  Avanti  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
                 </View>
             </View>
         </View>

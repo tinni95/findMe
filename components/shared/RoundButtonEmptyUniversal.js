@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     color: 'white',
-    fontSize: isSmallDevice ? 12 : 15,
+    fontSize: 11,
     marginLeft: 2
   }
 });
