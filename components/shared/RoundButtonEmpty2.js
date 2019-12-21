@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignSelf: 'flex-start',
     padding: 10,
-    borderWidth: 0.5
+    borderWidth: 1
   },
   text: {
     color: 'white',

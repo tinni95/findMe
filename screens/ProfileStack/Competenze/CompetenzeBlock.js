@@ -15,7 +15,7 @@ export default function CompetenzeBlock({ competenze, onPress }) {
             </TouchableOpacity>
             <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>
                 {competenze.map(competenza => {
-                    return <RoundButtonEmpty2 key={shortid.generate()} style={{ margin: 5 }} isLight={true} text={competenza} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2 >
+                    return <RoundButtonEmpty2 key={shortid.generate()} buttonStyle={{ margin: 5 }} isLight={true} text={competenza} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2 >
                 })}
             </View>
         </View>
