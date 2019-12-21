@@ -198,12 +198,12 @@ export default function Posizioni({ navigation, settore }) {
                 <WithErrorString
                   error={titleError}
                   errorText={"Campo Obbligatorio"}>
+                  <StepsLabel error={titleError} text={"Titolo Posizione"} />
                   <FormTextInput
                     value={title}
                     style={titleError ? FormStyles.inputError : FormStyles.input}
                     onFocus={() => navigation.navigate("AutoComplete", { path: "Posizioni", items: TitoliPosizioni, for: "Titoli" })}
                     onChangeText={val => setTitle(val)}
-                    placeholder="Titolo Posizione"
                   />
                 </WithErrorString>}
               {socio != "Socio Finanziatore" &&

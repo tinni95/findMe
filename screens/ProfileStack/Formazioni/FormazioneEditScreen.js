@@ -208,7 +208,7 @@ export default function FormazioneEditScreen({ navigation }) {
                 textAlignVertical={"top"}
                 style={zoom ? FormStyles.xlarge : FormStyles.large}
             />
-            {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
+            {zoom && <View style={{ alignItems: "center" }}><RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"Avanti"} textColor={"white"} /></View>}
             <View style={styles.buttonWrapper}>
                 {!zoom && <RoundButton onPress={() => handlePress()} text={"Conferma"} color={Colors.blue} textColor="white"></RoundButton>}
             </View>

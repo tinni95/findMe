@@ -35,7 +35,7 @@ export default function SentCard({ navigation, field, title, qualifiche, pubblic
         <View style={styles.visualizzaWrapper}>
             <RoundButtonEmpty2 onPress={() => navigation.navigate('PostScreen', {
                 id
-            })} isLight text={"Visualizza"} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2>
+            })} isLight text={"  Apri  "} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2>
         </View>
     </View>)
 }
@@ -71,11 +71,13 @@ const styles = StyleSheet.create({
     visualizzaWrapper: {
         justifyContent: "center",
         alignItems: "center",
+        alignContent: "center",
         margin: 15,
+        marginTop: 25
     },
     line: {
         borderBottomWidth: 0.3,
         borderBottomColor: "#D0D0D0",
-        height: 20,
+        height: 40,
     }
 })

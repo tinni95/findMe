@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
 
 AttivitàScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "ATTIVITA'",
+        title: "CANDIDATURE",
         headerStyle: {
             ...Platform.select({
                 ios: {
