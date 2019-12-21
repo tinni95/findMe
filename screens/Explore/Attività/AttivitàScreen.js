@@ -81,10 +81,10 @@ export default function AttivitàScreen({ navigation }) {
 
     renderTabBar = props => {
         return (<TabBar
-            style={{ backgroundColor: '#FFFFFF', elevation: 0, borderColor: '#B9B0B0', borderBottomWidth: 1, height: 50 }}
-            labelStyle={{ color: 'black', fontSize: 14, fontFamily: 'sequel-sans-bold', }}
+            style={{ paddingTop: 5, backgroundColor: '#FFFFFF', elevation: 0, borderColor: '#B9B0B0', borderBottomWidth: 1, height: 60 }}
+            labelStyle={{ color: 'black', fontSize: 14, fontFamily: 'sequel-sans-bold' }}
             {...props}
-            indicatorStyle={{ backgroundColor: Colors.ocean, height: 2.5 }}
+            indicatorStyle={{ backgroundColor: Colors.ocean, height: 2.5, marginBottom: -2 }}
         />
         );
     }
