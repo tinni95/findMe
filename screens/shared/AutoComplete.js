@@ -79,6 +79,6 @@ const styles = StyleSheet.create({
         color: "#26547C",
         margin: 5,
         marginBottom: 10,
-        fontSize: 18
+        fontSize: 16
     }
 })
