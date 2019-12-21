@@ -6,7 +6,7 @@ import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
 import * as Haptics from 'expo-haptics';
-import { useMutation, useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery, useApolloClient } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
@@ -60,9 +60,11 @@ export default function PostScreen({ navigation }) {
     onCompleted: async ({ currentUser, singlePost }) => {
       const isOwner = currentUser.id === singlePost.postedBy.id
       navigation.setParams({ isOwner });
+      navigation.setParams({ singlePost });
     },
     fetchPolicy: "no-cache"
   })
+
   const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
     {
       onCompleted: async ({ createApplication }) => {
@@ -156,7 +158,11 @@ const styles = StyleSheet.create({
 
 
 PostScreen.navigationOptions = ({ navigation }) => {
+  const post = navigation.getParam("singlePost")
   const isOwner = navigation.getParam("isOwner")
+  const loadCache = () => {
+    navigation.navigate("InsertStack");
+  }
   return {
     headerStyle: {
       ...Platform.select({
@@ -187,7 +193,7 @@ PostScreen.navigationOptions = ({ navigation }) => {
       </TouchableOpacity>
     ),
     headerRight: (
-      isOwner && <TouchablePen size={22}><Bold style={{ color: Colors.blue, marginRight: 20, marginTop: 5 }}>MODIFICA</Bold></TouchablePen>
+      isOwner && <TouchablePen onPress={() => loadCache()} size={22}><Bold style={{ color: Colors.blue, marginRight: 20, marginTop: 5 }}>MODIFICA</Bold></TouchablePen>
     ),
   }
 }

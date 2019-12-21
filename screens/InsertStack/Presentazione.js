@@ -26,6 +26,7 @@ const POST_PRESENTAZIONE = gql`
 const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
 
 export default function Presentazione({ navigation }) {
+    const postId = navigation.getParam("postId");
     const client = useApolloClient();
     const { data } = useQuery(POST_PRESENTAZIONE);
     const activeIndex = TipoSocio.indexOf(data.postOwner) || -1;
@@ -51,6 +52,10 @@ export default function Presentazione({ navigation }) {
 
     useEffect(() => {
         activeIndex !== -1 ? setPostOwner(data.postOwner) : null
+    }, [])
+
+    useEffect(() => {
+        console.log(postId)
     }, [])
 
     const handlePress = () => {

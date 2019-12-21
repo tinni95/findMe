@@ -5,12 +5,14 @@ import Explore from '../../screens/Explore/Explore';
 import AttivitàScreen from '../../screens/Explore/Attività/AttivitàScreen';
 import PostScreen from '../../screens/Post/PostScreen';
 import FiltersModal from "./FiltersModal";
+import InsertStack from "./InsertStack"
 
 const HomeStack = createStackNavigator({
   Explore,
   PostScreen,
   FiltersModal,
-  AttivitàScreen
+  AttivitàScreen,
+  InsertStack
 });
 
 HomeStack.navigationOptions = {
