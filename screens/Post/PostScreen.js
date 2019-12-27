@@ -64,7 +64,6 @@ export default function PostScreen({ navigation }) {
 
 
   const submitPosition = position => {
-    createApplication({ variables: { positionId: position.id, postId: data.singlePost.id } })
     sendNotification({
       to: data.singlePost.postedBy.pushToken,
       title: data.singlePost.title,
@@ -77,7 +76,7 @@ export default function PostScreen({ navigation }) {
     return data.singlePost.positions.map((position, index) => {
       return <PositionCard buttonOnPress={() => {
         submitPosition(position)
-      }} postId={data.singlePost.id} buttonText={"Candidati"} button={data.currentUser.id === data.singlePost.postedBy.id} navigation={navigation} key={index} position={position} />;
+      }} post={data.singlePost} buttonText={"Candidati"} button={data.currentUser.id === data.singlePost.postedBy.id} navigation={navigation} key={index} position={position} />;
     });
   };
   return (

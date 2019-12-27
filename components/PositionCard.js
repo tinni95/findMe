@@ -7,6 +7,8 @@ import { Tooltip } from "react-native-elements";
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import FindMeSpinner from "../shared/FindMeSpinner";
+import { sendNotification } from "../shared/PushNotifications";
+import * as Haptics from 'expo-haptics';
 
 const CREATEAPPLICATION_MUTATION = gql`
 mutation createApplication($postId: ID!, $positionId:ID!) {
@@ -33,7 +35,7 @@ query application($id: ID!) {
 }
 `
 var shortid = require("shortid")
-export function PositionCard({ position, button, postId }) {
+export function PositionCard({ position, button, post }) {
   const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
     {
       onCompleted: async ({ createApplication }) => {
@@ -62,14 +64,29 @@ export function PositionCard({ position, button, postId }) {
     console.log("rimuovi")
     deleteApplication({ variables: { id: data.applicationUserForPosition[0].id } }).then(() => {
       refetch()
+    }).then(() => {
+      sendNotification({
+        to: post.postedBy.pushToken,
+        title: post.title,
+        body: "Qualcuno ha rimosso la sua applicazione per " + position.title
+      })
+      Haptics.selectionAsync()
     })
 
   }
 
   const handleApply = () => {
-    console.log("apply")
-    createApplication({ variables: { positionId: position.id, postId } }).then(() => {
+    console.log("post", post)
+    console.log("position", position)
+    createApplication({ variables: { positionId: position.id, postId: post.id } }).then(() => {
       refetch()
+    }).then(() => {
+      sendNotification({
+        to: post.postedBy.pushToken,
+        title: post.title,
+        body: "Qualcuno si è applicato alla tua posizione di " + position.title
+      })
+      Haptics.selectionAsync()
     })
 
   }
