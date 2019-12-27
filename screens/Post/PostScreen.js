@@ -13,13 +13,7 @@ import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import TouchablePen from '../ProfileStack/shared/TouchablePen';
-
-const CREATEAPPLICATION_MUTATION = gql`
-mutation createApplication($postId: ID!, $positionId:ID!) {
-  createApplication(postId:$postId,positionId:$positionId) {
-        id
-    }
-}`;
+import { sendNotification } from '../../shared/PushNotifications';
 
 const Post = gql`
 query PostScreenQuery($postId: ID!) {
@@ -36,6 +30,7 @@ query PostScreenQuery($postId: ID!) {
     pubblicatoDa
     postedBy{
       id
+      pushToken
     }
     positions {
       id
@@ -63,19 +58,18 @@ export default function PostScreen({ navigation }) {
     },
     fetchPolicy: "no-cache"
   })
-  const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
-    {
-      onCompleted: async ({ createApplication }) => {
-        alert("success")
-        console.log(createApplication)
-      }
-    });
+
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
 
 
   const submitPosition = position => {
     createApplication({ variables: { positionId: position.id, postId: data.singlePost.id } })
+    sendNotification({
+      to: data.singlePost.postedBy.pushToken,
+      title: data.singlePost.title,
+      body: "Qualcuno si è applicato alla tua posizione di" + position.title
+    })
     Haptics.selectionAsync()
   }
 
@@ -83,7 +77,7 @@ export default function PostScreen({ navigation }) {
     return data.singlePost.positions.map((position, index) => {
       return <PositionCard buttonOnPress={() => {
         submitPosition(position)
-      }} buttonText={"Candidati"} button={data.currentUser.id === data.singlePost.postedBy.id} navigation={navigation} key={index} position={position} />;
+      }} postId={data.singlePost.id} buttonText={"Candidati"} button={data.currentUser.id === data.singlePost.postedBy.id} navigation={navigation} key={index} position={position} />;
     });
   };
   return (
@@ -113,7 +107,6 @@ export default function PostScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-
   descriptionCard: {
     backgroundColor: 'white'
   },

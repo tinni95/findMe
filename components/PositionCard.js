@@ -1,13 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Platform, Text } from "react-native";
 import { Bold, Body, Light } from "./StyledText";
 import FieldIconRound from "./FieldIcons";
-import { Colors } from "../constants/Colors"
 import RoundButton from "./shared/RoundButton";
 import { Tooltip } from "react-native-elements";
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
+import FindMeSpinner from "../shared/FindMeSpinner";
 
+const CREATEAPPLICATION_MUTATION = gql`
+mutation createApplication($postId: ID!, $positionId:ID!) {
+  createApplication(postId:$postId,positionId:$positionId) {
+        id
+        position{
+          title
+        }
+    }
+}`;
+
+const DELETEAPPLICATION_MUTATION = gql`
+mutation deleteApplication($id: ID!) {
+  deleteApplication(id:$id) {
+        id
+    }
+}`;
+
+const application = gql`
+query application($id: ID!) {
+  applicationUserForPosition(id:$id){
+    id
+  }
+}
+`
 var shortid = require("shortid")
-export function PositionCard({ position, buttonText, buttonOnPress, button }) {
+export function PositionCard({ position, button, postId }) {
+  const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
+    {
+      onCompleted: async ({ createApplication }) => {
+        alert("success")
+        console.log(createApplication)
+      },
+      onError: error => {
+        console.log(error)
+        alert("Qualcosa è andato storto")
+      }
+    });
+
+  const [deleteApplication] = useMutation(DELETEAPPLICATION_MUTATION,
+    {
+      onCompleted: async ({ deleteApplication }) => {
+        alert("success")
+        console.log(deleteApplication)
+      },
+      onError: error => {
+        console.log(error)
+        alert("Qualcosa è andato storto")
+      }
+    });
+
+  const handleRimuovi = () => {
+    console.log("rimuovi")
+    deleteApplication({ variables: { id: data.applicationUserForPosition[0].id } }).then(() => {
+      refetch()
+    })
+
+  }
+
+  const handleApply = () => {
+    console.log("apply")
+    createApplication({ variables: { positionId: position.id, postId } }).then(() => {
+      refetch()
+    })
+
+  }
+
+  const { loading, error, data, refetch } = useQuery(application, {
+    variables: {
+      id: position.id
+    },
+    fetchPolicy: "no-cache"
+  })
+  if (loading)
+    return <FindMeSpinner></FindMeSpinner>
+
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
@@ -47,7 +122,7 @@ export function PositionCard({ position, buttonText, buttonOnPress, button }) {
           <View style={styles.line}></View>
           <View style={styles.ButtonWrapper}>
             {button ? null :
-              <RoundButton isMedium={true} onPress={buttonOnPress} text={buttonText} textColor={"white"} color={"#DD1E63"} />
+              <RoundButton isMedium={true} onPress={() => data.applicationUserForPosition.length > 0 ? handleRimuovi() : handleApply()} text={data.applicationUserForPosition.length > 0 ? "Rimuovi Candidatura" : "Candidati"} textColor={"white"} color={"#DD1E63"} />
             }
           </View>
         </View>

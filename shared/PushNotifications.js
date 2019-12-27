@@ -29,3 +29,26 @@ export default async function PushNotifications(updateUser) {
     // POST the token to your backend server from where you can retrieve it to send push notifications.
     return updateUser({ variables: { pushToken: token } })
 }
+
+export function sendNotification({ to, title, body }) {
+    return fetch('https://exp.host/--/api/v2/push/send', {
+        method: 'POST',
+        headers:
+        {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(
+            {
+                to,
+                sound: "default",
+                title,
+                body,
+                data: {
+                    status: "ok",
+                    type: "event",
+                },
+                channelId: 'chat-messages',
+            })
+    });
+}
