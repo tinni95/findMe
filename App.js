@@ -4,15 +4,19 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { graphlEndPoint } from "./shared/urls";
+import { graphlEndPoint, graphlWsEndPoint } from "./shared/urls";
 import { TOKEN_KEY } from "./shared/Token"
 import MainTabNavigator from './navigation/MainTabNavigator';
 import AuthenticationStack from './navigation/AuthenticationStack';
 import { ApolloClient } from 'apollo-client';
 import { setContext } from 'apollo-link-context';
+import { split } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from "apollo-upload-client";
 import { resolvers, typeDefs } from "./resolvers"
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
+
 export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
@@ -52,9 +56,30 @@ export default function App() {
       uri: graphlEndPoint,
     });
 
+    // Create a WebSocket link:
+    const wsLink = new WebSocketLink({
+      uri: graphlWsEndPoint,
+      options: {
+        reconnect: true
+      }
+    });
+
+    const link = split(
+      // split based on operation type
+      ({ query }) => {
+        const definition = getMainDefinition(query);
+        return (
+          definition.kind === 'OperationDefinition' &&
+          definition.operation === 'subscription'
+        );
+      },
+      wsLink,
+      httpLink,
+    );
+
     setClient(
       new ApolloClient({
-        link: authLink.concat(httpLink),
+        link: authLink.concat(link),
         cache,
         resolvers,
         typeDefs
