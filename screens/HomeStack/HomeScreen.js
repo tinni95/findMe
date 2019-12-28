@@ -11,6 +11,7 @@ const UPDATEUSER_MUTATION = gql`
 mutation updateUser($pushToken:String) {
         updateUser(pushToken: $pushToken) {
           pushToken
+          nome
     }
 }`;
 

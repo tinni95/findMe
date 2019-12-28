@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { RoundFilterItem } from "./RoundFilterItem";
 import RoundButton from "../../../../components/shared/RoundButton";
-import { Bold } from "../../../../components/StyledText";
+import { Bold, Body } from "../../../../components/StyledText";
 
 export function RoundFilters({ inactive, maximum, settori, addItem, removeItem, settoreAttivi, wrapperStyle, items, hide }) {
     const [hidden, setHidden] = useState(hide)
@@ -40,7 +40,7 @@ export function RoundFilters({ inactive, maximum, settori, addItem, removeItem, 
                     </View>
                 )
             if (hidden && index == 8)
-                return (<Bold style={{ margin: 10 }} onPress={() => setHidden(!hidden)} key={index}>Altro..</Bold>)
+                return (<Body style={{ margin: 5, marginTop: 15 }} onPress={() => setHidden(!hidden)} key={index}>..Altro</Body>)
         }
         )
     }

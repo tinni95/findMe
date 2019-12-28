@@ -62,15 +62,15 @@ export default function FiltersPage({ navigation, settore }) {
                 <RoundFilters hide addItem={item => setPosizioni([...posizioni, item])} removeItem={item => setPosizioni(posizioni.filter(i => i !== item))} settori={Settori} settoreAttivi={settore} />
                 <StepsLabel text={"Regione"}></StepsLabel>
                 <TouchableOpacity onPress={() => navigation.navigate("AutoComplete", { is: "regione", for: "Requisiti", path: "FiltersPage", items: regioni })} style={FormStyles.requisiti}>
-                    <Bold style={{ color: !regione ? "#958C8C" : "black" }}>{!regione ? "Cerca Regione" : regione}</Bold>
+                    <Bold style={[{ color: !regione ? "#958C8C" : "black", fontSize: 12, marginTop: 2.5 }]}>{!regione ? "Cerca Regione" : regione}</Bold>
                 </TouchableOpacity>
                 <StepsLabel text={"Provincia"}></StepsLabel>
                 <TouchableOpacity onPress={() => regione && navigation.navigate("AutoComplete", { is: "provincia", for: "Requisiti", path: "FiltersPage", items: provincie(regione) })} style={FormStyles.requisiti}>
-                    <Bold style={{ opacity: regione ? 1 : 0.2, color: !provincia ? "#958C8C" : "black" }}>{!provincia ? "Cerca Provincia" : provincia}</Bold>
+                    <Bold style={{ opacity: regione ? 1 : 0.2, color: !provincia ? "#958C8C" : "black", fontSize: 12, marginTop: 2.5 }}>{!provincia ? "Cerca Provincia" : provincia}</Bold>
                 </TouchableOpacity>
                 <StepsLabel text={"Comune"}></StepsLabel>
                 <TouchableOpacity onPress={() => provincia && navigation.navigate("AutoComplete", { is: "comune", for: "Requisiti", path: "FiltersPage", items: comunis(provincia) })} style={FormStyles.requisiti}>
-                    <Bold style={{ opacity: provincia ? 1 : 0.2, color: !comune ? "#958C8C" : "black" }}>{!comune ? "Cerca Comune" : comune}</Bold>
+                    <Bold style={{ fontSize: 12, marginTop: 2.5, opacity: provincia ? 1 : 0.2, color: !comune ? "#958C8C" : "black" }}>{!comune ? "Cerca Comune" : comune}</Bold>
                 </TouchableOpacity>
                 <View style={styles.buttonWrapper}>
                     <RoundButton onPress={() => {
@@ -81,7 +81,7 @@ export default function FiltersPage({ navigation, settore }) {
                             comune
                         })
                     }}
-                        color={"#5EDDDC"} text={"APPLICA"} />
+                        color={"#5EDDDC"} text={" Applica "} />
                 </View>
             </ScrollView>
         </View>

@@ -1,14 +1,36 @@
-import React from "react";
-import { ExpoConfigView } from "@expo/samples";
+import React, { useState, useEffect } from 'react'
+import { GiftedChat } from 'react-native-gifted-chat'
 
 export default function SettingsScreen() {
-  /**
-   * Go ahead and delete ExpoConfigView and replace it with your content;
-   * we just wanted to give you a quick view of your config.
-   */
-  return <ExpoConfigView />;
-}
+  state = {
+    messages: [],
+  }
+  const [messages, setMessages] = useState([])
 
-SettingsScreen.navigationOptions = {
-  title: "app.json"
-};
+  useEffect(() => {
+    setMessages([{
+      _id: 1,
+      text: 'Hello developer',
+      createdAt: new Date(),
+      user: {
+        _id: 2,
+        name: 'React Native',
+        avatar: 'https://placeimg.com/140/140/any',
+      },
+    }])
+  }, [])
+
+  const onSend = (message = []) => {
+    setMessages(GiftedChat.append(messages, message))
+  }
+
+  return (
+    <GiftedChat
+      messages={messages}
+      onSend={message => onSend(message)}
+      user={{
+        _id: 1,
+      }}
+    />
+  )
+}

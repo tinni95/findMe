@@ -10,15 +10,6 @@ import FindMeSpinner from "../shared/FindMeSpinner";
 import { sendNotification } from "../shared/PushNotifications";
 import * as Haptics from 'expo-haptics';
 
-const CREATEAPPLICATION_MUTATION = gql`
-mutation createApplication($postId: ID!, $positionId:ID!) {
-  createApplication(postId:$postId,positionId:$positionId) {
-        id
-        position{
-          title
-        }
-    }
-}`;
 
 const DELETEAPPLICATION_MUTATION = gql`
 mutation deleteApplication($id: ID!) {
@@ -35,18 +26,7 @@ query application($id: ID!) {
 }
 `
 var shortid = require("shortid")
-export function PositionCard({ position, button, post }) {
-  const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
-    {
-      onCompleted: async ({ createApplication }) => {
-        alert("success")
-        console.log(createApplication)
-      },
-      onError: error => {
-        console.log(error)
-        alert("Qualcosa è andato storto")
-      }
-    });
+export function PositionCard({ position, button, post, navigation }) {
 
   const [deleteApplication] = useMutation(DELETEAPPLICATION_MUTATION,
     {
@@ -76,19 +56,7 @@ export function PositionCard({ position, button, post }) {
   }
 
   const handleApply = () => {
-    console.log("post", post)
-    console.log("position", position)
-    createApplication({ variables: { positionId: position.id, postId: post.id } }).then(() => {
-      refetch()
-    }).then(() => {
-      sendNotification({
-        to: post.postedBy.pushToken,
-        title: post.title,
-        body: "Qualcuno si è applicato alla tua posizione di " + position.title
-      })
-      Haptics.selectionAsync()
-    })
-
+    navigation.navigate("ApplyScreen", { position, post, refetch })
   }
 
   const { loading, error, data, refetch } = useQuery(application, {

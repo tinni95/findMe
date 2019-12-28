@@ -75,14 +75,15 @@ export const FormStyles = StyleSheet.create({
     margin: 5,
     padding: 5,
     borderColor: '#ADADAD',
-    borderWidth: 1,
+    borderWidth: 0.5,
+    borderRadius: 5,
     alignContent: "center",
     height: 30,
   },
   requisitiL: {
     flexDirection: "row",
     flexWrap: "wrap",
-
+    borderRadius: 5,
     borderWidth: 1,
     borderColor: '#ADADAD',
   }
