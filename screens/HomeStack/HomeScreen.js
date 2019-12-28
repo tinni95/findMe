@@ -30,7 +30,7 @@ export default function LinksScreen({ navigation }) {
 
   useEffect(() => {
     let token = PushNotifications(updateUser)
-    console.log(token)
+    console.log("token", token)
   }, [])
 
   const renderFeeds = () => {

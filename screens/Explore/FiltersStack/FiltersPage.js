@@ -8,6 +8,8 @@ import { Bold } from '../../../components/StyledText';
 import { FormStyles } from '../../shared/Form/FormStyles';
 import { comuni } from "../../shared/comuni";
 import { Ionicons } from '@expo/vector-icons';
+import RoundButtonEmpty2 from '../../../components/shared/RoundButtonEmpty2';
+import Colors from "../../../constants/Colors"
 
 export default function FiltersPage({ navigation, settore }) {
     var regioneArray = comuni.map(comune => {
@@ -73,7 +75,7 @@ export default function FiltersPage({ navigation, settore }) {
                     <Bold style={{ fontSize: 12, marginTop: 2.5, opacity: provincia ? 1 : 0.2, color: !comune ? "#958C8C" : "black" }}>{!comune ? "Cerca Comune" : comune}</Bold>
                 </TouchableOpacity>
                 <View style={styles.buttonWrapper}>
-                    <RoundButton onPress={() => {
+                    <RoundButtonEmpty2 onPress={() => {
                         navigation.navigate("Explore", {
                             settore: posizioni,
                             regione,
@@ -81,7 +83,8 @@ export default function FiltersPage({ navigation, settore }) {
                             comune
                         })
                     }}
-                        color={"#5EDDDC"} text={" Applica "} />
+                        textColor={Colors.blue}
+                        color={Colors.blue} text={" Applica "} />
                 </View>
             </ScrollView>
         </View>
