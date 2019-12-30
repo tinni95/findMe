@@ -18,6 +18,10 @@ const chatFeed = gql`
        nome
       }
       messages{
+        createdAt
+        user{
+            id
+        }
         text
         chat{
           id
@@ -26,7 +30,7 @@ const chatFeed = gql`
     }
   }
 `
-export default function Channels() {
+export default function Channels({ navigation }) {
     const { loading, error, data, refetch } = useQuery(chatFeed);
 
     const [routes] = React.useState([
@@ -46,7 +50,7 @@ export default function Channels() {
     const SecondRoute = () => (
         <View style={styles.scene} >
             {data.ChatFeed.map(chat => {
-                return <ChatCard key={shortid.generate()} chat={chat}></ChatCard>
+                return <ChatCard onPress={() => navigation.navigate("Chat", { chat })} key={shortid.generate()} chat={chat}></ChatCard>
             })}
         </View>
     );

@@ -2,9 +2,11 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../../components/TabBarIcon';
 import Channels from '../../screens/MessaggiStack/Channels';
+import Chat from '../../screens/MessaggiStack/Chat';
 
 const ChatStack = createStackNavigator({
-  Channels
+  Channels,
+  Chat
 });
 
 ChatStack.navigationOptions = {
