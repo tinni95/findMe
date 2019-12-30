@@ -1,13 +1,13 @@
 import React from "react"
-import { View, StyleSheet, Image } from "react-native"
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native"
 import { Body, Light } from "../../components/StyledText"
 import { fixOverflow } from "../../shared/HelperFunctions"
 
-export default function ChatCard({ chat }) {
+export default function ChatCard({ chat, onPress }) {
     const lastMessageIndex = chat.messages.length - 1;
     console.log("chat", chat)
     return (
-        <View style={styles.container}>
+        <TouchableOpacity onPress={onPress} style={styles.container}>
             <View style={styles.imageContainer}>
                 <Image source={require("../../assets/images/placeholder.png")} style={{ width: 50, height: 50, borderRadius: 25 }} />
             </View>
@@ -19,7 +19,7 @@ export default function ChatCard({ chat }) {
             <View style={styles.dateContainer}>
                 <Light style={styles.date}>Sab</Light>
             </View>
-        </View>)
+        </TouchableOpacity>)
 }
 
 const styles = StyleSheet.create({
