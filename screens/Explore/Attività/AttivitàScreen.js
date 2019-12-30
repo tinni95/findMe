@@ -7,6 +7,7 @@ import Colors from "../../../constants/Colors"
 import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import SentCard from "./SentCard";
+import TabBars from "../../../shared/TabBars";
 var shortid = require("shortid")
 
 const Inviate = gql`
@@ -44,8 +45,6 @@ const Ricevute = gql`
 `
 
 
-const initialLayout = { width: Dimensions.get('window').width };
-
 export default function AttivitàScreen({ navigation }) {
     const [posizioniInvitate, setInviate] = useState([]);
     const [posizioniRicecute, setRicevute] = useState("");
@@ -79,17 +78,6 @@ export default function AttivitàScreen({ navigation }) {
         }
     });
 
-    renderTabBar = props => {
-        return (<TabBar
-            style={{ paddingTop: 5, backgroundColor: '#FFFFFF', elevation: 0, borderColor: '#B9B0B0', borderBottomWidth: 1, height: 60 }}
-            labelStyle={{ color: 'black', fontSize: 14, fontFamily: 'sequel-sans-bold' }}
-            {...props}
-            indicatorStyle={{ backgroundColor: Colors.ocean, height: 2.5, marginBottom: -2 }}
-        />
-        );
-    }
-
-    const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: 'first', title: 'Inviate' },
         { key: 'second', title: 'Ricevute' },
@@ -101,14 +89,7 @@ export default function AttivitàScreen({ navigation }) {
     });
 
     return (
-        <TabView
-            navigationState={{ index, routes }}
-            renderTabBar={renderTabBar}
-            renderScene={renderScene}
-            onIndexChange={setIndex}
-            initialLayout={initialLayout}
-            indicatorStyle={{ backgroundColor: Colors.blue, height: 2 }}
-        />
+        <TabBars renderScene={renderScene} routes={routes}></TabBars>
     );
 }
 
