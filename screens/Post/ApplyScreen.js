@@ -23,6 +23,20 @@ mutation createApplication($postId: ID!, $positionId:ID!) {
     }
 }`;
 
+const CREATECHAT_MUTATION = gql`
+mutation createChat($subId: ID!) {
+    createChat(subId:$subId) {
+        id
+    }
+}`;
+
+const CREATEMESSAGE_MUTATION = gql`
+mutation createMessage($channelId: ID!,$text:String!) {
+    createMessage(channelId:$channelId,text:$text) {
+        id
+    }
+}`;
+
 export default function ApplyScreen({navigation}) {
 
     const post =navigation.getParam("post")
@@ -33,18 +47,45 @@ export default function ApplyScreen({navigation}) {
     const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
         {
           onCompleted: async ({ createApplication }) => {
-            alert("success")
             console.log(createApplication)
+            createChat({variables:{subId:post.postedBy.id}})
           },
           onError: error => {
             console.log(error)
             alert("Qualcosa è andato storto")
           }
         });
+
+        const [createChat] = useMutation(CREATECHAT_MUTATION,
+            {
+              onCompleted: async ({ createChat }) => {
+                console.log(createChat)
+                createMessage({variables:{text:messaggio,channelId:createChat.id}})
+              },
+              onError: error => {
+                console.log(error)
+                alert("Qualcosa è andato storto")
+              }
+            });
     
+            const [createMessage] = useMutation(CREATEMESSAGE_MUTATION,
+                {
+                  onCompleted: async ({ createMessage }) => {
+                    alert("success")
+                    console.log(createMessage)
+                  },
+                  onError: error => {
+                    console.log(error)
+                    alert("Qualcosa è andato storto")
+                  }
+                });
+
         const handleApply = () => {
             console.log("post", post)
             console.log("position", position)
+            if(messaggio.length===0){
+                return alert("aoh el messaggio")
+            }
             createApplication({ variables: { positionId: position.id, postId: post.id } }).then(() => {
               refetch()
             }).then(() => {

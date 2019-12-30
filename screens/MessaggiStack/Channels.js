@@ -3,21 +3,53 @@ import { View, StyleSheet, Platform } from "react-native"
 import TabBars from "../../shared/TabBars";
 import { SceneMap } from "react-native-tab-view";
 import Colors from "../../constants/Colors";
+import gql from "graphql-tag";
+import ChatCard from "./ChatCard";
+import { useQuery } from "react-apollo";
+import FindMeSpinner from "../../shared/FindMeSpinner";
+import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
+var shortid = require("shortid")
 
+const chatFeed = gql`
+{
+    ChatFeed{
+      id
+      sub{
+       nome
+      }
+      messages{
+        text
+        chat{
+          id
+        }
+      }
+    }
+  }
+`
 export default function Channels() {
-    const FirstRoute = () => (
-        <View style={styles.scene} />
-    );
-
-    const SecondRoute = () => (
-        <View style={styles.scene} />
-    );
+    const { loading, error, data, refetch } = useQuery(chatFeed);
 
     const [routes] = React.useState([
         { key: 'first', title: 'Chat' },
         { key: 'second', title: 'Post Idea' },
     ]);
 
+    if (loading) return <FindMeSpinner />;
+    if (error) return <FindMeGraphQlErrorDisplay />
+    if (data) {
+        console.log(data)
+    }
+    const FirstRoute = () => (
+        <View style={styles.scene} />
+    );
+
+    const SecondRoute = () => (
+        <View style={styles.scene} >
+            {data.ChatFeed.map(chat => {
+                return <ChatCard key={shortid.generate()} chat={chat}></ChatCard>
+            })}
+        </View>
+    );
     const renderScene = SceneMap({
         first: FirstRoute,
         second: SecondRoute,
