@@ -1,8 +1,10 @@
 import React from "react"
 import { View, StyleSheet, Image } from "react-native"
 import { Body, Light } from "../../components/StyledText"
+import { fixOverflow } from "../../shared/HelperFunctions"
 
 export default function ChatCard({ chat }) {
+    const lastMessageIndex = chat.messages.length - 1;
     console.log("chat", chat)
     return (
         <View style={styles.container}>
@@ -12,7 +14,7 @@ export default function ChatCard({ chat }) {
             <View style={styles.textContainer}>
                 <Body style={styles.nome}>{chat.sub.nome}</Body>
                 <View style={{ height: 5 }}></View>
-                <Body style={styles.message}>s</Body>
+                <Body style={styles.message}>{fixOverflow(chat.messages[lastMessageIndex].text)}</Body>
             </View>
             <View style={styles.dateContainer}>
                 <Light style={styles.date}>Sab</Light>
@@ -34,10 +36,12 @@ const styles = StyleSheet.create({
         alignItems: "flex-end",
     },
     imageContainer: {
+        marginLeft: 20,
         justifyContent: "center",
         margin: 10
     },
     textContainer: {
+        marginLeft: 10,
         flexDirection: "column",
         alignContent: "center",
         justifyContent: "center"
@@ -50,7 +54,7 @@ const styles = StyleSheet.create({
         color: "#6E5A5A",
         margin: 20
     },
-    nome: {
+    message: {
         fontSize: 11,
         color: "#6E5A5A"
     }
