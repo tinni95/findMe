@@ -5,6 +5,7 @@ export default parseMessages = (messages, subId) => {
             ...message,
             _id: message.id,
             user: {
+                id: message.user.id,
                 _id: subId == message.user.id ? 1 : 2,
                 name: message.user.nome,
                 avatar: 'https://placeimg.com/140/140/any',
