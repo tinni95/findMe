@@ -14,6 +14,10 @@ const chatFeed = gql`
 {
     ChatFeed{
       id
+      pub{
+        id
+     nome
+    }
       sub{
           id
        nome
@@ -31,10 +35,13 @@ const chatFeed = gql`
         }
       }
     }
+    currentUser{
+        id
+    }
   }
 `
 export default function Channels({ navigation }) {
-    const { loading, error, data, refetch } = useQuery(chatFeed);
+    const { loading, error, data, refetch } = useQuery(chatFeed, { fetchPolicy: "no-cache" });
 
     const [routes] = React.useState([
         { key: 'first', title: 'Chat' },
@@ -43,9 +50,7 @@ export default function Channels({ navigation }) {
 
     if (loading) return <FindMeSpinner />;
     if (error) return <FindMeGraphQlErrorDisplay />
-    if (data) {
-        console.log(data)
-    }
+
     const FirstRoute = () => (
         <View style={styles.scene} />
     );
@@ -53,7 +58,8 @@ export default function Channels({ navigation }) {
     const SecondRoute = () => (
         <View style={styles.scene} >
             {data.ChatFeed.map(chat => {
-                return <ChatCard onPress={() => navigation.navigate("Chat", { chat })} key={shortid.generate()} chat={chat}></ChatCard>
+                const isSub = chat.sub.id == data.currentUser.id
+                return <ChatCard onPress={() => navigation.navigate("Chat", { chat })} key={shortid.generate()} chat={chat} isSub={isSub}></ChatCard>
             })}
         </View>
     );
