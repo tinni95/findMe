@@ -15,12 +15,15 @@ const chatFeed = gql`
     ChatFeed{
       id
       sub{
+          id
        nome
       }
       messages{
+          id
         createdAt
         user{
             id
+            nome
         }
         text
         chat{
