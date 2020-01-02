@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native"
 import { Body, Light } from "../../components/StyledText"
 import { fixOverflow } from "../../shared/HelperFunctions"
 
-export default function ChatCard({ chat, onPress }) {
+export default function ChatCard({ chat, isSub, onPress }) {
     const lastMessageIndex = chat.messages.length - 1;
     console.log("chat", chat)
     return (
@@ -12,7 +12,7 @@ export default function ChatCard({ chat, onPress }) {
                 <Image source={require("../../assets/images/placeholder.png")} style={{ width: 50, height: 50, borderRadius: 25 }} />
             </View>
             <View style={styles.textContainer}>
-                <Body style={styles.nome}>{chat.sub.nome}</Body>
+                <Body style={styles.nome}>{isSub ? chat.pub.nome : chat.sub.nome}</Body>
                 <View style={{ height: 5 }}></View>
                 <Body style={styles.message}>{fixOverflow(chat.messages[lastMessageIndex].text)}</Body>
             </View>

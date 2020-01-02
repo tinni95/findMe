@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import gql from 'graphql-tag';
+import { View } from "react-native"
 import { useMutation, useSubscription } from 'react-apollo';
 import parseMessages from "./helpers"
+import FindMeMessage from './FindMeMessage'
 
 const CREATEMESSAGE_MUTATION = gql`
 mutation createMessage($channelId: ID!,$text:String!) {
@@ -57,14 +59,21 @@ export default function Chat({ navigation }) {
         createMessage({ variables: { text: message[0].text, channelId: chat.id } })
     }
 
+    const renderMessage = props => {
+        return <FindMeMessage {...props} />
+    }
+
     return (
+
         <GiftedChat
             inverted={false}
             messages={messages}
             onSend={message => onSend(message)}
+            renderMessage={renderMessage}
             user={{
                 _id: 1,
             }}
+            style={{ backgroundColor: '#F4F4F4' }}
         />
     )
 }
