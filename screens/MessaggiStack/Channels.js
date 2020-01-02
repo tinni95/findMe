@@ -1,5 +1,5 @@
-import React from "react"
-import { View, StyleSheet, Platform } from "react-native"
+import React, { useState } from "react"
+import { View, StyleSheet, Platform, ScrollView, RefreshControl } from "react-native"
 import TabBars from "../../shared/TabBars";
 import { SceneMap } from "react-native-tab-view";
 import Colors from "../../constants/Colors";
@@ -42,7 +42,7 @@ const chatFeed = gql`
 `
 export default function Channels({ navigation }) {
     const { loading, error, data, refetch } = useQuery(chatFeed, { fetchPolicy: "no-cache" });
-
+    const [refreshing, setRefreshing] = useState(false)
     const [routes] = React.useState([
         { key: 'first', title: 'Chat' },
         { key: 'second', title: 'Post Idea' },
@@ -50,28 +50,33 @@ export default function Channels({ navigation }) {
 
     if (loading) return <FindMeSpinner />;
     if (error) return <FindMeGraphQlErrorDisplay />
+    if (data) {
+        const onRefresh = async () => {
+            setRefreshing(true)
+            refetch().then(() => setRefreshing(false))
+        }
 
-    const FirstRoute = () => (
-        <View style={styles.scene} />
-    );
+        const FirstRoute = () => (
+            <View style={styles.scene} />
+        );
 
-    const SecondRoute = () => (
-        <View style={styles.scene} >
-            {data.ChatFeed.map(chat => {
-                const isSub = chat.sub.id == data.currentUser.id
-                return <ChatCard onPress={() => navigation.navigate("Chat", { chat })} key={shortid.generate()} chat={chat} isSub={isSub}></ChatCard>
-            })}
-        </View>
-    );
-    const renderScene = SceneMap({
-        first: FirstRoute,
-        second: SecondRoute,
-    });
+        const SecondRoute = () => (
+            <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={styles.scene} >
+                {data.ChatFeed.map(chat => {
+                    const isSub = chat.sub.id == data.currentUser.id
+                    return <ChatCard onPress={() => navigation.navigate("Chat", { chat })} key={shortid.generate()} chat={chat} isSub={isSub}></ChatCard>
+                })}
+            </ScrollView>
+        );
+        const renderScene = SceneMap({
+            first: FirstRoute,
+            second: SecondRoute,
+        });
 
-    return (
-        <TabBars renderScene={renderScene} routes={routes}></TabBars>
-    );
-
+        return (
+            <TabBars renderScene={renderScene} routes={routes}></TabBars>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
