@@ -64,7 +64,12 @@ export default function Channels({ navigation }) {
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={styles.scene} >
                 {data.ChatFeed.map(chat => {
                     const isSub = chat.sub.id == data.currentUser.id
-                    return <ChatCard onPress={() => navigation.navigate("Chat", { chat })} key={shortid.generate()} chat={chat} isSub={isSub}></ChatCard>
+                    return <ChatCard onPress={
+                        () => {
+                            refetch().then(() => navigation.navigate("Chat", { chat, id: data.currentUser.id }))
+                        }
+                    }
+                        key={shortid.generate()} chat={chat} isSub={isSub}></ChatCard>
                 })}
             </ScrollView>
         );

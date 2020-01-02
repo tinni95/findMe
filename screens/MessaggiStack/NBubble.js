@@ -57,9 +57,6 @@ export default class Bubble extends React.Component {
             return (
                 <MessageText
                     {...messageTextProps}
-                    textStyle={{
-                        left: [styles.standardFont, styles.slackMessageText, messageTextProps.textStyle, messageTextStyle],
-                    }}
                 />
             );
         }
@@ -96,22 +93,6 @@ export default class Bubble extends React.Component {
         return null;
     }
 
-    renderUsername() {
-        const username = this.props.currentMessage.user.name;
-        if (username) {
-            const { containerStyle, wrapperStyle, ...usernameProps } = this.props;
-            if (this.props.renderUsername) {
-                return this.props.renderUsername(usernameProps);
-            }
-            return (
-                <Text style={[styles.standardFont, styles.headerItem, styles.username, this.props.usernameStyle]}>
-                    {username}
-                </Text>
-            );
-        }
-        return null;
-    }
-
     renderTime() {
         if (this.props.currentMessage.createdAt) {
             const { containerStyle, wrapperStyle, ...timeProps } = this.props;
@@ -137,9 +118,6 @@ export default class Bubble extends React.Component {
     }
 
     render() {
-        const isSameThread = isSameUser(this.props.currentMessage, this.props.previousMessage)
-            && isSameDay(this.props.currentMessage, this.props.previousMessage);
-
         const messageHeader = (
             <View style={styles.headerView}>
                 {this.renderTime()}

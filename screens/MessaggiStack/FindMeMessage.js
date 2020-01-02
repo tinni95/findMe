@@ -45,40 +45,44 @@ export default class Message extends React.Component {
     }
 
     renderAvatar() {
-        let extraStyle;
-        if (
-            isSameUser(this.props.currentMessage, this.props.previousMessage)
-            && isSameDay(this.props.currentMessage, this.props.previousMessage)
-        ) {
-            // Set the invisible avatar height to 0, but keep the width, padding, etc.
-            extraStyle = { height: 0 };
-        }
-
         const avatarProps = this.getInnerComponentProps();
         return (
             <Avatar
                 {...avatarProps}
-                imageStyle={{ left: [styles.slackAvatar, avatarProps.imageStyle, extraStyle] }}
+                imageStyle={{ left: [styles.slackAvatar, avatarProps.imageStyle] }}
             />
         );
     }
 
     render() {
-        const marginBottom = isSameUser(this.props.currentMessage, this.props.nextMessage) ? 2 : 10;
-
+        const marginBottom = isSameUser(this.props.currentMessage, this.props.nextMessage) ? 2 : 20;
+        const isOwner = this.props.currentMessage.user._id == 1
         return (
             <View>
                 {this.renderDay()}
-                <View
-                    style={[
-                        styles.container,
-                        { marginBottom },
-                        this.props.containerStyle,
-                    ]}
-                >
-                    {this.renderAvatar()}
-                    {this.renderBubble()}
-                </View>
+                {isOwner ?
+                    <View
+                        style={[
+                            styles.container,
+                            { marginBottom },
+                            this.props.containerStyle,
+                        ]}
+                    >
+                        {this.renderAvatar()}
+                        {this.renderBubble()}
+                    </View>
+                    :
+                    <View
+                        style={[
+                            styles.container,
+                            { marginBottom },
+                            this.props.containerStyle,
+                        ]}
+                    >
+                        {this.renderBubble()}
+                        {this.renderAvatar()}
+                    </View>
+                }
             </View>
         );
     }

@@ -5,6 +5,8 @@ import { View } from "react-native"
 import { useMutation, useSubscription } from 'react-apollo';
 import parseMessages from "./helpers"
 import FindMeMessage from './FindMeMessage'
+import moment from 'moment/min/moment-with-locales'
+moment.locale('it');
 
 const CREATEMESSAGE_MUTATION = gql`
 mutation createMessage($channelId: ID!,$text:String!) {
@@ -32,6 +34,8 @@ subscription messageReceivedSub($id:ID!){
 export default function Chat({ navigation }) {
     const [messages, setMessages] = useState([])
     const chat = navigation.getParam("chat")
+    const id = navigation.getParam("id")
+    console.log(id);
     const { data, loading } = useSubscription(
         MESSAGES_SUBSCRIPTION,
         { variables: { id: chat.id } }
@@ -47,12 +51,12 @@ export default function Chat({ navigation }) {
         });
 
     useEffect(() => {
-        setMessages(parseMessages(chat.messages, chat.sub.id))
+        setMessages(parseMessages(chat.messages, id))
     }, [])
 
 
     useEffect(() => {
-        !loading && data.messageReceivedSub.node.text ? setMessages(parseMessages([...messages, data.messageReceivedSub.node], chat.sub.id)) : null
+        !loading && data.messageReceivedSub.node.text ? setMessages(parseMessages([...messages, data.messageReceivedSub.node], id)) : null
     }, [data])
 
     const onSend = (message) => {
@@ -60,6 +64,7 @@ export default function Chat({ navigation }) {
     }
 
     const renderMessage = props => {
+        console.log("message", props.currentMessage._id)
         return <FindMeMessage {...props} />
     }
 
@@ -70,10 +75,11 @@ export default function Chat({ navigation }) {
             messages={messages}
             onSend={message => onSend(message)}
             renderMessage={renderMessage}
+            locale={'it'}
             user={{
                 _id: 1,
             }}
-            style={{ backgroundColor: '#F4F4F4' }}
+            style={{ backgroundColor: 'black' }}
         />
     )
 }

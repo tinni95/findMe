@@ -16,7 +16,9 @@ import { createUploadLink } from "apollo-upload-client";
 import { resolvers, typeDefs } from "./resolvers"
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-
+import moment from 'moment/min/moment-with-locales'
+moment.locale('it');
+console.log(moment.locale());
 export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
