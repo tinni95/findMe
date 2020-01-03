@@ -33,7 +33,7 @@ export const LandingPage = ({ navigation: { navigate }, screenProps }) => {
           isMedium
           textColor={Colors.red}
           color={"white"}
-          onPress={() => navigate('SignUpScreen')}
+          onPress={() => navigate('LoginScreen')}
           text="Accedi"
         />
       </View>

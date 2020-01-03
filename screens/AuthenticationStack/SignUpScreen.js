@@ -52,6 +52,7 @@ export default function SignUpScreen({ screenProps, navigation }) {
         console.log(updateUser)
       }
     });
+
   const [checked, setChecked] = useState(false)
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
@@ -76,7 +77,7 @@ export default function SignUpScreen({ screenProps, navigation }) {
   }, [mutationError])
 
   //The Function called when Registrati button pressed
-  const handleSubmit = async () => {
+  const verifyFields = async () => {
     if (!validateName(name)) {
       await setNameError(true)
     } else {
@@ -102,11 +103,16 @@ export default function SignUpScreen({ screenProps, navigation }) {
     } else {
       await setRepasswordError(false)
     }
-    if (validateForm()) {
-      let emails = email.toLowerCase();
-      signup({ variables: { email: emails, password, nome: name, cognome: surname } })
-    }
   };
+
+  const handleSubmit = () => {
+    verifyFields().then(() => {
+      if (validateForm()) {
+        let emails = email.toLowerCase();
+        signup({ variables: { email: emails, password, nome: name, cognome: surname } })
+      }
+    })
+  }
 
   //TO validate the form
   const validateForm = () => {

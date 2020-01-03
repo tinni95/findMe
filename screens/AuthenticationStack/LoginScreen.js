@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, AsyncStorage, StyleSheet } from 'react-native';
+import { View, Text, TextInput, AsyncStorage, StyleSheet, TouchableOpacity } from 'react-native';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { isSmallDevice } from '../../constants/Layout';
@@ -8,6 +8,8 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import Colors from '../../constants/Colors';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -99,3 +101,21 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     }
 });
+
+LoginScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerStyle: {
+            borderBottomWidth: 0
+        },
+        headerLeft: (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Ionicons
+                    name={"ios-arrow-back"}
+                    size={25}
+                    style={{ marginLeft: 10, paddingRight: 10 }}
+                    color={Colors.blue}
+                ></Ionicons>
+            </TouchableOpacity>
+        ),
+    }
+}
