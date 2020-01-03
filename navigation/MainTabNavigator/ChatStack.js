@@ -11,7 +11,7 @@ const ChatStack = createStackNavigator({
 
 ChatStack.navigationOptions = {
   tabBarLabel: 'Chat',
-  tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-bowtie"} focused={focused} />
+  tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-send"} focused={focused} />
 };
 
 ChatStack.path = '';

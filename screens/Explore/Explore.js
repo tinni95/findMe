@@ -92,7 +92,7 @@ export default function Explore({ navigation }) {
               <ScrollView style={{ zIndex: 1 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
                 {renderPosts()}</ScrollView>
               <View style={styles.penWrapper}>
-                <CreateButton></CreateButton>
+                <CreateButton onPress={() => navigation.navigate("InsertStack")}></CreateButton>
               </View>
 
             </View>

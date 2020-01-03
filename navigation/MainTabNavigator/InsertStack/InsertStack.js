@@ -13,11 +13,6 @@ export const InsertStack = createSwitchNavigator({
   Anteprima: AnteprimaQueryRenderer
 });
 
-InsertStack.navigationOptions = {
-  tabBarLabel: 'Inserisci',
-  tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-add-circle"} focused={focused} />
-};
-
 InsertStack.path = '';
 
 export default InsertStack;

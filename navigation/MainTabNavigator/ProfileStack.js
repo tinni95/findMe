@@ -49,7 +49,7 @@ const ProfileDrawer = createDrawerNavigator(
 
 ProfileDrawer.navigationOptions = {
   tabBarLabel: 'Profilo',
-  tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-contact"} focused={focused} />
+  tabBarIcon: ({ focused }) => <TabBarIcon name={"md-person"} focused={focused} />
 };
 
 ProfileDrawer.path = '';

@@ -4,7 +4,7 @@ import Colors from "../constants/Colors"
 
 export default function CreateButton({ onPress }) {
     return (
-        <TouchableOpacity onPress={() => { alert("ao") }} style={styles.container}>
+        <TouchableOpacity onPress={onPress} style={styles.container}>
             <Image
                 resizeMode="contain"
                 style={styles.image}
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
             ios: {
                 shadowColor: "black",
                 shadowOffset: { height: 3 },
-                shadowOpacity: 0.1,
+                shadowOpacity: 0.4,
                 shadowRadius: 3
             },
             android: {
