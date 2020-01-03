@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { GiftedChat } from 'react-native-gifted-chat'
+import { GiftedChat, InputToolbar } from 'react-native-gifted-chat'
 import gql from 'graphql-tag';
 import { View } from "react-native"
 import { useMutation, useSubscription } from 'react-apollo';
@@ -68,6 +68,11 @@ export default function Chat({ navigation }) {
         return <FindMeMessage {...props} />
     }
 
+    const renderInputToolbar = props => {
+        // Here you will return your custom InputToolbar.js file you copied before and include with your stylings, edits.
+        return <InputToolbar {...props} />
+
+    }
     return (
 
         <GiftedChat
@@ -76,6 +81,7 @@ export default function Chat({ navigation }) {
             onSend={message => onSend(message)}
             renderMessage={renderMessage}
             locale={'it'}
+            renderInputToolbar={renderInputToolbar}
             user={{
                 _id: 1,
             }}
