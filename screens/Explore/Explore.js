@@ -9,6 +9,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
+import CreateButton from '../../shared/CreateButton';
 
 const posts = gql`
   query posts($filter:String,$settore:[String!],$regione:String){
@@ -90,6 +91,10 @@ export default function Explore({ navigation }) {
             }}>
               <ScrollView style={{ zIndex: 1 }} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
                 {renderPosts()}</ScrollView>
+              <View style={styles.penWrapper}>
+                <CreateButton></CreateButton>
+              </View>
+
             </View>
           }
         </View>
@@ -118,6 +123,12 @@ const styles = StyleSheet.create({
   subContainer: {
     flex: 1,
     flexDirection: "row"
+  },
+  penWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'flex-end',
+    zIndex: 100
   }
 });
 
