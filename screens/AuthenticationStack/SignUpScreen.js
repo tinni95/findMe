@@ -16,6 +16,7 @@ import Colors from "../../constants/Colors"
 import CheckBox from 'react-native-check-box'
 import WithErrorString from '../shared/Form/WithErrorString';
 import { Light } from '../../components/StyledText';
+import { Notifications } from 'expo';
 const SIGNUP_MUTATION = gql`
   mutation signup($email: String!, $password: String!,$nome: String!, $cognome: String!) {
     signup(email: $email, password:$password,
@@ -34,6 +35,11 @@ mutation updateUser($pushToken:String) {
 }`;
 
 export default function SignUpScreen({ screenProps, navigation }) {
+  const handleNotification = ({ origin, data }) => {
+    console.log(
+      `Push notification ${origin} with data: ${JSON.stringify(data)}`,
+    );
+  }
   const [
     signup,
     { loading: mutationLoading, error: mutationError, error, data },
@@ -43,6 +49,7 @@ export default function SignUpScreen({ screenProps, navigation }) {
         await AsyncStorage.setItem(TOKEN_KEY, signup.token);
         screenProps.changeLoginState();
         let token = PushNotifications(updateUser)
+        this._notificationSubscription = Notifications.addListener(handleNotification);
       }
     });
 
