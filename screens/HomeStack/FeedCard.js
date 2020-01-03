@@ -5,7 +5,6 @@ import { Body } from "../../components/StyledText"
 import Colors from "../../constants/Colors"
 
 export default function FeedCard({ Card }) {
-    console.log(Card.description[0])
     return (
         <View style={styles.container}>
             <View style={styles.header}></View>

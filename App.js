@@ -18,7 +18,6 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import moment from 'moment/min/moment-with-locales'
 moment.locale('it');
-console.log(moment.locale());
 export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
@@ -27,7 +26,6 @@ export default function App() {
 
   async function fetchToken() {
     token = await AsyncStorage.getItem(TOKEN_KEY);
-    console.log(token)
   }
 
   async function makeClient() {
@@ -90,7 +88,7 @@ export default function App() {
   }
 
   function login() {
-    fetchToken().then(() => makeClient()).then(() => { setLoggedin(true); console.log("client", client) })
+    fetchToken().then(() => makeClient()).then(() => { setLoggedin(true); })
   }
 
   function logout() {

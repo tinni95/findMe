@@ -35,7 +35,7 @@ export default function Chat({ navigation }) {
     const [messages, setMessages] = useState([])
     const chat = navigation.getParam("chat")
     const id = navigation.getParam("id")
-    console.log(id);
+
     const { data, loading } = useSubscription(
         MESSAGES_SUBSCRIPTION,
         { variables: { id: chat.id } }
@@ -43,7 +43,7 @@ export default function Chat({ navigation }) {
     const [createMessage] = useMutation(CREATEMESSAGE_MUTATION,
         {
             onCompleted: async ({ createMessage }) => {
-                console.log(createMessage)
+
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
@@ -64,7 +64,7 @@ export default function Chat({ navigation }) {
     }
 
     const renderMessage = props => {
-        console.log("message", props.currentMessage._id)
+
         return <FindMeMessage {...props} />
     }
 

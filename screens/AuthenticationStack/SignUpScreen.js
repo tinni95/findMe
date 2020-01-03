@@ -11,6 +11,7 @@ import gql from 'graphql-tag';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useMutation } from '@apollo/react-hooks';
 import FindMeSpinner from '../../shared/FindMeSpinner';
+import PushNotifications from '../../shared/PushNotifications';
 
 const SIGNUP_MUTATION = gql`
   mutation signup($email: String!, $password: String!,$nome: String!, $cognome: String!) {
@@ -21,6 +22,14 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
+const UPDATEUSER_MUTATION = gql`
+mutation updateUser($pushToken:String) {
+        updateUser(pushToken: $pushToken) {
+          pushToken
+          nome
+    }
+}`;
+
 export default function SignUpScreen({ screenProps }) {
   const [
     signup,
@@ -30,8 +39,17 @@ export default function SignUpScreen({ screenProps }) {
       onCompleted: async ({ signup }) => {
         await AsyncStorage.setItem(TOKEN_KEY, signup.token);
         screenProps.changeLoginState();
+        let token = PushNotifications(updateUser)
       }
     });
+
+  const [updateUser] = useMutation(UPDATEUSER_MUTATION,
+    {
+      onCompleted: async ({ updateUser }) => {
+        console.log(updateUser)
+      }
+    });
+
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
   const [email, setEmail] = useState("")

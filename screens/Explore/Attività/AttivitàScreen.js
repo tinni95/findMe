@@ -74,7 +74,7 @@ export default function AttivitàScreen({ navigation }) {
 
     const { loading2, error2, data2, refetch2 } = useQuery(Ricevute, {
         onCompleted: async ({ applicationsReceived }) => {
-            console.log(applicationsReceived)
+
         }
     });
 

@@ -32,16 +32,13 @@ export function PositionCard({ position, button, post, navigation }) {
     {
       onCompleted: async ({ deleteApplication }) => {
         alert("success")
-        console.log(deleteApplication)
       },
       onError: error => {
-        console.log(error)
         alert("Qualcosa è andato storto")
       }
     });
 
   const handleRimuovi = () => {
-    console.log("rimuovi")
     deleteApplication({ variables: { id: data.applicationUserForPosition[0].id } }).then(() => {
       refetch()
     }).then(() => {

@@ -40,5 +40,4 @@ const wanted = [
 test("it works", () => {
     const parsedPosition = parsePositions(posizioni);
     expect(parsedPosition).toEqual(wanted)
-    console.log(parsedPosition)
 })

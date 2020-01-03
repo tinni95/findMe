@@ -15,7 +15,7 @@ export default function DataOverlayModal({ fine, modalVisibile, setModalVisible,
         setDate("In Corso")
         setModalVisible(false)
     }
-    console.log("modalVisibile", modalVisibile)
+
     return (
         <Overlay childrenWrapperStyle={{ height: Platform.OS == "ios" ? 250 : fine ? 150 : 100 }}
             visible={modalVisibile} onClose={() => setModalVisible(false)} closeOnTouchOutside >
@@ -38,7 +38,7 @@ export default function DataOverlayModal({ fine, modalVisibile, setModalVisible,
                     style={{ height: 50, width: "45%" }}
                     onValueChange={(itemValue, itemIndex) => {
                         setMonth(itemValue)
-                        console.log(itemValue)
+
                     }
                     }>
                     <Picker.Item label="Gennaio" value="Gen" />
@@ -59,7 +59,7 @@ export default function DataOverlayModal({ fine, modalVisibile, setModalVisible,
                     style={{ height: 50, width: "45%" }}
                     onValueChange={(itemValue, itemIndex) => {
                         setYear(itemValue)
-                        console.log(itemValue)
+
                     }
                     }>
                     <Picker.Item label="2020" value="2020" />

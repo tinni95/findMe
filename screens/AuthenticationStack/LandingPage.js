@@ -7,9 +7,7 @@ import RoundButtonEmpty from '../../components/shared/RoundButtonEmpty';
 import RoundButton from '../../components/shared/RoundButton';
 
 export const LandingPage = ({ navigation: { navigate }, screenProps }) => {
-  useEffect(() => {
-    console.log("de", screenProps)
-  })
+
   return (
     <LinearGradient
       colors={['#0F406A', '#6D90AD']}

@@ -47,11 +47,11 @@ export default function ApplyScreen({navigation}) {
     const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
         {
           onCompleted: async ({ createApplication }) => {
-            console.log(createApplication)
+
             createChat({variables:{subId:post.postedBy.id}})
           },
           onError: error => {
-            console.log(error)
+
             alert("Qualcosa è andato storto")
           }
         });
@@ -59,7 +59,7 @@ export default function ApplyScreen({navigation}) {
         const [createChat] = useMutation(CREATECHAT_MUTATION,
             {
               onCompleted: async ({ createChat }) => {
-                console.log(createChat)
+
                 createMessage({variables:{text:messaggio,channelId:createChat.id}})
               },
               onError: error => {
@@ -72,7 +72,7 @@ export default function ApplyScreen({navigation}) {
                 {
                   onCompleted: async ({ createMessage }) => {
                     alert("success")
-                    console.log(createMessage)
+
                   },
                   onError: error => {
                     console.log(error)
@@ -81,8 +81,7 @@ export default function ApplyScreen({navigation}) {
                 });
 
         const handleApply = () => {
-            console.log("post", post)
-            console.log("position", position)
+
             if(messaggio.length===0){
                 return alert("aoh el messaggio")
             }

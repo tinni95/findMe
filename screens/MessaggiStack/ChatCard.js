@@ -5,7 +5,7 @@ import { fixOverflow } from "../../shared/HelperFunctions"
 
 export default function ChatCard({ chat, isSub, onPress }) {
     const lastMessageIndex = chat.messages.length - 1;
-    console.log("chat", chat)
+
     return (
         <TouchableOpacity onPress={onPress} style={styles.container}>
             <View style={styles.imageContainer}>

@@ -62,7 +62,6 @@ export default function EditProfile({ navigation }) {
         });
 
     const _handleDatePicked = (dates) => {
-        console.log('A date has been picked: ', dates);
         setVisibleDate(false)
         setDoB(moment(dates).format("DD-MM-YYYY"))
     };
@@ -77,7 +76,7 @@ export default function EditProfile({ navigation }) {
     }
 
     const PickImage = async () => {
-        console.log("yo");
+
         await getPermissionAsync();
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -86,7 +85,7 @@ export default function EditProfile({ navigation }) {
             quality: 1,
             base64: true
         });
-        console.log("result", result.uri);
+
         if (!result.cancelled) {
             setImage(result.uri)
         }
