@@ -11,6 +11,7 @@ import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { isBigDevice } from '../../constants/Layout';
 import { TitoliPosizioni } from './shared/helpers';
+import HeaderBar from './shared/HeaderBar';
 
 const POST_PRESENTAZIONE = gql`
   query PresentazioneQuery {
@@ -88,6 +89,7 @@ export default function Presentazione({ navigation }) {
 
     return (
         <View style={styles.container}>
+            <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
             <View style={styles.header}>
                 <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
             </View>

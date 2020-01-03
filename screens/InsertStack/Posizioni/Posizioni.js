@@ -16,6 +16,7 @@ import { isBigDevice } from '../../../constants/Layout';
 import { Light } from "../../../components/StyledText";
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../../constants/Colors';
+import HeaderBar from '../shared/HeaderBar';
 
 var shortid = require("shortid")
 const POST_POSIZIONI = gql`
@@ -183,6 +184,7 @@ export default function Posizioni({ navigation, settore }) {
 
   return (
     <View style={styles.container}>
+      <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
       <View style={styles.header}>
         <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
       </View>

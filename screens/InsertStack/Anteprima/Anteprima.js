@@ -10,6 +10,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import RoundButton from '../../../components/shared/RoundButton';
 import { isBigDevice, width } from '../../../constants/Layout';
 import { parsePositions } from './helpers';
+import HeaderBar from '../shared/HeaderBar';
 
 const POST_ANTEPRIMA = gql`
   query DescrizioneQuery {
@@ -108,6 +109,7 @@ export default Anteprima = ({ navigation, user }) => {
   }
   return (
     <View style={styles.container}>
+      <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
       <View style={styles.header}>
         <StepsIndicator navigation={navigation} active={3}></StepsIndicator>
       </View>

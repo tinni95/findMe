@@ -13,6 +13,7 @@ import { FormStyles } from "../shared/Form/FormStyles";
 import { isBigDevice } from '../../constants/Layout';
 import { Settori } from "./shared/helpers";
 import Colors from '../../constants/Colors';
+import HeaderBar from './shared/HeaderBar';
 
 
 const POST_DESCRIZIONE = gql`
@@ -88,6 +89,7 @@ export default function Descrizione({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
       <View style={styles.header}>
         <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
       </View>
@@ -130,7 +132,7 @@ export default function Descrizione({ navigation }) {
             editable
             value={description}
           />
-          {zoom && <View style={{ alignItems: "center" }}><RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />
+          {zoom && <View style={{ alignItems: "center" }}><RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"Conferma"} textColor={"white"} />
           </View>}
           {!zoom &&
             <View style={styles.buttonWrapper}>
