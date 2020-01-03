@@ -1,10 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, Image, AsyncStorage, TextInput } from 'react-native';
+import { View, StyleSheet, Text, AsyncStorage, TextInput } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
-import { Bold } from '../../components/StyledText';
 import { TOKEN_KEY } from '../../shared/Token';
 import RoundButtonEmpty from '../../components/shared/RoundButtonEmptySignUpScreen';
-import RoundButton from '../../components/shared/RoundButtonSignUpScreen';
 import { validateEmail, validateName, validatePassword, validateRePassword } from './validators';
 import { FormStyles } from '../shared/Form/FormStyles';
 import gql from 'graphql-tag';
@@ -12,7 +10,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useMutation } from '@apollo/react-hooks';
 import FindMeSpinner from '../../shared/FindMeSpinner';
 import PushNotifications from '../../shared/PushNotifications';
-
+import { TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import Colors from "../../constants/Colors"
+import CheckBox from 'react-native-check-box'
+import WithErrorString from '../shared/Form/WithErrorString';
+import { Light } from '../../components/StyledText';
 const SIGNUP_MUTATION = gql`
   mutation signup($email: String!, $password: String!,$nome: String!, $cognome: String!) {
     signup(email: $email, password:$password,
@@ -30,7 +33,7 @@ mutation updateUser($pushToken:String) {
     }
 }`;
 
-export default function SignUpScreen({ screenProps }) {
+export default function SignUpScreen({ screenProps, navigation }) {
   const [
     signup,
     { loading: mutationLoading, error: mutationError, error, data },
@@ -49,7 +52,7 @@ export default function SignUpScreen({ screenProps }) {
         console.log(updateUser)
       }
     });
-
+  const [checked, setChecked] = useState(false)
   const [name, setName] = useState("")
   const [surname, setSurname] = useState("")
   const [email, setEmail] = useState("")
@@ -115,115 +118,106 @@ export default function SignUpScreen({ screenProps }) {
       <FindMeSpinner />
       :
       <KeyboardAwareScrollView style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.header}
-            source={require('../../assets/images/logo_negative.png')}
-            resizeMode="contain"
-          />
-        </View>
         <View style={styles.formContainer}>
-          <View style={FormStyles.inputHalfsContainer}>
-            <View style={FormStyles.inputHalfContainer}>
-              <TextInput
-                style={nameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
-                placeholder="Nome"
-                placeholderTextColor="#ADADAD"
-                onChangeText={val => setName(val)}
-                onSubmitEditing={() => surnameInput.current.focus()}
-              />
-              {nameError ? (
-                <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
-              ) : (
-                  <View style={styles.separator} />
-                )}
-            </View>
-            <View style={FormStyles.inputHalfContainer}>
-              <TextInput
-                style={surnameError ? FormStyles.inputHalfError : FormStyles.inputHalf}
-                placeholder="Cognome"
-                placeholderTextColor="#ADADAD"
-                onChangeText={val => setSurname(val)}
-                ref={surnameInput}
-                onSubmitEditing={() => emailInput.current.focus()}
-              />
-              {surnameError ? (
-                <Bold style={FormStyles.error}>Campo Obbligatorio</Bold>
-              ) : (
-                  <View style={styles.separator} />
-                )}
-            </View>
-          </View>
-          <TextInput
-            style={emailError || isEmailUsed ? FormStyles.inputError : FormStyles.input}
-            placeholder="Email"
-            placeholderTextColor="#ADADAD"
-            onChangeText={val => setEmail(val)}
-            ref={emailInput}
-            onSubmitEditing={() => passwordInput.current.focus()}
-          />
-          {emailError ? (
-            <Bold style={FormStyles.error}>Email non valida</Bold>
-          ) : isEmailUsed ? (
-            <Bold style={FormStyles.error}>Email gia in uso</Bold>
-          ) : (
-                <View style={styles.separator} />
-              )}
-          <TextInput
-            style={passwordError ? FormStyles.inputError : FormStyles.input}
-            autoCapitalize="none"
-            placeholder="Password"
-            secureTextEntry
-            autoCapitalize="none"
-            placeholderTextColor="#ADADAD"
-            onChangeText={val => setPassword(val)}
-            ref={passwordInput}
-            onSubmitEditing={() => repasswordInput.current.focus()}
-          />
-          {passwordError ? (
-            <Bold style={FormStyles.error}>Password non valida</Bold>
-          ) : (
-              <View style={styles.separator} />
-            )}
-          <TextInput
-            style={repasswordError ? FormStyles.inputError : FormStyles.input}
-            placeholder="Ripeti Password"
-            autoCapitalize="none"
-            secureTextEntry
-            placeholderTextColor="#ADADAD"
-            onChangeText={val => setRepassword(val)}
-            ref={repasswordInput}
-          />
-          {repasswordError ? (
-            <Bold style={FormStyles.error}>Le password non corrispondono</Bold>
-          ) : (
-              <View style={styles.separator} />
-            )}
+          <WithErrorString
+            error={nameError}
+            errorText={"Campo Obbligatorio"}>
+            <TextInput
+              placeholder="Nome"
+              onChangeText={val => setName(val)}
+              style={nameError ? FormStyles.inputError : FormStyles.input}
+              onSubmitEditing={() => surnameInput.current.focus()}
+            />
+          </WithErrorString>
+          <View style={styles.spacer} />
+          <WithErrorString
+            error={surnameError}
+            errorText={"Campo Obbligatorio"}>
+            <TextInput
+              placeholder="Cognome"
+              onChangeText={val => setSurname(val)}
+              ref={surnameInput}
+              onSubmitEditing={() => emailInput.current.focus()}
+              style={surnameError ? FormStyles.inputError : FormStyles.input}
+            />
+          </WithErrorString>
+          <View style={styles.spacer} />
+          <WithErrorString
+            error={emailError}
+            errorText={"Email non valida"}>
+            <TextInput
+              placeholder="Email"
+              autoCapitalize="none"
+              onChangeText={val => setEmail(val)}
+              ref={emailInput}
+              style={emailError || isEmailUsed ? FormStyles.inputError : FormStyles.input}
+              onSubmitEditing={() => passwordInput.current.focus()}
+            />
+          </WithErrorString>
+          <View style={styles.spacer} />
+          <WithErrorString
+            error={passwordError}
+            errorText={"Password non valida"}>
+            <TextInput
+              style={passwordError ? FormStyles.inputError : FormStyles.input}
+              autoCapitalize="none"
+              placeholder="Password"
+              onChangeText={val => setPassword(val)}
+              secureTextEntry
+              ref={passwordInput}
+              onSubmitEditing={() => repasswordInput.current.focus()}
+              style={emailError || isEmailUsed ? FormStyles.inputError : FormStyles.input}
+              onSubmitEditing={() => passwordInput.current.focus()}
+            />
+          </WithErrorString>
+          <View style={styles.spacer} />
+          <WithErrorString
+            error={repasswordError}
+            errorText={"Le password non corrispondono"}>
+            <TextInput
+              style={repasswordError ? FormStyles.inputError : FormStyles.input}
+              placeholder="Conferma Password"
+              autoCapitalize="none"
+              secureTextEntry
+              onChangeText={val => setRepassword(val)}
+              ref={repasswordInput}
+            />
+          </WithErrorString>
         </View>
         <View style={styles.buttonsContainer}>
+          <View style={styles.checkBoxWrapper}>
+            <CheckBox
+              isChecked={checked}
+              onClick={() => setChecked(!checked)}
+              checkBoxColor={Colors.blue}
+            ></CheckBox>
+            <Text style={{ margin: 5 }}>
+              <Light >Accetto i</Light>
+              <Light style={{ color: Colors.red }}> Termini e Condizioni</Light>
+            </Text>
+          </View>
+          <View style={styles.spacer} />
           <RoundButtonEmpty
             onPress={handleSubmit}
             isLong
-            fontColor="#DD1E63"
-            text="Registrati"
-            fontColor="#DD1E63"
-            color="#DD1E63"
+            isMedium
+            fontColor={Colors.blue}
+            text="Iscriviti"
+            color={Colors.blue}
           />
-          <Bold style={styles.buttonText}>O continua Con</Bold>
-          <RoundButton
-            bold
-            isLong
-            fontColor="#10436E"
-            text="Facebook"
-            color="#10436E"
-          />
-          <RoundButtonEmpty bold isLong fontColor="#794545" text="Google" color="#white" />
+          <View style={styles.spacer} />
+          <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+            <Light style={{ color: Colors.blue }}>Hai Già un Account? Accedi</Light>
+          </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  spacer: {
+    height: 20
+  },
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF'
@@ -235,7 +229,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     margin: 30,
-    marginTop: isSmallDevice ? 40 : 60,
+    marginTop: isSmallDevice ? 20 : 40,
     justifyContent: 'center'
   },
   buttonsContainer: {
@@ -247,5 +241,25 @@ const styles = StyleSheet.create({
     margin: isSmallDevice ? 5 : 15,
     color: '#AC8A8A'
   },
-  separator: { height: 5 }
+  separator: { height: 5 },
+  checkBoxWrapper: { flexDirection: "row", alignItems: "center", justifyContent: "center" }
 });
+
+
+SignUpScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerStyle: {
+      borderBottomWidth: 0
+    },
+    headerLeft: (
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Ionicons
+          name={"ios-arrow-back"}
+          size={25}
+          style={{ marginLeft: 10, paddingRight: 10 }}
+          color={Colors.blue}
+        ></Ionicons>
+      </TouchableOpacity>
+    ),
+  }
+}
