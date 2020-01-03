@@ -118,6 +118,7 @@ export default class Bubble extends React.Component {
     }
 
     render() {
+
         const messageHeader = (
             <View style={styles.headerView}>
                 {this.renderTime()}
@@ -126,7 +127,7 @@ export default class Bubble extends React.Component {
         );
 
         return (
-            <View style={[styles.container, this.props.containerStyle]}>
+            <View style={[styles.container, this.props.containerStyle, { alignItems: this.props.currentMessage.user._id == 1 ? "flex-start" : "flex-end" }]}>
                 <TouchableOpacity
                     onLongPress={this.onLongPress}
                     accessibilityTraits="text"
@@ -163,10 +164,9 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        alignItems: 'flex-start',
     },
     wrapper: {
-        marginRight: 60,
+        marginRight: 10,
         minHeight: 20,
         justifyContent: 'flex-end',
         backgroundColor: "#FFFFFF",

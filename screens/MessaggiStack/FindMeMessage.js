@@ -55,7 +55,7 @@ export default class Message extends React.Component {
     }
 
     render() {
-        const marginBottom = isSameUser(this.props.currentMessage, this.props.nextMessage) ? 2 : 20;
+        const marginBottom = isSameUser(this.props.currentMessage, this.props.nextMessage) ? 5 : 20;
         const isOwner = this.props.currentMessage.user._id == 1
         return (
             <View>
@@ -65,7 +65,6 @@ export default class Message extends React.Component {
                         style={[
                             styles.container,
                             { marginBottom },
-                            this.props.containerStyle,
                         ]}
                     >
                         {this.renderAvatar()}
@@ -75,8 +74,11 @@ export default class Message extends React.Component {
                     <View
                         style={[
                             styles.container,
+                            {
+                                alignItems: "flex-end",
+                                justifyContent: "flex-end"
+                            },
                             { marginBottom },
-                            this.props.containerStyle,
                         ]}
                     >
                         {this.renderBubble()}
