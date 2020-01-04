@@ -26,7 +26,7 @@ subscription messageReceivedNotificaSub($id:ID!){
 
 
 export default function MessagesIcon(props) {
-  const { loading, error, refetch, data } = useQuery(UNSEENMESSAGES_QUERY)
+  const { loading, error, refetch, data } = useQuery(UNSEENMESSAGES_QUERY, { fetchPolicy: "no-cache" })
   const subscription = useSubscription(
     NEWMESSAGE_SUBSCRIPTION,
     { variables: { id: data && data.currentUser.id } }
