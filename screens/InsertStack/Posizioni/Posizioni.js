@@ -250,7 +250,7 @@ export default function Posizioni({ navigation, settore }) {
             editable
             value={description}
           />
-          {zoom && <View style={{ alignItems: "center" }}><RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />
+          {zoom && <View style={{ alignItems: "center" }}><RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"Conferma"} textColor={"white"} />
           </View>}
           {socio == "Socio Finanziatore" ? buttons(true) : buttons()}
         </ScrollView>

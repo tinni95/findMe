@@ -59,7 +59,7 @@ export default Anteprima = ({ navigation, user }) => {
             postPositions: []
           },
         });
-        navigation.navigate("Presentazione")
+        navigation.navigate("Explore", { refetch: true })
       }
     });
   const { data } = useQuery(POST_ANTEPRIMA);

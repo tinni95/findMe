@@ -34,6 +34,7 @@ const posts = gql`
 export default function Explore({ navigation }) {
   const regione = navigation.getParam("regione") || null
   const comune = navigation.getParam("comune") || null
+  const isRefetch = navigation.getParam("refetch") || null
   const provincia = navigation.getParam("provincia") || null
   let settore = navigation.getParam("settore") || null
   const [search, setSearch] = useState("");
@@ -41,6 +42,10 @@ export default function Explore({ navigation }) {
   const { loading, error, data, refetch } = useQuery(posts, {
     variables: settore && settore.length > 0 ? { settore, regione, comune, provincia, filter: search } : { regione, comune, provincia, filter: search }
   });
+
+  useEffect(() => {
+    isRefetch ? refetch() : null
+  }, [isRefetch])
 
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />

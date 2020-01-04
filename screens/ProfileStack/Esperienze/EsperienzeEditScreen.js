@@ -207,7 +207,7 @@ export default function EsperienzeEditScreen({ navigation }) {
                 textAlignVertical={"top"}
                 style={zoom ? FormStyles.xlarge : FormStyles.large}
             />
-            {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
+            {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"Conferma"} textColor={"white"} />}
             <View style={styles.buttonWrapper}>
                 {!zoom && <RoundButton onPress={() => handlePress()} text={"Conferma"} color={Colors.blue} textColor="white"></RoundButton>}
             </View>

@@ -197,7 +197,7 @@ export default function EditProfile({ navigation }) {
                     style={zoom ? FormStyles.xlarge : FormStyles.large}
                     value={presentazione}
                 />
-                {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"OK"} textColor={"white"} />}
+                {zoom && <RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"Conferma"} textColor={"white"} />}
                 <DateTimePicker isVisible={visibleDate} onConfirm={_handleDatePicked} onCancel={() => setVisibleDate(false)} maximumDate={new Date()} />
                 <View style={styles.buttonWrapper}>
                     {!zoom && <RoundButton onPress={() => handlePress()} text={"Conferma"} color={Colors.blue} textColor="white"></RoundButton>}
