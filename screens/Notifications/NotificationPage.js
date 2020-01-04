@@ -9,7 +9,6 @@ export default function NotificationPage({ navigation }) {
 }
 
 NotificationPage.navigationOptions = {
-    headerShown: true,
     headerStyle: {
         ...Platform.select({
             ios: {
@@ -28,7 +27,5 @@ NotificationPage.navigationOptions = {
         color: Colors.blue,
         fontSize: 12
     },
-    title: "Notifiche",
-    tabBarLabel: 'Notifiche',
-    tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-notifications"} focused={focused} />
+    title: "Notifiche"
 };

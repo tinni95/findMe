@@ -8,6 +8,16 @@ import FindMeMessage from './FindMeMessage'
 import moment from 'moment/min/moment-with-locales'
 moment.locale('it');
 
+const UNSEECHAT_MUTATION = gql`
+mutation unseeChatChatMutation($chatId:ID!,$pubRead:Boolean,$subRead:Boolean){
+    unseeChat(chatId:$chatId,pubRead:$pubRead,subRead:$subRead){
+        id
+        subRead
+        pubRead
+    }
+}
+`
+
 const CREATEMESSAGE_MUTATION = gql`
 mutation createMessage($channelId: ID!,$text:String!) {
     createMessage(channelId:$channelId,text:$text) {
@@ -34,16 +44,26 @@ subscription messageReceivedSub($id:ID!){
 export default function Chat({ navigation }) {
     const [messages, setMessages] = useState([])
     const chat = navigation.getParam("chat")
+    const isSub = navigation.getParam("isSub")
     const id = navigation.getParam("id")
-
+    console.log(chat.id)
+    console.log(isSub)
     const { data, loading } = useSubscription(
         MESSAGES_SUBSCRIPTION,
         { variables: { id: chat.id } }
     );
+
+    const [unseeChat] = useMutation(UNSEECHAT_MUTATION, {
+        onCompleted: async ({ unseeChat }) => {
+            console.log(unseeChat)
+        },
+    })
+
     const [createMessage] = useMutation(CREATEMESSAGE_MUTATION,
         {
             onCompleted: async ({ createMessage }) => {
-
+                isSub ? unseeChat({ variables: { chatId: chat.id, pubRead: false } }) :
+                    unseeChat({ variables: { chatId: chat.id, subRead: false } })
             },
             onError: error => {
                 alert("Qualcosa è andato storto")

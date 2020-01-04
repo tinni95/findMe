@@ -26,6 +26,7 @@ export default function App() {
 
   async function fetchToken() {
     token = await AsyncStorage.getItem(TOKEN_KEY);
+    console.log(token)
   }
 
   async function makeClient() {

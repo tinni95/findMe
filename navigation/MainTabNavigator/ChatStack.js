@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import TabBarIcon from '../../components/TabBarIcon';
+import MessagesIcon from '../../components/MessagesIcon';
 import Channels from '../../screens/MessaggiStack/Channels';
 import Chat from '../../screens/MessaggiStack/Chat';
 
@@ -11,7 +11,7 @@ const ChatStack = createStackNavigator({
 
 ChatStack.navigationOptions = {
   tabBarLabel: 'Chat',
-  tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-send"} focused={focused} />
+  tabBarIcon: ({ focused }) => <MessagesIcon name={"ios-send"} focused={focused} />
 };
 
 ChatStack.path = '';

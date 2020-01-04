@@ -1,1 +1,1 @@
-export const TOKEN_KEY = "1asdasd";
+export const TOKEN_KEY = "001";

@@ -5,11 +5,19 @@ import { SceneMap } from "react-native-tab-view";
 import Colors from "../../constants/Colors";
 import gql from "graphql-tag";
 import ChatCard from "./ChatCard";
-import { useQuery } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
 var shortid = require("shortid")
-
+const SEECHAT_MUTATION = gql`
+mutation seeChatMutation($chatId:ID!,$pubRead:Boolean,$subRead:Boolean){
+    unseeChat(chatId:$chatId,pubRead:$pubRead,subRead:$subRead){
+        id
+        subRead
+        pubRead
+    }
+}
+`
 const chatFeed = gql`
 {
     ChatFeed{
@@ -43,6 +51,11 @@ const chatFeed = gql`
 export default function Channels({ navigation }) {
     const { loading, error, data, refetch } = useQuery(chatFeed, { fetchPolicy: "no-cache" });
     const [refreshing, setRefreshing] = useState(false)
+    const [seeChat] = useMutation(SEECHAT_MUTATION, {
+        onCompleted: async ({ unseeChat }) => {
+            console.log(unseeChat)
+        },
+    });
     const [routes] = React.useState([
         { key: 'first', title: 'Chat' },
         { key: 'second', title: 'Post Idea' },
@@ -66,7 +79,12 @@ export default function Channels({ navigation }) {
                     const isSub = chat.sub.id == data.currentUser.id
                     return <ChatCard onPress={
                         () => {
-                            refetch().then(() => navigation.navigate("Chat", { chat, id: data.currentUser.id }))
+                            refetch().then(() => {
+                                isSub ? seeChat({ variables: { chatId: chat.id, subRead: true } }) :
+                                    seeChat({ variables: { chatId: chat.id, pubRead: true } });
+                                navigation.navigate("Chat", { chat, id: data.currentUser.id, isSub });
+                            }
+                            )
                         }
                     }
                         key={shortid.generate()} chat={chat} isSub={isSub}></ChatCard>
@@ -89,6 +107,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
+
 
 Channels.navigationOptions = ({ navigation }) => {
     return {

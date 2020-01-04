@@ -3,14 +3,14 @@ import PostIdeaStack from './PostIdeaStack';
 import LinksStack from './LinksStack';
 import ChatStack from './ChatStack';
 import ProfileStack from './ProfileStack';
-import NotificationPage from "../../screens/Notifications"
+import NotificaStack from "./NotificaStack"
 
 const MainTabNavigator = createBottomTabNavigator({
   LinksStack,
   ChatStack,
   PostIdeaStack,
   ProfileStack,
-  Notifiche: NotificationPage
+  Notifiche: NotificaStack
 });
 
 MainTabNavigator.path = '';
