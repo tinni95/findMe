@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { StepsIndicator } from "./shared/stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
 import StepsLabel from "../shared/StepsLabel";
@@ -88,7 +88,7 @@ export default function Presentazione({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
             <View style={styles.header}>
                 <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
@@ -128,7 +128,7 @@ export default function Presentazione({ navigation }) {
                     <RoundButton text={"  Avanti  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
                 </View>
             </View>
-        </View>
+        </ScrollView>
     )
 };
 
