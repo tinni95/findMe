@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, View } from "react-native"
 import { Body } from "./StyledText";
 import Colors from "../constants/Colors";
-import { useQuery } from "react-apollo";
+import { useQuery, useSubscription } from "react-apollo";
 import { gql } from "apollo-boost";
 
 const UNSEENMESSAGES_QUERY = gql`
@@ -11,10 +11,32 @@ const UNSEENMESSAGES_QUERY = gql`
 UnseenChats{
   pubRead
 }
+currentUser{
+  id
+}
 }
 `
+
+const NEWMESSAGE_SUBSCRIPTION = gql`
+subscription messageReceivedNotificaSub($id:ID!){
+  messageReceivedNotificaSub(id:$id){
+    updatedFields
+  }
+}`;
+
+
 export default function MessagesIcon(props) {
-  const { loading, error, data } = useQuery(UNSEENMESSAGES_QUERY)
+  const { loading, error, refetch, data } = useQuery(UNSEENMESSAGES_QUERY)
+  const subscription = useSubscription(
+    NEWMESSAGE_SUBSCRIPTION,
+    { variables: { id: data && data.currentUser.id } }
+  );
+
+  useEffect(() => {
+    console.log(subscription.data)
+    !subscription.loading && subscription.data.messageReceivedNotificaSub ? refetch() : null
+  }, [subscription.data])
+
   if (loading) {
     return (<Ionicons
       name={props.name}
