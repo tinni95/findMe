@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { GiftedChat, InputToolbar } from 'react-native-gifted-chat'
+import { GiftedChat } from 'react-native-gifted-chat'
+import InputToolbar from "./InputToolbar"
 import gql from 'graphql-tag';
-import { View } from "react-native"
+import { View, TextInput } from "react-native"
 import { useMutation, useSubscription, useQuery } from 'react-apollo';
 import parseMessages from "./helpers"
 import FindMeMessage from './FindMeMessage'
@@ -104,7 +105,7 @@ export default function Chat({ navigation }) {
     }, [subscription.data])
 
     const onSend = (message) => {
-        createMessage({ variables: { text: message[0].text, channelId: chat.id } })
+        createMessage({ variables: { text: message, channelId: chat.id } })
     }
 
     const renderMessage = props => {
@@ -114,7 +115,8 @@ export default function Chat({ navigation }) {
 
     const renderInputToolbar = props => {
         // Here you will return your custom InputToolbar.js file you copied before and include with your stylings, edits.
-        return <InputToolbar {...props} />
+        console.log("props", props)
+        return <InputToolbar onSend={onSend}></InputToolbar>
 
     }
     return (
