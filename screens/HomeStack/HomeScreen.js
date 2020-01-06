@@ -6,7 +6,7 @@ import { useQuery } from "react-apollo";
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
 import { Body } from "../../components/StyledText";
-import { QuestionCard } from "./QuestionCard";
+import { QuestionCard } from "./components/QuestionCard";
 var shortid = require("shortid")
 const Questions = gql`
 {
@@ -23,6 +23,15 @@ const Questions = gql`
       user{
         id
       }
+    }
+    answers{
+      text
+      postedBy{
+        nome
+        cognome
+      }
+      text
+      createdAt
     }
 }
 }

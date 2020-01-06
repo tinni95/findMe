@@ -1,10 +1,10 @@
 import React from "react"
 import { Image, StyleSheet, View } from "react-native"
-import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay"
-import FindMeSpinner from "../../shared/FindMeSpinner"
+import FindMeGraphQlErrorDisplay from "../../../shared/FindMeGraphQlErrorDisplay"
+import FindMeSpinner from "../../../shared/FindMeSpinner"
 import { gql } from "apollo-boost"
 import { useQuery } from "react-apollo"
-import { Body } from "../../components/StyledText"
+import { Body } from "../../../components/StyledText"
 
 const User = gql`
 {
@@ -26,7 +26,7 @@ export default function AvatarAndName() {
     return (
         <View style={styles.row}>
             <View style={styles.imageContainer}>
-                <Image source={require("../../assets/images/placeholder.png")} style={{ width: 30, height: 30, borderRadius: 15 }} />
+                <Image source={require("../../../assets/images/placeholder.png")} style={{ width: 30, height: 30, borderRadius: 15 }} />
             </View>
             <Body style={styles.name}>{data.currentUser.nome + " " + data.currentUser.cognome}</Body>
         </View>

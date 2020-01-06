@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { View, StyleSheet, TextInput } from "react-native"
-import HeaderBar from "./HeaderBar"
-import AvatarAndName from "./AvatarAndName"
+import HeaderBar from "./components/HeaderBar"
+import AvatarAndName from "./components/AvatarAndName"
 import { gql } from "apollo-boost"
 import { useMutation } from "react-apollo"
 

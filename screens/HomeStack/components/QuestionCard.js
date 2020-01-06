@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import { width, isBigDevice } from '../../constants/Layout';
+import { width, isBigDevice } from '../../../constants/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Body, Light } from '../../components/StyledText';
+import { Body, Light } from '../../../components/StyledText';
 import moment from 'moment/min/moment-with-locales'
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from 'react-apollo';
-import FindMeGraphQlErrorDisplay from '../../shared/FindMeGraphQlErrorDisplay';
-import FindMeSpinner from '../../shared/FindMeSpinner';
-import Colors from '../../constants/Colors';
+import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
+import FindMeSpinner from '../../../shared/FindMeSpinner';
+import Colors from '../../../constants/Colors';
 moment.locale('it');
 
 const Likes = gql`
@@ -40,8 +40,6 @@ mutation followMutation($id:ID!){
     }
 }
 `
-
-
 const LIKE_MUTATION = gql`
 mutation likeMutation($id:ID!){
     QuestionLike(id:$id){
@@ -107,7 +105,7 @@ export const QuestionCard = ({ question, navigation }) => {
             <View style={styles.card}>
                 <View style={styles.body}>
                     <View style={styles.imageContainer}>
-                        <Image source={require("../../assets/images/placeholder.png")} style={{ width: 40, height: 40, borderRadius: 20 }} />
+                        <Image source={require("../../../assets/images/placeholder.png")} style={{ width: 40, height: 40, borderRadius: 20 }} />
                     </View>
                     <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                     <View style={styles.content}>
@@ -120,26 +118,26 @@ export const QuestionCard = ({ question, navigation }) => {
                 <View style={styles.footer}>
                     {data.UserLikesQuestion.length > 0 ?
                         <TouchableOpacity onPress={() => UnLike({ variables: { id: data.UserLikesQuestion[0].id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../assets/images/arrow-red.png")} style={{ width: 20, height: 27 }} />
+                            <Image source={require("../../../assets/images/arrow-red.png")} style={{ width: 20, height: 27 }} />
                             <Body style={[styles.counter, { color: Colors.red }]}>{data.QuestionLikes.length}</Body>
                         </TouchableOpacity> :
                         <TouchableOpacity onPress={() => Like({ variables: { id: question.id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../assets/images/arrow-white.png")} style={{ width: 20, height: 27 }} />
+                            <Image source={require("../../../assets/images/arrow-white.png")} style={{ width: 20, height: 27 }} />
                             <Body style={styles.counter}>{data.QuestionLikes.length}</Body>
                         </TouchableOpacity>
                     }
                     <View style={styles.commentsContainer}>
-                        <Image source={require("../../assets/images/commentbubble.png")} style={{ width: 15, height: 15 }} />
-                        <Body style={styles.footerText}>2 risposte</Body>
+                        <Image source={require("../../../assets/images/commentbubble.png")} style={{ width: 15, height: 15 }} />
+                        <Body style={styles.footerText}>{question.answers.length} risposte</Body>
                     </View>
                     {data.UserFollowQuestion.length > 0 ?
                         <TouchableOpacity onPress={() => UnFollow({ variables: { id: data.UserFollowQuestion[0].id } })} style={styles.bellContainer}>
-                            <Image source={require("../../assets/images/notificationBell-red.png")} style={{ width: 15, height: 16 }} />
+                            <Image source={require("../../../assets/images/notificationBell-red.png")} style={{ width: 15, height: 16 }} />
                             <Body style={styles.footerText}>Segui Domanda</Body>
                         </TouchableOpacity>
                         :
                         <TouchableOpacity onPress={() => Follow({ variables: { id: question.id } })} style={styles.bellContainer}>
-                            <Image source={require("../../assets/images/notificationBell-empty.png")} style={{ width: 15, height: 16 }} />
+                            <Image source={require("../../../assets/images/notificationBell-empty.png")} style={{ width: 15, height: 16 }} />
                             <Body style={styles.footerText}>Segui Domanda</Body>
                         </TouchableOpacity>
                     }
