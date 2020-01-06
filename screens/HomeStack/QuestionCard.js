@@ -19,8 +19,28 @@ query Likes($id:ID!){
     UserLikesQuestion(id:$id){
         id
     }
+    UserFollowQuestion(id:$id){
+        id
+    }
 }
 `
+
+const FOLLOW_MUTATION = gql`
+mutation followMutation($id:ID!){
+    FollowQuestion(id:$id){
+        id
+    }
+}
+`
+
+const UNFOLLOW_MUTATION = gql`
+mutation followMutation($id:ID!){
+    deleteFollowQuestion(id:$id){
+        id
+    }
+}
+`
+
 
 const LIKE_MUTATION = gql`
 mutation likeMutation($id:ID!){
@@ -49,6 +69,24 @@ export const QuestionCard = ({ question, navigation }) => {
             }
         });
     const [UnLike] = useMutation(UNLIKE_MUTATION,
+        {
+            onCompleted: async ({ deleteQuestionLike }) => {
+                refetch()
+            },
+            onError: error => {
+                alert("Qualcosa è andato storto")
+            }
+        });
+    const [Follow] = useMutation(FOLLOW_MUTATION,
+        {
+            onCompleted: async ({ QuestionLike }) => {
+                refetch()
+            },
+            onError: error => {
+                alert("Qualcosa è andato storto")
+            }
+        });
+    const [UnFollow] = useMutation(UNFOLLOW_MUTATION,
         {
             onCompleted: async ({ deleteQuestionLike }) => {
                 refetch()
@@ -94,10 +132,17 @@ export const QuestionCard = ({ question, navigation }) => {
                         <Image source={require("../../assets/images/commentbubble.png")} style={{ width: 15, height: 15 }} />
                         <Body style={styles.footerText}>2 risposte</Body>
                     </View>
-                    <View style={styles.bellContainer}>
-                        <Image source={require("../../assets/images/notificationBell-empty.png")} style={{ width: 15, height: 16 }} />
-                        <Body style={styles.footerText}>Segui Domanda</Body>
-                    </View>
+                    {data.UserFollowQuestion.length > 0 ?
+                        <TouchableOpacity onPress={() => UnFollow({ variables: { id: data.UserFollowQuestion[0].id } })} style={styles.bellContainer}>
+                            <Image source={require("../../assets/images/notificationBell-red.png")} style={{ width: 15, height: 16 }} />
+                            <Body style={styles.footerText}>Segui Domanda</Body>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity onPress={() => Follow({ variables: { id: question.id } })} style={styles.bellContainer}>
+                            <Image source={require("../../assets/images/notificationBell-empty.png")} style={{ width: 15, height: 16 }} />
+                            <Body style={styles.footerText}>Segui Domanda</Body>
+                        </TouchableOpacity>
+                    }
                 </View>
             </View>
         </View>
