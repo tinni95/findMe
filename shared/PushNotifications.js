@@ -30,7 +30,10 @@ export default async function PushNotifications(updateUser) {
     return updateUser({ variables: { pushToken: token } })
 }
 
-export function sendNotification({ to, title, body }) {
+export function sendNotification(to, title, body) {
+    console.log("notification", to)
+    console.log("notification", body)
+    console.log("notification", title)
     return fetch('https://exp.host/--/api/v2/push/send', {
         method: 'POST',
         headers:

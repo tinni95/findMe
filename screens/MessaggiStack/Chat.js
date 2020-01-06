@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { GiftedChat, InputToolbar } from 'react-native-gifted-chat'
 import gql from 'graphql-tag';
 import { View } from "react-native"
-import { useMutation, useSubscription } from 'react-apollo';
+import { useMutation, useSubscription, useQuery } from 'react-apollo';
 import parseMessages from "./helpers"
 import FindMeMessage from './FindMeMessage'
 import moment from 'moment/min/moment-with-locales'
+import { sendNotification } from '../../shared/PushNotifications';
 moment.locale('it');
 
 const UNSEECHAT_MUTATION = gql`
@@ -22,13 +23,22 @@ const CREATEMESSAGE_MUTATION = gql`
 mutation createMessage($channelId: ID!,$text:String!) {
     createMessage(channelId:$channelId,text:$text) {
         id
+        text
     }
 }`;
 
-const MESSAGES_SUBSCRIPTION = gql`
-subscription messageReceivedSub($id:ID!){
-    messageReceivedSub(id:$id){
-      node{
+const MESSAGES_QUERY = gql`
+query chatQuery($id:ID!){
+    Chat(id:$id){
+        sub{
+            nome
+            pushToken
+        }
+        pub{
+            nome
+            pushToken
+        }
+        messages{
         id
         text
         createdAt
@@ -36,7 +46,14 @@ subscription messageReceivedSub($id:ID!){
             id
             nome
         }
-      }
+    }
+    }
+  }`;
+
+const MESSAGES_SUBSCRIPTION = gql`
+subscription messageReceivedSub($id:ID!){
+    messageReceivedSub(id:$id){
+        updatedFields
     }
   }`;
 
@@ -48,7 +65,10 @@ export default function Chat({ navigation }) {
     const id = navigation.getParam("id")
     console.log(chat.id)
     console.log(isSub)
-    const { data, loading } = useSubscription(
+    const { loading, error, data, refetch } = useQuery(
+        MESSAGES_QUERY, { variables: { id: chat.id } }
+    )
+    const subscription = useSubscription(
         MESSAGES_SUBSCRIPTION,
         { variables: { id: chat.id } }
     );
@@ -64,6 +84,9 @@ export default function Chat({ navigation }) {
             onCompleted: async ({ createMessage }) => {
                 isSub ? unseeChat({ variables: { chatId: chat.id, pubRead: false } }) :
                     unseeChat({ variables: { chatId: chat.id, subRead: false } })
+                isSub ? sendNotification(data.Chat.pub.pushToken, "Messaggio da " + data.Chat.sub.nome, createMessage.text) :
+                    sendNotification(data.Chat.sub.pushToken, "Messaggio da " + data.Chat.pub.nome, createMessage.text)
+                refetch()
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
@@ -71,13 +94,14 @@ export default function Chat({ navigation }) {
         });
 
     useEffect(() => {
-        setMessages(parseMessages(chat.messages, id))
-    }, [])
+        data && setMessages(parseMessages(data.Chat.messages, id))
+        !loading && console.log("data", data)
+    }, [data])
 
 
     useEffect(() => {
-        !loading && data.messageReceivedSub.node.text ? setMessages(parseMessages([...messages, data.messageReceivedSub.node], id)) : null
-    }, [data])
+        !subscription.loading ? refetch() : null
+    }, [subscription.data])
 
     const onSend = (message) => {
         createMessage({ variables: { text: message[0].text, channelId: chat.id } })

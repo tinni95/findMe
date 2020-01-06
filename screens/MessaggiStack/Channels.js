@@ -25,10 +25,12 @@ const chatFeed = gql`
       pub{
         id
      nome
+     pushToken
     }
       sub{
           id
        nome
+       pushToken
       }
       messages{
           id

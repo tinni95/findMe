@@ -33,7 +33,6 @@ export default function MessagesIcon(props) {
   );
 
   useEffect(() => {
-    console.log(subscription.data)
     !subscription.loading && subscription.data.messageReceivedNotificaSub ? refetch() : null
   }, [subscription.data])
 
