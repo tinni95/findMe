@@ -5,16 +5,32 @@ import { Ionicons } from "@expo/vector-icons"
 
 export default function InputToolbar({ onSend }) {
     const [text, setText] = useState("")
+    const [displaydText, setDisplay] = useState("")
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
                 <Image source={require("../../assets/images/placeholder.png")} style={styles.image} />
             </View>
-            <TextInput value={text} onChangeText={val => setText(val)} placeholder={"Scrivi Messaggio"} multiline style={styles.textInput}></TextInput>
-            <TouchableOpacity onPress={() => {
-                onSend(text);
-                setText("")
-            }} style={styles.imageContainer}>
+            <TextInput value={displaydText} onChangeText={val => {
+                setText(val)
+                setDisplay(val)
+            }} placeholder={"Scrivi Messaggio"} placeholderTextColor={"#818181"} multiline
+                style={styles.textInput}
+                onFocus={() => {
+                    setDisplay(text)
+                }}
+                onEndEditing={() => {
+                    if (text.includes("\n")) {
+                        setDisplay("..." + text.replace(/\n/g, "").substring(text.length - 3, text.length))
+                    }
+                }}
+            ></TextInput>
+            <TouchableOpacity
+                onPress={() => {
+                    onSend(text);
+                    setText("");
+                    setDisplay("");
+                }} style={styles.imageContainer}>
                 <Ionicons name={"ios-send"} size={28} ></Ionicons>
             </TouchableOpacity>
         </View>
@@ -39,12 +55,12 @@ const styles = StyleSheet.create({
         })
     },
     textInput: {
-        height: 35,
+        maxHeight: 80,
         flex: 7,
-        backgroundColor: "#E5E5E5",
+        backgroundColor: "#F5F5F5",
         borderRadius: 5,
         padding: 5,
-        fontFamily: "sequel-sans"
+        fontFamily: "sequel-sans-light"
     },
     image: {
         width: 35,

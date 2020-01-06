@@ -170,7 +170,8 @@ const styles = StyleSheet.create({
         minHeight: 20,
         justifyContent: 'flex-end',
         backgroundColor: "#FFFFFF",
-        padding: 20,
+        padding: 5,
+        maxWidth: 300,
         paddingTop: 10,
         paddingBottom: 10,
         ...Platform.select({

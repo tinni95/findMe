@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import InputToolbar from "./InputToolbar"
 import gql from 'graphql-tag';
-import { View, TextInput } from "react-native"
 import { useMutation, useSubscription, useQuery } from 'react-apollo';
 import parseMessages from "./helpers"
 import FindMeMessage from './FindMeMessage'
