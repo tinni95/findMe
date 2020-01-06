@@ -5,8 +5,8 @@ import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo";
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
-import { Body } from "../../components/StyledText";
 import { QuestionCard } from "./components/QuestionCard";
+
 var shortid = require("shortid")
 const Questions = gql`
 {
@@ -16,6 +16,7 @@ const Questions = gql`
     tags
     createdAt
     postedBy{
+      id
       nome
       cognome
     }
@@ -39,7 +40,11 @@ const Questions = gql`
 
 export default function HomeScreen({ navigation }) {
   const [search, setSearch] = useState("")
-  const { loading, data, error } = useQuery(Questions)
+  const { loading, data, error, refetch } = useQuery(Questions)
+  const isRefetch = navigation.getParam("refetch") || null
+  useEffect(() => {
+    isRefetch ? refetch() : null
+  }, [isRefetch])
   if (error) {
     return <FindMeGraphQlErrorDisplay></FindMeGraphQlErrorDisplay>
   }

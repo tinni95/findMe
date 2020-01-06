@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { View, StyleSheet, TextInput } from "react-native"
-import HeaderBar from "./components/HeaderBar"
 import AvatarAndName from "./components/AvatarAndName"
 import { gql } from "apollo-boost"
 import { useMutation } from "react-apollo"
+import HeaderBar from "./components/HeaderBar"
 
 const CREATEQUESTION_MUTATION = gql`
 mutation createQuestion($question:String!,$tags:String){

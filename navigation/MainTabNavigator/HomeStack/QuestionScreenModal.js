@@ -17,30 +17,6 @@ export const QuestionScreenModal = createStackNavigator(
     }
 );
 
-QuestionScreenModal.navigationOptions = ({ navigation }) => {
-    return {
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerLeft: (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Ionicons
-                    name={"ios-arrow-back"}
-                    size={25}
-                    style={{ marginLeft: 10 }}
-                    color={Colors.blue}
-                ></Ionicons>
-            </TouchableOpacity>
-        ),
-    }
+QuestionScreenModal.navigationOptions = {
+    header: null
 }

@@ -1,16 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { width, isBigDevice } from '../../../constants/Layout';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Body, Light, Bold } from '../../../components/StyledText';
-import moment from 'moment/min/moment-with-locales'
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
 import FindMeSpinner from '../../../shared/FindMeSpinner';
 import Colors from '../../../constants/Colors';
 import RoundButtonEmptyIcon from '../../../components/shared/RoundButtonEmptyIcon';
-moment.locale('it');
+import { AvatarAndTime } from './AvatarAndTime';
 
 const Likes = gql`
 query Likes($id:ID!){
@@ -21,6 +19,9 @@ query Likes($id:ID!){
         id
     }
     UserFollowQuestion(id:$id){
+        id
+    }
+    currentUser{
         id
     }
 }
@@ -56,8 +57,7 @@ mutation likeMutation($id:ID!){
 }
 `
 export const QuestionCardAfter = ({ question, navigation }) => {
-    const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id } })
-    console.log("question", question.id)
+    const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id }, fetchPolicy: "no-cache" })
     const [Like] = useMutation(LIKE_MUTATION,
         {
             onCompleted: async ({ QuestionLike }) => {
@@ -104,20 +104,14 @@ export const QuestionCardAfter = ({ question, navigation }) => {
     return (
         <View style={styles.wrapper}>
             <View style={styles.card}>
-                <View style={styles.header}>
-                    <View style={styles.imageContainer}>
-                        <Image source={require("../../../assets/images/placeholder.png")} style={{ width: 40, height: 40, borderRadius: 20 }} />
-                    </View>
-                    <View style={styles.content}>
-                        <Body style={styles.person}>{question.postedBy.nome + " " + question.postedBy.cognome}</Body>
-                        <Light style={styles.date}>{"Pubblicato " + moment(question.createdAt).fromNow()}</Light>
-                    </View>
-                </View>
+                <AvatarAndTime text={"Pubblicato "} question={question}></AvatarAndTime>
                 <View style={styles.body}>
                     <Body style={styles.question}>{question.question}</Body>
                     <View style={styles.buttonWrapper}>
-                        <RoundButtonEmptyIcon textColor={Colors.blue} isMedium color={Colors.blue} text={"Rispondi"} iconName={"ios-send"}
-                            iconColor={Colors.blue}></RoundButtonEmptyIcon>
+                        {data.currentUser.id !== question.postedBy.id &&
+                            <RoundButtonEmptyIcon onPress={() => navigation.navigate("CreateAnswerScreen", { question })} textColor={Colors.blue} isMedium color={Colors.blue} text={"Rispondi"} iconName={"ios-send"}
+                                iconColor={Colors.blue}></RoundButtonEmptyIcon>
+                        }
                     </View>
                 </View>
                 <View style={styles.footer}>
@@ -155,15 +149,11 @@ const styles = StyleSheet.create({
     },
     card: {
         height: isBigDevice ? 250 : 200,
+        flexWrap: 'wrap',
         marginBottom: 5,
         paddingBottom: 5,
         width: isBigDevice ? undefined : width,
         backgroundColor: 'white',
-    },
-    header: {
-        flex: 2,
-        flexDirection: 'row',
-        alignContent: "center",
     },
     body: {
         justifyContent: "flex-start",
@@ -176,30 +166,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "space-between",
     },
-    imageContainer: {
-        margin: 10,
-        marginTop: 5
-    },
-    person: {
-        margin: 10,
-        fontSize: 11,
-        marginTop: 5,
-        marginBottom: 5
-    },
     question: {
         margin: 10,
         marginLeft: 15,
         fontSize: 17,
         marginBottom: 5
-    },
-    content: {
-        marginTop: 5,
-        flexDirection: "column"
-    },
-    date: {
-        marginLeft: 10,
-        fontSize: 9,
-        color: "#707070"
     },
     footerText: {
         fontSize: 9,
@@ -224,6 +195,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     buttonWrapper: {
+        marginTop: 20,
         justifyContent: "center",
         alignItems: "center"
     }

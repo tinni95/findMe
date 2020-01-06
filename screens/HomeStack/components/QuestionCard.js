@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import { width, isBigDevice } from '../../../constants/Layout';
+import { width, isBigDevice, isSmallDevice } from '../../../constants/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Body, Light } from '../../../components/StyledText';
 import moment from 'moment/min/moment-with-locales'
@@ -56,7 +56,6 @@ mutation likeMutation($id:ID!){
 `
 export const QuestionCard = ({ question, navigation }) => {
     const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id } })
-    console.log("question", question.id)
     const [Like] = useMutation(LIKE_MUTATION,
         {
             onCompleted: async ({ QuestionLike }) => {
@@ -110,7 +109,7 @@ export const QuestionCard = ({ question, navigation }) => {
                     <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                     <View style={styles.content}>
                         <Body style={styles.person}>{question.postedBy.nome + " " + question.postedBy.cognome}</Body>
-                        <Light style={styles.date}>{"Pubblicato " + moment(question.createdAt).fromNow()}</Light>
+                        <Body style={styles.date}>{"Pubblicato " + moment(question.createdAt).fromNow()}</Body>
                         <Body style={styles.question}>{question.question}</Body>
                         <Body style={styles.tags}>{question.tags}</Body>
                     </View>
@@ -152,10 +151,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     card: {
-        height: isBigDevice ? 250 : 200,
+        alignSelf: 'baseline',
         marginBottom: 5,
         paddingBottom: 5,
-        width: isBigDevice ? undefined : width,
+        width: "100%",
         backgroundColor: 'white',
     },
     body: {
@@ -178,19 +177,20 @@ const styles = StyleSheet.create({
     },
     person: {
         margin: 10,
-        fontSize: 11,
+        fontSize: isSmallDevice ? 12 : 13,
         marginTop: 5,
         marginBottom: 5
     },
     question: {
         margin: 10,
-        fontSize: 14,
+        fontSize: isSmallDevice ? 14 : 15,
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        width: width - 80
     },
     tags: {
         margin: 10,
-        fontSize: 10,
+        fontSize: isSmallDevice ? 10 : 11,
         marginTop: 5,
         color: "#707070"
     },
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     },
     date: {
         marginLeft: 10,
-        fontSize: 9,
+        fontSize: isSmallDevice ? 9 : 10,
         color: "#707070"
     },
     arrowContainer: {
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
         margin: 10,
         marginLeft: 15,
         justifyContent: "flex-start",
-        marginBottom: 0
+        marginBottom: 10
     },
     commentsContainer: {
         flex: 5,
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start"
     },
     footerText: {
-        fontSize: 9,
+        fontSize: isSmallDevice ? 9 : 10,
         color: "#707070",
         marginLeft: 8
     },
@@ -234,7 +234,8 @@ const styles = StyleSheet.create({
         fontSize: 12,
         alignSelf: "flex-end",
         zIndex: 100,
-        marginBottom: 2,
+        marginBottom: -2,
+        marginLeft: 2,
         color: "#707070"
     }
 });
