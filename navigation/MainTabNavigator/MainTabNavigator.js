@@ -1,12 +1,12 @@
 import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import PostIdeaStack from './PostIdeaStack';
-import LinksStack from './LinksStack';
+import HomeStack from './HomeStack/HomeStack';
 import ChatStack from './ChatStack';
 import ProfileStack from './ProfileStack';
 import NotificaStack from "./NotificaStack"
 
 const MainTabNavigator = createBottomTabNavigator({
-  LinksStack,
+  HomeStack,
   ChatStack,
   PostIdeaStack,
   ProfileStack,

@@ -1,53 +1,78 @@
 import React, { useState, useEffect } from "react";
 import { ScrollView, View, StyleSheet, Text } from "react-native";
-import Header from "./Header";
-import Filters from "./Filters";
-import FeedCard from "./FeedCard";
-
+import CreateButton from "../../shared/CreateButton";
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo";
+import FindMeSpinner from "../../shared/FindMeSpinner";
+import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
+import { Body } from "../../components/StyledText";
+import { QuestionCard } from "./QuestionCard";
 var shortid = require("shortid")
-
-export default function LinksScreen({ navigation }) {
-  const [search, setSearch] = useState("")
-  const [filters, setFilters] = useState([])
-  const [feeds, setFeeds] = useState([])
-
-  const renderFeeds = () => {
-
-    return feeds.map(feed => {
-      return <View style={styles.feedContainer}>
-        <FeedCard key={shortid.generate()} Card={feed}></FeedCard>
-      </View>
-
-    })
-  }
-
-  return (
-    <ScrollView style={styles.container}>
-      <Header search={search} setSearch={setSearch}></Header>
-      <Filters
-        filters={filters}
-        addFilter={item => setFilters([...filters, item])}
-        removeFilter={item => setFilters(filters.filter(i => i !== item))}></Filters>
-      {
-        feeds.length > 0 ?
-          renderFeeds() : null
+const Questions = gql`
+{
+  questionsFeed{
+    id
+    question
+    tags
+    createdAt
+    postedBy{
+      nome
+      cognome
+    }
+    likes{
+      user{
+        id
       }
-    </ScrollView>
+    }
+}
+}
+`
+
+export default function HomeScreen({ navigation }) {
+  const [search, setSearch] = useState("")
+  const { loading, data, error } = useQuery(Questions)
+  if (error) {
+    return <FindMeGraphQlErrorDisplay></FindMeGraphQlErrorDisplay>
+  }
+  if (loading) {
+    return <FindMeSpinner></FindMeSpinner>
+  }
+  return (
+    <View style={styles.container}>
+      <View style={styles.searchBarContainer}>
+      </View>
+      <ScrollView>
+        {
+          data.questionsFeed.map(question => {
+            return <QuestionCard key={shortid.generate()} question={question} navigation={navigation}></QuestionCard>
+          })
+        }
+      </ScrollView>
+      <View style={styles.penWrapper}>
+        <CreateButton onPress={() => navigation.navigate("CreateQuestionScreen")}></CreateButton>
+      </View>
+    </View>
   );
 }
 
-LinksScreen.navigationOptions = {
+HomeScreen.navigationOptions = {
   header: null
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    backgroundColor: "#fff"
+    backgroundColor: '#F7F4F4'
   },
-  feedContainer: {
-    backgroundColor: "#E5E5E5",
-    alignContent: "center"
+  penWrapper: {
+    position: 'absolute',
+    bottom: 0,
+    alignSelf: 'flex-end',
+    zIndex: 100
+  },
+  searchBarContainer: {
+    backgroundColor: "white",
+    height: 65,
+    marginBottom: 2.5
   }
 });
