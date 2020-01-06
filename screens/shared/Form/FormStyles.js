@@ -9,7 +9,7 @@ export const FormStyles = StyleSheet.create({
     borderBottomWidth: 0.3,
     color: '#5F5E5E',
     borderBottomColor: '#B19393',
-    fontSize: isSmallDevice ? 14 : 16,
+    fontSize: isSmallDevice ? 12 : 14,
     fontWeight: '500'
   },
   inputError: {
@@ -19,7 +19,7 @@ export const FormStyles = StyleSheet.create({
     borderBottomWidth: 0.3,
     borderBottomColor: '#DD1E63',
     color: '#5F5E5E',
-    fontSize: isSmallDevice ? 14 : 16,
+    fontSize: isSmallDevice ? 12 : 14,
     fontWeight: '500'
   },
   inputHalf: {
@@ -29,7 +29,7 @@ export const FormStyles = StyleSheet.create({
     borderBottomWidth: 0.3,
     color: '#5F5E5E',
     borderBottomColor: '#B19393',
-    fontSize: isSmallDevice ? 14 : 16,
+    fontSize: isSmallDevice ? 12 : 14,
     fontWeight: '500'
   },
   inputHalfError: {
@@ -39,7 +39,7 @@ export const FormStyles = StyleSheet.create({
     borderBottomWidth: 0.3,
     color: '#5F5E5E',
     borderBottomColor: '#DD1E63',
-    fontSize: isSmallDevice ? 14 : 16,
+    fontSize: isSmallDevice ? 12 : 14,
     fontWeight: '500'
   },
   inputHalfContainer: {

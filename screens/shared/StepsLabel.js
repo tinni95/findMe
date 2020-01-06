@@ -2,6 +2,7 @@ import React from 'react'
 import { Bold, Light } from '../../components/StyledText';
 import { StyleSheet, View, TouchableOpacity, Platform } from 'react-native';
 import CustomTooltip from './CustomTooltip';
+import { isSmallDevice } from '../../constants/Layout';
 
 export default function StepsLabelDefault(props) {
     return props.error ? <StepsLabelError {...props} /> : <StepsLabel {...props} />
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginBottom: 15,
         marginTop: 25,
+        fontSize: isSmallDevice ? 11 : 12,
         color: '#5F5E5E'
     },
     error: {
