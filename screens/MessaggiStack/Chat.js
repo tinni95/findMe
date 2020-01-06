@@ -131,7 +131,11 @@ export default function Chat({ navigation }) {
             user={{
                 _id: 1,
             }}
-            style={{ backgroundColor: 'black' }}
+            listViewProps={{
+                style: {
+                    backgroundColor: '#F4F4F4',
+                },
+            }}
         />
     )
 }
