@@ -126,10 +126,10 @@ export const QuestionCard = ({ question, navigation }) => {
                             <Body style={styles.counter}>{data.QuestionLikes.length}</Body>
                         </TouchableOpacity>
                     }
-                    <View style={styles.commentsContainer}>
+                    <TouchableOpacity onPress={() => navigation.navigate("QuestionScreen", { question })} style={styles.commentsContainer}>
                         <Image source={require("../../../assets/images/commentbubble.png")} style={{ width: 15, height: 15 }} />
                         <Body style={styles.footerText}>{question.answers.length} risposte</Body>
-                    </View>
+                    </TouchableOpacity>
                     {data.UserFollowQuestion.length > 0 ?
                         <TouchableOpacity onPress={() => UnFollow({ variables: { id: data.UserFollowQuestion[0].id } })} style={styles.bellContainer}>
                             <Image source={require("../../../assets/images/notificationBell-red.png")} style={{ width: 15, height: 16 }} />

@@ -2,13 +2,14 @@ import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { width, isBigDevice } from '../../../constants/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Body, Light } from '../../../components/StyledText';
+import { Body, Light, Bold } from '../../../components/StyledText';
 import moment from 'moment/min/moment-with-locales'
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
 import FindMeSpinner from '../../../shared/FindMeSpinner';
 import Colors from '../../../constants/Colors';
+import RoundButtonEmptyIcon from '../../../components/shared/RoundButtonEmptyIcon';
 moment.locale('it');
 
 const Likes = gql`
@@ -103,16 +104,20 @@ export const QuestionCardAfter = ({ question, navigation }) => {
     return (
         <View style={styles.wrapper}>
             <View style={styles.card}>
-                <View style={styles.body}>
+                <View style={styles.header}>
                     <View style={styles.imageContainer}>
                         <Image source={require("../../../assets/images/placeholder.png")} style={{ width: 40, height: 40, borderRadius: 20 }} />
                     </View>
-                    <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                     <View style={styles.content}>
                         <Body style={styles.person}>{question.postedBy.nome + " " + question.postedBy.cognome}</Body>
                         <Light style={styles.date}>{"Pubblicato " + moment(question.createdAt).fromNow()}</Light>
-                        <Body style={styles.question}>{question.question}</Body>
-                        <Body style={styles.tags}>{question.tags}</Body>
+                    </View>
+                </View>
+                <View style={styles.body}>
+                    <Body style={styles.question}>{question.question}</Body>
+                    <View style={styles.buttonWrapper}>
+                        <RoundButtonEmptyIcon textColor={Colors.blue} isMedium color={Colors.blue} text={"Rispondi"} iconName={"ios-send"}
+                            iconColor={Colors.blue}></RoundButtonEmptyIcon>
                     </View>
                 </View>
                 <View style={styles.footer}>
@@ -126,10 +131,6 @@ export const QuestionCardAfter = ({ question, navigation }) => {
                             <Body style={styles.counter}>{data.QuestionLikes.length}</Body>
                         </TouchableOpacity>
                     }
-                    <View style={styles.commentsContainer}>
-                        <Image source={require("../../../assets/images/commentbubble.png")} style={{ width: 15, height: 15 }} />
-                        <Body style={styles.footerText}>{question.answers.length} risposte</Body>
-                    </View>
                     {data.UserFollowQuestion.length > 0 ?
                         <TouchableOpacity onPress={() => UnFollow({ variables: { id: data.UserFollowQuestion[0].id } })} style={styles.bellContainer}>
                             <Image source={require("../../../assets/images/notificationBell-red.png")} style={{ width: 15, height: 16 }} />
@@ -141,6 +142,7 @@ export const QuestionCardAfter = ({ question, navigation }) => {
                             <Body style={styles.footerText}>Segui Domanda</Body>
                         </TouchableOpacity>
                     }
+
                 </View>
             </View>
         </View>
@@ -158,19 +160,21 @@ const styles = StyleSheet.create({
         width: isBigDevice ? undefined : width,
         backgroundColor: 'white',
     },
-    body: {
-        flex: 7,
-        flexDirection: 'row'
-    },
-    footer: {
-        marginTop: 10,
+    header: {
         flex: 2,
         flexDirection: 'row',
-        justifyContent: "flex-end"
+        alignContent: "center",
     },
-    line: {
-        flex: 0.01,
-        backgroundColor: 'black'
+    body: {
+        justifyContent: "flex-start",
+        flex: 5,
+    },
+    footer: {
+        flex: 2,
+        paddingLeft: 15,
+        paddingRight: 15,
+        flexDirection: 'row',
+        justifyContent: "space-between",
     },
     imageContainer: {
         margin: 10,
@@ -184,46 +188,18 @@ const styles = StyleSheet.create({
     },
     question: {
         margin: 10,
-        fontSize: 14,
-        marginTop: 5,
+        marginLeft: 15,
+        fontSize: 17,
         marginBottom: 5
     },
-    tags: {
-        margin: 10,
-        fontSize: 10,
-        marginTop: 5,
-        color: "#707070"
-    },
     content: {
+        marginTop: 5,
         flexDirection: "column"
     },
     date: {
         marginLeft: 10,
         fontSize: 9,
         color: "#707070"
-    },
-    arrowContainer: {
-        flex: 4,
-        alignContent: "center",
-        flexDirection: "row",
-        margin: 10,
-        marginLeft: 15,
-        justifyContent: "flex-start",
-        marginBottom: 0
-    },
-    commentsContainer: {
-        flex: 5,
-        marginTop: 15,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "flex-start"
-    },
-    bellContainer: {
-        flex: 5,
-        marginTop: 15,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "flex-start"
     },
     footerText: {
         fontSize: 9,
@@ -236,6 +212,20 @@ const styles = StyleSheet.create({
         zIndex: 100,
         marginBottom: 2,
         color: "#707070"
+    },
+    bellContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 5
+    },
+    arrowContainer: {
+        marginBottom: 5,
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    buttonWrapper: {
+        justifyContent: "center",
+        alignItems: "center"
     }
 });
 
