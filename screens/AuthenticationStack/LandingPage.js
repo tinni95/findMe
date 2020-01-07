@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image, View, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { width } from '../../constants/Layout';
 import { Light } from '../../components/StyledText';
 import RoundButtonEmptyLarge from '../../components/shared/RoundButtonEmptyLarge';
-import RoundButton from '../../components/shared/RoundButton';
 import Colors from "../../constants/Colors"
 
 export const LandingPage = ({ navigation: { navigate }, screenProps }) => {
 
   return (
-
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image

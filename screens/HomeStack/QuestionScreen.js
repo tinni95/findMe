@@ -61,7 +61,7 @@ export default function QuestionScreen({ navigation }) {
         <ScrollView>
             {
                 data.answersFeed.map(answer => {
-                    return <AnswerCard key={answer.id} answer={answer} question={question}></AnswerCard>
+                    return <AnswerCard key={answer.id} answer={answer} question={question} navigation={navigation}></AnswerCard>
                 })
             }
         </ScrollView>
