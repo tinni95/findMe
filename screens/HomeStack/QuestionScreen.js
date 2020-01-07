@@ -20,6 +20,13 @@ query answersFeed($id:ID!){
             nome
             cognome
         }
+        comments{
+            text
+            postedBy{
+              nome
+              cognome
+            }
+          }
     }
 }
 `

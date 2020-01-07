@@ -31,6 +31,7 @@ const Questions = gql`
         nome
         cognome
       }
+
       text
       createdAt
     }
