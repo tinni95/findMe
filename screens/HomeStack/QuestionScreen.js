@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { View, StyleSheet, TouchableOpacity, Platform, ScrollView } from "react-native"
+import { View, StyleSheet, TouchableOpacity, Platform, ScrollView, RefreshControl } from "react-native"
 import { QuestionCardAfter } from "./components/QuestionCardAfter";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
@@ -30,8 +30,22 @@ query answersFeed($id:ID!){
     }
 }
 `
+function wait(timeout) {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+}
 
 export default function QuestionScreen({ navigation }) {
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        refetch()
+        wait(2000).then(() => setRefreshing(false));
+    }, [refreshing]);
+
+
     const question = navigation.getParam("question");
     const { loading, error, data, refetch } = useQuery(answers, { variables: { id: question.id } });
     const isRefetch = navigation.getParam("refetch") || null
@@ -58,7 +72,9 @@ export default function QuestionScreen({ navigation }) {
             </TouchableOpacity>
         </View>
         <QuestionCardAfter navigation={navigation} question={question}></QuestionCardAfter>
-        <ScrollView>
+        <ScrollView refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
             {
                 data.answersFeed.map(answer => {
                     return <AnswerCard key={answer.id} answer={answer} question={question} navigation={navigation}></AnswerCard>

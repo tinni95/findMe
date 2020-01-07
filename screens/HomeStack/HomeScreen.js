@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, StyleSheet, Text } from "react-native";
+import { ScrollView, View, StyleSheet, Text, RefreshControl } from "react-native";
 import CreateButton from "../../shared/CreateButton";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo";
@@ -38,8 +38,20 @@ const Questions = gql`
 }
 }
 `
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
 
 export default function HomeScreen({ navigation }) {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    refetch()
+    wait(2000).then(() => setRefreshing(false));
+  }, [refreshing]);
+
   const [search, setSearch] = useState("")
   const { loading, data, error, refetch } = useQuery(Questions)
   const isRefetch = navigation.getParam("refetch") || null
@@ -56,7 +68,9 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
       </View>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         {
           data.questionsFeed.map(question => {
             return <QuestionCard key={shortid.generate()} question={question} navigation={navigation}></QuestionCard>
