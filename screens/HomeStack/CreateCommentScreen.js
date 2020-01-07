@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { View, StyleSheet, ScrollView, Keyboard } from "react-native"
+import { View, StyleSheet, ScrollView, Keyboard, RefreshControl } from "react-native"
 import { gql } from "apollo-boost"
 import { useMutation, useQuery } from "react-apollo"
 import HeaderBarComments from "./components/HeaderBarComments"
@@ -9,10 +9,20 @@ import InputToolbar from "../MessaggiStack/InputToolbar"
 import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay"
 import CommentCard from "./components/CommentCard"
+import { useActionSheet } from '@expo/react-native-action-sheet'
+
 const CREATECOMMENT_MUTATION = gql`
 mutation createComment($text:String!,$answerId:ID!){
     createComment(text:$text, answerId:$answerId){
         text
+    }
+}
+`
+
+const DELETECOMMENT_MUTATION = gql`
+mutation deleteComment($id:ID!){
+    deleteComment(id:$id){
+        id
     }
 }
 `
@@ -29,14 +39,48 @@ query comments($id:ID!){
         }
         id
     }
+    currentUser{
+        id
+    }
 }
 `
+
+function wait(timeout) {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+}
+
 export default function CreateCommentScreen({ navigation }) {
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        refetch()
+        wait(2000).then(() => setRefreshing(false));
+    }, [refreshing]);
+
+
+
+    const { showActionSheetWithOptions } = useActionSheet();
+    const options = ['Delete', 'Cancel'];
+    const destructiveButtonIndex = 0;
+    const cancelButtonIndex = 1;
     const question = navigation.getParam("question")
     const answer = navigation.getParam("answer")
     const [height, setHeight] = useState(false)
-    const { loading, data, error, refetch } = useQuery(comments, { variables: { id: answer.id } })
+    const [commentId, setId] = useState("")
+    const { loading, data, error, refetch } = useQuery(comments, { variables: { id: answer.id }, fetchPolicy: "no-cache" })
     const [createComment] = useMutation(CREATECOMMENT_MUTATION,
+        {
+            onCompleted: async ({ createAnswer }) => {
+                refetch()
+            },
+            onError: error => {
+                alert("Qualcosa è andato storto")
+            }
+        });
+    const [deleteComment] = useMutation(DELETECOMMENT_MUTATION,
         {
             onCompleted: async ({ createAnswer }) => {
                 refetch()
@@ -57,6 +101,9 @@ export default function CreateCommentScreen({ navigation }) {
         );
     }, [])
 
+    useEffect(() => {
+        commentId != "" && deleteComment({ variables: { id: commentId } })
+    }, [commentId])
 
     const _keyboardDidShow = (e) => {
         setHeight(e.endCoordinates.height)
@@ -76,16 +123,35 @@ export default function CreateCommentScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <HeaderBarComments navigation={navigation} />
-            <ScrollView>
+            <ScrollView refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
                 <AnswerCardAfter question={question} answer={answer}></AnswerCardAfter>
-
                 {
                     data.commentsFeed.map(comment => {
-                        return <CommentCard key={comment.id} comment={comment}></CommentCard>
+                        return <CommentCard onLongPress={() => {
+                            if (data.currentUser.id == comment.postedBy.id) {
+                                showActionSheetWithOptions(
+                                    {
+                                        options,
+                                        cancelButtonIndex,
+                                        destructiveButtonIndex,
+                                    },
+                                    buttonIndex => {
+                                        if (buttonIndex == 0) {
+                                            setId(comment.id)
+                                        }
+                                    },
+                                );
+                            }
+                        }
+                        }
+                            key={comment.id} comment={comment}></CommentCard>
                     })
                 }
             </ScrollView>
-            <InputToolbar onSend={(text) => createComment({ variables: { text, answerId: answer.id } })}></InputToolbar>
+            <InputToolbar
+                onSend={(text) => createComment({ variables: { text, answerId: answer.id } })}></InputToolbar>
             <View style={{ height, backgroundColor: "white" }} />
 
         </View>

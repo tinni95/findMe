@@ -17,6 +17,8 @@ import { resolvers, typeDefs } from "./resolvers"
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import moment from 'moment/min/moment-with-locales'
+import { ActionSheetProvider } from '@expo/react-native-action-sheet'
+
 moment.locale('it');
 export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -110,12 +112,14 @@ export default function App() {
     );
   }
   return (
-    <ApolloProvider client={client}>
-      <View style={styles.container}>
-        {loggedin ? <MainTabNavigator screenProps={{ changeLoginState: () => logout() }} /> :
-          <AuthenticationStack screenProps={{ changeLoginState: () => login() }} />}
-      </View>
-    </ApolloProvider>
+    <ActionSheetProvider>
+      <ApolloProvider client={client}>
+        <View style={styles.container}>
+          {loggedin ? <MainTabNavigator screenProps={{ changeLoginState: () => logout() }} /> :
+            <AuthenticationStack screenProps={{ changeLoginState: () => login() }} />}
+        </View>
+      </ApolloProvider>
+    </ActionSheetProvider>
   );
 }
 
