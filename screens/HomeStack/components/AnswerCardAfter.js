@@ -172,8 +172,7 @@ export default function AnswerCard({ question, answer }) {
 }
 const styles = StyleSheet.create({
     container: {
-        minHeight: 150,
-        maxHeight: 200,
+        alignSelf: 'baseline',
         backgroundColor: "white",
         marginBottom: 5,
         paddingBottom: 5,

@@ -148,19 +148,16 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     card: {
-        height: isBigDevice ? 250 : 200,
-        flexWrap: 'wrap',
+        alignSelf: 'baseline',
+        backgroundColor: "white",
         marginBottom: 5,
         paddingBottom: 5,
-        width: isBigDevice ? undefined : width,
-        backgroundColor: 'white',
+        width: width
     },
     body: {
         justifyContent: "flex-start",
-        flex: 5,
     },
     footer: {
-        flex: 2,
         paddingLeft: 15,
         paddingRight: 15,
         flexDirection: 'row',

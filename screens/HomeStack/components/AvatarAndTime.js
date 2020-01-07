@@ -20,7 +20,7 @@ export const AvatarAndTime = ({ question, text }) => {
 
 const styles = StyleSheet.create({
     header: {
-        flex: 2,
+        alignSelf: 'baseline',
         flexDirection: 'row',
         alignContent: "center",
     },
