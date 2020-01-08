@@ -1,8 +1,5 @@
 import React, { useState } from "react"
 import { View, StyleSheet, Platform, ScrollView, RefreshControl } from "react-native"
-import TabBars from "../../shared/TabBars";
-import { SceneMap } from "react-native-tab-view";
-import Colors from "../../constants/Colors";
 import gql from "graphql-tag";
 import ChatCard from "./ChatCard";
 import { useQuery, useMutation } from "react-apollo";
@@ -60,11 +57,6 @@ export default function Channels({ navigation }) {
             console.log(unseeChat)
         },
     });
-    const [routes] = React.useState([
-        { key: 'first', title: 'Chat' },
-        { key: 'second', title: 'Post Idea' },
-    ]);
-
     if (loading) return <FindMeSpinner />;
     if (error) return <FindMeGraphQlErrorDisplay />
     if (data) {
@@ -73,11 +65,8 @@ export default function Channels({ navigation }) {
             refetch().then(() => setRefreshing(false))
         }
 
-        const FirstRoute = () => (
-            <View style={styles.scene} />
-        );
 
-        const SecondRoute = () => (
+        return (
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={styles.scene} >
                 {data.ChatFeed.map(chat => {
                     const isSub = chat.sub.id == data.currentUser.id
@@ -94,14 +83,6 @@ export default function Channels({ navigation }) {
                         key={shortid.generate()} chat={chat} isSub={isSub}></ChatCard>
                 })}
             </ScrollView>
-        );
-        const renderScene = SceneMap({
-            first: FirstRoute,
-            second: SecondRoute,
-        });
-
-        return (
-            <TabBars renderScene={renderScene} routes={routes}></TabBars>
         );
     }
 }
