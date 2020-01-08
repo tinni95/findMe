@@ -1,5 +1,5 @@
 import React from "react"
-import { View, StyleSheet, Text } from "react-native"
+import { View, StyleSheet, Text, Image } from "react-native"
 import { Body } from "../../../components/StyledText"
 import FieldIcon from "../../../components/FieldIcons/FieldIcon"
 import RoundButton from "../../../components/shared/RoundButton"
@@ -11,7 +11,10 @@ var shortid = require("shortid")
 export default function SentCard({ navigation, field, title, qualifiche, pubblicatoDa, id }) {
     return (<View style={styles.container}>
         <View style={styles.header}>
-            <Body style={styles.title}>{title}</Body>
+            <View style={styles.imageTextContainer}>
+                <Image source={require("../../../assets/images/placeholder.png")} style={styles.image} />
+                <Body style={styles.title}>{title}</Body>
+            </View>
             <Tooltip backgroundColor={"#10476C"} popover={<Text style={{ color: "white" }}>{field}</Text>}>
                 <FieldIcon field={field} size={30} />
             </Tooltip>
@@ -65,7 +68,9 @@ const styles = StyleSheet.create({
     },
     title: {
         color: "black",
-        fontSize: 20
+        fontSize: 20,
+        marginTop: 5,
+        marginLeft: 5
     },
     spacer: { height: 10 },
     visualizzaWrapper: {
@@ -79,5 +84,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0.3,
         borderBottomColor: "#D0D0D0",
         height: 40,
+    },
+    imageTextContainer: {
+        flexDirection: "row"
+    },
+    image: {
+        width: 40, height: 40, borderRadius: 20,
+        margin: 0,
+        marginRight: 5
     }
 })
