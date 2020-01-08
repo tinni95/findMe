@@ -9,6 +9,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import SentCard from "./SentCard";
 import TabBars from "../../../shared/TabBars";
 import HeaderStyles from "../../shared/HeaderStyles";
+import ReceivedCard from "./ReceivedCard";
 var shortid = require("shortid")
 
 const Inviate = gql`
@@ -21,7 +22,7 @@ const Inviate = gql`
       }
       post{
           id
-     pubblicatoDa
+          pubblicatoDa
       }
     }
   }
@@ -34,8 +35,10 @@ const Ricevute = gql`
         id
         pictureUrl
         nome
+        cognome
         comune
         regione
+        provincia
       }
       position{
         title
@@ -48,7 +51,7 @@ const Ricevute = gql`
 
 export default function AttivitàScreen({ navigation }) {
     const [posizioniInvitate, setInviate] = useState([]);
-    const [posizioniRicecute, setRicevute] = useState("");
+    const [posizioniRicevute, setRicevute] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
     const FirstRoute = () => (
@@ -60,7 +63,14 @@ export default function AttivitàScreen({ navigation }) {
     );
 
     const SecondRoute = () => (
-        <View style={styles.scene} />
+        <View style={styles.scene}>
+            {
+                posizioniRicevute.length > 0 &&
+                posizioniRicevute.map(posizione => {
+                    return <ReceivedCard posizione={posizione}></ReceivedCard>
+                })
+            }
+        </View>
     );
     const { refetch } = useQuery(Inviate, {
         onCompleted: async ({ applicationsSent }) => {
@@ -73,9 +83,9 @@ export default function AttivitàScreen({ navigation }) {
         refetch().then(() => setRefreshing(false))
     }
 
-    const { loading2, error2, data2, refetch2 } = useQuery(Ricevute, {
+    const receivedQuery = useQuery(Ricevute, {
         onCompleted: async ({ applicationsReceived }) => {
-
+            setRicevute(applicationsReceived)
         }
     });
 
@@ -97,6 +107,7 @@ export default function AttivitàScreen({ navigation }) {
 const styles = StyleSheet.create({
     scene: {
         flex: 1,
+        backgroundColor: "#EBEBEB"
     },
 });
 
