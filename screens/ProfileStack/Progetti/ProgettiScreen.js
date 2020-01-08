@@ -5,12 +5,13 @@ import { Ionicons } from "@expo/vector-icons"
 import Aggiungi from "../shared/Aggiungi"
 let shortid = require("shortid")
 import ProgettoEditCard from "./ProgettoEditCard"
+import HeaderStyles from "../../shared/HeaderStyles"
 
 export default function ProgettiScreen({ navigation }) {
     const progetti = navigation.getParam("progetti")
     return (
         <View style={styles.container}>
-            <Aggiungi onPress={() => navigation.navigate("ProgettiEditScreen")} text={"PROGETTO"} />
+            <Aggiungi onPress={() => navigation.navigate("ProgettiEditScreen")} text={"Progetto"} />
             {progetti.map(progetto => {
                 return <ProgettoEditCard navigation={navigation} key={shortid.generate()} progetto={progetto} />
             })}
@@ -37,25 +38,9 @@ const styles = StyleSheet.create({
 
 ProgettiScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "PROGETTI",
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        title: "Progetti",
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Ionicons

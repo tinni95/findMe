@@ -20,7 +20,7 @@ class SearchBarComponent extends React.Component {
         platform="ios"
         inputContainerStyle={{ backgroundColor: "#F7F4F4" }}
         containerStyle={styles.container}
-        placeholder="Cerca Parola Chiave"
+        placeholder="Cerca parola chiave"
         onChangeText={this.updateSearch}
         onSubmitEditing={() => this.props.navigation.navigate("Explore", {
           filter: this.props.search.toLowerCase()

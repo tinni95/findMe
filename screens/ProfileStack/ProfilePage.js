@@ -12,6 +12,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import TouchablePen from './shared/TouchablePen';
 import ItemsBlock from './shared/ItemsBlock';
 import CompetenzeBlock from "./Competenze/CompetenzeBlock"
+import HeaderStyles from '../shared/HeaderStyles';
 
 const User = gql`
   {
@@ -169,25 +170,9 @@ const styles = StyleSheet.create({
 
 ProfilePage.navigationOptions = ({ navigation }) => {
   return {
-    title: "PROFILO",
-    headerStyle: {
-      ...Platform.select({
-        ios: {
-          shadowColor: "black",
-          shadowOffset: { height: 3 },
-          shadowOpacity: 0.1,
-          shadowRadius: 3
-        },
-        android: {
-          elevation: 20
-        },
-      })
-    },
-    headerTitleStyle: {
-      fontFamily: "sequel-sans-bold",
-      color: Colors.blue,
-      fontSize: 12
-    },
+    title: "Profilo",
+    headerStyle: HeaderStyles.headerStyle,
+    headerTitleStyle: HeaderStyles.headerTitleStyle,
     headerRight: (
       <TouchablePen onPress={() => navigation.navigate("EditProfile", { currentUser: navigation.getParam("currentUser") })} size={22}></TouchablePen>
     ),

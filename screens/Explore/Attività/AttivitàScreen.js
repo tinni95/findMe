@@ -8,6 +8,7 @@ import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import SentCard from "./SentCard";
 import TabBars from "../../../shared/TabBars";
+import HeaderStyles from "../../shared/HeaderStyles";
 var shortid = require("shortid")
 
 const Inviate = gql`
@@ -101,25 +102,9 @@ const styles = StyleSheet.create({
 
 AttivitàScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "CANDIDATURE",
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        title: "Candidature",
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Ionicons

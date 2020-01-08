@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
+import { View } from "react-native"
 import InputToolbar from "./InputToolbar"
 import gql from 'graphql-tag';
 import { useMutation, useSubscription, useQuery } from 'react-apollo';
@@ -7,6 +8,7 @@ import parseMessages from "./helpers"
 import FindMeMessage from './FindMeMessage'
 import moment from 'moment/min/moment-with-locales'
 import { sendNotification } from '../../shared/PushNotifications';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 moment.locale('it');
 
 const UNSEECHAT_MUTATION = gql`
@@ -119,22 +121,24 @@ export default function Chat({ navigation }) {
 
     }
     return (
-
-        <GiftedChat
-            inverted={false}
-            messages={messages}
-            onSend={message => onSend(message)}
-            renderMessage={renderMessage}
-            locale={'it'}
-            renderInputToolbar={renderInputToolbar}
-            user={{
-                _id: 1,
-            }}
-            listViewProps={{
-                style: {
-                    backgroundColor: '#F4F4F4',
-                },
-            }}
-        />
+        <View style={{ flex: 1 }}>
+            <GiftedChat
+                inverted={false}
+                messages={messages}
+                onSend={message => onSend(message)}
+                renderMessage={renderMessage}
+                locale={'it'}
+                renderInputToolbar={renderInputToolbar}
+                user={{
+                    _id: 1,
+                }}
+                listViewProps={{
+                    style: {
+                        backgroundColor: '#F4F4F4',
+                    },
+                }}
+            />
+            <KeyboardSpacer />
+        </View>
     )
 }

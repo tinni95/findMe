@@ -12,6 +12,7 @@ import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
 import { Ionicons } from "@expo/vector-icons";
 import { Bold } from "../../../components/StyledText";
+import HeaderStyles from "../../shared/HeaderStyles";
 
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
@@ -218,25 +219,9 @@ export default function EsperienzeEditScreen({ navigation }) {
 
 EsperienzeEditScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "ESPERIENZA",
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        title: "Esperienza",
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Ionicons

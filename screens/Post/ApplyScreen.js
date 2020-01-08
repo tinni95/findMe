@@ -12,6 +12,7 @@ import {  useMutation } from '@apollo/react-hooks';
 import * as Haptics from 'expo-haptics';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { sendNotification } from "../../shared/PushNotifications"
+import HeaderStyles from "../shared/HeaderStyles"
 
 const CREATEAPPLICATION_MUTATION = gql`
 mutation createApplication($postId: ID!, $positionId:ID!) {
@@ -148,24 +149,8 @@ const styles = StyleSheet.create({
 })
 ApplyScreen.navigationOptions = ({ navigation }) => {
     return {
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity style={{ padding: 5, paddingRight: 10 }} onPress={() => navigation.goBack()}>
                 <Ionicons

@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import TouchablePen from '../ProfileStack/shared/TouchablePen';
 import { sendNotification } from '../../shared/PushNotifications';
+import HeaderStyles from '../shared/HeaderStyles';
 
 const Post = gql`
 query PostScreenQuery($postId: ID!) {
@@ -150,24 +151,8 @@ const styles = StyleSheet.create({
 PostScreen.navigationOptions = ({ navigation }) => {
   const isOwner = navigation.getParam("isOwner")
   return {
-    headerStyle: {
-      ...Platform.select({
-        ios: {
-          shadowColor: "black",
-          shadowOffset: { height: 3 },
-          shadowOpacity: 0.1,
-          shadowRadius: 3
-        },
-        android: {
-          elevation: 20
-        },
-      })
-    },
-    headerTitleStyle: {
-      fontFamily: "sequel-sans-bold",
-      color: Colors.blue,
-      fontSize: 12
-    },
+    headerStyle: HeaderStyles.headerStyle,
+    headerTitleStyle: HeaderStyles.headerTitleStyle,
     headerLeft: (
       <TouchableOpacity style={{ padding: 5, paddingRight: 10 }} onPress={() => navigation.goBack()}>
         <Ionicons

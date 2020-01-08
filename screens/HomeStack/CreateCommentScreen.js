@@ -10,6 +10,7 @@ import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay"
 import CommentCard from "./components/CommentCard"
 import { useActionSheet } from '@expo/react-native-action-sheet'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 const CREATECOMMENT_MUTATION = gql`
 mutation createComment($text:String!,$answerId:ID!){
@@ -91,17 +92,6 @@ export default function CreateCommentScreen({ navigation }) {
         });
 
     useEffect(() => {
-        this.keyboardDidShowListener = Keyboard.addListener(
-            'keyboardDidShow',
-            _keyboardDidShow,
-        );
-        this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardDidHide',
-            _keyboardDidHide,
-        );
-    }, [])
-
-    useEffect(() => {
         commentId != "" && deleteComment({ variables: { id: commentId } })
     }, [commentId])
 
@@ -152,7 +142,7 @@ export default function CreateCommentScreen({ navigation }) {
             </ScrollView>
             <InputToolbar
                 onSend={(text) => createComment({ variables: { text, answerId: answer.id } })}></InputToolbar>
-            <View style={{ height, backgroundColor: "white" }} />
+            <KeyboardSpacer style={{ backgroundColor: "white" }} />
 
         </View>
     )

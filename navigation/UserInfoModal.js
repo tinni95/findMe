@@ -5,6 +5,7 @@ import { AutoCompleteLocation } from "../screens/shared/AutoCompleteLocation"
 import EditProfile from '../screens/ProfileStack/EditProfile';
 import Colors from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import HeaderStyles from "../screens/shared/HeaderStyles";
 
 const UserInfoModal = createStackNavigator(
     {
@@ -19,25 +20,9 @@ const UserInfoModal = createStackNavigator(
 
 UserInfoModal.navigationOptions = ({ navigation }) => {
     return {
-        title: "PROFILO",
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        title: "Profilo",
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Ionicons

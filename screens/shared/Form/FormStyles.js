@@ -8,7 +8,7 @@ export const FormStyles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 0.3,
     color: '#5F5E5E',
-    borderBottomColor: '#B19393',
+    borderBottomColor: '#D3CFCF',
     fontSize: isSmallDevice ? 12 : 14,
     fontWeight: '500'
   },
@@ -28,7 +28,7 @@ export const FormStyles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 0.3,
     color: '#5F5E5E',
-    borderBottomColor: '#B19393',
+    borderBottomColor: '#D3CFCF',
     fontSize: isSmallDevice ? 12 : 14,
     fontWeight: '500'
   },
@@ -60,21 +60,21 @@ export const FormStyles = StyleSheet.create({
   large: {
     margin: 5,
     padding: 5,
-    borderColor: '#ADADAD',
+    borderColor: '#D3CFCF',
     borderWidth: 0.5,
     height: 75,
   },
   xlarge: {
     margin: 5,
     padding: 5,
-    borderColor: '#ADADAD',
+    borderColor: '#D3CFCF',
     borderWidth: 0.5,
     height: 200,
   },
   requisiti: {
     margin: 5,
     padding: 5,
-    borderColor: '#ADADAD',
+    borderColor: '#D3CFCF',
     borderWidth: 0.5,
     borderRadius: 5,
     alignContent: "center",
@@ -85,6 +85,6 @@ export const FormStyles = StyleSheet.create({
     flexWrap: "wrap",
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#ADADAD',
+    borderColor: '#D3CFCF',
   }
 });

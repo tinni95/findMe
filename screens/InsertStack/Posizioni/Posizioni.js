@@ -221,7 +221,7 @@ export default function Posizioni({ navigation, settore }) {
                       <TouchableWithoutFeedback onPress={() => {
                         navigation.navigate("AutoComplete", { path: "Posizioni", items: Requisiti, for: "Requisiti" })
                       }}>
-                        <Light>AGGIUNGI REQUISITO +</Light>
+                        <Light style={{ fontSize: 11 }}>AGGIUNGI REQUISITO +</Light>
                       </TouchableWithoutFeedback>
                     </View>
                     :

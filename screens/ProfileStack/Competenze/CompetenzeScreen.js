@@ -8,6 +8,7 @@ import RoundButton from "../../../components/shared/RoundButton"
 import { Body } from "../../../components/StyledText"
 import { useMutation } from '@apollo/react-hooks';
 import gql from "graphql-tag"
+import HeaderStyles from "../../shared/HeaderStyles"
 let shortid = require("shortid")
 
 const UPDATEUSER_MUTATION = gql`
@@ -125,25 +126,9 @@ const styles = StyleSheet.create({
 
 CompetenzeScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "COMPETENZE",
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        title: "Competenze",
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Ionicons

@@ -8,6 +8,7 @@ import ChatCard from "./ChatCard";
 import { useQuery, useMutation } from "react-apollo";
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
+import HeaderStyles from "../shared/HeaderStyles";
 
 var shortid = require("shortid")
 const SEECHAT_MUTATION = gql`
@@ -115,23 +116,7 @@ const styles = StyleSheet.create({
 Channels.navigationOptions = ({ navigation }) => {
     return {
         title: "Messaggi",
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle
     }
 }

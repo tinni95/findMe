@@ -71,10 +71,10 @@ export default function QuestionScreen({ navigation }) {
                 ></Ionicons>
             </TouchableOpacity>
         </View>
-        <QuestionCardAfter navigation={navigation} question={question}></QuestionCardAfter>
         <ScrollView refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
+            <QuestionCardAfter navigation={navigation} question={question}></QuestionCardAfter>
             {
                 data.answersFeed.map(answer => {
                     return <AnswerCard key={answer.id} answer={answer} question={question} navigation={navigation}></AnswerCard>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
                 shadowRadius: 3
             },
             android: {
-                elevation: 20
+                elevation: 5
             },
         })
     }

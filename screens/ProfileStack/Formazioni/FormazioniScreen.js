@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons"
 import Aggiungi from "../shared/Aggiungi"
 let shortid = require("shortid")
 import FormazioneEditCard from "./FormazioneEditCard"
+import HeaderStyles from "../../shared/HeaderStyles"
 export default function FormazioniScreen({ navigation }) {
     const formazioni = navigation.getParam("formazioni")
     return (
@@ -36,25 +37,9 @@ const styles = StyleSheet.create({
 
 FormazioniScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "FORMAZIONI",
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        title: "Formazioni",
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Ionicons

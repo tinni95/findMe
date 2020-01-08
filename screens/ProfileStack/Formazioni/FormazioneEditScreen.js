@@ -12,6 +12,7 @@ import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag'
 import { Ionicons } from "@expo/vector-icons";
 import { Bold } from "../../../components/StyledText";
+import HeaderStyles from "../../shared/HeaderStyles";
 
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
@@ -219,25 +220,9 @@ export default function FormazioneEditScreen({ navigation }) {
 
 FormazioneEditScreen.navigationOptions = ({ navigation }) => {
     return {
-        title: "FORMAZIONE",
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        title: "Formazione",
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity style={{ padding: 5, paddingRight: 10 }} onPress={() => navigation.goBack()}>
                 <Ionicons

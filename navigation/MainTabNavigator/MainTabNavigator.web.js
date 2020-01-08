@@ -1,16 +1,16 @@
 import { createBrowserApp } from "@react-navigation/web";
 import { createBottomTabNavigator } from 'react-navigation';
 import HomeStack from './HomeStack';
-import LinksStack from './LinksStack';
-import InsertStack from './InsertStack';
-import ServiziStack from './ServiziStack';
+import ChatStack from './ChatStack';
+import NotificaStack from "./NotificaStack"
+import PostIdeaStack from './PostIdeaStack';
 import ProfileStack from './ProfileStack';
 
 const MainTabNavigator = createBottomTabNavigator({
-  LinksStack,
+  ChatStack,
   HomeStack,
-  InsertStack,
-  ServiziStack,
+  Notifiche: NotificaStack,
+  PostIdeaStack,
   ProfileStack
 });
 

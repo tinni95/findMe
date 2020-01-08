@@ -7,6 +7,7 @@ import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
+import HeaderStyles from '../shared/HeaderStyles';
 
 const posts = gql`
 {
@@ -78,24 +79,8 @@ const styles = StyleSheet.create({
 UserPosts.navigationOptions = ({ navigation }) => {
     return {
         title: "I miei Post",
-        headerStyle: {
-            ...Platform.select({
-                ios: {
-                    shadowColor: "black",
-                    shadowOffset: { height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 3
-                },
-                android: {
-                    elevation: 20
-                },
-            })
-        },
-        headerTitleStyle: {
-            fontFamily: "sequel-sans-bold",
-            color: Colors.blue,
-            fontSize: 12
-        },
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
                 <Ionicons
