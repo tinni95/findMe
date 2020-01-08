@@ -46,14 +46,16 @@ function wait(timeout) {
 
 export default function HomeScreen({ navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
+  const [refetchChild, setRefetch] = React.useState(false);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     refetch()
+    setRefetch(!refetchChild)
     wait(2000).then(() => setRefreshing(false));
   }, [refreshing]);
 
   const [search, setSearch] = useState("")
-  const { loading, data, error, refetch } = useQuery(Questions)
+  const { loading, data, error, refetch } = useQuery(Questions, { fetchPolicy: "no-cache" })
   const isRefetch = navigation.getParam("refetch") || null
   useEffect(() => {
     isRefetch ? refetch() : null
@@ -73,7 +75,7 @@ export default function HomeScreen({ navigation }) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         {
           data.questionsFeed.map(question => {
-            return <QuestionCard key={shortid.generate()} question={question} navigation={navigation}></QuestionCard>
+            return <QuestionCard isRefetch={refetchChild} key={shortid.generate()} question={question} navigation={navigation}></QuestionCard>
           })
         }
       </ScrollView>

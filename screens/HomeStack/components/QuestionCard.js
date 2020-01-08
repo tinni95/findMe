@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { width, isBigDevice, isSmallDevice } from '../../../constants/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -9,6 +9,7 @@ import { useQuery, useMutation } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
 import FindMeSpinner from '../../../shared/FindMeSpinner';
 import Colors from '../../../constants/Colors';
+
 moment.locale('it');
 
 const Likes = gql`
@@ -54,7 +55,7 @@ mutation likeMutation($id:ID!){
     }
 }
 `
-export const QuestionCard = ({ question, navigation }) => {
+export const QuestionCard = ({ question, navigation, isRefetch }) => {
     const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id } })
     const [Like] = useMutation(LIKE_MUTATION,
         {
@@ -92,6 +93,10 @@ export const QuestionCard = ({ question, navigation }) => {
                 alert("Qualcosa è andato storto")
             }
         });
+
+    useEffect(() => {
+        refetch()
+    }, [isRefetch])
 
     if (error) {
         return <FindMeGraphQlErrorDisplay />
