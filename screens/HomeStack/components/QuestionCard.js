@@ -137,7 +137,7 @@ export const QuestionCard = ({ question, navigation, isRefetch }) => {
                     {data.UserFollowQuestion.length > 0 ?
                         <TouchableOpacity onPress={() => UnFollow({ variables: { id: data.UserFollowQuestion[0].id } })} style={styles.bellContainer}>
                             <Image source={require("../../../assets/images/notificationBell-red.png")} style={{ width: 15, height: 16 }} />
-                            <Body style={styles.footerText}>Segui Domanda</Body>
+                            <Body style={styles.footerText}>Seguita</Body>
                         </TouchableOpacity>
                         :
                         <TouchableOpacity onPress={() => Follow({ variables: { id: question.id } })} style={styles.bellContainer}>
