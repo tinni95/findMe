@@ -110,6 +110,7 @@ export const QuestionCardAfter = ({ id, navigation }) => {
     if (loading) {
         return <FindMeSpinner />
     }
+    console.log(data.singleQuestion)
     return (
         <View style={styles.wrapper}>
             <View style={styles.card}>
@@ -118,7 +119,7 @@ export const QuestionCardAfter = ({ id, navigation }) => {
                     <Body style={styles.question}>{data.singleQuestion.question}</Body>
                     <View style={styles.buttonWrapper}>
                         {data.currentUser.id !== data.singleQuestion.postedBy.id &&
-                            <RoundButtonEmptyIcon onPress={() => navigation.navigate("CreateAnswerScreen", { question: data.singleQuestion.question })} textColor={Colors.blue} isMedium color={Colors.blue} text={"Rispondi"} iconName={"ios-send"}
+                            <RoundButtonEmptyIcon onPress={() => navigation.navigate("CreateAnswerScreen", { question: data.singleQuestion })} textColor={Colors.blue} isMedium color={Colors.blue} text={"Rispondi"} iconName={"ios-send"}
                                 iconColor={Colors.blue}></RoundButtonEmptyIcon>
                         }
                     </View>
