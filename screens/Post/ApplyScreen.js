@@ -24,16 +24,9 @@ mutation createApplication($postId: ID!, $positionId:ID!) {
     }
 }`;
 
-const CREATECHAT_MUTATION = gql`
-mutation createChat($subId: ID!) {
-    createChat(subId:$subId) {
-        id
-    }
-}`;
-
-const CREATEMESSAGE_MUTATION = gql`
-mutation createMessage($channelId: ID!,$text:String!) {
-    createMessage(channelId:$channelId,text:$text) {
+const CREATEPOSTMESSAGE_MUTATION = gql`
+mutation createPostMessage($applicationId: ID!,$text:String!) {
+  createPostMessage(applicationId:$applicationId,text:$text) {
         id
     }
 }`;
@@ -48,38 +41,25 @@ export default function ApplyScreen({navigation}) {
     const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
         {
           onCompleted: async ({ createApplication }) => {
-
-            createChat({variables:{subId:post.postedBy.id}})
+            createMessage({variables:{applicationId:createApplication.id,text:messaggio}})
           },
           onError: error => {
 
             alert("Qualcosa è andato storto")
           }
         });
-
-        const [createChat] = useMutation(CREATECHAT_MUTATION,
+    
+        const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION,
             {
-              onCompleted: async ({ createChat }) => {
+              onCompleted: async ({ createMessage }) => {
+                alert("success")
 
-                createMessage({variables:{text:messaggio,channelId:createChat.id}})
               },
               onError: error => {
                 console.log(error)
                 alert("Qualcosa è andato storto")
               }
             });
-    
-            const [createMessage] = useMutation(CREATEMESSAGE_MUTATION,
-                {
-                  onCompleted: async ({ createMessage }) => {
-                    alert("success")
-
-                  },
-                  onError: error => {
-                    console.log(error)
-                    alert("Qualcosa è andato storto")
-                  }
-                });
 
         const handleApply = () => {
 
@@ -147,6 +127,7 @@ const styles = StyleSheet.create({
         margin:40
     }
 })
+
 ApplyScreen.navigationOptions = ({ navigation }) => {
     return {
         headerStyle: HeaderStyles.headerStyle,

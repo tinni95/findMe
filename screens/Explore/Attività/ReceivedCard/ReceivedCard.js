@@ -8,7 +8,7 @@ import Colors from "../../../../constants/Colors"
 import RoundButtonEmpty2 from "../../../../components/shared/RoundButtonEmpty2"
 import AvatarAndVedi from "./AvatarAndVedi"
 import Info from "./Info"
-var shortid = require("shortid")
+import { Bold, Light } from "../../../../components/StyledText"
 
 export default function ReceivedCard({ posizione }) {
     return (
@@ -17,7 +17,7 @@ export default function ReceivedCard({ posizione }) {
                 <AvatarAndVedi />
                 <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                 <View style={styles.info}>
-                    <Info nome={posizione.user.nome} cognome={posizione.user.cognome} provincia={posizione.user.provincia} regione={posizione.user.regione} posizione={posizione.position.title}></Info>
+                    <Info nome={posizione.user.nome} cognome={posizione.user.cognome} comune={posizione.user.comune} regione={posizione.user.regione} posizione={posizione.position.title}></Info>
                 </View>
                 <View style={styles.tooltip}>
                     <Tooltip backgroundColor={"#10476C"} popover={<Text style={{ color: "white" }}>{posizione.position.field}</Text>}>
@@ -26,7 +26,8 @@ export default function ReceivedCard({ posizione }) {
                 </View>
             </View>
             <View style={styles.messageWrapper}>
-
+                <Bold style={{ fontSize: 12, marginBottom: 10 }}>Risposta</Bold>
+                <Light style={{ fontSize: 12, marginBottom: 10 }}>{posizione.messages[0].text}</Light>
             </View>
             <View style={styles.footer}>
                 <View style={styles.buttonWrapper}>
@@ -59,6 +60,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between"
     },
+    messageWrapper: {
+        justifyContent: "flex-start",
+        margin: 15
+
+    },
     footer: {
         borderTopWidth: 0.3,
         marginLeft: 10,
@@ -78,7 +84,7 @@ const styles = StyleSheet.create({
     info: {
         flexDirection: "row",
         flex: 6.5,
-        marginBottom: 40
+        marginBottom: 10
     },
     tooltip: {
         alignContent: "flex-end",

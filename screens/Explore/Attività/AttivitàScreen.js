@@ -45,6 +45,15 @@ const Ricevute = gql`
         title
         field
       }
+      messages{
+          text
+          createdAt
+          updatedAt
+          user{
+              id
+              nome
+          }
+      }
     }
   }
 `
@@ -64,14 +73,14 @@ export default function AttivitàScreen({ navigation }) {
     );
 
     const SecondRoute = () => (
-        <View style={styles.scene}>
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={{ backgroundColor: "#F7F4F4" }}>
             {
                 posizioniRicevute.length > 0 &&
                 posizioniRicevute.map(posizione => {
                     return <ReceivedCard key={shortid.generate()} posizione={posizione}></ReceivedCard>
                 })
             }
-        </View>
+        </ScrollView>
     );
     const { refetch } = useQuery(Inviate, {
         onCompleted: async ({ applicationsSent }) => {
