@@ -12,8 +12,17 @@ import { AvatarAndTime } from './AvatarAndTime';
 
 const Likes = gql`
 query Likes($id:ID!){
-    QuestionLikes(id:$id){
+    singleQuestion(id:$id){
         id
+        question
+        postedBy{
+            id
+            nome
+            cognome
+        }
+        likes{
+            id
+        }
     }
     UserLikesQuestion(id:$id){
         id
@@ -56,8 +65,8 @@ mutation likeMutation($id:ID!){
     }
 }
 `
-export const QuestionCardAfter = ({ question, navigation }) => {
-    const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id }, fetchPolicy: "no-cache" })
+export const QuestionCardAfter = ({ id, navigation }) => {
+    const { loading, data, error, refetch } = useQuery(Likes, { variables: { id }, fetchPolicy: "no-cache" })
     const [Like] = useMutation(LIKE_MUTATION,
         {
             onCompleted: async ({ QuestionLike }) => {
@@ -104,12 +113,12 @@ export const QuestionCardAfter = ({ question, navigation }) => {
     return (
         <View style={styles.wrapper}>
             <View style={styles.card}>
-                <AvatarAndTime text={"Pubblicato "} question={question}></AvatarAndTime>
+                <AvatarAndTime text={"Pubblicato "} question={data.singleQuestion}></AvatarAndTime>
                 <View style={styles.body}>
-                    <Body style={styles.question}>{question.question}</Body>
+                    <Body style={styles.question}>{data.singleQuestion.question}</Body>
                     <View style={styles.buttonWrapper}>
-                        {data.currentUser.id !== question.postedBy.id &&
-                            <RoundButtonEmptyIcon onPress={() => navigation.navigate("CreateAnswerScreen", { question })} textColor={Colors.blue} isMedium color={Colors.blue} text={"Rispondi"} iconName={"ios-send"}
+                        {data.currentUser.id !== data.singleQuestion.postedBy.id &&
+                            <RoundButtonEmptyIcon onPress={() => navigation.navigate("CreateAnswerScreen", { question: data.singleQuestion.question })} textColor={Colors.blue} isMedium color={Colors.blue} text={"Rispondi"} iconName={"ios-send"}
                                 iconColor={Colors.blue}></RoundButtonEmptyIcon>
                         }
                     </View>
@@ -118,11 +127,11 @@ export const QuestionCardAfter = ({ question, navigation }) => {
                     {data.UserLikesQuestion.length > 0 ?
                         <TouchableOpacity onPress={() => UnLike({ variables: { id: data.UserLikesQuestion[0].id } })} style={styles.arrowContainer}>
                             <Image source={require("../../../assets/images/arrow-red.png")} style={{ width: 20, height: 27 }} />
-                            <Body style={[styles.counter, { color: Colors.red }]}>{data.QuestionLikes.length}</Body>
+                            <Body style={[styles.counter, { color: Colors.red }]}>{data.singleQuestion.likes.length}</Body>
                         </TouchableOpacity> :
                         <TouchableOpacity onPress={() => Like({ variables: { id: question.id } })} style={styles.arrowContainer}>
                             <Image source={require("../../../assets/images/arrow-white.png")} style={{ width: 20, height: 27 }} />
-                            <Body style={styles.counter}>{data.QuestionLikes.length}</Body>
+                            <Body style={styles.counter}>{data.singleQuestion.likes.length}</Body>
                         </TouchableOpacity>
                     }
                     {data.UserFollowQuestion.length > 0 ?
@@ -131,7 +140,7 @@ export const QuestionCardAfter = ({ question, navigation }) => {
                             <Body style={styles.footerText}>Segui Domanda</Body>
                         </TouchableOpacity>
                         :
-                        <TouchableOpacity onPress={() => Follow({ variables: { id: question.id } })} style={styles.bellContainer}>
+                        <TouchableOpacity onPress={() => Follow({ variables: { id } })} style={styles.bellContainer}>
                             <Image source={require("../../../assets/images/notificationBell-empty.png")} style={{ width: 15, height: 16 }} />
                             <Body style={styles.footerText}>Segui Domanda</Body>
                         </TouchableOpacity>

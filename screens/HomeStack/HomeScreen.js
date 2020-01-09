@@ -26,14 +26,7 @@ const Questions = gql`
       }
     }
     answers{
-      text
-      postedBy{
-        nome
-        cognome
-      }
-
-      text
-      createdAt
+      id
     }
 }
 }
@@ -53,8 +46,6 @@ export default function HomeScreen({ navigation }) {
     setRefetch(!refetchChild)
     wait(2000).then(() => setRefreshing(false));
   }, [refreshing]);
-
-  const [search, setSearch] = useState("")
   const { loading, data, error, refetch } = useQuery(Questions, { fetchPolicy: "no-cache" })
   const isRefetch = navigation.getParam("refetch") || null
   useEffect(() => {

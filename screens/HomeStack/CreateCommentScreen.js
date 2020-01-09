@@ -61,15 +61,11 @@ export default function CreateCommentScreen({ navigation }) {
         wait(2000).then(() => setRefreshing(false));
     }, [refreshing]);
 
-
-
     const { showActionSheetWithOptions } = useActionSheet();
     const options = ['Delete', 'Cancel'];
     const destructiveButtonIndex = 0;
     const cancelButtonIndex = 1;
-    const question = navigation.getParam("question")
     const answer = navigation.getParam("answer")
-    const [height, setHeight] = useState(false)
     const [commentId, setId] = useState("")
     const { loading, data, error, refetch } = useQuery(comments, { variables: { id: answer.id }, fetchPolicy: "no-cache" })
     const [createComment] = useMutation(CREATECOMMENT_MUTATION,
@@ -95,14 +91,6 @@ export default function CreateCommentScreen({ navigation }) {
         commentId != "" && deleteComment({ variables: { id: commentId } })
     }, [commentId])
 
-    const _keyboardDidShow = (e) => {
-        setHeight(e.endCoordinates.height)
-    }
-
-    const _keyboardDidHide = () => {
-        setHeight(10)
-    }
-
     if (loading) {
         return <FindMeSpinner></FindMeSpinner>
     }
@@ -116,7 +104,7 @@ export default function CreateCommentScreen({ navigation }) {
             <ScrollView refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
-                <AnswerCardAfter question={question} answer={answer}></AnswerCardAfter>
+                <AnswerCardAfter answer={answer}></AnswerCardAfter>
                 {
                     data.commentsFeed.map(comment => {
                         return <CommentCard onLongPress={() => {

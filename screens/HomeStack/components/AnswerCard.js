@@ -55,7 +55,7 @@ mutation likeMutation($id:ID!){
 }
 `
 
-export default function AnswerCard({ question, answer, navigation }) {
+export default function AnswerCard({ answer, navigation }) {
     const { loading, error, refetch, data } = useQuery(Likes, { variables: { id: answer.id } })
     const [Like] = useMutation(LIKE_MUTATION,
         {
@@ -162,7 +162,7 @@ export default function AnswerCard({ question, answer, navigation }) {
                     }
                 </View>
                 <View style={styles.spacer}></View>
-                <TouchableOpacity onPress={() => navigation.navigate("CreateCommentScreen", { question, answer })} style={styles.commentsContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate("CreateCommentScreen", { answer })} style={styles.commentsContainer}>
                     <Image source={require("../../../assets/images/commentbubble.png")} style={{ width: 15, height: 15 }} />
                     <Body style={styles.footerText}>{answer.comments.length} commenti</Body>
                 </TouchableOpacity>

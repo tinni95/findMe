@@ -130,7 +130,7 @@ export const QuestionCard = ({ question, navigation, isRefetch }) => {
                             <Body style={styles.counter}>{data.QuestionLikes.length}</Body>
                         </TouchableOpacity>
                     }
-                    <TouchableOpacity onPress={() => navigation.navigate("QuestionScreen", { question })} style={styles.commentsContainer}>
+                    <TouchableOpacity onPress={() => navigation.navigate("QuestionScreen", { id: question.id })} style={styles.commentsContainer}>
                         <Image source={require("../../../assets/images/commentbubble.png")} style={{ width: 15, height: 15 }} />
                         <Body style={styles.footerText}>{question.answers.length} risposte</Body>
                     </TouchableOpacity>

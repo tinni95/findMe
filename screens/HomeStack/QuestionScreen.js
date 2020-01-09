@@ -45,9 +45,8 @@ export default function QuestionScreen({ navigation }) {
         wait(2000).then(() => setRefreshing(false));
     }, [refreshing]);
 
-
-    const question = navigation.getParam("question");
-    const { loading, error, data, refetch } = useQuery(answers, { variables: { id: question.id } });
+    const id = navigation.getParam("id");
+    const { loading, error, data, refetch } = useQuery(answers, { variables: { id } });
     const isRefetch = navigation.getParam("refetch") || null
     useEffect(() => {
         isRefetch ? refetch() : null
@@ -74,10 +73,10 @@ export default function QuestionScreen({ navigation }) {
         <ScrollView refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-            <QuestionCardAfter navigation={navigation} question={question}></QuestionCardAfter>
+            <QuestionCardAfter navigation={navigation} id={id}></QuestionCardAfter>
             {
                 data.answersFeed.map(answer => {
-                    return <AnswerCard key={answer.id} answer={answer} question={question} navigation={navigation}></AnswerCard>
+                    return <AnswerCard key={answer.id} answer={answer} navigation={navigation}></AnswerCard>
                 })
             }
         </ScrollView>

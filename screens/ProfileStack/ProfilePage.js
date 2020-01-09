@@ -90,7 +90,7 @@ export default function ProfilePage({ navigation }) {
   }
 
 
-
+  const [active, setActive] = useState(0)
   const isRefetch = navigation.getParam("refetch") || false
   const [showAll, setShowAll] = useState(false)
   const [modalVisbile, setModalVisible] = useState(false)
@@ -149,14 +149,37 @@ export default function ProfilePage({ navigation }) {
             <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
         </View>}
       <View style={{ height: 5 }}></View>
-      <View style={{ height: 5, backgroundColor: '#F7F4F4', width: "100%" }}></View>
-      {<Profilo></Profilo>}
+      <View style={styles.tabBar}>
+        <TouchableOpacity onPress={() => setActive(0)} style={active == 0 ? styles.tabButtonActive : styles.tabButton}>
+          <Bold style={active == 0 ? styles.tabTextActive : styles.tabText}> Profilo</Bold>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setActive(1)} style={active == 1 ? styles.tabButtonActive : styles.tabButton}>
+          <Bold style={active == 1 ? styles.tabTextActive : styles.tabText}>Domande</Bold>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setActive(2)} style={active == 2 ? styles.tabButtonActive : styles.tabButton}>
+          <Bold style={active == 2 ? styles.tabTextActive : styles.tabText}>Risposte</Bold>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setActive(3)} style={active == 3 ? styles.tabButtonActive : styles.tabButton}>
+          <Bold style={active == 3 ? styles.tabTextActive : styles.tabText}>Connessioni</Bold>
+        </TouchableOpacity>
+      </View>
+      {<Profilo />}
     </ScrollView>);
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  tabText: {
+    color: "#6E6E6E"
+  },
+  tabBar: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderBottomWidth: 0.3,
+    borderBottomColor: "grey"
   },
   separator: {
     height: 30
@@ -174,6 +197,22 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     justifyContent: "flex-start",
     alignItems: "flex-start",
+  },
+  tabButton: {
+    padding: 10,
+    height: "100%",
+    alignItems: "center",
+    marginBottom: -3,
+    paddingBottom: 13,
+  },
+  tabButtonActive: {
+    padding: 10,
+    marginBottom: -3,
+    paddingBottom: 13,
+    height: "100%",
+    zIndex: 10,
+    borderBottomColor: Colors.ocean,
+    borderBottomWidth: 2
   }
 })
 

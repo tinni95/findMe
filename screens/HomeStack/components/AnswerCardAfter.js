@@ -55,7 +55,7 @@ mutation likeMutation($id:ID!){
 }
 `
 
-export default function AnswerCard({ question, answer }) {
+export default function AnswerCard({ answer }) {
     const { loading, error, refetch, data } = useQuery(Likes, { variables: { id: answer.id } })
     const [Like] = useMutation(LIKE_MUTATION,
         {
