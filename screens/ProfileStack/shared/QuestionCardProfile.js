@@ -9,6 +9,7 @@ import { useQuery, useMutation } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
 import FindMeSpinner from '../../../shared/FindMeSpinner';
 import Colors from '../../../constants/Colors';
+import RoundButtonEmpty2 from '../../../components/shared/RoundButtonEmpty2';
 
 moment.locale('it');
 
@@ -55,7 +56,7 @@ mutation likeMutation($id:ID!){
     }
 }
 `
-export const QuestionCard = ({ question, navigation, isRefetch }) => {
+export default QuestionCard = ({ question, navigation, isRefetch }) => {
     const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id } })
     const [Like] = useMutation(LIKE_MUTATION,
         {
@@ -116,8 +117,14 @@ export const QuestionCard = ({ question, navigation, isRefetch }) => {
                         <Body style={styles.person}>{question.postedBy.nome + " " + question.postedBy.cognome}</Body>
                         <Body style={styles.date}>{"Pubblicato " + moment(question.createdAt).fromNow()}</Body>
                         <Body style={styles.question}>{question.question}</Body>
-                        <Body style={styles.tags}>{question.tags}</Body>
                     </View>
+                </View>
+                <View style={styles.buttonWrapper}>
+                    <RoundButtonEmpty2
+                        text={"Vedi risposte"}
+                        color={Colors.blue}
+                        textColor={Colors.blue}
+                        isMedium />
                 </View>
                 <View style={styles.footer}>
                     {data.UserLikesQuestion.length > 0 ?
@@ -199,7 +206,8 @@ const styles = StyleSheet.create({
         color: "#707070"
     },
     content: {
-        flexDirection: "column"
+        flexDirection: "column",
+        paddingBottom: 15
     },
     date: {
         marginLeft: 10,
@@ -241,6 +249,12 @@ const styles = StyleSheet.create({
         marginBottom: -2,
         marginLeft: 2,
         color: "#707070"
+    },
+    buttonWrapper: {
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center",
+
     }
 });
 

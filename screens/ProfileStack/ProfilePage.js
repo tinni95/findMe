@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, Modal, View, ScrollView, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { Modal, View, ScrollView, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import FindMeSpinner from "../../shared/FindMeSpinner"
@@ -13,11 +13,23 @@ import TouchablePen from './shared/TouchablePen';
 import ItemsBlock from './shared/ItemsBlock';
 import CompetenzeBlock from "./Competenze/CompetenzeBlock"
 import HeaderStyles from '../shared/HeaderStyles';
-import { SceneMap } from 'react-native-tab-view';
+import QuestionCardProfile from "./shared/QuestionCardProfile"
 
 const User = gql`
   {
     currentUser {
+      questions{
+        id
+        question
+        postedBy{
+          nome
+          cognome
+        }
+        createdAt
+        answers{
+          id
+        }
+      }
       email
       nome
       cognome
@@ -62,9 +74,23 @@ const User = gql`
 export default function ProfilePage({ navigation }) {
 
   // tabs
-
+  const Questions = () => {
+    return (
+      <View style={styles.questionContainer}>
+        <ScrollView >
+          <View style={{ alignSelf: "baseline" }}>
+            {
+              data.currentUser.questions.map((question) => {
+                return <QuestionCardProfile key={question.id} question={question} navigation={navigation}></QuestionCardProfile>
+              })
+            }
+          </View>
+        </ScrollView>
+      </View>
+    )
+  }
   const Profilo = () => {
-    return <View style={styles.infoWrapper}>
+    return <ScrollView style={styles.infoWrapper}>
       <ItemsBlock refetch={refetch} onPress={
         () =>
           data.currentUser.formazioni.length == 0 ? navigation.navigate("FormazioneEditScreen") :
@@ -86,9 +112,8 @@ export default function ProfilePage({ navigation }) {
       <View style={styles.separator}></View>
       <CompetenzeBlock competenze={data.currentUser.competenze} onPress={() => navigation.navigate("CompetenzeScreen", { competenze: data.currentUser.competenze })}></CompetenzeBlock>
       <View style={styles.separator}></View>
-    </View>
+    </ScrollView>
   }
-
 
   const [active, setActive] = useState(0)
   const isRefetch = navigation.getParam("refetch") || false
@@ -113,7 +138,7 @@ export default function ProfilePage({ navigation }) {
   if (error) return <FindMeGraphQlErrorDisplay />;
 
   return (
-    <ScrollView >
+    <View >
       <View style={styles.userWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Image source={require("../../assets/images/placeholder.png")} style={{ width: 100, height: 100, borderRadius: 50 }} />
@@ -163,8 +188,11 @@ export default function ProfilePage({ navigation }) {
           <Bold style={active == 3 ? styles.tabTextActive : styles.tabText}>Connessioni</Bold>
         </TouchableOpacity>
       </View>
-      {<Profilo />}
-    </ScrollView>);
+      {
+        active == 0 && <Profilo /> ||
+        active == 1 && <Questions />
+      }
+    </View>);
 }
 
 const styles = StyleSheet.create({
@@ -179,7 +207,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderBottomWidth: 0.3,
-    borderBottomColor: "grey"
+    borderBottomColor: "lightgrey"
   },
   separator: {
     height: 30
@@ -190,8 +218,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   infoWrapper: {
-    flex: 1,
     margin: 20
+  },
+  flex: {
+    flex: 1
   },
   bio: {
     marginLeft: 10,
@@ -202,17 +232,18 @@ const styles = StyleSheet.create({
     padding: 10,
     height: "100%",
     alignItems: "center",
-    marginBottom: -3,
-    paddingBottom: 13,
+    paddingBottom: 15,
   },
   tabButtonActive: {
     padding: 10,
-    marginBottom: -3,
-    paddingBottom: 13,
+    paddingBottom: 15,
     height: "100%",
     zIndex: 10,
     borderBottomColor: Colors.ocean,
     borderBottomWidth: 2
+  },
+  questionContainer: {
+    backgroundColor: "#F2F2F2",
   }
 })
 

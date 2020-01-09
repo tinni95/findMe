@@ -129,7 +129,7 @@ export const QuestionCardAfter = ({ id, navigation }) => {
                             <Image source={require("../../../assets/images/arrow-red.png")} style={{ width: 20, height: 27 }} />
                             <Body style={[styles.counter, { color: Colors.red }]}>{data.singleQuestion.likes.length}</Body>
                         </TouchableOpacity> :
-                        <TouchableOpacity onPress={() => Like({ variables: { id: question.id } })} style={styles.arrowContainer}>
+                        <TouchableOpacity onPress={() => Like({ variables: { id } })} style={styles.arrowContainer}>
                             <Image source={require("../../../assets/images/arrow-white.png")} style={{ width: 20, height: 27 }} />
                             <Body style={styles.counter}>{data.singleQuestion.likes.length}</Body>
                         </TouchableOpacity>
