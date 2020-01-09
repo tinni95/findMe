@@ -40,13 +40,15 @@ export default function CreateAnswerScreen({ navigation }) {
                         marginRight: 20,
                     }}>{question.question}</Body>
                 </View>
-                <TextInput
-                    style={styles.input}
-                    multiline
-                    placeholder="Scrivi risposta.."
-                    value={answer}
-                    onChangeText={answer => setAnswer(answer)}
-                />
+                <View style={styles.inputWrapper}>
+                    <TextInput
+                        style={styles.input}
+                        multiline
+                        placeholder="Scrivi risposta.."
+                        value={answer}
+                        onChangeText={answer => setAnswer(answer)}
+                    />
+                </View>
             </View>
         </View>
     )
@@ -58,12 +60,13 @@ const styles = StyleSheet.create({
         marginTop: 40
     },
     input: {
-        marginLeft: 20,
-        marginRight: 20,
-        marginTop: 10,
         width: '100%',
         fontSize: 12,
         fontFamily: "sequel-sans-light"
+    },
+    inputWrapper: {
+        margin: 20,
+        marginTop: 10,
     },
     questionContainer: {
         alignSelf: 'baseline',
