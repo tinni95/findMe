@@ -14,10 +14,30 @@ import ItemsBlock from './shared/ItemsBlock';
 import CompetenzeBlock from "./Competenze/CompetenzeBlock"
 import HeaderStyles from '../shared/HeaderStyles';
 import QuestionCardProfile from "./shared/QuestionCardProfile"
+import AnswerCardProfile from './shared/AnswerCardProfile';
 
 const User = gql`
   {
     currentUser {
+      answers{
+        comments{
+          id
+        }
+        postedBy{
+          nome
+          cognome
+        }
+        question{
+          postedBy{
+            nome
+            cognome
+          }
+          createdAt
+          question
+        }
+        text
+        id
+      }
       questions{
         id
         question
@@ -78,18 +98,30 @@ export default function ProfilePage({ navigation }) {
     return (
       <View style={styles.questionContainer}>
         <ScrollView >
-          <View style={{ alignSelf: "baseline" }}>
-            {
-              data.currentUser.questions.map((question) => {
-                return <QuestionCardProfile key={question.id} question={question} navigation={navigation}></QuestionCardProfile>
-              })
-            }
-          </View>
+          {
+            data.currentUser.questions.map((question) => {
+              return <QuestionCardProfile key={question.id} question={question} navigation={navigation}></QuestionCardProfile>
+            })
+          }
         </ScrollView>
       </View>
     )
   }
 
+  // tabs
+  const Answers = () => {
+    return (
+      <View style={styles.questionContainer}>
+        <ScrollView >
+          {
+            data.currentUser.answers.map((answer) => {
+              return <AnswerCardProfile key={answer.id} answer={answer} navigation={navigation}></AnswerCardProfile>
+            })
+          }
+        </ScrollView>
+      </View>
+    )
+  }
   const Profilo = () => {
     return <ScrollView style={styles.infoWrapper}>
       <ItemsBlock refetch={refetch} onPress={
@@ -191,7 +223,8 @@ export default function ProfilePage({ navigation }) {
       </View>
       {
         active == 0 && <Profilo /> ||
-        active == 1 && <Questions />
+        active == 1 && <Questions /> ||
+        active == 2 && <Answers />
       }
     </View>);
 }
