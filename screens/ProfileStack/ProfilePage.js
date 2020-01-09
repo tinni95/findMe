@@ -13,6 +13,7 @@ import TouchablePen from './shared/TouchablePen';
 import ItemsBlock from './shared/ItemsBlock';
 import CompetenzeBlock from "./Competenze/CompetenzeBlock"
 import HeaderStyles from '../shared/HeaderStyles';
+import { SceneMap } from 'react-native-tab-view';
 
 const User = gql`
   {
@@ -59,6 +60,37 @@ const User = gql`
 `;
 
 export default function ProfilePage({ navigation }) {
+
+  // tabs
+
+  const Profilo = () => {
+    return <View style={styles.infoWrapper}>
+      <ItemsBlock refetch={refetch} onPress={
+        () =>
+          data.currentUser.formazioni.length == 0 ? navigation.navigate("FormazioneEditScreen") :
+            navigation.navigate("FormazioniScreen", { formazioni: data.currentUser.formazioni })} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
+      <View style={styles.separator}></View>
+      <ItemsBlock refetch={refetch} navigation={navigation} onPress={
+        () =>
+          data.currentUser.esperienze.length == 0 ? navigation.navigate("EsperienzeEditScreen") :
+            navigation.navigate("EsperienzeScreen", { esperienze: data.currentUser.esperienze })
+      }
+        items={data.currentUser.esperienze} title={"Esperienze"}></ItemsBlock>
+      <View style={styles.separator}></View>
+      <ItemsBlock refetch={refetch} navigation={navigation} onPress={
+        () =>
+          data.currentUser.progetti.length == 0 ? navigation.navigate("ProgettiEditScreen") :
+            navigation.navigate("ProgettiScreen", { progetti: data.currentUser.progetti })
+      }
+        items={data.currentUser.progetti} title={"Progetti"}></ItemsBlock>
+      <View style={styles.separator}></View>
+      <CompetenzeBlock competenze={data.currentUser.competenze} onPress={() => navigation.navigate("CompetenzeScreen", { competenze: data.currentUser.competenze })}></CompetenzeBlock>
+      <View style={styles.separator}></View>
+    </View>
+  }
+
+
+
   const isRefetch = navigation.getParam("refetch") || false
   const [showAll, setShowAll] = useState(false)
   const [modalVisbile, setModalVisible] = useState(false)
@@ -109,39 +141,16 @@ export default function ProfilePage({ navigation }) {
         }
         <View style={{ height: 20 }}></View>
       </View>
-      <View style={styles.bio}>
-        <Body style={{ color: Colors.blue, marginLeft: 10 }}>Mi Presento</Body>
-        {data.currentUser.presentazione ?
-          (data.currentUser.presentazione.length < 75 || showAll)
-            ? <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "left", margin: 20 }}>
-              <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
-          : null}
-      </View>
+      {data.currentUser.presentazione &&
+        <View style={styles.bio}>
+          <Body style={{ color: Colors.blue, marginLeft: 10 }}>Presentazione</Body>
+          {(data.currentUser.presentazione.length < 75 || showAll)}
+          ? <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "left", margin: 20 }}>
+            <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
+        </View>}
       <View style={{ height: 5 }}></View>
       <View style={{ height: 5, backgroundColor: '#F7F4F4', width: "100%" }}></View>
-      <View style={styles.infoWrapper}>
-        <ItemsBlock refetch={refetch} onPress={
-          () =>
-            data.currentUser.formazioni.length == 0 ? navigation.navigate("FormazioneEditScreen") :
-              navigation.navigate("FormazioniScreen", { formazioni: data.currentUser.formazioni })} navigation={navigation} items={data.currentUser.formazioni} title={"Formazione"}></ItemsBlock>
-        <View style={styles.separator}></View>
-        <ItemsBlock refetch={refetch} navigation={navigation} onPress={
-          () =>
-            data.currentUser.esperienze.length == 0 ? navigation.navigate("EsperienzeEditScreen") :
-              navigation.navigate("EsperienzeScreen", { esperienze: data.currentUser.esperienze })
-        }
-          items={data.currentUser.esperienze} title={"Esperienze"}></ItemsBlock>
-        <View style={styles.separator}></View>
-        <ItemsBlock refetch={refetch} navigation={navigation} onPress={
-          () =>
-            data.currentUser.progetti.length == 0 ? navigation.navigate("ProgettiEditScreen") :
-              navigation.navigate("ProgettiScreen", { progetti: data.currentUser.progetti })
-        }
-          items={data.currentUser.progetti} title={"Progetti"}></ItemsBlock>
-        <View style={styles.separator}></View>
-        <CompetenzeBlock competenze={data.currentUser.competenze} onPress={() => navigation.navigate("CompetenzeScreen", { competenze: data.currentUser.competenze })}></CompetenzeBlock>
-        <View style={styles.separator}></View>
-      </View>
+      {<Profilo></Profilo>}
     </ScrollView>);
 }
 

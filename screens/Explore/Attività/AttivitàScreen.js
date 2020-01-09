@@ -10,6 +10,7 @@ import SentCard from "./SentCard";
 import TabBars from "../../../shared/TabBars";
 import HeaderStyles from "../../shared/HeaderStyles";
 import ReceivedCard from "./ReceivedCard";
+import { Bold } from "../../../components/StyledText";
 var shortid = require("shortid")
 
 const Inviate = gql`
