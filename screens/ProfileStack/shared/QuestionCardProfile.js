@@ -121,6 +121,7 @@ export default QuestionCard = ({ question, navigation, isRefetch }) => {
                 </View>
                 <View style={styles.buttonWrapper}>
                     <RoundButtonEmpty2
+                        onPress={() => navigation.navigate("QuestionScreen", { id: question.id })}
                         text={"Vedi risposte"}
                         color={Colors.blue}
                         textColor={Colors.blue}

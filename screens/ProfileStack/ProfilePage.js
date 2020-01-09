@@ -89,6 +89,7 @@ export default function ProfilePage({ navigation }) {
       </View>
     )
   }
+
   const Profilo = () => {
     return <ScrollView style={styles.infoWrapper}>
       <ItemsBlock refetch={refetch} onPress={
