@@ -32,7 +32,9 @@ export default function CreateAnswerScreen({ navigation }) {
     const [answer, setAnswer] = useState("")
     return (
         <View style={styles.container}>
-            <HeaderBarAfter navigation={navigation} onPress={() => createAnswer({ variables: { questionId: question.id, text: answer } })} />
+            <HeaderBarAfter navigation={navigation} onPress={() => {
+                answer.length > 0 && createAnswer({ variables: { questionId: question.id, text: answer } })
+            }} />
             <View style={styles.innerContainer}>
                 <View style={styles.questionContainer}>
                     <Body style={{

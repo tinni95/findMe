@@ -129,7 +129,9 @@ export default function CreateCommentScreen({ navigation }) {
                 }
             </ScrollView>
             <InputToolbar
-                onSend={(text) => createComment({ variables: { text, answerId: answer.id } })}></InputToolbar>
+                onSend={(text) => {
+                    text.length > 0 && createComment({ variables: { text, answerId: answer.id } })
+                }}></InputToolbar>
             <KeyboardSpacer style={{ backgroundColor: "white" }} />
 
         </View>

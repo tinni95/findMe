@@ -29,7 +29,9 @@ export default function CreateQuestionScreen({ navigation }) {
     const [tags, setTags] = useState("")
     return (
         <View style={styles.container}>
-            <HeaderBar navigation={navigation} onPress={() => createQuestion({ variables: { question, tags } })} />
+            <HeaderBar navigation={navigation} onPress={() => {
+                question.length > 0 && createQuestion({ variables: { question, tags } })
+            }} />
             <View style={styles.innerContainer}>
                 <AvatarAndName />
                 <TextInput
