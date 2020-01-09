@@ -110,7 +110,6 @@ export const QuestionCardAfter = ({ id, navigation }) => {
     if (loading) {
         return <FindMeSpinner />
     }
-    console.log(data.singleQuestion)
     return (
         <View style={styles.wrapper}>
             <View style={styles.card}>
