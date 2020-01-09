@@ -42,6 +42,7 @@ export default function ReceivedCard({ posizione }) {
                         textColor={Colors.red}
                         color={Colors.red}
                         text={"Accetta"}
+                        isMedium
                     />
                 </View>
             </View>
@@ -59,16 +60,25 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     footer: {
+        borderTopWidth: 0.3,
+        marginLeft: 10,
+        marginRight: 10,
+        borderTopColor: "#D0D0D0",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        paddingTop: 15,
+        paddingBottom: 15,
+
     },
     buttonWrapper: {
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        width: "60%"
     },
     info: {
         flexDirection: "row",
-        flex: 6.5
+        flex: 6.5,
+        marginBottom: 40
     },
     tooltip: {
         alignContent: "flex-end",

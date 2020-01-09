@@ -31,6 +31,7 @@ const Inviate = gql`
 const Ricevute = gql`
 {
     applicationsReceived{
+    id
       user{
         id
         pictureUrl
@@ -67,7 +68,7 @@ export default function AttivitàScreen({ navigation }) {
             {
                 posizioniRicevute.length > 0 &&
                 posizioniRicevute.map(posizione => {
-                    return <ReceivedCard posizione={posizione}></ReceivedCard>
+                    return <ReceivedCard key={shortid.generate()} posizione={posizione}></ReceivedCard>
                 })
             }
         </View>
