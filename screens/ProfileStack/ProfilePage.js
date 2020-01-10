@@ -202,10 +202,12 @@ export default function ProfilePage({ navigation }) {
       </View>
       {data.currentUser.presentazione &&
         <View style={styles.bio}>
-          <Body style={{ color: Colors.blue, marginLeft: 10 }}>Presentazione</Body>
-          {(data.currentUser.presentazione.length < 75 || showAll)}
-          ? <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione}</Light> : <Text style={{ textAlign: "left", margin: 20 }}>
-            <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold></Text>
+          <Body style={{ color: Colors.blue, marginLeft: 10 }}>Bio</Body>
+          {(data.currentUser.presentazione.length < 75 || showAll)
+            ? <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione}</Light> : (<Text style={{ textAlign: "left", margin: 10 }}>
+              <Light>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold>
+            </Text>)
+          }
         </View>}
       <View style={{ height: 5 }}></View>
       <View style={styles.tabBar}>
