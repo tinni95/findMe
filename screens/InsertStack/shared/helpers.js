@@ -4,8 +4,6 @@ var _ = require("lodash");
 export const Settori = ["Abbigliamento", "Alberghiero", "Arte e Cultura", "Bar e Ristorazione", "Benessere e Salute", "Edilizia", "Energia e Ambiente", "Formazione", "Forniture", "Informatica e Telecomunicazioni", "Intrattenimento", "Marketing", "Direzione", "Motori", "Servizi Finanziari", "Servizi Immobiliari", "Servizi Professionali", "Sport", "Trasporti", "Turismo", "Vendita al Dettaglio", "Economia", "Scienze", "Altro"];
 
 export const Requisiti = [
-    "Laurea Di Primo Livello",
-    "Laurea Magistrale di Primo Livello",
     "Scuola Superiore",
     "PHP",
     "MySql",
