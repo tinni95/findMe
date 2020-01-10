@@ -108,12 +108,12 @@ export const QuestionCard = ({ question, navigation, isRefetch }) => {
         <View style={styles.wrapper}>
             <View style={styles.card}>
                 <View style={styles.body}>
-                    <View style={styles.imageContainer}>
+                    <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: question.postedBy.id })} style={styles.imageContainer}>
                         <Image source={require("../../../assets/images/placeholder.png")} style={{ width: 40, height: 40, borderRadius: 20 }} />
-                    </View>
+                    </TouchableOpacity>
                     <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                     <View style={styles.content}>
-                        <Body style={styles.person}>{question.postedBy.nome + " " + question.postedBy.cognome}</Body>
+                        <Body onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: question.postedBy.id })} style={styles.person}>{question.postedBy.nome + " " + question.postedBy.cognome}</Body>
                         <Body style={styles.date}>{"Pubblicato " + moment(question.createdAt).fromNow()}</Body>
                         <Body style={styles.question}>{question.question}</Body>
                         <Body style={styles.tags}>{question.tags}</Body>

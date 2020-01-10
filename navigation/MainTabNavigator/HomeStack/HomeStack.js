@@ -3,10 +3,12 @@ import { createStackNavigator } from 'react-navigation';
 import { HomeScreenModal } from "./HomeScreenModal"
 import { QuestionScreenModal } from "./QuestionScreenModal"
 import TabBarIcon from "../../../components/TabBarIcon";
+import UserVisitsProfileScreen from "../../../screens/UserVisitsProfile"
 
 const HomeStack = createStackNavigator({
   HomeScreenModal,
-  QuestionScreenModal
+  QuestionScreenModal,
+  UserVisitsProfileScreen
 });
 
 HomeStack.navigationOptions = {

@@ -24,12 +24,14 @@ const User = gql`
           id
         }
         postedBy{
+          id
           nome
           cognome
         }
         question{
           id
           postedBy{
+            id
             nome
             cognome
           }
@@ -43,6 +45,7 @@ const User = gql`
         id
         question
         postedBy{
+          id
           nome
           cognome
         }

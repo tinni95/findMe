@@ -113,7 +113,9 @@ export const QuestionCardAfter = ({ id, navigation }) => {
     return (
         <View style={styles.wrapper}>
             <View style={styles.card}>
-                <AvatarAndTime text={"Pubblicato "} question={data.singleQuestion}></AvatarAndTime>
+                <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: data.singleQuestion.postedBy.id })}>
+                    <AvatarAndTime text={"Pubblicato "} question={data.singleQuestion}></AvatarAndTime>
+                </TouchableOpacity>
                 <View style={styles.body}>
                     <Body style={styles.question}>{data.singleQuestion.question}</Body>
                     <View style={styles.buttonWrapper}>

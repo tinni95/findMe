@@ -134,7 +134,9 @@ export default function AnswerCard({ answer, navigation }) {
 
     return (
         <View style={styles.container}>
-            <AvatarAndTime text={"Ha risposto "} question={answer}></AvatarAndTime>
+            <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: answer.postedBy.id })}>
+                <AvatarAndTime text={"Ha risposto "} question={answer}></AvatarAndTime>
+            </TouchableOpacity>
             <View style={styles.content}>
                 <Light>{answer.text}</Light>
             </View>
