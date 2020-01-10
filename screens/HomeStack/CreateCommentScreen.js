@@ -100,7 +100,7 @@ export default function CreateCommentScreen({ navigation }) {
     }
     return (
         <View style={styles.container}>
-            <HeaderBarComments navigation={navigation} />
+            <HeaderBarComments id={answer.question.id} navigation={navigation} />
             <ScrollView refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>

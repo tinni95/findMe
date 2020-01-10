@@ -12,6 +12,9 @@ import AnswerCard from "./components/AnswerCard";
 const answers = gql`
 query answersFeed($id:ID!){
     answersFeed(id:$id){
+        question{
+            id
+        }
         id
         text
         createdAt
@@ -46,7 +49,7 @@ export default function QuestionScreen({ navigation }) {
     }, [refreshing]);
 
     const id = navigation.getParam("id");
-    const { loading, error, data, refetch } = useQuery(answers, { variables: { id } });
+    const { loading, error, data, refetch } = useQuery(answers, { variables: { id }, fetchPolicy: "no-cache" });
     const isRefetch = navigation.getParam("refetch") || null
     useEffect(() => {
         isRefetch ? refetch() : null

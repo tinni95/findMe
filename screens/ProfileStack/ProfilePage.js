@@ -28,6 +28,7 @@ const User = gql`
           cognome
         }
         question{
+          id
           postedBy{
             nome
             cognome
