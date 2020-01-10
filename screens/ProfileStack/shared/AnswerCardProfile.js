@@ -9,7 +9,6 @@ import { useQuery, useMutation } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
 import FindMeSpinner from '../../../shared/FindMeSpinner';
 import Colors from '../../../constants/Colors';
-import RoundButtonEmpty2 from '../../../components/shared/RoundButtonEmpty2';
 
 moment.locale('it');
 const Likes = gql`

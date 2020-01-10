@@ -60,6 +60,7 @@ export const FormStyles = StyleSheet.create({
   large: {
     margin: 5,
     padding: 5,
+    borderRadius: 4,
     borderColor: '#D3CFCF',
     borderWidth: 0.5,
     height: 75,
@@ -67,6 +68,7 @@ export const FormStyles = StyleSheet.create({
   xlarge: {
     margin: 5,
     padding: 5,
+    borderRadius: 5,
     borderColor: '#D3CFCF',
     borderWidth: 0.5,
     height: 200,
