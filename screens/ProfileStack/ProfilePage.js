@@ -98,13 +98,11 @@ export default function ProfilePage({ navigation }) {
   const Questions = () => {
     return (
       <View style={styles.questionContainer}>
-        <ScrollView >
-          {
-            data.currentUser.questions.map((question) => {
-              return <QuestionCardProfile key={question.id} question={question} navigation={navigation}></QuestionCardProfile>
-            })
-          }
-        </ScrollView>
+        {
+          data.currentUser.questions.map((question) => {
+            return <QuestionCardProfile key={question.id} question={question} navigation={navigation}></QuestionCardProfile>
+          })
+        }
       </View>
     )
   }
@@ -113,18 +111,24 @@ export default function ProfilePage({ navigation }) {
   const Answers = () => {
     return (
       <View style={styles.questionContainer}>
-        <ScrollView >
-          {
-            data.currentUser.answers.map((answer) => {
-              return <AnswerCardProfile key={answer.id} answer={answer} navigation={navigation}></AnswerCardProfile>
-            })
-          }
-        </ScrollView>
+        {
+          data.currentUser.answers.map((answer) => {
+            return <AnswerCardProfile key={answer.id} answer={answer} navigation={navigation}></AnswerCardProfile>
+          })
+        }
+      </View>
+    )
+  }
+  // tabs
+  const Connessioni = () => {
+    return (
+      <View style={styles.questionContainer}>
+
       </View>
     )
   }
   const Profilo = () => {
-    return <ScrollView style={styles.infoWrapper}>
+    return <View style={styles.infoWrapper}>
       <ItemsBlock refetch={refetch} onPress={
         () =>
           data.currentUser.formazioni.length == 0 ? navigation.navigate("FormazioneEditScreen") :
@@ -146,7 +150,7 @@ export default function ProfilePage({ navigation }) {
       <View style={styles.separator}></View>
       <CompetenzeBlock competenze={data.currentUser.competenze} onPress={() => navigation.navigate("CompetenzeScreen", { competenze: data.currentUser.competenze })}></CompetenzeBlock>
       <View style={styles.separator}></View>
-    </ScrollView>
+    </View>
   }
 
   const [active, setActive] = useState(0)
@@ -172,7 +176,7 @@ export default function ProfilePage({ navigation }) {
   if (error) return <FindMeGraphQlErrorDisplay />;
 
   return (
-    <View >
+    <ScrollView >
       <View style={styles.userWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Image source={require("../../assets/images/placeholder.png")} style={{ width: 100, height: 100, borderRadius: 50 }} />
@@ -227,9 +231,10 @@ export default function ProfilePage({ navigation }) {
       {
         active == 0 && <Profilo /> ||
         active == 1 && <Questions /> ||
-        active == 2 && <Answers />
+        active == 2 && <Answers /> ||
+        active == 3 && <Connessioni />
       }
-    </View>);
+    </ScrollView>);
 }
 
 const styles = StyleSheet.create({
@@ -255,7 +260,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   infoWrapper: {
-    margin: 20
+    margin: 20,
+    minHeight: 500
   },
   flex: {
     flex: 1
@@ -281,6 +287,7 @@ const styles = StyleSheet.create({
   },
   questionContainer: {
     backgroundColor: "#F2F2F2",
+    minHeight: 500
   }
 })
 
