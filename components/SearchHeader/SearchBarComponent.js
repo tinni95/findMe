@@ -2,11 +2,16 @@ import React from 'react';
 import { StyleSheet, TextInput, View, Settings } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Body, Light } from '../StyledText';
+import Colors from '../../constants/Colors';
+import { useRef } from 'react';
 
 export default function SearchBarComponent({ navigation, setIs }) {
 
   const [search, setSearch] = useState("")
-
+  const [focused, setFocused] = useState("")
+  const myref = useRef();
   return (
     <View style={styles.outerWrapper}>
       <View style={styles.wrapper}>
@@ -20,11 +25,30 @@ export default function SearchBarComponent({ navigation, setIs }) {
           style={styles.container}
           placeholder="Cerca parola chiave..."
           onChangeText={(val) => setSearch(val)}
-          onFocus={() => setIs(true)}
-          onEndEditing={() => setIs(false)}
+          onFocus={() => {
+            setIs(true)
+            setFocused(true)
+          }}
+          onEndEditing={() => {
+            setIs(false)
+            setFocused(false)
+          }}
           value={search}
+          ref={myref}
         />
       </View>
+      {focused ?
+
+        <TouchableOpacity onPress={() => {
+          setIs(false)
+          setFocused(false)
+          myref.current.blur()
+        }}
+          style={styles.cancelWrapper}>
+          <Light style={{ color: Colors.blue }}>Cancel</Light>
+        </TouchableOpacity>
+        : null
+      }
     </View>
   );
 
@@ -38,16 +62,26 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     flex: 8,
     marginTop: 35,
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: 7.5,
+    marginRight: 7.5,
     backgroundColor: "#F4F4F4",
   },
   outerWrapper: {
-    flexDirection: "row"
+    flexDirection: "row",
+    flex: 9,
   },
   container: {
     fontSize: 14,
     flex: 1
+  },
+  cancelWrapper: {
+    flex: 1.5,
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+    marginRight: 5,
+    marginTop: 35,
+
   }
 });
 
