@@ -76,7 +76,7 @@ export default Anteprima = ({ navigation, user }) => {
         comune: data.postComune,
         regione: data.postRegione,
         provincia: data.postProvincia,
-        fields: data.postCategories.join(),
+        fields: data.postCategories.join(', '),
         type: data.postOwnerPosition,
         pubblicatoDa: checked ? user.nome[0] + user.cognome : user.nome + " " + user.cognome,
         posizione: data.postOwnerPosition,
@@ -97,7 +97,7 @@ export default Anteprima = ({ navigation, user }) => {
     }
   }, [data])
   const post = {
-    fields: data.postCategories.join(),
+    fields: data.postCategories.join(', '),
     title: data.postTitle,
     description: data.postDescription,
     positions: data.postPositions,

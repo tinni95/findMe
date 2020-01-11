@@ -108,7 +108,9 @@ export default function PostScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   descriptionCard: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderBottomWidth: 10,
+    borderBottomColor: "#F7F4F4"
   },
   image: {
     width: 200

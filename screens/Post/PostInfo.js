@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { Bold, Body } from '../../components/StyledText';
 
 export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden, pubblicatoDa }) {
@@ -7,8 +7,10 @@ export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden,
     return (
         <View style={styles.container}>
             <View style={styles.line}>
-                <Body>Categoria:</Body>
-                <Body style={styles.grigio}> {fields}</Body>
+                <Text style={{ lineHeight: 20, }}>
+                    <Body>Categoria:</Body>
+                    <Body style={styles.grigio}> {fields.replace(/,/g, ", ")}</Body>
+                </Text>
             </View>
             <View style={styles.line}>
                 {user ?
@@ -48,7 +50,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         margin: 5,
         marginTop: 10,
-        marginLeft: 0
+        marginLeft: 0,
     },
-    grigio: { color: "#989898" }
+    grigio: {
+        color: "#989898",
+
+    }
 })
