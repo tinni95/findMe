@@ -245,12 +245,18 @@ const styles = StyleSheet.create({
     flex: 1
   },
   tabText: {
+    fontSize: 12,
     color: "#6E6E6E"
+  },
+  tabTextActive: {
+    fontSize: 12,
   },
   tabBar: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    marginLeft: 5,
+    marginRight: 5,
     borderBottomWidth: 0.3,
     borderBottomColor: "lightgrey"
   },
@@ -278,11 +284,11 @@ const styles = StyleSheet.create({
     padding: 10,
     height: "100%",
     alignItems: "center",
-    paddingBottom: 15,
+    paddingBottom: 10,
   },
   tabButtonActive: {
     padding: 10,
-    paddingBottom: 15,
+    paddingBottom: 10,
     height: "100%",
     zIndex: 10,
     borderBottomColor: Colors.ocean,

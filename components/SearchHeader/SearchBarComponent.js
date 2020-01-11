@@ -1,42 +1,53 @@
 import React from 'react';
-import { SearchBar } from 'react-native-elements';
-import { StyleSheet } from 'react-native';
-import PropTypes from 'prop-types';
-import { width } from '../../constants/Layout';
+import { StyleSheet, TextInput, View, Settings } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 
-class SearchBarComponent extends React.Component {
-  static propTypes = {
-    setSearch: PropTypes.func.isRequired,
-    search: PropTypes.string.isRequired
-  };
+export default function SearchBarComponent({ navigation, setIs }) {
 
-  updateSearch = search => {
-    this.props.setSearch(search);
-  };
+  const [search, setSearch] = useState("")
 
-  render() {
-    return (
-      <SearchBar
-        platform="ios"
-        inputContainerStyle={{ backgroundColor: "#F7F4F4" }}
-        containerStyle={styles.container}
-        placeholder="Cerca parola chiave"
-        onChangeText={this.updateSearch}
-        onSubmitEditing={() => this.props.navigation.navigate("Explore", {
-          filter: this.props.search.toLowerCase()
-        })}
-        value={this.props.search}
-      />
-    );
-  }
+  return (
+    <View style={styles.outerWrapper}>
+      <View style={styles.wrapper}>
+        <Ionicons
+          name={"ios-search"}
+          size={23}
+          style={{ marginRight: 10 }}
+          color={"#BCBCBC"}
+        />
+        <TextInput
+          style={styles.container}
+          placeholder="Cerca parola chiave..."
+          onChangeText={(val) => setSearch(val)}
+          onFocus={() => setIs(true)}
+          onEndEditing={() => setIs(false)}
+          value={search}
+        />
+      </View>
+    </View>
+  );
+
 }
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
+    flexDirection: "row",
+    fontSize: 14,
+    padding: 10,
+    borderRadius: 5,
     flex: 8,
-    marginTop: 30,
-    backgroundColor: "white"
+    marginTop: 35,
+    marginLeft: 5,
+    marginRight: 5,
+    backgroundColor: "#F4F4F4",
+  },
+  outerWrapper: {
+    flexDirection: "row"
+  },
+  container: {
+    fontSize: 14,
+    flex: 1
   }
 });
 
-export default SearchBarComponent;
