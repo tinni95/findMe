@@ -57,7 +57,7 @@ mutation likeMutation($id:ID!){
 }
 `
 export default AnswerCard = ({ answer, navigation, isRefetch }) => {
-
+    console.log(answer.question.postedBy.id);
     useEffect(() => {
         refetch()
     }, [isRefetch])
@@ -143,12 +143,12 @@ export default AnswerCard = ({ answer, navigation, isRefetch }) => {
         <View style={styles.wrapper}>
             <View style={styles.card}>
                 <View style={styles.body}>
-                    <View style={styles.imageContainer}>
+                    <TouchableOpacity style={styles.imageContainer} onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: "ck563azw909xj0829jn8yvzjp" })}>
                         <Image source={require("../../../assets/images/placeholder.png")} style={{ width: 40, height: 40, borderRadius: 20 }} />
-                    </View>
+                    </TouchableOpacity>
                     <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                     <View style={styles.content}>
-                        <Body style={styles.person}>{answer.question.postedBy.nome + " " + answer.question.postedBy.cognome}</Body>
+                        <Body onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: answer.question.postedBy.id })} style={styles.person}>{answer.question.postedBy.nome + " " + answer.question.postedBy.cognome}</Body>
                         <Body style={styles.date}>{"Pubblicato " + moment(answer.question.createdAt).fromNow()}</Body>
                         <Body style={styles.question}>{answer.question.question}</Body>
                     </View>

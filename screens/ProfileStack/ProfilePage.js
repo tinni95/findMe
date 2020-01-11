@@ -216,7 +216,7 @@ export default function ProfilePage({ navigation }) {
             </Text>)
           }
         </View>}
-      <View style={{ height: 5 }}></View>
+      <View style={{ marginTop: 10, height: 5, backgroundColor: "#F2F2F2" }}></View>
       <View style={styles.tabBar}>
         <TouchableOpacity onPress={() => setActive(0)} style={active == 0 ? styles.tabButtonActive : styles.tabButton}>
           <Bold style={active == 0 ? styles.tabTextActive : styles.tabText}> Profilo</Bold>
