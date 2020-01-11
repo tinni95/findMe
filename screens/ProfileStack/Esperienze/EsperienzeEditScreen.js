@@ -37,6 +37,7 @@ mutation updateEsperienza($id: ID!, $compagnia:String,
 export default function EsperienzeEditScreen({ navigation }) {
     const esperienza = navigation.getParam("esperienza")
     const [zoom, setZoom] = useState(false)
+    const [lock, setLock] = useState(false)
     const [compagnia, setCompagnia] = useState(esperienza ? esperienza.compagnia : "")
     const [compagniaError, setCompagniaError] = useState(false)
     const [link, setLink] = useState(esperienza ? esperienza.link : "")
@@ -122,7 +123,8 @@ export default function EsperienzeEditScreen({ navigation }) {
             valid = true
         }
         if (compagnia.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && posizione.length > 0 && descrizione.length > 0 && dataInizio.length > 0
-            && dataFine.length > 0 && !invalidDate(dataInizio, dataFine)) {
+            && dataFine.length > 0 && !invalidDate(dataInizio, dataFine) && !lock) {
+            setLock(true)
             esperienza ?
                 updateEsperienza(
                     {

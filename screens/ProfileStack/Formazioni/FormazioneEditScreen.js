@@ -13,6 +13,7 @@ import gql from 'graphql-tag'
 import { Ionicons } from "@expo/vector-icons";
 import { Bold } from "../../../components/StyledText";
 import HeaderStyles from "../../shared/HeaderStyles";
+import { supportsOrientationLockAsync } from "expo/build/ScreenOrientation/ScreenOrientation";
 
 const LINK_REGEX = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
@@ -36,6 +37,7 @@ mutation updateFormazione($id: ID!, $istituto:String,
 
 export default function FormazioneEditScreen({ navigation }) {
     const formazione = navigation.getParam("formazione")
+    const [lock, setLock] = useState(false)
     const [zoom, setZoom] = useState(false)
     const [istituto, setIstituto] = useState(formazione ? formazione.istituto : "")
     const [istitutoError, setIstitutoError] = useState(false)
@@ -122,7 +124,8 @@ export default function FormazioneEditScreen({ navigation }) {
             valid = true
         }
         if (istituto.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && corso.length > 0 && descrizione.length > 0 && dataInizio.length > 0
-            && dataFine.length > 0 && !invalidDate(dataInizio, dataFine)) {
+            && dataFine.length > 0 && !invalidDate(dataInizio, dataFine) && !lock) {
+            setLock(true)
             formazione ?
                 updateFormazione(
                     {

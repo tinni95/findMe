@@ -35,6 +35,7 @@ mutation updateProgetto($id: ID!, $titolo:String,
 
 export default function ProgettiEditScreen({ navigation }) {
     const progetto = navigation.getParam("progetto")
+    const [lock, setLock] = useState(false)
     const [zoom, setZoom] = useState(false)
     const [titolo, setTitolo] = useState(progetto ? progetto.titolo : "")
     const [titoloError, setTitoloError] = useState(false)
@@ -122,7 +123,8 @@ export default function ProgettiEditScreen({ navigation }) {
             valid = true
         }
         if (titolo.length > 0 && sottoTitolo.length > 0 && (link.length == 0 || link.match(LINK_REGEX)) && descrizione.length > 0 && dataInizio.length > 0
-            && dataFine.length > 0 && !invalidDate(dataInizio, dataFine)) {
+            && dataFine.length > 0 && !invalidDate(dataInizio, dataFine) && !lock) {
+            setLock(true)
             progetto ?
                 updateProgetto(
                     {
