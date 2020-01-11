@@ -17,12 +17,12 @@ export default PostCardEdit = ({ post, navigation }) => {
                     <PostCardPublisher post={post} />
                     <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                     <PostCardText post={post} />
-                    <TouchableOpacity onPress={() => { }} style={styles.trash}>
+                    <TouchableOpacity onPress={() => { alert("elimina?") }} style={styles.trash}>
                         <Ionicons
                             name={"ios-trash"}
                             size={25}
                             style={{ padding: 5 }}
-                            color={"white"}
+                            color={Colors.blue}
                         />
                     </TouchableOpacity>
                 </View>
@@ -32,16 +32,16 @@ export default PostCardEdit = ({ post, navigation }) => {
                         <View style={{ height: 10 }}></View>
                         <RoundButtonEmpty2
                             buttonStyle={{ paddingLeft: 10, paddingRight: 10 }}
-                            textColor={Colors.red}
+                            textColor={Colors.blue}
                             fontSize={10}
-                            text="Apri"
-                            isLight
+                            text="Visualizza"
+                            isMedium
                             onPress={() =>
                                 navigation.navigate('PostScreen', {
                                     id: post.id
                                 })
                             }
-                            color={Colors.red}
+                            color={Colors.blue}
                         />
                     </View>
                 </View>
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     },
     trash: {
         alignItems: "center",
-        backgroundColor: "#DD1E63",
         width: 35,
         height: 35,
         margin: 5,

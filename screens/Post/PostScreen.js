@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { isSmallDevice } from '../../constants/Layout';
-import { Bold, Light } from '../../components/StyledText';
+import { Bold, Light, Body } from '../../components/StyledText';
 import LocationWithText from '../../components/shared/LocationWithText';
 import { PositionCard } from '../../components/PositionCard';
 import PostInfo from './PostInfo';
@@ -166,7 +166,15 @@ PostScreen.navigationOptions = ({ navigation }) => {
       </TouchableOpacity>
     ),
     headerRight: (
-      isOwner && <TouchablePen size={22}><Bold style={{ color: Colors.blue, marginRight: 20, marginTop: 5 }}>MODIFICA</Bold></TouchablePen>
+      isOwner && <TouchableOpacity style={{ flexDirection: "row" }}>
+        <Bold style={{ color: Colors.red }}>Elimina</Bold>
+        <Ionicons
+          name={"ios-trash"}
+          size={25}
+          style={{ margin: 10 }}
+          color={Colors.red}
+        ></Ionicons>
+      </TouchableOpacity>
     ),
   }
 }
