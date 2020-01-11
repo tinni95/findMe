@@ -34,6 +34,7 @@ export function PositionCard({ position, button, post, navigation }) {
         alert("success")
       },
       onError: error => {
+        console.log(error)
         alert("Qualcosa è andato storto")
       }
     });

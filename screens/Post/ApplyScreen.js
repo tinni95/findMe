@@ -44,7 +44,7 @@ export default function ApplyScreen({navigation}) {
             createMessage({variables:{applicationId:createApplication.id,text:messaggio}})
           },
           onError: error => {
-
+            console.log(error)
             alert("Qualcosa è andato storto")
           }
         });

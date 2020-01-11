@@ -26,7 +26,7 @@ export default function ReceivedCard({ posizione }) {
                 </View>
             </View>
             <View style={styles.messageWrapper}>
-                <Bold style={{ fontSize: 12, marginBottom: 10 }}>Risposta</Bold>
+                <Bold style={{ fontSize: 12, marginBottom: 10, color: Colors.blue }}>Risposta</Bold>
                 <Light style={{ fontSize: 12, marginBottom: 10 }}>{posizione.messages[0].text}</Light>
             </View>
             <View style={styles.footer}>

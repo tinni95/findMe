@@ -6,6 +6,7 @@ import RoundButton from "../../../components/shared/RoundButton"
 import Colors from "../../../constants/Colors"
 import { Tooltip } from "react-native-elements"
 import RoundButtonEmpty2 from "../../../components/shared/RoundButtonEmpty2"
+import RoundButtonEmptyIcon from "../../../components/shared/RoundButtonEmptyIcon"
 var shortid = require("shortid")
 
 export default function SentCard({ navigation, field, title, qualifiche, pubblicatoDa, id }) {
@@ -21,8 +22,22 @@ export default function SentCard({ navigation, field, title, qualifiche, pubblic
         </View>
         <View style={styles.spacer} />
         <View style={styles.spacer} />
-        <Body style={styles.pubHeader}>Pubblicato Da:</Body>
-        <Body style={styles.pubContent}>{pubblicatoDa}</Body>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            <View style={{ flex: 8.6, flexDirection: "row", justifyContent: "space-between" }}>
+                <View>
+                    <Body style={styles.pubHeader}>Titolo post</Body>
+                    <Body style={styles.pubContent}>Sviluppo App</Body>
+                </View>
+                <View>
+                    <Body style={styles.pubHeader}>Pubblicato da</Body>
+                    <Body style={styles.pubContent}>{pubblicatoDa}</Body>
+                </View>
+            </View>
+            <View style={{ flex: 1.4 }}>
+            </View>
+        </View>
+        <View style={styles.spacer} />
+        <View style={styles.spacer} />
         <View style={styles.spacer} />
         <View style={styles.spacer} />
         <Body style={styles.pubHeader}>Qualifiche</Body>
@@ -35,10 +50,20 @@ export default function SentCard({ navigation, field, title, qualifiche, pubblic
             })}
         </View>
         <View style={styles.line} />
-        <View style={styles.visualizzaWrapper}>
-            <RoundButtonEmpty2 onPress={() => navigation.navigate('PostScreen', {
-                id
-            })} isLight text={"  Apri  "} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2>
+        <View style={styles.footer}>
+            <View style={styles.visualizzaWrapper}>
+                <RoundButtonEmpty2 onPress={() => navigation.navigate('PostScreen', {
+                    id
+                })} isMedium text={"  Apri  "} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2>
+                <RoundButtonEmptyIcon
+                    iconName={"ios-send"}
+                    text={"Rispondi"}
+                    iconColor={Colors.blue}
+                    textColor={Colors.blue}
+                    color={Colors.blue}
+                    isMedium
+                />
+            </View>
         </View>
     </View>)
 }
@@ -48,7 +73,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     pubHeader: {
-        color: "#191919",
+        color: Colors.blue,
         fontSize: 13
     },
     pubContent: {
@@ -73,12 +98,21 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     spacer: { height: 10 },
-    visualizzaWrapper: {
+    footer: {
+        borderTopWidth: 0.3,
+        marginLeft: 10,
+        marginRight: 10,
+        borderTopColor: "#D0D0D0",
         justifyContent: "center",
         alignItems: "center",
-        alignContent: "center",
-        margin: 15,
-        marginTop: 25
+        paddingTop: 15,
+        paddingBottom: 15,
+
+    },
+    visualizzaWrapper: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "60%"
     },
     line: {
         borderBottomWidth: 0.3,

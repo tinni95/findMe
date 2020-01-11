@@ -36,7 +36,6 @@ export const PostCardText = ({ post: { title, date, fields, comune, regione } })
     <View style={styles.container}>
       <Bold style={styles.title}>{fixOverflow(title, titleLimit)}</Bold>
       <LocationWithText
-        points={20}
         style={styles.location}
         comune={comune}
         regione={regione}

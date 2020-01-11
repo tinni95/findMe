@@ -6,9 +6,15 @@ export default function Info({ nome, cognome, regione, comune, posizione }) {
     return (
         <View style={styles.container}>
             <Bold style={{ fontSize: 16 }}>{nome + " " + cognome}</Bold>
-            <LocationWithText comune={comune} regione={regione}></LocationWithText>
-            <Light style={{ fontSize: 12, marginTop: 5 }}>Posizione</Light>
-            <Body style={{ fontSize: 14, marginTop: 5 }}>{posizione}</Body>
+            {comune ?
+                <LocationWithText points={17} style={{ marginTop: -3 }} comune={comune} regione={regione}></LocationWithText>
+                :
+                <View style={{ height: 30 }} />
+            }
+            <Body style={{ fontSize: 14, marginTop: 15, color: Colors.blue }}>Posizione</Body>
+            <Light style={{ fontSize: 12, marginTop: 5 }}>{posizione}</Light>
+            <Body style={{ fontSize: 14, marginTop: 15 }}>Titolo post</Body>
+            <Light style={{ fontSize: 12, marginTop: 5, color: Colors.blue }}>Sviluppo App</Light>
         </View>
     )
 }

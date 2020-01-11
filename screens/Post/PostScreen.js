@@ -85,7 +85,6 @@ export default function PostScreen({ navigation }) {
       <View style={styles.descriptionCard}>
         <Bold style={styles.title}>{data.singlePost.title}</Bold>
         <LocationWithText
-          points={20}
           fontSize={14}
           style={styles.location}
           comune={data.singlePost.comune}

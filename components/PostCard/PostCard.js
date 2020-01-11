@@ -23,7 +23,7 @@ export const PostCard = ({ post, navigation }) => {
             <RoundButtonEmpty
               fontColor={"#5DD9D8"}
               fontSize={10}
-              text="Scopri di Più"
+              text="Scopri di più"
               onPress={() =>
                 navigation.navigate('PostScreen', {
                   id: post.id
