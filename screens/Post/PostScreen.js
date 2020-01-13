@@ -12,7 +12,6 @@ import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeSpinner"
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
-import TouchablePen from '../ProfileStack/shared/TouchablePen';
 import { sendNotification } from '../../shared/PushNotifications';
 import HeaderStyles from '../shared/HeaderStyles';
 
@@ -77,7 +76,7 @@ export default function PostScreen({ navigation }) {
     return data.singlePost.positions.map((position, index) => {
       return <PositionCard buttonOnPress={() => {
         submitPosition(position)
-      }} post={data.singlePost} buttonText={"Candidati"} button={data.currentUser.id === data.singlePost.postedBy.id} navigation={navigation} key={index} position={position} />;
+      }} buttonText={"Candidati"} post={data.singlePost} button={data.currentUser.id === data.singlePost.postedBy.id} navigation={navigation} key={index} position={position} />;
     });
   };
   return (

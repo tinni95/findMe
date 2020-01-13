@@ -15,8 +15,8 @@ import { sendNotification } from "../../shared/PushNotifications"
 import HeaderStyles from "../shared/HeaderStyles"
 
 const CREATEAPPLICATION_MUTATION = gql`
-mutation createApplication($postId: ID!, $positionId:ID!) {
-  createApplication(postId:$postId,positionId:$positionId) {
+mutation createApplication($positionId: ID!) {
+  createApplication(positionId:$positionId) {
         id
         position{
           title
@@ -32,8 +32,7 @@ mutation createPostMessage($applicationId: ID!,$text:String!) {
 }`;
 
 export default function ApplyScreen({navigation}) {
-
-    const post =navigation.getParam("post")
+  const post =navigation.getParam("post")
     const refetch =navigation.getParam("refetch")
     const position =navigation.getParam("position")
     const [messaggio,setMessaggio] = useState("")
@@ -66,7 +65,7 @@ export default function ApplyScreen({navigation}) {
             if(messaggio.length===0){
                 return alert("aoh el messaggio")
             }
-            createApplication({ variables: { positionId: position.id, postId: post.id } }).then(() => {
+            createApplication({ variables: { positionId: position.id } }).then(() => {
               refetch()
             }).then(() => {
               sendNotification({

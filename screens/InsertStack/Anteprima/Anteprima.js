@@ -33,7 +33,7 @@ const POST_ANTEPRIMA = gql`
 `;
 
 const CREATEPOST_MUTATION = gql`
-mutation createPost($title: String!, $description: String!,$comune: String!, $regione:String!, $provincia:String!, $fields:String!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyInput!) {
+mutation createPost($title: String!, $description: String!,$comune: String!, $regione:String!, $provincia:String!, $fields:String!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyWithoutPostInput!) {
   createPost(title: $title, description:$description, comune:$comune, regione:$regione, provincia:$provincia,fields:$fields,type:$type,posizione:$posizione, pubblicatoDa:$pubblicatoDa,positions:$positions) {
       title
   }
