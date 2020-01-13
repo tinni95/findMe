@@ -42,6 +42,25 @@ export default function Explore({ navigation }) {
   const { loading, error, data, refetch } = useQuery(posts, {
     variables: settore && settore.length > 0 ? { settore, regione, comune, provincia, filter } : { regione, comune, provincia, filter }
   });
+  const countFilters = () => {
+    let i = 0;
+    if (regione != null) {
+      i = i + 1
+    }
+    if (provincia != null) {
+      i = i + 1
+    }
+    if (comune != null) {
+      i = i + 1
+    }
+    if (settore != null) {
+      i = i + settore.length
+    }
+    return i
+  }
+
+  const filters = countFilters();
+
 
   useEffect(() => {
     isRefetch ? refetch() : null
@@ -51,6 +70,7 @@ export default function Explore({ navigation }) {
   if (loading) return (
     <View style={styles.container}>
       <SearchHeader
+        filters={filters}
         settore={settore}
         navigation={navigation}
         setSearch={search => {
@@ -86,6 +106,7 @@ export default function Explore({ navigation }) {
     return (
       <View style={styles.container}>
         <SearchHeader
+          filters={filters}
           settore={settore}
           navigation={navigation}
           setSearch={search => {

@@ -5,15 +5,16 @@ import SearchBarComponent from './SearchBarComponent';
 import FilterButton from './FilterButton';
 import { useState } from 'react';
 
-export default function SearchHeader({ navigation, setSearch, settore }) {
+export default function SearchHeader({ navigation, setSearch, settore, filters }) {
   const [isSearch, setIs] = useState(false)
+  console.log(filters)
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
         {!isSearch &&
           <FilterButton onPress={() => navigation.navigate("FiltersPage", {
             settore
-          })} />}
+          })} filters={filters} />}
         <SearchBarComponent updateSearch={setSearch} setIs={setIs} setSearch={setSearch} />
         {!isSearch &&
           <TouchableOpacity onPress={() => navigation.navigate("AttivitàScreen")} style={{ top: 17.5, flex: 1.25 }}>
