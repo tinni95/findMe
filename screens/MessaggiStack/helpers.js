@@ -20,9 +20,9 @@ export const parsePostMessages = (messages, id) => {
             ...message,
             _id: message.id,
             sub: {
-                id: message.user.id,
-                _id: message.user.id == id ? 2 : 1,
-                name: message.user.nome,
+                id: message.pub.id,
+                _id: message.pub.id == id ? 1 : 2,
+                name: message.pub.nome,
                 avatar: 'https://placeimg.com/140/140/any',
             }
         }

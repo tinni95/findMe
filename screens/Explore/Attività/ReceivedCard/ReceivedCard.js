@@ -10,14 +10,14 @@ import AvatarAndVedi from "./AvatarAndVedi"
 import Info from "./Info"
 import { Bold, Light } from "../../../../components/StyledText"
 
-export default function ReceivedCard({ application }) {
+export default function ReceivedCard({ application, navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.upperContent}>
                 <AvatarAndVedi />
                 <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                 <View style={styles.info}>
-                    <Info nome={application.user.nome} cognome={application.user.cognome} comune={application.user.comune} regione={application.user.regione} posizione={application.position.title}></Info>
+                    <Info nome={application.from.nome} cognome={application.from.cognome} comune={application.from.comune} regione={application.from.regione} posizione={application.position.title}></Info>
                 </View>
                 <View style={styles.tooltip}>
                     <Tooltip backgroundColor={"#10476C"} popover={<Text style={{ color: "white" }}>{application.position.field}</Text>}>
@@ -34,7 +34,7 @@ export default function ReceivedCard({ application }) {
                     <RoundButtonEmptyIcon
                         iconName={"ios-send"}
                         text={"Rispondi"}
-                        onPress={() => navigation.navigate("ApplicationChat", { application, isSub: true })}
+                        onPress={() => navigation.navigate("ApplicationChat", { id: application.from.id, application, isSub: false })}
                         iconColor={Colors.blue}
                         textColor={Colors.blue}
                         color={Colors.blue}

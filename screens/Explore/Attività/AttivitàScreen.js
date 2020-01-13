@@ -12,52 +12,53 @@ import HeaderStyles from "../../shared/HeaderStyles";
 import ReceivedCard from "./ReceivedCard";
 var shortid = require("shortid")
 
-const Inviate = gql`
+const User = gql`
 {
-    applicationsSent{
-    id
-      position{
-        field
-        title
-        requisiti
-      }
-      post{
-          id
-          pubblicatoDa
-      }
-    }
+    currentUser {
+        applicationsSent {
+                id
+                position {
+                    field
+                    post{
+                        pubblicatoDa
+                        title
+                    }
+                    title
+                    requisiti
+                }
+                to {
+                    id
+                    nome
+                }
+            }
+        applicationsReceived{
+            id
+            position {
+                field
+                title
+                requisiti
+            }
+            from{
+                id
+                nome
+                cognome
+                regione
+                comune
+            }
+            position{
+              post{
+                title
+                pubblicatoDa
+              }
+            }
+            messages{
+                text
+                createdAt
+                updatedAt
+            }
+        }
   }
-`
-
-const Ricevute = gql`
-{
-    currentUser{
-    applications
-    id
-      user{
-        id
-        pictureUrl
-        nome
-        cognome
-        comune
-        regione
-        provincia
-      }
-      position{
-        title
-        field
-      }
-      messages{
-          text
-          createdAt
-          updatedAt
-          user{
-              id
-              nome
-          }
-      }
-    }
-  }
+}
 `
 
 
@@ -69,7 +70,7 @@ export default function AttivitàScreen({ navigation }) {
     const FirstRoute = () => (
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={{ backgroundColor: "#F7F4F4" }}>
             {posizioniInvitate.length > 0 && posizioniInvitate.map(posizione => {
-                return <SentCard key={shortid.generate()} title={posizione.position.title} field={posizione.position.field} pubblicatoDa={posizione.post.pubblicatoDa} qualifiche={posizione.position.requisiti} id={posizione.post.id} navigation={navigation} />
+                return <SentCard key={shortid.generate()} title={posizione.position.title} field={posizione.position.field} pubblicatoDa={posizione.position.post.pubblicatoDa} qualifiche={posizione.position.requisiti} id={posizione.position.post.id} navigation={navigation} />
             })}
         </ScrollView>
     );
@@ -79,14 +80,15 @@ export default function AttivitàScreen({ navigation }) {
             {
                 posizioniRicevute.length > 0 &&
                 posizioniRicevute.map(application => {
-                    return <ReceivedCard key={shortid.generate()} application={application}></ReceivedCard>
+                    return <ReceivedCard navigation={navigation} key={shortid.generate()} application={application}></ReceivedCard>
                 })
             }
         </ScrollView>
     );
-    const { refetch } = useQuery(Inviate, {
-        onCompleted: async ({ applicationsSent }) => {
-            setInviate(applicationsSent)
+    const { refetch } = useQuery(User, {
+        onCompleted: async ({ currentUser }) => {
+            setInviate(currentUser.applicationsSent);
+            setRicevute(currentUser.applicationsReceived)
         }
     });
 
@@ -94,12 +96,6 @@ export default function AttivitàScreen({ navigation }) {
         setRefreshing(true)
         refetch().then(() => setRefreshing(false))
     }
-
-    const receivedQuery = useQuery(Ricevute, {
-        onCompleted: async ({ applicationsReceived }) => {
-            setRicevute(applicationsReceived)
-        }
-    });
 
     const [routes] = React.useState([
         { key: 'first', title: 'Inviate' },
