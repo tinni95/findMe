@@ -10,30 +10,31 @@ import AvatarAndVedi from "./AvatarAndVedi"
 import Info from "./Info"
 import { Bold, Light } from "../../../../components/StyledText"
 
-export default function ReceivedCard({ posizione }) {
+export default function ReceivedCard({ application }) {
     return (
         <View style={styles.container}>
             <View style={styles.upperContent}>
                 <AvatarAndVedi />
                 <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                 <View style={styles.info}>
-                    <Info nome={posizione.user.nome} cognome={posizione.user.cognome} comune={posizione.user.comune} regione={posizione.user.regione} posizione={posizione.position.title}></Info>
+                    <Info nome={application.user.nome} cognome={application.user.cognome} comune={application.user.comune} regione={application.user.regione} posizione={application.position.title}></Info>
                 </View>
                 <View style={styles.tooltip}>
-                    <Tooltip backgroundColor={"#10476C"} popover={<Text style={{ color: "white" }}>{posizione.position.field}</Text>}>
-                        <FieldIcon field={posizione.position.field} size={30} />
+                    <Tooltip backgroundColor={"#10476C"} popover={<Text style={{ color: "white" }}>{application.position.field}</Text>}>
+                        <FieldIcon field={application.position.field} size={30} />
                     </Tooltip>
                 </View>
             </View>
             <View style={styles.messageWrapper}>
                 <Bold style={{ fontSize: 12, marginBottom: 10, color: Colors.blue }}>Risposta</Bold>
-                <Light style={{ fontSize: 12, marginBottom: 10 }}>{posizione.messages[0].text}</Light>
+                <Light style={{ fontSize: 12, marginBottom: 10 }}>{application.messages[0].text}</Light>
             </View>
             <View style={styles.footer}>
                 <View style={styles.buttonWrapper}>
                     <RoundButtonEmptyIcon
                         iconName={"ios-send"}
                         text={"Rispondi"}
+                        onPress={() => navigation.navigate("ApplicationChat", { application, isSub: true })}
                         iconColor={Colors.blue}
                         textColor={Colors.blue}
                         color={Colors.blue}

@@ -15,9 +15,12 @@ import { sendNotification } from "../../shared/PushNotifications"
 import HeaderStyles from "../shared/HeaderStyles"
 
 const CREATEAPPLICATION_MUTATION = gql`
-mutation createApplication($positionId: ID!) {
-  createApplication(positionId:$positionId) {
+mutation createApplication($positionId: ID!, $to:ID!) {
+  createApplication(positionId:$positionId, to:$to) {
         id
+        to{
+          id
+        }
         position{
           title
         }
@@ -25,8 +28,8 @@ mutation createApplication($positionId: ID!) {
 }`;
 
 const CREATEPOSTMESSAGE_MUTATION = gql`
-mutation createPostMessage($applicationId: ID!,$text:String!) {
-  createPostMessage(applicationId:$applicationId,text:$text) {
+mutation createPostMessage($applicationId: ID!,$text:String!, $subId:ID!) {
+  createPostMessage(applicationId:$applicationId,text:$text, subId:$subId) {
         id
     }
 }`;
@@ -40,7 +43,8 @@ export default function ApplyScreen({navigation}) {
     const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
         {
           onCompleted: async ({ createApplication }) => {
-            createMessage({variables:{applicationId:createApplication.id,text:messaggio}})
+            console.log(createApplication)
+            createMessage({variables:{applicationId:createApplication.id,text:messaggio, subId:createApplication.to.id }})
           },
           onError: error => {
             console.log(error)
@@ -65,7 +69,7 @@ export default function ApplyScreen({navigation}) {
             if(messaggio.length===0){
                 return alert("aoh el messaggio")
             }
-            createApplication({ variables: { positionId: position.id } }).then(() => {
+            createApplication({ variables: { positionId: position.id, to:post.postedBy.id} }).then(() => {
               refetch()
             }).then(() => {
               sendNotification({

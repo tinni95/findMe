@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { GiftedChat, InputToolbar } from 'react-native-gifted-chat'
+import { GiftedChat } from 'react-native-gifted-chat'
 import { View } from "react-native"
-import InputToolbar from "../MessaggiStack/InputToolbar"
-import gql from 'graphql-tag';
+
 import { useMutation, useSubscription, useQuery } from 'react-apollo';
-import parseMessages from "../MessaggiStack/helpers"
-import FindMeMessage from '../MessaggiStack/FindMeMessage'
-import moment from 'moment/min/moment-with-locales'
-import { sendNotification } from '../../shared/PushNotifications';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
-moment.locale('it');
+import { parsePostMessages } from "../MessaggiStack/helpers"
+import { gql } from 'apollo-boost';
+
 
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
 mutation unseeApplicationChatChatMutation($applicationId:ID!,$pubRead:Boolean,$subRead:Boolean){
@@ -30,31 +26,25 @@ mutation createPostMessage($applicationId: ID!,$text:String!) {
 }`;
 
 const MESSAGES_QUERY = gql`
-query chatQuery($id:ID!){
-    Chat(id:$id){
+query chatQuery($applicationId:ID!){
+    PostMessagesFeed(applicationId:$applicationId){
         sub{
-            nome
             pushToken
+          id
         }
         pub{
-            nome
             pushToken
+          id
         }
-        messages{
         id
         text
         createdAt
-        user{
-            id
-            nome
-        }
-    }
     }
   }`;
 
-const MESSAGES_SUBSCRIPTION = gql`
+const POSTMESSAGES_SUBSCRIPTION = gql`
 subscription messageReceivedSub($id:ID!){
-    messageReceivedSub(id:$id){
+    postMessageReceivedSub(id:$id){
         updatedFields
     }
   }`;
@@ -62,31 +52,35 @@ subscription messageReceivedSub($id:ID!){
 
 export default function ApplicationChat({ navigation }) {
     const [messages, setMessages] = useState([])
-    const chat = navigation.getParam("chat")
     const isSub = navigation.getParam("isSub")
-    const id = navigation.getParam("id")
+    const application = navigation.getParam("application")
 
     const { loading, error, data, refetch } = useQuery(
         MESSAGES_QUERY, { variables: { id: chat.id } }
     )
     const subscription = useSubscription(
-        MESSAGES_SUBSCRIPTION,
-        { variables: { id: chat.id } }
+        POSTMESSAGES_SUBSCRIPTION,
+        {
+            variables: { id: chat.id },
+            onSubscriptionData: async ({ postMessageReceivedSub }) => {
+                refetch()
+            }
+        }
     );
 
-    const [unseeChat] = useMutation(UNSEECHAT_MUTATION, {
+    const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
         onCompleted: async ({ unseeChat }) => {
             console.log(unseeChat)
         },
     })
 
-    const [createMessage] = useMutation(CREATEMESSAGE_MUTATION,
+    const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION,
         {
-            onCompleted: async ({ createMessage }) => {
-                isSub ? unseeChat({ variables: { chatId: chat.id, pubRead: false } }) :
-                    unseeChat({ variables: { chatId: chat.id, subRead: false } })
-                isSub ? sendNotification(data.Chat.pub.pushToken, "Messaggio da " + data.Chat.sub.nome, createMessage.text) :
-                    sendNotification(data.Chat.sub.pushToken, "Messaggio da " + data.Chat.pub.nome, createMessage.text)
+            onCompleted: async ({ createPostMessage }) => {
+                isSub ? unseeChat({ variables: { applicationId: application.id, pubRead: false } }) :
+                    unseeChat({ variables: { applicationId: application.id, subRead: false } })
+                isSub ? sendNotification(data.PostMessagesFeed.pub.pushToken, "Messaggio da " + data.PostMessagesFeed.sub.nome, createPostMessage.text) :
+                    sendNotification(data.PostMessagesFeed.sub.pushToken, "Messaggio da " + data.PostMessagesFeed.pub.nome, createPostMessage.text)
                 refetch()
             },
             onError: error => {
@@ -95,14 +89,10 @@ export default function ApplicationChat({ navigation }) {
         });
 
     useEffect(() => {
-        data && setMessages(parseMessages(data.Chat.messages, id))
+        data && setMessages(parsePostMessages(data.PostMessagesFeed, id))
         !loading && console.log("data", data)
     }, [data])
 
-
-    useEffect(() => {
-        !subscription.loading ? refetch() : null
-    }, [subscription.data])
 
     const onSend = (message) => {
         createMessage({ variables: { text: message, channelId: chat.id } })

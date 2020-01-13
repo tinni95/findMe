@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { View, StyleSheet, TouchableOpacity, Dimensions, Platform, RefreshControl } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { StyleSheet, TouchableOpacity, Dimensions, Platform, RefreshControl } from 'react-native';
+import { SceneMap } from 'react-native-tab-view';
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from '@apollo/react-hooks';
 import Colors from "../../../constants/Colors"
@@ -10,12 +10,12 @@ import SentCard from "./SentCard";
 import TabBars from "../../../shared/TabBars";
 import HeaderStyles from "../../shared/HeaderStyles";
 import ReceivedCard from "./ReceivedCard";
-import { Bold } from "../../../components/StyledText";
 var shortid = require("shortid")
 
 const Inviate = gql`
 {
     applicationsSent{
+    id
       position{
         field
         title
@@ -31,7 +31,8 @@ const Inviate = gql`
 
 const Ricevute = gql`
 {
-    applicationsReceived{
+    currentUser{
+    applications
     id
       user{
         id
@@ -77,8 +78,8 @@ export default function AttivitàScreen({ navigation }) {
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={{ backgroundColor: "#F7F4F4" }}>
             {
                 posizioniRicevute.length > 0 &&
-                posizioniRicevute.map(posizione => {
-                    return <ReceivedCard key={shortid.generate()} posizione={posizione}></ReceivedCard>
+                posizioniRicevute.map(application => {
+                    return <ReceivedCard key={shortid.generate()} application={application}></ReceivedCard>
                 })
             }
         </ScrollView>
