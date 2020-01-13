@@ -37,17 +37,32 @@ export default function Explore({ navigation }) {
   const isRefetch = navigation.getParam("refetch") || null
   const provincia = navigation.getParam("provincia") || null
   let settore = navigation.getParam("settore") || null
-  const [search, setSearch] = useState("");
   const [refreshing, setRefreshing] = useState(false);
+  const [filter, setSearch] = useState("");
   const { loading, error, data, refetch } = useQuery(posts, {
-    variables: settore && settore.length > 0 ? { settore, regione, comune, provincia, filter: search } : { regione, comune, provincia, filter: search }
+    variables: settore && settore.length > 0 ? { settore, regione, comune, provincia, filter } : { regione, comune, provincia, filter }
   });
 
   useEffect(() => {
     isRefetch ? refetch() : null
   }, [isRefetch])
 
-  if (loading) return <FindMeSpinner />;
+
+  if (loading) return (
+    <View style={styles.container}>
+      <SearchHeader
+        settore={settore}
+        navigation={navigation}
+        setSearch={search => {
+          setSearch(search)
+        }
+        }
+      />
+      <View style={styles.postBody}>
+        <FindMeSpinner />
+      </View>
+    </View>
+  );
   if (error) return <FindMeGraphQlErrorDisplay />
   if (data) {
     const onRefresh = async () => {
@@ -72,11 +87,11 @@ export default function Explore({ navigation }) {
       <View style={styles.container}>
         <SearchHeader
           settore={settore}
-          search={search}
           navigation={navigation}
           setSearch={search => {
             setSearch(search)
-          }}
+          }
+          }
         />
         <View style={styles.postBody}>
           {isBigDevice ?
@@ -99,7 +114,6 @@ export default function Explore({ navigation }) {
               <View style={styles.penWrapper}>
                 <CreateButton onPress={() => navigation.navigate("InsertStack")}></CreateButton>
               </View>
-
             </View>
           }
         </View>

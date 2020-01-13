@@ -3,11 +3,12 @@ import { StyleSheet, TextInput, View, Settings } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Body, Light } from '../StyledText';
+import { Light } from '../StyledText';
 import Colors from '../../constants/Colors';
 import { useRef } from 'react';
 
-export default function SearchBarComponent({ navigation, setIs }) {
+
+export default function SearchBarComponent({ setIs, updateSearch }) {
 
   const [search, setSearch] = useState("")
   const [focused, setFocused] = useState("")
@@ -32,6 +33,9 @@ export default function SearchBarComponent({ navigation, setIs }) {
           onEndEditing={() => {
             setIs(false)
             setFocused(false)
+          }}
+          onSubmitEditing={() => {
+            updateSearch(search)
           }}
           value={search}
           ref={myref}

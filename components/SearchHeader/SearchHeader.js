@@ -5,7 +5,7 @@ import SearchBarComponent from './SearchBarComponent';
 import FilterButton from './FilterButton';
 import { useState } from 'react';
 
-export default function SearchHeader({ navigation, setSearch, search, settore }) {
+export default function SearchHeader({ navigation, setSearch, settore }) {
   const [isSearch, setIs] = useState(false)
   return (
     <View style={{ flex: 1 }}>
@@ -14,7 +14,7 @@ export default function SearchHeader({ navigation, setSearch, search, settore })
           <FilterButton onPress={() => navigation.navigate("FiltersPage", {
             settore
           })} />}
-        <SearchBarComponent navigation={navigation} setIs={setIs} search={search} setSearch={setSearch} />
+        <SearchBarComponent updateSearch={setSearch} setIs={setIs} setSearch={setSearch} />
         {!isSearch &&
           <TouchableOpacity onPress={() => navigation.navigate("AttivitàScreen")} style={{ top: 17.5, flex: 1.25 }}>
             <Image
@@ -31,7 +31,6 @@ export default function SearchHeader({ navigation, setSearch, search, settore })
 
 SearchHeader.propTypes = {
   setSearch: PropTypes.func.isRequired,
-  search: PropTypes.string.isRequired
 };
 
 const styles = StyleSheet.create({
