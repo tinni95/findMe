@@ -2,6 +2,7 @@ import React from "react"
 import { View, StyleSheet } from "react-native"
 import LocationWithText from "../../../../components/shared/LocationWithText"
 import { Light, Bold, Body } from "../../../../components/StyledText"
+import Colors from "../../../../constants/Colors"
 export default function Info({ nome, cognome, regione, comune, posizione }) {
     return (
         <View style={styles.container}>
