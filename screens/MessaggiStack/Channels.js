@@ -2,10 +2,11 @@ import React, { useState } from "react"
 import { View, StyleSheet, Platform, ScrollView, RefreshControl } from "react-native"
 import gql from "graphql-tag";
 import ChatCard from "./ChatCard";
-import { useQuery, useMutation } from "react-apollo";
+import { useQuery, useMutation, useSubscription } from "react-apollo";
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
 import HeaderStyles from "../shared/HeaderStyles";
+import { useEffect } from "react";
 
 var shortid = require("shortid")
 const SEECHAT_MUTATION = gql`
@@ -20,15 +21,19 @@ mutation seeChatMutation($chatId:ID!,$pubRead:Boolean,$subRead:Boolean){
 const chatFeed = gql`
 {
     ChatFeed{
+        subRead
+        pubRead
       id
       pub{
         id
      nome
+     cognome
      pushToken
     }
       sub{
           id
        nome
+       cognome
        pushToken
       }
       messages{
@@ -49,14 +54,34 @@ const chatFeed = gql`
     }
   }
 `
+
+const MESSAGES_SUBSCRIPTION = gql`
+subscription messageReceivedNotificaSub($id:ID!){
+    messageReceivedNotificaSub(id:$id){
+        updatedFields
+    }
+  }`;
+
 export default function Channels({ navigation }) {
+    const isRefetch = navigation.getParam("refetch") || null
     const { loading, error, data, refetch } = useQuery(chatFeed, { fetchPolicy: "no-cache" });
     const [refreshing, setRefreshing] = useState(false)
-    const [seeChat] = useMutation(SEECHAT_MUTATION, {
-        onCompleted: async ({ unseeChat }) => {
-            console.log(unseeChat)
-        },
-    });
+    const [seeChat] = useMutation(SEECHAT_MUTATION);
+
+    useEffect(() => {
+        isRefetch ? refetch() : null
+    }, [isRefetch])
+
+    const subscription = useSubscription(
+        MESSAGES_SUBSCRIPTION,
+        {
+            variables: { id: !loading && data.currentUser.id },
+            onSubscriptionData: async ({ postMessageReceivedSub }) => {
+                refetch()
+            }
+        }
+    );
+
     if (loading) return <FindMeSpinner />;
     if (error) return <FindMeGraphQlErrorDisplay />
     if (data) {
@@ -70,16 +95,22 @@ export default function Channels({ navigation }) {
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={styles.scene} >
                 {data.ChatFeed.map(chat => {
                     const isSub = chat.sub.id == data.currentUser.id
-                    return <ChatCard onPress={
-                        () => {
-                            refetch().then(() => {
+                    return <ChatCard isSub={isSub}
+                        chat={chat}
+                        onPress={
+                            () => {
                                 isSub ? seeChat({ variables: { chatId: chat.id, subRead: true } }) :
                                     seeChat({ variables: { chatId: chat.id, pubRead: true } });
-                                navigation.navigate("Chat", { chatId: chat.id, id: data.currentUser.id, isSub });
+                                isSub ?
+                                    navigation.navigate("Chat", { chatId: chat.id, id: data.currentUser.id, isSub, user: chat.pub }) :
+                                    navigation.navigate("Chat", {
+                                        chatId: chat.id, id: data.currentUser.id, isSub,
+                                        user: chat.sub
+                                    }
+                                    );
                             }
-                            )
+
                         }
-                    }
                         key={shortid.generate()} chat={chat} isSub={isSub}></ChatCard>
                 })}
             </ScrollView>

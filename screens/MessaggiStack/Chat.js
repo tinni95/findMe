@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
-import { View } from "react-native"
+import { View, TouchableOpacity, Image } from "react-native"
 import InputToolbar from "./InputToolbar"
 import gql from 'graphql-tag';
 import { useMutation, useSubscription, useQuery } from 'react-apollo';
@@ -9,6 +9,10 @@ import FindMeMessage from './FindMeMessage'
 import moment from 'moment/min/moment-with-locales'
 import { sendNotification } from '../../shared/PushNotifications';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import { Ionicons } from '@expo/vector-icons';
+import HeaderStyles from '../shared/HeaderStyles';
+import { Body, Light } from '../../components/StyledText';
+import Colors from "../../constants/Colors"
 moment.locale('it');
 
 const UNSEECHAT_MUTATION = gql`
@@ -67,7 +71,7 @@ export default function Chat({ navigation }) {
     const id = navigation.getParam("id")
 
     const { loading, error, data, refetch } = useQuery(
-        MESSAGES_QUERY, { variables: { id: chatId } }
+        MESSAGES_QUERY, { variables: { id: chatId }, fetchPolicy: "no-cache" }
     )
     const subscription = useSubscription(
         MESSAGES_SUBSCRIPTION,
@@ -139,4 +143,32 @@ export default function Chat({ navigation }) {
             <KeyboardSpacer />
         </View>
     )
+}
+
+Chat.navigationOptions = ({ navigation }) => {
+    const user = navigation.getParam("user")
+    return {
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
+        headerLeft: (
+            <View style={{ flexDirection: "row" }}>
+                <TouchableOpacity onPress={() => navigation.navigate("Channels", { refetch: true })}>
+                    <Ionicons
+                        name={"ios-arrow-back"}
+                        size={25}
+                        style={{ marginLeft: 10, padding: 10 }}
+                        color={"#10476C"}
+                    ></Ionicons>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: user.id })} style={{ flexDirection: "row", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
+                    <Image source={require("../../assets/images/placeholder.png")} style={{ width: 30, height: 30, borderRadius: 15, marginLeft: 10, marginRight: 10 }} />
+                    <View style={{ flexDirection: "column" }}>
+                        <Body style={{ fontSize: 12, color: Colors.blue }}>{user.nome + " " + user.cognome}</Body>
+                        <Light style={{ fontSize: 9 }}>App developer Freelancer</Light>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+        )
+    }
 }

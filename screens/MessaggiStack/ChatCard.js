@@ -7,9 +7,20 @@ moment.locale('it');
 
 export default function ChatCard({ chat, isSub, onPress }) {
     const lastMessageIndex = chat.messages.length - 1;
-
+    const backgroundColor = () => {
+        if (isSub) {
+            if (chat.subRead)
+                return "white"
+            else return "#EBEBEB"
+        }
+        else {
+            if (chat.pubRead)
+                return "white"
+            else return "#EBEBEB"
+        }
+    }
     return (
-        <TouchableOpacity onPress={onPress} style={styles.container}>
+        <TouchableOpacity onPress={onPress} style={[styles.container, { backgroundColor: backgroundColor() }]}>
             <View style={styles.imageContainer}>
                 <Image source={require("../../assets/images/placeholder.png")} style={{ width: 60, height: 60, borderRadius: 30 }} />
             </View>

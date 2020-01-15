@@ -20,8 +20,17 @@ const User = gql`
 query UserProfile($id:ID!) {
     ChatBetweenUsers(id:$id){
         id
+        pub{
+            id
+        }
+        sub{
+            id
+        }
     }
-    currentUser(id:$id){
+    currentUser{
+        id
+    }
+    User(id:$id){
       answers{
         comments{
           id
@@ -103,7 +112,7 @@ export default function UserVisitProfile({ navigation }) {
         return (
             <View style={styles.questionContainer}>
                 {
-                    data.currentUser.questions.map((question) => {
+                    data.User.questions.map((question) => {
                         return <QuestionCardProfile key={question.id} question={question} navigation={navigation}></QuestionCardProfile>
                     })
                 }
@@ -116,7 +125,7 @@ export default function UserVisitProfile({ navigation }) {
         return (
             <View style={styles.questionContainer}>
                 {
-                    data.currentUser.answers.map((answer) => {
+                    data.User.answers.map((answer) => {
                         return <AnswerCardProfile key={answer.id} answer={answer} navigation={navigation}></AnswerCardProfile>
                     })
                 }
@@ -133,13 +142,13 @@ export default function UserVisitProfile({ navigation }) {
     }
     const Profilo = () => {
         return <View style={styles.infoWrapper}>
-            <ItemsBlockVisit refetch={refetch} items={data.currentUser.formazioni} title={"Formazione"} />
+            <ItemsBlockVisit refetch={refetch} items={data.User.formazioni} title={"Formazione"} />
             <View style={styles.separator}></View>
-            <ItemsBlockVisit refetch={refetch} items={data.currentUser.esperienze} title={"Esperienze"} />
+            <ItemsBlockVisit refetch={refetch} items={data.User.esperienze} title={"Esperienze"} />
             <View style={styles.separator}></View>
-            <ItemsBlockVisit refetch={refetch} items={data.currentUser.progetti} title={"Progetti"} />
+            <ItemsBlockVisit refetch={refetch} items={data.User.progetti} title={"Progetti"} />
             <View style={styles.separator}></View>
-            <CompetenzeBlockVisit competenze={data.currentUser.competenze} onPress={() => navigation.navigate("CompetenzeScreen", { competenze: data.currentUser.competenze })}></CompetenzeBlockVisit>
+            <CompetenzeBlockVisit competenze={data.User.competenze} onPress={() => navigation.navigate("CompetenzeScreen", { competenze: data.User.competenze })}></CompetenzeBlockVisit>
             <View style={styles.separator}></View>
         </View>
     }
@@ -150,8 +159,9 @@ export default function UserVisitProfile({ navigation }) {
     const [showAll, setShowAll] = useState(false)
     const { loading, error, data, refetch } = useQuery(User, {
         variables: { id },
+        fetchPolicy: "no-cache",
         onCompleted: async (result) => {
-            console.log(result.ChatBetweenUsers)
+            console.log("result", result.ChatBetweenUsers)
             if (result.ChatBetweenUsers[0])
                 navigation.setParams({ chatId: result.ChatBetweenUsers[0].id })
         }
@@ -162,8 +172,13 @@ export default function UserVisitProfile({ navigation }) {
     }, [isRefetch])
 
     useEffect(() => {
-        if (data && data.ChatBetweenUsers.length > 0 && data.ChatBetweenUsers[0])
+        navigation.setParams({ loading })
+        if (!loading && data.ChatBetweenUsers.length > 0 && data.ChatBetweenUsers[0]) {
             navigation.setParams({ chatId: data.ChatBetweenUsers[0].id })
+        }
+        else if (!loading) {
+            navigation.setParams({ userId: data.currentUser.id })
+        }
     }, [data])
 
     const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
@@ -191,21 +206,21 @@ export default function UserVisitProfile({ navigation }) {
                     </TouchableHighlight>
                     <ImageViewer menus={({ cancel }) => cancel ? setModalVisible(false) : null} imageUrls={images} />
                 </Modal>
-                <Bold style={{ marginTop: 10, fontSize: 18 }}>{data.currentUser.nome + " " + data.currentUser.cognome}</Bold>
-                {data.currentUser.comune &&
+                <Bold style={{ marginTop: 10, fontSize: 18 }}>{data.User.nome + " " + data.User.cognome}</Bold>
+                {data.User.comune &&
                     <LocationWithText
                         points={16}
                         fontSize={12}
-                        comune={data.currentUser.comune} regione={data.currentUser.regione} />
+                        comune={data.User.comune} regione={data.User.regione} />
                 }
                 <View style={{ height: 20 }}></View>
             </View>
-            {data.currentUser.presentazione &&
+            {data.User.presentazione &&
                 <View style={styles.bio}>
                     <Body style={{ color: Colors.blue, marginLeft: 10 }}>Bio</Body>
-                    {(data.currentUser.presentazione.length < 75 || showAll)
-                        ? <Light style={{ textAlign: "left", margin: 10 }}>{data.currentUser.presentazione}</Light> : (<Text style={{ textAlign: "left", margin: 10 }}>
-                            <Light>{data.currentUser.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold>
+                    {(data.User.presentazione.length < 75 || showAll)
+                        ? <Light style={{ textAlign: "left", margin: 10 }}>{data.User.presentazione}</Light> : (<Text style={{ textAlign: "left", margin: 10 }}>
+                            <Light>{data.User.presentazione.slice(0, 75)}</Light><Bold onPress={() => setShowAll(true)}> ...Altro</Bold>
                         </Text>)
                     }
                 </View>}
@@ -288,6 +303,7 @@ const styles = StyleSheet.create({
 })
 
 UserVisitProfile.navigationOptions = ({ navigation }) => {
+
     return {
         headerStyle: HeaderStyles.headerStyle,
         headerTitleStyle: HeaderStyles.headerTitleStyle,
@@ -302,20 +318,21 @@ UserVisitProfile.navigationOptions = ({ navigation }) => {
             </TouchableOpacity>
         ),
         headerRight: (
-            <RoundButtonEmptyIconInverted
-                onPress={() => {
-                    navigation.getParam("chatId") ?
-                        navigation.navigate("Chat", { chatId: navigation.getParam("chatId"), isSub: true }) :
-                        navigation.navigate("FirstTimeChat", { id: navigation.getParam("id") })
-                }}
-                buttonStyle={{ marginRight: 10 }}
-                isMedium
-                color={Colors.blue}
-                textColor={Colors.blue}
-                text={"Scrivi"}
-                iconName={"ios-send"}
-                iconColor={Colors.blue}
-            />
+            navigation.getParam("userId") == navigation.getParam("id") ? console.log(navigation.getParam("userId")) :
+                navigation.getParam("userId") && <RoundButtonEmptyIconInverted
+                    onPress={() => {
+                        navigation.getParam("chatId") ?
+                            navigation.navigate("Chat", { chatId: navigation.getParam("chatId"), isSub: data.ChatBetweenUsers[0].sub.id != id }) :
+                            navigation.navigate("FirstTimeChat", { id: navigation.getParam("id") })
+                    }}
+                    buttonStyle={{ marginRight: 10 }}
+                    isMedium
+                    color={Colors.blue}
+                    textColor={Colors.blue}
+                    text={"Scrivi"}
+                    iconName={"ios-send"}
+                    iconColor={Colors.blue}
+                />
         )
     }
 }

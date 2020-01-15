@@ -3,10 +3,12 @@ import { createStackNavigator } from 'react-navigation';
 import MessagesIcon from '../../components/MessagesIcon';
 import Channels from '../../screens/MessaggiStack/Channels';
 import Chat from '../../screens/MessaggiStack/Chat';
+import UserVisitsProfileScreen from "../../screens/UserVisitsProfile"
 
 const ChatStack = createStackNavigator({
   Channels,
-  Chat
+  Chat,
+  UserVisitsProfileScreen,
 });
 
 ChatStack.navigationOptions = {

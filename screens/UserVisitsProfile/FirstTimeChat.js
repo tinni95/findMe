@@ -72,7 +72,7 @@ export default function FirstTimeChat({ navigation }) {
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState("")
     const [chatId, setChatId] = useState("")
-    const isSub = navigation.getParam("isSub")
+    const isSub = false;
     const subId = navigation.getParam("id")
 
     const { loading, error, data, refetch } = useQuery(
