@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
-import { View } from "react-native"
+import { View, TouchableOpacity } from "react-native"
 import InputToolbar from "../MessaggiStack/InputToolbar"
 import FindMeMessage from "../MessaggiStack/FindMeMessage"
 import { useMutation, useSubscription, useQuery } from 'react-apollo';
@@ -8,6 +8,8 @@ import { parsePostMessages } from "../MessaggiStack/helpers"
 import { gql } from 'apollo-boost';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { sendNotification } from '../../shared/PushNotifications'
+import HeaderStyles from '../shared/HeaderStyles'
+import { Ionicons } from '@expo/vector-icons'
 
 
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
@@ -139,4 +141,22 @@ export default function ApplicationReceivedChat({ navigation }) {
             <KeyboardSpacer />
         </View>
     )
+}
+
+ApplicationReceivedChat.navigationOptions = ({ navigation }) => {
+
+    return {
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
+        headerLeft: (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Ionicons
+                    name={"ios-arrow-back"}
+                    size={25}
+                    style={{ marginLeft: 10, padding: 10 }}
+                    color={"#10476C"}
+                ></Ionicons>
+            </TouchableOpacity>
+        ),
+    }
 }

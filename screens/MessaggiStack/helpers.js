@@ -15,13 +15,15 @@ export const parseMessages = (messages, id) => {
 }
 
 export const parsePostMessages = (messages, id) => {
+    console.log(id)
     return messages.map(message => {
+        console.log(message.pub.id)
         return {
             ...message,
             _id: message.id,
-            sub: {
-                id: message.pub.id,
-                _id: message.pub.id == id ? 1 : 2,
+            user: {
+                id,
+                _id: message.pub.id == id ? 2 : 1,
                 name: message.pub.nome,
                 avatar: 'https://placeimg.com/140/140/any',
             }
