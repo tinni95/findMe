@@ -9,15 +9,15 @@ import RoundButtonEmpty2 from "../../../components/shared/RoundButtonEmpty2"
 import RoundButtonEmptyIcon from "../../../components/shared/RoundButtonEmptyIcon"
 var shortid = require("shortid")
 
-export default function SentCard({ navigation, field, title, qualifiche, pubblicatoDa, id }) {
+export default function SentCard({ application, navigation, id }) {
     return (<View style={styles.container}>
         <View style={styles.header}>
             <View style={styles.imageTextContainer}>
                 <Image source={require("../../../assets/images/placeholder.png")} style={styles.image} />
-                <Body style={styles.title}>{title}</Body>
+                <Body style={styles.title}>{application.position.title}</Body>
             </View>
-            <Tooltip backgroundColor={"#10476C"} popover={<Text style={{ color: "white" }}>{field}</Text>}>
-                <FieldIcon field={field} size={30} />
+            <Tooltip backgroundColor={"#10476C"} popover={<Text style={{ color: "white" }}>{application.position.field}</Text>}>
+                <FieldIcon field={application.position.field} size={30} />
             </Tooltip>
         </View>
         <View style={styles.spacer} />
@@ -26,11 +26,11 @@ export default function SentCard({ navigation, field, title, qualifiche, pubblic
             <View style={{ flex: 8.6, flexDirection: "row", justifyContent: "space-between" }}>
                 <View>
                     <Body style={styles.pubHeader}>Titolo post</Body>
-                    <Body style={styles.pubContent}>Sviluppo App</Body>
+                    <Body style={styles.pubContent}>{application.position.post.title}</Body>
                 </View>
                 <View>
                     <Body style={styles.pubHeader}>Pubblicato da</Body>
-                    <Body style={styles.pubContent}>{pubblicatoDa}</Body>
+                    <Body style={styles.pubContent}>{application.position.post.pubblicatoDa}</Body>
                 </View>
             </View>
             <View style={{ flex: 1.4 }}>
@@ -42,10 +42,10 @@ export default function SentCard({ navigation, field, title, qualifiche, pubblic
         <View style={styles.spacer} />
         <Body style={styles.pubHeader}>Qualifiche</Body>
         <View style={styles.qualifiche}>
-            {qualifiche && qualifiche.length == 0 &&
+            {application.position.requisiti && application.position.requisiti.length == 0 &&
                 <Body style={styles.pubContent}>Non Specificato</Body>
             }
-            {qualifiche && qualifiche.map(qualifica => {
+            {application.position.requisiti && application.position.requisiti.map(qualifica => {
                 return <RoundButton style={{ marginTop: 7.5, marginRight: 5 }} isLight={true} key={shortid.generate()} text={qualifica} textColor={"white"} color={Colors.blue}></RoundButton>
             })}
         </View>
@@ -53,9 +53,10 @@ export default function SentCard({ navigation, field, title, qualifiche, pubblic
         <View style={styles.footer}>
             <View style={styles.visualizzaWrapper}>
                 <RoundButtonEmpty2 onPress={() => navigation.navigate('PostScreen', {
-                    id
+                    id: application.position.post.id
                 })} isMedium text={"  Apri  "} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2>
                 <RoundButtonEmptyIcon
+                    onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: true })}
                     iconName={"ios-send"}
                     text={"Rispondi"}
                     iconColor={Colors.blue}

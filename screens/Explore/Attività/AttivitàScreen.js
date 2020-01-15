@@ -15,11 +15,13 @@ var shortid = require("shortid")
 const User = gql`
 {
     currentUser {
+        id
         applicationsSent {
                 id
                 position {
                     field
                     post{
+                        id
                         pubblicatoDa
                         title
                     }
@@ -37,6 +39,9 @@ const User = gql`
                 field
                 title
                 requisiti
+                post{
+                    id
+                }
             }
             from{
                 id
@@ -65,12 +70,14 @@ const User = gql`
 export default function AttivitàScreen({ navigation }) {
     const [posizioniInvitate, setInviate] = useState([]);
     const [posizioniRicevute, setRicevute] = useState([]);
+    const [id, setId] = useState("");
     const [refreshing, setRefreshing] = useState(false);
 
     const FirstRoute = () => (
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={{ backgroundColor: "#F7F4F4" }}>
             {posizioniInvitate.length > 0 && posizioniInvitate.map(posizione => {
-                return <SentCard key={shortid.generate()} title={posizione.position.title} field={posizione.position.field} pubblicatoDa={posizione.position.post.pubblicatoDa} qualifiche={posizione.position.requisiti} id={posizione.position.post.id} navigation={navigation} />
+                return <SentCard id={id}
+                    application={posizione} key={shortid.generate()} navigation={navigation} />
             })}
         </ScrollView>
     );
@@ -80,7 +87,7 @@ export default function AttivitàScreen({ navigation }) {
             {
                 posizioniRicevute.length > 0 &&
                 posizioniRicevute.map(application => {
-                    return <ReceivedCard navigation={navigation} key={shortid.generate()} application={application}></ReceivedCard>
+                    return <ReceivedCard id={id} navigation={navigation} key={shortid.generate()} application={application}></ReceivedCard>
                 })
             }
         </ScrollView>
@@ -88,8 +95,9 @@ export default function AttivitàScreen({ navigation }) {
     const { refetch } = useQuery(User, {
         onCompleted: async ({ currentUser }) => {
             setInviate(currentUser.applicationsSent);
-            setRicevute(currentUser.applicationsReceived)
-        }
+            setRicevute(currentUser.applicationsReceived);
+            setId(currentUser.id)
+        }, fetchPolicy: "no-cache"
     });
 
     const onRefresh = async () => {

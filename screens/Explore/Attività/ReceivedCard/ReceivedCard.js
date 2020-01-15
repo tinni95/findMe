@@ -10,7 +10,7 @@ import AvatarAndVedi from "./AvatarAndVedi"
 import Info from "./Info"
 import { Bold, Light } from "../../../../components/StyledText"
 
-export default function ReceivedCard({ application, navigation }) {
+export default function ReceivedCard({ id, application, navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.upperContent}>
@@ -34,7 +34,7 @@ export default function ReceivedCard({ application, navigation }) {
                     <RoundButtonEmptyIcon
                         iconName={"ios-send"}
                         text={"Rispondi"}
-                        onPress={() => navigation.navigate("ApplicationChat", { id: application.from.id, application, isSub: false })}
+                        onPress={() => navigation.navigate("ApplicationReceivedChat", { id, application, isSub: false })}
                         iconColor={Colors.blue}
                         textColor={Colors.blue}
                         color={Colors.blue}

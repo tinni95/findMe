@@ -5,7 +5,8 @@ import ExploreModal from './ExploreModal';
 import AttivitàScreen from '../../../screens/Explore/Attività/AttivitàScreen';
 import ApplyScreen from '../../../screens/Post/ApplyScreen';
 import PostScreen from '../../../screens/Post/PostScreen';
-import ApplicationChat from '../../../screens/Post/ApplicationChat';
+import ApplicationReceivedChat from '../../../screens/Post/ApplicationReceivedChat';
+import ApplicationSentChat from '../../../screens/Post/ApplicationSentChat';
 import FiltersModal from "../FiltersModal";
 
 const PostIdeaStack = createStackNavigator({
@@ -14,7 +15,8 @@ const PostIdeaStack = createStackNavigator({
   FiltersModal,
   AttivitàScreen,
   ApplyScreen,
-  ApplicationChat
+  ApplicationReceivedChat,
+  ApplicationSentChat
 });
 
 PostIdeaStack.navigationOptions = {

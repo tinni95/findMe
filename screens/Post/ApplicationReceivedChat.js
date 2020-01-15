@@ -53,10 +53,11 @@ subscription messageReceivedSub($id:ID!){
   }`;
 
 
-export default function ApplicationChat({ navigation }) {
+export default function ApplicationReceivedChat({ navigation }) {
     const [messages, setMessages] = useState([])
     const isSub = navigation.getParam("isSub")
     const id = navigation.getParam("id")
+    console.log(id)
     const application = navigation.getParam("application")
 
     const { loading, error, data, refetch } = useQuery(
