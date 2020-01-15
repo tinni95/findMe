@@ -14,9 +14,13 @@ import { Body, Light, Bold } from '../../components/StyledText';
 import Colors from '../../constants/Colors';
 import FindMeSpinner from '../../shared/FindMeSpinner';
 import FindMeGraphQlErrorDisplay from '../../shared/FindMeGraphQlErrorDisplay';
+import { RoundButtonEmptyIconInverted } from "../../components/shared/RoundButtonEmptyIcon"
 
 const User = gql`
 query UserProfile($id:ID!) {
+    ChatBetweenUsers(id:$id){
+        id
+    }
     currentUser(id:$id){
       answers{
         comments{
@@ -146,14 +150,21 @@ export default function UserVisitProfile({ navigation }) {
     const [showAll, setShowAll] = useState(false)
     const { loading, error, data, refetch } = useQuery(User, {
         variables: { id },
-        onCompleted: async ({ currentUser }) => {
-            navigation.setParams({ currentUser })
+        onCompleted: async (result) => {
+            console.log(result.ChatBetweenUsers)
+            if (result.ChatBetweenUsers[0])
+                navigation.setParams({ chatId: result.ChatBetweenUsers[0].id })
         }
     });
 
     useEffect(() => {
         isRefetch ? refetch() : null
     }, [isRefetch])
+
+    useEffect(() => {
+        if (data && data.ChatBetweenUsers.length > 0 && data.ChatBetweenUsers[0])
+            navigation.setParams({ chatId: data.ChatBetweenUsers[0].id })
+    }, [data])
 
     const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
     const images = [{ uri: image }]
@@ -278,7 +289,6 @@ const styles = StyleSheet.create({
 
 UserVisitProfile.navigationOptions = ({ navigation }) => {
     return {
-        title: "Profilo",
         headerStyle: HeaderStyles.headerStyle,
         headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
@@ -290,6 +300,22 @@ UserVisitProfile.navigationOptions = ({ navigation }) => {
                     color={"#10476C"}
                 ></Ionicons>
             </TouchableOpacity>
+        ),
+        headerRight: (
+            <RoundButtonEmptyIconInverted
+                onPress={() => {
+                    navigation.getParam("chatId") ?
+                        navigation.navigate("Chat", { chatId: navigation.getParam("chatId"), isSub: true }) :
+                        navigation.navigate("FirstTimeChat", { id: navigation.getParam("id") })
+                }}
+                buttonStyle={{ marginRight: 10 }}
+                isMedium
+                color={Colors.blue}
+                textColor={Colors.blue}
+                text={"Scrivi"}
+                iconName={"ios-send"}
+                iconColor={Colors.blue}
+            />
         )
     }
 }

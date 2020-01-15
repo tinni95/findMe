@@ -22,6 +22,25 @@ export default function RoundButtonEmptyIcon({ isLight, isMedium, onPress, textC
   );
 }
 
+export const RoundButtonEmptyIconInverted = ({ isLight, isMedium, onPress, textColor, text, color, buttonStyle, iconName, iconColor }) => {
+  return (
+    <TouchableOpacity style={[buttonStyle]} onPress={onPress}>
+      <View style={[styles.container, { borderColor: color }]}>
+        {
+          isMedium ? <Body style={[styles.text, { color: textColor }]}>{text}</Body> :
+            isLight ? <Light style={[styles.text, { color: textColor }]}>{text}</Light> :
+              <Bold style={[styles.text, { color: textColor }]}>{text}</Bold>
+        }
+        <Ionicons
+          name={iconName}
+          color={iconColor}
+          size={22}
+          style={{ marginLeft: 10 }} />
+      </View>
+    </TouchableOpacity>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     borderRadius: 15,

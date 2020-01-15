@@ -114,7 +114,6 @@ export default function ApplicationChat({ navigation }) {
 
     const renderInputToolbar = props => {
         // Here you will return your custom InputToolbar.js file you copied before and include with your stylings, edits.
-        console.log("props", props)
         return <InputToolbar onSend={onSend}></InputToolbar>
 
     }

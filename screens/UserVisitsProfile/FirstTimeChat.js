@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
-import { View } from "react-native"
-import InputToolbar from "./InputToolbar"
-import gql from 'graphql-tag';
+import { View, TouchableOpacity } from "react-native"
+import InputToolbar from "../MessaggiStack/InputToolbar"
+import FindMeMessage from "../MessaggiStack/FindMeMessage"
 import { useMutation, useSubscription, useQuery } from 'react-apollo';
-import parseMessages from "./helpers"
-import FindMeMessage from './FindMeMessage'
-import moment from 'moment/min/moment-with-locales'
-import { sendNotification } from '../../shared/PushNotifications';
+import { parseMessages } from "../MessaggiStack/helpers"
+import { gql } from 'apollo-boost';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-moment.locale('it');
+import { sendNotification } from '../../shared/PushNotifications'
+import HeaderStyles from '../shared/HeaderStyles'
+import { Ionicons } from '@expo/vector-icons'
+
 
 const UNSEECHAT_MUTATION = gql`
 mutation unseeChatChatMutation($chatId:ID!,$pubRead:Boolean,$subRead:Boolean){
@@ -26,6 +27,13 @@ mutation createMessage($channelId: ID!,$text:String!) {
     createMessage(channelId:$channelId,text:$text) {
         id
         text
+    }
+}`;
+
+const CREATECHAT_MUTATION = gql`
+mutation createChat($subId: ID!) {
+    createChat(subId:$subId) {
+        id
     }
 }`;
 
@@ -60,18 +68,29 @@ subscription messageReceivedSub($id:ID!){
   }`;
 
 
-export default function Chat({ navigation }) {
+export default function FirstTimeChat({ navigation }) {
     const [messages, setMessages] = useState([])
-    const chatId = navigation.getParam("chatId")
+    const [message, setMessage] = useState("")
+    const [chatId, setChatId] = useState("")
     const isSub = navigation.getParam("isSub")
-    const id = navigation.getParam("id")
+    const subId = navigation.getParam("id")
 
     const { loading, error, data, refetch } = useQuery(
-        MESSAGES_QUERY, { variables: { id: chatId } }
+        MESSAGES_QUERY, {
+        variables: { id: chatId },
+        onCompleted: async ({ Chat }) => {
+            console.log("Chat", Chat)
+        }
+    }
     )
     const subscription = useSubscription(
         MESSAGES_SUBSCRIPTION,
-        { variables: { id: chatId } }
+        {
+            variables: { id: chatId },
+            onSubscriptionData: async ({ postMessageReceivedSub }) => {
+                refetch()
+            }
+        }
     );
 
     const [unseeChat] = useMutation(UNSEECHAT_MUTATION, {
@@ -80,11 +99,19 @@ export default function Chat({ navigation }) {
         },
     })
 
+    const [createChat] = useMutation(CREATECHAT_MUTATION, {
+        onCompleted: async ({ createChat }) => {
+            setChatId(createChat.id)
+            refetch()
+            createMessage({ variables: { text: message, channelId: createChat.id } })
+        },
+    })
+
     const [createMessage] = useMutation(CREATEMESSAGE_MUTATION,
         {
             onCompleted: async ({ createMessage }) => {
-                isSub ? unseeChat({ variables: { chatId: chatId, pubRead: false } }) :
-                    unseeChat({ variables: { chatId: chatId, subRead: false } })
+                isSub ? unseeChat({ variables: { chatId, pubRead: false } }) :
+                    unseeChat({ variables: { chatId, subRead: false } })
                 isSub ? sendNotification(data.Chat.pub.pushToken, "Messaggio da " + data.Chat.sub.nome, createMessage.text) :
                     sendNotification(data.Chat.sub.pushToken, "Messaggio da " + data.Chat.pub.nome, createMessage.text)
                 refetch()
@@ -95,18 +122,25 @@ export default function Chat({ navigation }) {
         });
 
     useEffect(() => {
-        data && setMessages(parseMessages(data.Chat.messages, id))
-        !loading && console.log("data", data)
+        data && setMessages(parseMessages(data.Chat.messages, subId))
+        console.log("data", data)
     }, [data])
 
 
     useEffect(() => {
-        !subscription.loading ? refetch() : null
-    }, [subscription.data])
+        message != "" ? createChat({ variables: { subId } }) : null
+    }, [message])
+
 
     const onSend = (message) => {
-        createMessage({ variables: { text: message, channelId: chatId } })
+        if (chatId.length > 0) {
+            createMessage({ variables: { text: message, channelId: chatId } })
+        }
+        else {
+            setMessage(message)
+        }
     }
+
 
     const renderMessage = props => {
 
@@ -139,4 +173,22 @@ export default function Chat({ navigation }) {
             <KeyboardSpacer />
         </View>
     )
+}
+
+
+FirstTimeChat.navigationOptions = ({ navigation }) => {
+    return {
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
+        headerLeft: (
+            <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfileScreen", { refetch: true })}>
+                <Ionicons
+                    name={"ios-arrow-back"}
+                    size={25}
+                    style={{ marginLeft: 10 }}
+                    color={"#10476C"}
+                ></Ionicons>
+            </TouchableOpacity>
+        )
+    }
 }

@@ -4,11 +4,13 @@ import { HomeScreenModal } from "./HomeScreenModal"
 import { QuestionScreenModal } from "./QuestionScreenModal"
 import TabBarIcon from "../../../components/TabBarIcon";
 import UserVisitsProfileScreen from "../../../screens/UserVisitsProfile"
+import FirstTimeChat from "../../../screens/UserVisitsProfile/FirstTimeChat"
 
 const HomeStack = createStackNavigator({
   HomeScreenModal,
   QuestionScreenModal,
-  UserVisitsProfileScreen
+  UserVisitsProfileScreen,
+  FirstTimeChat
 });
 
 HomeStack.navigationOptions = {

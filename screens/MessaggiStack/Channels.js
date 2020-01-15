@@ -75,7 +75,7 @@ export default function Channels({ navigation }) {
                             refetch().then(() => {
                                 isSub ? seeChat({ variables: { chatId: chat.id, subRead: true } }) :
                                     seeChat({ variables: { chatId: chat.id, pubRead: true } });
-                                navigation.navigate("Chat", { chat, id: data.currentUser.id, isSub });
+                                navigation.navigate("Chat", { chatId: chat.id, id: data.currentUser.id, isSub });
                             }
                             )
                         }
