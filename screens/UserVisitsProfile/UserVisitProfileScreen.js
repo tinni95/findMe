@@ -31,6 +31,7 @@ query UserProfile($id:ID!) {
         id
     }
     User(id:$id){
+        id
       answers{
         comments{
           id
@@ -176,8 +177,8 @@ export default function UserVisitProfile({ navigation }) {
         if (!loading && data.ChatBetweenUsers.length > 0 && data.ChatBetweenUsers[0]) {
             navigation.setParams({ chatId: data.ChatBetweenUsers[0].id })
         }
-        else if (!loading) {
-            navigation.setParams({ userId: data.currentUser.id })
+        if (!loading) {
+            navigation.setParams({ user: data.User, userId: data.currentUser.id, isSub: false })
         }
     }, [data])
 
@@ -319,10 +320,10 @@ UserVisitProfile.navigationOptions = ({ navigation }) => {
         ),
         headerRight: (
             navigation.getParam("userId") == navigation.getParam("id") ? console.log(navigation.getParam("userId")) :
-                navigation.getParam("userId") && <RoundButtonEmptyIconInverted
+                <RoundButtonEmptyIconInverted
                     onPress={() => {
                         navigation.getParam("chatId") ?
-                            navigation.navigate("Chat", { chatId: navigation.getParam("chatId"), isSub: data.ChatBetweenUsers[0].sub.id != id }) :
+                            navigation.navigate("Chat", { chatId: navigation.getParam("chatId"), isSub: navigation.getParam("isSub"), user: navigation.getParam("user") }) :
                             navigation.navigate("FirstTimeChat", { id: navigation.getParam("id") })
                     }}
                     buttonStyle={{ marginRight: 10 }}

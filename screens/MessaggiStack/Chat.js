@@ -147,6 +147,7 @@ export default function Chat({ navigation }) {
 
 Chat.navigationOptions = ({ navigation }) => {
     const user = navigation.getParam("user")
+    console
     return {
         headerStyle: HeaderStyles.headerStyle,
         headerTitleStyle: HeaderStyles.headerTitleStyle,
