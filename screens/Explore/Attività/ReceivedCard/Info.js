@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native"
 import LocationWithText from "../../../../components/shared/LocationWithText"
 import { Light, Bold, Body } from "../../../../components/StyledText"
 import Colors from "../../../../constants/Colors"
-export default function Info({ nome, cognome, regione, comune, posizione }) {
+export default function Info({ postId, title, nome, cognome, regione, comune, posizione, navigation }) {
     return (
         <View style={styles.container}>
             <Bold style={{ fontSize: 16 }}>{nome + " " + cognome}</Bold>
@@ -14,8 +14,13 @@ export default function Info({ nome, cognome, regione, comune, posizione }) {
             }
             <Body style={{ fontSize: 14, marginTop: 15, color: Colors.blue }}>Posizione</Body>
             <Light style={{ fontSize: 12, marginTop: 5 }}>{posizione}</Light>
-            <Body style={{ fontSize: 14, marginTop: 15 }}>Titolo post</Body>
-            <Light style={{ fontSize: 12, marginTop: 5, color: Colors.blue }}>Sviluppo App</Light>
+            <Body onPress={() => navigation.navigate('PostScreen', {
+                id: postId
+            })} style={{ fontSize: 14, marginTop: 15, color: Colors.blue }}>Titolo post</Body>
+            <Light
+                onPress={() => navigation.navigate('PostScreen', {
+                    id: postId
+                })} style={{ fontSize: 12, marginTop: 5 }}>{title}</Light>
         </View>
     )
 }

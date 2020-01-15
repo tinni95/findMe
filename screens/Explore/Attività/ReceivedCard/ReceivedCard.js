@@ -17,7 +17,11 @@ export default function ReceivedCard({ id, application, navigation }) {
                 <AvatarAndVedi />
                 <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                 <View style={styles.info}>
-                    <Info nome={application.from.nome} cognome={application.from.cognome} comune={application.from.comune} regione={application.from.regione} posizione={application.position.title}></Info>
+                    <Info
+                        navigation={navigation}
+                        postId={application.position.post.id}
+                        title={application.position.post.title}
+                        nome={application.from.nome} cognome={application.from.cognome} comune={application.from.comune} regione={application.from.regione} posizione={application.position.title}></Info>
                 </View>
                 <View style={styles.tooltip}>
                     <Tooltip backgroundColor={"#10476C"} popover={<Text style={{ color: "white" }}>{application.position.field}</Text>}>
