@@ -16,7 +16,7 @@ export default function ItemsBlockVisit({ title, items }) {
 
             {items.length > 0 &&
                 title == "Formazione" && items.map(item => {
-                    return <FormazioneCard item={item} />
+                    return <FormazioneCard key={shortid.generate()} item={item} />
                 }) ||
                 title == "Esperienze" && items.map(item => {
                     <EsperienzaCard key={shortid.generate()} item={item} />
