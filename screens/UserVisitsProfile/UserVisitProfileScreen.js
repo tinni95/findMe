@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, View, ScrollView, StyleSheet, Text, Image, TouchableHighlight, TouchableOpacity } from 'react-native';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { Ionicons } from '@expo/vector-icons';
 import ImageViewer from 'react-native-image-zoom-viewer';
@@ -15,9 +15,71 @@ import Colors from '../../constants/Colors';
 import FindMeSpinner from '../../shared/FindMeSpinner';
 import FindMeGraphQlErrorDisplay from '../../shared/FindMeGraphQlErrorDisplay';
 import { RoundButtonEmptyIconInverted } from "../../components/shared/RoundButtonEmptyIcon"
+import RoundButtonEmpty2 from '../../components/shared/RoundButtonEmpty2';
+import ConnessioneCard from '../../shared/ConnessioneCard';
+
+const SENDREQUEST_MUTATION = gql`
+mutation sendRequest($subId:ID!){
+    createConnessione(subId:$subId){
+        id
+        pub{
+            nome
+            id
+        }
+        sub{
+            nome
+            id
+        }
+    }
+}
+`;
+
+const ACCEPTREQUEST_MUTATION = gql`
+mutation acceptRequest($id:ID!){
+    acceptConnessione(id:$id){
+        id
+    }
+}
+`;
+
+const DELETEREQUEST_MUTATION = gql`
+mutation deleteRequest($id:ID!){
+    deleteConnessione(id:$id){
+        id
+    }
+}
+`;
 
 const User = gql`
 query UserProfile($id:ID!) {
+    Connessioni{
+        id
+        pub{
+            id
+            nome
+            cognome
+            regione
+            comune
+            presentazione
+        }
+        sub{
+            id
+            nome
+            cognome
+            regione
+            comune
+            presentazione
+        }
+    }
+    ConnessioniReceivedFromUser(id:$id){
+        id
+    }
+    ConnessioniSentToUser(id:$id){
+        id
+    }
+    ConnessioniWithUser(id:$id){
+        id
+    }
     ChatBetweenUsers(id:$id){
         id
         pub{
@@ -108,6 +170,50 @@ query UserProfile($id:ID!) {
 
 export default function UserVisitProfile({ navigation }) {
     const id = navigation.getParam("id")
+    const userId = navigation.getParam("userId")
+    const [sendRequest] = useMutation(SENDREQUEST_MUTATION, {
+        onCompleted: ({ createConnessione }) => {
+            setRequestId(createConnessione.id)
+            refetch()
+        }
+    })
+    const [deleteRequest] = useMutation(DELETEREQUEST_MUTATION, { onCompleted: () => { refetch() } })
+    const [acceptRequest] = useMutation(ACCEPTREQUEST_MUTATION, { onCompleted: () => { refetch() } })
+    const [requestId, setRequestId] = useState("")
+    const [modalVisbile, setModalVisible] = useState(false)
+    const [active, setActive] = useState(0)
+    const isRefetch = navigation.getParam("refetch") || false
+    const [showAll, setShowAll] = useState(false)
+
+    const { loading, error, data, refetch } = useQuery(User, {
+        variables: { id },
+        fetchPolicy: "no-cache",
+        onCompleted: async (result) => {
+            console.log("result", result.ChatBetweenUsers)
+            if (result.ChatBetweenUsers[0]) {
+                navigation.setParams({ chatId: result.ChatBetweenUsers[0].id })
+            }
+            if (result.ConnessioniReceivedFromUser.length > 0) {
+                setRequestId(result.ConnessioniReceivedFromUser[0].id)
+            }
+            else if (result.ConnessioniSentToUser.length > 0) {
+                setRequestId(result.ConnessioniSentToUser[0].id)
+            }
+        }
+    });
+
+    const InviaRichiesta = () => {
+        sendRequest({ variables: { subId: id } })
+    }
+
+    const CancellaRichiesta = () => {
+        deleteRequest({ variables: { id: requestId } })
+    }
+
+    const AccettaRichiesta = () => {
+        acceptRequest({ variables: { id: requestId } })
+    }
+
     // tabs
     const Questions = () => {
         return (
@@ -137,7 +243,16 @@ export default function UserVisitProfile({ navigation }) {
     const Connessioni = () => {
         return (
             <View style={styles.questionContainer}>
-
+                {
+                    data.Connessioni.map((connessione) => {
+                        if (connessione.pub.id == id) {
+                            return <ConnessioneCard key={connessione.id} user={connessione.sub} id={data.currentUser.id} navigation={navigation} />
+                        }
+                        else {
+                            return <ConnessioneCard key={connessione.id} user={connessione.pub} id={data.currentUser.id} navigation={navigation} />
+                        }
+                    })
+                }
             </View>
         )
     }
@@ -153,20 +268,6 @@ export default function UserVisitProfile({ navigation }) {
             <View style={styles.separator}></View>
         </View>
     }
-
-    const [modalVisbile, setModalVisible] = useState(false)
-    const [active, setActive] = useState(0)
-    const isRefetch = navigation.getParam("refetch") || false
-    const [showAll, setShowAll] = useState(false)
-    const { loading, error, data, refetch } = useQuery(User, {
-        variables: { id },
-        fetchPolicy: "no-cache",
-        onCompleted: async (result) => {
-            console.log("result", result.ChatBetweenUsers)
-            if (result.ChatBetweenUsers[0])
-                navigation.setParams({ chatId: result.ChatBetweenUsers[0].id })
-        }
-    });
 
     useEffect(() => {
         isRefetch ? refetch() : null
@@ -184,7 +285,7 @@ export default function UserVisitProfile({ navigation }) {
 
     const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
     const images = [{ uri: image }]
-    if (loading) return <FindMeSpinner />;
+    if (loading || !id || !userId) return <FindMeSpinner />;
     if (error) return <FindMeGraphQlErrorDisplay />;
 
     return (
@@ -213,6 +314,42 @@ export default function UserVisitProfile({ navigation }) {
                         points={16}
                         fontSize={12}
                         comune={data.User.comune} regione={data.User.regione} />
+                }
+                <View style={{ height: 20 }}></View>
+                {
+
+                    id != userId && (data.ConnessioniSentToUser.length == 0 && data.ConnessioniReceivedFromUser.length == 0 &&
+                        data.ConnessioniWithUser.length == 0 &&
+                        <RoundButtonEmpty2
+                            onPress={() => InviaRichiesta()}
+                            color={Colors.blue}
+                            textColor={Colors.blue}
+                            isMedium
+                            text={"  +   Segui  "}
+                        />
+                        || data.ConnessioniSentToUser.length > 0 &&
+                        <RoundButtonEmpty2
+                            color={Colors.blue}
+                            textColor={Colors.blue}
+                            isMedium
+                            onPress={() => CancellaRichiesta()}
+                            text={"  Richiesta Inviata  "}
+                        /> || data.ConnessioniWithUser.length > 0 &&
+                        <RoundButtonEmpty2
+                            color={Colors.blue}
+                            textColor={Colors.blue}
+                            onPress={() => CancellaRichiesta()}
+                            isMedium
+                            text={"  Connesso  "}
+                        /> || data.ConnessioniReceivedFromUser.length > 0 &&
+                        <RoundButtonEmpty2
+                            onPress={() => AccettaRichiesta()}
+                            color={Colors.blue}
+                            textColor={Colors.blue}
+                            isMedium
+                            text={"  Accetta Richiesta  "}
+                        />
+                    )
                 }
                 <View style={{ height: 20 }}></View>
             </View>

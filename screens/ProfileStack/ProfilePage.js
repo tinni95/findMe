@@ -15,10 +15,30 @@ import CompetenzeBlock from "./Competenze/CompetenzeBlock"
 import HeaderStyles from '../shared/HeaderStyles';
 import QuestionCardProfile from "./shared/QuestionCardProfile"
 import AnswerCardProfile from './shared/AnswerCardProfile';
+import ConnessioneCard from '../../shared/ConnessioneCard';
 
 const User = gql`
-  {
+  { 
+    Connessioni{
+      pub{
+          id
+          nome
+          cognome
+          regione
+          comune
+          presentazione
+      }
+      sub{
+          id
+          nome
+          cognome
+          regione
+          comune
+          presentazione
+      }
+  }
     currentUser {
+      id
       answers{
         comments{
           id
@@ -126,7 +146,16 @@ export default function ProfilePage({ navigation }) {
   const Connessioni = () => {
     return (
       <View style={styles.questionContainer}>
-
+        {
+          data.Connessioni.map((connessione) => {
+            if (connessione.pub.id == data.currentUser.id) {
+              return <ConnessioneCard key={connessione.id} user={connessione.sub} id={data.currentUser.id} navigation={navigation} />
+            }
+            else {
+              return <ConnessioneCard key={connessione.id} user={connessione.pub} id={data.currentUser.id} navigation={navigation} />
+            }
+          })
+        }
       </View>
     )
   }
