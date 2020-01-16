@@ -34,6 +34,14 @@ mutation sendRequest($subId:ID!){
 }
 `;
 
+const CREATENOTIFICA_MUTATION = gql`
+mutation createNotifica($connessioneId:ID!,$text:String!,$type:String!, $id:ID!){
+    createNotifica(connessioneId:$connessioneId, text:$text, type:$type, id:$id){
+        id
+    }
+}
+`
+
 const ACCEPTREQUEST_MUTATION = gql`
 mutation acceptRequest($id:ID!){
     acceptConnessione(id:$id){
@@ -90,6 +98,8 @@ query UserProfile($id:ID!) {
         }
     }
     currentUser{
+        nome
+        cognome
         id
     }
     User(id:$id){
@@ -171,13 +181,19 @@ query UserProfile($id:ID!) {
 export default function UserVisitProfile({ navigation }) {
     const id = navigation.getParam("id")
     const userId = navigation.getParam("userId")
+    const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
     const [sendRequest] = useMutation(SENDREQUEST_MUTATION, {
         onCompleted: ({ createConnessione }) => {
             setRequestId(createConnessione.id)
+            createNotifica({ variables: { type: "connessioneRequest", connessioneId: createConnessione.id, id, text: data.currentUser.nome + " " + data.currentUser.cognome + " ha richiesto di connettersi" } })
             refetch()
         }
     })
-    const [deleteRequest] = useMutation(DELETEREQUEST_MUTATION, { onCompleted: () => { refetch() } })
+    const [deleteRequest] = useMutation(DELETEREQUEST_MUTATION, {
+        onCompleted: () => {
+            refetch();
+        }
+    })
     const [acceptRequest] = useMutation(ACCEPTREQUEST_MUTATION, { onCompleted: () => { refetch() } })
     const [requestId, setRequestId] = useState("")
     const [modalVisbile, setModalVisible] = useState(false)

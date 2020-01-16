@@ -45,6 +45,13 @@ const LIKE_MUTATION = gql`
 mutation likeMutation($id:ID!){
     QuestionLike(id:$id){
         id
+        question{
+            question
+            id
+            postedBy{
+              id
+            }
+          }
     }
 }
 `
@@ -55,12 +62,22 @@ mutation likeMutation($id:ID!){
     }
 }
 `
+
+const CREATENOTIFICA_MUTATION = gql`
+mutation createNotifica($questionId:ID!,$text:String!,$type:String!, $id:ID!){
+    createNotifica(questionId:$questionId, text:$text, type:$type, id:$id){
+        id
+    }
+}
+`
 export const QuestionCard = ({ question, navigation, isRefetch }) => {
     const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id } })
+    const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
     const [Like] = useMutation(LIKE_MUTATION,
         {
             onCompleted: async ({ QuestionLike }) => {
                 refetch()
+                createNotifica({ variables: { questionId: QuestionLike.question.id, type: "questionLike", id: QuestionLike.question.postedBy.id, text: `"` + QuestionLike.question.question + `"` } })
             },
             onError: error => {
                 alert("Qualcosa è andato storto")

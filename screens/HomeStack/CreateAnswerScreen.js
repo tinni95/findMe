@@ -10,26 +10,37 @@ import { width } from "../../constants/Layout"
 const CREATEANSWER_MUTATION = gql`
 mutation createAnswer($text:String!,$questionId:ID!){
     createAnswer(text:$text, questionId:$questionId){
-        text
+        id
+        postedBy{
+            nome
+            cognome
+        }
+    }
+}
+`
+
+const CREATENOTIFICA_MUTATION = gql`
+mutation createNotifica($answerId:ID!,$text:String!,$type:String!, $id:ID!){
+    createNotifica(answerId:$answerId, text:$text, type:$type, id:$id){
+        id
     }
 }
 `
 
 export default function CreateAnswerScreen({ navigation }) {
     const question = navigation.getParam("question")
-    console.log("question", question.id)
+    const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
+    const [answer, setAnswer] = useState("")
     const [createAnswer] = useMutation(CREATEANSWER_MUTATION,
         {
             onCompleted: async ({ createAnswer }) => {
-                console.log(createAnswer)
+                createNotifica({ variables: { type: "questionAnswer", answerId: createAnswer.id, id: question.postedBy.id, text: createAnswer.postedBy.nome + " " + createAnswer.postedBy.cognome + " ha risposto alla tua domanda: " + question.question } })
                 navigation.navigate("QuestionScreen", { refetch: true })
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
             }
         });
-
-    const [answer, setAnswer] = useState("")
     return (
         <View style={styles.container}>
             <HeaderBarAfter navigation={navigation} onPress={() => {

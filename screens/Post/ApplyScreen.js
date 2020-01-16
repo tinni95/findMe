@@ -14,12 +14,23 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { sendNotification } from "../../shared/PushNotifications"
 import HeaderStyles from "../shared/HeaderStyles"
 
+const CREATENOTIFICA_MUTATION = gql`
+mutation createNotifica($text:String!,$type:String!, $id:ID!){
+    createNotifica(text:$text, type:$type, id:$id){
+        id
+    }
+}
+`
 const CREATEAPPLICATION_MUTATION = gql`
 mutation createApplication($positionId: ID!, $to:ID!) {
   createApplication(positionId:$positionId, to:$to) {
         id
         to{
           id
+        }
+        from{
+          nome
+          cognome
         }
         position{
           title
@@ -39,12 +50,13 @@ export default function ApplyScreen({navigation}) {
     const refetch =navigation.getParam("refetch")
     const position =navigation.getParam("position")
     const [messaggio,setMessaggio] = useState("")
-
+    const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
     const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
         {
           onCompleted: async ({ createApplication }) => {
             console.log(createApplication)
             createMessage({variables:{applicationId:createApplication.id,text:messaggio, subId:createApplication.to.id }})
+            createNotifica({ variables: { type: "applicationPost", id: createApplication.to.id , text: createApplication.from.nome+ " " + createApplication.from.cognome + " si è applicato alla tua posizione di " + position.title } })
           },
           onError: error => {
             console.log(error)
@@ -55,8 +67,6 @@ export default function ApplyScreen({navigation}) {
         const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION,
             {
               onCompleted: async ({ createMessage }) => {
-                alert("success")
-
               },
               onError: error => {
                 console.log(error)
