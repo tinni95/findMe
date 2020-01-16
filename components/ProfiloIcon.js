@@ -9,7 +9,7 @@ export default function ProfiloIcon(props) {
     <View>
       {props.focused ?
         <Image source={require("../assets/images/Profile_full.png")} style={{ width: 25, height: 25 }}></Image> :
-        <Image source={require("../assets/images/Profilo_empty.png")} style={{ width: 25, height: 25 }}></Image>
+        <Image source={require("../assets/images/Profile_empty.png")} style={{ width: 25, height: 25 }}></Image>
       }
     </View>
   );
