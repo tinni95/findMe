@@ -8,6 +8,7 @@ import { useQuery } from "react-apollo";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import AnswerCard from "./components/AnswerCard";
+import HeaderStyles from "../shared/HeaderStyles";
 
 const answers = gql`
 query answersFeed($id:ID!){
@@ -41,7 +42,7 @@ function wait(timeout) {
 
 export default function QuestionScreen({ navigation }) {
     const [refreshing, setRefreshing] = React.useState(false);
-
+    const hidebar = navigation.getParam("hidebar")
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         refetch()
@@ -63,16 +64,18 @@ export default function QuestionScreen({ navigation }) {
     }
 
     return <View style={styles.container}>
-        <View style={styles.headerBar}>
-            <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
-                <Ionicons
-                    name={"ios-arrow-back"}
-                    size={25}
-                    style={{ marginLeft: 10 }}
-                    color={Colors.blue}
-                ></Ionicons>
-            </TouchableOpacity>
-        </View>
+        {!hidebar &&
+            <View style={styles.headerBar}>
+                <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
+                    <Ionicons
+                        name={"ios-arrow-back"}
+                        size={25}
+                        style={{ marginLeft: 10 }}
+                        color={Colors.blue}
+                    ></Ionicons>
+                </TouchableOpacity>
+            </View>
+        }
         <ScrollView refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
@@ -86,6 +89,22 @@ export default function QuestionScreen({ navigation }) {
     </View>
 }
 
+QuestionScreen.navigationOptions = ({ navigation }) => {
+    return {
+        headerStyle: HeaderStyles.headerStyle,
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
+        headerLeft: (
+            <TouchableOpacity onPress={() => { navigation.state.params.onGoBack(); navigation.goBack() }}>
+                <Ionicons
+                    name={"ios-arrow-back"}
+                    size={25}
+                    style={{ marginLeft: 10 }}
+                    color={Colors.blue}
+                ></Ionicons>
+            </TouchableOpacity>
+        ),
+    }
+}
 const styles = StyleSheet.create({
     container: {
         flex: 1,

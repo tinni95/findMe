@@ -4,11 +4,11 @@ import { Body, Bold } from "../../components/StyledText"
 import moment from 'moment/min/moment-with-locales'
 moment.locale('it');
 
-export default function ForumHeader({ createdAt }) {
+export default function ConnessioneHeader({ createdAt }) {
     return <View style={styles.container}>
         <View style={styles.subContainer}>
-            <Image source={require("../../assets/images/Forum_notifica.png")} style={{ width: 10, height: 10, marginRight: 5 }} />
-            <Body style={styles.text}>Post Idea</Body>
+            <Image source={require("../../assets/images/Connessione_notifica.png")} style={{ width: 10, height: 10, marginRight: 5 }} />
+            <Body style={styles.text}>Connessione</Body>
         </View>
         <Body style={styles.time}>{moment(createdAt).fromNow()}</Body>
     </View>

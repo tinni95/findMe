@@ -2,19 +2,25 @@ import React from 'react'
 import { Light } from '../../components/StyledText'
 import HeaderStyles from '../shared/HeaderStyles';
 import { gql } from 'apollo-boost';
-import { useQuery } from 'react-apollo';
+import { useQuery, useSubscription } from 'react-apollo';
 import FindMeSpinner from '../../shared/FindMeSpinner';
 import FindMeGraphQlErrorDisplay from '../../shared/FindMeGraphQlErrorDisplay';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import QuestionLikeCard from './QuestionLikeCard';
 import QuestionAnswerCard from './QuestionAnswerCard';
+import ConnessioneRequestCard from './ConnessioneRequestCard';
 
 const NOTIFICHE_QUERY = gql`
-{
+{   
+    currentUser{
+        id
+    }
     UserNotifiche{
+        opened
         id
         createdAt
         from{
+            id
             nome
             cognome
         }
@@ -34,27 +40,45 @@ const NOTIFICHE_QUERY = gql`
     }
   }
 `
+const NOTIFICA_SUBSCRIPTION = gql`
+subscription notificaReceivedSub($id:ID!){
+    notificaReceivedSub(id:$id){
+        updatedFields
+    }
+  }`;
 
 export default function NotificationPage({ navigation }) {
     const { data, loading, error, refetch } = useQuery(NOTIFICHE_QUERY)
+    const subscription = useSubscription(
+        NOTIFICA_SUBSCRIPTION,
+        {
+            variables: { id: !loading && data.currentUser.id },
+            onSubscriptionData: () => {
+                refetch()
+            }
+        }
+    );
     if (loading) {
         return <FindMeSpinner></FindMeSpinner>
     }
     if (error) {
         return <FindMeGraphQlErrorDisplay></FindMeGraphQlErrorDisplay>
     }
-    return <View style={styles.container}>
+    return <ScrollView style={styles.container}>
         {
             data.UserNotifiche.map(notifica => {
                 if (notifica.type == "questionLike") {
-                    return <QuestionLikeCard navigation={navigation} key={notifica.id} notifica={notifica}></QuestionLikeCard>
+                    return <QuestionLikeCard refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></QuestionLikeCard>
                 }
                 else if (notifica.type == "questionAnswer") {
-                    return <QuestionAnswerCard navigation={navigation} key={notifica.id} notifica={notifica}></QuestionAnswerCard>
+                    return <QuestionAnswerCard refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></QuestionAnswerCard>
+                }
+                else if (notifica.type == "connessioneRequest") {
+                    return <ConnessioneRequestCard refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></ConnessioneRequestCard>
                 }
             })
         }
-    </View>
+    </ScrollView>
 }
 
 const styles = StyleSheet.create({

@@ -2,9 +2,10 @@ import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import NotificationPage from "../../screens/Notifications"
 import TabBarIcon from '../../components/TabBarIcon';
-
+import QuestionScreen from "../../screens/HomeStack/QuestionScreen"
 const NotificaStack = createStackNavigator({
   NotificationPage,
+  QuestionScreen
 });
 
 NotificaStack.navigationOptions = {
