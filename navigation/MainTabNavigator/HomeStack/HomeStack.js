@@ -5,6 +5,7 @@ import { QuestionScreenModal } from "./QuestionScreenModal"
 import TabBarIcon from "../../../components/TabBarIcon";
 import UserVisitsProfileScreen from "../../../screens/UserVisitsProfile"
 import FirstTimeChat from "../../../screens/UserVisitsProfile/FirstTimeChat"
+import ForumIcon from '../../../components/ForumIcon';
 
 const HomeStack = createStackNavigator({
   HomeScreenModal,
@@ -15,7 +16,11 @@ const HomeStack = createStackNavigator({
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Esplora',
-  tabBarIcon: ({ focused }) => <TabBarIcon name={"ios-home"} focused={focused} />
+  tabBarOptions: {
+    activeTintColor: '#10426E',
+    inactiveTintColor: '#43494A',
+  },
+  tabBarIcon: ({ focused }) => <ForumIcon focused={focused} />
 };
 
 HomeStack.path = '';

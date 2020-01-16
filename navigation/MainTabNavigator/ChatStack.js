@@ -13,7 +13,16 @@ const ChatStack = createStackNavigator({
 
 ChatStack.navigationOptions = {
   tabBarLabel: 'Chat',
-  tabBarIcon: ({ focused }) => <MessagesIcon name={"ios-send"} focused={focused} />
+  tabBarOptions: {
+    activeTintColor: '#10426E',
+    inactiveTintColor: '#43494A',
+  },
+  tabBarIcon: ({ focused }) => <MessagesIcon name={"ios-send"} focused={focused} />,
+  tabBarOnPress: ({ navigation, defaultHandler }) => {
+    navigation.setParams({ focused: true })
+    console.log('this will be fired just before nagivation happens')
+    defaultHandler() // if you omit this, navigation will not happen
+  }
 };
 
 ChatStack.path = '';

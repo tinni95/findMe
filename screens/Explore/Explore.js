@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, Platform, RefreshControl } from 'react-native';
+import { View, Image, ScrollView, StyleSheet, Platform, RefreshControl } from 'react-native';
 import PostCard from '../../components/PostCard';
 import { Bold } from "../../components/StyledText";
 import SearchHeader from '../../components/SearchHeader';
@@ -79,7 +79,7 @@ export default function Explore({ navigation }) {
         }
       />
       <View style={styles.postBody}>
-        <FindMeSpinner />
+        <Image source={require("../../assets/images/shimmer.gif")}></Image>
       </View>
     </View>
   );

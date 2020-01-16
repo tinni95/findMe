@@ -83,10 +83,10 @@ export default function EditProfile({ navigation }) {
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
-            base64: true
         });
 
         if (!result.cancelled) {
+            console.log(result.uri)
             setImage(result.uri)
         }
     };
@@ -111,13 +111,14 @@ export default function EditProfile({ navigation }) {
 
     const submit = () => {
         let file;
+        const name = currentUser.email + ".jpg"
         if (image == initialImage) {
             file = null
         }
         else {
             file = new ReactNativeFile({
                 uri: image,
-                name: currentUser.email + ".jpg",
+                name,
                 type: 'image/jpeg',
 
             })

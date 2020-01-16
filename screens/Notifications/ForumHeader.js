@@ -8,7 +8,7 @@ export default function ForumHeader({ createdAt }) {
     return <View style={styles.container}>
         <View style={styles.subContainer}>
             <Image source={require("../../assets/images/Forum_notifica.png")} style={{ width: 10, height: 10, marginRight: 5 }} />
-            <Body style={styles.text}>Post Idea</Body>
+            <Body style={styles.text}>Forum</Body>
         </View>
         <Body style={styles.time}>{moment(createdAt).fromNow()}</Body>
     </View>

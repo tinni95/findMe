@@ -119,7 +119,7 @@ export const QuestionCard = ({ question, navigation, isRefetch }) => {
         return <FindMeGraphQlErrorDisplay />
     }
     if (loading) {
-        return <FindMeSpinner />
+        return <Image source={require("../../../assets/images/shimmer.gif")}></Image>
     }
     return (
         <View style={styles.wrapper}>

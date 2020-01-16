@@ -46,11 +46,14 @@ export default function HomeScreen({ navigation }) {
     setRefetch(!refetchChild)
     wait(2000).then(() => setRefreshing(false));
   }, [refreshing]);
+
   const { loading, data, error, refetch } = useQuery(Questions, { fetchPolicy: "no-cache" })
   const isRefetch = navigation.getParam("refetch") || null
+
   useEffect(() => {
     isRefetch ? refetch() : null
   }, [isRefetch])
+
   if (error) {
     return <FindMeGraphQlErrorDisplay></FindMeGraphQlErrorDisplay>
   }

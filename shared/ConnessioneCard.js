@@ -29,7 +29,7 @@ export default function ConnessioneCard({ user, id, navigation }) {
                 <Bold style={styles.nome}>{user.nome + " " + user.cognome}</Bold>
                 <Body style={styles.posizione}>Full stack developer</Body>
                 {user.comune && <LocationWithText fontSize={10} points={16} comune={user.comune} regione={user.regione} />}
-                <Light style={styles.presentazione}>{fixOverflow(user.presentazione, 150)}</Light>
+                {user.presentazione && <Light style={styles.presentazione}>{fixOverflow(user.presentazione, 150)}</Light>}
             </View>
         </TouchableOpacity>
     )

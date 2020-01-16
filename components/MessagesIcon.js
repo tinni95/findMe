@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, Image } from "react-native"
 import { Body } from "./StyledText";
 import Colors from "../constants/Colors";
 import { useQuery, useSubscription } from "react-apollo";
@@ -37,22 +37,15 @@ export default function MessagesIcon(props) {
   }, [subscription.data])
 
   if (loading) {
-    return (<Ionicons
-      name={props.name}
-      size={26}
-      style={{ marginBottom: -3 }}
-      color={props.focused ? "#10436E" : "grey"}
-    />)
+    return (<Image source={require("../assets/images/Messaggi_empty.png")} style={{ width: 25, height: 25 }}></Image>)
   }
   if (data) {
     return (
       <View style={data.UnseenChats.length > 0 && styles.container}>
-        <Ionicons
-          name={props.name}
-          size={26}
-          style={{ marginBottom: -3 }}
-          color={props.focused ? "#10436E" : "grey"}
-        />
+        {props.focused ?
+          <Image source={require("../assets/images/Messaggi_Full.png")} style={{ width: 25, height: 25 }}></Image> :
+          <Image source={require("../assets/images/Messaggi_empty.png")} style={{ width: 25, height: 25 }}></Image>
+        }
         {data.UnseenChats.length > 0 &&
           <View style={styles.counter}>
             <Body style={styles.text}>{data.UnseenChats.length}</Body>

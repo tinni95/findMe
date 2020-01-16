@@ -14,12 +14,12 @@ const getLocalHostName = () => {
   return hostname;
 };
 
-export const graphlEndPoint =
-  Platform.OS === "web"
+export const graphlEndPoint = "http://167.172.161.31/"
+/*   Platform.OS === "web"
     ? "http://localhost:4000/"
     : "http://localhost:4000/".replace("localhost", getLocalHostName());
-
-export const graphlWsEndPoint =
-  Platform.OS === "web"
-    ? "ws://localhost:4000/"
-    : "ws://localhost:4000/".replace("localhost", getLocalHostName());
+ */
+export const graphlWsEndPoint = "ws://167.172.161.31/"
+/*   Platform.OS === "web" */
+/*     ? "ws://localhost:4000/" */
+/*     : "ws://localhost:4000/".replace("localhost", getLocalHostName()); */

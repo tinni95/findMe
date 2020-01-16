@@ -12,6 +12,7 @@ import EsperienzeEditScreen from '../../screens/ProfileStack/Esperienze/Esperien
 import ProgettiEditScreen from '../../screens/ProfileStack/Progetti/ProgettiEditScreen';
 import UserInfoModal from '../UserInfoModal';
 import UserPosts from '../../screens/ProfileStack/UserPosts';
+import ProfiloIcon from '../../components/ProfiloIcon';
 const LogoutStack = createStackNavigator({
   Logout
 });
@@ -49,7 +50,12 @@ const ProfileDrawer = createDrawerNavigator(
 
 ProfileDrawer.navigationOptions = {
   tabBarLabel: 'Profilo',
-  tabBarIcon: ({ focused }) => <TabBarIcon name={"md-person"} focused={focused} />
+  tabBarOptions: {
+    activeTintColor: '#10426E',
+    inactiveTintColor: '#43494A',
+    fontFamily: "sequel-sans-bold"
+  },
+  tabBarIcon: ({ focused }) => <ProfiloIcon focused={focused} />
 };
 
 ProfileDrawer.path = '';

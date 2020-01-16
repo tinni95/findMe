@@ -1,14 +1,15 @@
 import React from 'react'
-import { Light } from '../../components/StyledText'
 import HeaderStyles from '../shared/HeaderStyles';
 import { gql } from 'apollo-boost';
 import { useQuery, useSubscription } from 'react-apollo';
 import FindMeSpinner from '../../shared/FindMeSpinner';
 import FindMeGraphQlErrorDisplay from '../../shared/FindMeGraphQlErrorDisplay';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import QuestionLikeCard from './QuestionLikeCard';
 import QuestionAnswerCard from './QuestionAnswerCard';
 import ConnessioneRequestCard from './ConnessioneRequestCard';
+import { useEffect } from 'react';
+
 
 const NOTIFICHE_QUERY = gql`
 {   
@@ -47,7 +48,21 @@ subscription notificaReceivedSub($id:ID!){
     }
   }`;
 
+function wait(timeout) {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+}
+
+
 export default function NotificationPage({ navigation }) {
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        refetch()
+        wait(1000).then(() => setRefreshing(false));
+    }, [refreshing]);
+
     const { data, loading, error, refetch } = useQuery(NOTIFICHE_QUERY)
     const subscription = useSubscription(
         NOTIFICA_SUBSCRIPTION,
@@ -58,13 +73,17 @@ export default function NotificationPage({ navigation }) {
             }
         }
     );
+
     if (loading) {
         return <FindMeSpinner></FindMeSpinner>
     }
     if (error) {
         return <FindMeGraphQlErrorDisplay></FindMeGraphQlErrorDisplay>
     }
-    return <ScrollView style={styles.container}>
+    return <ScrollView
+        refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+        style={styles.container}>
         {
             data.UserNotifiche.map(notifica => {
                 if (notifica.type == "questionLike") {
