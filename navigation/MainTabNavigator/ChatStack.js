@@ -11,19 +11,19 @@ const ChatStack = createStackNavigator({
   UserVisitsProfileScreen,
 });
 
-ChatStack.navigationOptions = {
+ChatStack.navigationOptions = ({ navigation }) => ({
   tabBarLabel: 'Chat',
   tabBarOptions: {
     activeTintColor: '#10426E',
     inactiveTintColor: '#43494A',
   },
-  tabBarIcon: ({ focused }) => <MessagesIcon name={"ios-send"} focused={focused} />,
+  tabBarIcon: ({ focused }) => <MessagesIcon navigation={navigation} name={"ios-send"} focused={focused} />,
   tabBarOnPress: ({ navigation, defaultHandler }) => {
     navigation.setParams({ focused: true })
     console.log('this will be fired just before nagivation happens')
     defaultHandler() // if you omit this, navigation will not happen
   }
-};
+});
 
 ChatStack.path = '';
 

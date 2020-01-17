@@ -9,12 +9,12 @@ export default function ChatCard({ chat, isSub, onPress }) {
     const lastMessageIndex = chat.messages.length - 1;
     const backgroundColor = () => {
         if (isSub) {
-            if (chat.subRead)
+            if (chat.subOpened)
                 return "white"
             else return "#EBEBEB"
         }
         else {
-            if (chat.pubRead)
+            if (chat.pubOpened)
                 return "white"
             else return "#EBEBEB"
         }

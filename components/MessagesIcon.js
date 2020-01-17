@@ -3,8 +3,19 @@ import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, View, Image } from "react-native"
 import { Body } from "./StyledText";
 import Colors from "../constants/Colors";
-import { useQuery, useSubscription } from "react-apollo";
+import { useQuery, useSubscription, useMutation } from "react-apollo";
 import { gql } from "apollo-boost";
+
+const OPENCHATS_MUTATION = gql`
+mutation{
+  openChatsSub{
+    count
+  }
+  openChatsPub{
+    count
+  }
+}
+`
 
 const UNSEENMESSAGES_QUERY = gql`
 {
@@ -26,15 +37,31 @@ subscription messageReceivedNotificaSub($id:ID!){
 
 
 export default function MessagesIcon(props) {
+  const [openChats] = useMutation(OPENCHATS_MUTATION,
+    {
+      onCompleted: () => {
+        refetch()
+      }
+    });
   const { loading, error, refetch, data } = useQuery(UNSEENMESSAGES_QUERY, { fetchPolicy: "no-cache" })
   const subscription = useSubscription(
     NEWMESSAGE_SUBSCRIPTION,
-    { variables: { id: data && data.currentUser.id } }
+    {
+      variables: { id: data && data.currentUser.id },
+      onSubscriptionData: () => {
+        refetch()
+      }
+    },
   );
 
+  const focused = props.navigation.getParam("focused")
   useEffect(() => {
-    !subscription.loading && subscription.data.messageReceivedNotificaSub ? refetch() : null
-  }, [subscription.data])
+    if (focused) {
+      console.log("genny")
+      openChats();
+      props.navigation.setParams({ focused: false })
+    }
+  }, [focused])
 
   if (loading) {
     return (<Image source={require("../assets/images/Messaggi_empty.png")} style={{ width: 25, height: 25 }}></Image>)
@@ -59,19 +86,18 @@ export default function MessagesIcon(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginRight: -15
+    marginRight: -5
   },
   counter: {
-    height: 15,
-    width: 15,
-    borderRadius: 7.5,
+    height: 13,
+    width: 13,
+    borderRadius: 6.5,
+    marginLeft: -3,
     backgroundColor: Colors.red,
-    alignContent: "center",
-    justifyContent: "center",
-    alignItems: "center"
   },
   text: {
+    textAlign: "center",
     color: "white",
-    fontSize: 11
+    fontSize: 9
   }
 })

@@ -21,8 +21,8 @@ mutation seeChatMutation($chatId:ID!,$pubRead:Boolean,$subRead:Boolean){
 const chatFeed = gql`
 {
     ChatFeed{
-        subRead
-        pubRead
+        subOpened
+        pubOpened
       id
       pub{
         id

@@ -205,6 +205,7 @@ export default function UserVisitProfile({ navigation }) {
         variables: { id },
         fetchPolicy: "no-cache",
         onCompleted: async (result) => {
+            console.log(result.User.esperienze)
             console.log("result", result.ChatBetweenUsers)
             if (result.ChatBetweenUsers[0]) {
                 navigation.setParams({ chatId: result.ChatBetweenUsers[0].id })

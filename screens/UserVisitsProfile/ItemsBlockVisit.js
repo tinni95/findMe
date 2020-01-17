@@ -14,16 +14,16 @@ export default function ItemsBlockVisit({ title, items }) {
                 <Body style={{ color: Colors.blue }}>{title}</Body>
             </View>
 
-            {items.length > 0 &&
+            {items.length > 0 && (
+                title == "Esperienze" && items.map(item => {
+                    return <EsperienzaCard key={shortid.generate()} item={item} />
+                }) ||
                 title == "Formazione" && items.map(item => {
                     return <FormazioneCard key={shortid.generate()} item={item} />
                 }) ||
-                title == "Esperienze" && items.map(item => {
-                    <EsperienzaCard key={shortid.generate()} item={item} />
-                }) ||
                 title == "Progetti" && items.map(item => {
-                    <ProgettoCard key={shortid.generate()} item={item} />
-                })
+                    return <ProgettoCard key={shortid.generate()} item={item} />
+                }))
             }
         </View>
     )
