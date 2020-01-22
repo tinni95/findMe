@@ -39,17 +39,6 @@ export default function NotificheIcon(props) {
     }
   })
   const { loading, error, refetch, data } = useQuery(UNOPENEDNOTIFICHE_QUERY, { fetchPolicy: "no-cache" })
-  const subscription = useSubscription(
-    NOTIFICA_SUBSCRIPTION,
-    {
-      variables: { id: data && data.currentUser.id },
-      onSubscriptionData: () => {
-        refetch()
-      },
-      fetchPolicy: "no-cache"
-    }
-  );
-
   const focused = props.navigation.getParam("focused")
   useEffect(() => {
     if (focused) {

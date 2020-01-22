@@ -4,23 +4,16 @@
     "slug": "findMe",
     "privacy": "public",
     "sdkVersion": "35.0.0",
+    "android": {
+      "package": "com.yourcompany.yourappname"
+    },
     "facebookScheme": "fb822183698200481",
     "facebookAppId": "822183698200481",
     "facebookDisplayName": "FindMe",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": [
-        "js",
-        "jsx",
-        "ts",
-        "tsx",
-        "svg"
-      ]
+      "sourceExts": ["js", "jsx", "ts", "tsx", "svg"]
     },
     "version": "1.0.0",
     "orientation": "portrait",
@@ -33,9 +26,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     }

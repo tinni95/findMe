@@ -44,15 +44,6 @@ export default function MessagesIcon(props) {
       }
     });
   const { loading, error, refetch, data } = useQuery(UNSEENMESSAGES_QUERY, { fetchPolicy: "no-cache" })
-  const subscription = useSubscription(
-    NEWMESSAGE_SUBSCRIPTION,
-    {
-      variables: { id: data && data.currentUser.id },
-      onSubscriptionData: () => {
-        refetch()
-      }
-    },
-  );
 
   const focused = props.navigation.getParam("focused")
   useEffect(() => {
@@ -62,6 +53,10 @@ export default function MessagesIcon(props) {
       props.navigation.setParams({ focused: false })
     }
   }, [focused])
+
+  useEffect(() => {
+    console.log("we")
+  }, [props.refetch])
 
   if (loading) {
     return (<Image source={require("../assets/images/Messaggi_empty.png")} style={{ width: 25, height: 25 }}></Image>)

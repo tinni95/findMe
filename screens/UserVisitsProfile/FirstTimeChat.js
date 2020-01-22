@@ -83,15 +83,6 @@ export default function FirstTimeChat({ navigation }) {
         }
     }
     )
-    const subscription = useSubscription(
-        MESSAGES_SUBSCRIPTION,
-        {
-            variables: { id: chatId },
-            onSubscriptionData: async ({ postMessageReceivedSub }) => {
-                refetch()
-            }
-        }
-    );
 
     const [unseeChat] = useMutation(UNSEECHAT_MUTATION, {
         onCompleted: async ({ unseeChat }) => {

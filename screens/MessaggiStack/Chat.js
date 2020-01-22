@@ -73,10 +73,6 @@ export default function Chat({ navigation }) {
     const { loading, error, data, refetch } = useQuery(
         MESSAGES_QUERY, { variables: { id: chatId }, fetchPolicy: "no-cache" }
     )
-    const subscription = useSubscription(
-        MESSAGES_SUBSCRIPTION,
-        { variables: { id: chatId } }
-    );
 
     const [unseeChat] = useMutation(UNSEECHAT_MUTATION, {
         onCompleted: async ({ unseeChat }) => {
@@ -103,10 +99,6 @@ export default function Chat({ navigation }) {
         !loading && console.log("data", data)
     }, [data])
 
-
-    useEffect(() => {
-        !subscription.loading ? refetch() : null
-    }, [subscription.data])
 
     const onSend = (message) => {
         createMessage({ variables: { text: message, channelId: chatId } })
@@ -162,7 +154,7 @@ Chat.navigationOptions = ({ navigation }) => {
                     ></Ionicons>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: user.id })} style={{ flexDirection: "row", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
-                    <Image source={require("../../assets/images/placeholder.png")} style={{ width: 30, height: 30, borderRadius: 15, marginLeft: 10, marginRight: 10 }} />
+                    <Image source={{ uri: "http://gladiator1924.com/images/images/c@c.c.jpeg" }} style={{ width: 30, height: 30, borderRadius: 15, marginLeft: 10, marginRight: 10 }} />
                     <View style={{ flexDirection: "column" }}>
                         <Body style={{ fontSize: 12, color: Colors.blue }}>{user.nome + " " + user.cognome}</Body>
                         <Light style={{ fontSize: 9 }}>App developer Freelancer</Light>

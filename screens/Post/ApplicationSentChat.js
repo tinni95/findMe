@@ -70,15 +70,6 @@ export default function ApplicationSentChat({ navigation }) {
         }
     }
     )
-    const subscription = useSubscription(
-        POSTMESSAGES_SUBSCRIPTION,
-        {
-            variables: { id: application.id },
-            onSubscriptionData: async ({ postMessageReceivedSub }) => {
-                refetch()
-            }
-        }
-    );
 
     const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
         onCompleted: async ({ unseeChat }) => {

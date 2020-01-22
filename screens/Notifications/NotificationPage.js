@@ -64,15 +64,6 @@ export default function NotificationPage({ navigation }) {
     }, [refreshing]);
 
     const { data, loading, error, refetch } = useQuery(NOTIFICHE_QUERY)
-    const subscription = useSubscription(
-        NOTIFICA_SUBSCRIPTION,
-        {
-            variables: { id: !loading && data.currentUser.id },
-            onSubscriptionData: () => {
-                refetch()
-            }
-        }
-    );
 
     if (loading) {
         return <FindMeSpinner></FindMeSpinner>

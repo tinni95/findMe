@@ -72,15 +72,6 @@ export default function Channels({ navigation }) {
         isRefetch ? refetch() : null
     }, [isRefetch])
 
-    const subscription = useSubscription(
-        MESSAGES_SUBSCRIPTION,
-        {
-            variables: { id: !loading && data.currentUser.id },
-            onSubscriptionData: async ({ postMessageReceivedSub }) => {
-                refetch()
-            }
-        }
-    );
 
     if (loading) return <FindMeSpinner />;
     if (error) return <FindMeGraphQlErrorDisplay />
