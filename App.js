@@ -21,7 +21,6 @@ import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 
 moment.locale('it');
 export default function App() {
-  const [refetch, setRefetch] = useState(false)
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
   const [loggedin, setLoggedin] = useState(false)

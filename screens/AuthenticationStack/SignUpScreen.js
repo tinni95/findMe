@@ -50,6 +50,9 @@ export default function SignUpScreen({ screenProps, navigation }) {
         screenProps.changeLoginState();
         let token = PushNotifications(updateUser)
         this._notificationSubscription = Notifications.addListener(handleNotification);
+      },
+      onError: (error) => {
+        console.log(error)
       }
     });
 

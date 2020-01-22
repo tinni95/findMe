@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Image } from "react-native"
 import InputToolbar from "./InputToolbar"
 import gql from 'graphql-tag';
 import { useMutation, useSubscription, useQuery } from 'react-apollo';
-import parseMessages from "./helpers"
+import { parseMessages, parseMessage } from "./helpers"
 import FindMeMessage from './FindMeMessage'
 import moment from 'moment/min/moment-with-locales'
 import { sendNotification } from '../../shared/PushNotifications';
@@ -14,6 +14,8 @@ import HeaderStyles from '../shared/HeaderStyles';
 import { Body, Light } from '../../components/StyledText';
 import Colors from "../../constants/Colors"
 moment.locale('it');
+import io from "socket.io-client";
+import { socketEndPoint } from '../../shared/urls';
 
 const UNSEECHAT_MUTATION = gql`
 mutation unseeChatChatMutation($chatId:ID!,$pubRead:Boolean,$subRead:Boolean){
@@ -30,6 +32,10 @@ mutation createMessage($channelId: ID!,$text:String!) {
     createMessage(channelId:$channelId,text:$text) {
         id
         text
+        createdAt
+        user{
+            id
+        }
     }
 }`;
 
@@ -56,19 +62,18 @@ query chatQuery($id:ID!){
     }
   }`;
 
-const MESSAGES_SUBSCRIPTION = gql`
-subscription messageReceivedSub($id:ID!){
-    messageReceivedSub(id:$id){
-        updatedFields
-    }
-  }`;
-
-
 export default function Chat({ navigation }) {
     const [messages, setMessages] = useState([])
     const chatId = navigation.getParam("chatId")
     const isSub = navigation.getParam("isSub")
     const id = navigation.getParam("id")
+
+    useEffect(() => {
+        this.socket = io(socketEndPoint);
+        this.socket.on("chat message", msg => {
+            refetch()
+        })
+    })
 
     const { loading, error, data, refetch } = useQuery(
         MESSAGES_QUERY, { variables: { id: chatId }, fetchPolicy: "no-cache" }
@@ -87,7 +92,7 @@ export default function Chat({ navigation }) {
                     unseeChat({ variables: { chatId: chatId, subRead: false } })
                 isSub ? sendNotification(data.Chat.pub.pushToken, "Messaggio da " + data.Chat.sub.nome, createMessage.text) :
                     sendNotification(data.Chat.sub.pushToken, "Messaggio da " + data.Chat.pub.nome, createMessage.text)
-                refetch()
+                this.socket.emit("chat message", createMessage);
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
