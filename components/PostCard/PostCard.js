@@ -6,6 +6,7 @@ import { PostCardPublisher } from './PostCardPublisher';
 import { PostCardText } from './PostCardText';
 import { Fields } from './Fields';
 import RoundButtonEmpty from '../shared/RoundButtonEmpty';
+import Colors from '../../constants/Colors';
 
 export const PostCard = ({ post, navigation }) => {
   return (
@@ -21,7 +22,8 @@ export const PostCard = ({ post, navigation }) => {
           <View style={styles.buttonContainer}>
             <View style={{ height: 10 }}></View>
             <RoundButtonEmpty
-              fontColor={"#5DD9D8"}
+              fontColor={Colors.ocean
+              }
               fontSize={10}
               text="Scopri di più"
               onPress={() =>
@@ -29,7 +31,7 @@ export const PostCard = ({ post, navigation }) => {
                   id: post.id
                 })
               }
-              color="#60E1E0"
+              color={Colors.ocean}
             />
           </View>
         </View>
