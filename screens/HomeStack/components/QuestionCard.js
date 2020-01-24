@@ -9,6 +9,7 @@ import { useQuery, useMutation } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
 import FindMeSpinner from '../../../shared/FindMeSpinner';
 import Colors from '../../../constants/Colors';
+import SocketContext from "../../../Socket/context"
 
 moment.locale('it');
 
@@ -70,7 +71,7 @@ mutation createNotifica($questionId:ID!,$text:String!,$type:String!, $id:ID!){
     }
 }
 `
-export const QuestionCard = ({ question, navigation, isRefetch }) => {
+export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
     const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id } })
     const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
     const [Like] = useMutation(LIKE_MUTATION,
@@ -78,6 +79,7 @@ export const QuestionCard = ({ question, navigation, isRefetch }) => {
             onCompleted: async ({ QuestionLike }) => {
                 refetch()
                 createNotifica({ variables: { questionId: QuestionLike.question.id, type: "questionLike", id: QuestionLike.question.postedBy.id, text: `"` + QuestionLike.question.question + `"` } })
+                socket.emit("notifica", "message");
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
@@ -167,6 +169,15 @@ export const QuestionCard = ({ question, navigation, isRefetch }) => {
         </View>
     );
 };
+
+const QuestionCardWithSocket = props => (
+    <SocketContext.Consumer>
+        {socket => <QuestionCard {...props} socket={socket} />}
+    </SocketContext.Consumer>
+)
+
+export default QuestionCardWithSocket
+
 
 const styles = StyleSheet.create({
     wrapper: {

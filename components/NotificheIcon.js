@@ -5,7 +5,7 @@ import { Body } from "./StyledText";
 import Colors from "../constants/Colors";
 import { useQuery, useSubscription, useMutation } from "react-apollo";
 import { gql } from "apollo-boost";
-
+import SocketContext from "../Socket/context"
 const UNOPENEDNOTIFICHE_QUERY = gql`
 {
 UnreadNotifiche{
@@ -23,16 +23,13 @@ mutation {
   }
 }
 `
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
 
-const NOTIFICA_SUBSCRIPTION = gql`
-subscription notificaReceivedSub($id:ID!){
-    notificaReceivedSub(id:$id){
-        updatedFields
-    }
-  }`;
-
-
-export default function NotificheIcon(props) {
+export function NotificheIcon(props) {
   const [readNotifica] = useMutation(READNOTIFICA_MUTATION, {
     onCompleted: () => {
       refetch()
@@ -40,6 +37,13 @@ export default function NotificheIcon(props) {
   })
   const { loading, error, refetch, data } = useQuery(UNOPENEDNOTIFICHE_QUERY, { fetchPolicy: "no-cache" })
   const focused = props.navigation.getParam("focused")
+
+  useEffect(() => {
+    props.socket.on("notifica", msg => {
+      wait(1000).then(() => refetch());
+    })
+  })
+
   useEffect(() => {
     if (focused) {
       readNotifica();
@@ -88,6 +92,15 @@ const styles = StyleSheet.create({
     fontSize: 9
   }
 })
+
+const NotificheIconWS = props => (
+  <SocketContext.Consumer>
+    {socket => <NotificheIcon {...props} socket={socket} />}
+  </SocketContext.Consumer>
+)
+
+export default NotificheIconWS
+
 
 NotificheIcon.navigationOptions = ({ navigation }) => ({
   tabBarOnPress: ({ navigation, defaultHandler }) => {

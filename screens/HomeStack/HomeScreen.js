@@ -5,7 +5,7 @@ import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo";
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
-import { QuestionCard } from "./components/QuestionCard";
+import QuestionCard from "./components/QuestionCard";
 
 var shortid = require("shortid")
 const Questions = gql`

@@ -91,6 +91,7 @@ export default function NotificationPage({ navigation }) {
     </ScrollView>
 }
 
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#F4F4F4"
