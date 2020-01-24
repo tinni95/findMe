@@ -18,16 +18,13 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import moment from 'moment/min/moment-with-locales'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
-import io from "socket.io-client";
-import { socketEndPoint } from './shared/urls';
-import SocketContext from './Socket/context'
+
+import MainTabNavigatorWrapper from './MainTabNavigatorWrapper';
 
 moment.locale('it');
 
-const socket = io(socketEndPoint);
 
 export default function App() {
-
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
   const [loggedin, setLoggedin] = useState(false)
@@ -119,15 +116,12 @@ export default function App() {
     );
   }
   return (
-
     <ActionSheetProvider>
       <ApolloProvider client={client}>
         <View style={styles.container}>
           {loggedin ?
             (
-              <SocketContext.Provider value={socket}>
-                <MainTabNavigator screenProps={{ changeLoginState: () => logout(), newMessage }} />
-              </SocketContext.Provider>
+              <MainTabNavigatorWrapper screenProps={{ changeLoginState: () => logout() }} />
             ) :
             <AuthenticationStack screenProps={{ changeLoginState: () => login() }} />}
         </View>

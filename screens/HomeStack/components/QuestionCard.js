@@ -79,7 +79,7 @@ export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
             onCompleted: async ({ QuestionLike }) => {
                 refetch()
                 createNotifica({ variables: { questionId: QuestionLike.question.id, type: "questionLike", id: QuestionLike.question.postedBy.id, text: `"` + QuestionLike.question.question + `"` } })
-                socket.emit("notifica", "message");
+                socket.emit("notifica", QuestionLike.question.postedBy.id);
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
