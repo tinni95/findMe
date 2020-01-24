@@ -14,15 +14,15 @@ const getLocalHostName = () => {
   return hostname;
 };
 
-export const socketEndPoint =/*  "http://167.172.161.31/" */
-  Platform.OS === "web"
+export const socketEndPoint = "http://localhost:3001/".replace("localhost", getLocalHostName());
+/*   Platform.OS === "web"
     ? "http://localhost:3001/"
-    : "http://localhost:3001/".replace("localhost", getLocalHostName());
+*/
 
-export const graphlEndPoint =/*  "http://167.172.161.31/" */
-  Platform.OS === "web"
+export const graphlEndPoint = "http://167.172.59.190/"
+/*   Platform.OS === "web"
     ? "http://localhost:4000/"
-    : "http://localhost:4000/".replace("localhost", getLocalHostName());
+    : "http://localhost:4000/".replace("localhost", getLocalHostName()); */
 
 export const graphlWsEndPoint = /* "ws://167.172.161.31/" */
   Platform.OS === "web"

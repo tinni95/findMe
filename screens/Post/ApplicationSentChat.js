@@ -66,7 +66,6 @@ export default function ApplicationSentChat({ navigation }) {
         MESSAGES_QUERY, {
         variables: { id: application.id },
         onCompleted: async ({ PostMessagesFeed }) => {
-            console.log(PostMessagesFeed)
         }
     }
     )

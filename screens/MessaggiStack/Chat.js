@@ -13,9 +13,9 @@ import { Ionicons } from '@expo/vector-icons';
 import HeaderStyles from '../shared/HeaderStyles';
 import { Body, Light } from '../../components/StyledText';
 import Colors from "../../constants/Colors"
+import { useContext } from 'react';
 moment.locale('it');
-import io from "socket.io-client";
-import { socketEndPoint } from '../../shared/urls';
+
 
 const UNSEECHAT_MUTATION = gql`
 mutation unseeChatChatMutation($chatId:ID!,$pubRead:Boolean,$subRead:Boolean){
@@ -62,18 +62,18 @@ query chatQuery($id:ID!){
     }
   }`;
 
-export default function Chat({ navigation }) {
+export default function Chat({ navigation, screenProps }) {
     const [messages, setMessages] = useState([])
     const chatId = navigation.getParam("chatId")
     const isSub = navigation.getParam("isSub")
     const id = navigation.getParam("id")
 
+    const newMessage = useContext(Context);
+
     useEffect(() => {
-        this.socket = io(socketEndPoint);
-        this.socket.on("chat message", msg => {
-            refetch()
-        })
-    })
+        console.log("refetch")
+        refetch()
+    }, [newMessage])
 
     const { loading, error, data, refetch } = useQuery(
         MESSAGES_QUERY, { variables: { id: chatId }, fetchPolicy: "no-cache" }
@@ -92,7 +92,7 @@ export default function Chat({ navigation }) {
                     unseeChat({ variables: { chatId: chatId, subRead: false } })
                 isSub ? sendNotification(data.Chat.pub.pushToken, "Messaggio da " + data.Chat.sub.nome, createMessage.text) :
                     sendNotification(data.Chat.sub.pushToken, "Messaggio da " + data.Chat.pub.nome, createMessage.text)
-                this.socket.emit("chat message", createMessage);
+                this.socket.emit("chat message", chatId);
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
@@ -101,7 +101,6 @@ export default function Chat({ navigation }) {
 
     useEffect(() => {
         data && setMessages(parseMessages(data.Chat.messages, id))
-        !loading && console.log("data", data)
     }, [data])
 
 
