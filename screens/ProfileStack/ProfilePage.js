@@ -207,7 +207,7 @@ export default function ProfilePage({ navigation }) {
 
   const images = [{ uri: image }]
   if (loading) return <FindMeSpinner />;
-  const image = data.currentUser.pictureUrl ? "http://gladiator1924.com/images/images/" + data.currentUser.pictureUrl : "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
+  const image = data.currentUser.pictureUrl ? "http://gladiator1924.com/images/images/" + data.currentUser.pictureUrl : "http://gladiator1924.com/images/images/cascas@cc.com.jpg";
   console.log("image", image)
   if (error) return <FindMeGraphQlErrorDisplay />;
 
