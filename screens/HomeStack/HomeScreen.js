@@ -16,6 +16,7 @@ const Questions = gql`
     tags
     createdAt
     postedBy{
+      pictureUrl
       id
       nome
       cognome
