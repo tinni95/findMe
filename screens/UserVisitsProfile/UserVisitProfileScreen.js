@@ -178,7 +178,7 @@ query UserProfile($id:ID!) {
   }
 `;
 
-export default function UserVisitProfile({ navigation }) {
+export function UserVisitProfile({ navigation, socket }) {
     const id = navigation.getParam("id")
     const userId = navigation.getParam("userId")
     const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
@@ -186,6 +186,7 @@ export default function UserVisitProfile({ navigation }) {
         onCompleted: ({ createConnessione }) => {
             setRequestId(createConnessione.id)
             createNotifica({ variables: { type: "connessioneRequest", connessioneId: createConnessione.id, id, text: data.currentUser.nome + " " + data.currentUser.cognome + " ha richiesto di connettersi" } })
+            socket.emit("notifica", QuestionLike.question.postedBy.id);
             refetch()
         }
     })
@@ -402,6 +403,15 @@ export default function UserVisitProfile({ navigation }) {
             }
         </ScrollView>);
 }
+
+
+const UserVisitProfileWS = props => (
+    <SocketContext.Consumer>
+        {socket => <UserVisitProfile {...props} socket={socket} />}
+    </SocketContext.Consumer>
+)
+
+export default UserVisitProfileWS
 
 const styles = StyleSheet.create({
     container: {
