@@ -17,7 +17,7 @@ import RoundButton from '../../components/shared/RoundButtonSignUpScreen'
 
 
 const UPDATEUSER_MUTATION = gql`
-mutation updateUser($email: String, $password: String,$nome: String, $cognome: String, $comune:String,$regione:String,$provincia:String,$picture:Upload,$presentazione:String, $DoB:String) {
+mutation updateUser($email: String, $password: String,$nome: String, $cognome: String, $comune:String,$regione:String,$provincia:String,$picture:String,$presentazione:String, $DoB:String) {
         updateUser(email: $email, password:$password, nome:$nome,cognome:$cognome,comune:$comune,
             regione:$regione,provincia:$provincia,picture:$picture,presentazione:$presentazione, DoB:$DoB) {
         pictureUrl
@@ -82,11 +82,10 @@ export default function EditProfile({ navigation }) {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 1,
+            quality: 0.1,
         });
 
         if (!result.cancelled) {
-            console.log(result.uri)
             setImage(result.uri)
         }
     };
@@ -110,20 +109,33 @@ export default function EditProfile({ navigation }) {
     }
 
     const submit = () => {
-        let file;
+        const data = new FormData();
         const name = currentUser.email + ".jpg"
         if (image == initialImage) {
-            file = null
+            updateUser({ variables: { DoB, nome, cognome, presentazione, comune, regione, provincia } })
         }
         else {
-            file = new ReactNativeFile({
-                uri: image,
-                name,
+            data.append('photo', {
+                uri: Platform.OS === "android" ? image : image.replace("file://", ""),
                 type: 'image/jpeg',
-
+                name
+            });
+            fetch("http://gladiator1924.com/images/upload2.php", {
+                method: 'post',
+                body: data,
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'multipart/form-data',
+                },
+            }).then(response => response.json()).then((responseJson) => {
+                if (responseJson == "No") {
+                    alert("error uploading file", "a");
+                } else {
+                    updateUser({ variables: { picture: name, DoB, nome, cognome, presentazione, comune, regione, provincia } })
+                }
             })
         }
-        updateUser({ variables: { picture: file, DoB, nome, cognome, presentazione, comune, regione, provincia } })
+
     }
     const initialImage = "http://gladiator1924.com/images/davide.png"
     const [image, setImage] = useState(initialImage);

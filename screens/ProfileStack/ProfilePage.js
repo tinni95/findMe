@@ -39,6 +39,7 @@ const User = gql`
   }
     currentUser {
       id
+      pictureUrl
       answers{
         comments{
           id
@@ -192,6 +193,7 @@ export default function ProfilePage({ navigation }) {
   const { loading, error, data, refetch } = useQuery(User, {
     onCompleted: async ({ currentUser }) => {
       navigation.setParams({ currentUser })
+      console.log(currentUser)
     }
   });
 
@@ -202,16 +204,19 @@ export default function ProfilePage({ navigation }) {
   useEffect(() => {
     data ? navigation.setParams({ currentUser: data.currentUser }) : null
   }, [data])
-  const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
+
   const images = [{ uri: image }]
   if (loading) return <FindMeSpinner />;
+  const image = data.currentUser.pictureUrl ? "http://gladiator1924.com/images/images/" + data.currentUser.pictureUrl : "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
+  console.log("image", image)
   if (error) return <FindMeGraphQlErrorDisplay />;
 
   return (
     <ScrollView >
       <View style={styles.userWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Image source={require("../../assets/images/placeholder.png")} style={{ width: 100, height: 100, borderRadius: 50 }} />
+          <Image source={{ uri: image }}
+            style={{ width: 100, height: 100, borderRadius: 50 }} />
         </TouchableOpacity>
         <Modal
           visible={modalVisbile}
