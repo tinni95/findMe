@@ -16,7 +16,6 @@ const User = gql`
 }
 `
 export default function MainTabNavigatorWrapper({ screenProps }) {
-    const [socket, setSocket] = useState("")
     const { data, loading } = useQuery(User, {
         onCompleted: (currentUser) => {
             console.log("currentUser")
