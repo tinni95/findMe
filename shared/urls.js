@@ -19,7 +19,7 @@ export const socketEndPoint = "http://localhost:3001/".replace("localhost", getL
     ? "http://localhost:3001/"
 */
 
-export const graphlEndPoint = "http://167.172.59.190/"
+export const graphlEndPoint = "http://188.166.166.82/"
 /*   Platform.OS === "web"
     ? "http://localhost:4000/"
     : "http://localhost:4000/".replace("localhost", getLocalHostName()); */

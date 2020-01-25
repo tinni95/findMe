@@ -15,7 +15,7 @@ const User = gql`
 `;
 
 export default function AnteprimaPageRenderer({ navigation }) {
-  const { loading, error, data } = useQuery(User);
+  const { loading, error, data } = useQuery(User, { fetchPolicy: "no-cache" });
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
 
