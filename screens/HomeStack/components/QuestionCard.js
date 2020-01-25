@@ -10,6 +10,7 @@ import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay
 import FindMeSpinner from '../../../shared/FindMeSpinner';
 import Colors from '../../../constants/Colors';
 import SocketContext from "../../../Socket/context"
+import { sendNotification } from '../../../shared/PushNotifications';
 
 moment.locale('it');
 
@@ -51,6 +52,7 @@ mutation likeMutation($id:ID!){
             id
             postedBy{
               id
+              pushToken
             }
           }
     }
@@ -79,6 +81,11 @@ export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
             onCompleted: async ({ QuestionLike }) => {
                 refetch()
                 createNotifica({ variables: { questionId: QuestionLike.question.id, type: "questionLike", id: QuestionLike.question.postedBy.id, text: `"` + QuestionLike.question.question + `"` } })
+                sendNotification(
+                    QuestionLike.question.postedBy.pushToken,
+                    "Nuovo Like",
+                    "A qualcuno piace la tua domanda " + QuestionLike.question.question
+                )
                 socket.emit("notifica", QuestionLike.question.postedBy.id);
             },
             onError: error => {
