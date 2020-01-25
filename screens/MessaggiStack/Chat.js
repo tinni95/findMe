@@ -68,13 +68,6 @@ export default function Chat({ navigation, screenProps }) {
     const isSub = navigation.getParam("isSub")
     const id = navigation.getParam("id")
 
-    const newMessage = useContext(Context);
-
-    useEffect(() => {
-        console.log("refetch")
-        refetch()
-    }, [newMessage])
-
     const { loading, error, data, refetch } = useQuery(
         MESSAGES_QUERY, { variables: { id: chatId }, fetchPolicy: "no-cache" }
     )

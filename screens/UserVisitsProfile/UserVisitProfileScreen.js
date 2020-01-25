@@ -17,6 +17,7 @@ import FindMeGraphQlErrorDisplay from '../../shared/FindMeGraphQlErrorDisplay';
 import { RoundButtonEmptyIconInverted } from "../../components/shared/RoundButtonEmptyIcon"
 import RoundButtonEmpty2 from '../../components/shared/RoundButtonEmpty2';
 import ConnessioneCard from '../../shared/ConnessioneCard';
+import SocketContext from '../../Socket/context';
 
 const SENDREQUEST_MUTATION = gql`
 mutation sendRequest($subId:ID!){
@@ -467,7 +468,7 @@ const styles = StyleSheet.create({
     }
 })
 
-UserVisitProfile.navigationOptions = ({ navigation }) => {
+UserVisitProfileWS.navigationOptions = ({ navigation }) => {
 
     return {
         headerStyle: HeaderStyles.headerStyle,

@@ -6,7 +6,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { graphlEndPoint, graphlWsEndPoint } from "./shared/urls";
 import { TOKEN_KEY } from "./shared/Token"
-import MainTabNavigator from './navigation/MainTabNavigator';
 import AuthenticationStack from './navigation/AuthenticationStack';
 import { ApolloClient } from 'apollo-client';
 import { setContext } from 'apollo-link-context';
