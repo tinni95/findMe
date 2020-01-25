@@ -125,7 +125,7 @@ export default function EditProfile({ navigation }) {
         }
         updateUser({ variables: { picture: file, DoB, nome, cognome, presentazione, comune, regione, provincia } })
     }
-    const initialImage = require("../../assets/images/placeholder.png")
+    const initialImage = "http://gladiator1924.com/images/davide.png"
     const [image, setImage] = useState(initialImage);
     const pen = require("../../assets/images/pen.png")
 
@@ -138,7 +138,7 @@ export default function EditProfile({ navigation }) {
                     <View>
                         <View style={styles.imageContainer}>
                             <TouchableOpacity onPress={() => PickImage()}>
-                                <Image source={image} style={{ width: 100, height: 100, borderRadius: 50 }} />
+                                <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 50 }} />
                                 <View style={styles.penWrapper}>
                                     <Image source={pen} style={{ width: 20, height: 20 }} />
                                 </View>
