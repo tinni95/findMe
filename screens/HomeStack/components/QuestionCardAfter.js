@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import { width, isBigDevice } from '../../../constants/Layout';
-import { Body, Light, Bold } from '../../../components/StyledText';
+import { width } from '../../../constants/Layout';
+import { Body } from '../../../components/StyledText';
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
 import FindMeSpinner from '../../../shared/FindMeSpinner';
 import Colors from '../../../constants/Colors';
 import RoundButtonEmptyIcon from '../../../components/shared/RoundButtonEmptyIcon';
-import { AvatarAndTime } from './AvatarAndTime';
+import AvatarAndTimeQuestion from './AvatarAndTimeQuestion';
 
 const Likes = gql`
 query Likes($id:ID!){
@@ -114,7 +114,7 @@ export const QuestionCardAfter = ({ id, navigation }) => {
         <View style={styles.wrapper}>
             <View style={styles.card}>
                 <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: data.singleQuestion.postedBy.id })}>
-                    <AvatarAndTime text={"Pubblicato "} question={data.singleQuestion}></AvatarAndTime>
+                    <AvatarAndTimeQuestion text={"Pubblicato "} question={data.singleQuestion}></AvatarAndTimeQuestion>
                 </TouchableOpacity>
                 <View style={styles.body}>
                     <Body style={styles.question}>{data.singleQuestion.question}</Body>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     question: {
         margin: 10,
         marginLeft: 15,
-        fontSize: 17,
+        fontSize: 20,
         marginBottom: 5
     },
     footerText: {
