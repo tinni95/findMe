@@ -187,7 +187,7 @@ export function UserVisitProfile({ navigation, socket }) {
         onCompleted: ({ createConnessione }) => {
             setRequestId(createConnessione.id)
             createNotifica({ variables: { type: "connessioneRequest", connessioneId: createConnessione.id, id, text: data.currentUser.nome + " " + data.currentUser.cognome + " ha richiesto di connettersi" } })
-            socket.emit("notifica", QuestionLike.question.postedBy.id);
+            socket.emit("notifica", userId);
             refetch()
         }
     })
