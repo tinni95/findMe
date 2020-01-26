@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { StyleSheet, View, Image } from "react-native"
 import { Body } from "./StyledText";
 import Colors from "../constants/Colors";
-import { useQuery, useSubscription, useMutation } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import { gql } from "apollo-boost";
 import SocketContext from "../Socket/context"
 const UNOPENEDNOTIFICHE_QUERY = gql`

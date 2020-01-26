@@ -11,11 +11,10 @@ import {
     ViewPropTypes,
     Platform,
 } from 'react-native';
-
+import moment from 'moment/min/moment-with-locales'
 import { MessageText, MessageImage, Time, utils } from 'react-native-gifted-chat';
-
-const { isSameUser, isSameDay } = utils;
-
+import { Light } from '../../components/StyledText';
+moment.locale("it")
 export default class Bubble extends React.Component {
 
     constructor(props) {
@@ -100,11 +99,7 @@ export default class Bubble extends React.Component {
                 return this.props.renderTime(timeProps);
             }
             return (
-                <Time
-                    {...timeProps}
-                    containerStyle={{ left: [styles.timeContainer] }}
-                    textStyle={{ left: [styles.standardFont, styles.headerItem, styles.time, timeProps.textStyle] }}
-                />
+                <Light style={styles.time}>{moment(this.props.currentMessage.createdAt).format("HH:mm")}</Light>
             );
         }
         return null;
@@ -190,10 +185,6 @@ const styles = StyleSheet.create({
     username: {
         fontWeight: 'bold',
     },
-    time: {
-        textAlign: 'left',
-        fontSize: 12,
-    },
     timeContainer: {
         marginLeft: 0,
         marginRight: 0,
@@ -207,6 +198,11 @@ const styles = StyleSheet.create({
         marginTop: Platform.OS === 'android' ? -2 : 0,
         flexDirection: 'row',
         alignItems: 'baseline',
+    },
+    time: {
+        fontSize: 10,
+        textAlign: 'left',
+        color: "#707070"
     },
     /* eslint-disable react-native/no-color-literals */
     tick: {

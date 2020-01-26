@@ -14,7 +14,6 @@ import HeaderStyles from '../shared/HeaderStyles';
 import { Body, Light } from '../../components/StyledText';
 import Colors from "../../constants/Colors"
 import SocketContext from '../../Socket/context';
-moment.locale('it');
 import io from "socket.io-client";
 import { socketEndPoint } from '../../shared/urls';
 
@@ -93,7 +92,7 @@ export function Chat({ navigation, socket }) {
                 didBlurSubscription.remove();
             }
         );
-
+        moment.locale('it');
     }, [])
 
     useEffect(() => {
@@ -149,7 +148,6 @@ export function Chat({ navigation, socket }) {
                 messages={messages}
                 onSend={message => onSend(message)}
                 renderMessage={renderMessage}
-                locale={'it'}
                 renderInputToolbar={renderInputToolbar}
                 user={{
                     _id: 1,
@@ -174,7 +172,6 @@ const ChatWithSocket = props => (
 ChatWithSocket.navigationOptions = ({ navigation }) => {
     const user = navigation.getParam("user")
     const socket = navigation.getParam("socket")
-    console
     return {
         headerStyle: HeaderStyles.headerStyle,
         headerTitleStyle: HeaderStyles.headerTitleStyle,
