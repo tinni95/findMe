@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, View, Image } from "react-native"
 import { Body } from "./StyledText";
 import Colors from "../constants/Colors";
-import { useQuery, useSubscription, useMutation } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import { gql } from "apollo-boost";
+import SocketContext from "../Socket/context"
 
 const OPENCHATS_MUTATION = gql`
 mutation{
@@ -35,8 +35,13 @@ subscription messageReceivedNotificaSub($id:ID!){
   }
 }`;
 
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
 
-export default function MessagesIcon(props) {
+export function MessagesIcon(props) {
   const [openChats] = useMutation(OPENCHATS_MUTATION,
     {
       onCompleted: () => {
@@ -44,6 +49,12 @@ export default function MessagesIcon(props) {
       }
     });
   const { loading, error, refetch, data } = useQuery(UNSEENMESSAGES_QUERY, { fetchPolicy: "no-cache" })
+
+  useEffect(() => {
+    props.socket.on("notifica", msg => {
+      wait(1000).then(() => refetch());
+    })
+  })
 
   const focused = props.navigation.getParam("focused")
   useEffect(() => {
@@ -96,3 +107,11 @@ const styles = StyleSheet.create({
     fontSize: 9
   }
 })
+
+const MessagesIconWS = props => (
+  <SocketContext.Consumer>
+    {socket => <MessagesIcon {...props} socket={socket} />}
+  </SocketContext.Consumer>
+)
+
+export default MessagesIconWS

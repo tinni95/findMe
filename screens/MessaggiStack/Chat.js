@@ -45,10 +45,12 @@ const MESSAGES_QUERY = gql`
 query chatQuery($id:ID!){
     Chat(id:$id){
         sub{
+            id
             nome
             pushToken
         }
         pub{
+            id
             nome
             pushToken
         }
