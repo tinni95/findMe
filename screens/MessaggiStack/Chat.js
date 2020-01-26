@@ -15,6 +15,8 @@ import { Body, Light } from '../../components/StyledText';
 import Colors from "../../constants/Colors"
 import SocketContext from '../../Socket/context';
 moment.locale('it');
+import io from "socket.io-client";
+import { socketEndPoint } from '../../shared/urls';
 
 
 const UNSEECHAT_MUTATION = gql`
@@ -63,15 +65,40 @@ query chatQuery($id:ID!){
     }
   }`;
 
+function wait(timeout) {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+}
+
+
 export function Chat({ navigation, socket }) {
     const [messages, setMessages] = useState([])
     const chatId = navigation.getParam("chatId")
     const isSub = navigation.getParam("isSub")
     const id = navigation.getParam("id")
-
     const { loading, error, data, refetch } = useQuery(
         MESSAGES_QUERY, { variables: { id: chatId }, fetchPolicy: "no-cache" }
     )
+
+    useEffect(() => {
+        this.sockettino = io(socketEndPoint, { query: { token: chatId } })
+        const didBlurSubscription = navigation.addListener(
+            'didBlur',
+            payload => {
+                console.debug('didBlur', payload);
+                this.sockettino.emit("pocho", "")
+                didBlurSubscription.remove();
+            }
+        );
+
+    }, [])
+
+    useEffect(() => {
+        this.sockettino.on("chat message", msg => {
+            wait(500).then(() => refetch());
+        })
+    })
 
     const [unseeChat] = useMutation(UNSEECHAT_MUTATION, {
         onCompleted: async ({ unseeChat }) => {
@@ -86,7 +113,9 @@ export function Chat({ navigation, socket }) {
                     unseeChat({ variables: { chatId: chatId, subRead: false } })
                 isSub ? sendNotification(data.Chat.pub.pushToken, "Messaggio da " + data.Chat.sub.nome, createMessage.text) :
                     sendNotification(data.Chat.sub.pushToken, "Messaggio da " + data.Chat.pub.nome, createMessage.text)
-                socket.emit("chat message", chatId);
+                this.sockettino.emit("chat message", chatId);
+                isSub ? socket.emit("notifica", data.Chat.pub.id) :
+                    socket.emit("notifica", data.Chat.sub.id)
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
@@ -142,13 +171,16 @@ const ChatWithSocket = props => (
 
 ChatWithSocket.navigationOptions = ({ navigation }) => {
     const user = navigation.getParam("user")
+    const socket = navigation.getParam("socket")
     console
     return {
         headerStyle: HeaderStyles.headerStyle,
         headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity onPress={() => navigation.navigate("Channels", { refetch: true })}>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate("Channels", { refetch: true })
+                }}>
                     <Ionicons
                         name={"ios-arrow-back"}
                         size={25}
