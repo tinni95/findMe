@@ -3,8 +3,8 @@ import { GiftedChat } from 'react-native-gifted-chat'
 import { View, TouchableOpacity, Image } from "react-native"
 import InputToolbar from "./InputToolbar"
 import gql from 'graphql-tag';
-import { useMutation, useSubscription, useQuery } from 'react-apollo';
-import { parseMessages, parseMessage } from "./helpers"
+import { useMutation, useQuery } from 'react-apollo';
+import { parseMessages } from "./helpers"
 import FindMeMessage from './FindMeMessage'
 import moment from 'moment/min/moment-with-locales'
 import { sendNotification } from '../../shared/PushNotifications';
@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HeaderStyles from '../shared/HeaderStyles';
 import { Body, Light } from '../../components/StyledText';
 import Colors from "../../constants/Colors"
-import { useContext } from 'react';
+import SocketContext from '../../Socket/context';
 moment.locale('it');
 
 
@@ -55,6 +55,7 @@ query chatQuery($id:ID!){
         text
         createdAt
         user{
+            pictureUrl
             id
             nome
         }
@@ -62,7 +63,7 @@ query chatQuery($id:ID!){
     }
   }`;
 
-export default function Chat({ navigation, screenProps }) {
+export function Chat({ navigation, socket }) {
     const [messages, setMessages] = useState([])
     const chatId = navigation.getParam("chatId")
     const isSub = navigation.getParam("isSub")
@@ -85,7 +86,7 @@ export default function Chat({ navigation, screenProps }) {
                     unseeChat({ variables: { chatId: chatId, subRead: false } })
                 isSub ? sendNotification(data.Chat.pub.pushToken, "Messaggio da " + data.Chat.sub.nome, createMessage.text) :
                     sendNotification(data.Chat.sub.pushToken, "Messaggio da " + data.Chat.pub.nome, createMessage.text)
-                this.socket.emit("chat message", chatId);
+                socket.emit("chat message", chatId);
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
@@ -102,7 +103,6 @@ export default function Chat({ navigation, screenProps }) {
     }
 
     const renderMessage = props => {
-
         return <FindMeMessage {...props} />
     }
 
@@ -134,7 +134,13 @@ export default function Chat({ navigation, screenProps }) {
     )
 }
 
-Chat.navigationOptions = ({ navigation }) => {
+const ChatWithSocket = props => (
+    <SocketContext.Consumer>
+        {socket => <Chat {...props} socket={socket} />}
+    </SocketContext.Consumer>
+)
+
+ChatWithSocket.navigationOptions = ({ navigation }) => {
     const user = navigation.getParam("user")
     console
     return {
@@ -162,3 +168,6 @@ Chat.navigationOptions = ({ navigation }) => {
         )
     }
 }
+
+
+export default ChatWithSocket

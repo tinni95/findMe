@@ -21,7 +21,7 @@ export const parseMessages = (messages, id) => {
                 id: message.user.id,
                 _id: message.user.id == id ? 2 : 1,
                 name: message.user.nome,
-                avatar: 'https://placeimg.com/140/140/any',
+                avatar: "http://www.gladiator1924.com/images/images/" + message.user.pictureUrl
             }
         }
     })

@@ -7,7 +7,6 @@ import moment from 'moment/min/moment-with-locales'
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
-import FindMeSpinner from '../../../shared/FindMeSpinner';
 import Colors from '../../../constants/Colors';
 import SocketContext from "../../../Socket/context"
 import { sendNotification } from '../../../shared/PushNotifications';
