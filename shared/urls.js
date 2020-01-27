@@ -14,7 +14,7 @@ const getLocalHostName = () => {
   return hostname;
 };
 
-export const socketEndPoint = "http://localhost:3001/".replace("localhost", getLocalHostName());
+export const socketEndPoint = "http://134.209.229.6/"
 
 
 export const graphlEndPoint = "http://188.166.166.82/"
