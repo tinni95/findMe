@@ -205,10 +205,9 @@ export default function ProfilePage({ navigation }) {
     data ? navigation.setParams({ currentUser: data.currentUser }) : null
   }, [data])
 
-  const images = [{ uri: image }]
   if (loading) return <FindMeSpinner />;
   const image = data.currentUser.pictureUrl ? "http://gladiator1924.com/images/images/" + data.currentUser.pictureUrl : "http://gladiator1924.com/images/images/cascas@cc.com.jpg";
-  console.log("image", image)
+  const images = [{ uri: image }]
   if (error) return <FindMeGraphQlErrorDisplay />;
 
   return (

@@ -18,9 +18,9 @@ export const socketEndPoint = "http://localhost:3001/".replace("localhost", getL
 
 
 export const graphlEndPoint = "http://188.166.166.82/"
-/*   Platform.OS === "web"
-    ? "http://localhost:4000/"
-    : "http://localhost:4000/".replace("localhost", getLocalHostName()); */
+/* Platform.OS === "web"
+   ? "http://localhost:4000/"
+   : "http://localhost:4000/".replace("localhost", getLocalHostName());*/
 
 export const graphlWsEndPoint = "http://134.209.229.6/"
 

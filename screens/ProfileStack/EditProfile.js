@@ -127,10 +127,11 @@ export default function EditProfile({ navigation }) {
                     Accept: 'application/json',
                     'Content-Type': 'multipart/form-data',
                 },
-            }).then(response => response.json()).then((responseJson) => {
-                if (responseJson == "No") {
+            }).then(response => {
+                if (response == "No") {
                     alert("error uploading file", "a");
                 } else {
+                    console.log("responseJson", response)
                     updateUser({ variables: { picture: name, DoB, nome, cognome, presentazione, comune, regione, provincia } })
                 }
             })

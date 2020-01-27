@@ -12,7 +12,7 @@ import {
     Platform,
 } from 'react-native';
 import moment from 'moment/min/moment-with-locales'
-import { MessageText, MessageImage, Time, utils } from 'react-native-gifted-chat';
+import { MessageText, MessageImage } from 'react-native-gifted-chat';
 import { Light } from '../../components/StyledText';
 moment.locale("it")
 export default class Bubble extends React.Component {

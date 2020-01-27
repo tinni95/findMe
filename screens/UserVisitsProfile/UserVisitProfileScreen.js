@@ -301,10 +301,10 @@ export function UserVisitProfile({ navigation, socket }) {
             navigation.setParams({ user: data.User, userId: data.currentUser.id, isSub: false })
         }
     }, [data])
-
-    const image = "http://hwattsup.website/AppBackEnd/images/placeholder.jpeg";
-    const images = [{ uri: image }]
     if (loading || !id || !userId) return <FindMeSpinner />;
+    console.log(data.User)
+    const image = data.User.pictureUrl ? "http://gladiator1924.com/images/images/" + data.User.pictureUrl : "http://gladiator1924.com/images/images/cascas@cc.com.jpg";
+    const images = [{ uri: image }]
     if (error) return <FindMeGraphQlErrorDisplay />;
 
     return (

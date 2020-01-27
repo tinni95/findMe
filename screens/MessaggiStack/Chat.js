@@ -11,11 +11,12 @@ import { sendNotification } from '../../shared/PushNotifications';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { Ionicons } from '@expo/vector-icons';
 import HeaderStyles from '../shared/HeaderStyles';
-import { Body, Light } from '../../components/StyledText';
+import { Body, Light, Bold } from '../../components/StyledText';
 import Colors from "../../constants/Colors"
 import SocketContext from '../../Socket/context';
 import io from "socket.io-client";
 import { socketEndPoint } from '../../shared/urls';
+import FindMeDay from './FindMeDay';
 
 
 const UNSEECHAT_MUTATION = gql`
@@ -136,11 +137,15 @@ export function Chat({ navigation, socket }) {
         return <FindMeMessage {...props} />
     }
 
+    const renderDay = props => {
+        return <FindMeDay {...props} />
+    }
+
     const renderInputToolbar = props => {
         // Here you will return your custom InputToolbar.js file you copied before and include with your stylings, edits.
         return <InputToolbar onSend={onSend}></InputToolbar>
-
     }
+
     return (
         <View style={{ flex: 1 }}>
             <GiftedChat
