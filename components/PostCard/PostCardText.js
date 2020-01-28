@@ -12,7 +12,7 @@ const fixOverflow = (text, limit) => {
     return text.length > limit ? `${text.substring(0, limit - 3)}...` : text;
   }
 };
-const MainText = ({ nome, cognome, hidden, fields }) => {
+const MainText = ({ DoB, nome, cognome, hidden, fields }) => {
   return (
     <View style={styles.mainTextContainer}>
       <View style={styles.mainTextColumn}>
@@ -42,7 +42,7 @@ export const PostCardText = ({ post }) => {
         color="#DD1E63"
         textColor="#ADBFC5"
       />
-      {MainText({ nome: post.postedBy.nome, cognome: post.postedBy.cognome, hidden: post.hidden, fields: post.fields })}
+      {MainText({ nome: post.postedBy.nome, cognome: post.postedBy.cognome, hidden: post.hidden, fields: post.fields, DoB: post.postedBy.DoB })}
     </View>
   );
 };

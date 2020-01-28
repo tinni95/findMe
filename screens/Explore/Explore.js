@@ -23,6 +23,7 @@ const posts = gql`
     postedBy{
       pictureUrl
       nome
+      DoB
       cognome
     }
     regione
