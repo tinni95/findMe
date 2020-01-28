@@ -12,12 +12,12 @@ const fixOverflow = (text, limit) => {
     return text.length > limit ? `${text.substring(0, limit - 3)}...` : text;
   }
 };
-const MainText = ({ date, fields }) => {
+const MainText = ({ nome, cognome, hidden, fields }) => {
   return (
     <View style={styles.mainTextContainer}>
       <View style={styles.mainTextColumn}>
         <Bold style={styles.columnHeader}>PubblicatoDa</Bold>
-        <Bold style={styles.columnBody}>Giovanni D.</Bold>
+        <Bold style={styles.columnBody}>{hidden ? nome + " " + cognome.substring(0, 1) + "." : nome + " " + cognome}</Bold>
       </View>
       <View style={styles.mainTextColumn}>
         <Bold style={styles.columnHeader}>Settore</Bold>
@@ -31,18 +31,18 @@ const MainText = ({ date, fields }) => {
   );
 };
 
-export const PostCardText = ({ post: { title, date, fields, comune, regione } }) => {
+export const PostCardText = ({ post }) => {
   return (
     <View style={styles.container}>
-      <Bold style={styles.title}>{fixOverflow(title, titleLimit)}</Bold>
+      <Bold style={styles.title}>{fixOverflow(post.title, titleLimit)}</Bold>
       <LocationWithText
         style={styles.location}
-        comune={comune}
-        regione={regione}
+        comune={post.comune}
+        regione={post.regione}
         color="#DD1E63"
         textColor="#ADBFC5"
       />
-      {MainText({ date, fields })}
+      {MainText({ nome: post.postedBy.nome, cognome: post.postedBy.cognome, hidden: post.hidden, fields: post.fields })}
     </View>
   );
 };

@@ -19,6 +19,12 @@ const posts = gql`
     description
     fields
     comune
+    hidden
+    postedBy{
+      pictureUrl
+      nome
+      cognome
+    }
     regione
     provincia
     positions{

@@ -10,14 +10,15 @@ const authorInfo = () => {
   );
 };
 
-export const PostCardPublisher = ({ post: { positions } }) => {
+export const PostCardPublisher = ({ post }) => {
+  const image = (post.hidden || !post.postedBy.pictureUrl) ? require('../../assets/images/placeholder.png') : { uri: post.postedBy.pictureUrl }
   return (
     <View style={styles.container}>
       <View style={styles.infoContainer}>
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require('../../assets/images/placeholder.png')}
+          source={image}
         />
       </View>
     </View>
