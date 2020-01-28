@@ -41,6 +41,7 @@ query comments($id:ID!){
         id
     }
     currentUser{
+        pictureUrl
         id
     }
 }
@@ -129,6 +130,7 @@ export default function CreateCommentScreen({ navigation }) {
                 }
             </ScrollView>
             <InputToolbar
+                image={{ uri: data.currentUser.pictureUrl }}
                 onSend={(text) => {
                     text.length > 0 && createComment({ variables: { text, answerId: answer.id } })
                 }}></InputToolbar>
