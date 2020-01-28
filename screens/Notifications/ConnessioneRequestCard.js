@@ -5,10 +5,10 @@ import RoundButtonEmpty2 from "../../components/shared/RoundButtonEmpty2"
 import Colors from "../../constants/Colors"
 import ConnessioneHeader from "./ConnessioneHeader"
 
-export default function ConnessioneRequestCard({ notifica, navigation }) {
+export default function ConnessioneRequestCard({ image, notifica, navigation }) {
     return <View style={styles.container}>
         <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfile", { id: notifica.from.id })} style={styles.imageContainer}>
-            <Image source={require("../../assets/images/placeholder.png")} style={{ width: 40, height: 40, borderRadius: 20 }} />
+            <Image source={image} style={{ width: 40, height: 40, borderRadius: 20 }} />
         </TouchableOpacity>
         <View style={styles.contentContainer}>
             <ConnessioneHeader createdAt={notifica.createdAt} />

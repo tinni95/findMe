@@ -24,6 +24,7 @@ const NOTIFICHE_QUERY = gql`
             id
             nome
             cognome
+            pictureUrl
         }
       text
       type
@@ -77,14 +78,15 @@ export default function NotificationPage({ navigation }) {
         style={styles.container}>
         {
             data.UserNotifiche.map(notifica => {
+                const image = notifica.from.pictureUrl ? { uri: notifica.from.pictureUrl } : require("../../assets/images/placeholder.png")
                 if (notifica.type == "questionLike") {
-                    return <QuestionLikeCard refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></QuestionLikeCard>
+                    return <QuestionLikeCard image={image} refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></QuestionLikeCard>
                 }
                 else if (notifica.type == "questionAnswer") {
-                    return <QuestionAnswerCard refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></QuestionAnswerCard>
+                    return <QuestionAnswerCard image={image} refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></QuestionAnswerCard>
                 }
                 else if (notifica.type == "connessioneRequest") {
-                    return <ConnessioneRequestCard refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></ConnessioneRequestCard>
+                    return <ConnessioneRequestCard image={image} refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></ConnessioneRequestCard>
                 }
             })
         }

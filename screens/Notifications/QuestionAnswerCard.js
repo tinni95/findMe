@@ -12,14 +12,14 @@ mutation openNotificaMutation($notificaId:ID!){
     }
 }`
 
-export default function QuestionAnswerCard({ refetch, notifica, navigation }) {
+export default function QuestionAnswerCard({ image, refetch, notifica, navigation }) {
     const [openNotifica] = useMutation(OPENNOTIFICA_MUTATION);
     return <TouchableOpacity onPress={() => {
         navigation.navigate("QuestionScreen", { hidebar: true, id: notifica.answer.question.id, onGoBack: () => refetch() })
         openNotifica({ variables: { notificaId: notifica.id } })
     }} style={[styles.container, { backgroundColor: notifica.opened ? "white" : null }]}>
         <View style={styles.imageContainer}>
-            <Image source={require("../../assets/images/placeholder.png")} style={{ width: 40, height: 40, borderRadius: 20 }} />
+            <Image source={image} style={{ width: 40, height: 40, borderRadius: 20 }} />
         </View>
         <View style={styles.contentContainer}>
             <ForumHeader createdAt={notifica.createdAt} />
