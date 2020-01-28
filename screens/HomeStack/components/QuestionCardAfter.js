@@ -19,6 +19,7 @@ query Likes($id:ID!){
             id
             nome
             cognome
+            pictureUrl
         }
         likes{
             id
