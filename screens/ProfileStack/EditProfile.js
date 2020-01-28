@@ -10,7 +10,6 @@ import FormTextInput from "../shared/Form/FormTextInput";
 import WithErrorString from "../shared/Form/WithErrorString";
 import StepsLabel, { StepsLabelWithHint } from "../shared/StepsLabel";
 import { FormStyles } from '../shared/Form/FormStyles'
-const { ReactNativeFile } = require('apollo-upload-client')
 import moment from "moment";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen'
@@ -116,7 +115,7 @@ export default function EditProfile({ navigation }) {
         }
         else {
             data.append('photo', {
-                uri: Platform.OS === "android" ? image : image.replace("file://", ""),
+                uri: Platform.OS === "android" ? image.uri : image.uri.replace("file://", ""),
                 type: 'image/jpeg',
                 name
             });
