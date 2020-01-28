@@ -6,11 +6,11 @@ import { Body, Light } from "../../../components/StyledText";
 moment.locale('it');
 
 export default function CommentCard({ comment, onLongPress }) {
-    console.log(comment)
+    const image = comment.postedBy.pictureUrl ? { uri: comment.postedBy.pictureUrl } : require("../../../assets/images/placeholder.png")
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image source={require("../../../assets/images/placeholder.png")} style={{ width: 30, height: 30, borderRadius: 15 }} />
+                <Image source={image} style={{ width: 30, height: 30, borderRadius: 15 }} />
             </View>
             <TouchableOpacity onLongPress={onLongPress} style={styles.card}>
                 <View style={styles.header}>
