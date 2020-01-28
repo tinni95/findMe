@@ -5,10 +5,11 @@ import { Body, Light } from "../../../components/StyledText";
 moment.locale('it');
 
 export const AvatarAndTime = ({ question, text }) => {
+    const image = question.postedBy.pictureUrl ? { uri: question.postedBy.pictureUrl } : require("../../../assets/images/placeholder.png")
     return (
         <View style={styles.header}>
             <View style={styles.imageContainer}>
-                <Image source={require("../../../assets/images/placeholder.png")} style={{ width: 40, height: 40, borderRadius: 20 }} />
+                <Image source={image} style={{ width: 40, height: 40, borderRadius: 20 }} />
             </View>
             <View style={styles.content}>
                 <Body style={styles.person}>{question.postedBy.nome + " " + question.postedBy.cognome}</Body>

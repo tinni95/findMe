@@ -20,6 +20,7 @@ query answersFeed($id:ID!){
         text
         createdAt
         postedBy{
+            pictureUrl
             id
             nome
             cognome

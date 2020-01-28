@@ -13,6 +13,7 @@ import { FormStyles } from '../shared/Form/FormStyles'
 import moment from "moment";
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import RoundButton from '../../components/shared/RoundButtonSignUpScreen'
+import FindMeSpinner from '../../shared/FindMeSpinner';
 
 
 const UPDATEUSER_MUTATION = gql`
@@ -32,6 +33,7 @@ export default function EditProfile({ navigation }) {
     const passedProvincia = navigation.getParam("provincia") || ""
 
     //hooks
+    const [loading, setLoading] = useState(false)
     const currentUser = navigation.getParam("currentUser")
     const [zoom, setZoom] = useState(false)
     const [visibleDate, setVisibleDate] = useState(false)
@@ -119,6 +121,7 @@ export default function EditProfile({ navigation }) {
                 type: 'image/jpeg',
                 name
             });
+            setLoading(true)
             fetch("http://gladiator1924.com/images/upload2.php", {
                 method: 'post',
                 body: data,
@@ -129,7 +132,9 @@ export default function EditProfile({ navigation }) {
             }).then(response => {
                 if (response == "No") {
                     alert("error uploading file", "a");
+                    setLoading(false)
                 } else {
+                    setLoading(true)
                     updateUser({ variables: { picture: "http://gladiator1924.com/images/images/" + name, DoB, nome, cognome, presentazione, comune, regione, provincia } })
                 }
             })
@@ -139,7 +144,9 @@ export default function EditProfile({ navigation }) {
     const initialImage = currentUser.pictureUrl ? { uri: currentUser.pictureUrl } : require("../../assets/images/placeholder.png")
     const [image, setImage] = useState(initialImage);
     const pen = require("../../assets/images/pen.png")
-
+    if (loading) {
+        return <FindMeSpinner></FindMeSpinner>
+    }
     return <View style={styles.container}>
         <View style={{ flex: 1 }}>
             <ScrollView

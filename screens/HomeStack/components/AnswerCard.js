@@ -95,6 +95,7 @@ export default function AnswerCard({ answer, navigation }) {
                 alert("Qualcosa è andato storto")
             }
         });
+
     if (loading) {
         return <FindMeSpinner></FindMeSpinner>
     }
