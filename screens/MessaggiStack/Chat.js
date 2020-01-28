@@ -47,11 +47,13 @@ query chatQuery($id:ID!){
         sub{
             id
             nome
+            pictureUrl
             pushToken
         }
         pub{
             id
             nome
+            pictureUrl
             pushToken
         }
         messages{
@@ -142,8 +144,8 @@ export function Chat({ navigation, socket }) {
     }
 
     const renderInputToolbar = props => {
-        // Here you will return your custom InputToolbar.js file you copied before and include with your stylings, edits.
-        return <InputToolbar onSend={onSend}></InputToolbar>
+        const image = !loading && (isSub ? { uri: data.Chat.sub.pictureUrl } : { uri: data.Chat.sub.pictureUrl })
+        return <InputToolbar image={image} onSend={onSend}></InputToolbar>
     }
 
     return (
@@ -176,7 +178,7 @@ const ChatWithSocket = props => (
 
 ChatWithSocket.navigationOptions = ({ navigation }) => {
     const user = navigation.getParam("user")
-    const socket = navigation.getParam("socket")
+    const image = user.pictureUrl ? { uri: user.pictureUrl } : require("../../assets/images/placeholder.png");
     return {
         headerStyle: HeaderStyles.headerStyle,
         headerTitleStyle: HeaderStyles.headerTitleStyle,
@@ -193,7 +195,7 @@ ChatWithSocket.navigationOptions = ({ navigation }) => {
                     ></Ionicons>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: user.id })} style={{ flexDirection: "row", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
-                    <Image source={{ uri: "http://gladiator1924.com/images/images/c@c.c.jpeg" }} style={{ width: 30, height: 30, borderRadius: 15, marginLeft: 10, marginRight: 10 }} />
+                    <Image source={image} style={{ width: 30, height: 30, borderRadius: 15, marginLeft: 10, marginRight: 10 }} />
                     <View style={{ flexDirection: "column" }}>
                         <Body style={{ fontSize: 12, color: Colors.blue }}>{user.nome + " " + user.cognome}</Body>
                         <Light style={{ fontSize: 9 }}>App developer Freelancer</Light>

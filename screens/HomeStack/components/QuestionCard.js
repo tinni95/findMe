@@ -75,7 +75,7 @@ mutation createNotifica($questionId:ID!,$text:String!,$type:String!, $id:ID!){
 
 
 export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
-    const image = question.postedBy.pictureUrl ? "http://gladiator1924.com/images/images/" + question.postedBy.pictureUrl : "http://gladiator1924.com/images/images/cascas@cc.com.jpg";
+    const image = question.postedBy.pictureUrl ? { uri: question.postedBy.pictureUrl } : require("../../../assets/images/placeholder.png");
     const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id } })
     const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
     const [Like] = useMutation(LIKE_MUTATION,
@@ -137,7 +137,7 @@ export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
             <View style={styles.card}>
                 <View style={styles.body}>
                     <TouchableOpacity onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: question.postedBy.id })} style={styles.imageContainer}>
-                        <Image source={{ uri: image }} style={{ width: 40, height: 40, borderRadius: 20 }} />
+                        <Image source={image} style={{ width: 40, height: 40, borderRadius: 20 }} />
                     </TouchableOpacity>
                     <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                     <View style={styles.content}>

@@ -33,8 +33,8 @@ const POST_ANTEPRIMA = gql`
 `;
 
 const CREATEPOST_MUTATION = gql`
-mutation createPost($title: String!, $description: String!,$comune: String!, $regione:String!, $provincia:String!, $fields:String!,$type:String!,$posizione:String!, $pubblicatoDa:String! $positions:PositionCreateManyWithoutPostInput!) {
-  createPost(title: $title, description:$description, comune:$comune, regione:$regione, provincia:$provincia,fields:$fields,type:$type,posizione:$posizione, pubblicatoDa:$pubblicatoDa,positions:$positions) {
+mutation createPost($title: String!, $description: String!,$comune: String!, $regione:String!, $provincia:String!, $fields:String!,$type:String!,$posizione:String!,$positions:PositionCreateManyWithoutPostInput!, $hidden: Boolean) {
+  createPost(title: $title, description:$description, comune:$comune, regione:$regione, provincia:$provincia,fields:$fields,type:$type,posizione:$posizione,positions:$positions,hidden:$hidden) {
       title
   }
 }`;
@@ -78,7 +78,7 @@ export default Anteprima = ({ navigation, user }) => {
         provincia: data.postProvincia,
         fields: data.postCategories.join(', '),
         type: data.postOwnerPosition,
-        pubblicatoDa: checked ? user.nome[0] + user.cognome : user.nome + " " + user.cognome,
+        hidden: checked,
         posizione: data.postOwnerPosition,
         positions: { create: parsePositions(data.postPositions) }
       }

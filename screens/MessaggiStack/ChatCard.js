@@ -3,10 +3,13 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native"
 import { Body, Light } from "../../components/StyledText"
 import { fixOverflow } from "../../shared/HelperFunctions"
 import moment from 'moment/min/moment-with-locales'
+import { useState } from "react"
 moment.locale('it');
 
 export default function ChatCard({ chat, isSub, onPress }) {
     const lastMessageIndex = chat.messages.length - 1;
+    const image = isSub ? chat.sub.pictureUrl ? { uri: chat.sub.pictureUrl } : require("../../assets/images/placeholder.png") : chat.pub.pictureUrl ? { uri: chat.pub.pictureUrl } : require("../../assets/images/placeholder.png")
+
     const backgroundColor = () => {
         if (isSub) {
             if (chat.subOpened)
@@ -22,7 +25,7 @@ export default function ChatCard({ chat, isSub, onPress }) {
     return (
         <TouchableOpacity onPress={onPress} style={[styles.container, { backgroundColor: backgroundColor() }]}>
             <View style={styles.imageContainer}>
-                <Image source={require("../../assets/images/placeholder.png")} style={{ width: 60, height: 60, borderRadius: 30 }} />
+                <Image source={image} style={{ width: 60, height: 60, borderRadius: 30 }} />
             </View>
             <View style={styles.textContainer}>
                 <Body style={styles.nome}>{isSub ? chat.pub.nome : chat.sub.nome}</Body>

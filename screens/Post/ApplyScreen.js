@@ -98,7 +98,7 @@ export default function ApplyScreen({navigation}) {
             <View style={styles.textWrapper}>
                 <View style={styles.spacer} />
                 <Text>
-                    <Light style={{ lineHeight: 20 }}>Scrivi a {post.pubblicatoDa} Per informargli del tuo interesse per
+                    <Light style={{ lineHeight: 20 }}>Scrivi a {post.postedBy.nome} Per informargli del tuo interesse per
 la posizione di</Light>
                     <Body> "{position.title}"</Body>
                 </Text>

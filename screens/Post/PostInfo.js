@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Bold, Body } from '../../components/StyledText';
 
-export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden, pubblicatoDa }) {
+export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden }) {
 
     return (
         <View style={styles.container}>
@@ -24,7 +24,7 @@ export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden,
                     </View>
                     : <View style={{ flexDirection: "row" }}>
                         <Body>Pubblicato Da: </Body>
-                        <Body style={styles.grigio}>{pubblicatoDa}</Body>
+                        <Body style={styles.grigio}>pubblicatoDa</Body>
                     </View>}
             </View>
             <View style={styles.line}>

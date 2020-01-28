@@ -22,8 +22,12 @@ const User = gql`
                     field
                     post{
                         id
-                        pubblicatoDa
+                        hidden
                         title
+                        postedBy{
+                            nome
+                            cognome
+                        }
                     }
                     title
                     requisiti
@@ -53,7 +57,10 @@ const User = gql`
             position{
               post{
                 title
-                pubblicatoDa
+                postedBy{
+                    nome
+                    cognome
+                }
               }
             }
             messages{

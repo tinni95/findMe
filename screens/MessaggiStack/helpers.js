@@ -13,7 +13,9 @@ export const parseMessage = (message, id) => {
 
 
 export const parseMessages = (messages, id) => {
+
     return messages.map(message => {
+        const image = message.user.pictureUrl ? { uri: message.user.pictureUrl } : require("../../assets/images/placeholder.png");
         return {
             ...message,
             _id: message.id,
@@ -21,7 +23,7 @@ export const parseMessages = (messages, id) => {
                 id: message.user.id,
                 _id: message.user.id == id ? 2 : 1,
                 name: message.user.nome,
-                avatar: "http://www.gladiator1924.com/images/images/" + message.user.pictureUrl
+                avatar: image
             }
         }
     })

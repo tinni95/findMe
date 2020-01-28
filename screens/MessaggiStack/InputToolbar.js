@@ -3,13 +3,13 @@ import { View, Image, TextInput, StyleSheet, TouchableOpacity, Platform } from "
 import { Ionicons } from "@expo/vector-icons"
 
 
-export default function InputToolbar({ onSend }) {
+export default function InputToolbar({ onSend, image }) {
     const [text, setText] = useState("")
     const [displaydText, setDisplay] = useState("")
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image source={require("../../assets/images/placeholder.png")} style={styles.image} />
+                <Image source={image.uri ? image : require("../../assets/images/placeholder.png")} style={styles.image} />
             </View>
             <TextInput value={displaydText} onChangeText={val => {
                 setText(val)

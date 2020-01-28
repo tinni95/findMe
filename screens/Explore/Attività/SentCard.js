@@ -30,7 +30,7 @@ export default function SentCard({ application, navigation, id }) {
                 </View>
                 <View>
                     <Body style={styles.pubHeader}>Pubblicato da</Body>
-                    <Body style={styles.pubContent}>{application.position.post.pubblicatoDa}</Body>
+                    <Body style={styles.pubContent}>{application.position.post.postedBy.nome}</Body>
                 </View>
             </View>
             <View style={{ flex: 1.4 }}>

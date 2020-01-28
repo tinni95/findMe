@@ -206,15 +206,15 @@ export default function ProfilePage({ navigation }) {
   }, [data])
 
   if (loading) return <FindMeSpinner />;
-  const image = data.currentUser.pictureUrl ? "http://gladiator1924.com/images/images/" + data.currentUser.pictureUrl : "http://gladiator1924.com/images/images/cascas@cc.com.jpg";
-  const images = [{ uri: image }]
+  const image = data.currentUser.pictureUrl ? { uri: data.currentUser.pictureUrl } : require("../../assets/images/placeholder.png")
+  const images = [image]
   if (error) return <FindMeGraphQlErrorDisplay />;
 
   return (
     <ScrollView >
       <View style={styles.userWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <Image source={{ uri: image }}
+          <Image source={image}
             style={{ width: 100, height: 100, borderRadius: 50 }} />
         </TouchableOpacity>
         <Modal

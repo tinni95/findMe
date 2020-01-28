@@ -302,9 +302,8 @@ export function UserVisitProfile({ navigation, socket }) {
         }
     }, [data])
     if (loading || !id || !userId) return <FindMeSpinner />;
-    console.log(data.User)
-    const image = data.User.pictureUrl ? "http://gladiator1924.com/images/images/" + data.User.pictureUrl : "http://gladiator1924.com/images/images/cascas@cc.com.jpg";
-    const images = [{ uri: image }]
+    const image = data.User.pictureUrl ? { uri: data.User.pictureUrl } : require("../../assets/images/placeholder.png")
+    const images = [image]
     if (error) return <FindMeGraphQlErrorDisplay />;
 
     return (

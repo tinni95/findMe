@@ -86,7 +86,7 @@ export default function EditProfile({ navigation }) {
         });
 
         if (!result.cancelled) {
-            setImage(result.uri)
+            setImage({ uri: result.uri })
         }
     };
 
@@ -131,14 +131,13 @@ export default function EditProfile({ navigation }) {
                 if (response == "No") {
                     alert("error uploading file", "a");
                 } else {
-                    console.log("responseJson", response)
-                    updateUser({ variables: { picture: name, DoB, nome, cognome, presentazione, comune, regione, provincia } })
+                    updateUser({ variables: { picture: "http://gladiator1924.com/images/images/" + name, DoB, nome, cognome, presentazione, comune, regione, provincia } })
                 }
             })
         }
 
     }
-    const initialImage = "http://gladiator1924.com/images/davide.png"
+    const initialImage = currentUser.pictureUrl ? { uri: currentUser.pictureUrl } : require("../../assets/images/placeholder.png")
     const [image, setImage] = useState(initialImage);
     const pen = require("../../assets/images/pen.png")
 
@@ -151,7 +150,7 @@ export default function EditProfile({ navigation }) {
                     <View>
                         <View style={styles.imageContainer}>
                             <TouchableOpacity onPress={() => PickImage()}>
-                                <Image source={{ uri: image }} style={{ width: 100, height: 100, borderRadius: 50 }} />
+                                <Image source={image} style={{ width: 100, height: 100, borderRadius: 50 }} />
                                 <View style={styles.penWrapper}>
                                     <Image source={pen} style={{ width: 20, height: 20 }} />
                                 </View>
