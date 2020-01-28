@@ -11,6 +11,7 @@ const User = gql`
     currentUser{
         nome
         cognome
+        pictureUrl
     }
 }
 `
@@ -23,10 +24,11 @@ export default function AvatarAndName() {
     if (loading) {
         return <FindMeSpinner></FindMeSpinner>
     }
+    const image = data.currentUser.pictureUrl ? { uri: data.currentUser.pictureUrl } : require("../../../assets/images/placeholder.png")
     return (
         <View style={styles.row}>
             <View style={styles.imageContainer}>
-                <Image source={require("../../../assets/images/placeholder.png")} style={{ width: 30, height: 30, borderRadius: 15 }} />
+                <Image source={image} style={{ width: 30, height: 30, borderRadius: 15 }} />
             </View>
             <Body style={styles.name}>{data.currentUser.nome + " " + data.currentUser.cognome}</Body>
         </View>
