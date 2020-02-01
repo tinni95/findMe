@@ -10,8 +10,8 @@ export default function ForumIcon(props) {
   return (
     <View>
       {props.focused ?
-        <Image source={require("../assets/images/Forum_full.png")} style={{ width: 25, height: 25 }}></Image> :
-        <Image source={require("../assets/images/Forum_empty.png")} style={{ width: 25, height: 25 }}></Image>
+        <Image source={require("../assets/images/glimm_logo.png")} style={{ width: 25, height: 25 }}></Image> :
+        <Image source={require("../assets/images/glimm_logo_empty.png")} style={{ width: 25, height: 25 }}></Image>
       }
     </View>
   );
