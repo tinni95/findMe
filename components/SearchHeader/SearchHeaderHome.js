@@ -16,7 +16,6 @@ export default function SearchHeaderHome({ navigation, setSearch }) {
         {!isSearch &&
           <View style={{ flexDirection: "column", flex: 1.5, alignItems: "center", justifyContent: "center", height: 100, marginTop: 35 }}>
             <MessagesIcon navigation={navigation}></MessagesIcon>
-            <Body style={{ fontSize: 9, color: Colors.blue }}>Chat</Body>
           </View>
         }
       </View>

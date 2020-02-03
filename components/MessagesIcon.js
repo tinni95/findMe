@@ -62,12 +62,12 @@ export function MessagesIcon(props) {
   }, [props.refetch])
 
   if (loading) {
-    return (<Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginBottom: 5, width: 22, height: 22 }}></Image>)
+    return (<Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginRight: 5, width: 25, height: 25 }}></Image>)
   }
   if (data) {
     return (
       <View style={data.UnseenChats.length > 0 && styles.container}>
-        <Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginBottom: 5, width: 22, height: 22 }}></Image>
+        <Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginRight: 5, width: 25, height: 25 }}></Image>
         {data.UnseenChats.length > 0 &&
           <View style={styles.counter}>
             <Body style={styles.text}>{data.UnseenChats.length}</Body>
