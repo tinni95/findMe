@@ -8,7 +8,7 @@ moment.locale('it');
 
 export default function ChatCard({ chat, isSub, onPress }) {
     const lastMessageIndex = chat.messages.length - 1;
-    const image = isSub ? chat.sub.pictureUrl ? { uri: chat.sub.pictureUrl } : require("../../assets/images/placeholder.png") : chat.pub.pictureUrl ? { uri: chat.pub.pictureUrl } : require("../../assets/images/placeholder.png")
+    const image = isSub ? chat.pub.pictureUrl ? { uri: chat.pub.pictureUrl } : require("../../assets/images/placeholder.png") : chat.sub.pictureUrl ? { uri: chat.sub.pictureUrl } : require("../../assets/images/placeholder.png")
 
     const backgroundColor = () => {
         if (isSub) {

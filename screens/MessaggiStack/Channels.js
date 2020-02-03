@@ -31,9 +31,11 @@ const chatFeed = gql`
      nome
      cognome
      pushToken
+     pictureUrl
     }
       sub{
           id
+          pictureUrl
        nome
        cognome
        pushToken

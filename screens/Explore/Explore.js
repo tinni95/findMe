@@ -30,6 +30,7 @@ const posts = gql`
     provincia
     positions{
     id
+    title
     description
     requisiti
     field

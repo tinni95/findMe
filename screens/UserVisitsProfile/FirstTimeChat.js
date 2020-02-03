@@ -75,6 +75,7 @@ subscription messageReceivedSub($id:ID!){
 
 
 export default function FirstTimeChat({ navigation }) {
+
     const [messages, setMessages] = useState([])
     const [message, setMessage] = useState("")
     const [chatId, setChatId] = useState("")

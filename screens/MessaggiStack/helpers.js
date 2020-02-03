@@ -15,7 +15,7 @@ export const parseMessage = (message, id) => {
 export const parseMessages = (messages, id) => {
 
     return messages.map(message => {
-        const image = message.user.pictureUrl ? { uri: message.user.pictureUrl } : require("../../assets/images/placeholder.png");
+        const image = message.user.pictureUrl ? message.user.pictureUrl : require("../../assets/images/placeholder.png");
         return {
             ...message,
             _id: message.id,

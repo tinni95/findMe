@@ -36,6 +36,7 @@ mutation createMessage($channelId: ID!,$text:String!) {
         text
         createdAt
         user{
+            pictureUrl
             id
         }
     }
@@ -113,6 +114,7 @@ export function Chat({ navigation, socket }) {
     const [createMessage] = useMutation(CREATEMESSAGE_MUTATION,
         {
             onCompleted: async ({ createMessage }) => {
+                console.log(createMessage)
                 isSub ? unseeChat({ variables: { chatId: chatId, pubRead: false } }) :
                     unseeChat({ variables: { chatId: chatId, subRead: false } })
                 isSub ? sendNotification(data.Chat.pub.pushToken, "Messaggio da " + data.Chat.sub.nome, createMessage.text) :
@@ -132,7 +134,8 @@ export function Chat({ navigation, socket }) {
 
 
     const onSend = (message) => {
-        createMessage({ variables: { text: message, channelId: chatId } })
+        if (message.length > 0)
+            createMessage({ variables: { text: message, channelId: chatId } })
     }
 
     const renderMessage = props => {
@@ -144,7 +147,7 @@ export function Chat({ navigation, socket }) {
     }
 
     const renderInputToolbar = props => {
-        const image = !loading && (isSub ? { uri: data.Chat.sub.pictureUrl } : { uri: data.Chat.sub.pictureUrl })
+        const image = !loading && (isSub ? { uri: data.Chat.sub.pictureUrl } : { uri: data.Chat.pub.pictureUrl })
         return <InputToolbar image={image} onSend={onSend}></InputToolbar>
     }
 
