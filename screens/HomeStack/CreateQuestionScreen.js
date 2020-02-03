@@ -63,15 +63,15 @@ const styles = StyleSheet.create({
         marginRight: 20
     },
     inputT: {
-        marginTop: 10,
+        marginTop: 30,
         width: '100%',
-        fontSize: 23,
+        fontSize: 17,
         fontFamily: "sequel-sans"
     },
     input: {
-        marginTop: 10,
+        marginTop: 15,
         width: '100%',
-        fontSize: 17,
+        fontSize: 14,
         fontFamily: "sequel-sans"
     },
     inputTags: {
