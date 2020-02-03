@@ -4,14 +4,19 @@ import { QuestionCardAfter } from "./components/QuestionCardAfter";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import { gql } from "apollo-boost";
-import { useQuery } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import AnswerCard from "./components/AnswerCard";
 import HeaderStyles from "../shared/HeaderStyles";
+import InputToolbar from "../MessaggiStack/InputToolbar"
+import KeyboardSpacer from "react-native-keyboard-spacer";
 
 const answers = gql`
 query answersFeed($id:ID!){
+    currentUser{
+        pictureUrl
+    }
     answersFeed(id:$id){
         question{
             id
@@ -35,6 +40,27 @@ query answersFeed($id:ID!){
     }
 }
 `
+
+const CREATEANSWER_MUTATION = gql`
+mutation createAnswer($text:String!,$questionId:ID!){
+    createAnswer(text:$text, questionId:$questionId){
+        id
+        postedBy{
+            nome
+            cognome
+        }
+    }
+}
+`
+
+const CREATENOTIFICA_MUTATION = gql`
+mutation createNotifica($answerId:ID!,$text:String!,$type:String!, $id:ID!){
+    createNotifica(answerId:$answerId, text:$text, type:$type, id:$id){
+        id
+    }
+}
+`
+
 function wait(timeout) {
     return new Promise(resolve => {
         setTimeout(resolve, timeout);
@@ -49,8 +75,20 @@ export default function QuestionScreen({ navigation }) {
         refetch()
         wait(2000).then(() => setRefreshing(false));
     }, [refreshing]);
-
     const id = navigation.getParam("id");
+    const postedBy = navigation.getParam("postedBy");
+    const title = navigation.getParam("title");
+    const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
+    const [createAnswer] = useMutation(CREATEANSWER_MUTATION,
+        {
+            onCompleted: async ({ createAnswer }) => {
+                createNotifica({ variables: { type: "questionAnswer", answerId: createAnswer.id, id: postedBy, text: createAnswer.postedBy.nome + " " + createAnswer.postedBy.cognome + " ha risposto al tuo post: " + title } })
+                wait(100).then(() => refetch());
+            },
+            onError: error => {
+                alert("Qualcosa è andato storto")
+            }
+        });
     const { loading, error, data, refetch } = useQuery(answers, { variables: { id }, fetchPolicy: "no-cache" });
     const isRefetch = navigation.getParam("refetch") || null
     useEffect(() => {
@@ -87,6 +125,12 @@ export default function QuestionScreen({ navigation }) {
                 })
             }
         </ScrollView>
+        <InputToolbar
+            image={{ uri: data.currentUser.pictureUrl }}
+            onSend={(text) => {
+                text.length > 0 && createAnswer({ variables: { text, questionId: id } })
+            }}></InputToolbar>
+        <KeyboardSpacer style={{ backgroundColor: "white" }} />
     </View>
 }
 

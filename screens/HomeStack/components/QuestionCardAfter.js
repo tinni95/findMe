@@ -15,6 +15,7 @@ query Likes($id:ID!){
     singleQuestion(id:$id){
         id
         question
+        title
         postedBy{
             id
             nome
@@ -28,26 +29,7 @@ query Likes($id:ID!){
     UserLikesQuestion(id:$id){
         id
     }
-    UserFollowQuestion(id:$id){
-        id
-    }
     currentUser{
-        id
-    }
-}
-`
-
-const FOLLOW_MUTATION = gql`
-mutation followMutation($id:ID!){
-    FollowQuestion(id:$id){
-        id
-    }
-}
-`
-
-const UNFOLLOW_MUTATION = gql`
-mutation followMutation($id:ID!){
-    deleteFollowQuestion(id:$id){
         id
     }
 }
@@ -86,24 +68,6 @@ export const QuestionCardAfter = ({ id, navigation }) => {
                 alert("Qualcosa è andato storto")
             }
         });
-    const [Follow] = useMutation(FOLLOW_MUTATION,
-        {
-            onCompleted: async ({ QuestionLike }) => {
-                refetch()
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
-    const [UnFollow] = useMutation(UNFOLLOW_MUTATION,
-        {
-            onCompleted: async ({ deleteQuestionLike }) => {
-                refetch()
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
 
     if (error) {
         return <FindMeGraphQlErrorDisplay />
@@ -118,34 +82,18 @@ export const QuestionCardAfter = ({ id, navigation }) => {
                     <AvatarAndTimeQuestion text={"Pubblicato "} question={data.singleQuestion}></AvatarAndTimeQuestion>
                 </TouchableOpacity>
                 <View style={styles.body}>
+                    <Body style={styles.title}>{data.singleQuestion.title}</Body>
                     <Body style={styles.question}>{data.singleQuestion.question}</Body>
-                    <View style={styles.buttonWrapper}>
-                        {data.currentUser.id !== data.singleQuestion.postedBy.id &&
-                            <RoundButtonEmptyIcon onPress={() => navigation.navigate("CreateAnswerScreen", { question: data.singleQuestion })} textColor={Colors.blue} isMedium color={Colors.blue} text={"Rispondi"} iconName={"ios-send"}
-                                iconColor={Colors.blue}></RoundButtonEmptyIcon>
-                        }
-                    </View>
                 </View>
                 <View style={styles.footer}>
                     {data.UserLikesQuestion.length > 0 ?
                         <TouchableOpacity onPress={() => UnLike({ variables: { id: data.UserLikesQuestion[0].id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../../assets/images/arrow-red.png")} style={{ width: 20, height: 27 }} />
-                            <Body style={[styles.counter, { color: Colors.red }]}>{data.singleQuestion.likes.length}</Body>
+                            <Image source={require("../../../assets/images/like_full.png")} style={{ width: 17, height: 25 }} />
+                            <Body style={[styles.counter, { color: Colors.blue }]}>{data.singleQuestion.likes.length}</Body>
                         </TouchableOpacity> :
                         <TouchableOpacity onPress={() => Like({ variables: { id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../../assets/images/arrow-white.png")} style={{ width: 20, height: 27 }} />
+                            <Image source={require("../../../assets/images/like_empty.png")} style={{ width: 17, height: 25 }} />
                             <Body style={styles.counter}>{data.singleQuestion.likes.length}</Body>
-                        </TouchableOpacity>
-                    }
-                    {data.UserFollowQuestion.length > 0 ?
-                        <TouchableOpacity onPress={() => UnFollow({ variables: { id: data.UserFollowQuestion[0].id } })} style={styles.bellContainer}>
-                            <Image source={require("../../../assets/images/notificationBell-red.png")} style={{ width: 15, height: 16 }} />
-                            <Body style={styles.footerText}>Segui Domanda</Body>
-                        </TouchableOpacity>
-                        :
-                        <TouchableOpacity onPress={() => Follow({ variables: { id } })} style={styles.bellContainer}>
-                            <Image source={require("../../../assets/images/notificationBell-empty.png")} style={{ width: 15, height: 16 }} />
-                            <Body style={styles.footerText}>Segui Domanda</Body>
                         </TouchableOpacity>
                     }
 
@@ -175,11 +123,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "space-between",
     },
-    question: {
+    title: {
         margin: 10,
         marginLeft: 15,
         fontSize: 20,
         marginBottom: 5
+    },
+    question: {
+        margin: 10,
+        marginLeft: 15,
+        fontSize: 15,
+        color: "#707070",
     },
     footerText: {
         fontSize: 9,
@@ -190,23 +144,15 @@ const styles = StyleSheet.create({
         fontSize: 12,
         alignSelf: "flex-end",
         zIndex: 100,
-        marginBottom: 2,
+        marginBottom: -2,
+        marginLeft: 2,
         color: "#707070"
     },
-    bellContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: 5
-    },
     arrowContainer: {
+        marginTop: 10,
         marginBottom: 5,
         flexDirection: "row",
         alignItems: "center"
     },
-    buttonWrapper: {
-        marginTop: 20,
-        justifyContent: "center",
-        alignItems: "center"
-    }
 });
 

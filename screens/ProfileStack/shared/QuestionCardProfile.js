@@ -21,25 +21,6 @@ query Likes($id:ID!){
     UserLikesQuestion(id:$id){
         id
     }
-    UserFollowQuestion(id:$id){
-        id
-    }
-}
-`
-
-const FOLLOW_MUTATION = gql`
-mutation followMutation($id:ID!){
-    FollowQuestion(id:$id){
-        id
-    }
-}
-`
-
-const UNFOLLOW_MUTATION = gql`
-mutation followMutation($id:ID!){
-    deleteFollowQuestion(id:$id){
-        id
-    }
 }
 `
 const LIKE_MUTATION = gql`
@@ -76,24 +57,6 @@ export default QuestionCard = ({ question, navigation, isRefetch }) => {
                 alert("Qualcosa è andato storto")
             }
         });
-    const [Follow] = useMutation(FOLLOW_MUTATION,
-        {
-            onCompleted: async ({ QuestionLike }) => {
-                refetch()
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
-    const [UnFollow] = useMutation(UNFOLLOW_MUTATION,
-        {
-            onCompleted: async ({ deleteQuestionLike }) => {
-                refetch()
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
 
     useEffect(() => {
         refetch()
@@ -116,25 +79,18 @@ export default QuestionCard = ({ question, navigation, isRefetch }) => {
                     <View style={styles.content}>
                         <Body style={styles.person}>{question.postedBy.nome + " " + question.postedBy.cognome}</Body>
                         <Body style={styles.date}>{"Pubblicato " + moment(question.createdAt).fromNow()}</Body>
+                        <Body style={styles.title}>{question.title}</Body>
                         <Body style={styles.question}>{question.question}</Body>
                     </View>
-                </View>
-                <View style={styles.buttonWrapper}>
-                    <RoundButtonEmpty2
-                        onPress={() => navigation.navigate("QuestionScreen", { id: question.id })}
-                        text={"Vedi risposte"}
-                        color={Colors.blue}
-                        textColor={Colors.blue}
-                        isMedium />
                 </View>
                 <View style={styles.footer}>
                     {data.UserLikesQuestion.length > 0 ?
                         <TouchableOpacity onPress={() => UnLike({ variables: { id: data.UserLikesQuestion[0].id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../../assets/images/arrow-red.png")} style={{ width: 20, height: 27 }} />
-                            <Body style={[styles.counter, { color: Colors.red }]}>{data.QuestionLikes.length}</Body>
+                            <Image source={require("../../../assets/images/like_full.png")} style={{ width: 17, height: 25 }} />
+                            <Body style={[styles.counter, { color: Colors.blue }]}>{data.QuestionLikes.length}</Body>
                         </TouchableOpacity> :
                         <TouchableOpacity onPress={() => Like({ variables: { id: question.id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../../assets/images/arrow-white.png")} style={{ width: 20, height: 27 }} />
+                            <Image source={require("../../../assets/images/like_empty.png")} style={{ width: 17, height: 25 }} />
                             <Body style={styles.counter}>{data.QuestionLikes.length}</Body>
                         </TouchableOpacity>
                     }
@@ -142,17 +98,6 @@ export default QuestionCard = ({ question, navigation, isRefetch }) => {
                         <Image source={require("../../../assets/images/commentbubble.png")} style={{ width: 15, height: 15 }} />
                         <Body style={styles.footerText}>{question.answers.length} risposte</Body>
                     </TouchableOpacity>
-                    {data.UserFollowQuestion.length > 0 ?
-                        <TouchableOpacity onPress={() => UnFollow({ variables: { id: data.UserFollowQuestion[0].id } })} style={styles.bellContainer}>
-                            <Image source={require("../../../assets/images/notificationBell-red.png")} style={{ width: 15, height: 16 }} />
-                            <Body style={styles.footerText}>Seguita</Body>
-                        </TouchableOpacity>
-                        :
-                        <TouchableOpacity onPress={() => Follow({ variables: { id: question.id } })} style={styles.bellContainer}>
-                            <Image source={require("../../../assets/images/notificationBell-empty.png")} style={{ width: 15, height: 16 }} />
-                            <Body style={styles.footerText}>Segui Domanda</Body>
-                        </TouchableOpacity>
-                    }
                 </View>
             </View>
         </View>
@@ -193,12 +138,20 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5
     },
-    question: {
+    title: {
         margin: 10,
         fontSize: isSmallDevice ? 14 : 15,
-        marginTop: 5,
+        marginTop: 15,
         marginBottom: 5,
         width: width - 80
+    },
+    question: {
+        margin: 10,
+        fontSize: isSmallDevice ? 11 : 12,
+        marginTop: 5,
+        marginBottom: 5,
+        width: width - 80,
+        color: "#707070",
     },
     tags: {
         margin: 10,

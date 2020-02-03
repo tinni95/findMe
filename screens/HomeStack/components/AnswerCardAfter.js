@@ -14,13 +14,7 @@ query Likes($id:ID!){
     AnswerLikes(id:$id){
         id
     }
-    AnswerDisLikes(id:$id){
-        id
-    }
     UserLikesAnswer(id:$id){
-        id
-    }
-    UserDisLikesAnswer(id:$id){
         id
     }
 }
@@ -40,20 +34,6 @@ mutation likeMutation($id:ID!){
     }
 }
 `
-const DISLIKE_MUTATION = gql`
-mutation likeMutation($id:ID!){
-    AnswerDisLike(id:$id){
-        id
-    }
-}
-`
-const UNDISLIKE_MUTATION = gql`
-mutation likeMutation($id:ID!){
-    deleteAnswerDisLike(id:$id){
-        id
-    }
-}
-`
 
 export default function AnswerCard({ answer }) {
     const { loading, error, refetch, data } = useQuery(Likes, { variables: { id: answer.id } })
@@ -66,16 +46,6 @@ export default function AnswerCard({ answer }) {
                 alert("Qualcosa è andato storto")
             }
         });
-    const [DisLike] = useMutation(DISLIKE_MUTATION,
-        {
-            onCompleted: async ({ AnswerLike }) => {
-                refetch()
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
-
     const [UnLike] = useMutation(UNLIKE_MUTATION,
         {
             onCompleted: async ({ AnswerLike }) => {
@@ -86,50 +56,11 @@ export default function AnswerCard({ answer }) {
             }
         });
 
-    const [UnDisLike] = useMutation(UNDISLIKE_MUTATION,
-        {
-            onCompleted: async ({ AnswerLike }) => {
-                refetch()
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
     if (loading) {
         return <FindMeSpinner></FindMeSpinner>
     }
     if (error) {
         return <FindMeGraphQlErrorDisplay></FindMeGraphQlErrorDisplay>
-    }
-
-    const like = () => {
-        if (data.UserDisLikesAnswer.length > 0) {
-            UnDisLike({ variables: { id: data.UserDisLikesAnswer[0].id } }).then(() => {
-                Like({ variables: { id: answer.id } })
-            })
-        }
-        else {
-            Like({ variables: { id: answer.id } })
-        }
-    }
-
-    const unLike = () => {
-        UnLike({ variables: { id: data.UserLikesAnswer[0].id } })
-    }
-
-    const disLike = () => {
-        if (data.UserLikesAnswer.length > 0) {
-            UnLike({ variables: { id: data.UserLikesAnswer[0].id } }).then(() => {
-                DisLike({ variables: { id: answer.id } })
-            })
-        }
-        else {
-            DisLike({ variables: { id: answer.id } })
-        }
-    }
-
-    const unDisLike = () => {
-        UnDisLike({ variables: { id: data.UserDisLikesAnswer[0].id } })
     }
 
     return (
@@ -141,23 +72,16 @@ export default function AnswerCard({ answer }) {
             <View style={styles.footer}>
                 <View style={styles.arrowsContainer}>
                     {data.UserLikesAnswer.length > 0 ?
-                        <TouchableOpacity style={styles.arrowContainer} onPress={() => unLike()}>
-                            <Image source={require("../../../assets/images/arrow-red.png")} style={{ width: 12, height: 16 }} />
-                            <Body style={[styles.counter, { color: Colors.red }]}>{data.AnswerLikes.length}</Body>
+                        <TouchableOpacity style={styles.arrowContainer} onPress={() =>
+                            UnLike({ variables: { id: data.UserLikesAnswer[0].id } })}>
+                            <Image source={require("../../../assets/images/like_full.png")} style={{ width: 14, height: 21 }} />
+                            <Body style={[styles.counter, { color: Colors.blue }]}>{data.AnswerLikes.length}</Body>
                         </TouchableOpacity> :
-                        <TouchableOpacity style={styles.arrowContainer} onPress={() => like()}>
-                            <Image source={require("../../../assets/images/arrow-white.png")} style={{ width: 12, height: 16 }} />
+                        <TouchableOpacity style={styles.arrowContainer} onPress={() => Like({
+                            variables: { id: answer.id }
+                        })}>
+                            <Image source={require("../../../assets/images/like_empty.png")} style={{ width: 14, height: 21 }} />
                             <Body style={[styles.counter]}>{data.AnswerLikes.length}</Body>
-                        </TouchableOpacity>
-                    }
-                    {data.UserDisLikesAnswer.length > 0 ?
-                        <TouchableOpacity style={styles.arrowContainer} onPress={() => unDisLike()}>
-                            <Image source={require("../../../assets/images/arrow-down-red.png")} style={{ width: 12, height: 16 }} />
-                            <Body style={[styles.counter, { color: Colors.red }]}>{data.AnswerDisLikes.length}</Body>
-                        </TouchableOpacity> :
-                        <TouchableOpacity style={styles.arrowContainer} onPress={() => disLike()}>
-                            <Image source={require("../../../assets/images/arrow-down.png")} style={{ width: 12, height: 16 }} />
-                            <Body style={[styles.counter]}>{data.AnswerDisLikes.length}</Body>
                         </TouchableOpacity>
                     }
                 </View>

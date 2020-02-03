@@ -106,7 +106,7 @@ export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
                     <View style={styles.content}>
                         <Body onPress={() => navigation.navigate("UserVisitsProfileScreen", { id: question.postedBy.id })} style={styles.person}>{question.postedBy.nome + " " + question.postedBy.cognome}</Body>
                         <Body style={styles.date}>{"Pubblicato " + moment(question.createdAt).fromNow()}</Body>
-                        <Body onPress={() => navigation.navigate("QuestionScreen", { id: question.id })} style={styles.title}>{question.title}</Body>
+                        <Body onPress={() => navigation.navigate("QuestionScreen", { id: question.id, postedBy: question.postedBy.id, title: question.title })} style={styles.title}>{question.title}</Body>
                         <Body style={styles.question}>{question.question}</Body>
                     </View>
                 </View>

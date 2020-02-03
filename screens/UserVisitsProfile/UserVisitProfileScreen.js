@@ -114,6 +114,7 @@ query UserProfile($id:ID!) {
           cognome
         }
         question{
+          title
           id
           postedBy{
             nome
@@ -127,6 +128,7 @@ query UserProfile($id:ID!) {
         id
       }
       questions{
+          title
         id
         question
         postedBy{
@@ -386,10 +388,10 @@ export function UserVisitProfile({ navigation, socket }) {
                     <Bold style={active == 0 ? styles.tabTextActive : styles.tabText}> Profilo</Bold>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setActive(1)} style={active == 1 ? styles.tabButtonActive : styles.tabButton}>
-                    <Bold style={active == 1 ? styles.tabTextActive : styles.tabText}>Domande</Bold>
+                    <Bold style={active == 1 ? styles.tabTextActive : styles.tabText}>Post</Bold>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setActive(2)} style={active == 2 ? styles.tabButtonActive : styles.tabButton}>
-                    <Bold style={active == 2 ? styles.tabTextActive : styles.tabText}>Risposte</Bold>
+                    <Bold style={active == 2 ? styles.tabTextActive : styles.tabText}>Interazioni</Bold>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setActive(3)} style={active == 3 ? styles.tabButtonActive : styles.tabButton}>
                     <Bold style={active == 3 ? styles.tabTextActive : styles.tabText}>Connessioni</Bold>
