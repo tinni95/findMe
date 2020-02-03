@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View, StyleSheet, Platform, ScrollView, RefreshControl } from "react-native"
+import { View, StyleSheet, TouchableOpacity, ScrollView, RefreshControl } from "react-native"
 import gql from "graphql-tag";
 import ChatCard from "./ChatCard";
 import { useQuery, useMutation, useSubscription } from "react-apollo";
@@ -7,6 +7,8 @@ import FindMeSpinner from "../../shared/FindMeSpinner";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
 import HeaderStyles from "../shared/HeaderStyles";
 import { useEffect } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import Colors from "../../constants/Colors";
 
 var shortid = require("shortid")
 const SEECHAT_MUTATION = gql`
@@ -120,6 +122,16 @@ Channels.navigationOptions = ({ navigation }) => {
     return {
         title: "Messaggi",
         headerStyle: HeaderStyles.headerStyle,
-        headerTitleStyle: HeaderStyles.headerTitleStyle
+        headerTitleStyle: HeaderStyles.headerTitleStyle,
+        headerLeft: (
+            <TouchableOpacity style={{ padding: 5, paddingRight: 10 }} onPress={() => navigation.goBack()}>
+                <Ionicons
+                    name={"ios-arrow-back"}
+                    size={25}
+                    style={{ marginLeft: 10 }}
+                    color={Colors.blue}
+                ></Ionicons>
+            </TouchableOpacity>
+        ),
     }
 }

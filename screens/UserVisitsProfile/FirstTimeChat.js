@@ -33,12 +33,18 @@ mutation createMessage($channelId: ID!,$text:String!) {
 const CREATECHAT_MUTATION = gql`
 mutation createChat($subId: ID!) {
     createChat(subId:$subId) {
+        sub{
+            pictureUrl
+        }
         id
     }
 }`;
 
 const MESSAGES_QUERY = gql`
 query chatQuery($id:ID!){
+    currentUser{
+        pictureUrl
+    }
     Chat(id:$id){
         sub{
             nome
@@ -78,8 +84,8 @@ export default function FirstTimeChat({ navigation }) {
     const { loading, error, data, refetch } = useQuery(
         MESSAGES_QUERY, {
         variables: { id: chatId },
-        onCompleted: async ({ Chat }) => {
-            console.log("Chat", Chat)
+        onCompleted: async ({ Chat, currentUser }) => {
+            console.log("Chat", currentUser)
         }
     }
     )
@@ -139,8 +145,8 @@ export default function FirstTimeChat({ navigation }) {
     }
 
     const renderInputToolbar = props => {
-        // Here you will return your custom InputToolbar.js file you copied before and include with your stylings, edits.
-        return <InputToolbar onSend={onSend}></InputToolbar>
+        const image = { uri: null }
+        return <InputToolbar image={image} onSend={onSend}></InputToolbar>
 
     }
     return (

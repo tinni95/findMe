@@ -118,8 +118,8 @@ export function Chat({ navigation, socket }) {
                 isSub ? sendNotification(data.Chat.pub.pushToken, "Messaggio da " + data.Chat.sub.nome, createMessage.text) :
                     sendNotification(data.Chat.sub.pushToken, "Messaggio da " + data.Chat.pub.nome, createMessage.text)
                 this.sockettino.emit("chat message", chatId);
-                isSub ? socket.emit("notifica", data.Chat.pub.id) :
-                    socket.emit("notifica", data.Chat.sub.id)
+                isSub ? socket.emit("chatnotifica", data.Chat.pub.id) :
+                    socket.emit("chatnotifica", data.Chat.sub.id)
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
@@ -185,7 +185,7 @@ ChatWithSocket.navigationOptions = ({ navigation }) => {
         headerLeft: (
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity onPress={() => {
-                    navigation.navigate("Channels", { refetch: true })
+                    navigation.goBack()
                 }}>
                     <Ionicons
                         name={"ios-arrow-back"}

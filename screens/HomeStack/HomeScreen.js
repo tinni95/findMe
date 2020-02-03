@@ -66,7 +66,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
-        <SearchHeaderHome setSearch={setSearch}></SearchHeaderHome>
+        <SearchHeaderHome navigation={navigation} setSearch={setSearch}></SearchHeaderHome>
       </View>
       <ScrollView
         refreshControl={

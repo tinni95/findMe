@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyleSheet, View, Image } from "react-native"
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
 import { Body } from "./StyledText";
 import Colors from "../constants/Colors";
 import { useQuery, useMutation } from "react-apollo";
@@ -51,11 +51,10 @@ export function MessagesIcon(props) {
   const { loading, error, refetch, data } = useQuery(UNSEENMESSAGES_QUERY, { fetchPolicy: "no-cache" })
 
   useEffect(() => {
-    props.socket.on("notifica", msg => {
+    props.socket.on("chatnotifica", msg => {
       wait(1000).then(() => refetch());
     })
   })
-
 
   useEffect(() => {
     console.log("we")
@@ -66,14 +65,14 @@ export function MessagesIcon(props) {
   }
   if (data) {
     return (
-      <View style={data.UnseenChats.length > 0 && styles.container}>
+      <TouchableOpacity onPress={() => props.navigation.navigate("Channels")} style={data.UnseenChats.length > 0 && styles.container}>
         <Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginRight: 5, width: 25, height: 25 }}></Image>
         {data.UnseenChats.length > 0 &&
           <View style={styles.counter}>
             <Body style={styles.text}>{data.UnseenChats.length}</Body>
           </View>
         }
-      </View>
+      </TouchableOpacity>
     );
   }
 }
