@@ -65,7 +65,7 @@ export function MessagesIcon(props) {
   }
   if (data) {
     return (
-      <TouchableOpacity onPress={() => props.navigation.navigate("Channels")} style={data.UnseenChats.length > 0 && styles.container}>
+      <TouchableOpacity onPress={() => props.navigation.navigate("Channels", { onGoBack: () => refetch() })} style={data.UnseenChats.length > 0 && styles.container}>
         <Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginRight: 5, width: 25, height: 25 }}></Image>
         {data.UnseenChats.length > 0 &&
           <View style={styles.counter}>

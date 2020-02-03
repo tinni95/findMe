@@ -12,12 +12,12 @@ export default function ChatCard({ chat, isSub, onPress }) {
 
     const backgroundColor = () => {
         if (isSub) {
-            if (chat.subOpened)
+            if (chat.subRead)
                 return "white"
             else return "#EBEBEB"
         }
         else {
-            if (chat.pubOpened)
+            if (chat.pubRead)
                 return "white"
             else return "#EBEBEB"
         }

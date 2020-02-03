@@ -23,8 +23,8 @@ mutation seeChatMutation($chatId:ID!,$pubRead:Boolean,$subRead:Boolean){
 const chatFeed = gql`
 {
     ChatFeed{
-        subOpened
-        pubOpened
+        subRead
+        pubRead
       id
       pub{
         id
@@ -95,10 +95,13 @@ export default function Channels({ navigation }) {
                                 isSub ? seeChat({ variables: { chatId: chat.id, subRead: true } }) :
                                     seeChat({ variables: { chatId: chat.id, pubRead: true } });
                                 isSub ?
-                                    navigation.navigate("Chat", { chatId: chat.id, id: data.currentUser.id, isSub, user: chat.pub }) :
+                                    navigation.navigate("Chat", {
+                                        chatId: chat.id, id: data.currentUser.id, isSub, user: chat.pub,
+                                        onGoBack: () => refetch()
+                                    }) :
                                     navigation.navigate("Chat", {
                                         chatId: chat.id, id: data.currentUser.id, isSub,
-                                        user: chat.sub
+                                        user: chat.sub, onGoBack: () => refetch()
                                     }
                                     );
                             }
@@ -124,7 +127,10 @@ Channels.navigationOptions = ({ navigation }) => {
         headerStyle: HeaderStyles.headerStyle,
         headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
-            <TouchableOpacity style={{ padding: 5, paddingRight: 10 }} onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={{ padding: 5, paddingRight: 10 }} onPress={() => {
+                navigation.state.params.onGoBack();
+                navigation.goBack()
+            }}>
                 <Ionicons
                     name={"ios-arrow-back"}
                     size={25}
