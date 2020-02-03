@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         })
     },
     textInput: {
-        maxHeight: 80,
+        maxHeight: 60,
         flex: 7,
         backgroundColor: "#F5F5F5",
         borderRadius: 5,
