@@ -56,29 +56,18 @@ export function MessagesIcon(props) {
     })
   })
 
-  const focused = props.navigation.getParam("focused")
-  useEffect(() => {
-    if (focused) {
-      console.log("genny")
-      openChats();
-      props.navigation.setParams({ focused: false })
-    }
-  }, [focused])
 
   useEffect(() => {
     console.log("we")
   }, [props.refetch])
 
   if (loading) {
-    return (<Image source={require("../assets/images/Messaggi_empty.png")} style={{ width: 25, height: 25 }}></Image>)
+    return (<Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginBottom: 5, width: 22, height: 22 }}></Image>)
   }
   if (data) {
     return (
       <View style={data.UnseenChats.length > 0 && styles.container}>
-        {props.focused ?
-          <Image source={require("../assets/images/Messaggi_Full.png")} style={{ width: 25, height: 25 }}></Image> :
-          <Image source={require("../assets/images/Messaggi_empty.png")} style={{ width: 25, height: 25 }}></Image>
-        }
+        <Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginBottom: 5, width: 22, height: 22 }}></Image>
         {data.UnseenChats.length > 0 &&
           <View style={styles.counter}>
             <Body style={styles.text}>{data.UnseenChats.length}</Body>

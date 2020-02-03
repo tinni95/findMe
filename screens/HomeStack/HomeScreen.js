@@ -6,6 +6,7 @@ import { useQuery } from "react-apollo";
 import FindMeSpinner from "../../shared/FindMeSpinner";
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay";
 import QuestionCard from "./components/QuestionCard";
+import SearchHeaderHome from "../../components/SearchHeader/SearchHeaderHome";
 
 var shortid = require("shortid")
 const Questions = gql`
@@ -64,6 +65,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
+        <SearchHeaderHome></SearchHeaderHome>
       </View>
       <ScrollView
         refreshControl={
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   },
   searchBarContainer: {
     backgroundColor: "white",
-    height: 65,
+    height: 100,
     marginBottom: 2.5
   }
 });
