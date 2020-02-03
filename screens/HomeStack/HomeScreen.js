@@ -10,8 +10,8 @@ import SearchHeaderHome from "../../components/SearchHeader/SearchHeaderHome";
 
 var shortid = require("shortid")
 const Questions = gql`
-{
-  questionsFeed{
+query questions($filter:String){
+  questionsFeed(filter:$filter){
     id
     question
     title
@@ -40,6 +40,7 @@ function wait(timeout) {
 }
 
 export default function HomeScreen({ navigation }) {
+  const [filter, setSearch] = React.useState("")
   const [refreshing, setRefreshing] = React.useState(false);
   const [refetchChild, setRefetch] = React.useState(false);
   const onRefresh = React.useCallback(() => {
@@ -49,7 +50,7 @@ export default function HomeScreen({ navigation }) {
     wait(2000).then(() => setRefreshing(false));
   }, [refreshing]);
 
-  const { loading, data, error, refetch } = useQuery(Questions, { fetchPolicy: "no-cache" })
+  const { loading, data, error, refetch } = useQuery(Questions, { variables: { filter }, fetchPolicy: "no-cache" })
   const isRefetch = navigation.getParam("refetch") || null
 
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
-        <SearchHeaderHome></SearchHeaderHome>
+        <SearchHeaderHome setSearch={setSearch}></SearchHeaderHome>
       </View>
       <ScrollView
         refreshControl={

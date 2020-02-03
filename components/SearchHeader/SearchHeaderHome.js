@@ -7,13 +7,12 @@ import MessagesIcon from '../MessagesIcon';
 import { Body } from '../StyledText';
 import Colors from '../../constants/Colors';
 
-export default function SearchHeaderHome({ navigation, setSearch, settore, filters }) {
+export default function SearchHeaderHome({ navigation, setSearch }) {
   const [isSearch, setIs] = useState(false)
-  console.log(filters)
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        <SearchBarComponent updateSearch={setSearch} setIs={setIs} setSearch={setSearch} />
+        <SearchBarComponent updateSearch={setSearch} setIs={setIs} />
         {!isSearch &&
           <View style={{ flexDirection: "column", flex: 1.5, alignItems: "center", justifyContent: "center", height: 100, marginTop: 35 }}>
             <MessagesIcon navigation={navigation}></MessagesIcon>
