@@ -1,7 +1,7 @@
 import React from "react";
 var _ = require("lodash");
 
-export const Settori = ["Abbigliamento", "Alberghiero", "Arte e Cultura", "Bar e Ristorazione", "Benessere e Salute", "Edilizia", "Energia e Ambiente", "Formazione", "Forniture", "Informatica e Telecomunicazioni", "Intrattenimento", "Marketing", "Direzione", "Motori", "Servizi Finanziari", "Servizi Immobiliari", "Servizi Professionali", "Sport", "Trasporti", "Turismo", "Vendita al Dettaglio", "Economia", "Scienze", "Altro"];
+export const Settori = ["Abbigliamento", "Alberghiero", "Arte e Cultura", "Bar e Ristorazione", "Benessere e Salute", "Edilizia", "Energia e Ambiente", "Formazione", "Forniture", "Informatica e Telecomunicazioni", "Intrattenimento", "Marketing", "Direzione", "Ingegneria", "Servizi Finanziari", "Servizi Immobiliari", "Servizi Professionali", "Sport", "Trasporti", "Turismo", "Vendita al Dettaglio", "Economia", "Scienze", "Altro"];
 
 export const Requisiti = [
     "PHP",
@@ -111,19 +111,19 @@ export const TitoliPosizioni = [
     },
     {
         titolo: "Ingegnere",
-        categoria: "Motori"
+        categoria: "Ingegneria"
     },
     {
         titolo: "Ingegnere Meccanico",
-        categoria: "Motori"
+        categoria: "Ingegneria"
     },
     {
         titolo: "Ingegnere Elettronico",
-        categoria: "Motori"
+        categoria: "Ingegneria"
     },
     {
         titolo: "Ingegnere Elettrico",
-        categoria: "Motori"
+        categoria: "Ingegneria"
     },
     {
         titolo: "Ingegnere Informatico",

@@ -6,8 +6,8 @@ import { useMutation } from "react-apollo"
 import HeaderBar from "./components/HeaderBar"
 
 const CREATEQUESTION_MUTATION = gql`
-mutation createQuestion($question:String!,$tags:String){
-    createQuestion(question:$question, tags:$tags){
+mutation createQuestion($question:String!,$title:String!){
+    createQuestion(question:$question, title:$title){
         question
     }
 }
@@ -26,40 +26,28 @@ export default function CreateQuestionScreen({ navigation }) {
         });
 
     const [question, setQuestion] = useState("")
-    const [tags, setTags] = useState("")
+    const [title, setTitle] = useState("")
     return (
         <View style={styles.container}>
             <HeaderBar navigation={navigation} onPress={() => {
-                question.length > 0 && createQuestion({ variables: { question, tags } })
+                question.length > 0 && title.length > 0 && createQuestion({ variables: { question, title } })
             }} />
             <View style={styles.innerContainer}>
                 <AvatarAndName />
                 <TextInput
+                    style={styles.inputT}
+                    placeholder="Scrivi titolo"
+                    value={title}
+                    onChangeText={title => setTitle(title)}
+                />
+                <TextInput
                     style={styles.input}
                     multiline
-                    placeholder="Domanda qualcosa alla community di findMe"
+                    placeholder="Scrivi qui il testo del tuo post"
                     value={question}
                     onChangeText={question => setQuestion(question)}
                 />
-                <TextInput
-                    style={styles.inputTags}
-                    multiline
-                    placeholder="Aggiungi Tag : #Startup"
-                    value={tags}
-                    onChangeText={tag => {
-                        if (tag.length == 1) {
-                            setTags("#" + tag)
-                        }
-                        else {
-                            if (tag[tag.length - 1] == " ") {
-                                setTags(tag + "#")
-                            }
-                            else
-                                setTags(tag)
-                        }
-                    }
-                    }
-                />
+
             </View>
         </View>
     )
@@ -73,6 +61,12 @@ const styles = StyleSheet.create({
     innerContainer: {
         marginLeft: 20,
         marginRight: 20
+    },
+    inputT: {
+        marginTop: 10,
+        width: '100%',
+        fontSize: 23,
+        fontFamily: "sequel-sans"
     },
     input: {
         marginTop: 10,

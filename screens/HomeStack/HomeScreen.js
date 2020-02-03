@@ -13,7 +13,7 @@ const Questions = gql`
   questionsFeed{
     id
     question
-    tags
+    title
     createdAt
     postedBy{
       pictureUrl

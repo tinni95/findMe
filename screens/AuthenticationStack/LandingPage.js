@@ -11,10 +11,10 @@ export const LandingPage = ({ navigation: { navigate }, screenProps }) => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.logo}
-          source={require('../../assets/images/Logo_Home_FINDME.png')}
+          source={require('../../assets/images/Logo_GLIMM.png')}
           resizeMode="contain"
         />
-        <Light style={styles.heading}>Inspire your life</Light>
+        <Light style={styles.heading}>Get start-up ready</Light>
       </View>
       <View style={styles.buttonsWrapper}>
         <RoundButtonEmptyLarge
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     alignItems: 'center',
-    width: 280,
-    height: 100,
+    width: 320,
+    height: 120,
   },
   heading: {
     fontSize: 18,
