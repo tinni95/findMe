@@ -9,7 +9,8 @@ import RoundButtonEmpty2 from '../shared/RoundButtonEmpty2';
 import Colors from "../../constants/Colors"
 import { Ionicons } from '@expo/vector-icons';
 
-export default PostCardEdit = ({ post, navigation }) => {
+export default PostCardEdit = ({ post, onPress, deletePost }) => {
+
     return (
         <View style={styles.wrapper}>
             <View style={styles.card}>
@@ -17,7 +18,7 @@ export default PostCardEdit = ({ post, navigation }) => {
                     <PostCardPublisher post={post} />
                     <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                     <PostCardText post={post} />
-                    <TouchableOpacity onPress={() => { alert("elimina?") }} style={styles.trash}>
+                    <TouchableOpacity onPress={() => deletePost()} style={styles.trash}>
                         <Ionicons
                             name={"ios-trash"}
                             size={25}
@@ -36,11 +37,7 @@ export default PostCardEdit = ({ post, navigation }) => {
                             fontSize={10}
                             text="Visualizza"
                             isMedium
-                            onPress={() =>
-                                navigation.navigate('PostScreen', {
-                                    id: post.id
-                                })
-                            }
+                            onPress={onPress}
                             color={Colors.blue}
                         />
                     </View>

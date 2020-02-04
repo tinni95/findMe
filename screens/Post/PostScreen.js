@@ -16,6 +16,14 @@ import { sendNotification } from '../../shared/PushNotifications';
 import HeaderStyles from '../shared/HeaderStyles';
 import { Alert } from 'react-native';
 
+const DELETEPOST_MUTATION = gql`
+mutation deletePost($id:ID!){
+  deletePost(id:$id){
+        id
+    }
+}
+`
+
 const Post = gql`
 query PostScreenQuery($postId: ID!) {
   singlePost(id: $postId) {
@@ -179,13 +187,6 @@ const styles = StyleSheet.create({
 });
 
 
-const DELETEPOST_MUTATION = gql`
-mutation deletePost($id:ID!){
-  deletePost(id:$id){
-        id
-    }
-}
-`
 
 PostScreen.navigationOptions = ({ navigation }) => {
   const isOwner = navigation.getParam("isOwner");
