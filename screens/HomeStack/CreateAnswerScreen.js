@@ -34,7 +34,7 @@ export default function CreateAnswerScreen({ navigation }) {
     const [createAnswer] = useMutation(CREATEANSWER_MUTATION,
         {
             onCompleted: async ({ createAnswer }) => {
-                createNotifica({ variables: { type: "questionAnswer", answerId: createAnswer.id, id: question.postedBy.id, text: createAnswer.postedBy.nome + " " + createAnswer.postedBy.cognome + " ha risposto alla tua domanda: " + question.question } })
+                createNotifica({ variables: { type: "questionAnswer", answerId: createAnswer.id, id: question.postedBy.id, text: createAnswer.postedBy.nome + " " + createAnswer.postedBy.cognome + " ha risposto al tuo post: " + question.question } })
                 navigation.navigate("QuestionScreen", { refetch: true })
             },
             onError: error => {

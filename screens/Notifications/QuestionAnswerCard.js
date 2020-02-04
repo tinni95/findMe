@@ -23,7 +23,7 @@ export default function QuestionAnswerCard({ image, refetch, notifica, navigatio
         </View>
         <View style={styles.contentContainer}>
             <ForumHeader createdAt={notifica.createdAt} />
-            <Body style={styles.title}>Qualcuno ha risposto alla tua domanda</Body>
+            <Body style={styles.title}>Qualcuno ha risposto al tuo post</Body>
             <Light style={styles.text}>{notifica.text}</Light>
         </View>
     </TouchableOpacity>

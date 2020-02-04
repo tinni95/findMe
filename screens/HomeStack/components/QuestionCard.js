@@ -67,7 +67,7 @@ export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
                 sendNotification(
                     QuestionLike.question.postedBy.pushToken,
                     "Nuovo Like",
-                    "A qualcuno piace la tua domanda " + QuestionLike.question.question
+                    "A qualcuno piace il tuo post " + QuestionLike.question.question
                 )
                 socket.emit("notifica", QuestionLike.question.postedBy.id);
             },
