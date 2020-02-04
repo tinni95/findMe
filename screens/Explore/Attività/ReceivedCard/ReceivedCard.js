@@ -37,15 +37,32 @@ export default function ReceivedCard({ id, application, navigation }) {
             </View>
             <View style={styles.footer}>
                 <View style={styles.buttonWrapper}>
-                    <RoundButtonEmptyIcon
-                        iconName={"ios-send"}
-                        text={"Rispondi"}
-                        onPress={() => navigation.navigate("ApplicationReceivedChat", { id, application, isSub: false })}
-                        iconColor={Colors.blue}
-                        textColor={Colors.blue}
-                        color={Colors.blue}
-                        isMedium
-                    />
+                    {application.pubRead ?
+                        <RoundButtonEmptyIcon
+                            onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: false })}
+                            iconName={"ios-send"}
+                            text={"Rispondi"}
+                            iconColor={Colors.blue}
+                            textColor={Colors.blue}
+                            color={Colors.blue}
+                            isMedium
+                        />
+                        :
+                        <View style={{ flexDirection: "row" }}>
+                            <RoundButtonEmptyIcon
+                                onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: false })}
+                                iconName={"ios-send"}
+                                text={"Rispondi"}
+                                iconColor={Colors.blue}
+                                textColor={Colors.blue}
+                                color={Colors.blue}
+                                isMedium
+                            />
+                            <View style={{ marginLeft: -5, width: 15, height: 15, borderRadius: 7.5, backgroundColor: "red", alignItems: "center", justifyContent: "center" }}>
+                                <Text style={{ textAlign: "center", color: "white", marginTop: 2 }}>*</Text>
+                            </View>
+                        </View>
+                    }
                     <RoundButtonEmpty2
                         textColor={Colors.red}
                         color={Colors.red}

@@ -17,6 +17,8 @@ const User = gql`
     currentUser {
         id
         applicationsSent {
+                subRead
+                pubRead
                 id
                 position {
                     field
@@ -39,6 +41,7 @@ const User = gql`
             }
         applicationsReceived{
             id
+            pubRead
             position {
                 field
                 title

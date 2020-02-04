@@ -59,15 +59,32 @@ export default function SentCard({ id, application, navigation }) {
                 <RoundButtonEmpty2 buttonStyle={{ padding: 9 }} fontSize={10} onPress={() => navigation.navigate('PostScreen', {
                     id: application.position.post.id
                 })} isMedium text={"  Apri  "} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2>
-                <RoundButtonEmptyIcon
-                    onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: true })}
-                    iconName={"ios-send"}
-                    text={"Rispondi"}
-                    iconColor={Colors.blue}
-                    textColor={Colors.blue}
-                    color={Colors.blue}
-                    isMedium
-                />
+                {application.subRead ?
+                    <RoundButtonEmptyIcon
+                        onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: true })}
+                        iconName={"ios-send"}
+                        text={"Rispondi"}
+                        iconColor={Colors.blue}
+                        textColor={Colors.blue}
+                        color={Colors.blue}
+                        isMedium
+                    />
+                    :
+                    <View style={{ flexDirection: "row" }}>
+                        <RoundButtonEmptyIcon
+                            onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: true })}
+                            iconName={"ios-send"}
+                            text={"Rispondi"}
+                            iconColor={Colors.blue}
+                            textColor={Colors.blue}
+                            color={Colors.blue}
+                            isMedium
+                        />
+                        <View style={{ marginLeft: -5, width: 15, height: 15, borderRadius: 7.5, backgroundColor: "red", alignItems: "center", justifyContent: "center" }}>
+                            <Text style={{ textAlign: "center", color: "white", marginTop: 2 }}>*</Text>
+                        </View>
+                    </View>
+                }
             </View>
         </View>
     </View>
