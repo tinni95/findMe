@@ -1,13 +1,15 @@
 import React from "react"
-import { View, Image, StyleSheet } from "react-native"
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native"
 import { Body } from "../../../../components/StyledText"
 import Colors from "../../../../constants/Colors"
 
-export default function AvatarAndVedi() {
-    return <View style={styles.imageTextContainer}>
-        <Image source={require("../../../../assets/images/placeholder.png")} style={styles.image} />
+export default function AvatarAndVedi({ image, navigateToProfile }) {
+    const img = image ? { uri: image } : require("../../../../assets/images/placeholder.png")
+    const navigate = navigateToProfile ? navigateToProfile : {}
+    return <TouchableOpacity onPress={navigate} style={styles.imageTextContainer}>
+        <Image source={img} style={styles.image} />
         <Body style={styles.title}>Vedi Profilo</Body>
-    </View>
+    </TouchableOpacity>
 }
 
 const styles = StyleSheet.create({
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-start",
-        flex: 2,
+        flex: 2.5,
         marginTop: 10
     },
     image: {

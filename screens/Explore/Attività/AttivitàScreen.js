@@ -21,20 +21,20 @@ const User = gql`
                 position {
                     field
                     post{
+                        comune
+                        regione
                         id
                         hidden
                         title
                         postedBy{
+                            pictureUrl
                             nome
                             cognome
+                            id
                         }
                     }
                     title
                     requisiti
-                }
-                to {
-                    id
-                    nome
                 }
             }
         applicationsReceived{
@@ -48,6 +48,7 @@ const User = gql`
                 }
             }
             from{
+                pictureUrl
                 id
                 nome
                 cognome
@@ -62,6 +63,9 @@ const User = gql`
                     cognome
                 }
               }
+            }
+            to{
+                id
             }
             messages{
                 text

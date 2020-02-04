@@ -5,7 +5,7 @@ import { isSmallDevice } from '../../constants/Layout';
 
 export default function RoundButtonEmpty2({ isLight, isMedium, onPress, textColor, text, color, buttonStyle, fontSize }) {
   return (
-    <TouchableOpacity style={[buttonStyle]} onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       <View style={[styles.container, buttonStyle, { borderColor: color }]}>
         {
           isMedium ? <Body style={[styles.text, { color: textColor, fontSize }]}>{text}</Body> :

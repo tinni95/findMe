@@ -11,13 +11,15 @@ import Info from "./Info"
 import { Bold, Light } from "../../../../components/StyledText"
 
 export default function ReceivedCard({ id, application, navigation }) {
+    const navigateToProfile = () => navigation.navigate("UserVisitsProfileScreen", { id: application.from.id })
     return (
         <View style={styles.container}>
             <View style={styles.upperContent}>
-                <AvatarAndVedi />
+                <AvatarAndVedi navigateToProfile={navigateToProfile} image={application.from.pictureUrl} />
                 <LinearGradient colors={['#EBEBEB', '#FFFDFD']} style={styles.line} />
                 <View style={styles.info}>
                     <Info
+                        navigateToProfile={navigateToProfile}
                         navigation={navigation}
                         postId={application.position.post.id}
                         title={application.position.post.title}
@@ -47,6 +49,8 @@ export default function ReceivedCard({ id, application, navigation }) {
                     <RoundButtonEmpty2
                         textColor={Colors.red}
                         color={Colors.red}
+                        isLight
+                        fontSize={10}
                         text={"Accetta"}
                         isMedium
                     />
@@ -67,7 +71,8 @@ const styles = StyleSheet.create({
     },
     messageWrapper: {
         justifyContent: "flex-start",
-        margin: 15
+        margin: 15,
+        marginTop: 5
 
     },
     footer: {
