@@ -192,7 +192,7 @@ ChatWithSocket.navigationOptions = ({ navigation }) => {
         headerLeft: (
             <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity onPress={() => {
-                    navigation.state.params.onGoBack();
+                    navigation.state.params.onGoBack && navigation.state.params.onGoBack();
                     navigation.goBack()
                 }}>
                     <Ionicons

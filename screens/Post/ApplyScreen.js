@@ -21,6 +21,17 @@ mutation createNotifica($text:String!,$type:String!, $id:ID!){
     }
 }
 `
+
+const UNSEEAPPLICATION_MUTATION = gql`
+mutation UnseeApplication($id:ID!,$pubRead:Boolean,$subRead:Boolean){
+  UnseeApplication(id:$chatId,pubRead:$pubRead,subRead:$subRead){
+        id
+        subRead
+        pubRead
+    }
+}
+`
+
 const CREATEAPPLICATION_MUTATION = gql`
 mutation createApplication($positionId: ID!, $to:ID!) {
   createApplication(positionId:$positionId, to:$to) {
@@ -29,6 +40,7 @@ mutation createApplication($positionId: ID!, $to:ID!) {
           id
         }
         from{
+          id
           nome
           cognome
         }
@@ -42,6 +54,16 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
 mutation createPostMessage($applicationId: ID!,$text:String!, $subId:ID!) {
   createPostMessage(applicationId:$applicationId,text:$text, subId:$subId) {
         id
+        application{
+          from{
+            id
+            nome
+          }
+          to{
+            id
+            pushToken
+          }
+        }
     }
 }`;
 
@@ -50,6 +72,7 @@ export default function ApplyScreen({navigation}) {
     const refetch =navigation.getParam("refetch")
     const position =navigation.getParam("position")
     const [messaggio,setMessaggio] = useState("")
+    const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION)
     const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
     const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
         {
@@ -57,6 +80,7 @@ export default function ApplyScreen({navigation}) {
             console.log(createApplication)
             createMessage({variables:{applicationId:createApplication.id,text:messaggio, subId:createApplication.to.id }})
             createNotifica({ variables: { type: "applicationPost", id: createApplication.to.id , text: createApplication.from.nome+ " " + createApplication.from.cognome + " si è applicato alla tua posizione di " + position.title } })
+            UnseeApplication({variables:{id:createApplication.id,pubRead:false,subRead:false}})
           },
           onError: error => {
             console.log(error)
@@ -66,7 +90,8 @@ export default function ApplyScreen({navigation}) {
     
         const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION,
             {
-              onCompleted: async ({ createMessage }) => {
+              onCompleted: async ({ createPostMessage }) => {
+                sendNotification(createPostMessage.to.pushToken, createPostMessage.from.nome+ " si è applicato a un tuo post idea", createPostMessage.text)
               },
               onError: error => {
                 console.log(error)

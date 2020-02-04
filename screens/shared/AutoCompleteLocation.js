@@ -21,7 +21,11 @@ export function AutoCompleteLocation({ navigation }) {
 
     return (<View style={styles.container}>
         <View style={styles.textContainer}>
-            <TextInput style={[FormStyles.input, styles.input]} ref={Input} onChangeText={text => setText(text)} />
+            <TextInput
+                autoCorrect={false}
+                style={[FormStyles.input, styles.input]}
+                ref={Input} onChangeText={text => setText(text)}
+            />
             <TouchableOpacity style={styles.cancelContainer} onPress={() => navigation.goBack()}>
                 <Bold style={styles.cancelButton}>Cancella</Bold>
             </TouchableOpacity>

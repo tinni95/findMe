@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SearchBarComponent from './SearchBarComponent';
 import FilterButton from './FilterButton';
 import { useState } from 'react';
+import CandidatureIcon from '../CandidatureIcon';
 
 export default function SearchHeader({ navigation, setSearch, settore, filters }) {
   const [isSearch, setIs] = useState(false)
@@ -14,16 +15,14 @@ export default function SearchHeader({ navigation, setSearch, settore, filters }
         {!isSearch &&
           <FilterButton onPress={() => navigation.navigate("FiltersPage", {
             settore
-          })} filters={filters} />}
+          })} filters={filters} />
+
+        }
         <SearchBarComponent updateSearch={setSearch} setIs={setIs} setSearch={setSearch} />
         {!isSearch &&
-          <TouchableOpacity onPress={() => navigation.navigate("AttivitàScreen")} style={{ top: 17.5, flex: 1.25 }}>
-            <Image
-              resizeMode="contain"
-              style={{ alignSelf: "center", width: 30, height: 30 }}
-              source={require('../../assets/images/arrows.png')}
-            />
-          </TouchableOpacity>
+          <View style={styles.bubbio}>
+            <CandidatureIcon onPress={() => navigation.navigate("AttivitàScreen")}></CandidatureIcon>
+          </View>
         }
       </View>
     </View>
@@ -43,5 +42,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.3,
     flexDirection: "row"
   },
+  bubbio: {
+    flex: 2,
+    height: 100, marginTop: 35,
+    alignItems: "center", justifyContent: "center",
+  },
+
 
 });

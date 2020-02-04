@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Keyboard, RefreshControl } from "react-na
 import { gql } from "apollo-boost"
 import { useMutation, useQuery } from "react-apollo"
 import HeaderBarComments from "./components/HeaderBarComments"
-import { width } from "../../constants/Layout"
+import { width, isSmallDevice } from "../../constants/Layout"
 import AnswerCardAfter from "./components/AnswerCardAfter"
 import InputToolbar from "../MessaggiStack/InputToolbar"
 import FindMeSpinner from "../../shared/FindMeSpinner"
@@ -131,11 +131,12 @@ export default function CreateCommentScreen({ navigation }) {
                 }
             </ScrollView>
             <InputToolbar
+                viewStyle={{ paddingBottom: 10 }}
                 image={{ uri: data.currentUser.pictureUrl }}
                 onSend={(text) => {
                     text.length > 0 && createComment({ variables: { text, answerId: answer.id } })
                 }}></InputToolbar>
-            <KeyboardSpacer style={{ backgroundColor: "white" }} />
+            <KeyboardSpacer style={{ backgroundColor: "white" }} topSpacing={isSmallDevice ? -40 : -80} />
 
         </View>
     )

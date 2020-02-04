@@ -32,7 +32,7 @@ export function AutoComplete({ navigation }) {
     return (<View style={styles.container}>
         <View style={styles.textContainer}>
             <TextInput
-                autoCompleteType={"off"}
+                autoCorrect={false}
                 maxLength={40}
                 style={[FormStyles.input, styles.input]} ref={passwordInput} onChangeText={text => setText(text)} />
             <TouchableOpacity style={styles.cancelContainer} onPress={() => navigation.goBack()}>

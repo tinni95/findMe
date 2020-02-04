@@ -11,6 +11,7 @@ import AnswerCard from "./components/AnswerCard";
 import HeaderStyles from "../shared/HeaderStyles";
 import InputToolbar from "../MessaggiStack/InputToolbar"
 import KeyboardSpacer from "react-native-keyboard-spacer";
+import { isSmallDevice } from "../../constants/Layout";
 
 const answers = gql`
 query answersFeed($id:ID!){
@@ -126,11 +127,12 @@ export default function QuestionScreen({ navigation }) {
             }
         </ScrollView>
         <InputToolbar
+            viewStyle={{ paddingBottom: 10 }}
             image={{ uri: data.currentUser.pictureUrl }}
             onSend={(text) => {
                 text.length > 0 && createAnswer({ variables: { text, questionId: id } })
             }}></InputToolbar>
-        <KeyboardSpacer style={{ backgroundColor: "white" }} />
+        <KeyboardSpacer style={{ backgroundColor: "white" }} topSpacing={isSmallDevice ? -40 : -80} />
     </View>
 }
 

@@ -10,6 +10,7 @@ import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { sendNotification } from '../../shared/PushNotifications'
 import HeaderStyles from '../shared/HeaderStyles'
 import { Ionicons } from '@expo/vector-icons'
+import { isSmallDevice } from '../../constants/Layout'
 
 
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
@@ -128,7 +129,7 @@ export default function ApplicationSentChat({ navigation }) {
                     },
                 }}
             />
-            <KeyboardSpacer />
+            <KeyboardSpacer topSpacing={isSmallDevice ? -25 : -40} />
         </View>
     )
 }

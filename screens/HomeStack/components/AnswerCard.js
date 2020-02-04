@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
     },
     content: {
         justifyContent: "flex-start",
-        marginLeft: 15
+        marginLeft: 15,
+        marginTop: 10
     },
     footer: {
         flexDirection: "row",

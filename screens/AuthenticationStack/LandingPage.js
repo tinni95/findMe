@@ -11,7 +11,7 @@ export const LandingPage = ({ navigation: { navigate }, screenProps }) => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.logo}
-          source={require('../../assets/images/Logo_GLIMM.png')}
+          source={require('../../assets/images/LOGO_GLIMM_GRANDE.png')}
           resizeMode="contain"
         />
         <Light style={styles.heading}>Get start-up ready</Light>

@@ -6,9 +6,9 @@ import { useQuery } from "react-apollo";
 import { gql } from "apollo-boost";
 import SocketContext from "../Socket/context"
 
-const UNSEENMESSAGES_QUERY = gql`
+const UNSEENAPPLICATIONS_QUERY = gql`
 {
-UnseenChats{
+UnseenApplications{
   pubRead
 }
 currentUser{
@@ -24,25 +24,25 @@ function wait(timeout) {
   });
 }
 
-export function MessagesIcon(props) {
-  const { loading, refetch, data } = useQuery(UNSEENMESSAGES_QUERY, { fetchPolicy: "no-cache" })
+export function CandidatureIcon({ onPress, socket }) {
+  const { loading, refetch, data } = useQuery(UNSEENAPPLICATIONS_QUERY, { fetchPolicy: "no-cache" })
 
   useEffect(() => {
-    props.socket.on("chatnotifica", msg => {
+    socket.on("postnotifica", msg => {
       wait(1000).then(() => refetch());
     })
   })
 
   if (loading) {
-    return (<Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginRight: 5, width: 25, height: 25 }}></Image>)
+    return (<Image source={require("../assets/images/arrows.png")} style={{ marginRight: 5, width: 25, height: 25 }}></Image>)
   }
   if (data) {
     return (
-      <TouchableOpacity onPress={() => props.navigation.navigate("Channels", { onGoBack: () => refetch() })} style={data.UnseenChats.length > 0 && styles.container}>
-        <Image source={require("../assets/images/Messaggi_empty.png")} style={{ marginRight: 5, width: 25, height: 25 }}></Image>
-        {data.UnseenChats.length > 0 &&
+      <TouchableOpacity onPress={() => onPress()} style={data.UnseenApplications.length > 0 && styles.container}>
+        <Image source={require("../assets/images/arrows.png")} style={{ marginRight: 5, width: 35, height: 25 }}></Image>
+        {data.UnseenApplications.length > 0 &&
           <View style={styles.counter}>
-            <Body style={styles.text}>{data.UnseenChats.length}</Body>
+            <Body style={styles.text}>{data.UnseenApplications.length}</Body>
           </View>
         }
       </TouchableOpacity>
@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
   }
 })
 
-const MessagesIconWS = props => (
+const CandidatureIconWS = props => (
   <SocketContext.Consumer>
-    {socket => <MessagesIcon {...props} socket={socket} />}
+    {socket => <CandidatureIcon {...props} socket={socket} />}
   </SocketContext.Consumer>
 )
 
-export default MessagesIconWS
+export default CandidatureIconWS
