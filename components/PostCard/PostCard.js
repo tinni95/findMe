@@ -8,7 +8,7 @@ import { Fields } from './Fields';
 import RoundButtonEmpty from '../shared/RoundButtonEmpty';
 import Colors from '../../constants/Colors';
 
-export const PostCard = ({ post, navigation }) => {
+export const PostCard = ({ post, onPress }) => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.card}>
@@ -26,11 +26,7 @@ export const PostCard = ({ post, navigation }) => {
               }
               fontSize={10}
               text="Scopri di più"
-              onPress={() =>
-                navigation.navigate('PostScreen', {
-                  id: post.id
-                })
-              }
+              onPress={onPress}
               color={Colors.ocean}
             />
           </View>

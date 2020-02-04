@@ -102,7 +102,10 @@ export default function Explore({ navigation }) {
       return data.postsFeed.map((post, index) => {
         return (
           <PostCard
-            navigation={navigation}
+            onPress={() => navigation.navigate('PostScreen', {
+              id: post.id,
+              onGoBack: () => refetch()
+            })}
             key={index}
             bg="#00B6BE"
             color="white"

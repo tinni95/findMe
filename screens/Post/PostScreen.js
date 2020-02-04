@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import { sendNotification } from '../../shared/PushNotifications';
 import HeaderStyles from '../shared/HeaderStyles';
+import { Alert } from 'react-native';
 
 const Post = gql`
 query PostScreenQuery($postId: ID!) {
@@ -56,13 +57,42 @@ export default function PostScreen({ navigation }) {
     onCompleted: async ({ currentUser, singlePost }) => {
       const isOwner = currentUser.id === singlePost.postedBy.id
       navigation.setParams({ isOwner });
+      navigation.setParams({ deleteP })
     },
     fetchPolicy: "no-cache"
+  })
+
+  const [deletePost] = useMutation(DELETEPOST_MUTATION, {
+    onCompleted: async ({ deletePost }) => {
+      console.log(deletePost)
+    },
   })
 
   if (loading) return <FindMeSpinner />;
   if (error) return <FindMeGraphQlErrorDisplay />;
 
+  const deleteP = () => {
+    // Works on both Android and iOS
+    Alert.alert(
+      'sei sicuro?',
+      'sicuro che vuoi eliminare il post, definitivamente?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => { },
+          style: 'cancel',
+        },
+        {
+          text: 'OK', onPress: () => {
+            deletePost({ variables: { id: navigation.getParam("id") } })
+            navigation.state.params.onGoBack();
+            navigation.goBack()
+          },
+        },
+      ],
+      { cancelable: false },
+    );
+  }
 
   const submitPosition = position => {
     sendNotification({
@@ -149,8 +179,18 @@ const styles = StyleSheet.create({
 });
 
 
+const DELETEPOST_MUTATION = gql`
+mutation deletePost($id:ID!){
+  deletePost(id:$id){
+        id
+    }
+}
+`
+
 PostScreen.navigationOptions = ({ navigation }) => {
-  const isOwner = navigation.getParam("isOwner")
+  const isOwner = navigation.getParam("isOwner");
+  const deleteP = navigation.getParam("deleteP");
+
   return {
     headerStyle: HeaderStyles.headerStyle,
     headerTitleStyle: HeaderStyles.headerTitleStyle,
@@ -165,8 +205,10 @@ PostScreen.navigationOptions = ({ navigation }) => {
       </TouchableOpacity>
     ),
     headerRight: (
-      isOwner && <TouchableOpacity style={{ flexDirection: "row" }}>
-        <Bold style={{ color: Colors.red }}>Elimina</Bold>
+      isOwner && <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => deleteP()}>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <Bold style={{ color: Colors.red }}>Elimina</Bold>
+        </View>
         <Ionicons
           name={"ios-trash"}
           size={25}

@@ -17,6 +17,8 @@ import SocketContext from '../../Socket/context';
 import io from "socket.io-client";
 import { socketEndPoint } from '../../shared/urls';
 import FindMeDay from './FindMeDay';
+import { height, isSmallDevice } from '../../constants/Layout';
+
 
 
 const UNSEECHAT_MUTATION = gql`
@@ -130,6 +132,7 @@ export function Chat({ navigation, socket }) {
         });
 
     useEffect(() => {
+        console.log(height)
         data && setMessages(parseMessages(data.Chat.messages, id))
     }, [data])
 
@@ -169,7 +172,7 @@ export function Chat({ navigation, socket }) {
                     },
                 }}
             />
-            <KeyboardSpacer topSpacing={-80 + (count * 20)} />
+            <KeyboardSpacer topSpacing={isSmallDevice ? -25 : -40} />
         </View>
     )
 }
