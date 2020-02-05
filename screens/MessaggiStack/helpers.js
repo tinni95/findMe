@@ -30,9 +30,9 @@ export const parseMessages = (messages, id) => {
 }
 
 export const parsePostMessages = (messages, id) => {
-    console.log(id)
     return messages.map(message => {
-        console.log(message.pub.id)
+        const image = message.pub.id == id ? message.pub.pictureUrl ? message.pub.pictureUrl : require("../../assets/images/placeholder.png") :
+            message.pub.pictureUrl ? message.pub.pictureUrl : require("../../assets/images/placeholder.png");
         return {
             ...message,
             _id: message.id,
@@ -40,7 +40,7 @@ export const parsePostMessages = (messages, id) => {
                 id,
                 _id: message.pub.id == id ? 2 : 1,
                 name: message.pub.nome,
-                avatar: 'https://placeimg.com/140/140/any',
+                avatar: image,
             }
         }
     })

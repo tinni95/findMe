@@ -13,7 +13,7 @@ import RoundButtonEmptyIcon from "../../../../components/shared/RoundButtonEmpty
 import RoundButtonEmpty2 from "../../../../components/shared/RoundButtonEmpty2"
 var shortid = require("shortid")
 
-export default function SentCard({ id, application, navigation }) {
+export default function SentCard({ onPress, application, navigation }) {
     const { post } = application.position
     const navigateToProfile = () => navigation.navigate("UserVisitsProfileScreen", { id: post.postedBy.id })
     return <View style={styles.container}>
@@ -61,7 +61,7 @@ export default function SentCard({ id, application, navigation }) {
                 })} isMedium text={"  Apri  "} textColor={Colors.blue} color={Colors.blue}></RoundButtonEmpty2>
                 {application.subRead ?
                     <RoundButtonEmptyIcon
-                        onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: true })}
+                        onPress={onPress}
                         iconName={"ios-send"}
                         text={"Rispondi"}
                         iconColor={Colors.blue}
@@ -72,7 +72,7 @@ export default function SentCard({ id, application, navigation }) {
                     :
                     <View style={{ flexDirection: "row" }}>
                         <RoundButtonEmptyIcon
-                            onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: true })}
+                            onPress={onPress}
                             iconName={"ios-send"}
                             text={"Rispondi"}
                             iconColor={Colors.blue}
