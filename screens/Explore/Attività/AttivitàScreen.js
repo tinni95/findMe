@@ -20,7 +20,12 @@ const User = gql`
                 subRead
                 pubRead
                 id
+                from{
+                    pictureUrl
+                    id
+                }
                 to{
+                    pictureUrl
                     id
                 }
                 position {
@@ -71,6 +76,7 @@ const User = gql`
               }
             }
             to{
+                pictureUrl
                 id
             }
             messages{
@@ -114,9 +120,22 @@ export default function AttivitàScreen({ navigation }) {
 
     const FirstRoute = () => (
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={{ backgroundColor: "#F7F4F4" }}>
-            {posizioniInvitate.length > 0 && posizioniInvitate.map(posizione => {
-                return <SentCard id={id}
-                    application={posizione} key={shortid.generate()} navigation={navigation} />
+            {posizioniInvitate.length > 0 && posizioniInvitate.map(application => {
+                return <SentCard
+                    onPress={() => {
+                        navigation.navigate("ApplicationSentChat", {
+                            application,
+                            id: application.from.id,
+                            onGoBack: () => refetch()
+                        })
+                        unseeChat({
+                            variables: {
+                                id: application.id,
+                                subRead: true
+                            }
+                        })
+                    }}
+                    application={application} key={shortid.generate()} navigation={navigation} />
             })}
         </ScrollView>
     );
