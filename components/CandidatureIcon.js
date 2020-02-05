@@ -24,7 +24,7 @@ function wait(timeout) {
   });
 }
 
-export function CandidatureIcon({ onPress, socket }) {
+export function CandidatureIcon({ navigation, socket }) {
   const { loading, refetch, data } = useQuery(UNSEENAPPLICATIONS_QUERY, { fetchPolicy: "no-cache" })
 
   useEffect(() => {
@@ -38,7 +38,9 @@ export function CandidatureIcon({ onPress, socket }) {
   }
   if (data) {
     return (
-      <TouchableOpacity onPress={() => onPress()} style={data.UnseenApplications.length > 0 && styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate("AttivitàScreen", {
+        onGoBack: () => refetch()
+      })} style={data.UnseenApplications.length > 0 && styles.container}>
         <Image source={require("../assets/images/arrows.png")} style={{ marginRight: 5, width: 35, height: 25 }}></Image>
         {data.UnseenApplications.length > 0 &&
           <View style={styles.counter}>

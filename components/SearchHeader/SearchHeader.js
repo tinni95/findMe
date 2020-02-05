@@ -21,7 +21,7 @@ export default function SearchHeader({ navigation, setSearch, settore, filters }
         <SearchBarComponent updateSearch={setSearch} setIs={setIs} setSearch={setSearch} />
         {!isSearch &&
           <View style={styles.bubbio}>
-            <CandidatureIcon onPress={() => navigation.navigate("AttivitàScreen")}></CandidatureIcon>
+            <CandidatureIcon navigation={navigation}></CandidatureIcon>
           </View>
         }
       </View>

@@ -10,10 +10,17 @@ import SentCard from "./SentCard";
 import TabBars from "../../../shared/TabBars";
 import HeaderStyles from "../../shared/HeaderStyles";
 import ReceivedCard from "./ReceivedCard";
+import FindMeSpinner from "../../../shared/FindMeSpinner";
 var shortid = require("shortid")
 
 const User = gql`
 {
+    UnseenSentApplications{
+        id
+      }
+      UnseenReceivedApplications{
+          id
+      }
     currentUser {
         id
         applicationsSent {
@@ -98,35 +105,32 @@ mutation unseeApplicationChatChatMutation($id:ID!,$pubRead:Boolean,$subRead:Bool
     }
 }`
 
-
-
 export default function AttivitàScreen({ navigation }) {
-    const [posizioniInvitate, setInviate] = useState([]);
-    const [posizioniRicevute, setRicevute] = useState([]);
-    const [id, setId] = useState("");
     const [refreshing, setRefreshing] = useState(false);
-    const { refetch } = useQuery(User, {
-        onCompleted: async ({ currentUser }) => {
-            setInviate(currentUser.applicationsSent);
-            setRicevute(currentUser.applicationsReceived);
-            setId(currentUser.id)
-        }, fetchPolicy: "no-cache"
-    });
+    const { refetch, data, loading } = useQuery(User, { fetchPolicy: "no-cache" });
+    const [routes] = React.useState([
+        { key: 'first', title: 'Inviate' },
+        { key: 'second', title: 'Ricevute' },
+    ]);
+
     const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
         onCompleted: () => {
             refetch()
         }
     })
 
+    if (loading)
+        return <FindMeSpinner />
+
     const FirstRoute = () => (
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={{ backgroundColor: "#F7F4F4" }}>
-            {posizioniInvitate.length > 0 && posizioniInvitate.map(application => {
+            {data.currentUser.applicationsSent.length > 0 && data.currentUser.applicationsSent.map(application => {
                 return <SentCard
                     onPress={() => {
                         navigation.navigate("ApplicationSentChat", {
                             application,
                             id: application.from.id,
-                            onGoBack: () => refetch()
+                            onGoBack: () => { }
                         })
                         unseeChat({
                             variables: {
@@ -143,13 +147,13 @@ export default function AttivitàScreen({ navigation }) {
     const SecondRoute = () => (
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={{ backgroundColor: "#F7F4F4" }}>
             {
-                posizioniRicevute.length > 0 &&
-                posizioniRicevute.map(application => {
+                data.currentUser.applicationsReceived.length > 0 &&
+                data.currentUser.applicationsReceived.map(application => {
                     return <ReceivedCard
                         onPress={() => {
                             navigation.navigate("ApplicationReceivedChat", {
                                 id: application.to.id, application,
-                                onGoBack: () => refetch()
+                                onGoBack: () => { }
                             })
                             unseeChat({
                                 variables: {
@@ -158,7 +162,7 @@ export default function AttivitàScreen({ navigation }) {
                                 }
                             })
                         }
-                        } id={id} navigation={navigation} key={shortid.generate()} application={application}></ReceivedCard>
+                        } id={data.currentUser.id} navigation={navigation} key={shortid.generate()} application={application}></ReceivedCard>
                 })
             }
         </ScrollView>
@@ -169,27 +173,15 @@ export default function AttivitàScreen({ navigation }) {
         refetch().then(() => setRefreshing(false))
     }
 
-    const [routes] = React.useState([
-        { key: 'first', title: 'Inviate' },
-        { key: 'second', title: 'Ricevute' },
-    ]);
-
     const renderScene = SceneMap({
         first: FirstRoute,
         second: SecondRoute,
     });
 
     return (
-        <TabBars renderScene={renderScene} routes={routes}></TabBars>
+        <TabBars sent={data.UnseenSentApplications} received={data.UnseenReceivedApplications} renderScene={renderScene} routes={routes}></TabBars>
     );
 }
-
-const styles = StyleSheet.create({
-    scene: {
-        flex: 1,
-        backgroundColor: "#EBEBEB"
-    },
-});
 
 AttivitàScreen.navigationOptions = ({ navigation }) => {
     return {
@@ -197,7 +189,11 @@ AttivitàScreen.navigationOptions = ({ navigation }) => {
         headerStyle: HeaderStyles.headerStyle,
         headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => {
+                navigation.state.params.onGoBack();
+                navigation.goBack()
+            }
+            }>
                 <Ionicons
                     name={"ios-arrow-back"}
                     size={25}
