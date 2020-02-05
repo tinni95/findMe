@@ -73,14 +73,21 @@ export default function ApplyScreen({navigation}) {
     const position =navigation.getParam("position")
     const [messaggio,setMessaggio] = useState("")
     const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION)
-    const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
+    const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION,{
+      onCompleted : () => {
+        console.log("yeah")
+      },
+      onError : (error) => {
+        console.log(error)
+      }
+    })
     const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION,
         {
           onCompleted: async ({ createApplication }) => {
             console.log(createApplication)
             createMessage({variables:{applicationId:createApplication.id,text:messaggio, subId:createApplication.to.id }})
             createNotifica({ variables: { type: "applicationPost", id: createApplication.to.id , text: createApplication.from.nome+ " " + createApplication.from.cognome + " si è applicato alla tua posizione di " + position.title } })
-            UnseeApplication({variables:{id:createApplication.id,pubRead:false,subRead:false}})
+            UnseeApplication({variables:{id:createApplication.id,pubRead:true, subRead:true}})
           },
           onError: error => {
             console.log(error)
@@ -91,7 +98,7 @@ export default function ApplyScreen({navigation}) {
         const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION,
             {
               onCompleted: async ({ createPostMessage }) => {
-                sendNotification(createPostMessage.to.pushToken, createPostMessage.from.nome+ " si è applicato a un tuo post idea", createPostMessage.text)
+                sendNotification(createPostMessage.application.to.pushToken, createPostMessage.application.from.nome+ " si è applicato a un tuo post idea", createPostMessage.text)
               },
               onError: error => {
                 console.log(error)
@@ -100,7 +107,6 @@ export default function ApplyScreen({navigation}) {
             });
 
         const handleApply = () => {
-
             if(messaggio.length===0){
                 return alert("aoh el messaggio")
             }

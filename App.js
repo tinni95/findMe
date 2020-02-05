@@ -27,7 +27,6 @@ export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [client, setClient] = useState(null)
   const [loggedin, setLoggedin] = useState(false)
-  const [newMessage, setNewMessage] = useState(false)
   let token;
   async function fetchToken() {
     token = await AsyncStorage.getItem(TOKEN_KEY);
@@ -133,10 +132,7 @@ export default function App() {
 async function loadResourcesAsync() {
   await Promise.all([
     Font.loadAsync({
-      // This is the font that we are using for our tab bar
       ...Ionicons.font,
-      // We include SpaceMono because we use it in HomeScreen.js. Feel free to
-      // remove this if you are not using it in your app
       Avenir: require('./assets/fonts/avenir.otf'),
       'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
       'changa-one': require('./assets/fonts/ChangaOne-Regular.ttf'),

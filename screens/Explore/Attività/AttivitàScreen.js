@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { StyleSheet, TouchableOpacity, Dimensions, Platform, RefreshControl } from 'react-native';
 import { SceneMap } from 'react-native-tab-view';
 import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import Colors from "../../../constants/Colors"
 import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
@@ -20,6 +20,9 @@ const User = gql`
                 subRead
                 pubRead
                 id
+                to{
+                    id
+                }
                 position {
                     field
                     post{
@@ -80,12 +83,34 @@ const User = gql`
 }
 `
 
+const UNSEEAPPLICATIONCHAT_MUTATION = gql`
+mutation unseeApplicationChatChatMutation($id:ID!,$pubRead:Boolean,$subRead:Boolean){
+    UnseeApplication(id:$id,pubRead:$pubRead,subRead:$subRead){
+        id
+        subRead
+        pubRead
+    }
+}`
+
+
 
 export default function AttivitàScreen({ navigation }) {
     const [posizioniInvitate, setInviate] = useState([]);
     const [posizioniRicevute, setRicevute] = useState([]);
     const [id, setId] = useState("");
     const [refreshing, setRefreshing] = useState(false);
+    const { refetch } = useQuery(User, {
+        onCompleted: async ({ currentUser }) => {
+            setInviate(currentUser.applicationsSent);
+            setRicevute(currentUser.applicationsReceived);
+            setId(currentUser.id)
+        }, fetchPolicy: "no-cache"
+    });
+    const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
+        onCompleted: () => {
+            refetch()
+        }
+    })
 
     const FirstRoute = () => (
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} style={{ backgroundColor: "#F7F4F4" }}>
@@ -101,18 +126,24 @@ export default function AttivitàScreen({ navigation }) {
             {
                 posizioniRicevute.length > 0 &&
                 posizioniRicevute.map(application => {
-                    return <ReceivedCard id={id} navigation={navigation} key={shortid.generate()} application={application}></ReceivedCard>
+                    return <ReceivedCard
+                        onPress={() => {
+                            navigation.navigate("ApplicationReceivedChat", {
+                                id: application.to.id, application,
+                                onGoBack: () => refetch()
+                            })
+                            unseeChat({
+                                variables: {
+                                    id: application.id,
+                                    pubRead: true
+                                }
+                            })
+                        }
+                        } id={id} navigation={navigation} key={shortid.generate()} application={application}></ReceivedCard>
                 })
             }
         </ScrollView>
     );
-    const { refetch } = useQuery(User, {
-        onCompleted: async ({ currentUser }) => {
-            setInviate(currentUser.applicationsSent);
-            setRicevute(currentUser.applicationsReceived);
-            setId(currentUser.id)
-        }, fetchPolicy: "no-cache"
-    });
 
     const onRefresh = async () => {
         setRefreshing(true)

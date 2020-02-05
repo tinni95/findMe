@@ -88,6 +88,9 @@ export default function NotificationPage({ navigation }) {
                 else if (notifica.type == "connessioneRequest") {
                     return <ConnessioneRequestCard image={image} refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></ConnessioneRequestCard>
                 }
+                else if (notifica.type == "applicationPost") {
+                    return <QuestionLikeCard image={image} refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></QuestionLikeCard>
+                }
             })
         }
     </ScrollView>

@@ -152,7 +152,7 @@ export function Chat({ navigation, socket }) {
 
     const renderInputToolbar = props => {
         const image = !loading && (isSub ? { uri: data.Chat.sub.pictureUrl } : { uri: data.Chat.pub.pictureUrl })
-        return <InputToolbar setCount={() => { count => console.log(count) }} image={image} onSend={onSend}></InputToolbar>
+        return <InputToolbar image={image} onSend={onSend}></InputToolbar>
     }
 
     return (

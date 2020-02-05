@@ -10,7 +10,8 @@ import AvatarAndVedi from "./AvatarAndVedi"
 import Info from "./Info"
 import { Bold, Light } from "../../../../components/StyledText"
 
-export default function ReceivedCard({ id, application, navigation }) {
+export default function ReceivedCard({ id, application, navigation, onPress }) {
+
     const navigateToProfile = () => navigation.navigate("UserVisitsProfileScreen", { id: application.from.id })
     return (
         <View style={styles.container}>
@@ -39,7 +40,7 @@ export default function ReceivedCard({ id, application, navigation }) {
                 <View style={styles.buttonWrapper}>
                     {application.pubRead ?
                         <RoundButtonEmptyIcon
-                            onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: false })}
+                            onPress={onPress}
                             iconName={"ios-send"}
                             text={"Rispondi"}
                             iconColor={Colors.blue}
@@ -50,7 +51,7 @@ export default function ReceivedCard({ id, application, navigation }) {
                         :
                         <View style={{ flexDirection: "row" }}>
                             <RoundButtonEmptyIcon
-                                onPress={() => navigation.navigate("ApplicationSentChat", { id, application, isSub: false })}
+                                onPress={onPress}
                                 iconName={"ios-send"}
                                 text={"Rispondi"}
                                 iconColor={Colors.blue}

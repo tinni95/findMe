@@ -11,22 +11,26 @@ import { sendNotification } from '../../shared/PushNotifications'
 import HeaderStyles from '../shared/HeaderStyles'
 import { Ionicons } from '@expo/vector-icons'
 import { isSmallDevice } from '../../constants/Layout'
-
+import io from "socket.io-client";
+import { socketEndPoint } from '../../shared/urls'
+import moment from 'moment/min/moment-with-locales'
 
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
-mutation unseeApplicationChatChatMutation($applicationId:ID!,$pubRead:Boolean,$subRead:Boolean){
-    unseeApplicationChatMutation(applicationId:$applicationId,pubRead:$pubRead,subRead:$subRead){
+mutation unseeApplicationChatChatMutation($id:ID!,$pubRead:Boolean,$subRead:Boolean){
+    UnseeApplication(id:$id,pubRead:$pubRead,subRead:$subRead){
         id
         subRead
         pubRead
     }
 }
 `
-
 const CREATEPOSTMESSAGE_MUTATION = gql`
 mutation createPostMessage($applicationId: ID!,$text:String!, $subId:ID!) {
     createPostMessage(applicationId:$applicationId, text:$text, subId:$subId) {
         id
+        sub{
+            pushToken
+        }
         text
     }
 }`;
@@ -48,21 +52,17 @@ query chatQuery($id:ID!){
     }
   }`;
 
-const POSTMESSAGES_SUBSCRIPTION = gql`
-subscription messageReceivedSub($id:ID!){
-    postMessageReceivedSub(id:$id){
-        updatedFields
-    }
-  }`;
+function wait(timeout) {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+}
 
 
 export default function ApplicationReceivedChat({ navigation }) {
     const [messages, setMessages] = useState([])
-    const isSub = navigation.getParam("isSub")
     const id = navigation.getParam("id")
-    console.log(id)
     const application = navigation.getParam("application")
-
     const { loading, error, data, refetch } = useQuery(
         MESSAGES_QUERY, {
         variables: { id: application.id },
@@ -71,7 +71,6 @@ export default function ApplicationReceivedChat({ navigation }) {
         }
     }
     )
-
     const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
         onCompleted: async ({ unseeChat }) => {
             console.log(unseeChat)
@@ -81,16 +80,34 @@ export default function ApplicationReceivedChat({ navigation }) {
     const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION,
         {
             onCompleted: async ({ createPostMessage }) => {
-                isSub ? unseeChat({ variables: { applicationId: application.id, pubRead: false } }) :
-                    unseeChat({ variables: { applicationId: application.id, subRead: false } })
-                isSub ? sendNotification(data.PostMessagesFeed.pub.pushToken, "Messaggio da " + data.PostMessagesFeed.sub.nome, createPostMessage.text) :
-                    sendNotification(data.PostMessagesFeed.sub.pushToken, "Messaggio da " + data.PostMessagesFeed.pub.nome, createPostMessage.text)
-                refetch()
+                sendNotification(createPostMessage.sub.pushToken, application.position, createPostMessage.text)
+                unseeChat({ variables: { id: application.id, subRead: false } })
+                this.sockettino.emit("chat message", application.id);
             },
             onError: error => {
                 alert("Qualcosa è andato storto")
             }
         });
+
+
+    useEffect(() => {
+        this.sockettino = io(socketEndPoint, { query: { token: application.id } })
+        const didBlurSubscription = navigation.addListener(
+            'didBlur',
+            payload => {
+                console.debug('didBlur', payload);
+                this.sockettino.emit("pocho", "")
+                didBlurSubscription.remove();
+            }
+        );
+        moment.locale('it');
+    }, [])
+
+    useEffect(() => {
+        this.sockettino.on("chat message", msg => {
+            wait(500).then(() => refetch());
+        }, [])
+    })
 
     useEffect(() => {
         data && setMessages(parsePostMessages(data.PostMessagesFeed, id))
@@ -103,13 +120,12 @@ export default function ApplicationReceivedChat({ navigation }) {
     }
 
     const renderMessage = props => {
-
         return <FindMeMessage {...props} />
     }
 
     const renderInputToolbar = props => {
-        // Here you will return your custom InputToolbar.js file you copied before and include with your stylings, edits.
-        return <InputToolbar onSend={onSend}></InputToolbar>
+        const image = !loading && { uri: data.PostMessagesFeed[0].sub.pictureUrl };
+        return <InputToolbar image={image} onSend={onSend}></InputToolbar>
 
     }
     return (
@@ -136,12 +152,14 @@ export default function ApplicationReceivedChat({ navigation }) {
 }
 
 ApplicationReceivedChat.navigationOptions = ({ navigation }) => {
-
     return {
         headerStyle: HeaderStyles.headerStyle,
         headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={() => {
+                navigation.state.params.onGoBack()
+                navigation.goBack()
+            }}>
                 <Ionicons
                     name={"ios-arrow-back"}
                     size={25}
