@@ -6,9 +6,8 @@ import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
 import FindMeSpinner from '../../../shared/FindMeSpinner';
-import Colors from '../../../constants/Colors';
-import RoundButtonEmptyIcon from '../../../components/shared/RoundButtonEmptyIcon';
 import AvatarAndTimeQuestion from './AvatarAndTimeQuestion';
+import QuestionLikesWithLiked from './QuestionLikesWithLiked';
 
 const Likes = gql`
 query Likes($id:ID!){
@@ -24,6 +23,10 @@ query Likes($id:ID!){
         }
         likes{
             id
+            user{
+                nome
+                pictureUrl
+              }
         }
     }
     UserLikesQuestion(id:$id){
@@ -34,40 +37,10 @@ query Likes($id:ID!){
     }
 }
 `
-const LIKE_MUTATION = gql`
-mutation likeMutation($id:ID!){
-    QuestionLike(id:$id){
-        id
-    }
-}
-`
-const UNLIKE_MUTATION = gql`
-mutation likeMutation($id:ID!){
-    deleteQuestionLike(id:$id){
-        id
-    }
-}
-`
+
+
 export const QuestionCardAfter = ({ id, navigation }) => {
     const { loading, data, error, refetch } = useQuery(Likes, { variables: { id }, fetchPolicy: "no-cache" })
-    const [Like] = useMutation(LIKE_MUTATION,
-        {
-            onCompleted: async ({ QuestionLike }) => {
-                refetch()
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
-    const [UnLike] = useMutation(UNLIKE_MUTATION,
-        {
-            onCompleted: async ({ deleteQuestionLike }) => {
-                refetch()
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
 
     if (error) {
         return <FindMeGraphQlErrorDisplay />
@@ -86,16 +59,7 @@ export const QuestionCardAfter = ({ id, navigation }) => {
                     <Body style={styles.question}>{data.singleQuestion.question}</Body>
                 </View>
                 <View style={styles.footer}>
-                    {data.UserLikesQuestion.length > 0 ?
-                        <TouchableOpacity onPress={() => UnLike({ variables: { id: data.UserLikesQuestion[0].id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../../assets/images/like_full.png")} style={{ width: 17, height: 25 }} />
-                            <Body style={[styles.counter, { color: Colors.blue }]}>{data.singleQuestion.likes.length}</Body>
-                        </TouchableOpacity> :
-                        <TouchableOpacity onPress={() => Like({ variables: { id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../../assets/images/like_empty.png")} style={{ width: 17, height: 25 }} />
-                            <Body style={styles.counter}>{data.singleQuestion.likes.length}</Body>
-                        </TouchableOpacity>
-                    }
+                    <QuestionLikesWithLiked id={id} data={data} refetch={refetch} />
 
                 </View>
             </View>

@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import { width, isBigDevice, isSmallDevice } from '../../../constants/Layout';
+import { width, isSmallDevice } from '../../../constants/Layout';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Body, Light } from '../../../components/StyledText';
+import { Body } from '../../../components/StyledText';
 import moment from 'moment/min/moment-with-locales'
 import { gql } from 'apollo-boost';
-import { useQuery, useMutation } from 'react-apollo';
+import { useQuery } from 'react-apollo';
 import FindMeGraphQlErrorDisplay from '../../../shared/FindMeGraphQlErrorDisplay';
-import Colors from '../../../constants/Colors';
-import SocketContext from "../../../Socket/context"
-import { sendNotification } from '../../../shared/PushNotifications';
+import QuestionLikes from './QuestionLikes';
 
 moment.locale('it');
 
@@ -23,67 +21,10 @@ query Likes($id:ID!){
     }
 }
 `
-const LIKE_MUTATION = gql`
-mutation likeMutation($id:ID!){
-    QuestionLike(id:$id){
-        id
-        question{
-            question
-            id
-            postedBy{
-              id
-              pushToken
-            }
-          }
-    }
-}
-`
-const UNLIKE_MUTATION = gql`
-mutation likeMutation($id:ID!){
-    deleteQuestionLike(id:$id){
-        id
-    }
-}
-`
 
-const CREATENOTIFICA_MUTATION = gql`
-mutation createNotifica($questionId:ID!,$text:String!,$type:String!, $id:ID!){
-    createNotifica(questionId:$questionId, text:$text, type:$type, id:$id){
-        id
-    }
-}
-`
-
-
-export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
+export const QuestionCard = ({ question, navigation, isRefetch }) => {
     const image = question.postedBy.pictureUrl ? { uri: question.postedBy.pictureUrl } : require("../../../assets/images/placeholder.png");
     const { loading, data, error, refetch } = useQuery(Likes, { variables: { id: question.id } })
-    const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
-    const [Like] = useMutation(LIKE_MUTATION,
-        {
-            onCompleted: async ({ QuestionLike }) => {
-                refetch()
-                createNotifica({ variables: { questionId: QuestionLike.question.id, type: "questionLike", id: QuestionLike.question.postedBy.id, text: `"` + QuestionLike.question.question + `"` } })
-                sendNotification(
-                    QuestionLike.question.postedBy.pushToken,
-                    "Nuovo Like",
-                    "A qualcuno piace il tuo post " + QuestionLike.question.question
-                )
-                socket.emit("notifica", QuestionLike.question.postedBy.id);
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
-    const [UnLike] = useMutation(UNLIKE_MUTATION,
-        {
-            onCompleted: async ({ deleteQuestionLike }) => {
-                refetch()
-            },
-            onError: error => {
-                alert("Qualcosa è andato storto")
-            }
-        });
 
     useEffect(() => {
         refetch()
@@ -111,16 +52,7 @@ export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
                     </View>
                 </View>
                 <View style={styles.footer}>
-                    {data.UserLikesQuestion.length > 0 ?
-                        <TouchableOpacity onPress={() => UnLike({ variables: { id: data.UserLikesQuestion[0].id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../../assets/images/like_full.png")} style={{ width: 17, height: 25 }} />
-                            <Body style={[styles.counter, { color: Colors.blue }]}>{data.QuestionLikes.length}</Body>
-                        </TouchableOpacity> :
-                        <TouchableOpacity onPress={() => Like({ variables: { id: question.id } })} style={styles.arrowContainer}>
-                            <Image source={require("../../../assets/images/like_empty.png")} style={{ width: 17, height: 25 }} />
-                            <Body style={styles.counter}>{data.QuestionLikes.length}</Body>
-                        </TouchableOpacity>
-                    }
+                    <QuestionLikes refetch={refetch} data={data} question={question} isRefetch={isRefetch} />
                     <TouchableOpacity onPress={() => navigation.navigate("QuestionScreen", { id: question.id })} style={styles.commentsContainer}>
                         <Image source={require("../../../assets/images/commentbubble.png")} style={{ width: 15, height: 15 }} />
                         <Body style={styles.footerText}>{question.answers.length} risposte</Body>
@@ -131,13 +63,7 @@ export const QuestionCard = ({ question, navigation, isRefetch, socket }) => {
     );
 };
 
-const QuestionCardWithSocket = props => (
-    <SocketContext.Consumer>
-        {socket => <QuestionCard {...props} socket={socket} />}
-    </SocketContext.Consumer>
-)
-
-export default QuestionCardWithSocket
+export default QuestionCard
 
 
 const styles = StyleSheet.create({
@@ -159,7 +85,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         flex: 2,
         flexDirection: 'row',
-        justifyContent: "flex-end"
+        justifyContent: "space-between"
     },
     line: {
         width: 4
@@ -196,21 +122,13 @@ const styles = StyleSheet.create({
         fontSize: isSmallDevice ? 9 : 10,
         color: "#707070"
     },
-    arrowContainer: {
-        flex: 4,
-        alignContent: "center",
-        flexDirection: "row",
-        margin: 10,
-        marginLeft: 15,
-        justifyContent: "flex-start",
-        marginBottom: 10
-    },
     commentsContainer: {
         flex: 5,
         marginTop: 15,
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "flex-start"
+        justifyContent: "flex-end",
+        marginRight: 35
     },
     bellContainer: {
         flex: 5,
@@ -224,13 +142,5 @@ const styles = StyleSheet.create({
         color: "#707070",
         marginLeft: 8
     },
-    counter: {
-        fontSize: 12,
-        alignSelf: "flex-end",
-        zIndex: 100,
-        marginBottom: -2,
-        marginLeft: 2,
-        color: "#707070"
-    }
 });
 
