@@ -40,6 +40,9 @@ query comments($id:ID!){
           cognome
         }
         id
+        likes{
+            id
+        }
     }
     currentUser{
         pictureUrl
