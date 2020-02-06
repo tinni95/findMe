@@ -9,6 +9,7 @@ import QuestionLikeCard from './QuestionLikeCard';
 import QuestionAnswerCard from './QuestionAnswerCard';
 import ConnessioneRequestCard from './ConnessioneRequestCard';
 import { useEffect } from 'react';
+import PostApplicationCard from './PostApplicationCard';
 
 
 const NOTIFICHE_QUERY = gql`
@@ -89,7 +90,7 @@ export default function NotificationPage({ navigation }) {
                     return <ConnessioneRequestCard image={image} refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></ConnessioneRequestCard>
                 }
                 else if (notifica.type == "applicationPost") {
-                    return <QuestionLikeCard image={image} refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></QuestionLikeCard>
+                    return <PostApplicationCard image={image} refetch={refetch} navigation={navigation} key={notifica.id} notifica={notifica}></PostApplicationCard>
                 }
             })
         }

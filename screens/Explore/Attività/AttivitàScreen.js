@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { StyleSheet, TouchableOpacity, Dimensions, Platform, RefreshControl } from 'react-native';
+import { TouchableOpacity, RefreshControl } from 'react-native';
 import { SceneMap } from 'react-native-tab-view';
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery, useMutation } from '@apollo/react-hooks';
@@ -105,6 +105,12 @@ mutation unseeApplicationChatChatMutation($id:ID!,$pubRead:Boolean,$subRead:Bool
     }
 }`
 
+function wait(timeout) {
+    return new Promise(resolve => {
+        setTimeout(resolve, timeout);
+    });
+}
+
 export default function AttivitàScreen({ navigation }) {
     const [refreshing, setRefreshing] = useState(false);
     const { refetch, data, loading } = useQuery(User, { fetchPolicy: "no-cache" });
@@ -112,6 +118,11 @@ export default function AttivitàScreen({ navigation }) {
         { key: 'first', title: 'Inviate' },
         { key: 'second', title: 'Ricevute' },
     ]);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        refetch()
+        wait(2000).then(() => setRefreshing(false));
+    }, [refreshing]);
 
     const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
         onCompleted: () => {
@@ -168,11 +179,6 @@ export default function AttivitàScreen({ navigation }) {
         </ScrollView>
     );
 
-    const onRefresh = async () => {
-        setRefreshing(true)
-        refetch().then(() => setRefreshing(false))
-    }
-
     const renderScene = SceneMap({
         first: FirstRoute,
         second: SecondRoute,
@@ -190,7 +196,7 @@ AttivitàScreen.navigationOptions = ({ navigation }) => {
         headerTitleStyle: HeaderStyles.headerTitleStyle,
         headerLeft: (
             <TouchableOpacity onPress={() => {
-                navigation.state.params.onGoBack();
+                navigation.state.params && navigation.state.params.onGoBack();
                 navigation.goBack()
             }
             }>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
-import TabBarIcon from '../../../components/TabBarIcon';
+
 import ExploreModal from './ExploreModal';
 import AttivitàScreen from '../../../screens/Explore/Attività/AttivitàScreen';
 import ApplyScreen from '../../../screens/Post/ApplyScreen';

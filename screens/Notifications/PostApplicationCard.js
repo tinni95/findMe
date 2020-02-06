@@ -1,52 +1,36 @@
 import React from "react"
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native"
+import { StyleSheet, View, TouchableOpacity, Image } from "react-native"
+import ForumHeader from "./ForumHeader"
 import { Body, Light } from "../../components/StyledText"
-import RoundButtonEmpty2 from "../../components/shared/RoundButtonEmpty2"
-import Colors from "../../constants/Colors"
-import ConnessioneHeader from "./ConnessioneHeader"
-import { gql } from "apollo-boost"
 import { useMutation } from "react-apollo"
+import { gql } from "apollo-boost"
+import PostHeader from "./PostHeader"
 
 const OPENNOTIFICA_MUTATION = gql`
 mutation openNotificaMutation($notificaId:ID!){
     openNotifica(notificaId:$notificaId){
         id
     }
-}`
-
-export default function ConnessioneRequestCard({ refetch, image, notifica, navigation }) {
-    const [openNotifica] = useMutation(OPENNOTIFICA_MUTATION, {
-        onCompleted: () => { refetch() }
-    });
+}
+`
+export default function PostApplicationCard({ image, refetch, notifica, navigation }) {
+    const [openNotifica] = useMutation(OPENNOTIFICA_MUTATION);
     return <TouchableOpacity onPress={() => {
-        navigation.navigate("UserVisitsProfileScreen", { id: notifica.from.id })
+        navigation.navigate("AttivitàScreen", { onGoBack: () => refetch() })
         openNotifica({ variables: { notificaId: notifica.id } })
     }} style={[styles.container, { backgroundColor: notifica.opened ? "white" : null }]}>
         <View style={styles.imageContainer}>
             <Image source={image} style={{ width: 40, height: 40, borderRadius: 20 }} />
         </View>
         <View style={styles.contentContainer}>
-            <ConnessioneHeader createdAt={notifica.createdAt} />
-            <Body style={styles.title}>{notifica.text}</Body>
-            <View style={styles.center}>
-                <RoundButtonEmpty2
-                    isMedium
-                    fontSize={9}
-                    buttonStyle={{ padding: 5 }}
-                    color={Colors.blue}
-                    textColor={Colors.blue}
-                    text={"  Accetta  "}
-                />
-            </View>
+            <PostHeader createdAt={notifica.createdAt} />
+            <Body style={styles.title}>{"qualcuno si è applicato al tuo post idea"}</Body>
+            <Light style={styles.text}>{notifica.text}</Light>
         </View>
     </TouchableOpacity>
 }
 
 const styles = StyleSheet.create({
-    center: {
-        justifyContent: "center",
-        alignItems: "center"
-    },
     container: {
         alignSelf: "baseline",
         minHeight: 80,

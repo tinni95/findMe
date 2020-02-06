@@ -114,7 +114,13 @@ export function ApplicationSentChat(props) {
     })
 
     useEffect(() => {
-        data && setMessages(parsePostMessages(data.PostMessagesFeed, id))
+        if (data) {
+            if (!data.PostMessagesFeed) {
+                alert("oops.. qualcosa è andato storto");
+                props.navigation.navigate("Explore")
+            }
+            setMessages(parsePostMessages(data.PostMessagesFeed, id))
+        }
     }, [data])
 
 
