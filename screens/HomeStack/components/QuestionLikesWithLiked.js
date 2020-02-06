@@ -44,7 +44,7 @@ mutation createNotifica($questionId:ID!,$text:String!,$type:String!, $id:ID!){
 `
 
 
-export const QuestionLikesWithLiked = ({ socket, data, refetch, id }) => {
+export const QuestionLikesWithLiked = ({ navigation, socket, data, refetch, id }) => {
     const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION)
     const [Like] = useMutation(LIKE_MUTATION,
         {
@@ -84,7 +84,7 @@ export const QuestionLikesWithLiked = ({ socket, data, refetch, id }) => {
                     <Body style={styles.counter}>{data.singleQuestion.likes.length}</Body>
                 </TouchableOpacity>
             }
-            <LikedBy likes={data.singleQuestion.likes}></LikedBy>
+            <LikedBy onPress={() => navigation.navigate("LikedByScreen", { likes: data.singleQuestion.likes })} likes={data.singleQuestion.likes}></LikedBy>
         </View>
     );
 };

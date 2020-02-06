@@ -24,7 +24,9 @@ query Likes($id:ID!){
         likes{
             id
             user{
+                id
                 nome
+                cognome
                 pictureUrl
               }
         }
@@ -59,7 +61,7 @@ export const QuestionCardAfter = ({ id, navigation }) => {
                     <Body style={styles.question}>{data.singleQuestion.question}</Body>
                 </View>
                 <View style={styles.footer}>
-                    <QuestionLikesWithLiked id={id} data={data} refetch={refetch} />
+                    <QuestionLikesWithLiked navigation={navigation} id={id} data={data} refetch={refetch} />
 
                 </View>
             </View>

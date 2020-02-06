@@ -3,10 +3,10 @@ import { View, StyleSheet, TouchableOpacity } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import { Light } from "../../../components/StyledText"
 
-export default function HeaderBarComments({ navigation, id, onPress }) {
+export default function HeaderBarComments({ navigation, text }) {
     return (
         <View style={styles.headerBar}>
-            <TouchableOpacity style={styles.arrow} onPress={() => navigation.navigate("QuestionScreen", { id })}>
+            <TouchableOpacity style={styles.arrow} onPress={() => navigation.goBack()}>
                 <Ionicons
                     style={{ marginLeft: 25 }}
                     name={"md-close"}
@@ -14,7 +14,7 @@ export default function HeaderBarComments({ navigation, id, onPress }) {
                     color={"black"} />
             </TouchableOpacity>
             <View style={styles.titleContainer}>
-                <Light>Commenta</Light>
+                <Light>{text}</Light>
             </View>
         </View>
     )
