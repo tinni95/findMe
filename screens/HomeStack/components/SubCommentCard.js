@@ -35,7 +35,7 @@ mutation likeMutation($id:ID!){
 }
 `
 
-export default function CommentCard({ onReply, comment, onLongPress }) {
+export default function SubCommentCard({ onReply, comment, onLongPress }) {
     const { loading, error, refetch, data } = useQuery(Likes, { variables: { id: comment.id } })
     const [Like] = useMutation(LIKE_MUTATION,
         {
@@ -64,7 +64,7 @@ export default function CommentCard({ onReply, comment, onLongPress }) {
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image source={image} style={{ width: 30, height: 30, borderRadius: 15 }} />
+                <Image source={image} style={{ width: 20, height: 20, borderRadius: 10 }} />
             </View>
             <TouchableOpacity onLongPress={onLongPress} style={styles.card}>
                 <View style={styles.header}>
@@ -106,7 +106,8 @@ export default function CommentCard({ onReply, comment, onLongPress }) {
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        marginTop: 20
+        marginTop: 20,
+        marginLeft: 50,
     },
     imageContainer: {
         margin: 15,
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     },
     card: {
         padding: 5,
-        width: width - 100,
+        width: width - 140,
         borderRadius: 2.5,
         backgroundColor: "white",
         ...Platform.select({

@@ -5,20 +5,14 @@ import { useMutation, useQuery } from "react-apollo"
 import HeaderBarComments from "./components/HeaderBarComments"
 import { width, isSmallDevice } from "../../constants/Layout"
 import AnswerCardAfter from "./components/AnswerCardAfter"
-import InputToolbar from "../MessaggiStack/InputToolbar"
 import FindMeSpinner from "../../shared/FindMeSpinner"
 import FindMeGraphQlErrorDisplay from "../../shared/FindMeGraphQlErrorDisplay"
 import CommentCard from "./components/CommentCard"
 import { useActionSheet } from '@expo/react-native-action-sheet'
 import KeyboardSpacer from 'react-native-keyboard-spacer';
-
-const CREATECOMMENT_MUTATION = gql`
-mutation createComment($text:String!,$answerId:ID!){
-    createComment(text:$text, answerId:$answerId){
-        text
-    }
-}
-`
+import { useRef } from "react"
+import InputToolbarComment from "../MessaggiStack/InputToolBarComment"
+import SubCommentCard from "./components/SubCommentCard"
 
 const DELETECOMMENT_MUTATION = gql`
 mutation deleteComment($id:ID!){
@@ -27,9 +21,32 @@ mutation deleteComment($id:ID!){
     }
 }
 `
+
+const DELETESUBCOMMENT_MUTATION = gql`
+mutation deleteSubComment($id:ID!){
+    deleteSubComment(id:$id){
+        id
+    }
+}
+`
+
 const comments = gql`
 query comments($id:ID!){
     commentsFeed(id:$id){
+        subComments{
+            id
+            text
+            createdAt
+            postedBy{
+                pictureUrl
+                id
+              nome
+              cognome
+            }
+            likes{
+                id
+            }
+        }
         id
         text
         createdAt
@@ -59,7 +76,8 @@ function wait(timeout) {
 
 export default function CreateCommentScreen({ navigation }) {
     const [refreshing, setRefreshing] = React.useState(false);
-
+    const input = useRef()
+    const [subComment, setSubComment] = React.useState("")
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         refetch()
@@ -72,8 +90,18 @@ export default function CreateCommentScreen({ navigation }) {
     const cancelButtonIndex = 1;
     const answer = navigation.getParam("answer")
     const [commentId, setId] = useState("")
+    const [subCommentId, setSubId] = useState("")
     const { loading, data, error, refetch } = useQuery(comments, { variables: { id: answer.id }, fetchPolicy: "no-cache" })
-    const [createComment] = useMutation(CREATECOMMENT_MUTATION,
+
+    const order = array => {
+        return array.sort(function (a, b) {
+            a = new Date(a.createdAt);
+            b = new Date(b.createdAt);
+            return a > b ? -1 : a < b ? 1 : 0;
+        });
+    }
+
+    const [deleteComment] = useMutation(DELETECOMMENT_MUTATION,
         {
             onCompleted: async ({ createAnswer }) => {
                 refetch()
@@ -82,7 +110,8 @@ export default function CreateCommentScreen({ navigation }) {
                 alert("Qualcosa è andato storto")
             }
         });
-    const [deleteComment] = useMutation(DELETECOMMENT_MUTATION,
+
+    const [deleteSubComment] = useMutation(DELETESUBCOMMENT_MUTATION,
         {
             onCompleted: async ({ createAnswer }) => {
                 refetch()
@@ -95,6 +124,10 @@ export default function CreateCommentScreen({ navigation }) {
     useEffect(() => {
         commentId != "" && deleteComment({ variables: { id: commentId } })
     }, [commentId])
+
+    useEffect(() => {
+        subCommentId != "" && deleteSubComment({ variables: { id: subCommentId } })
+    }, [subCommentId])
 
     if (loading) {
         return <FindMeSpinner></FindMeSpinner>
@@ -112,33 +145,67 @@ export default function CreateCommentScreen({ navigation }) {
                 <AnswerCardAfter answer={answer}></AnswerCardAfter>
                 {
                     data.commentsFeed.map(comment => {
-                        return <CommentCard onLongPress={() => {
-                            if (data.currentUser.id == comment.postedBy.id) {
-                                showActionSheetWithOptions(
-                                    {
-                                        options,
-                                        cancelButtonIndex,
-                                        destructiveButtonIndex,
-                                    },
-                                    buttonIndex => {
-                                        if (buttonIndex == 0) {
-                                            setId(comment.id)
-                                        }
-                                    },
-                                );
+                        return <View key={comment.id}><CommentCard onReply={() => {
+                            input.current.focus()
+                            setSubComment(comment)
+                        }}
+                            onLongPress={() => {
+                                if (data.currentUser.id == comment.postedBy.id) {
+                                    showActionSheetWithOptions(
+                                        {
+                                            options,
+                                            cancelButtonIndex,
+                                            destructiveButtonIndex,
+                                        },
+                                        buttonIndex => {
+                                            if (buttonIndex == 0) {
+                                                setId(comment.id)
+                                            }
+                                        },
+                                    );
+                                }
                             }
-                        }
-                        }
-                            key={comment.id} comment={comment}></CommentCard>
+                            }
+                            comment={comment}></CommentCard>
+                            {order(comment.subComments).map(subComment => {
+                                return <SubCommentCard
+                                    onLongPress={() => {
+                                        if (data.currentUser.id == subComment.postedBy.id) {
+                                            showActionSheetWithOptions(
+                                                {
+                                                    options,
+                                                    cancelButtonIndex,
+                                                    destructiveButtonIndex,
+                                                },
+                                                buttonIndex => {
+                                                    if (buttonIndex == 0) {
+                                                        setSubId(subComment.id)
+                                                        console.log(subComment.id)
+                                                    }
+                                                },
+                                            );
+                                        }
+                                    }
+                                    }
+                                    onReply={() => {
+                                        input.current.focus()
+                                        setSubComment(comment)
+                                    }}
+                                    comment={subComment}
+                                    key={subComment.id}
+                                ></SubCommentCard>
+                            })}
+                        </View>
                     })
                 }
             </ScrollView>
-            <InputToolbar
+            <InputToolbarComment
+                answerId={answer.id}
+                refetch={refetch}
+                refer={input}
+                comment={subComment}
                 viewStyle={{ paddingBottom: 10 }}
-                image={{ uri: data.currentUser.pictureUrl }}
-                onSend={(text) => {
-                    text.length > 0 && createComment({ variables: { text, answerId: answer.id } })
-                }}></InputToolbar>
+                image={{ uri: data.currentUser.pictureUrl }}></InputToolbarComment>
             <KeyboardSpacer style={{ backgroundColor: "white" }} topSpacing={isSmallDevice ? -40 : -80} />
 
         </View>

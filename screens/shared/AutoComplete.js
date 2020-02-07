@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, TextInput, View, StyleSheet, TouchableOpacity, Keyboard } from "react-native";
 import { FormStyles } from "./Form/FormStyles";
-import { Bold, Light, Body } from '../../components/StyledText';
+import { Bold, Body } from '../../components/StyledText';
 import { Ionicons } from '@expo/vector-icons';
 const shortid = require('shortid');
 

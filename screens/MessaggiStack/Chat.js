@@ -103,7 +103,10 @@ export function Chat({ navigation, socket }) {
 
     useEffect(() => {
         this.sockettino.on("chat message", msg => {
-            wait(500).then(() => refetch());
+            wait(500).then(() => refetch()).then(() => {
+                isSub ? unseeChat({ variables: { chatId: chatId, subRead: true } }) :
+                    unseeChat({ variables: { chatId: chatId, pubRead: true } })
+            });
         })
     })
 
