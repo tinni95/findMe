@@ -187,10 +187,6 @@ export default function CreateCommentScreen({ navigation }) {
                                         }
                                     }
                                     }
-                                    onReply={() => {
-                                        input.current.focus()
-                                        setSubComment(comment)
-                                    }}
                                     comment={subComment}
                                     key={subComment.id}
                                 ></SubCommentCard>

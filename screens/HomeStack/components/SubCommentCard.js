@@ -35,7 +35,7 @@ mutation likeMutation($id:ID!){
 }
 `
 
-export default function SubCommentCard({ onReply, comment, onLongPress }) {
+export default function SubCommentCard({ comment, onLongPress }) {
     const { loading, error, refetch, data } = useQuery(Likes, { variables: { id: comment.id } })
     const [Like] = useMutation(LIKE_MUTATION,
         {
@@ -93,11 +93,6 @@ export default function SubCommentCard({ onReply, comment, onLongPress }) {
                             </TouchableOpacity>
                         }
                     </View>
-                    <View style={styles.spacer}></View>
-                    <TouchableOpacity onPress={onReply} style={styles.commentsContainer}>
-                        <Image source={require("../../../assets/images/commentbubble.png")} style={{ width: 12, height: 12 }} />
-                        <Body style={styles.footerText}>Rispondi</Body>
-                    </TouchableOpacity>
                 </View>
             </TouchableOpacity>
         </View>)
