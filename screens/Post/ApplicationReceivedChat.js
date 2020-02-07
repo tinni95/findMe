@@ -109,7 +109,9 @@ export function ApplicationReceivedChat(props) {
 
     useEffect(() => {
         this.sockettino.on("chat message", msg => {
-            wait(500).then(() => refetch());
+            wait(500).then(() => refetch()).then(() => {
+                unseeChat({ variables: { id: application.id, pubRead: true } })
+            })
         }, [])
     })
 

@@ -59,13 +59,6 @@ const chatFeed = gql`
   }
 `
 
-const MESSAGES_SUBSCRIPTION = gql`
-subscription messageReceivedNotificaSub($id:ID!){
-    messageReceivedNotificaSub(id:$id){
-        updatedFields
-    }
-  }`;
-
 export default function Channels({ navigation }) {
     const isRefetch = navigation.getParam("refetch") || null
     const { loading, error, data, refetch } = useQuery(chatFeed, { fetchPolicy: "no-cache" });

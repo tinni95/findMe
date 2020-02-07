@@ -81,7 +81,6 @@ function wait(timeout) {
 
 export function Chat({ navigation, socket }) {
     const [messages, setMessages] = useState([])
-    const [count, setCount] = useState(1)
     const chatId = navigation.getParam("chatId")
     const isSub = navigation.getParam("isSub")
     const id = navigation.getParam("id")
