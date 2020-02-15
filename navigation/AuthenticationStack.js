@@ -3,13 +3,19 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import {
   LoginScreen,
   LandingPage,
-  SignUpScreen
+  RegisterPage,
+  EmailPage,
+  PasswordPage,
+  PrivacyPage
 } from "../screens/AuthenticationStack";
 
 export default createAppContainer(
   createStackNavigator({
     LandingPage,
     LoginScreen,
-    SignUpScreen
+    RegisterPage,
+    EmailPage,
+    PasswordPage,
+    PrivacyPage
   })
 );

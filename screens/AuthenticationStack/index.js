@@ -1,5 +1,9 @@
 import LoginScreen from './LoginScreen';
 import { LandingPage } from './LandingPage';
-import SignUpScreen from './SignUpScreen';
+import RegisterPage from './SignUp';
+import EmailPage from './SignUp/EmailPage';
+import PasswordPage from './SignUp/PasswordPage';
+import PrivacyPage from './SignUp/PrivacyPage';
 
-export { LandingPage, LoginScreen, SignUpScreen };
+
+export { LandingPage, LoginScreen, RegisterPage, EmailPage, PasswordPage, PrivacyPage };

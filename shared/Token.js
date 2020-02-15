@@ -1,1 +1,1 @@
-export const TOKEN_KEY = "akcom1023124ed<";
+export const TOKEN_KEY = "1<";

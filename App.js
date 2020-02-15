@@ -19,8 +19,20 @@ import moment from 'moment/min/moment-with-locales'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 
 import MainTabNavigatorWrapper from './MainTabNavigatorWrapper';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import Colors from './constants/Colors';
 
 moment.locale('it');
+
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: Colors.blue,
+    accent: Colors.ocean
+  },
+};
 
 
 export default function App() {
@@ -115,16 +127,19 @@ export default function App() {
   }
   return (
     <ActionSheetProvider>
-      <ApolloProvider client={client}>
-        <View style={styles.container}>
-          {loggedin ?
-            (
-              <MainTabNavigatorWrapper screenProps={{ changeLoginState: () => logout() }} />
-            ) :
-            <AuthenticationStack screenProps={{ changeLoginState: () => login() }} />}
-        </View>
-      </ApolloProvider>
+      <PaperProvider theme={theme}>
+        <ApolloProvider client={client}>
+          <View style={styles.container}>
+            {loggedin ?
+              (
+                <MainTabNavigatorWrapper screenProps={{ changeLoginState: () => logout() }} />
+              ) :
+              <AuthenticationStack screenProps={{ changeLoginState: () => login() }} />}
+          </View>
+        </ApolloProvider>
+      </PaperProvider>
     </ActionSheetProvider>
+
 
   );
 }
