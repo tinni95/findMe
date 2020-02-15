@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { graphlEndPoint, graphlWsEndPoint } from "./shared/urls";
+import { graphlEndPoint } from "./shared/urls";
 import { TOKEN_KEY } from "./shared/Token"
 import AuthenticationStack from './navigation/AuthenticationStack';
 import { ApolloClient } from 'apollo-client';
@@ -73,14 +73,6 @@ export default function App() {
       uri: graphlEndPoint,
     });
 
-    // Create a WebSocket link:
-    const wsLink = new WebSocketLink({
-      uri: graphlWsEndPoint,
-      options: {
-        reconnect: true
-      }
-    });
-
     const link = split(
       // split based on operation type
       ({ query }) => {
@@ -90,7 +82,6 @@ export default function App() {
           definition.operation === 'subscription'
         );
       },
-      wsLink,
       httpLink,
     );
 
