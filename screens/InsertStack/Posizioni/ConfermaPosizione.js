@@ -32,6 +32,7 @@ export default function ConfermaPosizione({ navigation }) {
     const description = navigation.getParam("description");
     const categoria = navigation.getParam("categoria");
     const requisiti = navigation.getParam("requisiti");
+    const skip = navigation.getParam("skip");
     const activeIndex = Settori.indexOf(categoria);
     const socio = navigation.getParam("socio");
     const activeIndexSocio = TipoSocio.indexOf(socio);
@@ -54,7 +55,7 @@ export default function ConfermaPosizione({ navigation }) {
                 postPositions: [...posizioni, posizione]
             }
         });
-        navigation.navigate("Posizioni", { settore: Math.floor((Math.random() * -1000)), item: null });
+        skip ? navigation.navigate("Anteprima") : navigation.navigate("Posizioni", { settore: Math.floor((Math.random() * -1000)), item: null });
     }
     return (
         <View style={styles.container}>

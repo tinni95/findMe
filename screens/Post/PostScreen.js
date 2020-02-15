@@ -43,6 +43,7 @@ query PostScreenQuery($postId: ID!) {
       pushToken
     }
     positions {
+      type
       id
       description
       title
@@ -128,7 +129,7 @@ export default function PostScreen({ navigation }) {
           comune={data.singlePost.comune}
           regione={data.singlePost.regione}
         />
-        <PostInfo tipoSocio={data.singlePost.type} pubblicatoDa={data.singlePost.postedBy.nome}
+        <PostInfo tipoSocio={data.singlePost.type} user={data.singlePost.postedBy}
           fields={data.singlePost.fields}
           posizione={data.singlePost.posizione} />
         <View style={styles.DesriptionContainer}>

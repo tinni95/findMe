@@ -1,7 +1,7 @@
 import React from "react";
 import StepIndicator from 'react-native-step-indicator';
 import { isSmallDevice } from "../../../constants/Layout";
-const labels = ["Presentazione", "Descrizione", "Posizioni", "Anteprima"];
+const labels = ["Presentazione", "Posizioni", "Anteprima"];
 const customStyles = {
   stepStrokeCurrentColor: '#10476C',
   stepStrokeFinishedColor: '#10476C',
@@ -31,9 +31,6 @@ export const StepsIndicator = ({ active, navigation: { navigate } }) => {
             navigate("Presentazione");
           }
           else if (step == 1) {
-            navigate("Descrizione");
-          }
-          else if (step == 2) {
             navigate("Posizioni");
           }
           else {
@@ -41,7 +38,7 @@ export const StepsIndicator = ({ active, navigation: { navigate } }) => {
           }
         }
       }}
-      stepCount={4}
+      stepCount={3}
       currentPosition={active}
       labels={labels}
       customStyles={customStyles}

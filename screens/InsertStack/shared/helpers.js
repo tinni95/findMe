@@ -24,7 +24,7 @@ export const Requisiti = [
     "Logic Pro x",
 ]
 
-export const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
+export const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore", "Freelancer"];
 
 export const TitoliPosizioni = [
     {

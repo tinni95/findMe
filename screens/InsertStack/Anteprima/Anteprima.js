@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, CheckBox, Platform } from 'react-native';
-import { CheckBox as Checkbox } from 'react-native-elements'
+import { View, StyleSheet } from 'react-native';
+import CheckBox from 'react-native-check-box'
 import { Light } from '../../../components/StyledText';
 import { StepsIndicator } from "../shared/stepsIndicator";
 import PostScreenConfirm from "../../Post/PostScreenConfirm";
@@ -11,6 +11,7 @@ import RoundButton from '../../../components/shared/RoundButton';
 import { isBigDevice, width } from '../../../constants/Layout';
 import { parsePositions } from './helpers';
 import HeaderBar from '../shared/HeaderBar';
+import Colors from '../../../constants/Colors';
 
 const POST_ANTEPRIMA = gql`
   query DescrizioneQuery {
@@ -111,30 +112,20 @@ export default Anteprima = ({ navigation, user }) => {
     <View style={styles.container}>
       <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
       <View style={styles.header}>
-        <StepsIndicator navigation={navigation} active={3}></StepsIndicator>
+        <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
       </View>
       <View style={styles.body}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <PostScreenConfirm navigation={navigation} post={post} user={user} isHidden={checked}></PostScreenConfirm>
-          <View style={styles.line}></View>
           <View style={styles.buttonWrapper}>
-            {Platform.OS == "ios" ?
-              <Checkbox
-                containerStyle={{ backgroundColor: "white" }}
-                title='Nascondi Profilo'
-                checked={checked}
-                onPress={() => setChecked(!checked)}
-              ></Checkbox>
-              :
-              <View style={styles.checkBoxWrapper}>
-                <CheckBox
-                  style={{ margin: 5 }}
-                  value={checked}
-                  onValueChange={() => setChecked(!checked)}
-                ></CheckBox>
-                <Light style={{ margin: 5 }}>Nascondi Profilo</Light>
-              </View>
-            }
+            <View style={styles.checkBoxWrapper}>
+              <CheckBox
+                isChecked={checked}
+                onClick={() => setChecked(!checked)}
+                checkBoxColor={Colors.blue}
+              ></CheckBox>
+              <Light>Nascondi Profilo</Light>
+            </View>
             <RoundButton onPress={() => pubblica()} styleProps={{ margin: 25 }} text={"PUBBLICA POST IDEA"}
               color={"#10476C"} textColor={"white"} />
           </View>

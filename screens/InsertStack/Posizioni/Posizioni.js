@@ -97,7 +97,7 @@ export default function Posizioni({ navigation, settore }) {
     setRequisiti([]);
   }
 
-  const handleAggiungi = (bool) => {
+  const handleAggiungi = (bool, skip) => {
     if (categoria.length === 0 && !bool) {
       setCategoriaError(true)
     } else {
@@ -120,7 +120,8 @@ export default function Posizioni({ navigation, settore }) {
         categoria,
         socio,
         title,
-        requisiti
+        requisiti,
+        skip
       });
     }
   }
@@ -140,7 +141,7 @@ export default function Posizioni({ navigation, settore }) {
         </View>
         <View style={styles.buttonWrapper}>
           <RoundButtonEmptyUniversal text={"INDIETRO"} color={"#10476C"} onPress={() => navigation.navigate("Descrizione")} />
-          <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+          <RoundButton text={"  AVANTI  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress(bool)} />
         </View>
       </View>)
   }
@@ -171,8 +172,9 @@ export default function Posizioni({ navigation, settore }) {
     })
   }
 
-  const handlePress = () => {
-    if (posizioni.length < 1) {
+  const handlePress = (bool) => {
+    handleAggiungi(bool, true);
+    if (!((categoria.length > 0 && socio.length > 0 && title.length > 0) || bool) && posizioni.length < 1) {
       setPosizioniError(true)
     } else {
       setPosizioniError(false)
@@ -186,7 +188,7 @@ export default function Posizioni({ navigation, settore }) {
     <View style={styles.container}>
       <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
       <View style={styles.header}>
-        <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
+        <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
       </View>
       <View style={styles.body}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -292,7 +294,7 @@ const styles = StyleSheet.create({
     marginRight: isBigDevice ? 100 : 20,
   },
   header: {
-    flex: 1.5
+    flex: 1
   },
   link: {
     color: "#26547C",

@@ -2,145 +2,193 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { StepsIndicator } from "./shared/stepsIndicator";
 import FormTextInput from "../shared/Form/FormTextInput";
-import StepsLabel from "../shared/StepsLabel";
 import WithErrorString from "../shared/Form/WithErrorString";
-import { FormStyles } from "../shared/Form/FormStyles";
-import RoundFiltersOne from "../Explore/FiltersStack/components/RoundFiltersOne";
+import { RoundFilters } from "../Explore/FiltersStack/components/RoundFilters";
 import RoundButton from '../../components/shared/RoundButton';
+import RoundButtonEmptyUniversal from '../../components/shared/RoundButtonEmptyUniversal';
+import StepsLabel, { StepsLabelWithHint } from "../shared/StepsLabel";
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { FormStyles } from "../shared/Form/FormStyles";
 import { isBigDevice } from '../../constants/Layout';
-import { TitoliPosizioni } from './shared/helpers';
+import { Settori } from "./shared/helpers";
+import Colors from '../../constants/Colors';
 import HeaderBar from './shared/HeaderBar';
 
-const POST_PRESENTAZIONE = gql`
-  query PresentazioneQuery {
-    postRegione @client
+
+const POST_DESCRIZIONE = gql`
+  query DescrizioneQuery {
+    postTitle @client
+    postDescription @client
+    postCategories @client
     postComune @client
+    postRegione @client
     postProvincia @client
-    postOwner @client
-    postOwnerPosition @client
   }
 `;
 
 
-const TipoSocio = ["Socio Operativo", "Socio Finanziatore", "Socio Operativo e Finanziatore"];
-
-export default function Presentazione({ navigation }) {
+export default function Descrizione({ navigation }) {
     const client = useApolloClient();
-    const { data } = useQuery(POST_PRESENTAZIONE);
-    const activeIndex = TipoSocio.indexOf(data.postOwner) || -1;
-    const passedTitle = navigation.getParam("title") || data.postOwnerPosition
+    const { data } = useQuery(POST_DESCRIZIONE);
+    const refreshSettore = () => {
+        settore = categories
+    }
+    let settore = data.postCategories;
+    //navigation filling values
     const passedComune = navigation.getParam("comune") || data.postComune
     const passedProvincia = navigation.getParam("provincia") || data.postProvincia
     const passedRegione = navigation.getParam("regione") || data.postRegione
-    const [position, setPosition] = useState("");
     const [comune, setComune] = useState("");
     const [regione, setRegione] = useState("");
     const [provincia, setProvincia] = useState("");
-    const [postOwner, setPostOwner] = useState("");
     const [locationError, setLocationError] = useState("");
-    const [positionError, setPositionError] = useState("");
-    const [postOwnerError, setPostOwnerError] = useState("");
+    //end
 
+    //filling autocomplete returned values
     useEffect(() => {
-        passedTitle ? setPosition(passedTitle.name ? passedTitle.name : passedTitle) : null
         passedComune ? setComune(passedComune) : null
         passedRegione ? setRegione(passedRegione) : null
         passedProvincia ? setProvincia(passedProvincia) : null
     })
 
-    useEffect(() => {
-        activeIndex !== -1 ? setPostOwner(data.postOwner) : null
-    }, [])
+    const [zoom, setZoom] = useState(false)
+    const [title, setTitle] = useState(data.postTitle || "");
+    const [description, setDescription] = useState(data.postDescription || "");
+    const [titleError, setTitleError] = useState("");
+    const [settoreError, setSettoreError] = useState("");
+    const [descriptionError, setDescriptionError] = useState("");
+    const [categories, setCategories] = useState(settore);
 
+
+    const addItem = item => {
+        if (categories.length < 3 || categories.includes(categories))
+            setCategories([...categories, item]);
+    };
+    const removeItem = item => {
+        setCategories(categories.filter(i => i !== item));
+    };
     const handlePress = () => {
-        if (position.length === 0) {
-            setPositionError(true)
-        }
-        else {
-            setPositionError(false)
-        }
-        if (postOwner.length === 0) {
-            setPostOwnerError(true)
-        }
-        else {
-            setPostOwnerError(false)
-        }
         if (comune.length === 0) {
             setLocationError(true)
         }
         else {
             setLocationError(false)
         }
-        if (position.length > 0 && postOwner.length > 0 && comune.length > 0) {
+        if (title.length === 0) {
+            setTitleError(true);
+        }
+        else {
+            setTitleError(false)
+        }
+        if (description.length === 0) {
+            setDescriptionError(true);
+        }
+        else {
+            setDescriptionError(false)
+        }
+        if (categories.length === 0) {
+            setSettoreError(true);
+        }
+        else {
+            setSettoreError(false);
+        }
+        if (comune.length > 0 && categories.length > 0 && title.length > 0 && description.length > 0) {
+
             client.writeData({
                 data: {
-                    postRegione: regione,
-                    postComune: comune,
+                    postDescription: description,
+                    postTitle: title,
+                    postCategories: categories,
                     postProvincia: provincia,
-                    postOwnerPosition: position,
-                    postOwner
+                    postComune: comune,
+                    postRegione: regione
                 }
             });
-            navigation.navigate("Descrizione");
+            navigation.navigate("Posizioni");
         }
     }
 
     return (
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
             <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
             <View style={styles.header}>
                 <StepsIndicator navigation={navigation} active={0}></StepsIndicator>
             </View>
             <View style={styles.body}>
-                <StepsLabel text={"Scegli Località"} error={locationError} />
-                <WithErrorString
-                    errorText="Campo Obbligatorio"
-                    error={locationError}
-                >
+                <ScrollView showsVerticalScrollIndicator={false}>
+                    {!zoom &&
+                        < View >
+                            {refreshSettore()}
+                            <StepsLabel text={"Scegli Località"} error={locationError} />
+                            <WithErrorString
+                                errorText="Campo Obbligatorio"
+                                error={locationError}
+                            >
+                                <FormTextInput
+                                    style={locationError ? FormStyles.inputError : FormStyles.input}
+                                    value={comune.length > 0 ? comune + ", " + provincia + ", " + regione : ""}
+                                    onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione" })}
+                                    placeholder="Località"
+                                />
+                            </WithErrorString>
+                            <StepsLabel error={titleError} text={"Titolo Progetto"} />
+                            <WithErrorString
+                                error={titleError}
+                                errorText={"Campo Obbligatorio"}>
+                                <FormTextInput
+                                    placeholder="Titolo Post Idea (es. `Sviluppo App`)"
+                                    onChangeText={val => setTitle(val)}
+                                    value={title}
+                                    style={titleError ? FormStyles.inputError : FormStyles.input}
+                                />
+                            </WithErrorString>
+                            <View style={{ flexDirection: "row", alignContent: "center", alignItems: "center" }}>
+                                <StepsLabelWithHint error={settoreError}
+                                    tooltipText={"Queste sono le categorie della tua idea, puoi sceglierne massimo 3"}
+                                    text={"Settore"} />
+                            </View>
+                            <RoundFilters maximum={3} items={categories} addItem={addItem} removeItem={removeItem} settori={Settori} settoreAttivi={settore} />
+                        </View>
+                    }
+                    <StepsLabel error={descriptionError} text={"Descrizione"} />
                     <FormTextInput
-                        style={locationError ? FormStyles.inputError : FormStyles.input}
-                        value={comune.length > 0 ? comune + ", " + provincia + ", " + regione : ""}
-                        onFocus={() => navigation.navigate("AutoCompleteLocation", { path: "Presentazione" })}
-                        placeholder="Località"
+                        large="true"
+                        multiline
+                        numberOfLines={4}
+                        placeholder="Descrizione"
+                        placeholderTextColor="#ADADAD"
+                        onFocus={() => setZoom(true)}
+                        onEndEditing={() => setZoom(false)}
+                        textAlignVertical={"top"}
+                        style={zoom ? FormStyles.xlarge : FormStyles.large}
+                        onChangeText={val => setDescription(val)}
+                        editable
+                        value={description}
                     />
-                </WithErrorString>
-                <StepsLabel error={postOwnerError} text={"Mi Propongo Come"} />
-                <View style={styles.spacer} />
-                <RoundFiltersOne setItem={tipoSocio => setPostOwner(tipoSocio)} settori={TipoSocio} settoreAttivi={activeIndex} />
-                <View style={styles.spacer} />
-                <View style={styles.PosizioniTitleWrapper}>
-                    <StepsLabel error={positionError} text={"La Mia Funzione"} />
-                    <WithErrorString
-                        errorText="Campo Obbligatorio"
-                        error={positionError}
-                    >
-                        <FormTextInput
-                            style={positionError ? FormStyles.inputError : FormStyles.input}
-                            value={position}
-                            onFocus={() => navigation.navigate("AutoComplete", { path: "Presentazione", items: TitoliPosizioni })}
-                            placeholder="Posizione (es. CEO, Programmatore)"
-                        />
-                    </WithErrorString>
-                </View>
-                <View style={styles.buttonWrapper}>
-                    <RoundButton text={"  Avanti  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
-                </View>
+                    {zoom && <View style={{ alignItems: "center" }}><RoundButton onPress={() => setZoom(false)} color={Colors.red} text={"Conferma"} textColor={"white"} />
+                    </View>}
+                    {!zoom &&
+                        <View style={styles.buttonWrapper}>
+                            <RoundButton text={"  Avanti  "} color={"#10476C"} textColor={"white"} onPress={() => handlePress()} />
+                        </View>
+                    }
+                </ScrollView>
             </View>
-        </ScrollView>
+        </View >
     )
 };
 
-Presentazione.navigationOptions = {
+Descrizione.navigationOptions = {
     header: null
 };
 const styles = StyleSheet.create({
     buttonWrapper: {
-        flex: 1,
-        justifyContent: "flex-end",
         alignItems: "center",
-        margin: 20
+        justifyContent: "center",
+        margin: 28,
+        marginTop: 40,
+        marginBottom: 40
     },
     inputWrapper: {
         flex: 1,
@@ -157,7 +205,12 @@ const styles = StyleSheet.create({
         marginRight: isBigDevice ? 100 : 20,
     },
     header: {
-        flex: 1.5
+        flex: 1
     },
-    spacer: { height: 10 }
+    textHeading: {
+        marginLeft: 5,
+        marginBottom: 15,
+        marginTop: 25,
+        color: '#5F5E5E'
+    }
 });

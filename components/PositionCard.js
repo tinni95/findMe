@@ -80,22 +80,31 @@ export function PositionCard({ position, button, post, navigation }) {
           </View>
         </View>
         <View style={styles.description}>
-          {position.requisiti ?
-            <View style={styles.DescriptionItem}>
-              <Body style={styles.DescriptionItemTitle}>Requisiti</Body>
-              {
-                position.requisiti.length == 0 ? <Light style={styles.DescriptionItemBody}>
-                  Non Specificato
+          <View style={styles.DescriptionItems}>
+            {position.requisiti ?
+              <View style={styles.DescriptionItem}>
+                <Body style={styles.DescriptionItemTitle}>Requisiti</Body>
+                {
+                  position.requisiti.length == 0 ? <Light style={styles.DescriptionItemBody}>
+                    Non Specificato
             </Light>
-                  :
-                  position.requisiti.map(requisito => {
-                    return <Light key={shortid.generate()} style={styles.DescriptionItemBody}>
-                      - {requisito}
-                    </Light>
-                  })}
-              <View style={styles.spacer} />
+                    :
+                    position.requisiti.map(requisito => {
+                      return <Light key={shortid.generate()} style={styles.DescriptionItemBody}>
+                        - {requisito}
+                      </Light>
+                    })}
+                <View style={styles.spacer} />
+              </View>
+              : null}
+
+            <View style={styles.DescriptionItemSm}>
+              <Body style={styles.DescriptionItemTitle}>Tipo Posizione</Body>
+              <Light style={styles.DescriptionItemBody}>
+                {position.type}
+              </Light>
             </View>
-            : null}
+          </View>
           <View style={styles.DescriptionItem}>
             <Body style={styles.DescriptionItemTitle}>Descrizione</Body>
             <Light style={styles.DescriptionItemBody}>
@@ -124,6 +133,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5
   },
+  DescriptionItems: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  DescriptionItem: { flex: 1.5 },
+  DescriptionItemSm: { flex: 1, alignItems: "flex-end" },
   description: {
     marginTop: 10
   },

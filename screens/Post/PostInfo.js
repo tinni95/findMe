@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Bold, Body } from '../../components/StyledText';
 
-export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden }) {
+export default function PostInfo({ fields, user, isHidden }) {
 
     return (
         <View style={styles.container}>
@@ -13,27 +13,15 @@ export default function PostInfo({ fields, tipoSocio, posizione, user, isHidden 
                 </Text>
             </View>
             <View style={styles.line}>
-                {user ?
+                {user &&
                     <View style={{ flexDirection: "row" }}>
                         <Body>Pubblicato Da:</Body>
                         {!isHidden ?
                             <Body style={styles.grigio}>
                                 {" " + user.nome} {user.cognome}</Body> :
                             <Body style={styles.grigio}>
-                                {" " + user.nome[0] + "."}   {user.cognome}</Body>}
-                    </View>
-                    : <View style={{ flexDirection: "row" }}>
-                        <Body>Pubblicato Da: </Body>
-                        <Body style={styles.grigio}>pubblicatoDa</Body>
+                                {" " + user.nome + " " + user.cognome[0] + "."}</Body>}
                     </View>}
-            </View>
-            <View style={styles.line}>
-                <Body>Si Propone Come:</Body>
-                <Body style={styles.grigio}> {tipoSocio}</Body>
-            </View>
-            <View style={styles.line}>
-                <Body>Posizione:</Body>
-                <Body style={styles.grigio}> {posizione}</Body>
             </View>
         </View>
     )
