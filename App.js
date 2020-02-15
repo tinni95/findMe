@@ -13,7 +13,6 @@ import { split } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createUploadLink } from "apollo-upload-client";
 import { resolvers, typeDefs } from "./resolvers"
-import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import moment from 'moment/min/moment-with-locales'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
