@@ -7,7 +7,7 @@ import { validateEmail } from "../validators"
 import HeaderLeft from '../../../components/HeaderLeft';
 
 export default function EmailPage({ navigation }) {
-    const { user } = navigation.state.params;
+    const { user, emailUsed } = navigation.state.params;
     const [email, setEmail] = useState("")
     const [reEmail, setReEmail] = useState("")
     const [emailError, setEmailError] = useState(false)
@@ -18,9 +18,11 @@ export default function EmailPage({ navigation }) {
 
     useEffect(() => {
         preinput.current.focus()
-        navigation.setParams({ headerRight: (<HeaderRight text={"Next"} onPress={() => login()} />) })
     }, [])
 
+    useEffect(() => {
+        navigation.setParams({ login })
+    }, [email, reEmail])
 
     const login = () => {
         if (!validateEmail(email)) {
@@ -47,8 +49,8 @@ export default function EmailPage({ navigation }) {
                 label='Email'
                 autoCapitalize="none"
                 value={email}
-                hintError={emailError}
-                hintText={"Invalid email"}
+                hintError={emailError || emailUsed}
+                hintText={emailUsed ? "email gia in uso" : "email non valida"}
                 placeholder={"email"}
                 onChangeText={text => setEmail(text)}
                 onSubmitEditing={() => input.current.focus()}
@@ -70,9 +72,9 @@ export default function EmailPage({ navigation }) {
 
 
 EmailPage.navigationOptions = ({ navigation }) => {
-    const { headerRight } = navigation.state.params
     return {
-        headerRight,
+        headerRight:
+            (<HeaderRight text={"Next"} onPress={() => navigation.getParam("login")()} />),
         headerLeft:
             (<HeaderLeft navigation={navigation} />
             )

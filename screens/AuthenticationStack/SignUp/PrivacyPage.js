@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, AsyncStorage } from 'react-native';
 import { isSmallDevice } from '../../../constants/Layout';
 import CheckBox from 'react-native-check-box'
 import HeaderLeft from '../../../components/HeaderLeft';
@@ -7,14 +7,67 @@ import { Bold, Body, Light } from '../../../components/StyledText';
 import Colors from '../../../constants/Colors';
 import RoundButton from '../../../components/shared/RoundButton';
 import { useState } from 'react';
+import { gql } from 'apollo-boost';
+import { useMutation } from 'react-apollo';
+import { TOKEN_KEY } from "../../../shared/Token"
+import PushNotifications from '../../../shared/PushNotifications';
 
-export default function PrivacyPage({ navigation }) {
-    const { user } = navigation.state.params;
+const SIGNUP_MUTATION = gql`
+  mutation signup($email: String!, $password: String!,$nome: String!, $cognome: String!) {
+    signup(email: $email, password:$password,
+      nome:$nome, cognome:$cognome) {
+        token
+    }
+  }
+`;
+
+const UPDATEUSER_MUTATION = gql`
+mutation updateUser($pushToken:String) {
+        updateUser(pushToken: $pushToken) {
+          pushToken
+          nome
+    }
+}`;
+
+
+export default function PrivacyPage({ navigation, screenProps }) {
+
+    const handleNotification = ({ origin, data }) => {
+        console.log(
+            `Push notification ${origin} with data: ${JSON.stringify(data)}`,
+        );
+    }
+
+    const [signup] = useMutation(SIGNUP_MUTATION,
+        {
+            onCompleted: async ({ signup }) => {
+                await AsyncStorage.setItem(TOKEN_KEY, signup.token);
+                screenProps.changeLoginState();
+                let token = PushNotifications(updateUser)
+                this._notificationSubscription = Notifications.addListener(handleNotification);
+            },
+            onError: (error) => {
+                console.log(error)
+                if (error.toString().includes("User already exists with that email")) {
+                    navigation.navigate("EmailPage", { user: { nome, cognome }, emailUsed: true })
+                }
+            }
+        });
+
+    const [updateUser] = useMutation(UPDATEUSER_MUTATION,
+        {
+            onCompleted: async ({ updateUser }) => {
+                console.log(updateUser)
+            }
+        });
+
+    const { user: { nome, cognome, email, password } } = navigation.state.params;
+
     const [checked, setChecked] = useState(false)
 
     const login = () => {
         if (checked) {
-            console.log(user)
+            signup({ variables: { nome, cognome, email, password } })
         }
     }
 
