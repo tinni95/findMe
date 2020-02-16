@@ -5,7 +5,6 @@ import ProfileStack from './ProfileStack';
 import NotificaStack from "./NotificaStack"
 
 const MainTabNavigator = createBottomTabNavigator({
-  HomeStack,
   PostIdeaStack,
   ProfileStack,
   Notifiche: NotificaStack
