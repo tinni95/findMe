@@ -15,8 +15,12 @@ export default function RegisterPage({ navigation }) {
 
     useEffect(() => {
         preinput.current.focus()
-        navigation.setParams({ login })
     }, [])
+
+
+    useEffect(() => {
+        navigation.setParams({ login })
+    }, [name, surname])
 
     const login = () => {
         if (name.length == 0) {

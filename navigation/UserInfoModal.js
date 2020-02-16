@@ -1,5 +1,5 @@
 import React from "react"
-import { Platform, TouchableOpacity } from "react-native"
+import { TouchableOpacity } from "react-native"
 import { createStackNavigator } from 'react-navigation-stack';
 import { AutoCompleteLocation } from "../screens/shared/AutoCompleteLocation"
 import EditProfile from '../screens/ProfileStack/EditProfile';

@@ -20,9 +20,11 @@ export default function PasswordPage({ navigation }) {
 
     useEffect(() => {
         preinput.current.focus()
-        navigation.setParams({ login })
     }, [])
 
+    useEffect(() => {
+        navigation.setParams({ login })
+    }, [password, rePassword])
 
     const login = () => {
         if (!validatePassword(password)) {
@@ -38,7 +40,7 @@ export default function PasswordPage({ navigation }) {
             setRePasswordError(false)
         }
         if (validatePassword(password) && password == rePassword) {
-            console.log(user)
+            navigation.navigate("PrivacyPage", { ...user, password })
         }
     }
 
