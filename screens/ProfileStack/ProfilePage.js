@@ -120,48 +120,6 @@ const User = gql`
 
 export default function ProfilePage({ navigation }) {
 
-  // tabs
-  const Questions = () => {
-    return (
-      <View style={styles.questionContainer}>
-        {
-          data.currentUser.questions.map((question) => {
-            return <QuestionCardProfile key={question.id} question={question} navigation={navigation}></QuestionCardProfile>
-          })
-        }
-      </View>
-    )
-  }
-
-  // tabs
-  const Answers = () => {
-    return (
-      <View style={styles.questionContainer}>
-        {
-          data.currentUser.answers.map((answer) => {
-            return <AnswerCardProfile key={answer.id} answer={answer} navigation={navigation}></AnswerCardProfile>
-          })
-        }
-      </View>
-    )
-  }
-  // tabs
-  const Connessioni = () => {
-    return (
-      <View style={styles.questionContainer}>
-        {
-          data.Connessioni.map((connessione) => {
-            if (connessione.pub.id == data.currentUser.id) {
-              return <ConnessioneCard key={connessione.id} user={connessione.sub} id={data.currentUser.id} navigation={navigation} />
-            }
-            else {
-              return <ConnessioneCard key={connessione.id} user={connessione.pub} id={data.currentUser.id} navigation={navigation} />
-            }
-          })
-        }
-      </View>
-    )
-  }
   const Profilo = () => {
     return <View style={styles.infoWrapper}>
       <ItemsBlock refetch={refetch} onPress={
@@ -251,27 +209,7 @@ export default function ProfilePage({ navigation }) {
             </Text>)
           }
         </View>}
-      <View style={{ marginTop: 10, height: 5, backgroundColor: "#F2F2F2" }}></View>
-      <View style={styles.tabBar}>
-        <TouchableOpacity onPress={() => setActive(0)} style={active == 0 ? styles.tabButtonActive : styles.tabButton}>
-          <Bold style={active == 0 ? styles.tabTextActive : styles.tabText}> Profilo</Bold>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActive(1)} style={active == 1 ? styles.tabButtonActive : styles.tabButton}>
-          <Bold style={active == 1 ? styles.tabTextActive : styles.tabText}>Post</Bold>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActive(2)} style={active == 2 ? styles.tabButtonActive : styles.tabButton}>
-          <Bold style={active == 2 ? styles.tabTextActive : styles.tabText}>Interazioni</Bold>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setActive(3)} style={active == 3 ? styles.tabButtonActive : styles.tabButton}>
-          <Bold style={active == 3 ? styles.tabTextActive : styles.tabText}>Connessioni</Bold>
-        </TouchableOpacity>
-      </View>
-      {
-        active == 0 && <Profilo /> ||
-        active == 1 && <Questions /> ||
-        active == 2 && <Answers /> ||
-        active == 3 && <Connessioni />
-      }
+      <Profilo />
     </ScrollView>);
 }
 
