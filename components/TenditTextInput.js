@@ -10,7 +10,7 @@ export default function TenditTextInput(props) {
         <TextInput
             {...props}
             ref={props.reference}
-            style={{ backgroundColor: "white", fontSize: 18 }}
+            style={{ backgroundColor: "white" }}
             selectionColor={Colors.primary}
             underlineColor={"white"}
             onFocus={() => setFocus(true)}

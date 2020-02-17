@@ -97,6 +97,7 @@ export default function PasswordPage({ navigation }) {
 
 PasswordPage.navigationOptions = ({ navigation }) => {
     return {
+        headerStyle: { borderBottomWidth: 0 },
         headerRight:
             (<HeaderRight text={"Next"} onPress={() => navigation.getParam("login")()} />),
         headerLeft:

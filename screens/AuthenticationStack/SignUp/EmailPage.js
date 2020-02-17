@@ -73,6 +73,7 @@ export default function EmailPage({ navigation }) {
 
 EmailPage.navigationOptions = ({ navigation }) => {
     return {
+        headerStyle: { borderBottomWidth: 0 },
         headerRight:
             (<HeaderRight text={"Next"} onPress={() => navigation.getParam("login")()} />),
         headerLeft:

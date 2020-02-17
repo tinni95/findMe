@@ -44,21 +44,21 @@ export default function RegisterPage({ navigation }) {
         <View style={styles.container}>
             <TenditTextInput
                 reference={preinput}
-                label='first name'
+                label='Nome'
                 value={name}
                 hintError={nameError}
                 hintText={"Empty field"}
-                placeholder={"first name"}
+                placeholder={"Nome"}
                 onChangeText={text => setName(text)}
                 onSubmitEditing={() => input.current.focus()}
             />
             <TenditTextInput
                 reference={input}
-                label='last name'
+                label='Cognome'
                 value={surname}
                 hintError={surnameError}
                 hintText={"Empty field"}
-                placeholder={"last name"}
+                placeholder={"Cognome"}
                 onChangeText={text => setSurname(text)}
                 onSubmitEditing={() => login()}
             />
@@ -68,6 +68,7 @@ export default function RegisterPage({ navigation }) {
 
 RegisterPage.navigationOptions = ({ navigation }) => {
     return {
+        headerStyle: { borderBottomWidth: 0 },
         headerRight:
             (<HeaderRight text={"Next"} onPress={() => navigation.getParam("login")()} />),
         headerLeft:

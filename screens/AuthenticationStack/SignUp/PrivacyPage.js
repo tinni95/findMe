@@ -103,6 +103,7 @@ export default function PrivacyPage({ navigation, screenProps }) {
 
 PrivacyPage.navigationOptions = ({ navigation }) => {
     return {
+        headerStyle: { borderBottomWidth: 0 },
         headerLeft:
             (<HeaderLeft navigation={navigation} />
             )
