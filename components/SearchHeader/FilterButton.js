@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { Bold } from '../StyledText';
+import { Light } from '../StyledText';
 
 
 export default function FilterButton(props) {
@@ -8,7 +8,7 @@ export default function FilterButton(props) {
     <TouchableOpacity onPress={props.onPress} style={styles.button}>
       <Image source={require("../../assets/images/controls.png")}
         style={{ width: 25, height: 25 }} />
-      <Bold style={styles.counter}>{props.filters}</Bold>
+      <Light style={styles.counter}>{props.filters}</Light>
     </TouchableOpacity>
   );
 }

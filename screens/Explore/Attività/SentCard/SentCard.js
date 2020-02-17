@@ -28,7 +28,7 @@ export default function SentCard({ onPress, application, navigation }) {
                 }
                 <Body style={{ fontSize: 14, marginTop: 15, color: Colors.blue }}>Pubblicato da</Body>
                 <Light style={{ fontSize: 12, marginTop: 5 }}>{post.hidden ?
-                    post.postedBy.nome + post.postedBy.surname[0] + "." : post.postedBy.nome + " " + post.postedBy.cognome}</Light>
+                    post.postedBy.nome + " " + post.postedBy.cognome[0] + "." : post.postedBy.nome + " " + post.postedBy.cognome}</Light>
                 <Body onPress={() => navigation.navigate('PostScreen', {
                     id: post.id
                 })} style={{ fontSize: 14, marginTop: 15, color: Colors.blue }}>Titolo post</Body>

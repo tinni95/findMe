@@ -1,6 +1,5 @@
 import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import PostIdeaStack from './PostIdeaStack';
-import HomeStack from './HomeStack/HomeStack';
 import ProfileStack from './ProfileStack';
 import NotificaStack from "./NotificaStack"
 

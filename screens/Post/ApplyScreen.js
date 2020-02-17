@@ -90,8 +90,8 @@ export default function ApplyScreen({navigation}) {
             UnseeApplication({variables:{id:createApplication.id,pubRead:true, subRead:true}})
           },
           onError: error => {
-            console.log(error)
-            alert("Qualcosa è andato storto")
+            if(error.toString().includes("Verified"))
+            alert("devi prima verificare la tua email per candidarti")
           }
         });
     
