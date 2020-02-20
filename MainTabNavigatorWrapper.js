@@ -8,6 +8,7 @@ import { gql } from "apollo-boost";
 import { useState } from "react";
 import FindMeSpinner from "./shared/FindMeSpinner";
 
+
 const User = gql`
 {
     currentUser{
@@ -24,7 +25,9 @@ export default function MainTabNavigatorWrapper({ screenProps }) {
     if (loading)
         return <FindMeSpinner />
     else
-        return (<SocketContext.Provider value={io(socketEndPoint, { query: { token: data.currentUser.id } })}>
+        return (<SocketContext.Provider value={io(socketEndPoint, {
+            query: { token: data.currentUser.id }
+        })}>
             <MainTabNavigator screenProps={screenProps}></MainTabNavigator>
         </SocketContext.Provider>)
 }

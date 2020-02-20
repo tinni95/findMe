@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "findMe",
-    "slug": "findMe",
+    "name": "tendit",
+    "slug": "tendit",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "android": {
-      "package": "com.yourcompany.yourappname"
+      "package": "com.tendit.tendit"
     },
     "facebookScheme": "fb822183698200481",
     "facebookAppId": "822183698200481",
@@ -21,7 +21,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#DD1E63"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
