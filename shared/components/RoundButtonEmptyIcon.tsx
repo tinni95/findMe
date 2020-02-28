@@ -51,7 +51,9 @@ export const RoundButtonEmptyIcon: FunctionComponent<RoundButtonProps> = ({
   );
 };
 
-export const RoundButtonEmptyIconInverted: FunctionComponent<RoundButtonProps> = ({
+export const RoundButtonEmptyIconInverted: FunctionComponent<
+  RoundButtonProps
+> = ({
   buttonStyle,
   onPress,
   color,
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
     padding: 3,
     paddingLeft: 13,
     paddingRight: 13,
-    borderWidth: 1,
+    borderWidth: 0.5,
     flexDirection: "row"
   },
   text: {

@@ -26,7 +26,7 @@ export default function SentCard({ onPress, application, navigation }) {
         />
         <LinearGradient colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
         <View style={styles.info}>
-          <Bold style={{ fontSize: 16 }}>{application.position.title}</Bold>
+          <Bold style={{ fontSize: 16 }}>{application.position.titolo}</Bold>
           {post.comune ? (
             <LocationWithText
               points={17}
@@ -61,7 +61,7 @@ export default function SentCard({ onPress, application, navigation }) {
             }
             style={{ fontSize: 12, marginTop: 5 }}
           >
-            {post.title}
+            {post.titolo}
           </Light>
         </View>
         <View style={styles.tooltip}>
@@ -69,11 +69,11 @@ export default function SentCard({ onPress, application, navigation }) {
             backgroundColor={"#10476C"}
             popover={
               <Text style={{ color: "white" }}>
-                {application.position.field}
+                {application.position.settore}
               </Text>
             }
           >
-            <FieldIcon field={application.position.field} size={30} />
+            <FieldIcon field={application.position.settore} size={30} />
           </Tooltip>
         </View>
       </View>
@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between",
     width: "60%"
   },
