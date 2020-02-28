@@ -83,7 +83,7 @@ export function UserVisitProfile({ navigation, route }) {
   const Profilo = () => {
     return (
       <View style={styles.infoWrapper}>
-        <ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:data.User.formazioni})} items={data.User.formazioni} title={"Formazione"} />
+        <ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:data.User.formazioni})} items={data.User.formazioni} title={"Formazioni"} />
         <View style={styles.separator}></View>
         <ItemsBlockVisit  onPress={() => navigation.navigate("EsperienzeScreen",{esperienze:data.User.esperienze})} items={data.User.esperienze} title={"Esperienze"} />
         <View style={styles.separator}></View>

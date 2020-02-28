@@ -31,7 +31,7 @@ export default function ItemsBlockVisit({ onPress, title, items }) {
               />
             );
           })) ||
-          (title == "Formazione" &&
+          (title == "Formazioni" &&
             items.map(item => {
               return <FormazioneCard key={shortid.generate()} item={item} />;
             })) ||

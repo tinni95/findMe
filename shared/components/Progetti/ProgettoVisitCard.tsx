@@ -1,18 +1,12 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Light, Bold } from "../StyledText";
-import TouchablePen from "../TouchablePen";
 import * as WebBrowser from "expo-web-browser";
 import Colors from "../../constants/Colors";
 import ProgettoCard from "./ProgettoCard";
+import { adjustLink } from "../../functions/adjustLink";
 
 export default function ProgettoVisitCard({ progetto, navigation }) {
-  const adjustLink = link => {
-    if (!link.startsWith("http")) {
-      return "http://" + link;
-    }
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>

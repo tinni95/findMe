@@ -4,14 +4,8 @@ import { Light, Bold } from "../StyledText";
 import EsperienzaCard from "./EsperienzaCard";
 import * as WebBrowser from "expo-web-browser";
 import Colors from "../../constants/Colors";
-
+import { adjustLink } from "../../functions/adjustLink";
 export default function EsperienzaVisitCard({ esperienza, navigation }) {
-  const adjustLink = link => {
-    if (!link.startsWith("http")) {
-      return "http://" + link;
-    }
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
