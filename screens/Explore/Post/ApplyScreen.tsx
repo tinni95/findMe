@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet } from "react-native";
 import Colors from "../../../shared/constants/Colors";
 import { Light, Body } from "../../../shared/components/StyledText";
 import gql from "graphql-tag";
@@ -12,7 +11,6 @@ import { useMutation } from "@apollo/react-hooks";
 import * as Haptics from "expo-haptics";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { sendNotification } from "../../../shared/functions/PushNotifications";
-import HeaderStyles from "../../../shared/constants/HeaderStyles";
 
 const CREATENOTIFICA_MUTATION = gql`
   mutation createNotifica($text: String!, $type: String!, $id: ID!) {
@@ -45,7 +43,7 @@ const CREATEAPPLICATION_MUTATION = gql`
         cognome
       }
       position {
-        title
+        titolo
       }
     }
   }
@@ -76,6 +74,8 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
 export default function ApplyScreen({ route, navigation }) {
   const refetch = route.params.refetch;
   const position = route.params.position;
+  const post = route.params.post;
+  console.log("post", post);
   const [messaggio, setMessaggio] = useState("");
   const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION);
   const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION, {
@@ -88,7 +88,7 @@ export default function ApplyScreen({ route, navigation }) {
   });
   const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION, {
     onCompleted: async ({ createApplication }) => {
-      console.log(createApplication);
+      console.log("createApplication");
       createMessage({
         variables: {
           applicationId: createApplication.id,
@@ -105,7 +105,7 @@ export default function ApplyScreen({ route, navigation }) {
             " " +
             createApplication.from.cognome +
             " si è applicato alla tua posizione di " +
-            position.title
+            position.titolo
         }
       });
       UnseeApplication({
@@ -137,17 +137,18 @@ export default function ApplyScreen({ route, navigation }) {
     if (messaggio.length === 0) {
       return alert("aoh el messaggio");
     }
+    console.log("ehu7");
     createApplication({
-      variables: { positionId: position.id, to: position.post.postedBy.id }
+      variables: { positionId: position.id, to: post.postedBy.id }
     })
       .then(() => {
         refetch();
       })
       .then(() => {
         sendNotification(
-          position.post.postedBy.pushToken,
-          position.post.title,
-          "Qualcuno si è applicato alla tua posizione di " + position.title
+          post.postedBy.pushToken,
+          post.titolo,
+          "Qualcuno si è applicato alla tua posizione di " + position.titolo
         );
         Haptics.selectionAsync();
         navigation.goBack();
@@ -160,10 +161,10 @@ export default function ApplyScreen({ route, navigation }) {
           <View style={styles.spacer} />
           <Text>
             <Light style={{ lineHeight: 20 }}>
-              Scrivi a {position.post.postedBy.nome} Per informargli del tuo
-              interesse per la posizione di
+              Scrivi a {post.postedBy.nome} Per informargli del tuo interesse
+              per la posizione di
             </Light>
-            <Body> "{position.title}"</Body>
+            <Body> "{position.titolo}"</Body>
           </Text>
           <View style={styles.spacer} />
           <StepsLabelDefault text={"Messaggio"} />
@@ -195,7 +196,8 @@ export default function ApplyScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "white"
   },
   textWrapper: {
     margin: 30
@@ -209,23 +211,3 @@ const styles = StyleSheet.create({
     margin: 40
   }
 });
-
-ApplyScreen.navigationOptions = ({ navigation }) => {
-  return {
-    headerStyle: HeaderStyles.headerStyle,
-    headerTitleStyle: HeaderStyles.headerTitleStyle,
-    headerLeft: (
-      <TouchableOpacity
-        style={{ padding: 5, paddingRight: 10 }}
-        onPress={() => navigation.goBack()}
-      >
-        <Ionicons
-          name={"ios-arrow-back"}
-          size={25}
-          style={{ marginLeft: 10 }}
-          color={Colors.blue}
-        ></Ionicons>
-      </TouchableOpacity>
-    )
-  };
-};

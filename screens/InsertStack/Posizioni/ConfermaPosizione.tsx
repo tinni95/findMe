@@ -49,6 +49,7 @@ export default function ConfermaPosizione({ navigation, route }) {
       description,
       requisiti
     };
+    console.log("posizione", posizione);
     var PositionIndex = indexOfPosition(posizioni, posizione);
     if (PositionIndex != -1) {
       return alert(
@@ -62,9 +63,9 @@ export default function ConfermaPosizione({ navigation, route }) {
     });
     skip
       ? navigation.navigate("Anteprima")
-      : navigation.navigate("Posizioni", {
-          settore: Math.floor(Math.random() * -1000),
-          item: null
+      : navigation.navigate("PosizioniModal", {
+          screen: "Posizioni",
+          params: { settore: Math.floor(Math.random() * -1000), item: null }
         });
   };
   return (

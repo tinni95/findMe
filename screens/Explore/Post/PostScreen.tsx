@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import { Bold, Light, Body } from "../../../shared/components/StyledText";
@@ -55,18 +55,21 @@ const Post = gql`
 `;
 
 export default function PostScreen({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => <HeaderRightElimina onPress={() => deleteP()} />
-  });
 
+  const [isOwner,setIsOwner] = useState(false);
+  if(isOwner){
+    navigation.setOptions({
+      headerRight: () => <HeaderRightElimina onPress={() => deleteP()} />
+    });
+  }
   const { loading, error, data } = useQuery(Post, {
     variables: {
       postId: route.params.id
     },
     onCompleted: async ({ currentUser, singlePost }) => {
-      const isOwner = currentUser.id === singlePost.postedBy.id;
-      navigation.setParams({ isOwner });
-      navigation.setParams({ deleteP });
+      if(currentUser.id === singlePost.postedBy.id){
+        setIsOwner(true)
+      }
     },
     fetchPolicy: "no-cache"
   });
@@ -121,6 +124,7 @@ export default function PostScreen({ navigation, route }) {
           navigation={navigation}
           key={index}
           position={position}
+          post={data.singlePost}
         />
       );
     });

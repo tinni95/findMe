@@ -56,7 +56,7 @@ export default function Posizioni({ navigation, route }) {
   const [posizioniError, setPosizioniError] = useState(false);
   const [categoriaError, setCategoriaError] = useState(false);
   //Data
-  const { data } = useQuery(POST_POSIZIONI);
+  const { data,refetch } = useQuery(POST_POSIZIONI);
 
   const posizioni = data.postPositions || [];
   let passedCategoria = route.params?.categoria;
@@ -95,6 +95,8 @@ export default function Posizioni({ navigation, route }) {
   //reset when added a position
   useEffect(() => {
     resetState();
+    refetch();
+    console.log("posizioni",data.postPositions )
   }, [passedSettore]);
 
   const refreshSettore = () => {
@@ -173,7 +175,7 @@ export default function Posizioni({ navigation, route }) {
           <RoundButtonEmpty
             text={"INDIETRO"}
             color={"#10476C"}
-            onPress={() => navigation.navigate("Descrizione")}
+            onPress={() => navigation.navigate("Presentazione")}
           />
           <RoundButton
             text={"  AVANTI  "}

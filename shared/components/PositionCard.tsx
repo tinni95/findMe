@@ -27,7 +27,8 @@ const application = gql`
 `;
 var shortid = require("shortid");
 
-export function PositionCard({ position, button, navigation }) {
+export function PositionCard({ post, position, button, navigation }) {
+  console.log("post", post);
   const [deleteApplication] = useMutation(DELETEAPPLICATION_MUTATION, {
     onCompleted: async ({ deleteApplication }) => {
       alert("success");
@@ -47,8 +48,8 @@ export function PositionCard({ position, button, navigation }) {
       })
       .then(() => {
         sendNotification(
-          position.post.postedBy.pushToken,
-          position.post.titolo,
+          post.postedBy.pushToken,
+          post.titolo,
           "Qualcuno ha rimosso la sua applicazione per " + position.titolo
         );
         Haptics.selectionAsync();
@@ -58,7 +59,7 @@ export function PositionCard({ position, button, navigation }) {
   const handleApply = () => {
     navigation.navigate("ApplyScreen", {
       position,
-      post: position.post,
+      post,
       refetch
     });
   };
