@@ -1,3 +1,3 @@
 import FiltersPage from "./FiltersPage"
 
-export default FiltersPage;
+export default FiltersPage
