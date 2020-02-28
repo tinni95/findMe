@@ -22,7 +22,7 @@ export function PositionCardModifica({
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Bold style={styles.headerText}>{position.titolo}</Bold>
+        <Bold style={styles.headerText}>{position.title}</Bold>
         <View style={styles.iconContainer}>
           {Platform.OS == "web" ? (
             <FieldIconRound size={25} field={position.field} color="#60E1E0" />

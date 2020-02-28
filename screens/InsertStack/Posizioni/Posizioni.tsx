@@ -66,14 +66,13 @@ export default function Posizioni({ navigation, route }) {
   let passedSettore = route.params?.settore ?? null;
   let passedCategoriaIndex = Settori.indexOf(passedCategoria);
 
-  //if first page data is missing, we go back to it
+//if first page data is missing, we go back to it
   useEffect(() => {
     if (data.postProvincia === "") {
       navigation.navigate("Presentazione");
     } else if (data.postTitle === "") {
       navigation.navigate("Descrizione");
     }
-    console.log("postCategories",data.postCategories)
   }, []);
 
   //Autocomplete categoria
@@ -96,7 +95,7 @@ export default function Posizioni({ navigation, route }) {
   useEffect(() => {
     resetState();
     refetch();
-    console.log("posizioni",data.postPositions )
+    console.log("posizioni",data )
   }, [passedSettore]);
 
   const refreshSettore = () => {
@@ -246,7 +245,7 @@ export default function Posizioni({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
+      <HeaderBar onPress={() => navigation.navigate("ExploreScreen")}></HeaderBar>
       <View style={styles.header}>
         <StepsIndicator navigation={navigation} active={1}></StepsIndicator>
       </View>

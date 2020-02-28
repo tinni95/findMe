@@ -43,7 +43,7 @@ export default function ConfermaPosizione({ navigation, route }) {
   const handlePress = () => {
     let posizione = {
       __typename: "data",
-      titolo: socio == "Socio Finanziatore" ? "Finanziatore" : title,
+      title: socio == "Socio Finanziatore" ? "Finanziatore" : title,
       type: socio,
       field: socio == "Socio Finanziatore" ? "Servizi Finanziari" : categoria,
       description,
@@ -56,6 +56,7 @@ export default function ConfermaPosizione({ navigation, route }) {
         "è gia stata aggiunta questa posizione, devi cambiare almeno un campo"
       );
     }
+    console.log("here");
     client.writeData({
       data: {
         postPositions: [...posizioni, posizione]
@@ -67,6 +68,8 @@ export default function ConfermaPosizione({ navigation, route }) {
           screen: "Posizioni",
           params: { settore: Math.floor(Math.random() * -1000), item: null }
         });
+
+    console.log("mamam", data.postPositions);
   };
   return (
     <View style={styles.container}>

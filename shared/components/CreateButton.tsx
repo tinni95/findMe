@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import Colors from "../constants/Colors";
 
 export default function CreateButton({ onPress }) {
@@ -28,6 +28,20 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.ocean,
     alignContent: "center",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    ...Platform.select({
+      ios: {
+        shadowColor: "black",
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        shadowOffset: {
+          width: 2,
+          height: 5
+        }
+      },
+      android: {
+        elevation: 5
+      }
+    })
   }
 });

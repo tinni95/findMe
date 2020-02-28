@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 const PosizioniStack = () => {
   return (
-    <Stack.Navigator mode="modal">
+    <Stack.Navigator>
       <Stack.Screen
         name="Posizioni"
         component={Posizioni}
@@ -21,7 +21,12 @@ const PosizioniStack = () => {
       />
       <Stack.Screen
         name="ConfermaPosizione"
-        options={{ headerShown: false }}
+        options={({ navigation }) => ({
+          headerStyle,
+          headerTitleStyle,
+          headerTitle: "Conferma",
+          headerLeft: () => <HeaderLeft navigation={navigation} />
+        })}
         component={ConfermaPosizione}
       />
       <Stack.Screen

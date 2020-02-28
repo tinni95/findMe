@@ -54,8 +54,9 @@ const CREATEPOST_MUTATION = gql`
       posizione: $posizione
       posizioni: $posizioni
       hidden: $hidden
+      type: "Idea"
     ) {
-      title
+      titolo
     }
   }
 `;
@@ -78,7 +79,10 @@ const Anteprima = ({ navigation, user }) => {
           postPositions: []
         }
       });
-      navigation.navigate("Explore", { refetch: true });
+      navigation.navigate("ExploreScreen", { refetch: true });
+    },
+    onError: error => {
+      console.log(error);
     }
   });
   const { data } = useQuery(POST_ANTEPRIMA);
@@ -89,15 +93,15 @@ const Anteprima = ({ navigation, user }) => {
     });
     createPost({
       variables: {
-        title: data.postTitle,
-        description: data.postDescription,
+        titolo: data.postTitle,
+        descrizione: data.postDescription,
         posizione: data.postOwnerPosition,
         comune: data.postComune,
         regione: data.postRegione,
         provincia: data.postProvincia,
-        fields: data.postCategories.join(", "),
+        settori: data.postCategories.join(", "),
         hidden: checked,
-        positions: { create: parsePositions(data.postPositions) }
+        posizioni: { create: parsePositions(data.postPositions) }
       }
     });
   };
@@ -124,7 +128,9 @@ const Anteprima = ({ navigation, user }) => {
   };
   return (
     <View style={styles.container}>
-      <HeaderBar onPress={() => navigation.navigate("Explore")}></HeaderBar>
+      <HeaderBar
+        onPress={() => navigation.navigate("ExploreScreen")}
+      ></HeaderBar>
       <View style={styles.header}>
         <StepsIndicator navigation={navigation} active={2}></StepsIndicator>
       </View>
