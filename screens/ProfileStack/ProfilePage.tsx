@@ -208,7 +208,7 @@ export default function ProfilePage({ navigation, route }) {
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Image
             source={image}
-            style={{ width: 80, height: 80, borderRadius: 50 }}
+            style={{ width: 100, height: 100, borderRadius: 50 }}
           />
         </TouchableOpacity>
         <Bold style={{ marginTop: 12, fontSize: 16 }}>
