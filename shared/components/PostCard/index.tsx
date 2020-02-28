@@ -8,12 +8,12 @@ import Fields from "./Fields";
 import RoundButtonEmpty from "../RoundButtonEmpty";
 import Colors from "../../constants/Colors";
 
-const PostCard = ({ post, onPress }) => {
+const PostCard = ({ post, onPress, navigation }) => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.card}>
         <View style={styles.body}>
-          <PostCardPublisher post={post} />
+          <PostCardPublisher navigation={navigation} post={post} />
           <LinearGradient colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
           <PostCardText post={post} />
         </View>

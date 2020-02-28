@@ -28,6 +28,7 @@ const posts = gql`
       provincia
       hidden
       postedBy {
+        id
         pictureUrl
         nome
         DoB
@@ -95,6 +96,7 @@ export default function Explore({ navigation, route }) {
       return data.postsFeed.map((post, index) => {
         return (
           <PostCard
+          navigation={navigation}
             onPress={() =>
               navigation.navigate("PostScreen", {
                 id: post.id,

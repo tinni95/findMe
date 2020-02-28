@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, Image, View } from "react-native";
+import { Text, StyleSheet, Image, View, TouchableOpacity } from "react-native";
 import { isSmallDevice } from "../../constants/Layout";
 import getHiddenString from "../../functions/getHiddenString";
 
@@ -11,26 +11,49 @@ const authorInfo = () => {
   );
 };
 
-const PostCardPublisher = ({ post }) => {
+const PostCardPublisher = ({ post, navigation }) => {
   const image =
     post.hidden || !post.postedBy.pictureUrl
       ? require("../../../assets/images/placeholder.png")
       : { uri: post.postedBy.pictureUrl };
   return (
     <View style={styles.container}>
-      <View style={styles.infoContainer}>
-        <Image resizeMode="contain" style={styles.image} source={image} />
-        <View style={styles.authorInfo}>
-          <Text style={styles.authorInfoText}>
-            {"" +
-              getHiddenString(
-                post.hidden,
-                post.postedBy.nome,
-                post.postedBy.cognome
-              )}
-          </Text>
+      {post.hidden ? (
+        <View style={styles.infoContainer}>
+          <Image resizeMode="contain" style={styles.image} source={image} />
+          <View style={styles.authorInfo}>
+            <Text style={styles.authorInfoText}>
+              {"" +
+                getHiddenString(
+                  post.hidden,
+                  post.postedBy.nome,
+                  post.postedBy.cognome
+                )}
+            </Text>
+          </View>
         </View>
-      </View>
+      ) : (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("UserVisitsProfileScreen", {
+              id: post.postedBy.id
+            })
+          }
+          style={styles.infoContainer}
+        >
+          <Image resizeMode="contain" style={styles.image} source={image} />
+          <View style={styles.authorInfo}>
+            <Text style={styles.authorInfoText}>
+              {"" +
+                getHiddenString(
+                  post.hidden,
+                  post.postedBy.nome,
+                  post.postedBy.cognome
+                )}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

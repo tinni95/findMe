@@ -20,144 +20,17 @@ import { Body, Light, Bold } from "../../shared/components/StyledText";
 import Colors from "../../shared/constants/Colors";
 import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import TenditErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
-import { RoundButtonEmptyIconInverted } from "../../shared/components/RoundButtonEmptyIcon";
-import RoundButtonEmpty from "../../shared/components/RoundButtonEmpty";
 import SocketContext from "../../shared/SocketContext";
 
-const SENDREQUEST_MUTATION = gql`
-  mutation sendRequest($subId: ID!) {
-    createConnessione(subId: $subId) {
-      id
-      pub {
-        nome
-        id
-      }
-      sub {
-        nome
-        id
-      }
-    }
-  }
-`;
-
-const CREATENOTIFICA_MUTATION = gql`
-  mutation createNotifica(
-    $connessioneId: ID!
-    $text: String!
-    $type: String!
-    $id: ID!
-  ) {
-    createNotifica(
-      connessioneId: $connessioneId
-      text: $text
-      type: $type
-      id: $id
-    ) {
-      id
-    }
-  }
-`;
-
-const ACCEPTREQUEST_MUTATION = gql`
-  mutation acceptRequest($id: ID!) {
-    acceptConnessione(id: $id) {
-      id
-    }
-  }
-`;
-
-const DELETEREQUEST_MUTATION = gql`
-  mutation deleteRequest($id: ID!) {
-    deleteConnessione(id: $id) {
-      id
-    }
-  }
-`;
 
 const User = gql`
   query UserProfile($id: ID!) {
-    Connessioni {
-      id
-      pub {
-        id
-        nome
-        cognome
-        regione
-        comune
-        presentazione
-      }
-      sub {
-        id
-        nome
-        cognome
-        regione
-        comune
-        presentazione
-      }
-    }
-    ConnessioniReceivedFromUser(id: $id) {
-      id
-    }
-    ConnessioniSentToUser(id: $id) {
-      id
-    }
-    ConnessioniWithUser(id: $id) {
-      id
-    }
-    ChatBetweenUsers(id: $id) {
-      id
-      pub {
-        id
-      }
-      sub {
-        id
-      }
-    }
-    currentUser {
-      nome
-      cognome
-      id
-    }
     User(id: $id) {
       id
-      answers {
-        comments {
-          id
-        }
-        postedBy {
-          nome
-          cognome
-        }
-        question {
-          title
-          id
-          postedBy {
-            nome
-            id
-            cognome
-          }
-          createdAt
-          question
-        }
-        text
-        id
-      }
-      questions {
-        title
-        id
-        question
-        postedBy {
-          nome
-          cognome
-        }
-        createdAt
-        answers {
-          id
-        }
-      }
       email
       nome
       cognome
+      posizione
       pictureUrl
       comune
       regione
@@ -196,80 +69,25 @@ const User = gql`
   }
 `;
 
-export function UserVisitProfile({ navigation, socket, route }) {
+export function UserVisitProfile({ navigation, route }) {
   const id = route.params.id;
-  const userId = route.params.userId;
-  const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION);
-  const [sendRequest] = useMutation(SENDREQUEST_MUTATION, {
-    onCompleted: ({ createConnessione }) => {
-      setRequestId(createConnessione.id);
-      createNotifica({
-        variables: {
-          type: "connessioneRequest",
-          connessioneId: createConnessione.id,
-          id,
-          text:
-            data.currentUser.nome +
-            " " +
-            data.currentUser.cognome +
-            " ha richiesto di connettersi"
-        }
-      });
-      socket.emit("notifica", userId);
-      refetch();
-    }
-  });
-  const [deleteRequest] = useMutation(DELETEREQUEST_MUTATION, {
-    onCompleted: () => {
-      refetch();
-    }
-  });
-  const [acceptRequest] = useMutation(ACCEPTREQUEST_MUTATION, {
-    onCompleted: () => {
-      refetch();
-    }
-  });
-  const [requestId, setRequestId] = useState("");
   const [modalVisbile, setModalVisible] = useState(false);
   const isRefetch = route.param?.refetch ?? false;
   const [showAll, setShowAll] = useState(false);
-
+  console.log(id)
   const { loading, error, data, refetch } = useQuery(User, {
     variables: { id },
     fetchPolicy: "no-cache",
-    onCompleted: async result => {
-      console.log(result.User.esperienze);
-      console.log("result", result.ChatBetweenUsers);
-      if (result.ChatBetweenUsers[0]) {
-        navigation.setParams({ chatId: result.ChatBetweenUsers[0].id });
-      }
-      if (result.ConnessioniReceivedFromUser.length > 0) {
-        setRequestId(result.ConnessioniReceivedFromUser[0].id);
-      } else if (result.ConnessioniSentToUser.length > 0) {
-        setRequestId(result.ConnessioniSentToUser[0].id);
-      }
-    }
   });
 
-  const InviaRichiesta = () => {
-    sendRequest({ variables: { subId: id } });
-  };
-
-  const CancellaRichiesta = () => {
-    deleteRequest({ variables: { id: requestId } });
-  };
-
-  const AccettaRichiesta = () => {
-    acceptRequest({ variables: { id: requestId } });
-  };
   const Profilo = () => {
     return (
       <View style={styles.infoWrapper}>
-        <ItemsBlockVisit items={data.User.formazioni} title={"Formazione"} />
+        <ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:data.User.formazioni})} items={data.User.formazioni} title={"Formazione"} />
         <View style={styles.separator}></View>
-        <ItemsBlockVisit items={data.User.esperienze} title={"Esperienze"} />
+        <ItemsBlockVisit  onPress={() => navigation.navigate("EsperienzeScreen",{esperienze:data.User.esperienze})} items={data.User.esperienze} title={"Esperienze"} />
         <View style={styles.separator}></View>
-        <ItemsBlockVisit items={data.User.progetti} title={"Progetti"} />
+        <ItemsBlockVisit onPress={() => navigation.navigate("ProgettiScreen",{progetti:data.User.progetti})} items={data.User.progetti} title={"Progetti"} />
         <View style={styles.separator}></View>
         <CompetenzeBlockVisit
           competenze={data.User.competenze}
@@ -290,30 +108,21 @@ export function UserVisitProfile({ navigation, socket, route }) {
 
   useEffect(() => {
     navigation.setParams({ loading });
-    if (
-      !loading &&
-      data.ChatBetweenUsers.length > 0 &&
-      data.ChatBetweenUsers[0]
-    ) {
-      navigation.setParams({ chatId: data.ChatBetweenUsers[0].id });
-    }
-    if (!loading) {
-      navigation.setParams({
-        user: data.User,
-        userId: data.currentUser.id,
-        isSub: false
-      });
-    }
   }, [data]);
-  if (loading || !id || !userId) return <TenditSpinner />;
+  if (loading) return <TenditSpinner />;
   const image = data.User.pictureUrl
     ? { uri: data.User.pictureUrl }
     : require("../../assets/images/placeholder.png");
-  const images = [image];
+  const images = [
+    data.User.pictureUrl
+      ? { url: data.User.pictureUrl }
+      : { props: { source: require("../../assets/images/placeholder.png") } }
+  ];
   if (error) return <TenditErrorDisplay />;
 
   return (
-    <ScrollView>
+    <ScrollView>     
+       <View style={styles.container}>
       <View style={styles.userWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Image
@@ -349,6 +158,18 @@ export function UserVisitProfile({ navigation, socket, route }) {
         <Bold style={{ marginTop: 10, fontSize: 18 }}>
           {data.User.nome + " " + data.User.cognome}
         </Bold>
+        {data.User.posizione && (
+              <Body
+              style={{
+                marginTop: 5,
+                marginBottom: -5,
+                color: "#8E8E8E",
+                fontSize: 12
+              }}
+            >
+              {data.User.posizione}
+            </Body>
+        )}
         {data.User.comune && (
           <LocationWithText
             points={16}
@@ -357,43 +178,6 @@ export function UserVisitProfile({ navigation, socket, route }) {
             regione={data.User.regione}
           />
         )}
-        <View style={{ height: 20 }}></View>
-        {id != userId &&
-          ((data.ConnessioniSentToUser.length == 0 &&
-            data.ConnessioniReceivedFromUser.length == 0 &&
-            data.ConnessioniWithUser.length == 0 && (
-              <RoundButtonEmpty
-                onPress={() => InviaRichiesta()}
-                color={Colors.blue}
-                isMedium
-                text={"  +   Segui  "}
-              />
-            )) ||
-            (data.ConnessioniSentToUser.length > 0 && (
-              <RoundButtonEmpty
-                color={Colors.blue}
-                isMedium
-                onPress={() => CancellaRichiesta()}
-                text={"  Richiesta Inviata  "}
-              />
-            )) ||
-            (data.ConnessioniWithUser.length > 0 && (
-              <RoundButtonEmpty
-                color={Colors.blue}
-                onPress={() => CancellaRichiesta()}
-                isMedium
-                text={"  Connesso  "}
-              />
-            )) ||
-            (data.ConnessioniReceivedFromUser.length > 0 && (
-              <RoundButtonEmpty
-                onPress={() => AccettaRichiesta()}
-                color={Colors.blue}
-                isMedium
-                text={"  Accetta Richiesta  "}
-              />
-            )))}
-        <View style={{ height: 20 }}></View>
       </View>
       {data.User.presentazione && (
         <View style={styles.bio}>
@@ -411,6 +195,7 @@ export function UserVisitProfile({ navigation, socket, route }) {
         </View>
       )}
       <Profilo />
+      </View>
     </ScrollView>
   );
 }
@@ -425,7 +210,8 @@ export default UserVisitProfileWS;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:"white"
   },
   tabText: {
     color: "#6E6E6E"
@@ -447,6 +233,7 @@ const styles = StyleSheet.create({
   },
   infoWrapper: {
     margin: 20,
+    marginTop:50,
     minHeight: 500
   },
   flex: {
@@ -454,6 +241,7 @@ const styles = StyleSheet.create({
   },
   bio: {
     marginLeft: 10,
+    marginTop:40,
     justifyContent: "flex-start",
     alignItems: "flex-start"
   },

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import FormazioneCard from "./Formazioni/FormazioneCard";
 import EsperienzaCard from "./Esperienze/EsperienzaCard";
 import ProgettoCard from "./Progetti/ProgettoCard";
@@ -7,9 +7,9 @@ import { Body } from "./StyledText";
 import Colors from "../constants/Colors";
 var shortid = require("shortid");
 
-export default function ItemsBlockVisit({ title, items }) {
+export default function ItemsBlockVisit({ onPress, title, items }) {
   return (
-    <View>
+    <TouchableOpacity onPress={onPress}>
       <View
         style={{
           flexDirection: "row",
@@ -45,7 +45,7 @@ export default function ItemsBlockVisit({ title, items }) {
                 />
               );
             })))}
-    </View>
+    </TouchableOpacity>
   );
 }
 

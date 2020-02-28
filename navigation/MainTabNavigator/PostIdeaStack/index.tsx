@@ -13,6 +13,9 @@ import {
   headerStyle,
   headerTitleStyle
 } from "../../../shared/constants/HeaderStyles";
+import FormazioniVisitScreen from "../../../screens/ProfileStack/Formazioni/FormazioniVisitScreen";
+import ProgettiVisitScreen from "../../../screens/ProfileStack/Progetti/ProgettiVisitScreen";
+import EsperienzeVisitScreen from "../../../screens/ProfileStack/Esperienze/EsperienzeVisitScreen";
 const Stack = createStackNavigator();
 
 const PostIdeaStack = () => {
@@ -50,7 +53,7 @@ const PostIdeaStack = () => {
         name="ApplyScreen"
         component={ApplyScreen}
         options={({ navigation }) => ({
-          headerTitle: "Filtri",
+          headerTitle: "",
           headerLeft: () => <HeaderLeft navigation={navigation} />
         })}
       />
@@ -58,7 +61,7 @@ const PostIdeaStack = () => {
         name="ApplicationReceivedChat"
         component={ApplicationReceivedChat}
         options={({ navigation }) => ({
-          headerTitle: "Filtri",
+          headerTitle: "",
           headerLeft: () => <HeaderLeft navigation={navigation} />
         })}
       />
@@ -66,7 +69,7 @@ const PostIdeaStack = () => {
         name="ApplicationSentChat"
         component={ApplicationSentChat}
         options={({ navigation }) => ({
-          headerTitle: "Filtri",
+          headerTitle: "",
           headerLeft: () => <HeaderLeft navigation={navigation} />
         })}
       />
@@ -74,7 +77,31 @@ const PostIdeaStack = () => {
         name="UserVisitsProfileScreen"
         component={UserVisitsProfileScreen}
         options={({ navigation }) => ({
-          headerTitle: "Filtri",
+          headerTitle: "",
+          headerLeft: () => <HeaderLeft navigation={navigation} />
+        })}
+      />
+      <Stack.Screen
+        name="FormazioniScreen"
+        component={FormazioniVisitScreen}
+        options={({ navigation }) => ({
+          headerTitle: "",
+          headerLeft: () => <HeaderLeft navigation={navigation} />
+        })}
+      />
+      <Stack.Screen
+        name="ProgettiScreen"
+        component={ProgettiVisitScreen}
+        options={({ navigation }) => ({
+          headerTitle: "",
+          headerLeft: () => <HeaderLeft navigation={navigation} />
+        })}
+      />
+      <Stack.Screen
+        name="EsperienzeScreen"
+        component={EsperienzeVisitScreen}
+        options={({ navigation }) => ({
+          headerTitle: "",
           headerLeft: () => <HeaderLeft navigation={navigation} />
         })}
       />
