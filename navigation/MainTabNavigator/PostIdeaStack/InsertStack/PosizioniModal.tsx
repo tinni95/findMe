@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import PosizioniStack from "./PosizioniStack";
-import AutoComplete from "../../../../shared/components/AutoComplete";
+import AutoCompletePosizioni from "../../../../shared/components/AutoCompletePosizioni";
 
 const Stack = createStackNavigator();
 
@@ -16,7 +16,7 @@ const PosizioniModal = () => {
       <Stack.Screen
         name="AutoComplete"
         options={{ headerShown: false }}
-        component={AutoComplete}
+        component={AutoCompletePosizioni}
       />
     </Stack.Navigator>
   );

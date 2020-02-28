@@ -19,7 +19,7 @@ import { FormStyles } from "../../../shared/components/Form/FormStyles";
 import { Settori } from "../../../shared/constants/Settori";
 import { TipoSocio } from "../../../shared/constants/TipoSocio";
 import { TitoliPosizioni } from "../../../shared/constants/TitoliPosizioni";
-import { Requisiti } from "../../../shared/constants/TitoliPosizioni";
+import { Requisiti } from "../../../shared/constants/Requisiti";
 import { isBigDevice } from "../../../shared/constants/Layout";
 import { Light } from "../../../shared/components/StyledText";
 import { Ionicons } from "@expo/vector-icons";
@@ -37,6 +37,7 @@ const POST_POSIZIONI = gql`
     }
     postProvincia @client
     postTitle @client
+    postCategories @client
   }
 `;
 
@@ -72,6 +73,7 @@ export default function Posizioni({ navigation, route }) {
     } else if (data.postTitle === "") {
       navigation.navigate("Descrizione");
     }
+    console.log("postCategories",data.postCategories)
   }, []);
 
   //Autocomplete categoria

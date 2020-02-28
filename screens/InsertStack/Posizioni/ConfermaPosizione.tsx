@@ -29,6 +29,7 @@ const POST_POSIZIONI = gql`
 export default function ConfermaPosizione({ navigation, route }) {
   const { data } = useQuery(POST_POSIZIONI);
   const client = useApolloClient();
+  console.log(data.postPositions);
   const posizioni = data.postPositions || [];
   const title = route.params.title;
   const description = route.params.description;
