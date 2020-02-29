@@ -10,3 +10,15 @@ export const parsePositions = positions => {
     };
   });
 };
+
+export const parsePositionsLocal = positions => {
+  return positions.map(position => {
+    return {
+      titolo: position.title,
+      type: "Socio",
+      descrizione: position.description,
+      settore: position.field,
+      requisiti: position.requisiti
+    };
+  });
+};

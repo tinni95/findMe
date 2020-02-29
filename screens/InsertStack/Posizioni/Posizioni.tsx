@@ -172,12 +172,12 @@ export default function Posizioni({ navigation, route }) {
         </View>
         <View style={styles.buttonWrapper}>
           <RoundButtonEmpty
-            text={"INDIETRO"}
+            text={"Indietro"}
             color={"#10476C"}
             onPress={() => navigation.navigate("Presentazione")}
           />
           <RoundButton
-            text={"  AVANTI  "}
+            text={"  Avanti  "}
             color={"#10476C"}
             textColor={"white"}
             onPress={() => handlePress(bool)}
@@ -313,7 +313,7 @@ export default function Posizioni({ navigation, route }) {
                         }}
                       >
                         <Light style={{ fontSize: 11 }}>
-                          AGGIUNGI REQUISITO +
+                          Aggiungi Requisito +
                         </Light>
                       </TouchableWithoutFeedback>
                     </View>

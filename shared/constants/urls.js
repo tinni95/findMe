@@ -20,7 +20,7 @@ export const socketEndPoint = "http://134.209.229.6/"
    : "http://localhost:3001/".replace("localhost", getLocalHostName());*/
 
 
-export const graphlEndPoint = "http://localhost:4000/"
+export const graphlEndPoint = "https://tendit.it/api/"
 /* Platform.OS === "web"
    ? "http://localhost:4000/"
    : "http://localhost:4000/".replace("localhost", getLocalHostName());*/

@@ -16,6 +16,7 @@ export default function PostScreenConfirm({
     return post.posizioni.map((position, index) => {
       return (
         <PositionCard
+          post={post}
           button={"false"}
           navigation={navigation}
           key={index}

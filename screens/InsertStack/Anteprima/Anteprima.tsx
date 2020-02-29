@@ -9,7 +9,10 @@ import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import RoundButton from "../../../shared/components/RoundButton";
 import { isBigDevice, width } from "../../../shared/constants/Layout";
-import { parsePositions } from "../../../shared/functions/ParsePositions";
+import {
+  parsePositions,
+  parsePositionsLocal
+} from "../../../shared/functions/ParsePositions";
 import HeaderBar from "../../../shared/components/HeaderBar";
 import Colors from "../../../shared/constants/Colors";
 
@@ -115,11 +118,12 @@ const Anteprima = ({ navigation, user }) => {
       navigation.navigate("Posizioni");
     }
   }, [data]);
+
   const post = {
     settori: data.postCategories.join(", "),
     title: data.postTitle,
     description: data.postDescription,
-    posizioni: data.postPositions,
+    posizioni: parsePositionsLocal(data.postPositions),
     tipoSocio: data.postOwner,
     posizione: data.postOwnerPosition,
     comune: data.postComune,

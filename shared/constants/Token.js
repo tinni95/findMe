@@ -1,1 +1,1 @@
-export const TOKEN_KEY = "1<daksjnc";
+export const TOKEN_KEY = "1<das";

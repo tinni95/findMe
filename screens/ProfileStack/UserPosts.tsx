@@ -4,15 +4,11 @@ import {
   ScrollView,
   StyleSheet,
   Alert,
-  RefreshControl,
-  TouchableOpacity
+  RefreshControl
 } from "react-native";
 import PostCardEdit from "../../shared/components/PostCard/PostCardEdit";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import { Ionicons } from "@expo/vector-icons";
-import Colors from "../../shared/constants/Colors";
-import HeaderStyles from "../../shared/constants/HeaderStyles";
 import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import TenditErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
 
@@ -51,7 +47,9 @@ const DELETEPOST_MUTATION = gql`
 
 export default function UserPosts({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
-  const { loading, error, data, refetch } = useQuery(posts);
+  const { loading, error, data, refetch } = useQuery(posts, {
+    onError: error => console.log(error)
+  });
   const [deletePost] = useMutation(DELETEPOST_MUTATION, {
     onCompleted: async ({ deletePost }) => {
       refetch();
@@ -61,6 +59,7 @@ export default function UserPosts({ navigation }) {
   if (loading) return <TenditSpinner />;
   if (error) return <TenditErrorDisplay />;
   if (data) {
+    console.log(data);
     const onRefresh = async () => {
       setRefreshing(true);
       refetch().then(() => setRefreshing(false));
@@ -129,21 +128,3 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   }
 });
-
-UserPosts.navigationOptions = ({ navigation }) => {
-  return {
-    title: "I miei Post",
-    headerStyle: HeaderStyles.headerStyle,
-    headerTitleStyle: HeaderStyles.headerTitleStyle,
-    headerLeft: (
-      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-        <Ionicons
-          name={"ios-menu"}
-          size={25}
-          style={{ marginLeft: 10 }}
-          color={Colors.blue}
-        ></Ionicons>
-      </TouchableOpacity>
-    )
-  };
-};

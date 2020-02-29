@@ -7,6 +7,7 @@ import TenditTextInput from "../../shared/components/TenditTextInput";
 import HeaderRight from "../../shared/components/HeaderRight";
 import Colors from "../../shared/constants/Colors";
 import { Light } from "../../shared/components/StyledText";
+import LoginContext from "../../shared/LoginContext";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -16,7 +17,7 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-export default function LoginScreen({ changeLoginState, navigation }) {
+function LoginScreen({ context, navigation }) {
   navigation.setOptions({
     headerRight: () => <HeaderRight text={"Next"} onPress={() => login()} />
   });
@@ -31,7 +32,7 @@ export default function LoginScreen({ changeLoginState, navigation }) {
   const [loginMutation] = useMutation(LOGIN_MUTATION, {
     onCompleted: async ({ login }) => {
       AsyncStorage.setItem(TOKEN_KEY, login.token).then(() => {
-        changeLoginState();
+        context.login();
       });
     },
     onError: error => {
@@ -91,6 +92,16 @@ export default function LoginScreen({ changeLoginState, navigation }) {
     </View>
   );
 }
+
+const LoginScreenWS = props => {
+  return (
+    <LoginContext.Consumer>
+      {context => <LoginScreen {...props} context={context} />}
+    </LoginContext.Consumer>
+  );
+};
+
+export default LoginScreenWS;
 
 const styles = StyleSheet.create({
   container: {

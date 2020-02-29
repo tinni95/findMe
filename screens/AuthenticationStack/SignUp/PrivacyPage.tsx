@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet, AsyncStorage } from "react-native";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import CheckBox from "react-native-check-box";
-import HeaderLeft from "../../../shared/components/HeaderLeft";
 import { Bold, Body, Light } from "../../../shared/components/StyledText";
 import Colors from "../../../shared/constants/Colors";
 import RoundButton from "../../../shared/components/RoundButton";
