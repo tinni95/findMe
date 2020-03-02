@@ -21,6 +21,36 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../../../shared/constants/Colors";
 import PostScreen from "../../../screens/Explore/Post/PostScreen";
+import SettingsScreen from "../../../screens/ProfileStack/SettingsStack";
+
+const Stack0 = createStackNavigator();
+
+const SettingsStack = () => {
+  return (
+    <Stack1.Navigator>
+      <Stack1.Screen
+        name="Impostazioni"
+        options={({ navigation }) => ({
+          title: "Impostazioni",
+          headerStyle,
+          headerTitleStyle,
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+              <Ionicons
+                name={"ios-menu"}
+                size={25}
+                style={{ marginLeft: 10 }}
+                color={Colors.blue}
+              ></Ionicons>
+            </TouchableOpacity>
+          )
+        })}
+        component={SettingsScreen}
+      />
+    </Stack1.Navigator>
+  );
+};
+
 const Stack1 = createStackNavigator();
 
 const LogoutStack = () => {
@@ -178,6 +208,7 @@ const ProfileDrawer = () => {
   return (
     <Drawer.Navigator initialRouteName={"Profilo"} drawerPosition={"left"}>
       <Drawer.Screen name="Profilo" component={ProfileStack} />
+      <Drawer.Screen name="Impostazioni" component={SettingsStack} />
       <Drawer.Screen name="Logout" component={LogoutStack} />
       <Drawer.Screen name="Posts" component={PostsStack} />
     </Drawer.Navigator>
