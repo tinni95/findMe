@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     paddingTop: 5,
+    paddingBottom: 10,
     backgroundColor: "white",
     ...Platform.select({
       ios: {

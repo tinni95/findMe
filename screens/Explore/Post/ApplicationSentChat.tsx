@@ -8,8 +8,6 @@ import { parsePostMessages } from "../../../shared/functions/ParsePostMessages";
 import { gql } from "apollo-boost";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import { sendNotification } from "../../../shared/functions/PushNotifications";
-import HeaderStyles from "../../../shared/constants/HeaderStyles";
-import { Ionicons } from "@expo/vector-icons";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import io from "socket.io-client";
 import { socketEndPoint } from "../../../shared/constants/urls";
@@ -156,7 +154,7 @@ export function ApplicationSentChat(props) {
 
   const renderInputToolbar = props => {
     const image = !loading && { uri: application.from.pictureUrl };
-    return <InputToolbar image={image} onSend={onSend}></InputToolbar>;
+    return <InputToolbar viewStyle={{backgroundColor:"white"}}image={image} onSend={onSend}></InputToolbar>;
   };
   return (
     <View style={{ flex: 1 }}>
@@ -176,7 +174,7 @@ export function ApplicationSentChat(props) {
           }
         }}
       />
-      <KeyboardSpacer topSpacing={isSmallDevice ? -25 : -40} />
+      <KeyboardSpacer topSpacing={isSmallDevice ? -25 : -50} />
     </View>
   );
 }
@@ -188,25 +186,3 @@ const ApplicationSentChatWS = props => (
 );
 
 export default ApplicationSentChatWS;
-
-ApplicationSentChatWS.navigationOptions = ({ navigation }) => {
-  return {
-    headerStyle: HeaderStyles.headerStyle,
-    headerTitleStyle: HeaderStyles.headerTitleStyle,
-    headerLeft: (
-      <TouchableOpacity
-        onPress={() => {
-          navigation.state.params.onGoBack();
-          navigation.goBack();
-        }}
-      >
-        <Ionicons
-          name={"ios-arrow-back"}
-          size={25}
-          style={{ marginLeft: 10, padding: 10 }}
-          color={"#10476C"}
-        ></Ionicons>
-      </TouchableOpacity>
-    )
-  };
-};
