@@ -33,7 +33,6 @@ const User = gql`
           id
         }
         position {
-          settore
           post {
             comune
             regione
@@ -55,7 +54,6 @@ const User = gql`
         id
         pubRead
         position {
-          settore
           titolo
           requisiti
           post {
