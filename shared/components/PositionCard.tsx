@@ -77,28 +77,6 @@ export function PositionCard({ post, position, button, navigation }) {
       <View style={styles.subContainer}>
         <View style={styles.header}>
           <Bold style={styles.headerText}>{position.titolo}</Bold>
-          <View style={styles.iconContainer}>
-            {Platform.OS == "web" ? (
-              <FieldIconRound
-                size={25}
-                field={position.settore}
-                color="#60E1E0"
-              />
-            ) : (
-              <Tooltip
-                backgroundColor={"#10476C"}
-                popover={
-                  <Text style={{ color: "white" }}>{position.settore}</Text>
-                }
-              >
-                <FieldIconRound
-                  size={25}
-                  field={position.settore}
-                  color="#60E1E0"
-                />
-              </Tooltip>
-            )}
-          </View>
         </View>
         <View style={styles.description}>
           <View style={styles.DescriptionItems}>

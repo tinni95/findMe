@@ -44,7 +44,6 @@ const Post = gql`
         id
         descrizione
         titolo
-        settore
         requisiti
       }
     }

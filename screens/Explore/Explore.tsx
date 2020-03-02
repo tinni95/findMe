@@ -40,7 +40,6 @@ const posts = gql`
         titolo
         descrizione
         requisiti
-        settore
       }
     }
   }

@@ -8,7 +8,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useApolloClient, useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { indexOfPosition } from "../../../shared/functions/IndexOfPosition";
-import { Settori } from "../../../shared/constants/Settori";
 import { TipoSocio } from "../../../shared/constants/TipoSocio";
 import { FormStyles } from "../../../shared/components/Form/FormStyles";
 import { isBigDevice } from "../../../shared/constants/Layout";
@@ -17,7 +16,6 @@ var shortid = require("shortid");
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
     postPositions @client {
-      field
       type
       description
       requisiti
@@ -33,10 +31,8 @@ export default function ConfermaPosizione({ navigation, route }) {
   const posizioni = data.postPositions || [];
   const title = route.params.title;
   const description = route.params.description;
-  const categoria = route.params.categoria;
   const requisiti = route.params.requisiti;
   const skip = route.params.skip;
-  const activeIndex = Settori.indexOf(categoria);
   const socio = route.params.socio;
   const activeIndexSocio = TipoSocio.indexOf(socio);
 
@@ -45,7 +41,6 @@ export default function ConfermaPosizione({ navigation, route }) {
       __typename: "data",
       title: socio == "Socio Finanziatore" ? "Finanziatore" : title,
       type: socio,
-      field: socio == "Socio Finanziatore" ? "Servizi Finanziari" : categoria,
       description,
       requisiti
     };
@@ -68,8 +63,6 @@ export default function ConfermaPosizione({ navigation, route }) {
           screen: "Posizioni",
           params: { settore: Math.floor(Math.random() * -1000), item: null }
         });
-
-    console.log("mamam", data.postPositions);
   };
   return (
     <View style={styles.container}>
@@ -126,13 +119,6 @@ export default function ConfermaPosizione({ navigation, route }) {
                     })}
                   </View>
                 }
-                <StepsLabel text="Categoria" />
-                <SingleFilter
-                  setItem={null}
-                  inactive={true}
-                  settori={Settori}
-                  settoreAttivi={activeIndex}
-                />
               </View>
             ) : null}
           </View>

@@ -30,7 +30,6 @@ var shortid = require("shortid");
 const POST_POSIZIONI = gql`
   query PosizioniQuery {
     postPositions @client {
-      field
       type
       description
       title
@@ -48,23 +47,19 @@ export default function Posizioni({ navigation, route }) {
   const [active, setActive] = useState<number>(-1);
   const [title, setTitle] = useState("");
   const [socio, setSocio] = useState("");
-  const [categoria, setCategoria] = useState("");
   const [requisiti, setRequisiti] = useState([]);
   const [description, setDescription] = useState("");
   const [titleError, setTitleError] = useState(false);
   const [socioError, setSocioError] = useState(false);
   const [posizioniError, setPosizioniError] = useState(false);
-  const [categoriaError, setCategoriaError] = useState(false);
   //Data
   const { data,refetch } = useQuery(POST_POSIZIONI);
 
   const posizioni = data.postPositions || [];
-  let passedCategoria = route.params?.categoria;
   let passedTitle = route.params?.for == "Titoli" ? route.params?.title : null;
   let passedRequisito =
     route.params?.for == "Requisiti" ? route.params?.title : null;
   let passedSettore = route.params?.settore ?? null;
-  let passedCategoriaIndex = Settori.indexOf(passedCategoria);
 
 //if first page data is missing, we go back to it
   useEffect(() => {
@@ -75,10 +70,6 @@ export default function Posizioni({ navigation, route }) {
     }
   }, []);
 
-  //Autocomplete categoria
-  useEffect(() => {
-    passedCategoria ? setCategoria(passedCategoria) : null;
-  }, [passedCategoria]);
   //Autocomplete titolo
   useEffect(() => {
     passedTitle ? setTitle(passedTitle) : null;
@@ -99,26 +90,18 @@ export default function Posizioni({ navigation, route }) {
   }, [passedSettore]);
 
   const refreshSettore = () => {
-    passedCategoriaIndex = Settori.indexOf(categoria);
     passedSettore = TipoSocio.indexOf(socio);
   };
 
   const resetState = () => {
     passedTitle = null;
-    passedCategoria = null;
     setTitle("");
     setDescription("");
     setSocio("");
-    setCategoria("");
     setRequisiti([]);
   };
 
   const handleAggiungi = (bool, skip) => {
-    if (categoria.length === 0 && !bool) {
-      setCategoriaError(true);
-    } else {
-      setCategoriaError(false);
-    }
     if (socio.length === 0) {
       setSocioError(true);
     } else {
@@ -131,12 +114,11 @@ export default function Posizioni({ navigation, route }) {
     }
 
     if (
-      (categoria.length > 0 && socio.length > 0 && title.length > 0) ||
+      ( socio.length > 0 && title.length > 0) ||
       bool
     ) {
       navigation.navigate("ConfermaPosizione", {
         description,
-        categoria,
         socio,
         title,
         requisiti,
@@ -229,7 +211,7 @@ export default function Posizioni({ navigation, route }) {
     handleAggiungi(bool, true);
     if (
       !(
-        (categoria.length > 0 && socio.length > 0 && title.length > 0) ||
+        (socio.length > 0 && title.length > 0) ||
         bool
       ) &&
       posizioni.length < 1
@@ -283,20 +265,6 @@ export default function Posizioni({ navigation, route }) {
                     onChangeText={val => setTitle(val)}
                   />
                 </WithErrorString>
-              )}
-              {socio != "Socio Finanziatore" && (
-                <View>
-                  <StepsLabel
-                    error={categoriaError}
-                    text="Categoria (es. Economia, Ingegneria...)"
-                  />
-                  <RoundFiltersOne
-                    inactive={false}
-                    setItem={item => setCategoria(item)}
-                    settori={Settori}
-                    settoreAttivi={passedCategoriaIndex}
-                  />
-                </View>
               )}
               {socio != "Socio Finanziatore" && (
                 <View>

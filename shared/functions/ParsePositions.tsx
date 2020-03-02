@@ -5,7 +5,6 @@ export const parsePositions = positions => {
       titolo: position.title,
       type: "Socio",
       descrizione: position.description,
-      settore: position.field,
       requisiti: { set: position.requisiti }
     };
   });
@@ -17,7 +16,6 @@ export const parsePositionsLocal = positions => {
       titolo: position.title,
       type: "Socio",
       descrizione: position.description,
-      settore: position.field,
       requisiti: position.requisiti
     };
   });

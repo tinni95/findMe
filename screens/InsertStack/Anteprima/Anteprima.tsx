@@ -27,7 +27,6 @@ const POST_ANTEPRIMA = gql`
     postDescription @client
     postCategories @client
     postPositions @client {
-      field
       description
       title
       requisiti
