@@ -130,11 +130,13 @@ export default function EditProfile({ navigation, route }) {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 0.1
+      quality: 0.1,
+      base64: true
     });
 
     if (!result.cancelled) {
       setImage({ uri: result.uri });
+      setBase64(result.base64);
     }
   };
 
@@ -154,12 +156,9 @@ export default function EditProfile({ navigation, route }) {
     }
   };
 
-  const submit = () => {
-    const data = new FormData();
-    const name = currentUser.email + ".jpg";
 
+  const submit = async () => {
     if (_.isEqual(image, initialImage)) {
-      console.log("yea");
       updateUser({
         variables: {
           DoB,
@@ -173,50 +172,49 @@ export default function EditProfile({ navigation, route }) {
         }
       });
     } else {
-      data.append("photo", {
-        uri:
-          Platform.OS === "android"
-            ? image.uri
-            : image.uri.replace("file://", ""),
-        type: "image/jpeg",
-        name
-      });
       setLoading(true);
-      fetch("http://gladiator1924.com/images/upload2.php", {
+      let base64Img = `data:image/jpg;base64,${base64}`
+      let apiUrl = 'https://api.cloudinary.com/v1_1/dtwmlnry6/image/upload';
+      let data = {
+        "file": base64Img,
+        "upload_preset": "default-preset",
+      }
+      fetch(apiUrl, {
         method: "post",
-        body: data,
+        body: JSON.stringify(data),
         headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data"
-        }
-      }).then(response => {
-        if (response == "No") {
-          alert("error uploading file", "a");
-          setLoading(false);
-        } else {
-          setLoading(true);
-          updateUser({
-            variables: {
-              picture: "http://gladiator1924.com/images/images/" + name,
-              DoB,
-              nome,
-              cognome,
-              presentazione,
-              comune,
-              regione,
-              posizione,
-              provincia
-            }
-          });
-        }
-      });
+          'content-type': 'application/json'
+        },
+      }).then(async r => {
+        let data = await r.json()
+        console.log(data.secure_url)
+        updateUser({
+          variables: {
+            DoB,
+            nome,
+            cognome,
+            presentazione,
+            comune,
+            regione,
+            provincia,
+            posizione,
+            picture:data.secure_url 
+          }
+        })
+        setLoading(false);
+    }).catch(
+      err=>
+        console.log(err)
+      )
     }
+ 
   };
+
   const initialImage = currentUser.pictureUrl
     ? { uri: currentUser.pictureUrl }
     : require("../../assets/images/placeholder.png");
   const [image, setImage] = useState(initialImage);
-
+  const [base64, setBase64] = useState("");
   const pen = require("../../assets/images/pen.png");
   if (loading) {
     return <TenditSpinner></TenditSpinner>;
