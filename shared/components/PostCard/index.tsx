@@ -1,12 +1,25 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { width, isBigDevice } from "../../constants/Layout";
+import { width, isBigDevice, isSmallDevice } from "../../constants/Layout";
 import PostCardPublisher from "./PostCardPublisher";
 import PostCardText from "./PostCardText";
-import Fields from "./Fields";
 import RoundButtonEmpty from "../RoundButtonEmpty";
 import Colors from "../../constants/Colors";
+import PosizioniString from "../../functions/PosizioniString";
+import { Bold } from "../StyledText";
+import FixOverflow from "../../functions/FixOverflow";
+
+const PosizioniBlock = ({ post }) => {
+  return (
+    <View style={{ margin: 30 }}>
+      <Bold style={{ color: "#AFA9A9", fontSize: 10 }}>Cosa Cerco</Bold>
+      <Bold style={styles.postBody}>
+        {FixOverflow(PosizioniString(post), 40)}
+      </Bold>
+    </View>
+  );
+};
 
 const PostCard = ({ post, onPress, navigation }) => {
   return (
@@ -17,8 +30,8 @@ const PostCard = ({ post, onPress, navigation }) => {
           <LinearGradient colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
           <PostCardText post={post} />
         </View>
+        {PosizioniBlock({ post })}
         <View style={styles.footer}>
-          <Fields post={post} />
           <View style={styles.buttonContainer}>
             <View style={{ height: 10 }}></View>
             <RoundButtonEmpty
@@ -38,7 +51,6 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   card: {
-    height: isBigDevice ? 250 : 200,
     marginBottom: 5,
     paddingBottom: 5,
     width: isBigDevice ? undefined : width,
@@ -62,6 +74,11 @@ const styles = StyleSheet.create({
   line: {
     flex: 0.01,
     backgroundColor: "black"
+  },
+  postBody: {
+    fontSize: 10,
+    marginTop: isSmallDevice ? 5 : 8,
+    color: "#002C3C"
   }
 });
 

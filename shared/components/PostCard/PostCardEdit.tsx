@@ -9,12 +9,12 @@ import RoundButtonEmpty from "../RoundButtonEmpty";
 import Colors from "../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 
-export const PostCardEdit = ({ post, onPress, deletePost }) => {
+export const PostCardEdit = ({ navigation, post, onPress, deletePost }) => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.card}>
         <View style={styles.body}>
-          <PostCardPublisher post={post} />
+          <PostCardPublisher post={post} navigation={navigation} />
           <LinearGradient colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
           <PostCardText post={post} />
           <TouchableOpacity onPress={() => deletePost()} style={styles.trash}>

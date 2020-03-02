@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 20,
     justifyContent: "space-between"
   },
   mainTextColumn: {
