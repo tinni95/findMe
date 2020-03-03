@@ -26,25 +26,13 @@ export default function ReceivedCard({ id, application, navigation, onPress }) {
             navigateToProfile={navigateToProfile}
             navigation={navigation}
             postId={application.position.post.id}
-            title={application.position.post.title}
+            title={application.position.post.titolo}
             nome={application.from.nome}
             cognome={application.from.cognome}
             comune={application.from.comune}
             regione={application.from.regione}
-            posizione={application.position.title}
+            posizione={application.position.titolo}
           ></Info>
-        </View>
-        <View style={styles.tooltip}>
-          <Tooltip
-            backgroundColor={"#10476C"}
-            popover={
-              <Text style={{ color: "white" }}>
-                {application.position.field}
-              </Text>
-            }
-          >
-            <FieldIcon field={application.position.field} size={30} />
-          </Tooltip>
         </View>
       </View>
       <View style={styles.messageWrapper}>
