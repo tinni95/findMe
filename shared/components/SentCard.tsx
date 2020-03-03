@@ -64,18 +64,6 @@ export default function SentCard({ onPress, application, navigation }) {
             {post.titolo}
           </Light>
         </View>
-        <View style={styles.tooltip}>
-          <Tooltip
-            backgroundColor={"#10476C"}
-            popover={
-              <Text style={{ color: "white" }}>
-                {application.position.settore}
-              </Text>
-            }
-          >
-            <FieldIcon field={application.position.settore} size={30} />
-          </Tooltip>
-        </View>
       </View>
       <View style={styles.messageWrapper}>
         <Bold style={{ fontSize: 12, marginBottom: 10, color: Colors.blue }}>

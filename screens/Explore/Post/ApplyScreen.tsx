@@ -22,7 +22,7 @@ const CREATENOTIFICA_MUTATION = gql`
 
 const UNSEEAPPLICATION_MUTATION = gql`
   mutation UnseeApplication($id: ID!, $pubRead: Boolean, $subRead: Boolean) {
-    UnseeApplication(id: $chatId, pubRead: $pubRead, subRead: $subRead) {
+    UnseeApplication(id: $id, pubRead: $pubRead, subRead: $subRead) {
       id
       subRead
       pubRead
@@ -78,6 +78,7 @@ export default function ApplyScreen({ route, navigation }) {
   console.log("post", post);
   const [messaggio, setMessaggio] = useState("");
   const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION, {
+    onCompleted: () => console.log("yea"),
     onError: error => console.log("a")
   });
   const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION, {
@@ -112,7 +113,7 @@ export default function ApplyScreen({ route, navigation }) {
         }
       });
       UnseeApplication({
-        variables: { id: createApplication.id, pubRead: true, subRead: false }
+        variables: { id: createApplication.id, pubRead: false, subRead: true }
       });
     },
     onError: error => {

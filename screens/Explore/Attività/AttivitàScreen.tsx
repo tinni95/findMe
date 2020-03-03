@@ -8,6 +8,7 @@ import SentCard from "../../../shared/components/SentCard";
 import TabBars from "../../../shared/components/TabBars";
 import ReceivedCard from "../../../shared/components/ReceivedCard";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
+import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
 var shortid = require("shortid");
 
 const User = gql`
@@ -24,6 +25,9 @@ const User = gql`
         subRead
         pubRead
         id
+        messages {
+          createdAt
+        }
         from {
           pictureUrl
           id
@@ -134,6 +138,14 @@ export default function AttivitàScreen({ navigation }) {
 
   if (loading) return <TenditSpinner />;
 
+  const applicationSent = reOrderApplications(
+    data.currentUser.applicationsSent
+  );
+
+  const applicationReceived = reOrderApplications(
+    data.currentUser.applicationsReceived
+  );
+
   const FirstRoute = () => (
     <ScrollView
       refreshControl={
@@ -141,8 +153,8 @@ export default function AttivitàScreen({ navigation }) {
       }
       style={{ backgroundColor: "#F7F4F4" }}
     >
-      {data.currentUser.applicationsSent.length > 0 &&
-        data.currentUser.applicationsSent.map(application => {
+      {applicationSent.length > 0 &&
+        applicationSent.map(application => {
           return (
             <SentCard
               onPress={() => {
@@ -174,8 +186,8 @@ export default function AttivitàScreen({ navigation }) {
       }
       style={{ backgroundColor: "#F7F4F4" }}
     >
-      {data.currentUser.applicationsReceived.length > 0 &&
-        data.currentUser.applicationsReceived.map(application => {
+      {applicationReceived.length > 0 &&
+        applicationReceived.map(application => {
           return (
             <ReceivedCard
               onPress={() => {
