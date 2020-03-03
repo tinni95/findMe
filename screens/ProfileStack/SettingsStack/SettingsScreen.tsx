@@ -1,20 +1,43 @@
 import React from "react";
-import { StyleSheet, ScrollView, View } from "react-native";
-import SettingsButton from "../../../shared/components/SerttingsButton";
+import { StyleSheet, ScrollView, View, Alert } from "react-native";
+import SettingsButton from "../../../shared/components/SettingsButton";
 import { Bold } from "../../../shared/components/StyledText";
 import Colors from "../../../shared/constants/Colors";
+import LoginContext from "../../../shared/LoginContext";
 
-export default function SettingsScreen({ navigation }) {
+function SettingsScreen({ navigation, context }) {
+  const deleteAccount = () => {
+    // Works on both Android and iOS
+    Alert.alert(
+      "Sei sicuro?",
+      "sicuro che vuoi eliminare il tuo account?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => {},
+          style: "cancel"
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            context.logout();
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.spacer} />
       <Bold style={styles.sectionTitle}>IMPOSTAZIONI ACCOUNT</Bold>
       <SettingsButton
-        onPress={() => navigation.navigate("CambiaPassword")}
+        onPress={() => navigation.navigate("UpdatePassword")}
         text={"Cambia password"}
       />
       <SettingsButton
-        onPress={() => navigation.navigate("CambiaPassword")}
+        onPress={() => navigation.navigate("UpdateEmail")}
         text={"Cambia e-mail"}
       />
       <View style={styles.spacer} />
@@ -24,13 +47,13 @@ export default function SettingsScreen({ navigation }) {
         text={"Privacy policy"}
       />
       <SettingsButton
-        onPress={() => navigation.navigate("CambiaPassword")}
+        onPress={() => navigation.navigate("About")}
         text={"Riguardo Tendit"}
       />
       <View style={styles.spacer} />
       <Bold style={styles.sectionTitle}>ELIMINA ACCOUNT</Bold>
       <SettingsButton
-        onPress={() => navigation.navigate("CambiaPassword")}
+        onPress={() => () => deleteAccount()}
         text={"Elimina account"}
         color={Colors.red}
       />
@@ -53,3 +76,13 @@ const styles = StyleSheet.create({
     marginBottom: 15
   }
 });
+
+const SettingsScreenWC = props => {
+  return (
+    <LoginContext.Consumer>
+      {context => <SettingsScreen {...props} context={context} />}
+    </LoginContext.Consumer>
+  );
+};
+
+export default SettingsScreenWC;

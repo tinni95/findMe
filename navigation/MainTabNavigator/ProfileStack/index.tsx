@@ -22,13 +22,16 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "../../../shared/constants/Colors";
 import PostScreen from "../../../screens/Explore/Post/PostScreen";
 import SettingsScreen from "../../../screens/ProfileStack/SettingsStack";
+import UpdatePassword from "../../../screens/ProfileStack/SettingsStack/UpdatePassword";
+import UpdateEmail from "../../../screens/ProfileStack/SettingsStack/UpdateEmail";
+import AboutPage from "../../../screens/ProfileStack/SettingsStack/AboutPage";
 
 const Stack0 = createStackNavigator();
 
 const SettingsStack = () => {
   return (
-    <Stack1.Navigator>
-      <Stack1.Screen
+    <Stack0.Navigator>
+      <Stack0.Screen
         name="Impostazioni"
         options={({ navigation }) => ({
           title: "Impostazioni",
@@ -47,7 +50,37 @@ const SettingsStack = () => {
         })}
         component={SettingsScreen}
       />
-    </Stack1.Navigator>
+      <Stack0.Screen
+        name="UpdatePassword"
+        options={({ navigation }) => ({
+          title: "",
+          headerStyle,
+          headerTitleStyle,
+          headerLeft: () => <HeaderLeft navigation={navigation} />
+        })}
+        component={UpdatePassword}
+      />
+      <Stack0.Screen
+        name="UpdateEmail"
+        options={({ navigation }) => ({
+          title: "",
+          headerStyle,
+          headerTitleStyle,
+          headerLeft: () => <HeaderLeft navigation={navigation} />
+        })}
+        component={UpdateEmail}
+      />
+      <Stack0.Screen
+        name="About"
+        options={({ navigation }) => ({
+          title: "",
+          headerStyle,
+          headerTitleStyle,
+          headerLeft: () => <HeaderLeft navigation={navigation} />
+        })}
+        component={AboutPage}
+      />
+    </Stack0.Navigator>
   );
 };
 
