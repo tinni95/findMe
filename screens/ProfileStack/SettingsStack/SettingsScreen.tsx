@@ -12,7 +12,7 @@ import Colors from "../../../shared/constants/Colors";
 import LoginContext from "../../../shared/LoginContext";
 import AccountStatus from "../../../shared/components/AccountStatus";
 import { gql } from "apollo-boost";
-import { useQuery } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 const USER_STATUS = gql`
   {
@@ -43,7 +43,14 @@ function SettingsScreen({ navigation, route, context }) {
   const { data, loading, refetch } = useQuery(USER_STATUS, {
     fetchPolicy: "no-cache"
   });
-
+  const [deleteUser] = useMutation(DELETE_USER_MUTATION,{
+    onCompleted:() => {            context.logout();},
+    onError: () => {alert("oops... si è verificato un errore")}
+  })
+  const [sendEmail] = useMutation(SEND_EMAIL_MUTATION,{
+    onCompleted:() => { alert("email invitata")},
+    onError: () => {alert("oops... si è verificato un errore")}
+  })
   const [refreshing, setRefreshing] = useState(false);
   const isRefetch = route.params?.refetch ?? null;
   useEffect(() => {
@@ -68,8 +75,7 @@ function SettingsScreen({ navigation, route, context }) {
         {
           text: "OK",
           onPress: () => {
-            
-            context.logout();
+            deleteUser()
           }
         }
       ],
@@ -86,7 +92,7 @@ function SettingsScreen({ navigation, route, context }) {
       }
       style={styles.container}
     >
-      <AccountStatus currentUser={data.currentUser} />
+      <AccountStatus onPress={ ()=> sendEmail()}currentUser={data.currentUser} />
       <View style={styles.spacer} />
       <Bold style={styles.sectionTitle}>IMPOSTAZIONI ACCOUNT</Bold>
       <SettingsButton
@@ -112,7 +118,7 @@ function SettingsScreen({ navigation, route, context }) {
       <View style={styles.spacer} />
       <Bold style={styles.sectionTitle}>ELIMINA ACCOUNT</Bold>
       <SettingsButton
-        onPress={() => () => deleteAccount()}
+        onPress={ () => deleteAccount()}
         text={"Elimina account"}
         color={Colors.red}
       />

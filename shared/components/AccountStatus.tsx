@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { Bold, Body } from "./StyledText";
 import Colors from "../constants/Colors";
-export default function AccountStatus({ currentUser }) {
+export default function AccountStatus({ onPress, currentUser }) {
   if (currentUser.isVerified) {
     return (
       <View style={styles.container}>
@@ -23,7 +23,9 @@ export default function AccountStatus({ currentUser }) {
           <View style={styles.statusRed} />
           <Body style={styles.statusText}>da confermare</Body>
         </View>
-        <Body style={styles.statusLink}>ri-invia email</Body>
+        <Body style={styles.statusLink} onPress={onPress}>
+          ri-invia email
+        </Body>
       </View>
     );
   }
