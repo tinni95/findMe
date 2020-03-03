@@ -23,17 +23,6 @@ const NOTIFICHE_QUERY = gql`
       }
       text
       type
-      answer {
-        question {
-          id
-        }
-      }
-      question {
-        id
-      }
-      connessione {
-        id
-      }
     }
   }
 `;

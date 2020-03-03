@@ -7,6 +7,10 @@ import UserVisitsProfileScreen from "../../screens/shared/UserVisitsProfileScree
 import ApplicationReceivedChat from "../../screens/Explore/Post/ApplicationReceivedChat";
 import ApplicationSentChat from "../../screens/Explore/Post/ApplicationSentChat";
 import HeaderLeft from "../../shared/components/HeaderLeft";
+import {
+  headerStyle,
+  headerTitleStyle
+} from "../../shared/constants/HeaderStyles";
 
 const Stack = createStackNavigator();
 
@@ -16,7 +20,11 @@ const NotificaStack = ({ changeLoginState }) => {
       <Stack.Screen
         name="NotificationPage"
         component={NotificationPage}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: "Notifiche",
+          headerStyle,
+          headerTitleStyle
+        }}
       />
       <Stack.Screen
         name="NotificheIcon"
