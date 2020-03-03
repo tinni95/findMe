@@ -77,12 +77,15 @@ export default function ApplyScreen({ route, navigation }) {
   const post = route.params.post;
   console.log("post", post);
   const [messaggio, setMessaggio] = useState("");
-  const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION);
+  const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION, {
+    onError: error => console.log("a")
+  });
   const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION, {
     onCompleted: () => {
       console.log("yeah");
     },
     onError: error => {
+      console.log("notifica");
       console.log(error);
     }
   });
@@ -109,12 +112,13 @@ export default function ApplyScreen({ route, navigation }) {
         }
       });
       UnseeApplication({
-        variables: { id: createApplication.id, pubRead: true, subRead: true }
+        variables: { id: createApplication.id, pubRead: true, subRead: false }
       });
     },
     onError: error => {
       if (error.toString().includes("Verified"))
         alert("devi prima verificare la tua email per candidarti");
+      console.log("lol");
     }
   });
 

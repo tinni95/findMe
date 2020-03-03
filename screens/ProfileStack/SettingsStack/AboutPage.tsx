@@ -44,7 +44,7 @@ export default class ExpoConfigView extends React.Component {
       {
         data: [
           {
-            value: "Giovanni D'Amico"
+            value: "Giovanni D'Amico & Francesco Marrandino"
           }
         ],
         title: "Author"
