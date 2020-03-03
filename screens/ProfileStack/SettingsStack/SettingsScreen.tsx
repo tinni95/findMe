@@ -4,7 +4,7 @@ import SettingsButton from "../../../shared/components/SettingsButton";
 import { Bold } from "../../../shared/components/StyledText";
 import Colors from "../../../shared/constants/Colors";
 import LoginContext from "../../../shared/LoginContext";
-
+import AccountStatus from "../../../shared/components/AccountStatus";
 function SettingsScreen({ navigation, context }) {
   const deleteAccount = () => {
     // Works on both Android and iOS
@@ -30,6 +30,7 @@ function SettingsScreen({ navigation, context }) {
 
   return (
     <ScrollView style={styles.container}>
+      <AccountStatus />
       <View style={styles.spacer} />
       <Bold style={styles.sectionTitle}>IMPOSTAZIONI ACCOUNT</Bold>
       <SettingsButton
