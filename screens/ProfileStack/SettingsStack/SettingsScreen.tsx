@@ -1,11 +1,59 @@
-import React from "react";
-import { StyleSheet, ScrollView, View, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  Alert,
+  RefreshControl
+} from "react-native";
 import SettingsButton from "../../../shared/components/SettingsButton";
 import { Bold } from "../../../shared/components/StyledText";
 import Colors from "../../../shared/constants/Colors";
 import LoginContext from "../../../shared/LoginContext";
 import AccountStatus from "../../../shared/components/AccountStatus";
-function SettingsScreen({ navigation, context }) {
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo";
+import TenditSpinner from "../../../shared/graphql/TenditSpinner";
+const USER_STATUS = gql`
+  {
+    currentUser {
+      email
+      isVerified
+    }
+  }
+`;
+
+const DELETE_USER_MUTATION = gql`
+mutation{
+  deleteUser{
+    id
+  }
+}
+`;
+
+const SEND_EMAIL_MUTATION = gql`
+mutation{
+  resendEmail{
+    id
+  }
+}
+`;
+
+function SettingsScreen({ navigation, route, context }) {
+  const { data, loading, refetch } = useQuery(USER_STATUS, {
+    fetchPolicy: "no-cache"
+  });
+
+  const [refreshing, setRefreshing] = useState(false);
+  const isRefetch = route.params?.refetch ?? null;
+  useEffect(() => {
+    isRefetch ? onRefresh() : null;
+  }, [isRefetch]);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    refetch().then(() => setRefreshing(false));
+  };
   const deleteAccount = () => {
     // Works on both Android and iOS
     Alert.alert(
@@ -20,6 +68,7 @@ function SettingsScreen({ navigation, context }) {
         {
           text: "OK",
           onPress: () => {
+            
             context.logout();
           }
         }
@@ -27,10 +76,17 @@ function SettingsScreen({ navigation, context }) {
       { cancelable: false }
     );
   };
-
+  if (loading) {
+    return <TenditSpinner></TenditSpinner>;
+  }
   return (
-    <ScrollView style={styles.container}>
-      <AccountStatus />
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      style={styles.container}
+    >
+      <AccountStatus currentUser={data.currentUser} />
       <View style={styles.spacer} />
       <Bold style={styles.sectionTitle}>IMPOSTAZIONI ACCOUNT</Bold>
       <SettingsButton
@@ -38,7 +94,9 @@ function SettingsScreen({ navigation, context }) {
         text={"Cambia password"}
       />
       <SettingsButton
-        onPress={() => navigation.navigate("UpdateEmail")}
+        onPress={() =>
+          navigation.navigate("UpdateEmail", { onGoBack: () => refetch() })
+        }
         text={"Cambia e-mail"}
       />
       <View style={styles.spacer} />
@@ -65,7 +123,7 @@ function SettingsScreen({ navigation, context }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F2F2F2"
+    backgroundColor: "#fbfbfb"
   },
   spacer: {
     height: 25

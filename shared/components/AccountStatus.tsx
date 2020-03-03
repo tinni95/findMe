@@ -1,49 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { Bold, Body } from "./StyledText";
-import { gql } from "apollo-boost";
-import { useQuery } from "react-apollo";
-import TenditSpinner from "../graphql/TenditSpinner";
 import Colors from "../constants/Colors";
-
-const USER_STATUS = gql`
-  {
-    currentUser {
-      email
-      isVerified
-    }
-  }
-`;
-
-export default function AccountStatus() {
-  const { data, loading } = useQuery(USER_STATUS, { fetchPolicy: "no-cache" });
-  if (loading) {
-    return <TenditSpinner />;
+export default function AccountStatus({ currentUser }) {
+  if (currentUser.isVerified) {
+    return (
+      <View style={styles.container}>
+        <Bold>{currentUser.email}</Bold>
+        <View style={styles.statusContainer}>
+          <Body style={styles.statusText}>stato:</Body>
+          <View style={styles.statusGreen} />
+          <Body style={styles.statusText}>Confermato</Body>
+        </View>
+      </View>
+    );
   } else {
-    if (data.currentUser.isVerified) {
-      return (
-        <View style={styles.container}>
-          <Bold>{data.currentUser.email}</Bold>
-          <View style={styles.statusContainer}>
-            <Body style={styles.statusText}>stato:</Body>
-            <View style={styles.statusGreen} />
-            <Body style={styles.statusText}>Confermato</Body>
-          </View>
+    return (
+      <View style={styles.container}>
+        <Bold style={styles.email}>{currentUser.email}</Bold>
+        <View style={styles.statusContainer}>
+          <Body style={styles.statusText}>stato:</Body>
+          <View style={styles.statusRed} />
+          <Body style={styles.statusText}>da confermare</Body>
         </View>
-      );
-    } else {
-      return (
-        <View style={styles.container}>
-          <Bold style={styles.email}>{data.currentUser.email}</Bold>
-          <View style={styles.statusContainer}>
-            <Body style={styles.statusText}>stato:</Body>
-            <View style={styles.statusRed} />
-            <Body style={styles.statusText}>da confermare</Body>
-          </View>
-          <Body style={styles.statusLink}>ri-invia email</Body>
-        </View>
-      );
-    }
+        <Body style={styles.statusLink}>ri-invia email</Body>
+      </View>
+    );
   }
 }
 

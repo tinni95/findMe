@@ -5,6 +5,16 @@ import HeaderRight from "../../../shared/components/HeaderRight";
 import { Ionicons } from "@expo/vector-icons";
 import TenditTextInput from "../../../shared/components/TenditTextInput";
 import { validatePassword } from "../../AuthenticationStack/validators";
+import { gql } from "apollo-boost";
+import { useMutation } from "react-apollo";
+
+const UPDATE_PASSWORD = gql`
+  mutation UpdatePassword($password: String!, $newPassword: String!) {
+    updatePassword(password: $password, newPassword: $newPassword) {
+      id
+    }
+  }
+`;
 
 export default function UpdatePassword({ navigation }) {
   navigation.setOptions({
@@ -12,7 +22,15 @@ export default function UpdatePassword({ navigation }) {
       <HeaderRight text={"Conferma"} onPress={() => action()} />
     )
   });
-
+  const [updatePassword] = useMutation(UPDATE_PASSWORD, {
+    onCompleted: () => {
+      alert("la password è cambiata con successo");
+      sethePasswordError(false);
+    },
+    onError: () => {
+      sethePasswordError(true);
+    }
+  });
   const [hePassword, sethePassword] = useState<string>("");
   const [hePasswordError, sethePasswordError] = useState<Boolean>(false);
   const [password, setPassword] = useState<string>("");
@@ -41,6 +59,12 @@ export default function UpdatePassword({ navigation }) {
       setRePasswordError(false);
     }
     if (validatePassword(password) && password == rePassword) {
+      updatePassword({
+        variables: {
+          password: hePassword,
+          newPassword: password
+        }
+      });
     }
   };
 

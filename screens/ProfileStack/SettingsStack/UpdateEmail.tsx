@@ -1,19 +1,38 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import TenditTextInput from "../../../shared/components/TenditTextInput";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import { validateEmail } from "../../AuthenticationStack/validators";
+import { gql } from "apollo-boost";
+import { useMutation } from "react-apollo";
 
-export default function EmailPage({ navigation }) {
+const UPDATE_EMAIL = gql`
+  mutation UpdateEmail($email: String!) {
+    updateEmail(email: $email) {
+      id
+    }
+  }
+`;
+
+export default function UpdateEmail({ navigation, route }) {
   navigation.setOptions({
     headerRight: () => (
       <HeaderRight text={"Conferma"} onPress={() => action()} />
     )
   });
-
-  const [emailUsed, setEmailUsed] = useState("");
-  const [email, setEmail] = useState("");
+  const [updateEmail] = useMutation(UPDATE_EMAIL, {
+    onCompleted: () => {
+      alert("email aggiornata, per favore verifica la nuova mail");
+    },
+    onError: error => {
+      if (error.toString().includes("email")) {
+        setEmailUsed(true);
+      } else alert("ops, si è verificato un errore");
+    }
+  });
+  const [emailUsed, setEmailUsed] = useState<any>("");
+  const [email, setEmail] = useState<string>("");
   const [reEmail, setReEmail] = useState("");
   const [emailError, setEmailError] = useState<any>(undefined);
   const [reEmailError, setReEmailError] = useState<any>(undefined);
@@ -37,6 +56,27 @@ export default function EmailPage({ navigation }) {
       setReEmailError(false);
     }
     if (validateEmail(email) && email == reEmail) {
+      Alert.alert(
+        "Sei sicuro?",
+        "sicuro che vuoi cambiare e-mail?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => {},
+            style: "cancel"
+          },
+          {
+            text: "OK",
+            onPress: () => {
+              updateEmail({ variables: { email } });
+              navigation.navigate("Impostazioni", {
+                refetch: Math.floor(Math.random() * -1000)
+              });
+            }
+          }
+        ],
+        { cancelable: false }
+      );
     }
   };
 
