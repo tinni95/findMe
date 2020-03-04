@@ -1,16 +1,20 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Tooltip } from "react-native-elements";
 import AvatarAndVedi from "./AvatarAndVedi";
-import FieldIcon from "./FieldIcons";
 import { Bold, Body, Light } from "./StyledText";
 import Colors from "../constants/Colors";
 import { RoundButtonEmptyIcon } from "./RoundButtonEmptyIcon";
 import RoundButtonEmpty from "./RoundButtonEmpty";
 import LocationWithText from "./LocationWithText";
+import RoundButton from "./RoundButton";
 
-export default function ReceivedCard({ id, application, navigation, onPress }) {
+export default function ReceivedCard({
+  onClosePosition,
+  application,
+  navigation,
+  onPress
+}) {
   const navigateToProfile = () =>
     navigation.navigate("UserVisitsProfileScreen", { id: application.from.id });
   return (
@@ -83,13 +87,34 @@ export default function ReceivedCard({ id, application, navigation, onPress }) {
               </View>
             </View>
           )}
-          <RoundButtonEmpty
-            color={Colors.red}
-            isLight
-            text={"Accetta"}
-            isMedium
-            onPress={() => {}}
-          />
+          {!application.position.opened ? (
+            application.position.closedFor.id === application.id ? (
+              <RoundButton
+                color={Colors.ocean}
+                textColor={"white"}
+                isLight
+                text={"Accettata"}
+                isMedium
+                onPress={() => {}}
+              />
+            ) : (
+              <RoundButtonEmpty
+                color={Colors.red}
+                isLight
+                text={"Rifiutata"}
+                isMedium
+                onPress={() => {}}
+              />
+            )
+          ) : (
+            <RoundButtonEmpty
+              color={Colors.red}
+              isLight
+              text={"Accetta"}
+              isMedium
+              onPress={() => onClosePosition(application)}
+            />
+          )}
         </View>
       </View>
     </View>

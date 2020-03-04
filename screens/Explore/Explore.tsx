@@ -35,6 +35,7 @@ const posts = gql`
         cognome
       }
       posizioni {
+        opened
         id
         type
         titolo

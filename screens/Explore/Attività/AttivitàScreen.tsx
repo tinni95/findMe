@@ -37,6 +37,10 @@ const User = gql`
           id
         }
         position {
+          closedFor {
+            id
+          }
+          opened
           post {
             comune
             regione
@@ -58,6 +62,10 @@ const User = gql`
         id
         pubRead
         position {
+          closedFor {
+            id
+          }
+          opened
           titolo
           requisiti
           post {
@@ -95,6 +103,17 @@ const User = gql`
   }
 `;
 
+const CLOSE_POSITION_FOR_APPLICATION = gql`
+  mutation closePositionForApplication($positionId: ID!, $applicationId: ID!) {
+    closePositionForApplication(
+      positionId: $positionId
+      applicationId: $applicationId
+    ) {
+      id
+    }
+  }
+`;
+
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   mutation unseeApplicationChatChatMutation(
     $id: ID!
@@ -116,6 +135,15 @@ function wait(timeout) {
 }
 
 export default function AttivitàScreen({ navigation }) {
+  const onClosePosition = application => {
+    closePosition({
+      variables: {
+        positionId: application.position.id,
+        applicationId: application.id
+      }
+    });
+  };
+
   const [refreshing, setRefreshing] = useState(false);
   const { refetch, data, loading } = useQuery(User, {
     fetchPolicy: "no-cache"
@@ -133,6 +161,15 @@ export default function AttivitàScreen({ navigation }) {
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
     onCompleted: () => {
       refetch();
+    }
+  });
+
+  const [closePosition] = useMutation(CLOSE_POSITION_FOR_APPLICATION, {
+    onCompleted: () => {
+      refetch();
+    },
+    onError: error => {
+      console.log(error);
     }
   });
 
@@ -190,6 +227,7 @@ export default function AttivitàScreen({ navigation }) {
         applicationReceived.map(application => {
           return (
             <ReceivedCard
+              onClosePosition={onClosePosition}
               onPress={() => {
                 navigation.navigate("ApplicationReceivedChat", {
                   id: application.to.id,

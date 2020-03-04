@@ -40,6 +40,7 @@ const Post = gql`
         pushToken
       }
       posizioni {
+        opened
         type
         id
         descrizione
@@ -117,6 +118,7 @@ export default function PostScreen({ navigation, route }) {
 
   const positionCards = () => {
     return data.singlePost.posizioni.map((position, index) => {
+      if(position.opened)
       return (
         <PositionCard
           button={data.currentUser.id === data.singlePost.postedBy.id}
