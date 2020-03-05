@@ -11,6 +11,7 @@ import { FormStyles } from "./Form/FormStyles";
 import { Body, Bold } from "./StyledText";
 import { Comuni } from "../constants/Comuni";
 import Colors from "../constants/Colors";
+import { wait } from "../functions/wait";
 const shortid = require("shortid");
 
 function AutoCompleteLocation({ navigation, route }) {
@@ -42,8 +43,7 @@ function AutoCompleteLocation({ navigation, route }) {
   });
 
   useEffect(() => {
-    Input.current.focus();
-    console.log(" mikele", Input.current);
+    wait(50).then(()=>{Input.current.focus()});
   }, []);
 
   return (

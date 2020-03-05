@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import PostIdeaStack from "./PostIdeaStack";
 import ProfileStack from "./ProfileStack";
 import NotificaStack from "./NotificaStack";
@@ -8,18 +8,19 @@ import ProfiloIcon from "../Icons/ProfiloIcon";
 import PostIdeaIcon from "../Icons/PostIdeaIcon";
 import TabBarText from "../../shared/components/TabBarText";
 
-const BottomTab = createBottomTabNavigator();
+const BottomTab = createMaterialBottomTabNavigator();
 
 const MainTabNavigator = () => {
   return (
-    <BottomTab.Navigator initialRouteName="PostIdeaStack">
+    <BottomTab.Navigator
+      barStyle={{ backgroundColor: "white" }}
+      initialRouteName="PostIdeaStack"
+    >
       <BottomTab.Screen
         name="PostIdeaStack"
         component={PostIdeaStack}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText text={"Post Idea"} focused={focused} />
-          ),
+          tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
             <PostIdeaIcon focused={focused}></PostIdeaIcon>
           )
@@ -29,9 +30,7 @@ const MainTabNavigator = () => {
         name="ProfileStack"
         component={ProfileStack}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText text={"Profilo"} focused={focused} />
-          ),
+          tabBarLabel: "",
           tabBarIcon: ({ focused }) => <ProfiloIcon focused={focused} />
         }}
       />
@@ -39,9 +38,7 @@ const MainTabNavigator = () => {
         name="NotificaStack"
         component={NotificaStack}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText text={"Notifiche"} focused={focused} />
-          ),
+          tabBarLabel: "",
           tabBarIcon: ({ focused }) => <NotificheIcon focused={focused} />
         }}
       />

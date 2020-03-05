@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
-import { View } from "react-native";
+import { View, Platform } from "react-native";
 import InputToolbar from "../../../shared/components/InputToolbar";
 import TenditMessage from "../../../shared/components/Chat/TenditMessage";
 import { useMutation, useQuery } from "react-apollo";
@@ -174,7 +174,7 @@ export function ApplicationSentChat(props) {
           }
         }}
       />
-      <KeyboardSpacer topSpacing={isSmallDevice ? -25 : -50} />
+      <KeyboardSpacer topSpacing={Platform.OS==="ios"?isSmallDevice ? -25 : -50:isSmallDevice ? 25 : 50} />
     </View>
   );
 }

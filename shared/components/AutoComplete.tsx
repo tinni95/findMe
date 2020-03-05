@@ -10,6 +10,8 @@ import {
 import { FormStyles } from "./Form/FormStyles";
 import { Bold, Body } from "./StyledText";
 import { Ionicons } from "@expo/vector-icons";
+import { wait } from "../functions/wait";
+
 const shortid = require("shortid");
 
 function AutoComplete({ navigation, route }) {
@@ -60,7 +62,7 @@ function AutoComplete({ navigation, route }) {
   });
 
   useEffect(() => {
-    passwordInput.current.focus();
+    wait(50).then(()=>{passwordInput.current.focus()});
   }, []);
 
   return (
