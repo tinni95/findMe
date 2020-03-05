@@ -15,7 +15,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import TenditGraphqlErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
 import CreateButton from "../../shared/components/CreateButton";
-
+import {allClosed} from "../../shared/functions/allClosed"
 const posts = gql`
   query posts($filter: String, $settore: [String!], $regione: String) {
     postsFeed(filter: $filter, settore: $settore, regione: $regione) {
@@ -94,6 +94,7 @@ export default function Explore({ navigation, route }) {
 
     const renderPosts = () => {
       return data.postsFeed.map((post, index) => {
+        if(!allClosed(post.posizioni))
         return (
           <PostCard
           navigation={navigation}

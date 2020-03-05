@@ -42,12 +42,6 @@ export function NotificheIcon(props) {
   });
   const focused = props.focused;
 
-  useEffect(() => {
-    props.socket.on("notifica", msg => {
-      wait(1000).then(() => refetch());
-    });
-  });
-
   if (loading) {
     return (
       <Image

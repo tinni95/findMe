@@ -42,11 +42,13 @@ const PostIdeaStack = () => {
       <Stack.Screen
         name="AttivitàScreen"
         component={AttivitàScreen}
-        options={({ navigation }) => ({
+        options={({ route, navigation }) => ({
           headerStyle,
           headerTitleStyle,
           headerTitle: "Candidature",
-          headerLeft: () => <HeaderLeft text={" "} navigation={navigation} />
+          headerLeft: () => (
+            <HeaderLeft text={" "} route={route} navigation={navigation} />
+          )
         })}
       />
       <Stack.Screen

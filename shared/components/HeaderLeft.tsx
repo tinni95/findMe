@@ -8,12 +8,14 @@ import { CompositeNavigationProp } from "@react-navigation/native";
 type HeaderProps = {
   navigation: CompositeNavigationProp<any, any>;
   text?: string;
+  route?:CompositeNavigationProp<any, any>;
 };
 
-const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, text }) => (
+const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) => (
   <TouchableOpacity
     style={{ flexDirection: "row" }}
-    onPress={() => navigation.goBack()}
+    onPress={() => {route?.params?.onGoBack()
+      navigation.goBack()}}
   >
     <Ionicons
       name={"ios-arrow-back"}

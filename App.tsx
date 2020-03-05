@@ -84,6 +84,7 @@ async function loadResourcesAsync() {
     Asset.loadAsync([require("./assets/images/Logo_tendit.png")]),
     Font.loadAsync({
       "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
+      Avenir: require("./assets/fonts/avenir.otf"),
       "changa-one": require("./assets/fonts/ChangaOne-Regular.ttf"),
       "sequel-sans": require("./assets/fonts/SequelSans-Body.ttf"),
       "sequel-sans-bold": require("./assets/fonts/SequelSans-Bold.ttf"),

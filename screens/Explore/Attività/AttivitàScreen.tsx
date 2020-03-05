@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RefreshControl } from "react-native";
 import { SceneMap } from "react-native-tab-view";
 import { useQuery, useMutation } from "@apollo/react-hooks";
@@ -9,8 +9,8 @@ import TabBars from "../../../shared/components/TabBars";
 import ReceivedCard from "../../../shared/components/ReceivedCard";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
+import SocketContext from "../../../shared/SocketContext";
 var shortid = require("shortid");
-
 const User = gql`
   {
     UnseenSentApplications {
@@ -37,6 +37,7 @@ const User = gql`
           id
         }
         position {
+          id
           closedFor {
             id
           }
@@ -62,6 +63,7 @@ const User = gql`
         id
         pubRead
         position {
+          id
           closedFor {
             id
           }
@@ -128,19 +130,48 @@ const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   }
 `;
 
+const CREATEPOSTMESSAGE_MUTATION = gql`
+  mutation createPostMessage($applicationId: ID!, $text: String!, $subId: ID!) {
+    createPostMessage(
+      applicationId: $applicationId
+      text: $text
+      subId: $subId
+    ) {
+      application {
+        id
+      }
+    }
+  }
+`;
+
 function wait(timeout) {
   return new Promise(resolve => {
     setTimeout(resolve, timeout);
   });
 }
 
-export default function AttivitàScreen({ navigation }) {
+function AttivitàScreen({ navigation, socket }) {
+  useEffect(() => {
+    socket.on("postnotifica", msg => {
+      console.log("NOTIFICA");
+      wait(1000).then(() => refetch());
+    });
+  });
+
   const onClosePosition = application => {
     closePosition({
       variables: {
         positionId: application.position.id,
         applicationId: application.id
       }
+    }).then(() => {
+      createMessage({
+        variables: {
+          text: "Complimenti, sei stato accettato",
+          applicationId: application.id,
+          subId: application.to.id
+        }
+      });
     });
   };
 
@@ -164,14 +195,19 @@ export default function AttivitàScreen({ navigation }) {
     }
   });
 
-  const [closePosition] = useMutation(CLOSE_POSITION_FOR_APPLICATION, {
-    onCompleted: () => {
+  const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
+    onCompleted: async ({ createPostMessage }) => {
+      unseeChat({
+        variables: { id: createPostMessage.application.id, pubRead: false }
+      });
       refetch();
     },
     onError: error => {
-      console.log(error);
+      alert("Qualcosa è andato storto");
     }
   });
+
+  const [closePosition] = useMutation(CLOSE_POSITION_FOR_APPLICATION);
 
   if (loading) return <TenditSpinner />;
 
@@ -265,3 +301,11 @@ export default function AttivitàScreen({ navigation }) {
     ></TabBars>
   );
 }
+
+const AttivitàScreenWS = props => (
+  <SocketContext.Consumer>
+    {socket => <AttivitàScreen {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);
+
+export default AttivitàScreenWS;

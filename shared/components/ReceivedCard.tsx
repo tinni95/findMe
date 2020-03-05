@@ -18,7 +18,18 @@ export default function ReceivedCard({
   const navigateToProfile = () =>
     navigation.navigate("UserVisitsProfileScreen", { id: application.from.id });
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          opacity:
+            !application.position.opened &&
+            application.position.closedFor.id != application.id
+              ? 0.5
+              : 1
+        }
+      ]}
+    >
       <View style={styles.upperContent}>
         <AvatarAndVedi
           navigateToProfile={navigateToProfile}
@@ -44,7 +55,7 @@ export default function ReceivedCard({
           Risposta
         </Bold>
         <Light style={{ fontSize: 12, marginBottom: 10 }}>
-          {application.messages[0].text}
+          {application.messages[0] && application.messages[0].text}
         </Light>
       </View>
       <View style={styles.footer}>
@@ -98,8 +109,9 @@ export default function ReceivedCard({
                 onPress={() => {}}
               />
             ) : (
-              <RoundButtonEmpty
+              <RoundButton
                 color={Colors.red}
+                textColor={"white"}
                 isLight
                 text={"Rifiutata"}
                 isMedium

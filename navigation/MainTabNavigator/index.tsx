@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostIdeaStack from "./PostIdeaStack";
 import ProfileStack from "./ProfileStack";
@@ -7,10 +7,17 @@ import NotificheIcon from "../Icons/NotificaIcon";
 import ProfiloIcon from "../Icons/ProfiloIcon";
 import PostIdeaIcon from "../Icons/PostIdeaIcon";
 import TabBarText from "../../shared/components/TabBarText";
+import { Keyboard } from "react-native";
 
 const BottomTab = createBottomTabNavigator();
 
 const MainTabNavigator = () => {
+  useEffect(() => {
+    this.keyboardEventListeners = [
+      Keyboard.addListener("keyboardDidShow", this.visible(false)),
+      Keyboard.addListener("keyboardDidHide", this.visible(true))
+    ];
+  }, []);
   return (
     <BottomTab.Navigator initialRouteName="PostIdeaStack">
       <BottomTab.Screen

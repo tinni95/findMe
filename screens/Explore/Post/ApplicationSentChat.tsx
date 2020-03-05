@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
-import { View, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import InputToolbar from "../../../shared/components/InputToolbar";
 import TenditMessage from "../../../shared/components/Chat/TenditMessage";
 import { useMutation, useQuery } from "react-apollo";

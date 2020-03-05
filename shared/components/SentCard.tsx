@@ -3,8 +3,6 @@ import { View, Text } from "react-native";
 import { StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import AvatarAndVedi from "./AvatarAndVedi";
-import FieldIcon from "./FieldIcons";
-import { Tooltip } from "react-native-elements";
 import { Bold, Body, Light } from "./StyledText";
 import LocationWithText from "./LocationWithText";
 import Colors from "../constants/Colors";
@@ -18,7 +16,18 @@ export default function SentCard({ onPress, application, navigation }) {
   const navigateToProfile = () =>
     navigation.navigate("UserVisitsProfileScreen", { id: post.postedBy.id });
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          opacity:
+            application.position.closedFor &&
+            application.position.closedFor.id != application.id
+              ? 0.5
+              : 1
+        }
+      ]}
+    >
       <View style={styles.upperContent}>
         <AvatarAndVedi
           navigateToProfile={navigateToProfile}
@@ -26,7 +35,30 @@ export default function SentCard({ onPress, application, navigation }) {
         />
         <LinearGradient colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
         <View style={styles.info}>
-          <Bold style={{ fontSize: 16 }}>{application.position.titolo}</Bold>
+          {application.position.closedFor &&
+          application.position.closedFor.id == application.id ? (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <Bold style={{ fontSize: 16 }}>
+                {application.position.titolo}
+              </Bold>
+              <Bold
+                style={{
+                  fontSize: 14,
+                  color: "green",
+                  borderWidth: 0.5,
+                  padding: 3,
+                  borderRadius: 3,
+                  borderColor: "green"
+                }}
+              >
+                Accettato
+              </Bold>
+            </View>
+          ) : (
+            <Bold style={{ fontSize: 16 }}>{application.position.titolo}</Bold>
+          )}
           {post.comune ? (
             <LocationWithText
               points={17}

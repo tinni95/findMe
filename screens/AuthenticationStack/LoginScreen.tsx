@@ -17,6 +17,12 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
+
 function LoginScreen({ context, navigation }) {
   navigation.setOptions({
     headerRight: () => <HeaderRight text={"Next"} onPress={() => login()} />
@@ -51,7 +57,7 @@ function LoginScreen({ context, navigation }) {
   });
 
   useEffect(() => {
-    preinput.current.focus();
+    wait(50).then(() => preinput.current.focus());
   }, []);
 
   const login = () => {

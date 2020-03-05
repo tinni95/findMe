@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  ReactComponentElement
-} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import HeaderRight from "../../../shared/components/HeaderRight";
