@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, StyleSheet, Image, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  Image,
+  View,
+  TouchableOpacity,
+  Platform
+} from "react-native";
 import { isSmallDevice } from "../../constants/Layout";
 import getHiddenString from "../../functions/getHiddenString";
 
@@ -67,7 +74,7 @@ const styles = StyleSheet.create({
   image: {
     width: 50,
     height: 50,
-    borderRadius: 25
+    borderRadius: Platform.OS === "android" ? 100 : 25
   },
   infoContainer: {
     flex: 1,
