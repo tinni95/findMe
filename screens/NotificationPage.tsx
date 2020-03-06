@@ -60,7 +60,10 @@ export default function NotificationPage({ navigation }) {
         const image = notifica.from.pictureUrl
           ? { uri: notifica.from.pictureUrl }
           : require("../assets/images/placeholder.png");
-        if (notifica.type == "applicationPost") {
+        if (
+          notifica.type == "applicationPost" ||
+          notifica.type == "applicationAccepted"
+        ) {
           return (
             <PostApplicationCard
               image={image}

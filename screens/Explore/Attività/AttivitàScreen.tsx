@@ -11,6 +11,17 @@ import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
 import SocketContext from "../../../shared/SocketContext";
 var shortid = require("shortid");
+
+const CREATENOTIFICA_MUTATION = gql`
+  mutation createNotifica($text: String!, $type: String!, $id: ID!) {
+    createNotifica(text: $text, type: $type, id: $id) {
+      to {
+        id
+      }
+    }
+  }
+`;
+
 const User = gql`
   {
     UnseenSentApplications {
@@ -138,6 +149,13 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
       subId: $subId
     ) {
       application {
+        to {
+          id
+          nome
+        }
+        position {
+          titolo
+        }
         id
       }
     }
@@ -189,6 +207,17 @@ function AttivitàScreen({ navigation, socket }) {
     wait(2000).then(() => setRefreshing(false));
   }, [refreshing]);
 
+  const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION, {
+    onCompleted: ({ createNotifica }) => {
+      console.log(createNotifica);
+      socket.emit("postnotifica", createNotifica.to.id);
+    },
+    onError: error => {
+      console.log("notifica");
+      console.log(error);
+    }
+  });
+
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
     onCompleted: () => {
       refetch();
@@ -199,6 +228,16 @@ function AttivitàScreen({ navigation, socket }) {
     onCompleted: async ({ createPostMessage }) => {
       unseeChat({
         variables: { id: createPostMessage.application.id, pubRead: false }
+      });
+      createNotifica({
+        variables: {
+          type: "applicationAccepted",
+          id: createPostMessage.application.from.id,
+          text:
+            createPostMessage.application.to.nome +
+            "ha accettato la tua candidatura per" +
+            createPostMessage.application.position.titolo
+        }
       });
       refetch();
     },

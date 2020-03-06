@@ -174,7 +174,7 @@ export function ApplicationSentChat(props) {
           }
         }}
       />
-      <KeyboardSpacer topSpacing={Platform.OS==="ios"?isSmallDevice ? -25 : -50:isSmallDevice ? 25 : 50} />
+   <KeyboardSpacer topSpacing={(isSmallDevice ? 20 :30)} />
     </View>
   );
 }

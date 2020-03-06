@@ -6,6 +6,7 @@ import Colors from "../../shared/constants/Colors";
 import { useQuery, useMutation } from "react-apollo";
 import { gql } from "apollo-boost";
 import SocketContext from "../../shared/SocketContext";
+import { wait } from "../../shared/functions/wait";
 
 const UNOPENEDNOTIFICHE_QUERY = gql`
   {
@@ -25,13 +26,7 @@ const READNOTIFICA_MUTATION = gql`
   }
 `;
 
-function wait(timeout) {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-}
-
-export function NotificheIcon(props) {
+function NotificheIcon(props) {
   const [readNotifica] = useMutation(READNOTIFICA_MUTATION, {
     onCompleted: () => {
       refetch();
@@ -41,6 +36,16 @@ export function NotificheIcon(props) {
     fetchPolicy: "no-cache"
   });
   const focused = props.focused;
+
+  useEffect(() => {
+    props.socket.on(
+      "postnotifica",
+      msg => {
+        wait(500).then(() => refetch());
+      },
+      []
+    );
+  });
 
   if (loading) {
     return (

@@ -168,7 +168,7 @@ export function ApplicationReceivedChat(props) {
           }
         }}
       />
-      <KeyboardSpacer topSpacing={Platform.OS==="ios"?isSmallDevice ? -25 : -50:isSmallDevice ? 25 : 50} />
+         <KeyboardSpacer topSpacing={(isSmallDevice ? 25 :45)} />
     </View>
   );
 }

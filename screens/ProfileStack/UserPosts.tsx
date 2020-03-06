@@ -12,7 +12,7 @@ import { gql } from "apollo-boost";
 import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import TenditErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
 
-const posts = gql`
+const userPosts = gql`
   {
     userPosts {
       id
@@ -31,7 +31,6 @@ const posts = gql`
         id
         descrizione
         requisiti
-        settore
       }
     }
   }
@@ -47,7 +46,7 @@ const DELETEPOST_MUTATION = gql`
 
 export default function UserPosts({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
-  const { loading, error, data, refetch } = useQuery(posts, {
+  const { loading, error, data, refetch } = useQuery(userPosts, {
     onError: error => console.log(error)
   });
   const [deletePost] = useMutation(DELETEPOST_MUTATION, {
