@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginBottom: 15,
     marginTop: 25,
-    fontSize: isSmallDevice ? 11 : 12,
-    color: "#5F5E5E"
+    fontSize: isSmallDevice ? 14 : 15,
+    color: "black"
   },
   error: {
     color: "#DD1E63"

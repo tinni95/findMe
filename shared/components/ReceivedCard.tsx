@@ -23,8 +23,8 @@ export default function ReceivedCard({
         styles.container,
         {
           opacity:
-            !application.position.opened &&
-            application.position.closedFor.id != application.id
+            !application.post.opened &&
+            application.post.closedFor.id != application.id
               ? 0.5
               : 1
         }
@@ -40,24 +40,17 @@ export default function ReceivedCard({
           <Info
             navigateToProfile={navigateToProfile}
             navigation={navigation}
-            postId={application.position.post.id}
-            title={application.position.post.titolo}
+            postId={application.post.id}
+            title={application.post.titolo}
             nome={application.from.nome}
             cognome={application.from.cognome}
             comune={application.from.comune}
             regione={application.from.regione}
-            posizione={application.position.titolo}
+            posizione={application.post.titolo}
           ></Info>
         </View>
       </View>
-      <View style={styles.messageWrapper}>
-        <Bold style={{ fontSize: 12, marginBottom: 10, color: Colors.blue }}>
-          Risposta
-        </Bold>
-        <Light style={{ fontSize: 12, marginBottom: 10 }}>
-          {application.messages[0] && application.messages[0].text}
-        </Light>
-      </View>
+
       <View style={styles.footer}>
         <View style={styles.buttonWrapper}>
           {application.pubRead ? (
@@ -98,8 +91,8 @@ export default function ReceivedCard({
               </View>
             </View>
           )}
-          {!application.position.opened ? (
-            application.position.closedFor.id === application.id ? (
+          {!application.post.opened ? (
+            application.post.closedFor.id === application.id ? (
               <RoundButton
                 color={Colors.ocean}
                 textColor={"white"}
@@ -120,7 +113,7 @@ export default function ReceivedCard({
             )
           ) : (
             <RoundButtonEmpty
-              color={Colors.red}
+              color={Colors.ocean}
               isLight
               text={"Accetta"}
               isMedium
@@ -162,26 +155,6 @@ function Info({
         Posizione
       </Body>
       <Light style={{ fontSize: 12, marginTop: 5 }}>{posizione}</Light>
-      <Body
-        onPress={() =>
-          navigation.navigate("PostScreen", {
-            id: postId
-          })
-        }
-        style={{ fontSize: 14, marginTop: 15, color: Colors.blue }}
-      >
-        Titolo post
-      </Body>
-      <Light
-        onPress={() =>
-          navigation.navigate("PostScreen", {
-            id: postId
-          })
-        }
-        style={{ fontSize: 12, marginTop: 5 }}
-      >
-        {title}
-      </Light>
     </View>
   );
 }
@@ -209,7 +182,6 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   footer: {
-    borderTopWidth: 0.3,
     marginLeft: 10,
     marginRight: 10,
     borderTopColor: "#D0D0D0",

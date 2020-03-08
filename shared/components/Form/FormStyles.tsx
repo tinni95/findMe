@@ -6,7 +6,6 @@ export const FormStyles = StyleSheet.create({
     width: "100%",
     height: 45,
     padding: 8,
-    borderBottomWidth: 0.3,
     color: "#5F5E5E",
     borderBottomColor: "#D3CFCF",
     fontSize: isSmallDevice ? 12 : 14,
@@ -26,7 +25,6 @@ export const FormStyles = StyleSheet.create({
     width: "95%",
     height: 45,
     padding: 8,
-    borderBottomWidth: 0.3,
     color: "#5F5E5E",
     borderBottomColor: "#D3CFCF",
     fontSize: isSmallDevice ? 12 : 14,
@@ -77,7 +75,7 @@ export const FormStyles = StyleSheet.create({
     margin: 5,
     padding: 5,
     borderColor: "#D3CFCF",
-    borderWidth: 0.5,
+
     borderRadius: 5,
     alignContent: "center",
     height: 30
@@ -86,7 +84,6 @@ export const FormStyles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     borderRadius: 5,
-    borderWidth: 1,
     borderColor: "#D3CFCF"
   }
 });

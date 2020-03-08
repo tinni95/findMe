@@ -62,7 +62,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
             marginBottom: 10
           }}
         >
-          <Bold style={{ color: Colors.blue }}>{title}</Bold>
+          <Bold style={{ color: "black" }}>{title}</Bold>
         </View>
         <View
           style={{
@@ -92,7 +92,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
           marginBottom: 10
         }}
       >
-        <Bold style={{ color: Colors.blue }}>{title}</Bold>
+        <Bold style={{ color: "black" }}>{title}</Bold>
         <UnTouchablePen size={15}></UnTouchablePen>
       </TouchableOpacity>
 
@@ -224,7 +224,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingLeft: 20,
     paddingRight: 20,
-    paddingTop: 10
+    paddingTop: 10,
+    borderRadius: 8
   },
   aggiungiButton: {
     textAlign: "center",

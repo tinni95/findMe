@@ -85,7 +85,7 @@ export default function FiltersPage({ navigation, route }) {
           tooltipText={
             "scegli i settori a cui sei interessato come posizione, puoi sceglierne quanti ne vuoi"
           }
-          text={"Posizioni di preferenza"}
+          text={"Settori di preferenza"}
         ></StepsLabelWithHint>
         <MultiFilters
           reset={reset}

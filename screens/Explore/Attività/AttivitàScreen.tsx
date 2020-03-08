@@ -47,25 +47,23 @@ const User = gql`
           pictureUrl
           id
         }
-        position {
+        post {
           id
           closedFor {
             id
           }
-          opened
-          post {
-            comune
-            regione
+          postedBy {
+            pictureUrl
+            nome
+            cognome
             id
-            hidden
-            titolo
-            postedBy {
-              pictureUrl
-              nome
-              cognome
-              id
-            }
           }
+          opened
+          comune
+          regione
+          id
+          hidden
+          titolo
           titolo
           requisiti
         }
@@ -73,7 +71,7 @@ const User = gql`
       applicationsReceived {
         id
         pubRead
-        position {
+        post {
           id
           closedFor {
             id
@@ -81,9 +79,6 @@ const User = gql`
           opened
           titolo
           requisiti
-          post {
-            id
-          }
         }
         from {
           pictureUrl
@@ -93,13 +88,11 @@ const User = gql`
           regione
           comune
         }
-        position {
-          post {
-            titolo
-            postedBy {
-              nome
-              cognome
-            }
+        post {
+          titolo
+          postedBy {
+            nome
+            cognome
           }
         }
         to {
@@ -117,9 +110,9 @@ const User = gql`
 `;
 
 const CLOSE_POSITION_FOR_APPLICATION = gql`
-  mutation closePositionForApplication($positionId: ID!, $applicationId: ID!) {
+  mutation closePositionForApplication($postId: ID!, $applicationId: ID!) {
     closePositionForApplication(
-      positionId: $positionId
+      postId: $postId
       applicationId: $applicationId
     ) {
       id
@@ -153,7 +146,7 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
           id
           nome
         }
-        position {
+        post {
           titolo
         }
         id
@@ -179,7 +172,7 @@ function AttivitàScreen({ navigation, socket }) {
   const onClosePosition = application => {
     closePosition({
       variables: {
-        positionId: application.position.id,
+        postId: application.post.id,
         applicationId: application.id
       }
     }).then(() => {
@@ -236,7 +229,7 @@ function AttivitàScreen({ navigation, socket }) {
           text:
             createPostMessage.application.to.nome +
             "ha accettato la tua candidatura per" +
-            createPostMessage.application.position.titolo
+            createPostMessage.application.post.titolo
         }
       });
       refetch();

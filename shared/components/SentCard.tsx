@@ -12,7 +12,7 @@ import RoundButtonEmpty from "./RoundButtonEmpty";
 var shortid = require("shortid");
 
 export default function SentCard({ onPress, application, navigation }) {
-  const { post } = application.position;
+  const { post } = application;
   const navigateToProfile = () =>
     navigation.navigate("UserVisitsProfileScreen", { id: post.postedBy.id });
   return (
@@ -21,10 +21,7 @@ export default function SentCard({ onPress, application, navigation }) {
         styles.container,
         {
           opacity:
-            application.position.closedFor &&
-            application.position.closedFor.id != application.id
-              ? 0.5
-              : 1
+            post.closedFor && post.closedFor.id != application.id ? 0.5 : 1
         }
       ]}
     >
@@ -35,14 +32,11 @@ export default function SentCard({ onPress, application, navigation }) {
         />
         <LinearGradient colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
         <View style={styles.info}>
-          {application.position.closedFor &&
-          application.position.closedFor.id == application.id ? (
+          {post.closedFor && post.closedFor.id == application.id ? (
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
-              <Bold style={{ fontSize: 16 }}>
-                {application.position.titolo}
-              </Bold>
+              <Bold style={{ fontSize: 16 }}>{post.titolo}</Bold>
               <Bold
                 style={{
                   fontSize: 14,
@@ -57,7 +51,7 @@ export default function SentCard({ onPress, application, navigation }) {
               </Bold>
             </View>
           ) : (
-            <Bold style={{ fontSize: 16 }}>{application.position.titolo}</Bold>
+            <Bold style={{ fontSize: 16 }}>{post.titolo}</Bold>
           )}
           {post.comune ? (
             <LocationWithText
@@ -75,26 +69,6 @@ export default function SentCard({ onPress, application, navigation }) {
               ? post.postedBy.nome + " " + post.postedBy.cognome[0] + "."
               : post.postedBy.nome + " " + post.postedBy.cognome}
           </Light>
-          <Body
-            onPress={() =>
-              navigation.navigate("PostScreen", {
-                id: post.id
-              })
-            }
-            style={{ fontSize: 14, marginTop: 15, color: Colors.blue }}
-          >
-            Titolo post
-          </Body>
-          <Light
-            onPress={() =>
-              navigation.navigate("PostScreen", {
-                id: post.id
-              })
-            }
-            style={{ fontSize: 12, marginTop: 5 }}
-          >
-            {post.titolo}
-          </Light>
         </View>
       </View>
       <View style={styles.messageWrapper}>
@@ -102,15 +76,13 @@ export default function SentCard({ onPress, application, navigation }) {
           Qualifiche
         </Bold>
         <View style={styles.qualifiche}>
-          {application.position.requisiti &&
-            application.position.requisiti.length == 0 && (
-              <Body>Non Specificato</Body>
-            )}
-          {application.position.requisiti &&
-            application.position.requisiti.map(qualifica => {
+          {post.requisiti && post.requisiti.length == 0 && (
+            <Body>Non Specificato</Body>
+          )}
+          {post.requisiti &&
+            post.requisiti.map(qualifica => {
               return (
                 <RoundButton
-                  isLight={true}
                   onPress={() => {}}
                   key={shortid.generate()}
                   text={qualifica}
@@ -127,7 +99,7 @@ export default function SentCard({ onPress, application, navigation }) {
             buttonStyle={{ padding: 9 }}
             onPress={() =>
               navigation.navigate("PostScreen", {
-                id: application.position.post.id
+                id: post.id
               })
             }
             isMedium

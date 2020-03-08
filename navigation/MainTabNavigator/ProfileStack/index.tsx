@@ -25,6 +25,7 @@ import SettingsScreen from "../../../screens/ProfileStack/SettingsStack";
 import UpdatePassword from "../../../screens/ProfileStack/SettingsStack/UpdatePassword";
 import UpdateEmail from "../../../screens/ProfileStack/SettingsStack/UpdateEmail";
 import AboutPage from "../../../screens/ProfileStack/SettingsStack/AboutPage";
+import BioScreen from "../../../screens/ProfileStack/BioScreen";
 
 const Stack0 = createStackNavigator();
 
@@ -160,6 +161,16 @@ const ProfileStack = () => {
         name="EditProfile"
         options={{ headerShown: false }}
         component={UserInfoModal}
+      />
+      <Stack3.Screen
+        name="BioScreen"
+        options={({ navigation }) => ({
+          title: "",
+          headerStyle,
+          headerTitleStyle,
+          headerLeft: () => <HeaderLeft navigation={navigation} />
+        })}
+        component={BioScreen}
       />
       <Stack3.Screen
         name="FormazioniScreen"

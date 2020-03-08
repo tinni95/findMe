@@ -18,8 +18,6 @@ import ZoomButton from "../../shared/components/ZoomButton";
 
 const POST_DESCRIZIONE = gql`
   query DescrizioneQuery {
-    postTitle @client
-    postDescription @client
     postCategories @client
     postComune @client
     postRegione @client
@@ -46,13 +44,7 @@ export default function Presentazione({ navigation, route }) {
   const [regione, setRegione] = useState<string>("");
   const [provincia, setProvincia] = useState<string>("");
   const [locationError, setLocationError] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>(data.postTitle || "");
-  const [description, setDescription] = useState<string>(
-    data.postDescription || ""
-  );
-  const [titleError, setTitleError] = useState<boolean>(false);
   const [settoreError, setSettoreError] = useState<boolean>(false);
-  const [descriptionError, setDescriptionError] = useState<boolean>(false);
   const [categories, setCategories] = useState<any>(settore);
 
   const _scrollToInput = input => {
@@ -79,7 +71,7 @@ export default function Presentazione({ navigation, route }) {
     setCategories(categories.filter(i => i !== item));
   };
   const handlePress = () => {
-    if (comune.length === 0 || title.length === 0) {
+    if (comune.length === 0 ) {
       _scrollToInput(input);
     } else if (categories.length === 0) {
       _scrollToInput(input2);
@@ -89,16 +81,6 @@ export default function Presentazione({ navigation, route }) {
     } else {
       setLocationError(false);
     }
-    if (title.length === 0) {
-      setTitleError(true);
-    } else {
-      setTitleError(false);
-    }
-    if (description.length === 0) {
-      setDescriptionError(true);
-    } else {
-      setDescriptionError(false);
-    }
     if (categories.length === 0) {
       setSettoreError(true);
     } else {
@@ -106,14 +88,10 @@ export default function Presentazione({ navigation, route }) {
     }
     if (
       comune.length > 0 &&
-      categories.length > 0 &&
-      title.length > 0 &&
-      description.length > 0
+      categories.length > 0 
     ) {
       client.writeData({
         data: {
-          postDescription: description,
-          postTitle: title,
           postCategories: categories,
           postProvincia: provincia,
           postComune: comune,
@@ -161,19 +139,6 @@ export default function Presentazione({ navigation, route }) {
                   placeholder="Località"
                 />
               </WithErrorString>
-              <StepsLabel error={titleError} text={"Titolo Progetto"} />
-              <WithErrorString
-                error={titleError}
-                errorText={"Campo Obbligatorio"}
-              >
-                <FormTextInput
-                  reference={input}
-                  placeholder="Titolo Post Idea (es. `Sviluppo App`)"
-                  onChangeText={val => setTitle(val)}
-                  value={title}
-                  style={titleError ? FormStyles.inputError : FormStyles.input}
-                />
-              </WithErrorString>
               <View
                 ref={input2}
                 style={{
@@ -200,23 +165,6 @@ export default function Presentazione({ navigation, route }) {
               />
             </View>
           )}
-          <StepsLabel error={descriptionError} text={"Descrizione"} />
-          <FormTextInput
-            large="true"
-            multiline
-            numberOfLines={4}
-            placeholder="Descrizione"
-            placeholderTextColor="#ADADAD"
-            onFocus={() => setZoom(true)}
-            onEndEditing={() => setZoom(false)}
-            textAlignVertical={"top"}
-            style={zoom ? FormStyles.xlarge : FormStyles.large}
-            onChangeText={val => setDescription(val)}
-            editable
-            value={description}
-          />
-          {zoom && <ZoomButton onPress={() => setZoom(false)} />}
-          {!zoom && (
             <View style={styles.buttonWrapper}>
               <RoundButton
                 text={"  Avanti  "}
@@ -225,7 +173,6 @@ export default function Presentazione({ navigation, route }) {
                 onPress={() => handlePress()}
               />
             </View>
-          )}
         </ScrollView>
       </View>
     </View>

@@ -26,11 +26,6 @@ const POST_ANTEPRIMA = gql`
     postTitle @client
     postDescription @client
     postCategories @client
-    postPositions @client {
-      description
-      title
-      requisiti
-    }
   }
 `;
 
@@ -102,8 +97,7 @@ const Anteprima = ({ navigation, user }) => {
         regione: data.postRegione,
         provincia: data.postProvincia,
         settori: data.postCategories.join(", "),
-        hidden: checked,
-        posizioni: { create: parsePositions(data.postPositions) }
+        hidden: checked
       }
     });
   };
@@ -111,24 +105,20 @@ const Anteprima = ({ navigation, user }) => {
   useEffect(() => {
     if (data.postRegione === "") {
       navigation.navigate("Presentazione");
-    } else if (data.postTitle === "") {
-      navigation.navigate("Descrizione");
-    } else if (data.postPositions === "") {
-      navigation.navigate("Posizioni");
     }
   }, [data]);
 
   const post = {
     settori: data.postCategories.join(", "),
-    title: data.postTitle,
+    titolo: data.postTitle,
     description: data.postDescription,
-    posizioni: parsePositionsLocal(data.postPositions),
     tipoSocio: data.postOwner,
     posizione: data.postOwnerPosition,
     comune: data.postComune,
     regione: data.postRegione,
     provincia: data.postProvincia
   };
+  console.log(post);
   return (
     <View style={styles.container}>
       <HeaderBar

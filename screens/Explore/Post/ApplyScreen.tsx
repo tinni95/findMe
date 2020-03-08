@@ -31,8 +31,8 @@ const UNSEEAPPLICATION_MUTATION = gql`
 `;
 
 const CREATEAPPLICATION_MUTATION = gql`
-  mutation createApplication($positionId: ID!, $to: ID!) {
-    createApplication(positionId: $positionId, to: $to) {
+  mutation createApplication($postId: ID!, $to: ID!) {
+    createApplication(postId: $postId, to: $to) {
       id
       to {
         id
@@ -41,9 +41,6 @@ const CREATEAPPLICATION_MUTATION = gql`
         id
         nome
         cognome
-      }
-      position {
-        titolo
       }
     }
   }
@@ -73,7 +70,6 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
 
 export default function ApplyScreen({ route, navigation }) {
   const refetch = route.params.refetch;
-  const position = route.params.position;
   const post = route.params.post;
   console.log("post", post);
   const [messaggio, setMessaggio] = useState("");
@@ -109,7 +105,7 @@ export default function ApplyScreen({ route, navigation }) {
             " " +
             createApplication.from.cognome +
             " si è applicato alla tua posizione di " +
-            position.titolo
+            post.titolo
         }
       });
       UnseeApplication({
@@ -144,7 +140,7 @@ export default function ApplyScreen({ route, navigation }) {
     }
     console.log("ehu7");
     createApplication({
-      variables: { positionId: position.id, to: post.postedBy.id }
+      variables: { postId: post.id, to: post.postedBy.id }
     })
       .then(() => {
         refetch();
@@ -153,7 +149,7 @@ export default function ApplyScreen({ route, navigation }) {
         sendNotification(
           post.postedBy.pushToken,
           post.titolo,
-          "Qualcuno si è applicato alla tua posizione di " + position.titolo
+          "Qualcuno si è applicato alla tua posizione di " + post.titolo
         );
         Haptics.selectionAsync();
         navigation.goBack();
@@ -169,7 +165,7 @@ export default function ApplyScreen({ route, navigation }) {
               Scrivi a {post.postedBy.nome} Per informargli del tuo interesse
               per la posizione di
             </Light>
-            <Body> "{position.titolo}"</Body>
+            <Body> "{post.titolo}"</Body>
           </Text>
           <View style={styles.spacer} />
           <StepsLabelDefault text={"Messaggio"} />

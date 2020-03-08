@@ -89,7 +89,14 @@ export default function CompetenzeScreen({ navigation, route }) {
           onChangeText={text => setText(text)}
           value={text}
           placeholder="Cerca Competenza"
-          style={{ width: "80%", margin: 20, height: 35 }}
+          inputStyle={{ fontSize: 14 }}
+          style={{
+            backgroundColor: "#F2F2F2",
+            shadowColor: "transparent",
+            width: "80%",
+            margin: 20,
+            height: 35
+          }}
         ></Searchbar>
       </View>
       <ScrollView
@@ -125,7 +132,7 @@ export default function CompetenzeScreen({ navigation, route }) {
                       setActive(index);
                     }
                   }}
-                  isLight={true}
+                  isMedium={true}
                   key={shortid.generate()}
                   color={isActive ? Colors.red : Colors.blue}
                   textColor="white"

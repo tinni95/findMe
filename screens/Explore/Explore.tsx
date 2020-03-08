@@ -34,14 +34,14 @@ const posts = gql`
         DoB
         cognome
       }
-      posizioni {
-        opened
-        id
-        type
-        titolo
-        descrizione
-        requisiti
-      }
+      compenso
+      durata
+      data
+      titolo
+      opened
+      type
+      descrizione
+      requisiti
     }
   }
 `;
@@ -94,7 +94,7 @@ export default function Explore({ navigation, route }) {
 
     const renderPosts = () => {
       return data.postsFeed.map((post, index) => {
-        if(!allClosed(post.posizioni))
+        if(post.opened)
         return (
           <PostCard
           navigation={navigation}

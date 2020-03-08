@@ -7,7 +7,8 @@ import {
   Text,
   Image,
   TouchableHighlight,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from "react-native";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -22,6 +23,7 @@ import TouchablePen from "../../shared/components/TouchablePen";
 import ItemsBlock from "../../shared/components/ItemsBlock";
 import CompetenzeBlock from "../../shared/components/Competenze/CompetenzeBlock";
 import UnTouchablePen from "../../shared/components/UnTouchablePen";
+import BioBlock from "../../shared/components/Bio/BioBlock";
 
 const User = gql`
   {
@@ -76,7 +78,6 @@ export default function ProfilePage({ navigation, route }) {
   });
 
   const isRefetch = route.params?.refetch ?? null;
-  const [showAll, setShowAll] = useState(false);
   const [modalVisbile, setModalVisible] = useState(false);
   const { loading, error, data, refetch } = useQuery(User);
 
@@ -119,6 +120,17 @@ export default function ProfilePage({ navigation, route }) {
   const Profilo = () => {
     return (
       <View style={styles.itemsWrapper}>
+             <View style={styles.itemWrapper}>
+          <BioBlock
+          bio={data.currentUser.presentazione}
+          onPress={() =>
+            navigation.navigate("BioScreen", {
+              bio: data.currentUser.presentazione
+            })
+          }
+        ></BioBlock>
+        </View>
+      <View style={styles.itemWrapper}>
         <ItemsBlock
           refetch={refetch}
           onPress={() =>
@@ -131,7 +143,9 @@ export default function ProfilePage({ navigation, route }) {
           items={data.currentUser.formazioni}
           title={"Formazione"}
         ></ItemsBlock>
+        </View>
         <View style={styles.separator}></View>
+        <View style={styles.itemWrapper}>
         <ItemsBlock
           refetch={refetch}
           onPress={() =>
@@ -144,7 +158,9 @@ export default function ProfilePage({ navigation, route }) {
           items={data.currentUser.esperienze}
           title={"Esperienze"}
         ></ItemsBlock>
+           </View>
         <View style={styles.separator}></View>
+        <View style={styles.itemWrapper}>
         <ItemsBlock
           refetch={refetch}
           onPress={() =>
@@ -157,7 +173,9 @@ export default function ProfilePage({ navigation, route }) {
           items={data.currentUser.progetti}
           title={"Progetti"}
         ></ItemsBlock>
+        </View>
         <View style={styles.separator}></View>
+        <View style={styles.itemWrapper}>
         <CompetenzeBlock
           competenze={data.currentUser.competenze}
           onPress={() =>
@@ -166,6 +184,7 @@ export default function ProfilePage({ navigation, route }) {
             })
           }
         ></CompetenzeBlock>
+        </View>
         <View style={styles.separator}></View>
       </View>
     );
@@ -208,9 +227,10 @@ export default function ProfilePage({ navigation, route }) {
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Image
             source={image}
-            style={{ width: 100, height: 100, borderRadius: 50 }}
+            style={{ width: 80, height: 80, borderRadius: 40, marginRight:10 }}
           />
         </TouchableOpacity>
+        <View>
         <Bold style={{ marginTop: 12, fontSize: 16 }}>
           {data.currentUser.nome + " " + data.currentUser.cognome}
         </Bold>
@@ -236,22 +256,8 @@ export default function ProfilePage({ navigation, route }) {
             regione={data.currentUser.regione}
           />
         )}
-      </View>
-      {data.currentUser.presentazione && (
-        <View style={styles.bio}>
-          <Body style={{ color: Colors.blue, marginLeft: 10 }}>Bio</Body>
-          {data.currentUser.presentazione.length < 75 || showAll ? (
-            <Light style={{ textAlign: "left", margin: 10, marginTop: 20 }}>
-              {data.currentUser.presentazione}
-            </Light>
-          ) : (
-            <Text style={{ textAlign: "left", margin: 10 }}>
-              <Light>{data.currentUser.presentazione.slice(0, 75)}</Light>
-              <Bold onPress={() => setShowAll(true)}> ...Altro</Bold>
-            </Text>
-          )}
         </View>
-      )}
+      </View>
       <Profilo />
     </ScrollView>
   );
@@ -259,21 +265,39 @@ export default function ProfilePage({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#FBFBFB",
     flex: 1,
-    backgroundColor: "white"
   },
   separator: {
     height: 5
   },
   userWrapper: {
-    marginTop: 20,
-    marginBottom: 50,
+    borderRadius:8,
+    paddingTop: 20,
+    paddingBottom: 50,
+    marginLeft:10,
+    marginRight:10,
     justifyContent: "center",
+    flexDirection:"row",
     alignItems: "center"
   },
+  itemWrapper:{
+    borderRadius:8,
+    ...Platform.select({
+      ios: {
+        shadowColor: "black",
+        shadowOpacity: 0.1,
+        shadowRadius: 3
+      },
+      android: {
+        elevation: 5
+      }
+    })
+  },
+
   itemsWrapper: {
-    backgroundColor: "#F2F2F2",
-    paddingTop: 5
+    borderRadius:8,
+    paddingTop: 5,
   },
   flex: {
     flex: 1
@@ -299,7 +323,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2
   },
   questionContainer: {
-    backgroundColor: "#F2F2F2",
+
     minHeight: 500
   }
 });

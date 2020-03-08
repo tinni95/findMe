@@ -296,23 +296,6 @@ export default function EditProfile({ navigation, route }) {
               />
             </View>
           )}
-          <StepsLabelWithHint
-            tooltipText={
-              "Scrivi una biografia che ti serve a descriverti, per aiutare agli altri utenti a capire se sei fatto per la loro attività"
-            }
-            text={"Presentazione"}
-          />
-          <FormTextInput
-            large="true"
-            multiline
-            numberOfLines={4}
-            onChangeText={val => setPresentazione(val)}
-            onFocus={() => setZoom(true)}
-            onEndEditing={() => setZoom(false)}
-            textAlignVertical={"top"}
-            style={zoom ? FormStyles.xlarge : FormStyles.large}
-            value={presentazione}
-          />
           {zoom && <ZoomButton onPress={() => setZoom(false)} />}
           <DateTimePicker
             isVisible={visibleDate}

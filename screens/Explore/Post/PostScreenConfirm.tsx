@@ -3,7 +3,6 @@ import { TouchableWithoutFeedback, View, StyleSheet } from "react-native";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import { Bold, Light } from "../../../shared/components/StyledText";
 import LocationWithText from "../../../shared/components/LocationWithText";
-import { PositionCard } from "../../../shared/components/PositionCard";
 import PostInfo from "./PostInfo";
 
 export default function PostScreenConfirm({
@@ -12,23 +11,10 @@ export default function PostScreenConfirm({
   user,
   navigation
 }) {
-  const positionCards = () => {
-    return post.posizioni.map((position, index) => {
-      return (
-        <PositionCard
-          post={post}
-          button={"false"}
-          navigation={navigation}
-          key={index}
-          position={position}
-        />
-      );
-    });
-  };
   return (
     <View style={styles.contentContainer}>
       <TouchableWithoutFeedback onPress={() => console.log("Descrizione")}>
-        <Bold style={styles.title}>{post.title}</Bold>
+        <Bold style={styles.title}>{post.titolo}</Bold>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback onPress={() => console.log("Presentazione")}>
         <LocationWithText
@@ -48,7 +34,6 @@ export default function PostScreenConfirm({
           <Light style={styles.body}>{post.description}</Light>
         </View>
       </TouchableWithoutFeedback>
-      <View>{positionCards()}</View>
     </View>
   );
 }

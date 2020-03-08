@@ -1,24 +1,21 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Bold, Body } from "../../../shared/components/StyledText";
+import AvatarAndVediCorNome from "../../../shared/components/AvatarAndVediCorNome";
 
 export default function PostInfo({ settori, user, isHidden }) {
   return (
     <View style={styles.container}>
       <View style={styles.line}>
-        <Text style={{ lineHeight: 20 }}>
-          <Body>Categoria:</Body>
-          <Body style={styles.grigio}> {settori.replace(/,/g, ", ")}</Body>
-        </Text>
-      </View>
-      <View style={styles.line}>
         {user && (
-          <View style={{ flexDirection: "row" }}>
-            <Body>Pubblicato Da:</Body>
+          <View>
+            <Bold style={styles.titleSm}>Proposto Da:</Bold>
             {!isHidden ? (
-              <Body style={styles.grigio}>
-                {" " + user.nome} {user.cognome}
-              </Body>
+              <AvatarAndVediCorNome
+                navigateToProfile={null}
+                nome={user.nome + " " + user.cognome}
+                image={user.pictureUrl}
+              ></AvatarAndVediCorNome>
             ) : (
               <Body style={styles.grigio}>
                 {" " + user.nome + " " + user.cognome[0] + "."}
@@ -46,5 +43,11 @@ const styles = StyleSheet.create({
   },
   grigio: {
     color: "#989898"
+  },
+  titleSm: {
+    fontSize: 18,
+    marginBottom: 5,
+    marginTop: 10,
+    color: "black"
   }
 });

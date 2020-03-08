@@ -4,16 +4,19 @@ import {
   View,
   TouchableOpacity,
   StyleProp,
-  ViewStyle
+  ViewStyle,
+  TextStyle
 } from "react-native";
-import { Light, Bold, Body } from "./StyledText";
+import { Light, Bold, Body, Avenir } from "./StyledText";
 
 type RoundButtonProps = {
   buttonStyle?: StyleProp<ViewStyle>;
   onPress: any;
   color: string;
+  isAvenir?: Boolean;
   isMedium?: Boolean;
   isLight?: Boolean;
+  textStyle?: StyleProp<TextStyle>;
   text: string;
   textColor: string;
 };
@@ -24,17 +27,29 @@ const RoundButton: FunctionComponent<RoundButtonProps> = ({
   color,
   isMedium,
   isLight,
+  isAvenir,
   text,
-  textColor
+  textColor,
+  textStyle
 }) => (
   <TouchableOpacity style={[buttonStyle]} onPress={onPress}>
     <View style={[styles.container, { backgroundColor: color }]}>
       {isMedium ? (
-        <Body style={[styles.text, { color: textColor }]}>{text}</Body>
+        <Body style={[styles.text, textStyle, { color: textColor }]}>
+          {text}
+        </Body>
       ) : isLight ? (
-        <Light style={[styles.text, { color: textColor }]}>{text}</Light>
+        <Light style={[styles.text, textStyle, { color: textColor }]}>
+          {text}
+        </Light>
+      ) : isAvenir ? (
+        <Avenir style={[styles.text, textStyle, { color: textColor }]}>
+          {text}
+        </Avenir>
       ) : (
-        <Bold style={[styles.text, { color: textColor }]}>{text}</Bold>
+        <Bold style={[styles.text, textStyle, { color: textColor }]}>
+          {text}
+        </Bold>
       )}
     </View>
   </TouchableOpacity>
