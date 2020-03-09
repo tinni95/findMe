@@ -27,7 +27,6 @@ export const PostCardEdit = ({ navigation, post, onPress, deletePost }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.footer}>
-          <Fields post={post} />
           <View style={styles.buttonContainer}>
             <View style={{ height: 10 }}></View>
             <RoundButtonEmpty

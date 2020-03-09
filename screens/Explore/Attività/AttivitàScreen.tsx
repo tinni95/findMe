@@ -10,6 +10,8 @@ import ReceivedCard from "../../../shared/components/ReceivedCard";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
 import SocketContext from "../../../shared/SocketContext";
+import { groupApplications } from "../../../shared/functions/groupApplications";
+import PostApplicationCard from "../../../shared/components/PostApplicationCard";
 var shortid = require("shortid");
 
 const CREATENOTIFICA_MUTATION = gql`
@@ -68,43 +70,9 @@ const User = gql`
           requisiti
         }
       }
-      applicationsReceived {
-        id
-        pubRead
-        post {
-          id
-          closedFor {
-            id
-          }
-          opened
-          titolo
-          requisiti
-        }
-        from {
-          pictureUrl
-          id
-          nome
-          cognome
-          regione
-          comune
-        }
-        post {
-          titolo
-          postedBy {
-            nome
-            cognome
-          }
-        }
-        to {
-          pictureUrl
-          id
-        }
-        messages {
-          text
-          createdAt
-          updatedAt
-        }
-      }
+    }
+    userPosts {
+      id
     }
   }
 `;
@@ -247,10 +215,6 @@ function AttivitàScreen({ navigation, socket }) {
     data.currentUser.applicationsSent
   );
 
-  const applicationReceived = reOrderApplications(
-    data.currentUser.applicationsReceived
-  );
-
   const FirstRoute = () => (
     <ScrollView
       refreshControl={
@@ -280,6 +244,20 @@ function AttivitàScreen({ navigation, socket }) {
               navigation={navigation}
             />
           );
+        })}
+    </ScrollView>
+  );
+
+  const Received = () => (
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      style={{ backgroundColor: "#F7F4F4" }}
+    >
+      {data.userPosts.length > 0 &&
+        data.userPosts.map(post => {
+          return <PostApplicationCard id={post.id} />;
         })}
     </ScrollView>
   );
@@ -321,7 +299,7 @@ function AttivitàScreen({ navigation, socket }) {
 
   const renderScene = SceneMap({
     first: FirstRoute,
-    second: SecondRoute
+    second: Received
   });
 
   return (

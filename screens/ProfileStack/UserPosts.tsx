@@ -27,11 +27,7 @@ const userPosts = gql`
         cognome
       }
       provincia
-      posizioni {
-        id
-        descrizione
-        requisiti
-      }
+      requisiti
     }
   }
 `;
@@ -47,6 +43,7 @@ const DELETEPOST_MUTATION = gql`
 export default function UserPosts({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const { loading, error, data, refetch } = useQuery(userPosts, {
+    fetchPolicy: "no-cache",
     onError: error => console.log(error)
   });
   const [deletePost] = useMutation(DELETEPOST_MUTATION, {

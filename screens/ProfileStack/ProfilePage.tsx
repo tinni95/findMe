@@ -283,18 +283,8 @@ const styles = StyleSheet.create({
   },
   itemWrapper:{
     borderRadius:8,
-    ...Platform.select({
-      ios: {
-        shadowColor: "black",
-        shadowOpacity: 0.1,
-        shadowRadius: 3
-      },
-      android: {
-        elevation: 5
-      }
-    })
-  },
 
+  },
   itemsWrapper: {
     borderRadius:8,
     paddingTop: 5,

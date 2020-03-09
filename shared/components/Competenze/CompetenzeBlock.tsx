@@ -16,7 +16,7 @@ export default function CompetenzeBlock({ competenze, onPress }) {
             marginBottom: 10
           }}
         >
-          <Bold style={{ color: "black" }}>Competenze</Bold>
+          <Bold style={{ color: "black", fontSize: 18 }}>Competenze</Bold>
         </View>
         <View
           style={{
@@ -42,7 +42,7 @@ export default function CompetenzeBlock({ competenze, onPress }) {
         onPress={onPress}
         style={{ flexDirection: "row", justifyContent: "space-between" }}
       >
-        <Bold style={{ color: "black" }}>Competenze</Bold>
+        <Bold style={{ color: "black", fontSize: 18 }}>Competenze</Bold>
         <UnTouchablePen size={15}></UnTouchablePen>
       </TouchableOpacity>
       <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>

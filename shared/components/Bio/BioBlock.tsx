@@ -15,7 +15,7 @@ export default function BioBlock({ bio, onPress }) {
             marginBottom: 10
           }}
         >
-          <Bold style={{ color: "black" }}>Bio</Bold>
+          <Bold style={{ color: "black", fontSize: 18 }}>Chi sono</Bold>
         </View>
         <View
           style={{
@@ -41,10 +41,16 @@ export default function BioBlock({ bio, onPress }) {
         onPress={onPress}
         style={{ flexDirection: "row", justifyContent: "space-between" }}
       >
-        <Bold style={{ color: "black" }}>Bio</Bold>
+        <Bold style={{ color: "black", fontSize: 18 }}>Chi sono</Bold>
         <UnTouchablePen size={15}></UnTouchablePen>
       </TouchableOpacity>
-      <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          marginTop: 20
+        }}
+      >
         <View style={styles.bio}>
           {bio.length < 150 || showAll ? (
             <Body style={{ textAlign: "left" }}>{bio}</Body>
@@ -66,6 +72,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 10,
+    marginBottom: 5,
     borderRadius: 8
   },
   bio: {

@@ -62,7 +62,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
             marginBottom: 10
           }}
         >
-          <Bold style={{ color: "black" }}>{title}</Bold>
+          <Bold style={{ color: "black", fontSize: 18 }}>{title}</Bold>
         </View>
         <View
           style={{
@@ -92,7 +92,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
           marginBottom: 10
         }}
       >
-        <Bold style={{ color: "black" }}>{title}</Bold>
+        <Bold style={{ color: "black", fontSize: 18 }}>{title}</Bold>
         <UnTouchablePen size={15}></UnTouchablePen>
       </TouchableOpacity>
 
