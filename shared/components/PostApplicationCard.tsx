@@ -50,14 +50,16 @@ export default function PostApplicationCard({ id }) {
           {data.applicationsForPosition.length} risposte
         </Bold>
         <View style={styles.images}>
-          {data.applicationsForPosition.map(post => {
-            return (
-              <Image
-                key={post.id}
-                style={styles.image}
-                source={getUri(post.from.pictureUrl)}
-              ></Image>
-            );
+          {data.applicationsForPosition.map((post, index) => {
+            if (index < 4) {
+              return (
+                <Image
+                  key={post.id}
+                  style={styles.image}
+                  source={getUri(post.from.pictureUrl)}
+                ></Image>
+              );
+            }
           })}
         </View>
         <RoundButton
