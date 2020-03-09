@@ -78,16 +78,16 @@ export default function ReceivedCard({
                   width: 15,
                   height: 15,
                   borderRadius: 7.5,
-                  backgroundColor: "red",
+                  backgroundColor: Colors.red,
                   alignItems: "center",
                   justifyContent: "center"
                 }}
               >
-                <Text
+                <Bold
                   style={{ textAlign: "center", color: "white", marginTop: 2 }}
                 >
                   *
-                </Text>
+                </Bold>
               </View>
             </View>
           )}

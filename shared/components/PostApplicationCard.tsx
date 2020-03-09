@@ -6,6 +6,7 @@ import { Body, Bold } from "./StyledText";
 import Colors from "../constants/Colors";
 import { width } from "../constants/Layout";
 import RoundButton from "./RoundButton";
+import WithNotifica from "./WithNotifica";
 
 const APPLICATIONS_FOR_POST = gql`
   query applicationsForPosition($postId: ID!) {
@@ -14,9 +15,13 @@ const APPLICATIONS_FOR_POST = gql`
       from {
         pictureUrl
       }
+      pubRead
       post {
         titolo
       }
+    }
+    UnseenReceivedApplicationsForPost(postId: $postId) {
+      id
     }
   }
 `;
@@ -28,8 +33,8 @@ const getUri = uri => {
   }
 };
 
-export default function PostApplicationCard({ id }) {
-  const { data, loading } = useQuery(APPLICATIONS_FOR_POST, {
+export default function PostApplicationCard({ opened, id, navigation }) {
+  const { data, refetch, loading } = useQuery(APPLICATIONS_FOR_POST, {
     variables: { postId: id },
     onCompleted: ({ applicationsForPosition }) => {
       console.log(applicationsForPosition);
@@ -42,7 +47,7 @@ export default function PostApplicationCard({ id }) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { opacity: !opened ? 0.6 : 1 }]}>
         <Bold style={styles.header}>
           {data.applicationsForPosition[0].post.titolo}
         </Bold>
@@ -62,12 +67,20 @@ export default function PostApplicationCard({ id }) {
             }
           })}
         </View>
-        <RoundButton
-          buttonStyle={{ margin: 10 }}
-          color={Colors.ocean}
-          text={"Vedi Risposte"}
-          textColor={"white"}
-        ></RoundButton>
+        <WithNotifica count={data.UnseenReceivedApplicationsForPost.length}>
+          <RoundButton
+            onPress={() =>
+              navigation.navigate("ApplicationReceivedScreen", {
+                id,
+                onGoBack: () => refetch()
+              })
+            }
+            buttonStyle={{ margin: 10 }}
+            color={Colors.ocean}
+            text={"Vedi Risposte"}
+            textColor={"white"}
+          ></RoundButton>
+        </WithNotifica>
       </View>
     );
   }

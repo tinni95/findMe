@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { RefreshControl } from "react-native";
-import { SceneMap } from "react-native-tab-view";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
-import SentCard from "../../../shared/components/SentCard";
-import TabBars from "../../../shared/components/TabBars";
 import ReceivedCard from "../../../shared/components/ReceivedCard";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
-import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
 import SocketContext from "../../../shared/SocketContext";
-import { groupApplications } from "../../../shared/functions/groupApplications";
-import PostApplicationCard from "../../../shared/components/PostApplicationCard";
 var shortid = require("shortid");
 
 const CREATENOTIFICA_MUTATION = gql`
@@ -24,55 +18,30 @@ const CREATENOTIFICA_MUTATION = gql`
   }
 `;
 
-const User = gql`
-  {
-    UnseenSentApplications {
+const APPLICATIONS_FOR_POST = gql`
+  query applicationsForPosition($postId: ID!) {
+    applicationsForPosition(postId: $postId) {
+      pubRead
       id
-    }
-    UnseenReceivedApplications {
-      id
-    }
-    currentUser {
-      id
-      applicationsSent {
-        subRead
-        pubRead
+      to {
         id
-        messages {
-          createdAt
-        }
-        from {
-          pictureUrl
-          id
-        }
-        to {
-          pictureUrl
-          id
-        }
-        post {
-          id
-          closedFor {
-            id
-          }
-          postedBy {
-            pictureUrl
-            nome
-            cognome
-            id
-          }
-          opened
-          comune
-          regione
-          id
-          hidden
-          titolo
-          titolo
-          requisiti
-        }
       }
-    }
-    userPosts {
-      id
+      from {
+        nome
+        cognome
+        comune
+        regione
+        id
+        pictureUrl
+      }
+      post {
+        closedFor {
+        id
+      }
+        opened
+        id
+        titolo
+      }
     }
   }
 `;
@@ -110,6 +79,7 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
       subId: $subId
     ) {
       application {
+        pubRead
         to {
           id
           nome
@@ -129,7 +99,8 @@ function wait(timeout) {
   });
 }
 
-function AttivitàScreen({ navigation, socket }) {
+function ApplicationReceivedScreen({ route,navigation, socket }) {
+  const id= route.params?.id;
   useEffect(() => {
     socket.on("postnotifica", msg => {
       console.log("NOTIFICA");
@@ -137,14 +108,32 @@ function AttivitàScreen({ navigation, socket }) {
     });
   });
 
+  const onClosePosition = application => {
+    closePosition({
+      variables: {
+        postId: application.post.id,
+        applicationId: application.id
+      }
+    }).then(() => {
+      createMessage({
+        variables: {
+          text: "Complimenti, sei stato accettato",
+          applicationId: application.id,
+          subId: application.to.id
+        }
+      });
+    });
+  };
+
   const [refreshing, setRefreshing] = useState(false);
-  const { refetch, data, loading } = useQuery(User, {
+  const { refetch, data, loading } = useQuery(APPLICATIONS_FOR_POST, {
+    variables: { postId: id },
+    onCompleted : ({applicationsForPosition}) => {
+console.log("applicationsForPosition",applicationsForPosition)
+    },
     fetchPolicy: "no-cache"
   });
-  const [routes] = React.useState([
-    { key: "first", title: "Inviate" },
-    { key: "second", title: "Ricevute" }
-  ]);
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     refetch();
@@ -168,84 +157,71 @@ function AttivitàScreen({ navigation, socket }) {
     }
   });
 
+  const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
+    onCompleted: async ({ createPostMessage }) => {
+      unseeChat({
+        variables: { id: createPostMessage.application.id, pubRead: false }
+      });
+      createNotifica({
+        variables: {
+          type: "applicationAccepted",
+          id: createPostMessage.application.from.id,
+          text:
+            createPostMessage.application.to.nome +
+            "ha accettato la tua candidatura per" +
+            createPostMessage.application.post.titolo
+        }
+      });
+      refetch();
+    },
+    onError: error => {
+      alert("Qualcosa è andato storto");
+    }
+  });
+
+  const [closePosition] = useMutation(CLOSE_POSITION_FOR_APPLICATION);
+
   if (loading) return <TenditSpinner />;
-
-  const applicationSent = reOrderApplications(
-    data.currentUser.applicationsSent
-  );
-
-  const FirstRoute = () => (
+  
+  return (
     <ScrollView
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
       style={{ backgroundColor: "#F7F4F4" }}
     >
-      {applicationSent.length > 0 &&
-        applicationSent.map(application => {
+      {data.applicationsForPosition.length > 0 &&
+        data.applicationsForPosition.map(application => {
           return (
-            <SentCard
+            <ReceivedCard
+              onClosePosition={onClosePosition}
               onPress={() => {
-                navigation.navigate("ApplicationSentChat", {
+                navigation.navigate("ApplicationReceivedChat", {
+                  id: application.to.id,
                   application,
-                  id: application.from.id,
                   onGoBack: () => {}
                 });
                 unseeChat({
                   variables: {
                     id: application.id,
-                    subRead: true
+                    pubRead: true
                   }
                 });
               }}
-              application={application}
+              navigation={navigation}
               key={shortid.generate()}
-              navigation={navigation}
-            />
+              application={application}
+            ></ReceivedCard>
           );
         })}
     </ScrollView>
-  );
-
-  const Received = () => (
-    <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-      style={{ backgroundColor: "#F7F4F4" }}
-    >
-      {data.userPosts.length > 0 &&
-        data.userPosts.map(post => {
-          return (
-            <PostApplicationCard
-              opened={post.opened}
-              navigation={navigation}
-              id={post.id}
-            />
-          );
-        })}
-    </ScrollView>
-  );
-
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: Received
-  });
-
-  return (
-    <TabBars
-      sent={data.UnseenSentApplications}
-      received={data.UnseenReceivedApplications}
-      renderScene={renderScene}
-      routes={routes}
-    ></TabBars>
   );
 }
 
-const AttivitàScreenWS = props => (
+const ApplicationReceivedScreenWS = props => (
   <SocketContext.Consumer>
-    {socket => <AttivitàScreen {...props} socket={socket} />}
+    {socket => <ApplicationReceivedScreen {...props} socket={socket} />}
   </SocketContext.Consumer>
 );
 
-export default AttivitàScreenWS;
+export default ApplicationReceivedScreenWS;

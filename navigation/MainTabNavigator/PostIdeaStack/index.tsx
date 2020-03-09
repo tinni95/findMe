@@ -5,6 +5,7 @@ import AttivitàScreen from "../../../screens/Explore/Attività/AttivitàScreen"
 import ApplyScreen from "../../../screens/Explore/Post/ApplyScreen";
 import PostScreen from "../../../screens/Explore/Post/PostScreen";
 import ApplicationReceivedChat from "../../../screens/Explore/Post/ApplicationReceivedChat";
+import ApplicationReceivedScreen from "../../../screens/Explore/Attività/ApplicationReceivedScreen";
 import ApplicationSentChat from "../../../screens/Explore/Post/ApplicationSentChat";
 import FiltersModal from "./FiltersModal";
 import UserVisitsProfileScreen from "../../../screens/shared/UserVisitsProfileScreen";
@@ -42,6 +43,18 @@ const PostIdeaStack = () => {
       <Stack.Screen
         name="AttivitàScreen"
         component={AttivitàScreen}
+        options={({ route, navigation }) => ({
+          headerStyle,
+          headerTitleStyle,
+          headerTitle: "Candidature",
+          headerLeft: () => (
+            <HeaderLeft text={" "} route={route} navigation={navigation} />
+          )
+        })}
+      />
+      <Stack.Screen
+        name="ApplicationReceivedScreen"
+        component={ApplicationReceivedScreen}
         options={({ route, navigation }) => ({
           headerStyle,
           headerTitleStyle,
