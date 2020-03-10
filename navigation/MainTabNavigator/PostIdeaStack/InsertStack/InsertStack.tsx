@@ -3,25 +3,16 @@ import { createStackNavigator } from "@react-navigation/stack";
 import PresentazioneSwitch from "./PresentazioneSwitch";
 import PosizioniModal from "./PosizioniModal";
 import AnteprimaQueryRenderer from "../../../../screens/InsertStack/Anteprima";
+import Categoria from "../../../../screens/InsertStack/Categoria";
 
 const Stack = createStackNavigator();
 
 const InsertStack = () => {
   return (
-    <Stack.Navigator initialRouteName="Presentazione">
+    <Stack.Navigator initialRouteName="Categoria">
       <Stack.Screen
-        name="Presentazione"
-        component={PresentazioneSwitch}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Posizioni"
-        component={PosizioniModal}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Anteprima"
-        component={AnteprimaQueryRenderer}
+        name="Categoria"
+        component={Categoria}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
