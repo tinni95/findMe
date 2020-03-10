@@ -46,7 +46,7 @@ export default function PostApplicationCard({ opened, id, navigation }) {
     return null;
   } else {
     return (
-      <View style={[styles.container, { opacity: opened ? 0.6 : 1 }]}>
+      <View style={[styles.container, { opacity: opened ? 1 : 0.6 }]}>
         <Bold style={styles.header}>
           {data.applicationsForPosition[0].post.titolo}
         </Bold>

@@ -60,6 +60,7 @@ const User = gql`
       }
     }
     userPosts {
+      opened
       id
     }
   }
