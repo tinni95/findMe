@@ -40,14 +40,13 @@ export default function PostApplicationCard({ opened, id, navigation }) {
       console.log(applicationsForPosition);
     }
   });
-
   if (loading) {
     return <Image source={require("../../assets/images/shimmer.gif")}></Image>;
   } else if (data.applicationsForPosition.length == 0) {
     return null;
   } else {
     return (
-      <View style={[styles.container, { opacity: !opened ? 0.6 : 1 }]}>
+      <View style={[styles.container, { opacity: opened ? 0.6 : 1 }]}>
         <Bold style={styles.header}>
           {data.applicationsForPosition[0].post.titolo}
         </Bold>

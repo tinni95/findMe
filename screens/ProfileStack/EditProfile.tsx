@@ -293,6 +293,7 @@ export default function EditProfile({ navigation, route }) {
                     path: "Edit"
                   })
                 }
+                placeholder={"Comune, provincia, regione"}
               />
             </View>
           )}

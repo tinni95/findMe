@@ -6,23 +6,11 @@ import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import SentCard from "../../../shared/components/SentCard";
 import TabBars from "../../../shared/components/TabBars";
-import ReceivedCard from "../../../shared/components/ReceivedCard";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
 import SocketContext from "../../../shared/SocketContext";
-import { groupApplications } from "../../../shared/functions/groupApplications";
 import PostApplicationCard from "../../../shared/components/PostApplicationCard";
 var shortid = require("shortid");
-
-const CREATENOTIFICA_MUTATION = gql`
-  mutation createNotifica($text: String!, $type: String!, $id: ID!) {
-    createNotifica(text: $text, type: $type, id: $id) {
-      to {
-        id
-      }
-    }
-  }
-`;
 
 const User = gql`
   {
@@ -77,17 +65,6 @@ const User = gql`
   }
 `;
 
-const CLOSE_POSITION_FOR_APPLICATION = gql`
-  mutation closePositionForApplication($postId: ID!, $applicationId: ID!) {
-    closePositionForApplication(
-      postId: $postId
-      applicationId: $applicationId
-    ) {
-      id
-    }
-  }
-`;
-
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   mutation unseeApplicationChatChatMutation(
     $id: ID!
@@ -98,27 +75,6 @@ const UNSEEAPPLICATIONCHAT_MUTATION = gql`
       id
       subRead
       pubRead
-    }
-  }
-`;
-
-const CREATEPOSTMESSAGE_MUTATION = gql`
-  mutation createPostMessage($applicationId: ID!, $text: String!, $subId: ID!) {
-    createPostMessage(
-      applicationId: $applicationId
-      text: $text
-      subId: $subId
-    ) {
-      application {
-        to {
-          id
-          nome
-        }
-        post {
-          titolo
-        }
-        id
-      }
     }
   }
 `;
@@ -150,17 +106,6 @@ function AttivitàScreen({ navigation, socket }) {
     refetch();
     wait(2000).then(() => setRefreshing(false));
   }, [refreshing]);
-
-  const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION, {
-    onCompleted: ({ createNotifica }) => {
-      console.log(createNotifica);
-      socket.emit("postnotifica", createNotifica.to.id);
-    },
-    onError: error => {
-      console.log("notifica");
-      console.log(error);
-    }
-  });
 
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
     onCompleted: () => {
@@ -218,7 +163,7 @@ function AttivitàScreen({ navigation, socket }) {
         data.userPosts.map(post => {
           return (
             <PostApplicationCard
-              opened={post.opened}
+              opened={post.opened || false}
               navigation={navigation}
               id={post.id}
             />
