@@ -32,18 +32,19 @@ const styles = StyleSheet.create({
   title: {
     color: Colors.blue,
     textAlign: "center",
-    marginTop: 5
+    marginTop: 15,
+    fontSize: 12
   },
   image: {
-    maxHeight: 80,
-    maxWidth: 80
+    maxHeight: 70,
+    maxWidth: 70
   },
   card: {
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
-    height: 120,
-    width: 120,
+    height: 105,
+    width: 105,
     borderRadius: 8,
     backgroundColor: "white",
     ...Platform.select({
