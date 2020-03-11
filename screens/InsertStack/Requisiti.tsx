@@ -5,10 +5,12 @@ import HeaderBarLeft from "../../shared/components/HeaderBarLeft";
 import HeaderTitle from "../../shared/components/HeaderTitle";
 import ServizioCard from "../../shared/components/ServizioCard";
 import RequisitiMultiSelect from "../../shared/components/RequisitiMultiSelect";
+import RequisitiPicker from "../../shared/components/RequisitiPicker";
 
 export default function Requisiti({ navigation, route }) {
   const requisiti = route.params?.requisiti
   const [active, setActive] = useState<any>([]);
+  const [custom, setCustom] = useState<any>([]);
 console.log(requisiti)
   return (
     <ScrollView style={styles.container}>
@@ -17,6 +19,9 @@ console.log(requisiti)
       ></HeaderBarLeft>
       <HeaderTitle text={"Requisiti"}></HeaderTitle>
       <RequisitiMultiSelect active={active} setActive={setActive} items={requisiti}></RequisitiMultiSelect>
+      <TouchableOpacity>
+      <RequisitiPicker selected={false} text={"Personalizza"}></RequisitiPicker>
+      </TouchableOpacity>
       <View style={{height:100}}></View>
     </ScrollView>
   );
