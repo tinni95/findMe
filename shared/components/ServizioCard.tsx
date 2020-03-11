@@ -1,0 +1,43 @@
+import React, { FunctionComponent } from "react";
+
+import { Body } from "./StyledText";
+import { StyleSheet, Platform, TouchableOpacity } from "react-native";
+import Colors from "../constants/Colors";
+
+type CategoriaCardProps = {
+  title: string;
+};
+
+const ServizioCard: FunctionComponent<CategoriaCardProps> = ({ title }) => (
+  <TouchableOpacity style={styles.card}>
+    <Body style={styles.title}>{title}</Body>
+  </TouchableOpacity>
+);
+
+const styles = StyleSheet.create({
+  title: {
+    color: Colors.blue,
+    textAlign: "center",
+    marginTop: 15,
+    fontSize: 12
+  },
+  card: {
+    marginBottom: 50,
+    height: 50,
+    width: 150,
+    borderRadius: 8,
+    backgroundColor: "white",
+    ...Platform.select({
+      ios: {
+        shadowColor: "black",
+        shadowOpacity: 0.1,
+        shadowRadius: 16
+      },
+      android: {
+        elevation: 5
+      }
+    })
+  }
+});
+
+export default ServizioCard;

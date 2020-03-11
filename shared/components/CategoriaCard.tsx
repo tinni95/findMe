@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import { Light, Bold, Body } from "../components/StyledText";
+import { Body } from "../components/StyledText";
 import {
   Image,
   StyleSheet,
@@ -14,13 +14,18 @@ import Colors from "../constants/Colors";
 type CategoriaCardProps = {
   title: string;
   image: ImageSourcePropType;
+  onPress: any;
 };
 
 const CategoriaCard: FunctionComponent<CategoriaCardProps> = ({
   title,
-  image
+  image,
+  onPress
 }) => (
-  <TouchableOpacity style={{ justifyContent: "center", alignItems: "center" }}>
+  <TouchableOpacity
+    onPress={onPress}
+    style={{ justifyContent: "center", alignItems: "center" }}
+  >
     <View style={styles.card}>
       <Image source={image} style={styles.image} resizeMode={"contain"}></Image>
     </View>
