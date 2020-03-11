@@ -1,29 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { isBigDevice } from "../../shared/constants/Layout";
 import HeaderBarLeft from "../../shared/components/HeaderBarLeft";
 import HeaderTitle from "../../shared/components/HeaderTitle";
 import ServizioCard from "../../shared/components/ServizioCard";
+import RequisitiMultiSelect from "../../shared/components/RequisitiMultiSelect";
 
-export default function Posizione({ navigation, route }) {
-  const servizi = route.params?.servizi
-
+export default function Requisiti({ navigation, route }) {
+  const requisiti = route.params?.requisiti
+  const [active, setActive] = useState<any>([]);
+console.log(requisiti)
   return (
     <ScrollView style={styles.container}>
       <HeaderBarLeft
-        onPress={() => navigation.navigate("Categoria")}
+        onPress={() => navigation.navigate("Posizione")}
       ></HeaderBarLeft>
-      <HeaderTitle text={"Servizio"}></HeaderTitle>
-      <View style={styles.posizioneContent}>
-      <View style={styles.categoriaRow}>
-        {servizi.map(servizio=>{
-            return <ServizioCard
-            onPress={()=>navigation.navigate("RequisitiModal",{ screen:"Requisiti",params:{requisiti:servizio.requisiti}})}
-            title={servizio.servizio}
-          ></ServizioCard>
-        })}
-      </View>
-      </View>
+      <HeaderTitle text={"Requisiti"}></HeaderTitle>
+      <RequisitiMultiSelect active={active} setActive={setActive} items={requisiti}></RequisitiMultiSelect>
+      <View style={{height:100}}></View>
     </ScrollView>
   );
 }

@@ -6,10 +6,14 @@ import Colors from "../constants/Colors";
 
 type CategoriaCardProps = {
   title: string;
+  onPress: any;
 };
 
-const ServizioCard: FunctionComponent<CategoriaCardProps> = ({ title }) => (
-  <TouchableOpacity style={styles.card}>
+const ServizioCard: FunctionComponent<CategoriaCardProps> = ({
+  title,
+  onPress
+}) => (
+  <TouchableOpacity onPress={onPress} style={styles.card}>
     <Body style={styles.title}>{title}</Body>
   </TouchableOpacity>
 );
