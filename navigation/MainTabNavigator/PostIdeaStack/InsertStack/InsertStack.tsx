@@ -4,6 +4,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Categoria from "../../../../screens/InsertStack/Categoria";
 import Posizione from "../../../../screens/InsertStack/Posizione";
 import RequisitiModal from "./RequisitiModal";
+import Requisiti from "../../../../screens/InsertStack/Requisiti";
+import Descrizione from "../../../../screens/InsertStack/Descrizione";
 
 const Stack = createStackNavigator();
 
@@ -21,8 +23,13 @@ const InsertStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="RequisitiModal"
-        component={RequisitiModal}
+        name="Requisiti"
+        component={Requisiti}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Descrizione"
+        component={Descrizione}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

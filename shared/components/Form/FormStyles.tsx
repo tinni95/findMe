@@ -11,6 +11,16 @@ export const FormStyles = StyleSheet.create({
     fontSize: isSmallDevice ? 12 : 14,
     fontWeight: "500"
   },
+  inputRequisiti: {
+    width: "100%",
+    height: 45,
+    padding: 8,
+    borderBottomWidth: 0.5,
+    color: "#5F5E5E",
+    borderBottomColor: "#D3CFCF",
+    fontSize: isSmallDevice ? 12 : 14,
+    fontWeight: "500"
+  },
   inputError: {
     width: "100%",
     height: 45,
