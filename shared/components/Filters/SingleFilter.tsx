@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FunctionComponent } from "react";
 import { View, Text, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import RoundButton from "../RoundButton";
+import Colors from "../../constants/Colors";
 
 type SingleFilterProps = {
   wrapperStyle?: StyleProp<ViewStyle>;
@@ -28,10 +29,10 @@ const SingleFilter: FunctionComponent<SingleFilterProps> = ({
     return (
       <View key={index} style={{ margin: 5 }}>
         <RoundButton
-          isLight={true}
+          isMedium={true}
           text={settore}
           textColor={active ? "#FFF" : "#5F5E5E"}
-          color={active ? "#DD1E63" : "#FFF"}
+          color={active ? Colors.ocean : "#FFF"}
           onPress={() => {
             if (!inactive) {
               setItem(settore);
