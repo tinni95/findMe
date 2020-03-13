@@ -7,6 +7,7 @@ import RoundButton from "../../shared/components/RoundButton";
 import Colors from "../../shared/constants/Colors";
 import FormTextInput from "../../shared/components/Form/FormTextInput";
 import { FormStyles } from "../../shared/components/Form/FormStyles";
+import WithErrorString from "../../shared/components/Form/WithErrorString";
 
 export default function Descrizione({ navigation, route }) {
   const requisiti = route.params?.requisiti
@@ -15,7 +16,16 @@ export default function Descrizione({ navigation, route }) {
   console.log(requisiti)
   console.log(servizio)
   const [descrizione, setDescrizione] = useState<any>("");
+  const [descrizioneError, setDescrizioneError] = useState<boolean>(false);
 
+  const procedi = () => {
+    if(descrizione.length>0){
+    navigation.navigate("Quando",{categoria,servizio,requisiti,descrizione})
+    }
+    else {
+      setDescrizioneError(true)
+    }
+  }
   return (
     <ScrollView style={styles.container}>
       <HeaderBarLeft
@@ -23,6 +33,7 @@ export default function Descrizione({ navigation, route }) {
       ></HeaderBarLeft>
       <HeaderTitle text={"Descrizione"}></HeaderTitle>
       <View style={{margin:20}}>
+        <WithErrorString error={descrizioneError} errorText={"Campo obbligatorio"} >
       <FormTextInput
     large="true"
     multiline
@@ -33,10 +44,11 @@ export default function Descrizione({ navigation, route }) {
     style={FormStyles.large}
     value={descrizione}
   />
+  </WithErrorString>
   </View>
   <View style={{flex:1,margin:50,justifyContent:"center",alignItems:"center"}}>
       <RoundButton 
-      onPress={()=>navigation.navigate("Quando",{categoria,servizio,requisiti,descrizione})}
+      onPress={()=>procedi()}
       text={"Procedi"}
       color={Colors.blue}
       textColor={"white"}/>

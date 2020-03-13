@@ -27,7 +27,7 @@ export default function Budget({ navigation, route }) {
     data,
     startTime,
     endTime,
-    budget
+    budget:"€ "+ budget
   }
   const procedi = () => {
   if(parseInt(budget)<15){
