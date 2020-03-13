@@ -15,14 +15,13 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import TenditGraphqlErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
 import CreateButton from "../../shared/components/CreateButton";
-import {allClosed} from "../../shared/functions/allClosed"
 const posts = gql`
   query posts($filter: String, $settore: [String!], $regione: String) {
     postsFeed(filter: $filter, settore: $settore, regione: $regione) {
       id
       titolo
       descrizione
-      settori
+      categoria
       comune
       regione
       provincia
@@ -34,12 +33,12 @@ const posts = gql`
         DoB
         cognome
       }
-      compenso
-      durata
+      budget
+      startTime
+      endTime
       data
       titolo
       opened
-      type
       descrizione
       requisiti
     }

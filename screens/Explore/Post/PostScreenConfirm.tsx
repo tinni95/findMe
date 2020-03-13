@@ -1,77 +1,184 @@
-import React from "react";
-import { TouchableWithoutFeedback, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import { Bold, Light } from "../../../shared/components/StyledText";
 import LocationWithText from "../../../shared/components/LocationWithText";
 import PostInfo from "./PostInfo";
+import RoundButtonEmpty from "../../../shared/components/RoundButtonEmpty";
+import Colors from "../../../shared/constants/Colors";
+import { LinearGradient } from "expo-linear-gradient";
+import moment from "moment/min/moment-with-locales";
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo";
+import TenditSpinner from "../../../shared/graphql/TenditSpinner";
+moment.locale("it");
 
-export default function PostScreenConfirm({
-  post,
-  isHidden,
-  user,
-  navigation
-}) {
+const User = gql`
+  {
+    currentUser {
+      nome
+      cognome
+      pictureUrl
+    }
+  }
+`;
+export default function PostScreenConfirm({ hidden, post }) {
+  const { data, loading } = useQuery(User);
+  if (loading) return <TenditSpinner></TenditSpinner>;
   return (
-    <View style={styles.contentContainer}>
-      <TouchableWithoutFeedback onPress={() => console.log("Descrizione")}>
+    <ScrollView style={styles.contentContainer}>
+      <View style={styles.descriptionCard}>
         <Bold style={styles.title}>{post.titolo}</Bold>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={() => console.log("Presentazione")}>
         <LocationWithText
-          points={25}
-          fontSize={isSmallDevice ? 18 : 20}
+          fontSize={14}
           style={styles.location}
-          regione={post.comune}
-          comune={post.regione}
+          comune={post.comune}
+          regione={post.regione}
         />
-      </TouchableWithoutFeedback>
-      <PostInfo isHidden={isHidden} user={user} settori={post.settori} />
-      <TouchableWithoutFeedback
-        onPress={() => navigation.navigate("Descrizione")}
-      >
+        <LinearGradient
+          start={[0, 1]}
+          end={[1, 0]}
+          colors={["#EBEBEB", "#FFFDFD"]}
+          style={styles.line}
+        />
+        <PostInfo
+          user={data.currentUser}
+          settori={post.categoria}
+          isHidden={hidden}
+        />
+        <LinearGradient
+          start={[0, 1]}
+          end={[1, 0]}
+          colors={["#EBEBEB", "#FFFDFD"]}
+          style={styles.line}
+        />
         <View style={styles.DesriptionContainer}>
           <Bold style={styles.titleSm}>Descrizione</Bold>
-          <Light style={styles.body}>{post.description}</Light>
+          <Light style={styles.body}>{post.descrizione}</Light>
         </View>
-      </TouchableWithoutFeedback>
-    </View>
+        <View style={styles.DesriptionContainer}>
+          <Bold style={styles.titleSm}>Requisiti</Bold>
+          <View style={styles.RequisitiContainer}>
+            {post.requisiti ? (
+              post.requisiti.map(requisito => {
+                return (
+                  <RoundButtonEmpty
+                    onPress={null}
+                    color={Colors.blue}
+                    text={requisito}
+                  />
+                );
+              })
+            ) : (
+              <Light>NS</Light>
+            )}
+          </View>
+        </View>
+        <LinearGradient
+          start={[0, 1]}
+          end={[1, 0]}
+          colors={["#EBEBEB", "#FFFDFD"]}
+          style={styles.line}
+        />
+        <View style={styles.DesriptionContainer}>
+          <Bold style={styles.titleSm}>Quando</Bold>
+          <Light style={styles.body}>
+            {" "}
+            {post.data ? moment(post.data).format("LL") : "Da definire"}
+          </Light>
+        </View>
+        {post.data && (
+          <View style={styles.DesriptionContainer}>
+            <Bold style={styles.titleSm}>Fascia Oraria</Bold>
+            {post.startTime || post.endTime ? (
+              <Light>
+                <Light style={styles.body}>
+                  {" "}
+                  {post.startTime && "dalle " + post.startTime}{" "}
+                </Light>
+                <Light style={styles.body}>
+                  {" "}
+                  {post.endTime && " alle " + post.endTime}{" "}
+                </Light>
+              </Light>
+            ) : (
+              <Light>Da definire</Light>
+            )}
+          </View>
+        )}
+        <LinearGradient
+          start={[0, 1]}
+          end={[1, 0]}
+          colors={["#EBEBEB", "#FFFDFD"]}
+          style={styles.line}
+        />
+        <View style={styles.DesriptionContainer}>
+          <Bold style={styles.titleSm}>Budget</Bold>
+          <Bold style={styles.titleSmGreen}>{post.budget}</Bold>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  parallaxScrollView: {
-    flex: 1,
-    backgroundColor: "#1393F2"
+  descriptionCard: {
+    backgroundColor: "white"
   },
   image: {
     width: 200
   },
   title: {
-    padding: 5,
+    margin: 5,
+    marginTop: 25,
     marginLeft: 5,
     marginRight: 10,
-    fontSize: isSmallDevice ? 22 : 26
+    fontSize: isSmallDevice ? 24 : 28
   },
   titleSm: {
-    fontSize: isSmallDevice ? 16 : 18,
+    fontSize: 18,
     marginBottom: 5,
     marginTop: 10,
-    color: "#10476C"
+    color: "black"
+  },
+  titleSmGreen: {
+    fontSize: 18,
+    marginBottom: 5,
+    marginTop: 10,
+    color: "green"
   },
   location: {
     marginLeft: 5,
-    marginTop: isSmallDevice ? 10 : 15
+    marginTop: 5
   },
   body: {
-    fontSize: isSmallDevice ? 14 : 18
+    fontSize: 14,
+    marginTop: 5
   },
   DesriptionContainer: {
     margin: 5,
-    marginLeft: 10,
+    marginLeft: 15,
     marginRight: 10,
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop: 15
+  },
+  RequisitiContainer: {
+    margin: 10,
+    marginLeft: 0
+  },
+  line: {
+    height: 1.5,
+    marginTop: 15
   },
   contentContainer: {
-    flex: 1
+    width: "100%",
+    flex: 1,
+    backgroundColor: "#F7F4F4"
+  },
+  ButtonWrapper: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+    margin: 20
   }
 });

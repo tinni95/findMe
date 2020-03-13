@@ -16,6 +16,8 @@ import RoundButtonEmpty from "../../../shared/components/RoundButtonEmpty";
 import Colors from "../../../shared/constants/Colors";
 import RoundButton from "../../../shared/components/RoundButton";
 import { LinearGradient } from "expo-linear-gradient";
+import moment from "moment/min/moment-with-locales";
+moment.locale("it");
 
 const DELETEAPPLICATION_MUTATION = gql`
   mutation deleteApplication($id: ID!) {
@@ -39,11 +41,13 @@ const Post = gql`
     singlePost(id: $postId) {
       id
       comune
+      data
       regione
       provincia
-      settori
+      categoria
       opened
-        type
+      hidden
+      budget
         id
         descrizione
         titolo
@@ -165,14 +169,13 @@ export default function PostScreen({ navigation, route }) {
         <PostInfo
           user={data.singlePost.postedBy}
           settori={data.singlePost.settori}
-          isHidden={false}
+          isHidden={data.singlePost.hidden}
         />
          <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
         <View style={styles.DesriptionContainer}>
           <Bold style={styles.titleSm}>Descrizione</Bold>
           <Light style={styles.body}>{data.singlePost.descrizione}</Light>
         </View>
-        <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
         <View style={styles.DesriptionContainer}>
           <Bold style={styles.titleSm}>Requisiti</Bold>
           <View style={styles.RequisitiContainer}>
@@ -189,6 +192,27 @@ export default function PostScreen({ navigation, route }) {
           </View>
         </View>
         <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
+        <View style={styles.DesriptionContainer}>
+        <Bold style={styles.titleSm}>Quando</Bold>
+          <Light style={styles.body}> {data.singlePost.data? moment(data.singlePost.data).format("LL"):
+          "Da definire"}</Light>
+        </View>
+        {data.singlePost.data&&
+        <View style={styles.DesriptionContainer}>
+        <Bold style={styles.titleSm}>Fascia Oraria</Bold>
+        {data.singlePost.startTime || data.singlePost.endTime ?
+        <Light>
+          <Light style={styles.body}> {data.singlePost.startTime && "dalle "+ data.singlePost.startTime} </Light>
+          <Light style={styles.body}> {data.singlePost.endTime && " alle "+ data.singlePost.endTime} </Light>
+          </Light>
+: <Light>Da definire</Light>}
+        </View>
+        }
+         <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
+         <View style={styles.DesriptionContainer}>
+         <Bold style={styles.titleSm}>Budget</Bold>
+         <Bold style={styles.titleSmGreen}>{data.singlePost.budget}</Bold>
+         </View>
         <View style={styles.ButtonWrapper}>
           {!isOwner&&
               <RoundButton
@@ -236,6 +260,12 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginTop: 10,
     color: "black"
+  },
+  titleSmGreen: {
+    fontSize: 18,
+    marginBottom: 5,
+    marginTop: 10,
+    color: "green"
   },
   location: {
     marginLeft: 5,

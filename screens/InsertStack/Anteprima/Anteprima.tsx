@@ -9,10 +9,6 @@ import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import RoundButton from "../../../shared/components/RoundButton";
 import { isBigDevice, width } from "../../../shared/constants/Layout";
-import {
-  parsePositions,
-  parsePositionsLocal
-} from "../../../shared/functions/ParsePositions";
 import HeaderBar from "../../../shared/components/HeaderBar";
 import Colors from "../../../shared/constants/Colors";
 

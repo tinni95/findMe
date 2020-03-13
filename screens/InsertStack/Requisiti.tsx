@@ -11,6 +11,7 @@ import Colors from "../../shared/constants/Colors";
 
 export default function Requisiti({ navigation, route }) {
   const requisiti = route.params?.requisiti
+  const categoria = route.params?.categoria
   const servizio = route.params?.servizio
   const [active, setActive] = useState<any>([]);
   const [custom, setCustom] = useState<any>([]);
@@ -43,7 +44,7 @@ export default function Requisiti({ navigation, route }) {
       title={"Aggiungi requisito"} input={custom} setInput={setCustom}></InputOverlayModal>
       <View style={{flex:1,margin:50,justifyContent:"center",alignItems:"center"}}>
       <RoundButton 
-      onPress={()=>navigation.navigate("Descrizione",{servizio,requisiti:parseRequisiti()})}
+      onPress={()=>navigation.navigate("Descrizione",{categoria,servizio,requisiti:parseRequisiti()})}
       text={"Procedi"}
       color={Colors.blue}
       textColor={"white"}></RoundButton>

@@ -28,14 +28,20 @@ export default function Categoria({ navigation }) {
           <CategoriaCard
             title={"Salute e benessere"}
             onPress={() =>
-              navigation.navigate("Posizione", { servizi: Salute })
+              navigation.navigate("Posizione", {
+                categoria: "Salute e Benessere",
+                servizi: Salute
+              })
             }
             image={require("../../assets/images/Settori/benessere.png")}
           ></CategoriaCard>
           <CategoriaCard
             title={"Informatica e servizi"}
             onPress={() =>
-              navigation.navigate("Posizione", { servizi: Informatica })
+              navigation.navigate("Posizione", {
+                categoria: "Informatica",
+                servizi: Informatica
+              })
             }
             image={require("../../assets/images/Settori/informatica.png")}
           ></CategoriaCard>
@@ -44,14 +50,20 @@ export default function Categoria({ navigation }) {
           <CategoriaCard
             title={"   Ristorazione   "}
             onPress={() =>
-              navigation.navigate("Posizione", { servizi: Ristorazione })
+              navigation.navigate("Posizione", {
+                categoria: "Ristorazione",
+                servizi: Ristorazione
+              })
             }
             image={require("../../assets/images/Settori/ristorazione.png")}
           ></CategoriaCard>
           <CategoriaCard
             title={"  Servizi per privati  "}
             onPress={() =>
-              navigation.navigate("Posizione", { servizi: Privati })
+              navigation.navigate("Posizione", {
+                categoria: "Servizi per privati",
+                servizi: Privati
+              })
             }
             image={require("../../assets/images/Settori/privati.png")}
           ></CategoriaCard>
@@ -59,13 +71,21 @@ export default function Categoria({ navigation }) {
         <View style={styles.categoriaRow}>
           <CategoriaCard
             title={"Servizi per la casa"}
-            onPress={() => navigation.navigate("Posizione", { servizi: casa })}
+            onPress={() =>
+              navigation.navigate("Posizione", {
+                categoria: "Servizi per la casa",
+                servizi: casa
+              })
+            }
             image={require("../../assets/images/Settori/casa.png")}
           ></CategoriaCard>
           <CategoriaCard
             title={"Servizi per l'azienda"}
             onPress={() =>
-              navigation.navigate("Posizione", { servizi: aziendali })
+              navigation.navigate("Posizione", {
+                categoria: "Servizi per l'azienda",
+                servizi: aziendali
+              })
             }
             image={require("../../assets/images/Settori/azienda.png")}
           ></CategoriaCard>
@@ -73,13 +93,21 @@ export default function Categoria({ navigation }) {
         <View style={styles.categoriaRow}>
           <CategoriaCard
             title={"Feste ed eventi"}
-            onPress={() => navigation.navigate("Posizione", { servizi: Feste })}
+            onPress={() =>
+              navigation.navigate("Posizione", {
+                categoria: "Feste ed eventi",
+                servizi: Feste
+              })
+            }
             image={require("../../assets/images/Settori/feste.png")}
           ></CategoriaCard>
           <CategoriaCard
             title={"Consegne e logistica"}
             onPress={() =>
-              navigation.navigate("Posizione", { servizi: Consegne })
+              navigation.navigate("Posizione", {
+                categoria: "Consegne e logistica",
+                servizi: Consegne
+              })
             }
             image={require("../../assets/images/Settori/consegne.png")}
           ></CategoriaCard>
@@ -87,7 +115,10 @@ export default function Categoria({ navigation }) {
         <View style={styles.categoriaRow}>
           <CategoriaCard
             onPress={() =>
-              navigation.navigate("Posizione", { servizi: lezioni })
+              navigation.navigate("Posizione", {
+                categoria: "Lezioni private",
+                servizi: lezioni
+              })
             }
             title={"Lezioni private"}
             image={require("../../assets/images/Settori/lezioni.png")}

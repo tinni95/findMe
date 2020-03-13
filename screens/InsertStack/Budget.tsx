@@ -1,42 +1,61 @@
-import React, { useState } from "react";
-import { View, StyleSheet, ScrollView,TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, ScrollView,TouchableOpacity, TextInput } from "react-native";
 import { isBigDevice } from "../../shared/constants/Layout";
 import HeaderBarLeft from "../../shared/components/HeaderBarLeft";
 import HeaderTitle from "../../shared/components/HeaderTitle";
 import RoundButton from "../../shared/components/RoundButton";
 import Colors from "../../shared/constants/Colors";
-import FormTextInput from "../../shared/components/Form/FormTextInput";
-import { FormStyles } from "../../shared/components/Form/FormStyles";
+import { Bold } from "../../shared/components/StyledText";
+var moment= require("moment");
 
-export default function Descrizione({ navigation, route }) {
+export default function Budget({ navigation, route }) {
   const requisiti = route.params?.requisiti
-  const categoria = route.params?.categoria
   const servizio = route.params?.servizio
-  console.log(requisiti)
-  console.log(servizio)
-  const [descrizione, setDescrizione] = useState<any>("");
+  const descrizione = route.params?.descrizione
+  const categoria = route.params?.categoria
+  const giornata = route.params?.giornata
+  const data = route.params?.data
+  const startTime = route.params?.startTime
+  const endTime = route.params?.endTime
+  const [budget, setBudget] = useState("15");
+  const post={
+    titolo:servizio,
+    requisiti,
+    descrizione,
+    categoria,
+    giornata,
+    data,
+    startTime,
+    endTime,
+    budget
+  }
+  const procedi = () => {
+  if(parseInt(budget)<15){
+      alert("budget minimo 15 euro")
+  }
+  else{
+    navigation.navigate("Dove",{post})
+  }
+  }
 
   return (
     <ScrollView style={styles.container}>
       <HeaderBarLeft
         onPress={() => navigation.goBack()}
       ></HeaderBarLeft>
-      <HeaderTitle text={"Descrizione"}></HeaderTitle>
-      <View style={{margin:20}}>
-      <FormTextInput
-    large="true"
-    multiline
-    numberOfLines={4}
-    placeholder={"ho bisogno di... per.."}
-    onChangeText={val => setDescrizione(val)}
-    textAlignVertical={"top"}
-    style={FormStyles.large}
-    value={descrizione}
-  />
-  </View>
+      <HeaderTitle text={"Budget"}></HeaderTitle>
+      <View style={{flex:1,margin:50,paddingBottom:10,borderBottomWidth:0.5,borderBottomColor:"black",flexDirection:"row"}}>
+        <Bold style={{color:Colors.blue,fontSize:22}}>€</Bold>
+        <TextInput
+       keyboardType = 'numeric'
+        style={{flex:1,marginRight:10,justifyContent:"center", textAlign:"center",color:Colors.blue,fontSize:22,fontFamily:"sequel-sans-bold"}}
+        value={budget}
+        onChangeText={text=>setBudget(text)}
+        />
+      </View>
   <View style={{flex:1,margin:50,justifyContent:"center",alignItems:"center"}}>
       <RoundButton 
-      onPress={()=>navigation.navigate("Quando",{categoria,servizio,requisiti,descrizione})}
+      onPress={()=>procedi()}
       text={"Procedi"}
       color={Colors.blue}
       textColor={"white"}/>

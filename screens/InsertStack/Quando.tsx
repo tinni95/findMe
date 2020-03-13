@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView,TouchableOpacity } from "react-native";
 import { isBigDevice } from "../../shared/constants/Layout";
 import HeaderBarLeft from "../../shared/components/HeaderBarLeft";
@@ -10,16 +10,25 @@ import StepsLabel from "../../shared/components/StepsLabel";
 import { FormStyles } from "../../shared/components/Form/FormStyles";
 import FormTextInput from "../../shared/components/Form/FormTextInput";
 import DateTimePicker from "react-native-modal-datetime-picker";
-var moment= require("moment");
+import moment from "moment/min/moment-with-locales";
+moment.locale("it");
 
 export default function Quando({ navigation, route }) {
   const requisiti = route.params?.requisiti
+  const categoria = route.params?.categoria
   const servizio = route.params?.servizio
   const descrizione = route.params?.descrizione
-  const [data, setData] = useState( "");
-  const[quando,setQuando] = useState("")
-  const[giornata,setGiornata] = useState("")
+  const [data, setData] = useState("");
+  const [dataToPass, setDataToPass] = useState("");
+  const[quando,setQuando] = useState("Un giorno")
+  const[giornata,setGiornata] = useState("Da definire")
   const[visibleData,setVisibleDate] = useState<boolean>(false)
+  const[visibleStartTime,setVisibleStartTime] = useState<boolean>(false)
+  const[visibleEndTime,setVisibleEndTime] = useState<boolean>(false)
+  const [startTime,setStartTime] = useState("");
+  const [endTime,setEndTime] = useState("");
+  const [dataError,setDataError] = useState(false);
+
   console.log(requisiti)
   console.log(servizio)
   console.log(descrizione)
@@ -27,8 +36,36 @@ export default function Quando({ navigation, route }) {
   const _handleDatePicked = dates => {
     setVisibleDate(false);
     setData(moment(dates).format("DD-MM-YYYY"));
+    setDataToPass(moment(dates).format("YYYY-MM-DD"));
   };
 
+  const _handleStartTime = dates => {
+    setVisibleStartTime(false);
+    setStartTime(moment(dates).format("HH:mm"));
+    console.log("dates",dates)
+  };
+
+
+  const _handleEndTime = dates => {
+    setVisibleEndTime(false);
+    setEndTime(moment(dates).format("HH:mm"));
+    console.log(dates)
+  };
+
+  const handlePress = () => {
+    if(data.length==0&&quando==="Un giorno"){
+      setDataError(true)
+    }
+    else{
+      if(quando==="Un giorno"){
+        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione,giornata,data:dataToPass,startTime,endTime})
+      }
+      else{
+        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione})
+      }
+     
+    }
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -40,7 +77,9 @@ export default function Quando({ navigation, route }) {
       <SingleFilter
       inactive={false}
       settori={["Un giorno","Da definire"]} setItem={item => setQuando(item)} settoreAttivi={0}/>
-      <StepsLabel text={"Data"} />
+      <View style={{marginTop:20}}/>
+      { quando==="Un giorno"&& <View>
+      <StepsLabel error={dataError} text={"Data"} />
       <TouchableOpacity onPress={() => setVisibleDate(true)}>
                 <FormTextInput
                   pointerEvents="none"
@@ -48,19 +87,58 @@ export default function Quando({ navigation, route }) {
                   value={data}
                   placeholder={"Seleziona data"}
                   style={
+                    dataError?
+                    FormStyles.inputError:
                     FormStyles.input
                   }
                 />
               </TouchableOpacity>
+              <View style={{marginTop:20}}/>
               <StepsLabel text={"In giornata"} />
               <SingleFilter
       inactive={false}
-      settori={["Mattino","Pomeriggio","Sera"]} setItem={item => setGiornata(item)} settoreAttivi={0}/>
+      settori={["Da definire","Mattino","Pomeriggio","Sera"]} setItem={item => setGiornata(item)} settoreAttivi={0}/>
+              <View style={{marginTop:20}}/>
+ <StepsLabel  text={"Fascia oraria"} />
 
-  </View>
+ <View style={FormStyles.inputHalfsContainer}>
+        <View style={FormStyles.inputHalfContainer}>
+      
+            <TouchableOpacity onPress={() => setVisibleStartTime(true)}>
+              <FormTextInput
+                editable={false}
+                pointerEvents="none"
+                style={
+               FormStyles.inputHalf
+                }
+                value={startTime}
+                placeholder="Data Inizio"
+                placeholderTextColor="#ADADAD"
+              />
+            </TouchableOpacity>
+
+        </View>
+        <View style={FormStyles.inputHalfContainer}>
+
+            <TouchableOpacity onPress={() => setVisibleEndTime(true)}>
+              <FormTextInput
+                editable={false}
+                pointerEvents="none"
+                style={FormStyles.inputHalf}
+                placeholder="A ora"
+                value={endTime}
+                placeholderTextColor="#ADADAD"
+              />
+            </TouchableOpacity>
+
+        </View>
+      </View>
+
+  
+  </View>}</View>
   <View style={{flex:1,margin:50,justifyContent:"center",alignItems:"center"}}>
       <RoundButton 
-      onPress={null}
+      onPress={()=>handlePress()}
       text={"Procedi"}
       color={Colors.blue}
       textColor={"white"}/>
@@ -70,6 +148,22 @@ export default function Quando({ navigation, route }) {
             onConfirm={_handleDatePicked}
             onCancel={() => setVisibleDate(false)}
             minimumDate={new Date()}
+          />
+            <DateTimePicker
+            mode={"time"}
+            is24Hour={true}
+            locale={"it"}
+            isVisible={visibleStartTime}
+            onConfirm={_handleStartTime}
+            onCancel={() => setVisibleStartTime(false)}
+          />
+               <DateTimePicker
+            mode={"time"}
+            is24Hour={true}
+            locale={"it"}
+            isVisible={visibleEndTime}
+            onConfirm={_handleEndTime}
+            onCancel={() => setVisibleEndTime(false)}
           />
     </ScrollView>
   );

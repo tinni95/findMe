@@ -7,7 +7,7 @@ export default function AvatarAndVedi({ nome, image, navigateToProfile }) {
   const img = image
     ? { uri: image }
     : require("../../assets/images/placeholder.png");
-  const navigate = navigateToProfile ? navigateToProfile : {};
+  const navigate = navigateToProfile ? navigateToProfile : null;
   return (
     <TouchableOpacity onPress={navigate} style={styles.imageTextContainer}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>

@@ -29,8 +29,10 @@ export const Informatica = [
     { servizio: "Assistenza pc", requisiti: AssistenzaRequisiti }, { servizio: "Assistenza smartphone", requisiti: AssistenzaRequisiti }, { servizio: "Assistenza tv", requisiti: AssistenzaRequisiti }, { servizio: "Sviluppatore web", requisiti: SviluppatoreWeb }, { servizio: "Sviluppatore app", requisiti: SviluppatoreApp }, { servizio: "Sviluppatore", requisiti: Sviluppatore }, { servizio: "Graphic designer", requisiti: GraphicDesigner }
 ]
 
+const RistorazioneRequisiti = ["Munito di automobile", "Munito di attrezzatura"]
+
 export const Ristorazione = [
-    { servizio: "Aiuto-cuoco" }, { servizio: "cuoco" }, { servizio: "cameriere" }, { servizio: "cassiere" }, { servizio: "lavapiatti" }, { servizio: "runner" }, { servizio: "magazziniere" }, { servizio: "barman" }, { servizio: "barista" }, { servizio: "gestore" }, { servizio: "pizzaiolo" }, { servizio: "parcheggiatore" }
+    { servizio: "Aiuto-cuoco", requisiti: RistorazioneRequisiti }, { servizio: "cuoco", requisiti: RistorazioneRequisiti }, { servizio: "cameriere", requisiti: RistorazioneRequisiti }, { servizio: "cassiere", requisiti: RistorazioneRequisiti }, { servizio: "lavapiatti", requisiti: RistorazioneRequisiti }, { servizio: "runner", requisiti: RistorazioneRequisiti }, { servizio: "magazziniere", requisiti: RistorazioneRequisiti }, { servizio: "barman", requisiti: RistorazioneRequisiti }, { servizio: "barista", requisiti: RistorazioneRequisiti }, { servizio: "gestore", requisiti: RistorazioneRequisiti }, { servizio: "pizzaiolo", requisiti: RistorazioneRequisiti }, { servizio: "parcheggiatore", requisiti: RistorazioneRequisiti }
 ]
 
 export const Privati = [

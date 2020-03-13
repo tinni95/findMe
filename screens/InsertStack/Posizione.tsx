@@ -7,6 +7,7 @@ import ServizioCard from "../../shared/components/ServizioCard";
 
 export default function Posizione({ navigation, route }) {
   const servizi = route.params?.servizi
+  const categoria = route.params?.categoria
 
   return (
     <ScrollView style={styles.container}>
@@ -18,7 +19,7 @@ export default function Posizione({ navigation, route }) {
       <View style={styles.categoriaRow}>
         {servizi.map(servizio=>{
             return <ServizioCard
-            onPress={()=>navigation.navigate("Requisiti",{ requisiti:servizio.requisiti, servizio:servizio.servizio})}
+            onPress={()=>navigation.navigate("Requisiti",{ categoria,requisiti:servizio.requisiti, servizio:servizio.servizio})}
             title={servizio.servizio}
           ></ServizioCard>
         })}

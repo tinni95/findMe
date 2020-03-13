@@ -1,13 +1,9 @@
 import React from "react";
 import { StyleSheet, View, Platform } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { width, isBigDevice, isSmallDevice } from "../../constants/Layout";
-import PostCardPublisher from "./PostCardPublisher";
 import PostCardText from "./PostCardText";
 import RoundButtonEmpty from "../RoundButtonEmpty";
 import Colors from "../../constants/Colors";
-import { Bold } from "../StyledText";
-import FixOverflow from "../../functions/FixOverflow";
 
 const PostCard = ({ post, onPress, navigation }) => {
   return (

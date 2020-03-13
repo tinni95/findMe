@@ -4,43 +4,25 @@ import LocationWithText from "../LocationWithText";
 import { Bold, Body } from "../StyledText";
 import { isSmallDevice } from "../../constants/Layout";
 import FixOverflow from "../../functions/FixOverflow";
-import getAge from "../../functions/getAge";
 import Colors from "../../constants/Colors";
 import PostCardPublisher from "./PostCardPublisher";
 import { LinearGradient } from "expo-linear-gradient";
+import moment from "moment/min/moment-with-locales";
+moment.locale("it");
 
-const MainTextFreelancer = ({ data, durata, compenso }) => {
+const MainTextFreelancer = ({ data, durata, budget }) => {
   return (
     <View>
       <View style={styles.mainTextContainer}>
         <View style={styles.mainTextColumn}>
           <Bold style={styles.columnHeader}>Data</Bold>
-          <Bold style={styles.columnBody}>{data}</Bold>
+          <Bold style={styles.columnBody}>
+            {data ? moment(data).format("DD-MM-YYYY") : "Da definire"}
+          </Bold>
         </View>
         <View style={styles.mainTextColumn}>
           <Bold style={styles.columnHeader}>Compenso</Bold>
-          <Bold style={styles.columnBody}>{compenso}</Bold>
-        </View>
-        <View style={styles.mainTextColumn}>
-          <Bold style={styles.columnHeader}>Durata</Bold>
-          <Bold style={styles.columnBody}>{durata}</Bold>
-        </View>
-      </View>
-    </View>
-  );
-};
-
-const MainText = ({ descrizione, settori, type, postedBy: { DoB } }) => {
-  return (
-    <View>
-      <View style={styles.mainTextContainer}>
-        <View style={styles.mainTextColumn}>
-          <Bold style={styles.columnHeader}>Settore Progetto</Bold>
-          <Bold style={styles.columnBody}>{FixOverflow(settori, 20)}</Bold>
-        </View>
-        <View style={styles.mainTextColumn}>
-          <Bold style={styles.columnHeader}>Tipo</Bold>
-          <Bold style={styles.columnBody}>{type}</Bold>
+          <Bold style={styles.columnBody}>{budget}</Bold>
         </View>
       </View>
     </View>
@@ -62,8 +44,7 @@ const PostCardText = ({ post, navigation }) => {
           />
         </View>
       </View>
-      {!post.compenso && MainText(post)}
-      {post.compenso && MainTextFreelancer(post)}
+      {post.budget && MainTextFreelancer(post)}
     </View>
   );
 };

@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 import { Bold, Body } from "../../../shared/components/StyledText";
 import AvatarAndVediCorNome from "../../../shared/components/AvatarAndVediCorNome";
 
-export default function PostInfo({ settori, user, isHidden }) {
+export default function PostInfo({ user, isHidden }) {
   return (
     <View style={styles.container}>
       <View style={styles.line}>
@@ -17,9 +17,11 @@ export default function PostInfo({ settori, user, isHidden }) {
                 image={user.pictureUrl}
               ></AvatarAndVediCorNome>
             ) : (
-              <Body style={styles.grigio}>
-                {" " + user.nome + " " + user.cognome[0] + "."}
-              </Body>
+              <AvatarAndVediCorNome
+                navigateToProfile={null}
+                nome={user.nome + " " + user.cognome[0] + "."}
+                image={null}
+              ></AvatarAndVediCorNome>
             )}
           </View>
         )}
@@ -33,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     margin: 10,
     marginLeft: 15,
-    marginTop: 20
+    marginTop: 10
   },
   line: {
     flexDirection: "row",

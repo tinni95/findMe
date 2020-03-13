@@ -68,7 +68,12 @@ export default function EditProfile({ navigation, route }) {
   const passedComune = route.params?.comune ?? "";
   const passedRegione = route.params?.regione ?? "";
   const passedProvincia = route.params?.provincia ?? "";
-
+  //useEffect
+  useEffect(() => {
+    passedComune ? setComune(passedComune) : null;
+    passedProvincia ? setProvincia(passedProvincia) : null;
+    passedRegione ? setRegione(passedRegione) : null;
+  });
   //hooks
   const [loading, setLoading] = useState(false);
   const currentUser = route.params?.currentUser ?? "";
@@ -92,12 +97,7 @@ export default function EditProfile({ navigation, route }) {
   const [presentazione, setPresentazione] = useState(
     currentUser.presentazione ? currentUser.presentazione : ""
   );
-  //useEffect
-  useEffect(() => {
-    passedComune ? setComune(passedComune) : null;
-    passedProvincia ? setProvincia(passedProvincia) : null;
-    passedRegione ? setRegione(passedRegione) : null;
-  });
+
 
   let scrollview = useRef();
 
