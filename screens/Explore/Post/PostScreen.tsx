@@ -168,29 +168,29 @@ export default function PostScreen({ navigation, route }) {
          <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
         <PostInfo
           user={data.singlePost.postedBy}
-          settori={data.singlePost.settori}
           isHidden={data.singlePost.hidden}
         />
-         <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
-        <View style={styles.DesriptionContainer}>
+
+        { data.singlePost.description||data.singlePost.requisiti.length>0&& <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />}
+         
+       { data.singlePost.description&&<View style={styles.DesriptionContainer}>
           <Bold style={styles.titleSm}>Descrizione</Bold>
           <Light style={styles.body}>{data.singlePost.descrizione}</Light>
-        </View>
-        <View style={styles.DesriptionContainer}>
+        </View>}
+        
+     {   data.singlePost.requisiti.length>0&& <View style={styles.DesriptionContainer}>
           <Bold style={styles.titleSm}>Requisiti</Bold>
           <View style={styles.RequisitiContainer}>
           {
-            data.singlePost.requisiti? 
             data.singlePost.requisiti.map(requisito => {
              return <RoundButtonEmpty
               onPress={null}
               color={Colors.blue}
               text={requisito}/>
             })
-            :<Light>NS</Light>
           }
           </View>
-        </View>
+        </View>}
         <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
         <View style={styles.DesriptionContainer}>
         <Bold style={styles.titleSm}>Quando</Bold>

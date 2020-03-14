@@ -35,16 +35,22 @@ export const Ristorazione = [
     { servizio: "Aiuto-cuoco", requisiti: RistorazioneRequisiti }, { servizio: "cuoco", requisiti: RistorazioneRequisiti }, { servizio: "cameriere", requisiti: RistorazioneRequisiti }, { servizio: "cassiere", requisiti: RistorazioneRequisiti }, { servizio: "lavapiatti", requisiti: RistorazioneRequisiti }, { servizio: "runner", requisiti: RistorazioneRequisiti }, { servizio: "magazziniere", requisiti: RistorazioneRequisiti }, { servizio: "barman", requisiti: RistorazioneRequisiti }, { servizio: "barista", requisiti: RistorazioneRequisiti }, { servizio: "gestore", requisiti: RistorazioneRequisiti }, { servizio: "pizzaiolo", requisiti: RistorazioneRequisiti }, { servizio: "parcheggiatore", requisiti: RistorazioneRequisiti }
 ]
 
+const Privatireq = ["munito di strumenti"]
+
 export const Privati = [
-    { servizio: "Spesa a domicilio" }, { servizio: "lavaggio auto" }, { servizio: "cat sitter" }, { servizio: "dog sitter" }, { servizio: "baby sitter" }, { servizio: "addestratore animali" }, { servizio: "commissioni generali" }
+    { servizio: "Spesa a domicilio", requisiti: ["munito di automobile/motorino"] }, {
+        servizio: "lavaggio auto", requisiti: Privatireq
+    }, { servizio: "cat sitter", requisiti: Privatireq }, { servizio: "dog sitter", requisiti: Privatireq }, { servizio: "baby sitter", requisiti: Privatireq }, { servizio: "addestratore animali", requisiti: Privatireq }, { servizio: "commissioni generali", requisiti: Privatireq }
 ]
 
+const ConsegneReq = ["munito di auto", "munito di moto"]
+
 export const Consegne = [
-    { servizio: "Autista" }, { servizio: "fattorino" }, { servizio: "trasporto merci" }, { servizio: "servizi per auto" }, { servizio: "consegne cibo" }, { servizio: "consegne alcohol" }, { servizio: "consegne supermercato" }, { servizio: "supporto montaggio" }, { servizio: "consegne piccoli beni" }
+    { servizio: "Autista", requisiti: ["munito di auto"] }, { servizio: "fattorino", requisiti: ConsegneReq }, { servizio: "trasporto merci", requisiti: ["munito di auto", "munito di furgone"] }, { servizio: "consegne cibo", requisiti: ConsegneReq }, { servizio: "consegne alcohol", requisiti: ConsegneReq }, { servizio: "consegne supermercato", requisiti: ConsegneReq }, { servizio: "supporto montaggio", requisiti: ["munito di strumenti"] }, { servizio: "consegne piccoli beni", requisiti: ConsegneReq }
 ]
 
 export const Feste = [
-    { servizio: "Cantante" }, { servizio: "chef a domicilio" }, { servizio: "dj" }, { servizio: "fotografo" }, { servizio: "video maker" }, { servizio: "promoter" }, { servizio: "hostess/steward" }, { servizio: "Animazione" }
+    { servizio: "Cantante", requisiti: ["munito di strumenti"] }, { servizio: "chef a domicilio", requisiti: ["munito di strumenti"] }, { servizio: "dj", requisiti: ["munito di strumenti"] }, { servizio: "fotografo", requisiti: ["munito di strumenti"] }, { servizio: "video maker", requisiti: ["munito di strumenti"] }, { servizio: "promoter", requisiti: ["munito di strumenti"] }, { servizio: "hostess/steward", requisiti: ["munito di strumenti"] }, { servizio: "Animazione", requisiti: ["munito di strumenti"] }
 ]
 
 export const aziendali = [

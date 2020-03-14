@@ -20,12 +20,14 @@ const ServizioCard: FunctionComponent<CategoriaCardProps> = ({
 
 const styles = StyleSheet.create({
   title: {
-    color: Colors.blue,
+    color: "black",
     textAlign: "center",
     marginTop: 15,
-    fontSize: 12
+    fontSize: 14
   },
   card: {
+    alignContent: "center",
+    alignItems: "center",
     marginBottom: 50,
     height: 50,
     width: 150,

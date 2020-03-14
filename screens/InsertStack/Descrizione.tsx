@@ -19,19 +19,14 @@ export default function Descrizione({ navigation, route }) {
   const [descrizioneError, setDescrizioneError] = useState<boolean>(false);
 
   const procedi = () => {
-    if(descrizione.length>0){
     navigation.navigate("Quando",{categoria,servizio,requisiti,descrizione})
-    }
-    else {
-      setDescrizioneError(true)
-    }
   }
   return (
     <ScrollView style={styles.container}>
       <HeaderBarLeft
         onPress={() => navigation.goBack()}
       ></HeaderBarLeft>
-      <HeaderTitle text={"Descrizione"}></HeaderTitle>
+      <HeaderTitle text={"Cosa ti serve"}></HeaderTitle>
       <View style={{margin:20}}>
         <WithErrorString error={descrizioneError} errorText={"Campo obbligatorio"} >
       <FormTextInput

@@ -1,1 +1,1 @@
-export const TOKEN_KEY = "c<cscsd";
+export const TOKEN_KEY = "c<cs";
