@@ -144,6 +144,10 @@ export default function Quando({ navigation, route }) {
       textColor={"white"}/>
       </View>
       <DateTimePicker
+          cancelTextIOS={"Cancella"}
+          confirmTextIOS={"Conferma"}
+          locale={"it"}
+          hideTitleContainerIOS={true}
             isVisible={visibleData}
             onConfirm={_handleDatePicked}
             onCancel={() => setVisibleDate(false)}

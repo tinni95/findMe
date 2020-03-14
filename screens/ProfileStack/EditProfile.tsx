@@ -299,6 +299,7 @@ export default function EditProfile({ navigation, route }) {
           )}
           {zoom && <ZoomButton onPress={() => setZoom(false)} />}
           <DateTimePicker
+        hideTitleContainerIOS={true}
             cancelTextIOS={"Cancella"}
             confirmTextIOS={"Conferma"}
             locale={"it"}

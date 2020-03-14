@@ -5,7 +5,8 @@ import HeaderBarLeft from "../../shared/components/HeaderBarLeft";
 import HeaderTitle from "../../shared/components/HeaderTitle";
 import RoundButton from "../../shared/components/RoundButton";
 import Colors from "../../shared/constants/Colors";
-import { Bold } from "../../shared/components/StyledText";
+import { Bold, Light } from "../../shared/components/StyledText";
+import CheckBox from "react-native-check-box";
 var moment= require("moment");
 
 export default function Budget({ navigation, route }) {
@@ -15,6 +16,7 @@ export default function Budget({ navigation, route }) {
   const categoria = route.params?.categoria
   const giornata = route.params?.giornata
   const data = route.params?.data
+  const [checked, setChecked] = useState(false);
   const startTime = route.params?.startTime
   const endTime = route.params?.endTime
   const [budget, setBudget] = useState("15");
@@ -27,7 +29,7 @@ export default function Budget({ navigation, route }) {
     data,
     startTime,
     endTime,
-    budget:"€ "+ budget
+    budget: checked? "Da definire":"€ "+ budget
   }
   const procedi = () => {
   if(parseInt(budget)<15){
@@ -44,15 +46,27 @@ export default function Budget({ navigation, route }) {
         onPress={() => navigation.goBack()}
       ></HeaderBarLeft>
       <HeaderTitle text={"Budget"}></HeaderTitle>
-      <View style={{flex:1,margin:50,paddingBottom:10,borderBottomWidth:0.5,borderBottomColor:"black",flexDirection:"row"}}>
+      <View style={{ opacity:checked?0.2:1,flex:1,margin:50,paddingBottom:10,borderBottomWidth:0.5,borderBottomColor:"black",flexDirection:"row"}}>
         <Bold style={{color:Colors.blue,fontSize:22}}>€</Bold>
         <TextInput
+        editable={!checked}
        keyboardType = 'numeric'
         style={{flex:1,marginRight:10,justifyContent:"center", textAlign:"center",color:Colors.blue,fontSize:22,fontFamily:"sequel-sans-bold"}}
         value={budget}
         onChangeText={text=>setBudget(text)}
         />
       </View>
+      <View style={styles.checkBoxWrapper}>
+              <CheckBox
+                isChecked={checked}
+                onClick={() => setChecked(!checked)}
+                checkBoxColor={Colors.blue}
+              ></CheckBox>
+              <Light onPress={() => setChecked(!checked)}>
+                {" "}
+                Accorda in seguito
+              </Light>
+            </View>
   <View style={{flex:1,margin:50,justifyContent:"center",alignItems:"center"}}>
       <RoundButton 
       onPress={()=>procedi()}
@@ -109,5 +123,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 25,
     color: "#5F5E5E"
+  },
+  checkBoxWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 40
   }
 });
