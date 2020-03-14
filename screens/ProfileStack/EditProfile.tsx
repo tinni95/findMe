@@ -7,6 +7,7 @@ import {
   Image,
   Platform
 } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Colors from "../../shared/constants/Colors";
 import { width } from "../../shared/constants/Layout";
 import * as ImagePicker from "expo-image-picker";
@@ -222,7 +223,7 @@ export default function EditProfile({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
-        <ScrollView ref={scrollview} contentContainerStyle={{ margin: 20 }}>
+        <KeyboardAwareScrollView ref={scrollview} contentContainerStyle={{ margin: 20 }}>
           {!zoom && (
             <View>
               <View style={styles.imageContainer}>
@@ -305,7 +306,7 @@ export default function EditProfile({ navigation, route }) {
             maximumDate={new Date()}
           />
           <View style={{ height: 50 }} />
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </View>
     </View>
   );
