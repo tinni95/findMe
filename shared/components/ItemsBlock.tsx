@@ -173,47 +173,6 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
                 ></EsperienzaCard>
               </Swipeout>
             );
-          })) ||
-        (title == "Progetti" &&
-          items.map(item => {
-            const swipeoutBtns = [
-              {
-                component: (
-                  <View
-                    style={{
-                      flex: 1,
-                      margin: 5,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      backgroundColor: Colors.red
-                    }}
-                  >
-                    <Body style={{ color: "white" }}>Elimina</Body>
-                  </View>
-                ),
-                backgroundColor: "white",
-                onPress: () =>
-                  deleteProgetto({
-                    variables: {
-                      id: item.id
-                    }
-                  })
-              }
-            ];
-            return (
-              <Swipeout
-                key={shortid.generate()}
-                autoClose={true}
-                backgroundColor={"#FFFFFF"}
-                right={swipeoutBtns}
-              >
-                <ProgettoCard
-                  noBorder={false}
-                  key={shortid.generate()}
-                  item={item}
-                ></ProgettoCard>
-              </Swipeout>
-            );
           }))}
     </View>
   );

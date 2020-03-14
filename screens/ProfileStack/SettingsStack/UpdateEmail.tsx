@@ -6,7 +6,7 @@ import HeaderRight from "../../../shared/components/HeaderRight";
 import { validateEmail } from "../../AuthenticationStack/validators";
 import { gql } from "apollo-boost";
 import { useMutation } from "react-apollo";
-
+import { wait } from "../../../shared/functions/wait";
 const UPDATE_EMAIL = gql`
   mutation UpdateEmail($email: String!) {
     updateEmail(email: $email) {
@@ -41,7 +41,8 @@ export default function UpdateEmail({ navigation, route }) {
   let input = useRef<any>();
 
   useEffect(() => {
-    preinput.current.focus();
+    console.log("here");
+    wait(500).then(() => preinput.current.focus());
   }, []);
 
   const action = () => {

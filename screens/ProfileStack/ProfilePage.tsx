@@ -161,21 +161,6 @@ export default function ProfilePage({ navigation, route }) {
            </View>
         <View style={styles.separator}></View>
         <View style={styles.itemWrapper}>
-        <ItemsBlock
-          refetch={refetch}
-          onPress={() =>
-            data.currentUser.progetti.length == 0
-              ? navigation.navigate("ProgettiEditScreen")
-              : navigation.navigate("ProgettiScreen", {
-                  progetti: data.currentUser.progetti
-                })
-          }
-          items={data.currentUser.progetti}
-          title={"Progetti"}
-        ></ItemsBlock>
-        </View>
-        <View style={styles.separator}></View>
-        <View style={styles.itemWrapper}>
         <CompetenzeBlock
           competenze={data.currentUser.competenze}
           onPress={() =>

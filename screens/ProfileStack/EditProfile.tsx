@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   TouchableOpacity,
-  ScrollView,
   StyleSheet,
   View,
   Image,
@@ -300,6 +299,9 @@ export default function EditProfile({ navigation, route }) {
           )}
           {zoom && <ZoomButton onPress={() => setZoom(false)} />}
           <DateTimePicker
+            cancelTextIOS={"Cancella"}
+            confirmTextIOS={"Conferma"}
+            locale={"it"}
             isVisible={visibleDate}
             onConfirm={_handleDatePicked}
             onCancel={() => setVisibleDate(false)}
