@@ -32,8 +32,8 @@ export default function Budget({ navigation, route }) {
     budget: checked? "Da definire":"€ "+ budget
   }
   const procedi = () => {
-  if(parseInt(budget)<15){
-      alert("budget minimo 15 euro")
+  if(parseInt(budget)<5){
+      alert("budget minimo 5 euro")
   }
   else{
     navigation.navigate("Dove",{post})

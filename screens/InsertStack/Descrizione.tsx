@@ -36,7 +36,7 @@ export default function Descrizione({ navigation, route }) {
     placeholder={"ho bisogno di... per.."}
     onChangeText={val => setDescrizione(val)}
     textAlignVertical={"top"}
-    style={FormStyles.large}
+    style={FormStyles.largeShadow}
     value={descrizione}
   />
   </WithErrorString>

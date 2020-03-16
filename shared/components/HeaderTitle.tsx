@@ -7,7 +7,7 @@ type HeaderProps = {
 };
 
 const HeaderTitle: FunctionComponent<HeaderProps> = ({ text }) => (
-  <Body style={{ fontSize: 30, margin: 10, marginLeft: 20 }}>{text}</Body>
+  <Body style={{ fontSize: 30, margin: 10, marginLeft: 20 }}>{text}:</Body>
 );
 
 export default HeaderTitle;

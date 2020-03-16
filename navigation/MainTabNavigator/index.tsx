@@ -20,7 +20,7 @@ const MainTabNavigator = () => {
         name="PostIdeaStack"
         component={PostIdeaStack}
         options={{
-          tabBarLabel: "",
+          tabBarLabel: "Servizi",
           tabBarIcon: ({ focused }) => (
             <PostIdeaIcon focused={focused}></PostIdeaIcon>
           )
@@ -30,7 +30,7 @@ const MainTabNavigator = () => {
         name="ProfileStack"
         component={ProfileStack}
         options={{
-          tabBarLabel: "",
+          tabBarLabel: "Profilo",
           tabBarIcon: ({ focused }) => <ProfiloIcon focused={focused} />
         }}
       />
@@ -38,7 +38,7 @@ const MainTabNavigator = () => {
         name="NotificaStack"
         component={NotificaStack}
         options={{
-          tabBarLabel: "",
+          tabBarLabel: "Notifiche",
           tabBarIcon: ({ focused }) => <NotificheIcon focused={focused} />
         }}
       />

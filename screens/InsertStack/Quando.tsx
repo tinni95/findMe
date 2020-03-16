@@ -10,6 +10,7 @@ import StepsLabel from "../../shared/components/StepsLabel";
 import { FormStyles } from "../../shared/components/Form/FormStyles";
 import FormTextInput from "../../shared/components/Form/FormTextInput";
 import DateTimePicker from "react-native-modal-datetime-picker";
+import { LinearGradient } from "expo-linear-gradient";
 import moment from "moment/min/moment-with-locales";
 moment.locale("it");
 
@@ -20,7 +21,7 @@ export default function Quando({ navigation, route }) {
   const descrizione = route.params?.descrizione
   const [data, setData] = useState("");
   const [dataToPass, setDataToPass] = useState("");
-  const[quando,setQuando] = useState("Un giorno")
+  const[quando,setQuando] = useState("")
   const[giornata,setGiornata] = useState("Da definire")
   const[visibleData,setVisibleDate] = useState<boolean>(false)
   const[visibleStartTime,setVisibleStartTime] = useState<boolean>(false)
@@ -28,10 +29,6 @@ export default function Quando({ navigation, route }) {
   const [startTime,setStartTime] = useState("");
   const [endTime,setEndTime] = useState("");
   const [dataError,setDataError] = useState(false);
-
-  console.log(requisiti)
-  console.log(servizio)
-  console.log(descrizione)
 
   const _handleDatePicked = dates => {
     setVisibleDate(false);
@@ -53,11 +50,11 @@ export default function Quando({ navigation, route }) {
   };
 
   const handlePress = () => {
-    if(data.length==0&&quando==="Un giorno"){
+    if(data.length==0&&quando==="Un giorno preciso"){
       setDataError(true)
     }
-    else{
-      if(quando==="Un giorno"){
+    else if(quando!=""){
+      if(quando==="Un giorno preciso"){
         navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione,giornata,data:dataToPass,startTime,endTime})
       }
       else{
@@ -76,9 +73,10 @@ export default function Quando({ navigation, route }) {
       <View style={{margin:20}}>
       <SingleFilter
       inactive={false}
-      settori={["Un giorno","Da definire"]} setItem={item => setQuando(item)} settoreAttivi={0}/>
+      settori={["Un giorno preciso","Da definire"]} setItem={item => setQuando(item)} settoreAttivi={-1}/>
       <View style={{marginTop:20}}/>
-      { quando==="Un giorno"&& <View>
+      { quando==="Un giorno preciso"&& <View>
+      <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
       <StepsLabel error={dataError} text={"Data"} />
       <TouchableOpacity onPress={() => setVisibleDate(true)}>
                 <FormTextInput
@@ -94,11 +92,13 @@ export default function Quando({ navigation, route }) {
                 />
               </TouchableOpacity>
               <View style={{marginTop:20}}/>
-              <StepsLabel text={"In giornata"} />
+              <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
+              <StepsLabel text={"Fase della giornata"} />
               <SingleFilter
       inactive={false}
-      settori={["Da definire","Mattino","Pomeriggio","Sera"]} setItem={item => setGiornata(item)} settoreAttivi={0}/>
+      settori={["Da definire","Mattino","Pomeriggio","Sera"]} setItem={item => setGiornata(item)} settoreAttivi={-1}/>
               <View style={{marginTop:20}}/>
+              <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />              
  <StepsLabel  text={"Fascia oraria"} />
 
  <View style={FormStyles.inputHalfsContainer}>
@@ -174,6 +174,10 @@ export default function Quando({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  line:{
+    height:1.5,
+    marginTop:15
+  },
   posizioneContent:{
     padding:20
   },

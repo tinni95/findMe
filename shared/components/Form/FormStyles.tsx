@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { isSmallDevice } from "../../constants/Layout";
 
 export const FormStyles = StyleSheet.create({
@@ -68,18 +68,69 @@ export const FormStyles = StyleSheet.create({
   large: {
     margin: 5,
     padding: 5,
+    backgroundColor: "white",
     borderRadius: 4,
     borderColor: "#D3CFCF",
     borderWidth: 0.5,
-    height: 75
+    height: 75,
+    ...Platform.select({
+      ios: {
+        shadowColor: "black",
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        shadowOffset: {
+          width: 2,
+          height: 2
+        }
+      },
+      android: {
+        elevation: 5
+      }
+    })
+  },
+  largeShadow: {
+    margin: 5,
+    padding: 7.5,
+    borderRadius: 8,
+    height: 100,
+    backgroundColor: "white",
+    ...Platform.select({
+      ios: {
+        shadowColor: "black",
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        shadowOffset: {
+          width: 2,
+          height: 2
+        }
+      },
+      android: {
+        elevation: 5
+      }
+    })
   },
   xlarge: {
     margin: 5,
     padding: 5,
     borderRadius: 5,
     borderColor: "#D3CFCF",
+    backgroundColor: "white",
     borderWidth: 0.5,
-    height: 200
+    height: 200,
+    ...Platform.select({
+      ios: {
+        shadowColor: "black",
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        shadowOffset: {
+          width: 2,
+          height: 2
+        }
+      },
+      android: {
+        elevation: 5
+      }
+    })
   },
   requisiti: {
     margin: 5,
