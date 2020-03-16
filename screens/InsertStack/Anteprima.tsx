@@ -51,7 +51,7 @@ export default function Anteprima({ navigation, route }) {
   const [pubblicaPost] = useMutation(CREATEPOST_MUTATION,{
     onCompleted: () => {
       alert("pubblicato")
-      navigation.navigate("ExploreScreen",{ refetch: true })
+      navigation.navigate("Categoria")
     },
     onError: (error) => {
       console.log(error)

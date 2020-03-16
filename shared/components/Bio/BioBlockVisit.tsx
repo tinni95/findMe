@@ -20,13 +20,17 @@ export default function BioBlock({ bio }) {
         }}
       >
         <View style={styles.bio}>
-          {bio.length < 150 || showAll ? (
-            <Body style={{ textAlign: "left" }}>{bio}</Body>
+          {bio ? (
+            bio.length < 150 || showAll ? (
+              <Body style={{ textAlign: "left" }}>{bio}</Body>
+            ) : (
+              <Text style={{ textAlign: "left" }}>
+                <Body>{bio.slice(0, 150)}</Body>
+                <Bold onPress={() => setShowAll(true)}> ...Altro</Bold>
+              </Text>
+            )
           ) : (
-            <Text style={{ textAlign: "left" }}>
-              <Body>{bio.slice(0, 150)}</Body>
-              <Bold onPress={() => setShowAll(true)}> ...Altro</Bold>
-            </Text>
+            <Body>Ancora nessuna informazione</Body>
           )}
         </View>
       </View>

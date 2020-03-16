@@ -84,7 +84,7 @@ export function UserVisitProfile({ navigation, route }) {
   const Profilo = () => {
     return (
       <View style={styles.infoWrapper}>
-        {data.User.presentazione&&data.User.presentazione.length>0&&<BioBlockVisit bio={data.User.presentazione}></BioBlockVisit>}
+        {<BioBlockVisit bio={data.User.presentazione}></BioBlockVisit>}
        {data.User.formazioni.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:data.User.formazioni})} items={data.User.formazioni} title={"Formazioni"} />
         <View style={styles.separator}></View></View>}
         {data.User.esperienze.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("EsperienzeScreen",{esperienze:data.User.esperienze})} items={data.User.esperienze} title={"Esperienze"} />
