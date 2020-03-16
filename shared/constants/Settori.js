@@ -1,1 +1,3 @@
-export const Settori = ["Abbigliamento", "Alberghiero", "Arte e Cultura", "Bar e Ristorazione", "Benessere e Salute", "Edilizia", "Energia e Ambiente", "Formazione", "Forniture", "Informatica e Telecomunicazioni", "Intrattenimento", "Marketing", "Direzione", "Ingegneria", "Servizi Finanziari", "Servizi Immobiliari", "Servizi Professionali", "Sport", "Trasporti", "Turismo", "Vendita al Dettaglio", "Economia", "Scienze", "Altro"];
+export const Settori = ["Salute e Benessere", "Informatica", "Ristorazione", "Servizi per privati", "Servizi per la casa", "Servizi per l'azienda", "Feste ed eventi", "Consegne e logistica", "Lezioni private"];
+
+

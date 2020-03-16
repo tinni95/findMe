@@ -10,6 +10,7 @@ import {
 import { FormStyles } from "./Form/FormStyles";
 import { Bold, Body } from "./StyledText";
 import { Ionicons } from "@expo/vector-icons";
+import { wait } from "../functions/wait";
 const shortid = require("shortid");
 
 export function AutoCompleteFiltri({ navigation, route }) {
@@ -33,6 +34,10 @@ export function AutoCompleteFiltri({ navigation, route }) {
         ? { title: item, for: isFor, is }
         : { title: item.titolo, categoria: item.categoria, for: isFor };
 
+        useEffect(() => {
+          wait(50).then(()=>{textInput.current.focus()});
+        }, []);
+
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate(path, objectToPass)}
@@ -54,9 +59,6 @@ export function AutoCompleteFiltri({ navigation, route }) {
     );
   });
 
-  useEffect(() => {
-    textInput.current.focus();
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 35,
     borderBottomColor: "#B19393"
   },
   textContainer: {

@@ -15,8 +15,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import TenditGraphqlErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
 const posts = gql`
-  query posts($filter: String, $settore: [String!], $regione: String) {
-    postsFeed(filter: $filter, settore: $settore, regione: $regione) {
+  query posts($filter: String, $settore: [String!], $regione: String, $provincia:String, $comune:String) {
+    postsFeed(filter: $filter, settore: $settore, regione: $regione, provincia: $provincia, comune: $comune) {
       id
       titolo
       descrizione
@@ -50,17 +50,19 @@ export default function Explore({ navigation, route }) {
   const isRefetch = route.params?.isRefetch ?? null;
   const provincia = route.params?.provincia ?? null;
   const settore = route.params?.settori ?? null;
-
-  const [refreshing, setRefreshing] = useState(false);
   const [filter, setSearch] = useState("");
+  const filters = { regione, comune, provincia, filter }
+console.log(filters)
+  const [refreshing, setRefreshing] = useState(false);
   const { loading, error, data, refetch } = useQuery(posts, {
     variables:
       settore && settore.length > 0
-        ? { settore, regione, comune, provincia, filter }
-        : { regione, comune, provincia, filter }
+        ? { settore, ...filters }
+        : filters
   });
 
   useEffect(() => {
+    console.log(route.params)
     isRefetch ? refetch() : null;
   }, [isRefetch]);
 
