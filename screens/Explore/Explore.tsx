@@ -147,10 +147,12 @@ console.log(filters)
                 }
               >
                 {renderPosts()}
+                <View style={{height:25}}></View>
               </ScrollView>
             </View>
           )}
         </View>
+
       </View>
     );
   }
