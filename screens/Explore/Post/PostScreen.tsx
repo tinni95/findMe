@@ -167,6 +167,7 @@ export default function PostScreen({ navigation, route }) {
         />
          <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
         <PostInfo
+        navigation={navigation}
           user={data.singlePost.postedBy}
           isHidden={data.singlePost.hidden}
         />

@@ -3,7 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 import { Bold, Body } from "../../../shared/components/StyledText";
 import AvatarAndVediCorNome from "../../../shared/components/AvatarAndVediCorNome";
 
-export default function PostInfo({ user, isHidden }) {
+export default function PostInfo({ user, isHidden, navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.line}>
@@ -12,7 +12,11 @@ export default function PostInfo({ user, isHidden }) {
             <Bold style={styles.titleSm}>Proposto Da:</Bold>
             {!isHidden ? (
               <AvatarAndVediCorNome
-                navigateToProfile={null}
+                navigateToProfile={() =>
+                  navigation.navigate("UserVisitsProfileScreen", {
+                    id: user.id
+                  })
+                }
                 nome={user.nome + " " + user.cognome}
                 image={user.pictureUrl}
               ></AvatarAndVediCorNome>
