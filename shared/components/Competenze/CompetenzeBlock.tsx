@@ -11,28 +11,15 @@ export default function CompetenzeBlock({ competenze, onPress }) {
   if (competenze.length == 0) {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            marginBottom: 10
-          }}
-        >
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Bold style={{ color: "black", fontSize: 18 }}>Competenze</Bold>
+          <UnTouchablePen size={40}></UnTouchablePen>
         </View>
         <View
           style={{
-            justifyContent: "center",
-            alignItems: "center",
-            margin: 10,
-            marginBottom: 20
+            height: 50
           }}
-        >
-          <RoundButtonEmptyPenIcon
-            isMedium
-            onPress={onPress}
-            color={Colors.blue}
-            text={"Aggiungi"}
-          ></RoundButtonEmptyPenIcon>
-        </View>
+        ></View>
       </View>
     );
   }
@@ -43,7 +30,7 @@ export default function CompetenzeBlock({ competenze, onPress }) {
         style={{ flexDirection: "row", justifyContent: "space-between" }}
       >
         <Bold style={{ color: "black", fontSize: 18 }}>Competenze</Bold>
-        <UnTouchablePen size={15}></UnTouchablePen>
+        <UnTouchablePen size={35}></UnTouchablePen>
       </TouchableOpacity>
       <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>
         {competenze.map(competenza => {

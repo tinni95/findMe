@@ -10,28 +10,10 @@ export default function BioBlock({ bio, onPress }) {
   if (!bio) {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            marginBottom: 10
-          }}
-        >
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Bold style={{ color: "black", fontSize: 18 }}>Chi sono</Bold>
         </View>
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            margin: 10,
-            marginBottom: 20
-          }}
-        >
-          <RoundButtonEmptyPenIcon
-            isMedium
-            onPress={onPress}
-            color={Colors.blue}
-            text={"Aggiungi"}
-          ></RoundButtonEmptyPenIcon>
-        </View>
+        <View style={{ height: 50 }}></View>
       </View>
     );
   }
@@ -42,7 +24,7 @@ export default function BioBlock({ bio, onPress }) {
         style={{ flexDirection: "row", justifyContent: "space-between" }}
       >
         <Bold style={{ color: "black", fontSize: 18 }}>Chi sono</Bold>
-        <UnTouchablePen size={15}></UnTouchablePen>
+        <UnTouchablePen size={40}></UnTouchablePen>
       </TouchableOpacity>
       <View
         style={{

@@ -49,36 +49,21 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
     }
   });
 
-  const [deleteProgetto] = useMutation(DELETEPROGETTO_MUTATION, {
-    onCompleted: async () => {
-      refetch();
-    }
-  });
   if (items.length == 0) {
     return (
       <View style={styles.container}>
         <View
           style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
             marginBottom: 10
           }}
         >
           <Bold style={{ color: "black", fontSize: 18 }}>{title}</Bold>
+          <UnTouchablePen size={40}></UnTouchablePen>
         </View>
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            margin: 10,
-            marginBottom: 20
-          }}
-        >
-          <RoundButtonEmptyPenIcon
-            isMedium
-            onPress={onPress}
-            color={Colors.blue}
-            text={"Aggiungi"}
-          ></RoundButtonEmptyPenIcon>
-        </View>
+        <View style={{ height: 50 }}></View>
       </View>
     );
   }
@@ -89,11 +74,12 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
+          alignItems: "center",
           marginBottom: 10
         }}
       >
         <Bold style={{ color: "black", fontSize: 18 }}>{title}</Bold>
-        <UnTouchablePen size={15}></UnTouchablePen>
+        <UnTouchablePen size={40}></UnTouchablePen>
       </TouchableOpacity>
 
       {(title == "Formazione" &&
