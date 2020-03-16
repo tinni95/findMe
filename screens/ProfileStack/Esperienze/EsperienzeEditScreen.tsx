@@ -11,7 +11,6 @@ import { invalidDate } from "../../../shared/functions/InvalidDate";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import HeaderRight from "../../../shared/components/HeaderRight";
-import LINK_REGEX from "../../../shared/constants/linkRegex";
 import ZoomButton from "../../../shared/components/ZoomButton";
 
 const UPDATEUSER_MUTATION = gql`
@@ -31,7 +30,6 @@ const UPDATEESPERIENZA_MUTATION = gql`
     $titolo: String
     $dataInizio: String
     $dataFine: String
-    $link: String
     $descrizione: String
   ) {
     updateEsperienza(
@@ -40,7 +38,6 @@ const UPDATEESPERIENZA_MUTATION = gql`
       titolo: $titolo
       dataInizio: $dataInizio
       dataFine: $dataFine
-      link: $link
       descrizione: $descrizione
     ) {
       id
@@ -56,7 +53,6 @@ export default function EsperienzeEditScreen({ navigation, route }) {
   });
   const esperienza = route.params?.esperienza ?? null;
   let preInput = useRef<any>();
-  let linkInput = useRef<any>();
   let positionTitle = useRef<any>();
   useEffect(() => {
     !esperienza && preInput.current.focus();
@@ -68,8 +64,6 @@ export default function EsperienzeEditScreen({ navigation, route }) {
     esperienza ? esperienza.compagnia : ""
   );
   const [compagniaError, setCompagniaError] = useState(false);
-  const [link, setLink] = useState(esperienza ? esperienza.link : "");
-  const [linkError, setLinkError] = useState(false);
   const [posizione, setPosizione] = useState(
     esperienza ? esperienza.titolo : ""
   );
@@ -109,11 +103,7 @@ export default function EsperienzeEditScreen({ navigation, route }) {
     } else {
       setCompagniaError(false);
     }
-    if (!(link.length == 0) && !link.match(LINK_REGEX)) {
-      setLinkError(true);
-    } else {
-      setLinkError(false);
-    }
+
     if (posizione.length === 0) {
       setPosizioneError(true);
     } else {
@@ -145,7 +135,6 @@ export default function EsperienzeEditScreen({ navigation, route }) {
     }
     if (
       compagnia.length > 0 &&
-      (link.length == 0 || link.match(LINK_REGEX)) &&
       posizione.length > 0 &&
       descrizione.length > 0 &&
       dataInizio.length > 0 &&
@@ -170,7 +159,6 @@ export default function EsperienzeEditScreen({ navigation, route }) {
               esperienze: {
                 create: {
                   compagnia,
-                  link,
                   descrizione,
                   dataInizio,
                   dataFine,
@@ -199,18 +187,7 @@ export default function EsperienzeEditScreen({ navigation, route }) {
               onChangeText={val => setCompagnia(val)}
               value={compagnia}
               style={compagniaError ? FormStyles.inputError : FormStyles.input}
-              onSubmitEditing={() => linkInput.current.focus()}
-            />
-          </WithErrorString>
-          <WithErrorString error={linkError} errorText={"Non è un link"}>
-            <FormTextInput
-              reference={linkInput}
-              autoCapitalize="none"
-              placeholder="Sito Web"
-              onChangeText={val => setLink(val)}
-              value={link}
-              style={linkError ? FormStyles.inputError : FormStyles.input}
-              onSubmitEditing={() => positionTitle.current.focus()}
+              onSubmitEditing= {() => positionTitle.current.focus()}
             />
           </WithErrorString>
           <View style={styles.separator}></View>

@@ -10,7 +10,7 @@ var shortid = require("shortid");
 export default function CompetenzeBlock({ competenze, onPress }) {
   if (competenze.length == 0) {
     return (
-      <View style={styles.container}>
+      <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Bold style={{ color: "black", fontSize: 18 }}>Competenze</Bold>
           <UnTouchablePen size={40}></UnTouchablePen>
@@ -20,7 +20,7 @@ export default function CompetenzeBlock({ competenze, onPress }) {
             height: 50
           }}
         ></View>
-      </View>
+      </TouchableOpacity>
     );
   }
   return (
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 10,
-    borderRadius: 8
+    borderRadius: 8,
+    paddingBottom: 10
   }
 });

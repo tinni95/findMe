@@ -193,7 +193,7 @@ export default function ProfilePage({ navigation, route }) {
           <Ionicons
             name={"ios-close"}
             size={40}
-            style={{ margin: 10 }}
+            style={{ margin: 10 , marginTop:50}}
             color={"white"}
           ></Ionicons>
         </TouchableHighlight>
@@ -268,7 +268,6 @@ const styles = StyleSheet.create({
   },
   itemWrapper:{
     borderRadius:8,
-
   },
   itemsWrapper: {
     borderRadius:8,

@@ -21,6 +21,7 @@ import Colors from "../../shared/constants/Colors";
 import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import TenditErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
 import SocketContext from "../../shared/SocketContext";
+import BioBlockVisit from "../../shared/components/Bio/BioBlockVisit";
 
 
 const User = gql`
@@ -83,21 +84,19 @@ export function UserVisitProfile({ navigation, route }) {
   const Profilo = () => {
     return (
       <View style={styles.infoWrapper}>
-        <ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:data.User.formazioni})} items={data.User.formazioni} title={"Formazioni"} />
-        <View style={styles.separator}></View>
-        <ItemsBlockVisit  onPress={() => navigation.navigate("EsperienzeScreen",{esperienze:data.User.esperienze})} items={data.User.esperienze} title={"Esperienze"} />
-        <View style={styles.separator}></View>
-        <ItemsBlockVisit onPress={() => navigation.navigate("ProgettiScreen",{progetti:data.User.progetti})} items={data.User.progetti} title={"Progetti"} />
-        <View style={styles.separator}></View>
-        <CompetenzeBlockVisit
+        {data.User.presentazione&&data.User.presentazione.length>0&&<BioBlockVisit bio={data.User.presentazione}></BioBlockVisit>}
+       {data.User.formazioni.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:data.User.formazioni})} items={data.User.formazioni} title={"Formazioni"} />
+        <View style={styles.separator}></View></View>}
+        {data.User.esperienze.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("EsperienzeScreen",{esperienze:data.User.esperienze})} items={data.User.esperienze} title={"Esperienze"} />
+        <View style={styles.separator}></View></View>}
+        {data.User.competenze.length>0&&<View><CompetenzeBlockVisit
           competenze={data.User.competenze}
           onPress={() =>
             navigation.navigate("CompetenzeScreen", {
               competenze: data.User.competenze
             })
           }
-        ></CompetenzeBlockVisit>
-        <View style={styles.separator}></View>
+        ></CompetenzeBlockVisit></View>}
       </View>
     );
   };
@@ -118,84 +117,77 @@ export function UserVisitProfile({ navigation, route }) {
       ? { url: data.User.pictureUrl }
       : { props: { source: require("../../assets/images/placeholder.png") } }
   ];
+  const renderModal = () => {
+    return <Modal
+    visible={modalVisbile}
+    transparent={false}
+    onRequestClose={() => setModalVisible(false)}
+  >
+    <TouchableHighlight
+      onPress={() => setModalVisible(false)}
+      style={{
+        backgroundColor: "black",
+        justifyContent: "flex-end",
+        alignItems: "flex-end"
+      }}
+    >
+      <Ionicons
+        name={"ios-close"}
+        size={40}
+        style={{ margin: 10, marginTop:40 }}
+        color={"white"}
+      ></Ionicons>
+    </TouchableHighlight>
+    <ImageViewer
+      menus={({ cancel }) => (cancel ? setModalVisible(false) : null)}
+      imageUrls={images}
+    />
+  </Modal>
+  }
   if (error) return <TenditErrorDisplay />;
 
   return (
     <ScrollView>     
        <View style={styles.container}>
+         {renderModal()}
       <View style={styles.userWrapper}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Image
             source={image}
-            style={{ width: 100, height: 100, borderRadius: 50 }}
+            style={{ width: 80, height: 80, borderRadius: 40, marginRight:10  }}
           />
-        </TouchableOpacity>
-        <Modal
-          visible={modalVisbile}
-          transparent={false}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <TouchableHighlight
-            onPress={() => setModalVisible(false)}
-            style={{
-              backgroundColor: "black",
-              justifyContent: "flex-end",
-              alignItems: "flex-end"
-            }}
-          >
-            <Ionicons
-              name={"ios-close"}
-              size={40}
-              style={{ margin: 10 }}
-              color={"white"}
-            ></Ionicons>
-          </TouchableHighlight>
-          <ImageViewer
-            menus={({ cancel }) => (cancel ? setModalVisible(false) : null)}
-            imageUrls={images}
-          />
-        </Modal>
-        <Bold style={{ marginTop: 10, fontSize: 18 }}>
+        </TouchableOpacity> 
+       <View>
+      <Bold style={{ marginTop: 12, fontSize: 16 }}>
           {data.User.nome + " " + data.User.cognome}
         </Bold>
         {data.User.posizione && (
-              <Body
-              style={{
-                marginTop: 5,
-                marginBottom: -5,
-                color: "#8E8E8E",
-                fontSize: 12
-              }}
-            >
-              {data.User.posizione}
-            </Body>
+          <Body
+            style={{
+              marginTop: 5,
+              marginBottom: -5,
+              color: "#8E8E8E",
+              fontSize: 12
+            }}
+          >
+            {data.User.posizione}
+          </Body>
         )}
-        {data.User.comune && (
+           {data.User.comune && (
           <LocationWithText
+            isLight
             points={16}
             fontSize={12}
+            color={"black"}
             comune={data.User.comune}
             regione={data.User.regione}
           />
         )}
-      </View>
-      {data.User.presentazione && (
-        <View style={styles.bio}>
-          <Body style={{ color: Colors.blue, marginLeft: 10 }}>Bio</Body>
-          {data.User.presentazione.length < 75 || showAll ? (
-            <Light style={{ textAlign: "left", margin: 10 }}>
-              {data.User.presentazione}
-            </Light>
-          ) : (
-            <Text style={{ textAlign: "left", margin: 10 }}>
-              <Light>{data.User.presentazione.slice(0, 75)}</Light>
-              <Bold onPress={() => setShowAll(true)}> ...Altro</Bold>
-            </Text>
-          )}
-        </View>
-      )}
+             </View>
+             </View>
       <Profilo />
       </View>
+
     </ScrollView>
   );
 }
@@ -209,31 +201,30 @@ const UserVisitProfileWS = props => (
 export default UserVisitProfileWS;
 
 const styles = StyleSheet.create({
+  userWrapper: {
+    borderRadius:8,
+    paddingTop: 20,
+    paddingBottom: 50,
+    marginLeft:10,
+    marginRight:10,
+    justifyContent: "center",
+    flexDirection:"row",
+    alignItems: "center"
+  },
   container: {
     flex: 1,
-    backgroundColor:"white"
+    backgroundColor:"#FBFBFB"
   },
   tabText: {
     color: "#6E6E6E"
   },
-  tabBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    borderBottomWidth: 0.3,
-    borderBottomColor: "lightgrey"
-  },
+
   separator: {
-    height: 30
+    height: 5
   },
-  userWrapper: {
-    marginTop: 20,
-    justifyContent: "center",
-    alignItems: "center"
-  },
+
   infoWrapper: {
-    margin: 20,
-    marginTop:50,
+
     minHeight: 500
   },
   flex: {

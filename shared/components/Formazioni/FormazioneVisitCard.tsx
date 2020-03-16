@@ -2,9 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Light, Bold } from "../StyledText";
 import FormazioneCard from "./FormazioneCard";
-import * as WebBrowser from "expo-web-browser";
 import Colors from "../../constants/Colors";
-import { adjustLink } from "../../functions/adjustLink";
 
 export default function FormazioneVisitCard({ formazione, navigation }) {
   return (
@@ -17,18 +15,6 @@ export default function FormazioneVisitCard({ formazione, navigation }) {
         <View style={styles.textContainer}>
           <Light>{formazione.descrizione}</Light>
         </View>
-        {formazione.link && formazione.link.length > 0 && (
-          <View style={{ marginTop: 10, marginLeft: 6 }}>
-            <Bold
-              onPress={() =>
-                WebBrowser.openBrowserAsync(adjustLink(formazione.link))
-              }
-              style={styles.link}
-            >
-              LINK
-            </Bold>
-          </View>
-        )}
       </View>
     </View>
   );

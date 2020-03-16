@@ -51,7 +51,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
 
   if (items.length == 0) {
     return (
-      <View style={styles.container}>
+      <TouchableOpacity onPress={onPress} style={styles.container}>
         <View
           style={{
             flexDirection: "row",
@@ -64,7 +64,7 @@ export default function ItemsBlock({ refetch, title, items, onPress }) {
           <UnTouchablePen size={40}></UnTouchablePen>
         </View>
         <View style={{ height: 50 }}></View>
-      </View>
+      </TouchableOpacity>
     );
   }
   return (

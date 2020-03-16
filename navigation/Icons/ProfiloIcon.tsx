@@ -23,7 +23,7 @@ export default function ProfiloIcon(props) {
           textAlign: "center",
           marginTop: 3,
           color: props.focused ? Colors.blue : "black",
-          marginRight: 2
+          marginRight: 0
         }}
       >
         Profilo

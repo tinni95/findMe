@@ -81,7 +81,7 @@ function NotificheIcon(props) {
             textAlign: "center",
             color: props.focused ? Colors.blue : "black",
             marginTop: 3,
-            marginRight: 2
+            marginRight: 0
           }}
         >
           Notifiche
@@ -118,7 +118,7 @@ function NotificheIcon(props) {
             textAlign: "center",
             color: props.focused ? Colors.blue : "black",
             marginTop: 3,
-            marginRight: 2
+            marginRight: 0
           }}
         >
           Notifiche

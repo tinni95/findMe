@@ -14,7 +14,6 @@ import { isBigDevice } from "../../shared/constants/Layout";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import TenditGraphqlErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
-import CreateButton from "../../shared/components/CreateButton";
 const posts = gql`
   query posts($filter: String, $settore: [String!], $regione: String) {
     postsFeed(filter: $filter, settore: $settore, regione: $regione) {
@@ -46,7 +45,6 @@ const posts = gql`
 `;
 
 export default function Explore({ navigation, route }) {
-  console.log("route", route.params);
   const regione = route.params?.regione ?? null;
   const comune = route.params?.comune ?? null;
   const isRefetch = route.params?.isRefetch ?? null;

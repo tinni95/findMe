@@ -5,7 +5,6 @@ import EsperienzaCard from "./EsperienzaCard";
 import TouchablePen from "../TouchablePen";
 import * as WebBrowser from "expo-web-browser";
 import Colors from "../../constants/Colors";
-import { adjustLink } from "../../functions/adjustLink";
 
 export default function EsperienzaEditCard({ esperienza, navigation }) {
   return (
@@ -27,18 +26,6 @@ export default function EsperienzaEditCard({ esperienza, navigation }) {
         <View style={styles.textContainer}>
           <Light>{esperienza.descrizione}</Light>
         </View>
-        {esperienza.link.length > 0 && (
-          <View style={{ marginTop: 10, marginLeft: 6 }}>
-            <Bold
-              onPress={() =>
-                WebBrowser.openBrowserAsync(adjustLink(esperienza.link))
-              }
-              style={styles.link}
-            >
-              LINK
-            </Bold>
-          </View>
-        )}
       </View>
     </View>
   );

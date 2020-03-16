@@ -42,7 +42,7 @@ function CreateIcon(props) {
             textAlign: "center",
             color: Colors.blue,
             marginTop: 3,
-            marginRight: 2
+            marginRight: 4
           }}
         >
           Inserisci
@@ -61,7 +61,7 @@ function CreateIcon(props) {
           fontSize: 8,
           textAlign: "center",
           marginTop: 3,
-          marginRight: 2
+          marginRight: 4
         }}
       >
         Inserisci

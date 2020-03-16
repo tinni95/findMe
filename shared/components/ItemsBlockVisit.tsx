@@ -3,21 +3,29 @@ import { View, StyleSheet, TouchableOpacity } from "react-native";
 import FormazioneCard from "./Formazioni/FormazioneCard";
 import EsperienzaCard from "./Esperienze/EsperienzaCard";
 import ProgettoCard from "./Progetti/ProgettoCard";
-import { Body } from "./StyledText";
+import { Body, Bold } from "./StyledText";
 import Colors from "../constants/Colors";
 var shortid = require("shortid");
 
 export default function ItemsBlockVisit({ onPress, title, items }) {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity
+      style={{
+        backgroundColor: "white",
+        paddingLeft: 20,
+        paddingRight: 20,
+        paddingTop: 10,
+        borderRadius: 8,
+        width: "100%"
+      }}
+      onPress={onPress}
+    >
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
           marginBottom: 10
         }}
       >
-        <Body style={{ color: Colors.blue }}>{title}</Body>
+        <Bold style={{ color: "black", fontSize: 18 }}>{title}</Bold>
       </View>
 
       {items.length > 0 &&
@@ -34,16 +42,6 @@ export default function ItemsBlockVisit({ onPress, title, items }) {
           (title == "Formazioni" &&
             items.map(item => {
               return <FormazioneCard key={shortid.generate()} item={item} />;
-            })) ||
-          (title == "Progetti" &&
-            items.map(item => {
-              return (
-                <ProgettoCard
-                  noBorder={false}
-                  key={shortid.generate()}
-                  item={item}
-                />
-              );
             })))}
     </TouchableOpacity>
   );
