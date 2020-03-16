@@ -148,11 +148,6 @@ export default function Explore({ navigation, route }) {
               >
                 {renderPosts()}
               </ScrollView>
-              <View style={styles.penWrapper}>
-                <CreateButton
-                  onPress={() => navigation.navigate("InsertStack")}
-                ></CreateButton>
-              </View>
             </View>
           )}
         </View>

@@ -19,9 +19,6 @@ import {
 export default function Categoria({ navigation }) {
   return (
     <ScrollView style={styles.container}>
-      <HeaderBar
-        onPress={() => navigation.navigate("ExploreScreen")}
-      ></HeaderBar>
       <HeaderTitle text={"Categoria"}></HeaderTitle>
       <View style={styles.categoriaContent}>
         <View style={styles.categoriaRow}>

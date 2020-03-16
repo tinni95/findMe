@@ -6,7 +6,8 @@ import NotificaStack from "./NotificaStack";
 import NotificheIcon from "../Icons/NotificaIcon";
 import ProfiloIcon from "../Icons/ProfiloIcon";
 import PostIdeaIcon from "../Icons/PostIdeaIcon";
-import TabBarText from "../../shared/components/TabBarText";
+import InsertStack from "./InsertStack";
+import CreateIcon from "../Icons/CreateIcon";
 
 const BottomTab = createMaterialBottomTabNavigator();
 
@@ -20,17 +21,25 @@ const MainTabNavigator = () => {
         name="PostIdeaStack"
         component={PostIdeaStack}
         options={{
-          tabBarLabel: "Servizi",
+          tabBarLabel: "",
           tabBarIcon: ({ focused }) => (
             <PostIdeaIcon focused={focused}></PostIdeaIcon>
           )
         }}
       />
       <BottomTab.Screen
+        name="InsertStack"
+        component={InsertStack}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ focused }) => <CreateIcon focused={focused} />
+        }}
+      />
+      <BottomTab.Screen
         name="ProfileStack"
         component={ProfileStack}
         options={{
-          tabBarLabel: "Profilo",
+          tabBarLabel: "",
           tabBarIcon: ({ focused }) => <ProfiloIcon focused={focused} />
         }}
       />
@@ -38,7 +47,7 @@ const MainTabNavigator = () => {
         name="NotificaStack"
         component={NotificaStack}
         options={{
-          tabBarLabel: "Notifiche",
+          tabBarLabel: "",
           tabBarIcon: ({ focused }) => <NotificheIcon focused={focused} />
         }}
       />

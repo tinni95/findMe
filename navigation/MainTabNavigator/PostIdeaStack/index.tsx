@@ -1,6 +1,5 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import ExploreModal from "./ExploreModal";
 import AttivitàScreen from "../../../screens/Explore/Attività/AttivitàScreen";
 import ApplyScreen from "../../../screens/Explore/Post/ApplyScreen";
 import PostScreen from "../../../screens/Explore/Post/PostScreen";
@@ -17,6 +16,7 @@ import {
 import FormazioniVisitScreen from "../../../screens/ProfileStack/Formazioni/FormazioniVisitScreen";
 import ProgettiVisitScreen from "../../../screens/ProfileStack/Progetti/ProgettiVisitScreen";
 import EsperienzeVisitScreen from "../../../screens/ProfileStack/Esperienze/EsperienzeVisitScreen";
+import Explore from "../../../screens/Explore";
 const Stack = createStackNavigator();
 
 const PostIdeaStack = () => {
@@ -24,7 +24,7 @@ const PostIdeaStack = () => {
     <Stack.Navigator>
       <Stack.Screen
         name="Explore"
-        component={ExploreModal}
+        component={Explore}
         options={{ headerShown: false }}
       />
       <Stack.Screen

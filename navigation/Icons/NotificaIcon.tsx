@@ -49,23 +49,53 @@ function NotificheIcon(props) {
 
   if (loading) {
     return (
-      <Image
-        source={require("../../assets/images/Notification_empty.png")}
-        style={{ width: 23, height: 28 }}
-      ></Image>
+      <View style={styles.content}>
+        <Image
+          source={require("../../assets/images/Notification_empty.png")}
+          style={{ width: 23, height: 28 }}
+        ></Image>
+        <Body
+          style={{
+            fontSize: 8,
+            textAlign: "center",
+            color: props.focused ? Colors.blue : "black",
+            marginTop: 3,
+            marginRight: 2
+          }}
+        >
+          Notifiche
+        </Body>
+      </View>
     );
   }
   if (error) {
     return (
-      <Image
-        source={require("../../assets/images/Notification_empty.png")}
-        style={{ width: 23, height: 28 }}
-      ></Image>
+      <View style={styles.content}>
+        <Image
+          source={require("../../assets/images/Notification_empty.png")}
+          style={{ width: 23, height: 28 }}
+        ></Image>
+        <Body
+          style={{
+            fontSize: 8,
+            textAlign: "center",
+            color: props.focused ? Colors.blue : "black",
+            marginTop: 3,
+            marginRight: 2
+          }}
+        >
+          Notifiche
+        </Body>
+      </View>
     );
   }
   if (data) {
     return (
-      <View style={data.UnreadNotifiche.length > 0 && styles.container}>
+      <View
+        style={
+          data.UnreadNotifiche.length > 0 ? styles.container : styles.content
+        }
+      >
         {props.focused ? (
           <Image
             source={require("../../assets/images/Notification_full.png")}
@@ -82,6 +112,17 @@ function NotificheIcon(props) {
             <Body style={styles.text}>{data.UnreadNotifiche.length}</Body>
           </View>
         )}
+        <Body
+          style={{
+            fontSize: 8,
+            textAlign: "center",
+            color: props.focused ? Colors.blue : "black",
+            marginTop: 3,
+            marginRight: 2
+          }}
+        >
+          Notifiche
+        </Body>
       </View>
     );
   }
@@ -90,8 +131,12 @@ function NotificheIcon(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginRight: -5
+    marginRight: -5,
+
+    alignItems: "center",
+    justifyContent: "center"
   },
+  content: { width: 50, justifyContent: "center", alignItems: "center" },
   counter: {
     height: 13,
     width: 13,
