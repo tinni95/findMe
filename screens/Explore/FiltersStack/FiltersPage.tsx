@@ -171,7 +171,7 @@ export default function FiltersPage({ navigation, route }) {
           <RoundButton
             onPress={() => {
               navigation.navigate("Explore", {
-               regione, settori, π, comune 
+               regione, settori, provincia, comune 
               });
             }}
             color={Colors.blue}
