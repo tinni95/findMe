@@ -74,7 +74,7 @@ const User = gql`
 
 export default function ProfilePage({ navigation, route }) {
   navigation.setOptions({
-    headerRight: () => <UnTouchablePen size={22}></UnTouchablePen>
+    headerRight: () => <TouchablePen size={22}></TouchablePen>
   });
 
   const isRefetch = route.params?.refetch ?? null;

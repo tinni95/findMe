@@ -130,13 +130,13 @@ function NotificheIcon(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
+    flexDirection: "column",
     marginRight: -5,
-
+    width: 80,
     alignItems: "center",
     justifyContent: "center"
   },
-  content: { width: 50, justifyContent: "center", alignItems: "center" },
+  content: { width: 80, justifyContent: "center", alignItems: "center" },
   counter: {
     height: 13,
     width: 13,

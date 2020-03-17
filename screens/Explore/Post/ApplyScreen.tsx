@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Colors from "../../../shared/constants/Colors";
 import { Light, Body } from "../../../shared/components/StyledText";
@@ -7,10 +7,18 @@ import StepsLabelDefault from "../../../shared/components/StepsLabel";
 import FormTextInput from "../../../shared/components/Form/FormTextInput";
 import { FormStyles } from "../../../shared/components/Form/FormStyles";
 import RoundButton from "../../../shared/components/RoundButton";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import * as Haptics from "expo-haptics";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { sendNotification } from "../../../shared/functions/PushNotifications";
+
+const UserNome = gql`
+  {
+    currentUser {
+      nome
+    }
+  }
+`;
 
 const CREATENOTIFICA_MUTATION = gql`
   mutation createNotifica($text: String!, $type: String!, $id: ID!) {
@@ -71,8 +79,10 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
 export default function ApplyScreen({ route, navigation }) {
   const refetch = route.params.refetch;
   const post = route.params.post;
+  const { data, loading } = useQuery(UserNome, { fetchPolicy: "no-cache" });
   console.log("post", post);
   const [messaggio, setMessaggio] = useState("");
+  const [nome, setNome] = useState("");
   const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION, {
     onCompleted: () => console.log("yea"),
     onError: error => console.log("a")
@@ -121,12 +131,7 @@ export default function ApplyScreen({ route, navigation }) {
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {
-      sendNotification(
-        createPostMessage.application.to.pushToken,
-        createPostMessage.application.from.nome +
-          " si è applicato a un tuo post idea",
-        createPostMessage.text
-      );
+      console.log("createPostMEssage", createPostMessage);
     },
     onError: error => {
       console.log(error);
@@ -134,6 +139,9 @@ export default function ApplyScreen({ route, navigation }) {
     }
   });
 
+  if (loading) {
+    return null;
+  }
   const handleApply = () => {
     if (messaggio.length === 0) {
       return alert("aoh el messaggio");
@@ -149,12 +157,15 @@ export default function ApplyScreen({ route, navigation }) {
         sendNotification(
           post.postedBy.pushToken,
           post.titolo,
-          "Qualcuno si è applicato alla tua posizione di " + post.titolo
+          data.currentUser.nome +
+            " si è applicato alla tua posizione di " +
+            post.titolo
         );
         Haptics.selectionAsync();
         navigation.goBack();
       });
   };
+
   return (
     <KeyboardAwareScrollView>
       <View style={styles.container}>

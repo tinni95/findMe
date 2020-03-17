@@ -70,6 +70,7 @@ export default function NotificationPage({ navigation }) {
               refetch={refetch}
               navigation={navigation}
               key={notifica.id}
+              id={notifica.application.post.id}
               notifica={notifica}
             ></PostApplicationCard>
           );
