@@ -9,12 +9,17 @@ export default function BioBlock({ bio, onPress }) {
   const [showAll, setShowAll] = useState(false);
   if (!bio) {
     return (
-      <View style={styles.container}>
+      <TouchableOpacity onPress={onPress} style={styles.container}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Bold style={{ color: "black", fontSize: 18 }}>Chi sono</Bold>
+          <UnTouchablePen size={40}></UnTouchablePen>
         </View>
-        <View style={{ height: 50 }}></View>
-      </View>
+        <View
+          style={{
+            height: 50
+          }}
+        ></View>
+      </TouchableOpacity>
     );
   }
   return (
@@ -30,7 +35,7 @@ export default function BioBlock({ bio, onPress }) {
         style={{
           flexDirection: "row",
           flexWrap: "wrap",
-          marginTop: 20
+          marginTop: 0
         }}
       >
         <View style={styles.bio}>
@@ -51,6 +56,7 @@ export default function BioBlock({ bio, onPress }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
+    width: "100%",
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 10,

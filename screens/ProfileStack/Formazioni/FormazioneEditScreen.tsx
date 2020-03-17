@@ -53,7 +53,6 @@ export default function FormazioneEditScreen({ navigation, route }) {
     )
   });
   const preInput = useRef<any>();
-  const linkInput = useRef<any>();
   const corsoInput = useRef<any>();
   const formazione = route.params?.formazione ?? null;
   useEffect(() => {
@@ -197,17 +196,6 @@ export default function FormazioneEditScreen({ navigation, route }) {
               onChangeText={val => setIstituto(val)}
               value={istituto}
               style={istitutoError ? FormStyles.inputError : FormStyles.input}
-              onSubmitEditing={() => linkInput.current.focus()}
-            />
-          </WithErrorString>
-          <WithErrorString error={linkError} errorText={"Non è un link"}>
-            <FormTextInput
-              autoCapitalize="none"
-              reference={linkInput}
-              placeholder="Sito Web"
-              onChangeText={val => setLink(val)}
-              value={link}
-              style={linkError ? FormStyles.inputError : FormStyles.input}
               onSubmitEditing={() => corsoInput.current.focus()}
             />
           </WithErrorString>
