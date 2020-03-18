@@ -61,7 +61,12 @@ function LoginScreen({ context, navigation }) {
   }, []);
 
   const login = () => {
-    loginMutation({ variables: { email, password } });
+    loginMutation({
+      variables: {
+        email: email.trim().toLowerCase(),
+        password
+      }
+    });
   };
 
   return (

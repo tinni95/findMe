@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import PostIdeaStack from "./PostIdeaStack";
 import ProfileStack from "./ProfileStack";
-import NotificaStack from "./NotificaStack";
-import NotificheIcon from "../Icons/NotificaIcon";
 import ProfiloIcon from "../Icons/ProfiloIcon";
 import PostIdeaIcon from "../Icons/PostIdeaIcon";
 import InsertStack from "./InsertStack";
 import CreateIcon from "../Icons/CreateIcon";
+import NotificaStack from "./NotificaStack";
+import CandidatureIconWS from "../../shared/components/CandidatureIcon";
 
 const BottomTab = createMaterialBottomTabNavigator();
 
@@ -46,10 +46,10 @@ const MainTabNavigator = () => {
       <BottomTab.Screen
         name="NotificaStack"
         component={NotificaStack}
-        options={{
+        options={({ route, navigation }) => ({
           tabBarLabel: "",
-          tabBarIcon: ({ focused }) => <NotificheIcon focused={focused} />
-        }}
+          tabBarIcon: ({ focused }) => <CandidatureIconWS focused={focused} />
+        })}
       />
     </BottomTab.Navigator>
   );

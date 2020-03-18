@@ -35,7 +35,7 @@ const CategoriaCard: FunctionComponent<CategoriaCardProps> = ({
 
 const styles = StyleSheet.create({
   title: {
-    color: Colors.blue,
+    color: "black",
     textAlign: "center",
     marginTop: 15,
     fontSize: 12

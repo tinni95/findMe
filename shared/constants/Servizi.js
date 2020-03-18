@@ -50,11 +50,11 @@ export const Consegne = [
 ]
 
 export const Feste = [
-    { servizio: "Cantante", requisiti: ["munito di strumenti"] }, { servizio: "chef a domicilio", requisiti: ["munito di strumenti"] }, { servizio: "dj", requisiti: ["munito di strumenti"] }, { servizio: "fotografo", requisiti: ["munito di strumenti"] }, { servizio: "video maker", requisiti: ["munito di strumenti"] }, { servizio: "promoter", requisiti: ["munito di strumenti"] }, { servizio: "hostess/steward", requisiti: ["munito di strumenti"] }, { servizio: "Animazione", requisiti: ["munito di strumenti"] }
+    { servizio: "Cantante", requisiti: ["munito di strumenti"] }, { servizio: "chef a domicilio", requisiti: ["munito di strumenti"] }, { servizio: "dj", requisiti: ["munito di strumenti"] }, { servizio: "fotografo", requisiti: ["munito di strumenti"] }, { servizio: "video maker", requisiti: ["munito di strumenti"] }, { servizio: "promoter", requisiti: ["munito di strumenti"] }, { servizio: "hostess/steward", requisiti: ["munito di strumenti"] }, { servizio: "Animatore", requisiti: ["munito di strumenti"] }, { servizio: "Bartender", requisiti: ["munito di strumenti"] }
 ]
 
 export const aziendali = [
-    { servizio: "Customer care" }, { servizio: "ux designer" }, { servizio: "UI designer" }, { servizio: "commercialista" }, { servizio: "consulente" }, { servizio: "contabile" }, { servizio: "legale" }, { servizio: "architetto" }, { servizio: "designer" }, { servizio: "risorse umane" }, { servizio: "venditore" }, { servizio: "social media manager" }, { servizio: "ingegnere" }, { servizio: "programmatore informatico" }, { servizio: "inventario" }, { servizio: "magazziniere" }, { servizio: "staff negozio" }, { servizio: "data entry" }, { servizio: "reception" }, { servizio: "assistenza it" }, { servizio: "parcheggiatore" }
+    { servizio: "Customer care" }, { servizio: "ux designer" }, { servizio: "UI designer" }, { servizio: "commercialista" }, { servizio: "consulente" }, { servizio: "contabile" }, { servizio: "legale" }, { servizio: "architetto" }, { servizio: "designer" }, { servizio: "risorse umane" }, { servizio: "venditore" }, { servizio: "social media manager" }, { servizio: "ingegnere" }, { servizio: "programmatore informatico" }, { servizio: "inventario" }, { servizio: "magazziniere" }, { servizio: "staff negozio" }, { servizio: "data entry" }, { servizio: "reception" }, { servizio: "assistenza it" }
 ]
 
 export const lezioni = [
@@ -62,7 +62,7 @@ export const lezioni = [
 ]
 
 export const casa = [
-    { servizio: "Elettricista" }, { servizio: "idraulico" }, { servizio: "imbianchino" }, { servizio: "giardiniere" }, { servizio: "pulizie" }, { servizio: "piccoli traslochi" }, { servizio: "grandi traslochi" }, { servizio: "stiraggio" }, { servizio: "imbianchino" }, { servizio: "falegname meccanico" }, { servizio: "montaggio tv" }, { servizio: "montaggio mobili" }
+    { servizio: "Elettricista" }, { servizio: "idraulico" }, { servizio: "imbianchino" }, { servizio: "giardiniere" }, { servizio: "pulizie" }, { servizio: "piccoli traslochi" }, { servizio: "grandi traslochi" }, { servizio: "stiraggio" }, { servizio: "falegname" }, { servizio: "meccanico" }, { servizio: "montaggio tv" }, { servizio: "montaggio mobili" }
 ]
 
 

@@ -23,13 +23,13 @@ function wait(timeout) {
   });
 }
 
-function CandidatureIcon({ navigation, socket }) {
+function CandidatureIcon(props) {
   const { loading, refetch, data } = useQuery(UNSEENAPPLICATIONS_QUERY, {
     fetchPolicy: "no-cache"
   });
 
   useEffect(() => {
-    socket.on("postnotifica", msg => {
+    props.socket.on("postnotifica", msg => {
       console.log("NOTIFICA");
       wait(1000).then(() => refetch());
     });
@@ -37,32 +37,42 @@ function CandidatureIcon({ navigation, socket }) {
 
   if (loading) {
     return (
-      <Image
-        source={require("../../assets/images/arrows.png")}
-        style={{ marginRight: 5, width: 25, height: 25 }}
-      ></Image>
-    );
-  }
-  if (data) {
-    return (
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("AttivitàScreen", {
-            onGoBack: () => refetch()
-          })
-        }
-        style={data.UnseenApplications.length > 0 && styles.container}
-      >
+      <View style={styles.content}>
         <Image
           source={require("../../assets/images/arrows.png")}
           style={{ marginRight: 5, width: 35, height: 25 }}
         ></Image>
-        {data.UnseenApplications.length > 0 && (
-          <View style={styles.counter}>
-            <Body style={styles.text}>{data.UnseenApplications.length}</Body>
-          </View>
-        )}
-      </TouchableOpacity>
+        <Body style={[styles.text, { color: Colors.blue }]}>Candidature</Body>
+      </View>
+    );
+  }
+  if (data) {
+    return (
+      <View style={styles.content}>
+        <View style={data.UnseenApplications.length > 0 && styles.container}>
+          <Image
+            source={
+              props.focused
+                ? require("../../assets/images/arrows-active.png")
+                : require("../../assets/images/arrows.png")
+            }
+            style={{ marginRight: 5, width: 35, height: 25 }}
+          ></Image>
+          {data.UnseenApplications.length > 0 && (
+            <View style={styles.counter}>
+              <Body style={styles.text}>{data.UnseenApplications.length}</Body>
+            </View>
+          )}
+        </View>
+        <Body
+          style={[
+            styles.text,
+            { color: props.focused ? Colors.blue : "black" }
+          ]}
+        >
+          Candidature
+        </Body>
+      </View>
     );
   }
 }
@@ -79,10 +89,12 @@ const styles = StyleSheet.create({
     marginLeft: -3,
     backgroundColor: Colors.red
   },
+  content: { width: 80, justifyContent: "center", alignItems: "center" },
   text: {
+    fontSize: 8,
     textAlign: "center",
-    color: "white",
-    fontSize: 9
+    marginTop: 3,
+    marginRight: 0
   }
 });
 

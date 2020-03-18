@@ -49,6 +49,7 @@ export default function NotificationPage({ navigation }) {
   if (error) {
     return <TenditErrorDisplay></TenditErrorDisplay>;
   }
+  console.log(data);
   return (
     <ScrollView
       refreshControl={
@@ -60,20 +61,7 @@ export default function NotificationPage({ navigation }) {
         const image = notifica.from.pictureUrl
           ? { uri: notifica.from.pictureUrl }
           : require("../assets/images/placeholder.png");
-        if (
-          notifica.type == "applicationPost" ||
-          notifica.type == "applicationAccepted"
-        ) {
-          return (
-            <PostApplicationCard
-              image={image}
-              refetch={refetch}
-              navigation={navigation}
-              key={notifica.id}
-              id={notifica.application.post.id}
-              notifica={notifica}
-            ></PostApplicationCard>
-          );
+        if (notifica.type == "applicationPost") {
         }
       })}
     </ScrollView>

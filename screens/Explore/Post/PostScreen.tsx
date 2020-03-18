@@ -38,6 +38,7 @@ const DELETEPOST_MUTATION = gql`
 
 const Post = gql`
   query PostScreenQuery($postId: ID!) {
+ 
     singlePost(id: $postId) {
       id
       comune
@@ -65,6 +66,7 @@ const Post = gql`
     }
     currentUser {
       id
+      nome
     }
   }
 `;
@@ -143,7 +145,7 @@ export default function PostScreen({ navigation, route }) {
         sendNotification(
           data.singlePost.postedBy.pushToken,
           data.singlePost.titolo,
-          "Qualcuno ha rimosso la sua applicazione per " + data.singlePost.titolo
+          data.currentUser.nome+" ha rimosso la sua applicazione per " + data.singlePost.titolo
         );
         Haptics.selectionAsync();
       });

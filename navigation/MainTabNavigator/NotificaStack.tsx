@@ -11,6 +11,7 @@ import {
   headerStyle,
   headerTitleStyle
 } from "../../shared/constants/HeaderStyles";
+import ApplicationReceivedScreenWS from "../../screens/Explore/Attività/ApplicationReceivedScreen";
 
 const Stack = createStackNavigator();
 
@@ -19,18 +20,19 @@ const NotificaStack = ({ changeLoginState }) => {
     <Stack.Navigator initialRouteName="LandingPage">
       <Stack.Screen
         name="NotificationPage"
-        component={NotificationPage}
+        component={AttivitàScreen}
         options={{
-          headerTitle: "Notifiche",
+          headerTitle: "Candidature",
           headerStyle,
           headerTitleStyle
         }}
       />
       <Stack.Screen
-        name="NotificheIcon"
-        component={AttivitàScreen}
+        name="ApplicationReceivedScreen"
+        component={ApplicationReceivedScreenWS}
         options={({ navigation }) => ({
           headerTitle: "",
+          headerStyle: { shadowColor: "transparent" },
           headerLeft: () => <HeaderLeft navigation={navigation} />
         })}
       />
