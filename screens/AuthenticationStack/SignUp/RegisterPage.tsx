@@ -3,6 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import TenditTextInput from "../../../shared/components/TenditTextInput";
 import HeaderRight from "../../../shared/components/HeaderRight";
+import { wait } from "../../../shared/functions/wait";
 
 export default function RegisterPage({ navigation }) {
   navigation.setOptions({
@@ -17,7 +18,9 @@ export default function RegisterPage({ navigation }) {
   let input = useRef<any>();
 
   useEffect(() => {
-    preinput.current.focus();
+    wait(100).then(() => {
+      preinput.current.focus();
+    });
   }, []);
 
   useEffect(() => {

@@ -15,6 +15,9 @@ const APPLICATIONS_FOR_POST = gql`
       from {
         pictureUrl
       }
+      to {
+        pictureUrl
+      }
       pubRead
       post {
         titolo

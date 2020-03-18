@@ -5,6 +5,7 @@ import HeaderRight from "../../../shared/components/HeaderRight";
 import { validatePassword } from "../validators";
 import { Ionicons } from "@expo/vector-icons";
 import TenditTextInput from "../../../shared/components/TenditTextInput";
+import { wait } from "../../../shared/functions/wait";
 
 export default function PasswordPage({ navigation, route }) {
   navigation.setOptions({
@@ -23,7 +24,9 @@ export default function PasswordPage({ navigation, route }) {
   let input = useRef<any>();
 
   useEffect(() => {
-    preinput.current.focus();
+    wait(100).then(() => {
+      preinput.current.focus();
+    });
   }, []);
 
   const login = () => {

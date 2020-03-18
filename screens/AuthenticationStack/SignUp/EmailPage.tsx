@@ -4,6 +4,7 @@ import { isSmallDevice } from "../../../shared/constants/Layout";
 import TenditTextInput from "../../../shared/components/TenditTextInput";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import { validateEmail } from "../validators";
+import { wait } from "../../../shared/functions/wait";
 
 export default function EmailPage({ navigation, route }) {
   navigation.setOptions({
@@ -20,7 +21,9 @@ export default function EmailPage({ navigation, route }) {
   let input = useRef<any>();
 
   useEffect(() => {
-    preinput.current.focus();
+    wait(100).then(() => {
+      preinput.current.focus();
+    });
   }, []);
 
   useEffect(() => {

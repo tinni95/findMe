@@ -60,7 +60,9 @@ function CandidatureIcon(props) {
           ></Image>
           {data.UnseenApplications.length > 0 && (
             <View style={styles.counter}>
-              <Body style={styles.text}>{data.UnseenApplications.length}</Body>
+              <Body style={styles.counterText}>
+                {data.UnseenApplications.length}
+              </Body>
             </View>
           )}
         </View>
@@ -94,6 +96,13 @@ const styles = StyleSheet.create({
     fontSize: 8,
     textAlign: "center",
     marginTop: 3,
+    marginRight: 0
+  },
+  counterText: {
+    fontSize: 8,
+    textAlign: "center",
+    marginTop: 1,
+    color: "white",
     marginRight: 0
   }
 });
