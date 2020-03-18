@@ -18,7 +18,7 @@ const FiltersModal = () => {
         options={({ navigation }) => ({
           headerStyle,
           headerTitleStyle,
-          headerTitle: "Filtri",
+          headerTitle: "",
           headerLeft: () => <HeaderLeft navigation={navigation} />
         })}
       />

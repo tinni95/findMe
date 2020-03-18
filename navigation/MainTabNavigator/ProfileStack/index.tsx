@@ -35,7 +35,7 @@ const SettingsStack = () => {
       <Stack0.Screen
         name="Impostazioni"
         options={({ navigation }) => ({
-          title: "Impostazioni",
+          title: "",
           headerStyle,
           headerTitleStyle,
           headerLeft: () => (
@@ -175,7 +175,7 @@ const ProfileStack = () => {
       <Stack3.Screen
         name="FormazioniScreen"
         options={({ navigation }) => ({
-          title: "Formazioni",
+          title: "",
           headerStyle,
           headerTitleStyle,
           headerLeft: () => <HeaderLeft navigation={navigation} />
@@ -185,7 +185,7 @@ const ProfileStack = () => {
       <Stack3.Screen
         name="EsperienzeScreen"
         options={({ navigation }) => ({
-          title: "Esperienze",
+          title: "",
           headerStyle,
           headerTitleStyle,
           headerLeft: () => <HeaderLeft navigation={navigation} />
