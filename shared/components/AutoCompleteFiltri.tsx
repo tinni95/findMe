@@ -11,6 +11,7 @@ import { FormStyles } from "./Form/FormStyles";
 import { Bold, Body } from "./StyledText";
 import { Ionicons } from "@expo/vector-icons";
 import { wait } from "../functions/wait";
+import Colors from "../constants/Colors";
 const shortid = require("shortid");
 
 export function AutoCompleteFiltri({ navigation, route }) {
@@ -19,6 +20,9 @@ export function AutoCompleteFiltri({ navigation, route }) {
   let isFor = route.params?.for ?? "";
   let is = route.params?.is ?? "";
   const [text, setText] = useState("");
+  useEffect(() => {
+    wait(50).then(()=>{textInput.current.focus()});
+  }, []);
   const textInput = useRef<any>();
   let filteredItems = items.filter(item =>
     isFor != "Requisiti"
@@ -33,11 +37,6 @@ export function AutoCompleteFiltri({ navigation, route }) {
       isFor == "Requisiti" || filteredItems[0] == text
         ? { title: item, for: isFor, is }
         : { title: item.titolo, categoria: item.categoria, for: isFor };
-
-        useEffect(() => {
-          wait(50).then(()=>{textInput.current.focus()});
-        }, []);
-
     return (
       <TouchableOpacity
         onPress={() => navigation.navigate(path, objectToPass)}
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#D3CFCF",
     flex: 4
   },
-  cancelButton: { marginRight: 2.5, color: "#26547C" },
+  cancelButton: { marginRight: 2.5, color: Colors.blue },
   cancelContainer: {
     flex: 1.5,
     justifyContent: "center",
@@ -117,9 +116,11 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   itemText: {
-    color: "#26547C",
+    color:  Colors.ocean ,
     margin: 5,
-    marginBottom: 10,
+    alignContent:"center",
+    justifyContent:"center",
+    alignItems:"center",
     fontSize: 16
   }
 });

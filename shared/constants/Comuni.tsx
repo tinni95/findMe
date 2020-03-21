@@ -8502,6 +8502,7 @@ export const Comuni = [
   { città: "San Cesareo", regione: "Lazio", provincia: "Roma" },
   { città: "Fiumicino", regione: "Lazio", provincia: "Roma" },
   { città: "Fonte Nuova", regione: "Lazio", provincia: "Roma" },
+  { città: "Roma", regione: "Lazio", provincia: "Roma" },
   { città: "Aprilia", regione: "Lazio", provincia: "Latina" },
   { città: "Bassiano", regione: "Lazio", provincia: "Latina" },
   { città: "Campodimele", regione: "Lazio", provincia: "Latina" },

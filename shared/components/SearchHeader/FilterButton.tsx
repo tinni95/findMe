@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Light } from "../StyledText";
+import NotificaBubble from "../NotificaBubble";
 
 export default function FilterButton(props) {
   return (
@@ -9,7 +10,7 @@ export default function FilterButton(props) {
         source={require("../../../assets/images/controls.png")}
         style={{ marginLeft: 10, width: 25, height: 25 }}
       />
-      <Light style={styles.counter}>{props.filters}</Light>
+      <NotificaBubble count={props.filters}></NotificaBubble>
     </TouchableOpacity>
   );
 }
