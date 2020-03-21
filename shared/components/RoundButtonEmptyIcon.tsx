@@ -85,11 +85,11 @@ export const RoundButtonEmptyIconInverted: FunctionComponent<
 };
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 15,
+    borderRadius: 25,
     backgroundColor: "white",
     alignSelf: "flex-start",
     alignItems: "center",
-    padding: 3,
+    padding: 6,
     paddingLeft: 13,
     paddingRight: 13,
     borderWidth: 0.5,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 11,
+    fontSize: 13,
     marginLeft: 2
   }
 });

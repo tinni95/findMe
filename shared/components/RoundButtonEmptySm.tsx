@@ -44,11 +44,11 @@ const styles = StyleSheet.create({
     borderColor: "#60E1E0",
     borderWidth: 0.5,
     alignSelf: "flex-start",
-    padding: 12.5
+    padding: 10
   },
   text: {
     color: "white",
-    fontSize: 13,
+    fontSize: 11,
     marginLeft: 2
   }
 });

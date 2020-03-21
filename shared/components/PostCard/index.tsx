@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Platform } from "react-native";
 import { width, isBigDevice, isSmallDevice } from "../../constants/Layout";
 import PostCardText from "./PostCardText";
-import RoundButtonEmpty from "../RoundButtonEmpty";
+import RoundButtonEmptySm from "../RoundButtonEmptySm";
 import Colors from "../../constants/Colors";
 
 const PostCard = ({ post, onPress, navigation }) => {
@@ -13,7 +13,7 @@ const PostCard = ({ post, onPress, navigation }) => {
         <View style={styles.footer}>
           <View style={styles.buttonContainer}>
             <View style={{ height: 10 }}></View>
-            <RoundButtonEmpty
+            <RoundButtonEmptySm
               text="Scopri di più"
               onPress={onPress}
               color={Colors.ocean}
