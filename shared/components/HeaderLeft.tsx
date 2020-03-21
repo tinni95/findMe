@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
-import { Light } from "./StyledText";
+import { Light, Body } from "./StyledText";
 import { CompositeNavigationProp } from "@react-navigation/native";
 
 type HeaderProps = {
@@ -23,7 +23,7 @@ const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) 
       style={{ marginLeft: 10, marginTop: 2.5 }}
       color={Colors.blue}
     ></Ionicons>
-    <Light
+    <Body
       style={{
         color: Colors.blue,
         marginLeft: 20,
@@ -32,7 +32,7 @@ const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) 
       }}
     >
       {text ? text : "Indietro"}
-    </Light>
+    </Body>
   </TouchableOpacity>
 );
 

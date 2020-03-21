@@ -89,7 +89,7 @@ export function ApplicationReceivedChat(props) {
     onCompleted: async ({ createPostMessage }) => {
       sendNotification(
         createPostMessage.sub.pushToken,
-        application.position,
+        application.from.nome,
         createPostMessage.text
       );
       unseeChat({ variables: { id: application.id, subRead: false } });

@@ -64,7 +64,7 @@ export default function TabBars({ routes, renderScene, sent, received }) {
           )}
           {...props}
           indicatorStyle={{
-            backgroundColor: Colors.ocean,
+            backgroundColor: Colors.semiBlue,
             height: 2.5,
             marginBottom: -2
           }}

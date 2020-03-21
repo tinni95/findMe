@@ -47,11 +47,6 @@ export default function SearchHeader({
           />
         )}
         <SearchBarComponent updateSearch={setSearch} setIs={setIs} />
-        {!isSearch && (
-          <View style={styles.bubbio}>
-            <CandidatureIcon navigation={navigation}></CandidatureIcon>
-          </View>
-        )}
       </View>
     </View>
   );

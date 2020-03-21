@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { TouchableOpacity } from "react-native";
 import Colors from "../constants/Colors";
-import { Light } from "../components/StyledText";
+import { Light, Body } from "../components/StyledText";
 
 type HeaderProps = {
   onPress?: any;
@@ -13,7 +13,7 @@ const HeaderRight: FunctionComponent<HeaderProps> = ({ text, onPress }) => (
     onPress={onPress}
     style={{ paddingRight: 15, marginBottom: 2 }}
   >
-    <Light style={{ fontSize: 15, color: Colors.red }}>{text}</Light>
+    <Body style={{ fontSize: 15, color: Colors.red }}>{text}</Body>
   </TouchableOpacity>
 );
 

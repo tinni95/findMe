@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { useQuery } from "react-apollo";
 import { gql } from "apollo-boost";
@@ -36,13 +36,23 @@ const getUri = uri => {
   }
 };
 
-export default function PostApplicationCard({ opened, id, navigation }) {
+export default function PostApplicationCard({
+  isRefetch,
+  opened,
+  id,
+  navigation
+}) {
   const { data, refetch, loading } = useQuery(APPLICATIONS_FOR_POST, {
     variables: { postId: id },
     onCompleted: ({ applicationsForPosition }) => {
       console.log(applicationsForPosition);
     }
   });
+
+  useEffect(() => {
+    refetch();
+  }, [isRefetch]);
+
   if (loading) {
     return <Image source={require("../../assets/images/shimmer.gif")}></Image>;
   } else if (data.applicationsForPosition.length == 0) {

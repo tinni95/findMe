@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Body, Light } from "./StyledText";
 import { isSmallDevice } from "../constants/Layout";
+import Colors from "../constants/Colors";
 
 export default function LocationWithText(props) {
   if (props.isLight) {
@@ -12,7 +13,7 @@ export default function LocationWithText(props) {
           name={"ios-pin"}
           size={props.points || 17}
           style={{ marginLeft: 3, marginTop: 5 }}
-          color={"#DD1E63"}
+          color={Colors.red}
         />
         <Light
           style={[

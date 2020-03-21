@@ -60,11 +60,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#60E1E0",
     alignSelf: "flex-start",
-    padding: 10
+    padding: 12.5
   },
   text: {
     color: "white",
-    fontSize: 11,
+    fontSize: 13,
     marginLeft: 2
   }
 });

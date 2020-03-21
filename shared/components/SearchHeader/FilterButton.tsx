@@ -7,7 +7,7 @@ export default function FilterButton(props) {
     <TouchableOpacity onPress={props.onPress} style={styles.button}>
       <Image
         source={require("../../../assets/images/controls.png")}
-        style={{ width: 25, height: 25 }}
+        style={{ marginLeft: 10, width: 25, height: 25 }}
       />
       <Light style={styles.counter}>{props.filters}</Light>
     </TouchableOpacity>

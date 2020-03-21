@@ -13,7 +13,6 @@ export default function PasswordPage({ navigation, route }) {
   });
 
   const { user } = route.params;
-  console.log("userp", user);
   const [password, setPassword] = useState<string>("");
   const [rePassword, setRePassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<Boolean>(false);

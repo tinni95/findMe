@@ -95,16 +95,20 @@ function AttivitàScreen({ navigation, socket }) {
   });
 
   const [refreshing, setRefreshing] = useState(false);
+  const [isRefetch, setRefetch] = useState(false);
   const { refetch, data, loading } = useQuery(User, {
     fetchPolicy: "no-cache"
   });
+
   const [routes] = React.useState([
     { key: "first", title: "Inviate" },
     { key: "second", title: "Ricevute" }
   ]);
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     refetch();
+    setRefetch(!isRefetch);
     wait(2000).then(() => setRefreshing(false));
   }, [refreshing]);
 
@@ -164,6 +168,7 @@ function AttivitàScreen({ navigation, socket }) {
         data.userPosts.map(post => {
           return (
             <PostApplicationCard
+              isRefetch={isRefetch}
               opened={post.opened || false}
               navigation={navigation}
               id={post.id}

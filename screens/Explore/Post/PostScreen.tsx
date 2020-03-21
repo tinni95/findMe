@@ -219,8 +219,7 @@ export default function PostScreen({ navigation, route }) {
         <View style={styles.ButtonWrapper}>
           {!isOwner&&
               <RoundButton
-              textStyle={{fontSize:16,   fontWeight: "bold"}}
-                isAvenir={true}
+
                 onPress={() =>
                   data.applicationUserForPosition.length > 0
                     ? handleRimuovi()
@@ -232,7 +231,7 @@ export default function PostScreen({ navigation, route }) {
                     : "Candidati"
                 }
                 textColor={"white"}
-                color={"#DD1E63"}
+                color={Colors.red}
               />
 }
           </View>

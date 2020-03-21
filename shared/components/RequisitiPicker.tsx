@@ -31,13 +31,14 @@ const styles = StyleSheet.create({
     height: 25,
     width: 25,
     borderRadius: 12.5,
-    borderWidth: 0.3
+    borderColor: Colors.black,
+    borderWidth: 1
   },
   pallinoblu: {
     height: 25,
     width: 25,
     borderRadius: 12.5,
-    backgroundColor: Colors.ocean
+    backgroundColor: Colors.blue
   }
 });
 export default RequisitiPicker;

@@ -51,7 +51,7 @@ const PostCardText = ({ post, navigation }) => {
 
 const styles = StyleSheet.create({
   line: {
-    flex: 0.01,
+    flex: 0.03,
     backgroundColor: "black"
   },
   body: {
@@ -65,7 +65,9 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   title: {
-    fontSize: isSmallDevice ? 16 : 18
+    fontSize: isSmallDevice ? 16 : 18,
+    color: Colors.black,
+    marginTop: 5
   },
   mainTextContainer: {
     flex: 1,

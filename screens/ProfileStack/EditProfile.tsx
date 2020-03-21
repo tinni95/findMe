@@ -272,6 +272,7 @@ export default function EditProfile({ navigation, route }) {
               <StepsLabel text={"Data Di Nascita"} />
               <TouchableOpacity onPress={() => setVisibleDate(true)}>
                 <FormTextInput
+                placeholder={"seleziona data"}
                   pointerEvents="none"
                   editable={false}
                   value={DoB}

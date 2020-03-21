@@ -86,9 +86,9 @@ async function loadResourcesAsync() {
       "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
       Avenir: require("./assets/fonts/avenir.otf"),
       "changa-one": require("./assets/fonts/ChangaOne-Regular.ttf"),
-      "sequel-sans": require("./assets/fonts/SequelSans-Body.ttf"),
-      "sequel-sans-bold": require("./assets/fonts/SequelSans-Bold.ttf"),
-      "sequel-sans-light": require("./assets/fonts/SequelSans-Body-light.ttf")
+      "sequel-sans": require("./assets/fonts/regular.otf"),
+      "sequel-sans-bold": require("./assets/fonts/medium.otf"),
+      "sequel-sans-light": require("./assets/fonts/light.otf")
     })
   ]);
 }
