@@ -13,6 +13,7 @@ type RoundButtonProps = {
   buttonStyle?: StyleProp<ViewStyle>;
   onPress: any;
   color: string;
+  bgColor?: string;
   isMedium?: Boolean;
   isLight?: Boolean;
   text: string;
@@ -22,6 +23,7 @@ type RoundButtonProps = {
 const RoundButtonEmptyLarge: FunctionComponent<RoundButtonProps> = ({
   buttonStyle,
   onPress,
+  bgColor,
   color,
   isMedium,
   isLight,
@@ -29,7 +31,12 @@ const RoundButtonEmptyLarge: FunctionComponent<RoundButtonProps> = ({
   textColor
 }) => (
   <TouchableOpacity style={[buttonStyle]} onPress={onPress}>
-    <View style={[styles.container, { borderColor: color }]}>
+    <View
+      style={[
+        styles.container,
+        { borderColor: color, backgroundColor: bgColor || "white" }
+      ]}
+    >
       {isMedium ? (
         <Body style={[styles.text, { color: textColor }]}>{text}</Body>
       ) : isLight ? (
@@ -44,7 +51,6 @@ const RoundButtonEmptyLarge: FunctionComponent<RoundButtonProps> = ({
 const styles = StyleSheet.create({
   container: {
     borderRadius: 40,
-    backgroundColor: "white",
     alignSelf: "flex-start",
     padding: 15,
     borderWidth: 1,
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 15,
+    fontSize: 18,
     marginLeft: 2,
     textAlign: "center"
   }

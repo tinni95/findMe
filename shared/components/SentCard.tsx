@@ -6,7 +6,7 @@ import AvatarAndVedi from "./AvatarAndVedi";
 import { Bold, Body, Light } from "./StyledText";
 import LocationWithText from "./LocationWithText";
 import Colors from "../constants/Colors";
-import RoundButton from "./RoundButton";
+import RoundButtonSm from "./RoundButtonSm";
 import { RoundButtonEmptyIcon } from "./RoundButtonEmptyIcon";
 import RoundButtonEmpty from "./RoundButtonEmpty";
 var shortid = require("shortid");
@@ -82,13 +82,13 @@ export default function SentCard({ onPress, application, navigation }) {
           {post.requisiti &&
             post.requisiti.map(qualifica => {
               return (
-                <RoundButton
+                <RoundButtonSm
                   onPress={() => {}}
                   key={shortid.generate()}
                   text={qualifica}
                   textColor={"white"}
                   color={Colors.blue}
-                ></RoundButton>
+                ></RoundButtonSm>
               );
             })}
         </View>

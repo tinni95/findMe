@@ -1,6 +1,6 @@
 import React from "react";
-import { Image, View, StyleSheet } from "react-native";
-import { Light } from "../../shared/components/StyledText";
+import { Image, View, StyleSheet, Platform } from "react-native";
+import { Light, Bold, Body } from "../../shared/components/StyledText";
 import RoundButtonEmptyLarge from "../../shared/components/RoundButtonEmptyLarge";
 import Colors from "../../shared/constants/Colors";
 
@@ -10,26 +10,25 @@ export const LandingPage = ({ navigation: { navigate } }) => {
       <View style={styles.imageContainer}>
         <Image
           style={styles.logo}
-          source={require("../../assets/images/Logo_tendit.png")}
+          source={require("../../assets/images/logo.png")}
           resizeMode="contain"
         />
-        <Light style={styles.heading}>Get start-up ready</Light>
+        <Body style={styles.heading}>Benvenuto!</Body>
       </View>
       <View style={styles.buttonsWrapper}>
         <RoundButtonEmptyLarge
-          isMedium
           textColor={Colors.blue}
           color={Colors.blue}
-          onPress={() => navigate("RegisterPage")}
-          text="Iscriviti"
+          onPress={() => navigate("LoginScreen")}
+          text="Accedi"
         />
         <View style={{ height: 20 }}></View>
         <RoundButtonEmptyLarge
-          isMedium
-          textColor={Colors.red}
-          color={"white"}
-          onPress={() => navigate("LoginScreen")}
-          text="Accedi"
+          color={Colors.black}
+          textColor={"white"}
+          bgColor={Colors.black}
+          onPress={() => navigate("RegisterPage")}
+          text="Registrati"
         />
       </View>
     </View>
@@ -39,7 +38,20 @@ export const LandingPage = ({ navigation: { navigate } }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF"
+    backgroundColor: Colors.blue,
+    ...Platform.select({
+      ios: {
+        shadowColor: "black",
+        shadowOpacity: 0.2,
+        shadowOffset: {
+          height: 3,
+          width: 0
+        }
+      },
+      android: {
+        elevation: 5
+      }
+    })
   },
   imageContainer: {
     alignItems: "center",
@@ -48,14 +60,15 @@ const styles = StyleSheet.create({
   },
   logo: {
     alignItems: "center",
-    width: 320,
-    height: 120
+    width: 200
   },
   heading: {
-    fontSize: 18
+    color: "white",
+    fontSize: 26,
+    marginBottom: 50
   },
   buttonsWrapper: {
-    flex: 3,
+    flex: 4,
     justifyContent: "flex-start",
     alignItems: "center"
   }
