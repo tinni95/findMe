@@ -49,7 +49,7 @@ export default function MultiFilters({
     });
   } else {
     filters = settori.map((settore, index) => {
-      if ((hidden && index < 8) || !hidden)
+      if ((hidden && index < 5) || !hidden)
         return (
           <View key={index} style={{ margin: 5 }}>
             <MultiFilterItem
@@ -63,7 +63,7 @@ export default function MultiFilters({
             />
           </View>
         );
-      if (hidden && index == 8)
+      if (hidden && index == 5)
         return (
           <Body
             style={{ margin: 5, marginTop: 15, fontSize: 12, color: Colors.red }}

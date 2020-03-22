@@ -250,7 +250,21 @@ const Drawer = createDrawerNavigator();
 
 const ProfileDrawer = () => {
   return (
-    <Drawer.Navigator initialRouteName={"Profilo"} drawerPosition={"left"}>
+    <Drawer.Navigator
+      drawerContentOptions={{
+        activeTintColor: Colors.red,
+        inactiveTintColor: Colors.semiBlue,
+        labelStyle: {
+          fontFamily: "sequel-sans"
+        }
+      }}
+      drawerStyle={{
+        backgroundColor: Colors.blue,
+        width: 240
+      }}
+      initialRouteName={"Profilo"}
+      drawerPosition={"left"}
+    >
       <Drawer.Screen name="Profilo" component={ProfileStack} />
       <Drawer.Screen name="Impostazioni" component={SettingsStack} />
       <Drawer.Screen name="Logout" component={LogoutStack} />

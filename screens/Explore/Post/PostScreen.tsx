@@ -49,10 +49,10 @@ const Post = gql`
       opened
       hidden
       budget
-        id
-        descrizione
-        titolo
-        requisiti
+      id
+      descrizione
+      titolo
+      requisiti
       postedBy {
         pictureUrl
         nome

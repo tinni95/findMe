@@ -3,7 +3,7 @@ import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Colors from "../../constants/Colors";
 import UnTouchablePen from "../UnTouchablePen";
 import { Body, Bold } from "../StyledText";
-import RoundButtonEmpty from "../RoundButtonEmpty";
+import RoundButtonEmptySm from "../RoundButtonEmptySm";
 import { RoundButtonEmptyPenIcon } from "../RoundButtonEmptyPenIcon";
 var shortid = require("shortid");
 
@@ -35,14 +35,14 @@ export default function CompetenzeBlock({ competenze, onPress }) {
       <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>
         {competenze.map(competenza => {
           return (
-            <RoundButtonEmpty
+            <RoundButtonEmptySm
               key={shortid.generate()}
               buttonStyle={{ margin: 5 }}
               isMedium={true}
               text={competenza}
               onPress={() => {}}
               color={Colors.blue}
-            ></RoundButtonEmpty>
+            ></RoundButtonEmptySm>
           );
         })}
       </View>
