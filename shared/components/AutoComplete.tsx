@@ -11,6 +11,8 @@ import { FormStyles } from "./Form/FormStyles";
 import { Bold, Body } from "./StyledText";
 import { Ionicons } from "@expo/vector-icons";
 import { wait } from "../functions/wait";
+import { LinearGradient } from "expo-linear-gradient";
+import Colors from "../constants/Colors";
 
 const shortid = require("shortid");
 
@@ -57,6 +59,7 @@ function AutoComplete({ navigation, route }) {
             ? item
             : item.titolo}
         </Body>
+        <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
       </TouchableOpacity>
     );
   });
@@ -96,8 +99,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 1,
-    paddingTop: 30,
-    borderBottomColor: "#B19393"
+    paddingTop: 40,
   },
   textContainer: {
     flexDirection: "row"
@@ -105,8 +107,10 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: 15,
     marginRight: 5,
-    borderBottomColor: "#B19393",
     flex: 4
+  },
+  line:{
+    height:1.5,
   },
   cancelButton: { marginRight: 2.5, color: "#26547C" },
   cancelContainer: {
@@ -115,16 +119,14 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   item: {
+    marginTop:5,
     marginLeft: 15,
-    borderBottomWidth: 0.3,
-    borderBottomColor: "#B19393",
-    flexDirection: "row"
   },
   itemText: {
-    color: "#26547C",
-    margin: 5,
-    marginBottom: 10,
-    fontSize: 18
+    color: Colors.black,
+    margin: 10,
+    marginBottom: 5,
+    fontSize: 16
   }
 });
 

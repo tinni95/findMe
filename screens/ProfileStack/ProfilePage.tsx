@@ -214,7 +214,7 @@ export default function ProfilePage({ navigation, route }) {
           />
         </TouchableOpacity>
         <View>
-        <Bold style={{ marginTop: 12, fontSize: 16 }}>
+        <Bold style={{ marginTop: 12, fontSize: 20 }}>
           {data.currentUser.nome + " " + data.currentUser.cognome}
         </Bold>
         {data.currentUser.posizione && (
@@ -223,7 +223,7 @@ export default function ProfilePage({ navigation, route }) {
               marginTop: 5,
               marginBottom: -5,
               color: "#8E8E8E",
-              fontSize: 12
+              fontSize: 13
             }}
           >
             {data.currentUser.posizione}
@@ -233,7 +233,7 @@ export default function ProfilePage({ navigation, route }) {
           <LocationWithText
             isLight
             points={16}
-            fontSize={12}
+            fontSize={13}
             color={"black"}
             comune={data.currentUser.comune}
             regione={data.currentUser.regione}

@@ -14,7 +14,7 @@ const getLocalHostName = () => {
     return hostname;
 };
 
-export const socketEndPoint = "http://134.209.229.6/"
+export const socketEndPoint = "http://tendit.it/socket/"
 /* Platform.OS === "web"
    ? "http://localhost:3001/"
    : "http://localhost:3001/".replace("localhost", getLocalHostName());*/

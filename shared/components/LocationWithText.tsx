@@ -32,7 +32,7 @@ export default function LocationWithText(props) {
         name={"ios-pin"}
         size={props.points || 17}
         style={{ marginLeft: 3, marginTop: 5 }}
-        color={"#DD1E63"}
+        color={Colors.red}
       />
       <Body
         style={[

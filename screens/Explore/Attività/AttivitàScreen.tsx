@@ -31,9 +31,11 @@ const User = gql`
         }
         from {
           pictureUrl
+          nome
           id
         }
         to {
+          nome
           pictureUrl
           id
         }

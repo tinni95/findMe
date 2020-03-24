@@ -89,7 +89,7 @@ export function ApplicationSentChat(props) {
     onCompleted: async ({ createPostMessage }) => {
       sendNotification(
         createPostMessage.pub.pushToken,
-        application.position,
+        application.from.nome,
         createPostMessage.text
       );
       unseeChat({ variables: { id: application.id, pubRead: false } });

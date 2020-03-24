@@ -12,6 +12,7 @@ import { Body, Bold } from "./StyledText";
 import { Comuni } from "../constants/Comuni";
 import Colors from "../constants/Colors";
 import { wait } from "../functions/wait";
+import { LinearGradient } from "expo-linear-gradient";
 const shortid = require("shortid");
 
 function AutoCompleteLocation({ navigation, route }) {
@@ -38,6 +39,7 @@ function AutoCompleteLocation({ navigation, route }) {
         <Body style={styles.itemText}>
           {item.città + ", " + item.provincia + ", " + item.regione}
         </Body>
+        <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
       </TouchableOpacity>
     );
   });
@@ -77,7 +79,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     paddingTop: 40,
-    borderBottomColor: "#B19393"
   },
   textContainer: {
     flexDirection: "row"
@@ -85,12 +86,14 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: 15,
     marginRight: 5,
-    borderBottomColor: "#B19393",
     flex: 4
   },
   cancelButton: {
     marginRight: 2.5,
     color: Colors.blue
+  },
+  line:{
+    height:1.5,
   },
   cancelContainer: {
     flex: 1.5,
@@ -98,14 +101,13 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   item: {
+    marginTop:5,
     marginLeft: 15,
-    borderBottomWidth: 0.5,
-    borderBottomColor: "#B19393"
   },
   itemText: {
-    color: "#26547C",
-    margin: 5,
-    marginBottom: 10,
+    color: Colors.black,
+    margin: 10,
+    marginBottom: 5,
     fontSize: 16
   }
 });

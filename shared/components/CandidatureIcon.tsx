@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
-import { Body } from "./StyledText";
+import { Body, Bold } from "./StyledText";
 import Colors from "../constants/Colors";
 import { useQuery } from "react-apollo";
 import { gql } from "apollo-boost";
@@ -39,10 +39,10 @@ function CandidatureIcon(props) {
     return (
       <View style={styles.content}>
         <Image
-          source={require("../../assets/images/arrows.png")}
-          style={{ marginRight: 5, width: 35, height: 25 }}
+          source={require("../../assets/images/CandidatureIcon.png")}
+          style={{ marginRight: 5, width: 30, height: 27 }}
         ></Image>
-        <Body style={[styles.text, { color: Colors.blue }]}>Candidature</Body>
+        <Body style={[styles.text, { color: "white" }]}>Candidature</Body>
       </View>
     );
   }
@@ -53,10 +53,10 @@ function CandidatureIcon(props) {
           <Image
             source={
               props.focused
-                ? require("../../assets/images/arrows-active.png")
-                : require("../../assets/images/arrows.png")
+                ? require("../../assets/images/CandidatureIcon.png")
+                : require("../../assets/images/CandidatureIcon.png")
             }
-            style={{ marginRight: 5, width: 35, height: 25 }}
+            style={{ marginRight: 5, width: 30, height: 27 }}
           ></Image>
           {data.UnseenApplications.length > 0 && (
             <View style={styles.counter}>
@@ -66,14 +66,11 @@ function CandidatureIcon(props) {
             </View>
           )}
         </View>
-        <Body
-          style={[
-            styles.text,
-            { color: props.focused ? Colors.blue : "black" }
-          ]}
+        <Bold
+          style={[styles.text, { color: props.focused ? Colors.red : "white" }]}
         >
-          Candidature
-        </Body>
+          CANDIDATURE
+        </Bold>
       </View>
     );
   }
@@ -93,9 +90,9 @@ const styles = StyleSheet.create({
   },
   content: { width: 80, justifyContent: "center", alignItems: "center" },
   text: {
-    fontSize: 8,
+    fontSize: 9,
     textAlign: "center",
-    marginTop: 3,
+    marginTop: 5,
     marginRight: 0
   },
   counterText: {

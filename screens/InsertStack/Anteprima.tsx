@@ -24,8 +24,7 @@ const CREATEPOST_MUTATION = gql`
     $hidden: Boolean
     $categoria: String!
     $data: DateTime
-    $requisiti: [String]!
-    
+    $requisiti: [String!]
   ) {
     createPost(
       titolo: $titolo

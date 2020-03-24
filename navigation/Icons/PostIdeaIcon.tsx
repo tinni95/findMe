@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Image } from "react-native";
-import { Body } from "../../shared/components/StyledText";
+import { Body, Bold } from "../../shared/components/StyledText";
 import Colors from "../../shared/constants/Colors";
 
 export default function PostIdeaIcon(props) {
@@ -11,39 +11,38 @@ export default function PostIdeaIcon(props) {
           style={{ width: 50, justifyContent: "center", alignItems: "center" }}
         >
           <Image
-            source={require("../../assets/images/PostIdea_Full.png")}
-            style={{ width: 17.5, height: 25 }}
+            source={require("../../assets/images/homeIcon.png")}
+            style={{ width: 25, height: 25 }}
           ></Image>
-          <Body
+          <Bold
             style={{
-              fontSize: 8,
+              fontSize: 9,
               textAlign: "center",
-              marginTop: 3,
-              marginRight: 2,
-              color: Colors.blue
+              marginTop: 5,
+              color: Colors.red
             }}
           >
-            Servizi
-          </Body>
+            HOME
+          </Bold>
         </View>
       ) : (
         <View
           style={{ width: 50, justifyContent: "center", alignItems: "center" }}
         >
           <Image
-            source={require("../../assets/images/PostIdea_empty.png")}
-            style={{ width: 17.5, height: 25 }}
+            source={require("../../assets/images/homeIcon.png")}
+            style={{ width: 25, height: 25 }}
           ></Image>
-          <Body
+          <Bold
             style={{
-              fontSize: 8,
+              fontSize: 9,
               textAlign: "center",
-              marginTop: 3,
-              marginRight: 2
+              color: "white",
+              marginTop: 5
             }}
           >
-            Servizi
-          </Body>
+            HOME
+          </Bold>
         </View>
       )}
     </View>

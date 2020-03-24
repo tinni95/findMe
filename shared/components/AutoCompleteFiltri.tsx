@@ -12,6 +12,7 @@ import { Bold, Body } from "./StyledText";
 import { Ionicons } from "@expo/vector-icons";
 import { wait } from "../functions/wait";
 import Colors from "../constants/Colors";
+import { LinearGradient } from "expo-linear-gradient";
 const shortid = require("shortid");
 
 export function AutoCompleteFiltri({ navigation, route }) {
@@ -43,17 +44,12 @@ export function AutoCompleteFiltri({ navigation, route }) {
         key={shortid.generate()}
         style={styles.item}
       >
-        <Ionicons
-          name={"ios-search"}
-          size={22}
-          style={{ padding: 5 }}
-          color={"#26547C"}
-        />
         <Body style={styles.itemText}>
           {isFor == "Requisiti" || filteredItems[0] == text
             ? item
             : item.titolo}
         </Body>
+        <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
       </TouchableOpacity>
     );
   });
@@ -95,12 +91,12 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "row"
   },
+  line:{
+    height:1.5,
+  },
   input: {
     marginLeft: 15,
     marginRight: 5,
-    borderBottomWidth: 0.3,
-    color: "#5F5E5E",
-    borderBottomColor: "#D3CFCF",
     flex: 4
   },
   cancelButton: { marginRight: 2.5, color: Colors.blue },
@@ -110,17 +106,13 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   item: {
+    marginTop:5,
     marginLeft: 15,
-    borderBottomWidth: 0.3,
-    borderBottomColor: "#D3CFCF",
-    flexDirection: "row"
   },
   itemText: {
-    color:  Colors.ocean ,
-    margin: 5,
-    alignContent:"center",
-    justifyContent:"center",
-    alignItems:"center",
+    color: Colors.black,
+    margin: 10,
+    marginBottom: 5,
     fontSize: 16
   }
 });

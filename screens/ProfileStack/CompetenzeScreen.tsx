@@ -15,6 +15,7 @@ import { Body } from "../../shared/components/StyledText";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import HeaderRight from "../../shared/components/HeaderRight";
+import { LinearGradient } from "expo-linear-gradient";
 let shortid = require("shortid");
 
 const UPDATEUSER_MUTATION = gql`
@@ -66,13 +67,13 @@ export default function CompetenzeScreen({ navigation, route }) {
         key={shortid.generate()}
         style={styles.item}
       >
-        <Ionicons
-          name={"ios-search"}
-          size={20}
-          style={{ padding: 5 }}
-          color={"#26547C"}
-        />
         <Body style={styles.itemText}>{item}</Body>
+        <LinearGradient
+          start={[0, 1]}
+          end={[1, 0]}
+          colors={["#EBEBEB", "#FFFDFD"]}
+          style={styles.line}
+        />
       </TouchableOpacity>
     );
   });
@@ -162,16 +163,14 @@ export default function CompetenzeScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   itemText: {
-    color: "#26547C",
-    margin: 5,
-    marginBottom: 10,
+    color: Colors.black,
+    margin: 10,
+    marginBottom: 5,
     fontSize: 16
   },
   item: {
-    marginLeft: 15,
-    borderBottomWidth: 0.5,
-    borderBottomColor: "#B19393",
-    flexDirection: "row"
+    marginTop: 5,
+    marginLeft: 15
   },
   spacer: {
     height: 10
@@ -179,5 +178,8 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: "center",
     margin: 35
+  },
+  line: {
+    height: 1.5
   }
 });

@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   titleSm: {
     fontSize: 18,
     marginBottom: 5,
-    marginTop: 10,
+    marginTop: 15,
     color: "black"
   },
   titleSmGreen: {

@@ -8,13 +8,18 @@ import InsertStack from "./InsertStack";
 import CreateIcon from "../Icons/CreateIcon";
 import NotificaStack from "./NotificaStack";
 import CandidatureIconWS from "../../shared/components/CandidatureIcon";
-
+import { isSmallDevice } from "../../shared/constants/Layout";
+import Colors from "../../shared/constants/Colors";
 const BottomTab = createMaterialBottomTabNavigator();
 
 const MainTabNavigator = () => {
   return (
     <BottomTab.Navigator
-      barStyle={{ backgroundColor: "white" }}
+      barStyle={{
+        height: isSmallDevice ? 70 : undefined,
+        paddingTop: isSmallDevice ? 5 : 0,
+        backgroundColor: Colors.blue
+      }}
       initialRouteName="PostIdeaStack"
     >
       <BottomTab.Screen

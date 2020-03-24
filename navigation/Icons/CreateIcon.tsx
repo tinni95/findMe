@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import { StyleSheet, View, Image } from "react-native";
-import { Body } from "../../shared/components/StyledText";
+import { Body, Bold } from "../../shared/components/StyledText";
 import Colors from "../../shared/constants/Colors";
 import { useQuery, useMutation } from "react-apollo";
 import { gql } from "apollo-boost";
@@ -33,39 +33,40 @@ function CreateIcon(props) {
         style={{ width: 50, justifyContent: "center", alignItems: "center" }}
       >
         <Image
-          source={require("../../assets/images/create_full.png")}
-          style={{ width: 26, height: 28 }}
+          source={require("../../assets/images/createIcon.png")}
+          style={{ width: 25, height: 25 }}
         ></Image>
-        <Body
+        <Bold
           style={{
-            fontSize: 8,
+            fontSize: 9,
             textAlign: "center",
-            color: Colors.blue,
-            marginTop: 3,
-            marginRight: 4
+            color: Colors.red,
+            marginTop: 5,
+            marginRight: 2
           }}
         >
-          Inserisci
-        </Body>
+          INSERISCI
+        </Bold>
       </View>
     );
   }
   return (
     <View style={{ width: 50, justifyContent: "center", alignItems: "center" }}>
       <Image
-        source={require("../../assets/images/create_empty.png")}
-        style={{ width: 26, height: 28 }}
+        source={require("../../assets/images/createIcon.png")}
+        style={{ width: 25, height: 25 }}
       ></Image>
-      <Body
+      <Bold
         style={{
-          fontSize: 8,
+          fontSize: 9,
           textAlign: "center",
-          marginTop: 3,
-          marginRight: 4
+          marginTop: 5,
+          color: "white",
+          marginRight: 2
         }}
       >
-        Inserisci
-      </Body>
+        INSERISCI
+      </Bold>
     </View>
   );
 }

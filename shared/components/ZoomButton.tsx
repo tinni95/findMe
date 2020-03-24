@@ -5,11 +5,11 @@ import Colors from "../constants/Colors";
 
 const ZoomButton = ({ onPress }) => {
   return (
-    <View style={{ alignItems: "center" }}>
+    <View style={{ alignItems: "center", marginTop: 20 }}>
       <RoundButton
         onPress={onPress}
         color={Colors.red}
-        text={"OK"}
+        text={"VAI"}
         textColor={"white"}
       />
     </View>
