@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F5",
     borderRadius: 5,
     padding: 5,
-    fontFamily: "sequel-sans-light"
+    fontFamily: "sequel-sans"
   },
   image: {
     width: 35,
