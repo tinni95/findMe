@@ -24,6 +24,7 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import HeaderRight from "../../shared/components/HeaderRight";
 import ZoomButton from "../../shared/components/ZoomButton";
+import { LinearGradient } from "expo-linear-gradient";
 const _ = require("lodash");
 const UPDATEUSER_MUTATION = gql`
   mutation updateUser(
@@ -236,7 +237,7 @@ export default function EditProfile({ navigation, route }) {
                   </View>
                 </TouchableOpacity>
               </View>
-              <StepsLabel error={nomeError} text={"Nome"} />
+              <StepsLabel style={{marginBottom:10}} error={nomeError} text={"Nome"} />
               <WithErrorString
                 error={nomeError}
                 errorText={"Campo Obbligatorio"}
@@ -248,7 +249,8 @@ export default function EditProfile({ navigation, route }) {
                   style={nomeError ? FormStyles.inputError : FormStyles.input}
                 />
               </WithErrorString>
-              <StepsLabel error={cognomeError} text={"Cognome"} />
+              <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
+              <StepsLabel style={{marginBottom:10}}   error={cognomeError} text={"Cognome"} />
               <WithErrorString
                 error={cognomeError}
                 errorText={"Campo Obbligatorio"}
@@ -262,14 +264,16 @@ export default function EditProfile({ navigation, route }) {
                   }
                 />
               </WithErrorString>
-              <StepsLabel text={"Posizione"} />
+              <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
+              <StepsLabel style={{marginBottom:10}} text={"Posizione"} />
               <FormTextInput
                 placeholder={"Posizione"}
                 onChangeText={val => setPosizione(val)}
                 value={posizione}
                 style={FormStyles.input}
               />
-              <StepsLabel text={"Data Di Nascita"} />
+                 <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
+              <StepsLabel style={{marginBottom:10}}  text={"Data Di Nascita"} />
               <TouchableOpacity onPress={() => setVisibleDate(true)}>
                 <FormTextInput
                 placeholder={"seleziona data"}
@@ -281,7 +285,8 @@ export default function EditProfile({ navigation, route }) {
                   }
                 />
               </TouchableOpacity>
-              <StepsLabel text={"Città"} />
+              <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
+              <StepsLabel style={{marginBottom:10}}  text={"Città"} />
               <FormTextInput
                 style={FormStyles.input}
                 value={
@@ -317,6 +322,7 @@ export default function EditProfile({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  line:{height:1.5},
   container: { flex: 1, backgroundColor: "white" },
   header: {
     flex: 1.5,
