@@ -220,10 +220,10 @@ export default function ProfilePage({ navigation, route }) {
         {data.currentUser.posizione && (
           <Body
             style={{
-              marginTop: 5,
+              marginTop: 7.5,
               marginBottom: -5,
               color: "#8E8E8E",
-              fontSize: 13
+              fontSize: 17
             }}
           >
             {data.currentUser.posizione}
@@ -233,7 +233,7 @@ export default function ProfilePage({ navigation, route }) {
           <LocationWithText
             isLight
             points={16}
-            fontSize={13}
+            fontSize={16}
             color={"black"}
             comune={data.currentUser.comune}
             regione={data.currentUser.regione}

@@ -9,14 +9,14 @@ import {
   TouchableHighlight,
   TouchableOpacity
 } from "react-native";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import { Ionicons } from "@expo/vector-icons";
 import ImageViewer from "react-native-image-zoom-viewer";
 import ItemsBlockVisit from "../../shared/components/ItemsBlockVisit";
 import CompetenzeBlockVisit from "../../shared/components/CompetenzeBlockVisit";
 import LocationWithText from "../../shared/components/LocationWithText";
-import { Body, Light, Bold } from "../../shared/components/StyledText";
+import { Body, Bold } from "../../shared/components/StyledText";
 import Colors from "../../shared/constants/Colors";
 import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import TenditErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
@@ -74,7 +74,6 @@ export function UserVisitProfile({ navigation, route }) {
   const id = route.params.id;
   const [modalVisbile, setModalVisible] = useState(false);
   const isRefetch = route.param?.refetch ?? false;
-  const [showAll, setShowAll] = useState(false);
   console.log(id)
   const { loading, error, data, refetch } = useQuery(User, {
     variables: { id },
