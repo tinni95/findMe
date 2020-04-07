@@ -50,15 +50,19 @@ export default function Quando({ navigation, route }) {
   };
 
   const handlePress = () => {
+
     if(data.length==0&&quando==="In un giorno preciso"){
       setDataError(true)
     }
     else if(quando!=""){
       if(quando==="In un giorno preciso"){
-        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione,giornata,data:dataToPass,startTime,endTime})
+        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione,giornata,data:dataToPass,startTime,endTime, quando})
+      }
+      else if(quando==="Entro una data"){
+        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione,data:dataToPass, quando})
       }
       else{
-        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione})
+        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione, quando})
       }
      
     }
@@ -75,6 +79,24 @@ export default function Quando({ navigation, route }) {
       inactive={false}
       settori={["In un giorno preciso","Entro una data","Da definire"]} setItem={item => setQuando(item)} settoreAttivi={-1}/>
       <View style={{marginTop:20}}/>
+      {quando === "Entro una data" &&  <View>
+      <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
+      <StepsLabel error={dataError} text={"Entro il"} />
+      <TouchableOpacity onPress={() => setVisibleDate(true)}>
+                <FormTextInput
+                  pointerEvents="none"
+                  editable={false}
+                  value={data}
+                  placeholder={"Seleziona data"}
+                  style={
+                    dataError?
+                    FormStyles.inputError:
+                    FormStyles.input
+                  }
+                />
+              </TouchableOpacity>
+          </View>
+              }
       { quando==="In un giorno preciso"&& <View>
       <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
       <StepsLabel error={dataError} text={"Data"} />

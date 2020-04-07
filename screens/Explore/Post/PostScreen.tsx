@@ -50,6 +50,8 @@ const Post = gql`
       hidden
       budget
       id
+      startTime
+      endTime
       descrizione
       titolo
       requisiti

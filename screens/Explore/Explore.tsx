@@ -36,6 +36,7 @@ const posts = gql`
       startTime
       endTime
       data
+      quando
       titolo
       opened
       descrizione

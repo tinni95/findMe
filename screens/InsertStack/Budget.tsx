@@ -14,6 +14,7 @@ export default function Budget({ navigation, route }) {
   const servizio = route.params?.servizio
   const descrizione = route.params?.descrizione
   const categoria = route.params?.categoria
+  const quando = route.params?.quando
   const giornata = route.params?.giornata
   const data = route.params?.data
   const [checked, setChecked] = useState(false);
@@ -21,6 +22,7 @@ export default function Budget({ navigation, route }) {
   const endTime = route.params?.endTime
   const [budget, setBudget] = useState("15");
   const post={
+    quando,
     titolo:servizio,
     requisiti,
     descrizione,

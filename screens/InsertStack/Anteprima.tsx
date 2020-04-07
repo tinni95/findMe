@@ -16,6 +16,8 @@ const CREATEPOST_MUTATION = gql`
     $titolo: String!
     $descrizione: String!
     $comune: String!
+    $giornata : String
+    $quando : String!
     $regione: String!
     $provincia: String!
     $budget: String!
@@ -30,6 +32,8 @@ const CREATEPOST_MUTATION = gql`
       titolo: $titolo
       descrizione: $descrizione
       comune: $comune
+      quando: $quando
+      giornata: $giornata
       regione: $regione
       provincia: $provincia
       budget: $budget
@@ -62,9 +66,11 @@ export default function Anteprima({ navigation, route }) {
   const pubblica = () => {
     const hidden = checked;
     const variables = {
+      quando: post.quando,
       titolo: post.titolo,
       descrizione: post.descrizione,
       comune:post.comune,
+      giornata: post.giornata,
       regione:post.regione,
       provincia:post.provincia,
       startTime:post.startTime||null,

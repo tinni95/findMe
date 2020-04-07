@@ -10,12 +10,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import moment from "moment/min/moment-with-locales";
 moment.locale("it");
 
-const MainTextFreelancer = ({ data, durata, budget }) => {
+const MainTextFreelancer = ({ data, quando, budget }) => {
   return (
     <View>
       <View style={styles.mainTextContainer}>
         <View style={styles.mainTextColumn}>
-          <Bold style={styles.columnHeader}>Completa entro</Bold>
+          <Bold style={styles.columnHeader}>
+            {quando === "Entro una data" ? "Entro il" : "In data"}
+          </Bold>
           <Bold style={styles.columnBody}>
             {data ? moment(data).format("DD-MM-YYYY") : "Da definire"}
           </Bold>
@@ -52,47 +54,47 @@ const PostCardText = ({ post, navigation }) => {
 const styles = StyleSheet.create({
   line: {
     flex: 0.03,
-    backgroundColor: "black"
+    backgroundColor: "black",
   },
   body: {
     flex: 7,
-    flexDirection: "row"
+    flexDirection: "row",
   },
   container: {
     flexDirection: "column",
     flex: 4,
     margin: 5,
-    marginLeft: 10
+    marginLeft: 10,
   },
   title: {
     fontSize: isSmallDevice ? 16 : 18,
     color: Colors.black,
-    marginTop: 5
+    marginTop: 5,
   },
   mainTextContainer: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     marginTop: 20,
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   mainTextColumn: {
     flex: 1,
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   columnHeader: {
     fontSize: 13,
-    color: Colors.ocean
+    color: Colors.ocean,
   },
   columnBody: {
     fontSize: 13,
     marginTop: isSmallDevice ? 5 : 8,
-    color: "#002C3C"
+    color: "#002C3C",
   },
   content: {
-    flex: 9
-  }
+    flex: 9,
+  },
 });
 
 export default PostCardText;
