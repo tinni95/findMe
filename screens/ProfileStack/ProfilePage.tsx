@@ -20,7 +20,7 @@ import ImageViewer from "react-native-image-zoom-viewer";
 import TouchablePen from "../../shared/components/TouchablePen";
 import ItemsBlock from "../../shared/components/ItemsBlock";
 import CompetenzeBlock from "../../shared/components/Competenze/CompetenzeBlock";
-import UnTouchablePen from "../../shared/components/UnTouchablePen";
+import {sortEsperienze} from "../../shared/functions/sortEsperienze";
 import BioBlock from "../../shared/components/Bio/BioBlock";
 
 const User = gql`
@@ -135,10 +135,10 @@ export default function ProfilePage({ navigation, route }) {
             data.currentUser.formazioni.length == 0
               ? navigation.navigate("FormazioneEditScreen")
               : navigation.navigate("FormazioniScreen", {
-                  formazioni: data.currentUser.formazioni
+                  formazioni: sortEsperienze(data.currentUser.formazioni)
                 })
           }
-          items={data.currentUser.formazioni}
+          items={sortEsperienze(data.currentUser.formazioni)}
           title={"Formazione"}
         ></ItemsBlock>
         </View>
@@ -150,10 +150,10 @@ export default function ProfilePage({ navigation, route }) {
             data.currentUser.esperienze.length == 0
               ? navigation.navigate("EsperienzeEditScreen")
               : navigation.navigate("EsperienzeScreen", {
-                  esperienze: data.currentUser.esperienze
+                  esperienze: sortEsperienze(data.currentUser.esperienze)
                 })
           }
-          items={data.currentUser.esperienze}
+          items={sortEsperienze(data.currentUser.esperienze)}
           title={"Esperienze"}
         ></ItemsBlock>
            </View>

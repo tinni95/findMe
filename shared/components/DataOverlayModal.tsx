@@ -1,14 +1,14 @@
 import { View, Picker, TouchableOpacity, Platform } from "react-native";
 import React, { useState } from "react";
 import Overlay from "react-native-modal-overlay";
-import { Light, Bold } from "./StyledText";
+import { Light, Bold, Body } from "./StyledText";
 import Colors from "../constants/Colors";
 
 export default function DataOverlayModal({
   fine,
   modalVisibile,
   setModalVisible,
-  setDate
+  setDate,
 }) {
   const [month, setMonth] = useState("Gen");
   const [year, setYear] = useState(2019);
@@ -24,7 +24,8 @@ export default function DataOverlayModal({
   return (
     <Overlay
       childrenWrapperStyle={{
-        height: Platform.OS == "ios" ? 250 : fine ? 150 : 100
+        height: Platform.OS == "ios" ? 250 : fine ? 150 : 100,
+        borderRadius: Platform.OS == "ios" ? 15 : 5,
       }}
       visible={modalVisibile}
       onClose={() => setModalVisible(false)}
@@ -34,14 +35,14 @@ export default function DataOverlayModal({
         style={{
           width: "100%",
           flexDirection: "row",
-          justifyContent: "space-between"
+          justifyContent: "space-between",
         }}
       >
         <TouchableOpacity onPress={() => setModalVisible(false)}>
-          <Light style={{ color: Colors.red }}>Annulla</Light>
+          <Body style={{ color: Colors.red }}>Annulla</Body>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handlePick()}>
-          <Light style={{ color: Colors.blue }}>Conferma</Light>
+          <Body style={{ color: Colors.blue }}>Conferma</Body>
         </TouchableOpacity>
       </View>
       {fine && (

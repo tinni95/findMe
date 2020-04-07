@@ -22,7 +22,7 @@ import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import TenditErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
 import SocketContext from "../../shared/SocketContext";
 import BioBlockVisit from "../../shared/components/Bio/BioBlockVisit";
-
+import {sortEsperienze} from "../../shared/functions/sortEsperienze";
 
 const User = gql`
   query UserProfile($id: ID!) {
@@ -85,9 +85,9 @@ export function UserVisitProfile({ navigation, route }) {
     return (
       <View style={styles.infoWrapper}>
         {<BioBlockVisit bio={data.User.presentazione}></BioBlockVisit>}
-       {data.User.formazioni.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:data.User.formazioni})} items={data.User.formazioni} title={"Formazioni"} />
+       {data.User.formazioni.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:sortEsperienze(data.User.formazioni)})} items={sortEsperienze(data.User.formazioni)} title={"Formazioni"} />
         <View style={styles.separator}></View></View>}
-        {data.User.esperienze.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("EsperienzeScreen",{esperienze:data.User.esperienze})} items={data.User.esperienze} title={"Esperienze"} />
+        {data.User.esperienze.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("EsperienzeScreen",{esperienze:sortEsperienze(data.User.esperienze)})} items={sortEsperienze(data.User.esperienze)} title={"Esperienze"} />
         <View style={styles.separator}></View></View>}
         {data.User.competenze.length>0&&<View><CompetenzeBlockVisit
           competenze={data.User.competenze}
