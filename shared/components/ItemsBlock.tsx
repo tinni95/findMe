@@ -4,12 +4,10 @@ import { Body, Bold } from "./StyledText";
 import Colors from "../constants/Colors";
 import FormazioneCard from "./Formazioni/FormazioneCard";
 import EsperienzaCard from "./Esperienze/EsperienzaCard";
-import ProgettoCard from "./Progetti/ProgettoCard";
 import UnTouchablePen from "./UnTouchablePen";
 import Swipeout from "react-native-swipeout";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { RoundButtonEmptyPenIcon } from "./RoundButtonEmptyPenIcon";
 var shortid = require("shortid");
 
 const DELETEFORMAZIONE_MUTATION = gql`

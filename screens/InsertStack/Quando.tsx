@@ -50,11 +50,11 @@ export default function Quando({ navigation, route }) {
   };
 
   const handlePress = () => {
-    if(data.length==0&&quando==="Un giorno preciso"){
+    if(data.length==0&&quando==="In un giorno preciso"){
       setDataError(true)
     }
     else if(quando!=""){
-      if(quando==="Un giorno preciso"){
+      if(quando==="In un giorno preciso"){
         navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione,giornata,data:dataToPass,startTime,endTime})
       }
       else{
@@ -73,9 +73,9 @@ export default function Quando({ navigation, route }) {
       <View style={{margin:20}}>
       <SingleFilter
       inactive={false}
-      settori={["Un giorno preciso","Da definire"]} setItem={item => setQuando(item)} settoreAttivi={-1}/>
+      settori={["In un giorno preciso","Entro una data","Da definire"]} setItem={item => setQuando(item)} settoreAttivi={-1}/>
       <View style={{marginTop:20}}/>
-      { quando==="Un giorno preciso"&& <View>
+      { quando==="In un giorno preciso"&& <View>
       <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
       <StepsLabel error={dataError} text={"Data"} />
       <TouchableOpacity onPress={() => setVisibleDate(true)}>

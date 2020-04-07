@@ -12,7 +12,7 @@ export default function LocationWithText(props) {
         <Ionicons
           name={"ios-pin"}
           size={props.points || 17}
-          style={{ marginLeft: 3, marginTop: 5 }}
+          style={{ marginLeft: 3, marginTop: 7.5 }}
           color={Colors.red}
         />
         <Light

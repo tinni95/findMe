@@ -15,7 +15,7 @@ const MainTextFreelancer = ({ data, durata, budget }) => {
     <View>
       <View style={styles.mainTextContainer}>
         <View style={styles.mainTextColumn}>
-          <Bold style={styles.columnHeader}>Data</Bold>
+          <Bold style={styles.columnHeader}>Completa entro</Bold>
           <Bold style={styles.columnBody}>
             {data ? moment(data).format("DD-MM-YYYY") : "Da definire"}
           </Bold>

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     textAlign: "center",
-    fontSize: 14
+    fontSize: 16
   },
   card: {
     alignContent: "center",

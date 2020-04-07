@@ -29,7 +29,7 @@ export default function Budget({ navigation, route }) {
     data,
     startTime,
     endTime,
-    budget: checked? "Da definire":"€ "+ budget
+    budget: checked? "Richiede preventivo":"€ "+ budget
   }
   const procedi = () => {
   if(parseInt(budget)<5){
@@ -64,7 +64,7 @@ export default function Budget({ navigation, route }) {
               ></CheckBox>
               <Light onPress={() => setChecked(!checked)}>
                 {" "}
-                Accorda in seguito
+              Chiedi preventivo
               </Light>
             </View>
   <View style={{flex:1,margin:50,justifyContent:"center",alignItems:"center"}}>

@@ -158,16 +158,16 @@ export function UserVisitProfile({ navigation, route }) {
           />
         </TouchableOpacity> 
        <View>
-      <Bold style={{ marginTop: 12, fontSize: 16 }}>
+      <Bold style={{ marginTop: 12, fontSize: 20}}>
           {data.User.nome + " " + data.User.cognome}
         </Bold>
         {data.User.posizione && (
           <Body
             style={{
-              marginTop: 5,
+              marginTop: 7.5,
               marginBottom: -5,
               color: "#8E8E8E",
-              fontSize: 12
+              fontSize: 17
             }}
           >
             {data.User.posizione}
@@ -177,7 +177,7 @@ export function UserVisitProfile({ navigation, route }) {
           <LocationWithText
             isLight
             points={16}
-            fontSize={12}
+            fontSize={16}
             color={"black"}
             comune={data.User.comune}
             regione={data.User.regione}

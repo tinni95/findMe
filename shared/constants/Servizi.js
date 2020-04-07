@@ -26,7 +26,7 @@ const GraphicDesigner = [
 ]
 
 export const Informatica = [
-    { servizio: "Assistenza pc", requisiti: AssistenzaRequisiti }, { servizio: "Assistenza smartphone", requisiti: AssistenzaRequisiti }, { servizio: "Assistenza tv", requisiti: AssistenzaRequisiti }, { servizio: "Sviluppatore web", requisiti: SviluppatoreWeb }, { servizio: "Sviluppatore app", requisiti: SviluppatoreApp }, { servizio: "Sviluppatore", requisiti: Sviluppatore }, { servizio: "Graphic designer", requisiti: GraphicDesigner }
+    { servizio: "Assistenza pc", requisiti: AssistenzaRequisiti }, { servizio: "Assistenza smartphone", requisiti: AssistenzaRequisiti }, { servizio: "Assistenza tv", requisiti: AssistenzaRequisiti }, { servizio: "Sviluppo web", requisiti: SviluppatoreWeb }, { servizio: "Sviluppo app", requisiti: SviluppatoreApp }, { servizio: "Design logo", requisiti: GraphicDesigner }, { servizio: "Design app", requisiti: GraphicDesigner }, { servizio: "Design web", requisiti: GraphicDesigner },
 ]
 
 const RistorazioneRequisiti = ["Munito di automobile", "Munito di attrezzatura"]

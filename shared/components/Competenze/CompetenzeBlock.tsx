@@ -30,7 +30,7 @@ export default function CompetenzeBlock({ competenze, onPress }) {
         style={{ flexDirection: "row", justifyContent: "space-between" }}
       >
         <Bold style={{ color: "black", fontSize: 18 }}>Competenze</Bold>
-        <UnTouchablePen size={35}></UnTouchablePen>
+        <UnTouchablePen size={40}></UnTouchablePen>
       </TouchableOpacity>
       <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 20 }}>
         {competenze.map(competenza => {

@@ -265,9 +265,9 @@ export default function EditProfile({ navigation, route }) {
                 />
               </WithErrorString>
               <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
-              <StepsLabel style={{marginBottom:10}} text={"Posizione"} />
+              <StepsLabel style={{marginBottom:10}} text={"Occupazione"} />
               <FormTextInput
-                placeholder={"Posizione"}
+                placeholder={"Occupazione"}
                 onChangeText={val => setPosizione(val)}
                 value={posizione}
                 style={FormStyles.input}
