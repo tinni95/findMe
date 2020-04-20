@@ -74,7 +74,7 @@ export default function ReceivedCard({
               />
               <View
                 style={{
-                  marginLeft: -5,
+                  marginLeft: -8,
                   width: 15,
                   height: 15,
                   borderRadius: 7.5,
@@ -86,7 +86,7 @@ export default function ReceivedCard({
                 <Bold
                   style={{ textAlign: "center", color: "white", marginTop: 2 }}
                 >
-                  *
+
                 </Bold>
               </View>
             </View>
@@ -152,9 +152,9 @@ function Info({
         ></LocationWithText>
       ) : null}
       <Body style={{ fontSize: 14, marginTop: 15, color: Colors.blue }}>
-        Posizione
+        Risposta
       </Body>
-      <Light style={{ fontSize: 12, marginTop: 5 }}>{posizione}</Light>
+      <Light style={{ fontSize: 12, marginTop: 5 }}>Ciao, sono disponibile per quel prezzo a quell'ora..</Light>
     </View>
   );
 }
