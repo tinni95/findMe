@@ -26,6 +26,9 @@ const APPLICATIONS_FOR_POST = gql`
       to {
         id
       }
+      messages{
+        text
+      }
       from {
         nome
         cognome
@@ -139,17 +142,6 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
     refetch();
     wait(2000).then(() => setRefreshing(false));
   }, [refreshing]);
-
-  const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION, {
-    onCompleted: ({ createNotifica }) => {
-      console.log(createNotifica);
-      socket.emit("postnotifica", createNotifica.to.id);
-    },
-    onError: error => {
-      console.log("notifica");
-      console.log(error);
-    }
-  });
 
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
     onCompleted: () => {

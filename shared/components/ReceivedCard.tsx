@@ -43,6 +43,7 @@ export default function ReceivedCard({
             postId={application.post.id}
             title={application.post.titolo}
             nome={application.from.nome}
+            messaggio={application.messages[0].text}
             cognome={application.from.cognome}
             comune={application.from.comune}
             regione={application.from.regione}
@@ -130,6 +131,7 @@ function Info({
   navigateToProfile,
   nome,
   cognome,
+  messaggio,
   regione,
   comune,
 }) {
@@ -150,7 +152,7 @@ function Info({
       <Body style={{ fontSize: 14, marginTop: 15, color: Colors.blue }}>
         Risposta
       </Body>
-      <Light style={{ fontSize: 12, marginTop: 5 }}>Ciao, sono disponibile per quel prezzo a quell'ora..</Light>
+      <Light style={{ fontSize: 12, marginTop: 5 }}>{messaggio}</Light>
     </View>
   );
 }
