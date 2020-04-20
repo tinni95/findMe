@@ -82,6 +82,8 @@ export default function SentCard({ onPress, application, navigation }) {
           {post.requisiti &&
             post.requisiti.map(qualifica => {
               return (
+                <View key={shortid.generate()} 
+                style={{marginRight:10}}>
                 <RoundButtonSm
                   onPress={() => {}}
                   key={shortid.generate()}
@@ -89,6 +91,7 @@ export default function SentCard({ onPress, application, navigation }) {
                   textColor={"white"}
                   color={Colors.blue}
                 ></RoundButtonSm>
+                </View>
               );
             })}
         </View>
@@ -127,11 +130,11 @@ export default function SentCard({ onPress, application, navigation }) {
               />
               <View
                 style={{
-                  marginLeft: -5,
+                  marginLeft: -7.5,
                   width: 15,
                   height: 15,
                   borderRadius: 7.5,
-                  backgroundColor: "red",
+                  backgroundColor: Colors.red,
                   alignItems: "center",
                   justifyContent: "center"
                 }}
@@ -139,7 +142,6 @@ export default function SentCard({ onPress, application, navigation }) {
                 <Text
                   style={{ textAlign: "center", color: "white", marginTop: 2 }}
                 >
-                  *
                 </Text>
               </View>
             </View>

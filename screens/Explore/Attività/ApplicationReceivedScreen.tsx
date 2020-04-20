@@ -129,7 +129,7 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
   const { refetch, data, loading } = useQuery(APPLICATIONS_FOR_POST, {
     variables: { postId: id },
     onCompleted : ({applicationsForPosition}) => {
-console.log("applicationsForPosition",applicationsForPosition)
+    console.log("applicationsForPosition",applicationsForPosition)
     },
     fetchPolicy: "no-cache"
   });
@@ -161,16 +161,6 @@ console.log("applicationsForPosition",applicationsForPosition)
     onCompleted: async ({ createPostMessage }) => {
       unseeChat({
         variables: { id: createPostMessage.application.id, pubRead: false }
-      });
-      createNotifica({
-        variables: {
-          type: "applicationAccepted",
-          id: createPostMessage.application.from.id,
-          text:
-            createPostMessage.application.to.nome +
-            "ha accettato la tua candidatura per" +
-            createPostMessage.application.post.titolo
-        }
       });
       refetch();
     },
@@ -206,6 +196,8 @@ console.log("applicationsForPosition",applicationsForPosition)
                     id: application.id,
                     pubRead: true
                   }
+                }).then(()=>{
+                  socket.emit("postnotifica",application.to.id);
                 });
               }}
               navigation={navigation}

@@ -148,6 +148,8 @@ function AttivitàScreen({ navigation, socket }) {
                     id: application.id,
                     subRead: true
                   }
+                }).then(()=>{
+                  socket.emit("postnotifica",application.from.id);
                 });
               }}
               application={application}

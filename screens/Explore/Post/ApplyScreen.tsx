@@ -11,6 +11,7 @@ import { useMutation, useQuery } from "@apollo/react-hooks";
 import * as Haptics from "expo-haptics";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { sendNotification } from "../../../shared/functions/PushNotifications";
+import SocketContext from "../../../shared/SocketContext";
 
 const UserNome = gql`
   {
@@ -20,13 +21,6 @@ const UserNome = gql`
   }
 `;
 
-const CREATENOTIFICA_MUTATION = gql`
-  mutation createNotifica($text: String!, $type: String!, $id: ID!) {
-    createNotifica(text: $text, type: $type, id: $id) {
-      id
-    }
-  }
-`;
 
 const UNSEEAPPLICATION_MUTATION = gql`
   mutation UnseeApplication($id: ID!, $pubRead: Boolean, $subRead: Boolean) {
@@ -76,29 +70,21 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
   }
 `;
 
-export default function ApplyScreen({ route, navigation }) {
+function ApplyScreen({ route, navigation, socket }) {
   const refetch = route.params.refetch;
   const post = route.params.post;
   const { data, loading } = useQuery(UserNome, { fetchPolicy: "no-cache" });
   console.log("post", post);
   const [messaggio, setMessaggio] = useState("");
-  const [nome, setNome] = useState("");
   const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION, {
     onCompleted: () => console.log("yea"),
     onError: error => console.log("a")
   });
-  const [createNotifica] = useMutation(CREATENOTIFICA_MUTATION, {
-    onCompleted: () => {
-      console.log("yeah");
-    },
-    onError: error => {
-      console.log("notifica");
-      console.log(error);
-    }
-  });
+
   const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION, {
     onCompleted: async ({ createApplication }) => {
       console.log("createApplication");
+      socket.emit("postnotifica", createApplication.to.id);
       createMessage({
         variables: {
           applicationId: createApplication.id,
@@ -106,18 +92,7 @@ export default function ApplyScreen({ route, navigation }) {
           subId: createApplication.to.id
         }
       });
-      createNotifica({
-        variables: {
-          type: "applicationPost",
-          id: createApplication.to.id,
-          text:
-            createApplication.from.nome +
-            " " +
-            createApplication.from.cognome +
-            " si è applicato alla tua posizione di " +
-            post.titolo
-        }
-      });
+
       UnseeApplication({
         variables: { id: createApplication.id, pubRead: false, subRead: true }
       });
@@ -144,9 +119,8 @@ export default function ApplyScreen({ route, navigation }) {
   }
   const handleApply = () => {
     if (messaggio.length === 0) {
-      return alert("aoh el messaggio");
+      return alert("Inserisci il tuo messaggio di presentazione");
     }
-    console.log("ehu7");
     createApplication({
       variables: { postId: post.id, to: post.postedBy.id }
     })
@@ -205,6 +179,14 @@ export default function ApplyScreen({ route, navigation }) {
     </KeyboardAwareScrollView>
   );
 }
+
+const ApplyScreenWS = props => (
+  <SocketContext.Consumer>
+    {socket => <ApplyScreen {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);
+
+export default ApplyScreenWS;
 
 const styles = StyleSheet.create({
   container: {

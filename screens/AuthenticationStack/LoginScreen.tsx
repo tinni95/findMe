@@ -116,7 +116,7 @@ export default LoginScreenWS;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
+    padding:15,
     flex: 1,
     backgroundColor: "white"
   }

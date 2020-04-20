@@ -11,15 +11,6 @@ export default class ExpoConfigView extends React.Component {
         data: [
           {
             value:
-              "Crea post idea su tendit per conoscere soci per la tua attività. Se hai un idea, ma hai sempre avuto difficoltà a trovare le persone adatte, tendit è il posto giusto per te."
-          }
-        ],
-        title: "Post idea"
-      },
-      {
-        data: [
-          {
-            value:
               "Cercare servizi non è mai stato semplice, infatti ci sono altre piattaforme che offrono questo servizio a pagament. Tendit lo fa gratis, per voi!"
           }
         ],
@@ -44,7 +35,7 @@ export default class ExpoConfigView extends React.Component {
       {
         data: [
           {
-            value: "Giovanni D'Amico & Francesco Marrandino"
+            value: "Diverse Agency"
           }
         ],
         title: "Author"

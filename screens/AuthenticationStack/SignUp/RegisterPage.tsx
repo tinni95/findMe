@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   formContainer: {
-    margin: 30,
+    margin: 50,
     marginTop: isSmallDevice ? 20 : 40,
     justifyContent: "center"
   },

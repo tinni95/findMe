@@ -128,14 +128,10 @@ export default function ReceivedCard({
 
 function Info({
   navigateToProfile,
-  postId,
-  title,
   nome,
   cognome,
   regione,
   comune,
-  posizione,
-  navigation
 }) {
   const navigate = navigateToProfile ? navigateToProfile : {};
   return (

@@ -188,10 +188,12 @@ export default function PostScreen({ navigation, route }) {
           <View style={styles.RequisitiContainer}>
           {
             data.singlePost.requisiti.map(requisito => {
-             return <RoundButtonEmpty
+             return <View key={requisito} style={{marginRight:10}}>
+               <RoundButtonEmpty
               onPress={null}
               color={Colors.blue}
               text={requisito}/>
+              </View>
             })
           }
           </View>
@@ -287,8 +289,7 @@ const styles = StyleSheet.create({
     marginTop:15
   },
   RequisitiContainer: {
-    margin: 10,
-    marginLeft:0
+    flexDirection: "row", flexWrap: "wrap", marginTop: 20 
   },
   line:{
     height:1.5,
