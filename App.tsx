@@ -68,7 +68,7 @@ export default function App() {
                 {!loggedIn ? (
                   <AuthenticationStack></AuthenticationStack>
                 ) : (
-                  <AppWrapper></AppWrapper>
+                  <AppWrapper logout={() => logout()}></AppWrapper>
                 )}
               </NavigationContainer>
             </PaperProvider>

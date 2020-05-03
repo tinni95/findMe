@@ -7,6 +7,7 @@ import { useQuery, useMutation } from "react-apollo";
 import { gql } from "apollo-boost";
 import TenditSpinner from "./shared/graphql/TenditSpinner";
 import PushNotifications from "./shared/functions/PushNotifications";
+import { Text, View } from "react-native";
 
 const UpdateUser = gql`
   mutation updateUser($pushToken: String) {
@@ -24,11 +25,11 @@ const User = gql`
   }
 `;
 
-export default function AppWrapper() {
-  const { data, loading } = useQuery(User, {
+export default function AppWrapper({logout}) {
+  const { data, loading,error } = useQuery(User, {
     onCompleted: currentUser => {
-      console.log("currentUser");
-    }
+      currentUser ? console.log("yes") : console.log("no")
+    },
   });
 
   const [updateUser] = useMutation(UpdateUser);
@@ -39,14 +40,24 @@ export default function AppWrapper() {
   }, []);
 
   if (loading) return <TenditSpinner />;
-  else
-    return (
-      <SocketContext.Provider
-        value={io(socketEndPoint, {
-          query: { token: data.currentUser.id }
-        })}
-      >
-        <MainTabNavigator></MainTabNavigator>
-      </SocketContext.Provider>
-    );
+  else {
+    if(data.currentUser){
+      return (
+        <SocketContext.Provider
+          value={io(socketEndPoint, {
+            query: { token: data.currentUser.id }
+          })}
+        >
+          <MainTabNavigator></MainTabNavigator>
+        </SocketContext.Provider>
+      );
+    }
+    else{
+      return <View>
+        {logout()}
+      </View>
+    }
+  }
+
+
 }
