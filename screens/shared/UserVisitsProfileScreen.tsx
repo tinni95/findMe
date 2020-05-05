@@ -20,7 +20,7 @@ import { Body, Bold } from "../../shared/components/StyledText";
 import Colors from "../../shared/constants/Colors";
 import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import TenditErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
-import SocketContext from "../../shared/SocketContext";
+
 import BioBlockVisit from "../../shared/components/Bio/BioBlockVisit";
 import {sortEsperienze} from "../../shared/functions/sortEsperienze";
 
@@ -190,13 +190,8 @@ export function UserVisitProfile({ navigation, route }) {
   );
 }
 
-const UserVisitProfileWS = props => (
-  <SocketContext.Consumer>
-    {socket => <UserVisitProfile {...props} socket={socket} />}
-  </SocketContext.Consumer>
-);
 
-export default UserVisitProfileWS;
+export default UserVisitProfile;
 
 const styles = StyleSheet.create({
   userWrapper: {

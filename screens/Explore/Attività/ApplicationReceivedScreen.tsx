@@ -5,7 +5,6 @@ import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import ReceivedCard from "../../../shared/components/ReceivedCard";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
-import SocketContext from "../../../shared/SocketContext";
 var shortid = require("shortid");
 
 const APPLICATIONS_FOR_POST = gql`
@@ -92,13 +91,8 @@ function wait(timeout) {
   });
 }
 
-function ApplicationReceivedScreen({ route,navigation, socket }) {
+function ApplicationReceivedScreen({ route,navigation }) {
   const id= route.params?.id;
-  useEffect(() => {
-    socket.on("postnotifica", msg => {
-      wait(1000).then(() => refetch());
-    });
-  });
 
   const onClosePosition = application => {
     closePosition({
@@ -174,9 +168,7 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
                     id: application.id,
                     pubRead: true
                   }
-                }).then(()=>{
-                  socket.emit("postnotifica",application.to.id);
-                });
+                })
               }}
               navigation={navigation}
               key={shortid.generate()}
@@ -188,10 +180,5 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
   );
 }
 
-const ApplicationReceivedScreenWS = props => (
-  <SocketContext.Consumer>
-    {socket => <ApplicationReceivedScreen {...props} socket={socket} />}
-  </SocketContext.Consumer>
-);
 
-export default ApplicationReceivedScreenWS;
+export default ApplicationReceivedScreen;

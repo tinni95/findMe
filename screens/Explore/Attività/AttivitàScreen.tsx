@@ -8,7 +8,6 @@ import SentCard from "../../../shared/components/SentCard";
 import TabBars from "../../../shared/components/TabBars";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
-import SocketContext from "../../../shared/SocketContext";
 import PostApplicationCard from "../../../shared/components/PostApplicationCard";
 var shortid = require("shortid");
 
@@ -82,18 +81,8 @@ const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   }
 `;
 
-function wait(timeout) {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-}
 
-function AttivitàScreen({ navigation, socket }) {
-  useEffect(() => {
-    socket.on("postnotifica", msg => {
-      wait(1000).then(() => refetch());
-    });
-  });
+function AttivitàScreen({ navigation }) {
 
   const [refreshing, setRefreshing] = useState(false);
   const [isRefetch, setRefetch] = useState(false);
@@ -147,9 +136,7 @@ function AttivitàScreen({ navigation, socket }) {
                     id: application.id,
                     subRead: true
                   }
-                }).then(()=>{
-                  socket.emit("postnotifica",application.from.id);
-                });
+                })
               }}
               application={application}
               key={shortid.generate()}
@@ -197,10 +184,4 @@ function AttivitàScreen({ navigation, socket }) {
   );
 }
 
-const AttivitàScreenWS = props => (
-  <SocketContext.Consumer>
-    {socket => <AttivitàScreen {...props} socket={socket} />}
-  </SocketContext.Consumer>
-);
-
-export default AttivitàScreenWS;
+export default AttivitàScreen;

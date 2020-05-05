@@ -9,10 +9,7 @@ import { gql } from "apollo-boost";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import { sendNotification } from "../../../shared/functions/PushNotifications";
 import { isSmallDevice } from "../../../shared/constants/Layout";
-import io from "socket.io-client";
-import { socketEndPoint } from "../../../shared/constants/urls";
 import moment from "moment/min/moment-with-locales";
-import SocketContext from "../../../shared/SocketContext";
 
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   mutation unseeApplicationChatChatMutation(
@@ -86,39 +83,10 @@ export function ApplicationSentChat(props) {
         createPostMessage.text
       );
       unseeChat({ variables: { id: application.id, pubRead: false } });
-      this.sockettino.emit("chat message", application.id);
-      props.socket.emit("postnotifica", application.to.id);
     },
     onError: error => {
       alert("Qualcosa è andato storto");
     }
-  });
-
-  useEffect(() => {
-    this.sockettino = io(socketEndPoint, { query: { token: application.id } });
-    const didBlurSubscription = props.navigation.addListener(
-      "didBlur",
-      payload => {
-        console.debug("didBlur", payload);
-        this.sockettino.emit("pocho", "");
-        didBlurSubscription.remove();
-      }
-    );
-    moment.locale("it");
-  }, []);
-
-  useEffect(() => {
-    this.sockettino.on(
-      "chat message",
-      msg => {
-        wait(500)
-          .then(() => refetch())
-          .then(() => {
-            unseeChat({ variables: { id: application.id, subRead: true } });
-          });
-      },
-      []
-    );
   });
 
   useEffect(() => {
@@ -172,10 +140,4 @@ export function ApplicationSentChat(props) {
   );
 }
 
-const ApplicationSentChatWS = props => (
-  <SocketContext.Consumer>
-    {socket => <ApplicationSentChat {...props} socket={socket} />}
-  </SocketContext.Consumer>
-);
-
-export default ApplicationSentChatWS;
+export default ApplicationSentChat;

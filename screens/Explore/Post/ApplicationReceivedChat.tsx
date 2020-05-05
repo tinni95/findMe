@@ -9,10 +9,7 @@ import { gql } from "apollo-boost";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import { sendNotification } from "../../../shared/functions/PushNotifications";
 import { isSmallDevice } from "../../../shared/constants/Layout";
-import io from "socket.io-client";
-import { socketEndPoint } from "../../../shared/constants/urls";
 import moment from "moment/min/moment-with-locales";
-import SocketContext from "../../../shared/SocketContext";
 
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   mutation unseeApplicationChatChatMutation(
@@ -63,12 +60,6 @@ const MESSAGES_QUERY = gql`
   }
 `;
 
-function wait(timeout) {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-}
-
 export function ApplicationReceivedChat(props) {
   const [messages, setMessages] = useState([]);
   const id = props.route.params?.id;
@@ -86,39 +77,10 @@ export function ApplicationReceivedChat(props) {
         createPostMessage.text
       );
       unseeChat({ variables: { id: application.id, subRead: false } });
-      this.sockettino.emit("chat message", application.id);
-      props.socket.emit("postnotifica", application.from.id);
     },
     onError: error => {
       alert("Qualcosa è andato storto");
     }
-  });
-
-  useEffect(() => {
-    this.sockettino = io(socketEndPoint, { query: { token: application.id } });
-    const didBlurSubscription = props.navigation.addListener(
-      "didBlur",
-      payload => {
-        console.debug("didBlur", payload);
-        this.sockettino.emit("pocho", "");
-        didBlurSubscription.remove();
-      }
-    );
-    moment.locale("it");
-  }, []);
-
-  useEffect(() => {
-    this.sockettino.on(
-      "chat message",
-      msg => {
-        wait(500)
-          .then(() => refetch())
-          .then(() => {
-            unseeChat({ variables: { id: application.id, pubRead: true } });
-          });
-      },
-      []
-    );
   });
 
   useEffect(() => {
@@ -166,10 +128,4 @@ export function ApplicationReceivedChat(props) {
   );
 }
 
-const ApplicationReceivedChatWS = props => (
-  <SocketContext.Consumer>
-    {socket => <ApplicationReceivedChat {...props} socket={socket} />}
-  </SocketContext.Consumer>
-);
-
-export default ApplicationReceivedChatWS;
+export default ApplicationReceivedChat;
