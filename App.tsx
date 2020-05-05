@@ -11,6 +11,17 @@ import AppWrapper from "./AppWrapper";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import Colors from "./shared/constants/Colors";
 import LoginContext from "./shared/LoginContext";
+import * as Sentry from 'sentry-expo';
+import Constants from 'expo-constants';
+
+Sentry.init({
+  dsn: 'https://db25e88e44d04dd3b02475df3830a0d8@o387249.ingest.sentry.io/5222235',
+  enableInExpoDevelopment: true,
+  debug: true,
+});
+
+Sentry.setRelease(Constants.manifest.revisionId);
+
 const theme = {
   ...DefaultTheme,
   roundness: 2,

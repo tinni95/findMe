@@ -88,11 +88,13 @@
     "react-native-xml2js": "^1.0.3",
     "react-navigation": "^3.12.0",
     "rss-combiner": "^0.0.5",
+    "sentry-expo": "^2.0.4",
     "shortid": "^2.2.15",
     "socket.io-client": "^2.3.0",
     "subscriptions-transport-ws": "^0.9.16",
     "tcomb-form-native": "^0.6.20",
     "timers": "^0.1.1",
+    "uglify-es": "3.2.2",
     "webpack-config": "^7.5.0"
   },
   "devDependencies": {

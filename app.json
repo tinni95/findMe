@@ -1,5 +1,17 @@
 {
   "expo": {
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "mr-50",
+            "project": "tendit",
+            "authToken": "eaa07c5cd7e24c348f2863ceb8b8b80c012ff9837f274207bdf69c72de3cfc23"
+          }
+        }
+      ]
+    },
     "name": "tendit",
     "slug": "tendit",
     "privacy": "public",
@@ -28,7 +40,9 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.diverseagency.tendit",
+      "buildNumber": "1.0.0"
     }
   }
 }
