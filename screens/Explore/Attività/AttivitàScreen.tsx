@@ -175,6 +175,7 @@ function AttivitàScreen({ navigation, socket }) {
               isRefetch={isRefetch}
               opened={post.opened || false}
               navigation={navigation}
+              key={post.id}
               id={post.id}
             />
           );
