@@ -91,7 +91,6 @@ function wait(timeout) {
 function AttivitàScreen({ navigation, socket }) {
   useEffect(() => {
     socket.on("postnotifica", msg => {
-      console.log("NOTIFICA");
       wait(1000).then(() => refetch());
     });
   });

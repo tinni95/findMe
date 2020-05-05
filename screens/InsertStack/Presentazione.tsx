@@ -98,7 +98,6 @@ export default function Presentazione({ navigation, route }) {
           postRegione: regione
         }
       });
-      console.log("categories",categories)
       navigation.navigate("Posizioni");
     }
   };

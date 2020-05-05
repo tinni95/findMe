@@ -1,6 +1,5 @@
 export const parsePositions = positions => {
   return positions.map(position => {
-    console.log(position);
     return {
       titolo: position.title,
       type: "Socio",

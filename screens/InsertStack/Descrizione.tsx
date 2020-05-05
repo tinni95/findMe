@@ -13,8 +13,6 @@ export default function Descrizione({ navigation, route }) {
   const requisiti = route.params?.requisiti
   const categoria = route.params?.categoria
   const servizio = route.params?.servizio
-  console.log(requisiti)
-  console.log(servizio)
   const [descrizione, setDescrizione] = useState<any>("");
   const [descrizioneError, setDescrizioneError] = useState<boolean>(false);
 

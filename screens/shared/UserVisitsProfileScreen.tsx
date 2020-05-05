@@ -74,7 +74,6 @@ export function UserVisitProfile({ navigation, route }) {
   const id = route.params.id;
   const [modalVisbile, setModalVisible] = useState(false);
   const isRefetch = route.param?.refetch ?? false;
-  console.log(id)
   const { loading, error, data, refetch } = useQuery(User, {
     variables: { id },
     fetchPolicy: "no-cache",

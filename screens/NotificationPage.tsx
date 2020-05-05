@@ -49,7 +49,6 @@ export default function NotificationPage({ navigation }) {
   if (error) {
     return <TenditErrorDisplay></TenditErrorDisplay>;
   }
-  console.log(data);
   return (
     <ScrollView
       refreshControl={

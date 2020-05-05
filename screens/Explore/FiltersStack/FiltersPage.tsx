@@ -35,7 +35,6 @@ export default function FiltersPage({ navigation, route }) {
       <HeaderRight text={"Azzera filtri"} onPress={() => azzeraFiltri()} />
     )
   });
-  console.log(regione);
   var regioneArray = Comuni.map(comune => {
     return comune.regione;
   });

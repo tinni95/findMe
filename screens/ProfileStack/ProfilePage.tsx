@@ -81,7 +81,6 @@ export default function ProfilePage({ navigation, route }) {
 
   useEffect(() => {
     isRefetch ? refetch() : null;
-    console.log("refetch", refetch);
   }, [isRefetch]);
 
   useEffect(() => {
@@ -104,7 +103,6 @@ export default function ProfilePage({ navigation, route }) {
     headerRight: () => (
       <TouchablePen
         onPress={() => {
-          console.log(data.currentUser);
           navigation.navigate("EditProfile", {
             screen: "Edit",
             params: { currentUser: data.currentUser }

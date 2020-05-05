@@ -39,14 +39,12 @@ export default function Quando({ navigation, route }) {
   const _handleStartTime = dates => {
     setVisibleStartTime(false);
     setStartTime(moment(dates).format("HH:mm"));
-    console.log("dates",dates)
   };
 
 
   const _handleEndTime = dates => {
     setVisibleEndTime(false);
     setEndTime(moment(dates).format("HH:mm"));
-    console.log(dates)
   };
 
   const handlePress = () => {

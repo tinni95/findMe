@@ -38,8 +38,6 @@ function AutoComplete({ navigation, route }) {
     return (
       <TouchableOpacity
         onPress={() => {
-          console.log("objectToPass", objectToPass);
-          console.log("path", path);
           navigation.navigate("PosizioniModal", {
             screen: "Posizioni",
             params: { porco: "cazzo" }

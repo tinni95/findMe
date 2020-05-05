@@ -26,16 +26,11 @@ const User = gql`
 `;
 
 export default function AppWrapper({logout}) {
-  const { data, loading,error } = useQuery(User, {
-    onCompleted: currentUser => {
-      currentUser ? console.log("yes") : console.log("no")
-    },
-  });
+  const { data, loading,error } = useQuery(User);
 
   const [updateUser] = useMutation(UpdateUser);
 
   useEffect(() => {
-    console.log("here");
     PushNotifications(updateUser);
   }, []);
 

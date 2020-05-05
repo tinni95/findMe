@@ -30,7 +30,6 @@ function CandidatureIcon(props) {
 
   useEffect(() => {
     props.socket.on("postnotifica", msg => {
-      console.log("NOTIFICA");
       wait(1000).then(() => refetch());
     });
   });

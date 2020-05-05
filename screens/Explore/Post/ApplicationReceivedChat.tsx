@@ -75,15 +75,8 @@ export function ApplicationReceivedChat(props) {
   const application = props.route.params?.application;
   const { loading, error, data, refetch } = useQuery(MESSAGES_QUERY, {
     variables: { id: application.id },
-    onCompleted: async ({ PostMessagesFeed }) => {
-      console.log(PostMessagesFeed);
-    }
   });
-  const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
-    onCompleted: async ({ unseeChat }) => {
-      console.log(unseeChat);
-    }
-  });
+  const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION);
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {

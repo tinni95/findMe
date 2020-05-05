@@ -41,7 +41,6 @@ export default function UpdateEmail({ navigation, route }) {
   let input = useRef<any>();
 
   useEffect(() => {
-    console.log("here");
     wait(500).then(() => preinput.current.focus());
   }, []);
 

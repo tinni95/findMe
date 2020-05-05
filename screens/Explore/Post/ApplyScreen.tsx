@@ -74,16 +74,11 @@ function ApplyScreen({ route, navigation, socket }) {
   const refetch = route.params.refetch;
   const post = route.params.post;
   const { data, loading } = useQuery(UserNome, { fetchPolicy: "no-cache" });
-  console.log("post", post);
   const [messaggio, setMessaggio] = useState("");
-  const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION, {
-    onCompleted: () => console.log("yea"),
-    onError: error => console.log("a")
-  });
+  const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION);
 
   const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION, {
     onCompleted: async ({ createApplication }) => {
-      console.log("createApplication");
       socket.emit("postnotifica", createApplication.to.id);
       createMessage({
         variables: {
@@ -100,14 +95,10 @@ function ApplyScreen({ route, navigation, socket }) {
     onError: error => {
       if (error.toString().includes("Verified"))
         alert("devi prima verificare la tua email per candidarti");
-      console.log("lol");
     }
   });
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
-    onCompleted: async ({ createPostMessage }) => {
-      console.log("createPostMEssage", createPostMessage);
-    },
     onError: error => {
       console.log(error);
       alert("Qualcosa è andato storto");

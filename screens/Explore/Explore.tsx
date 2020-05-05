@@ -53,7 +53,6 @@ export default function Explore({ navigation, route }) {
   const settore = route.params?.settori ?? null;
   const [filter, setSearch] = useState("");
   const filters = { regione, comune, provincia, filter }
-console.log(filters)
   const [refreshing, setRefreshing] = useState(false);
   const { loading, error, data, refetch } = useQuery(posts, {
     variables:
@@ -63,7 +62,6 @@ console.log(filters)
   });
 
   useEffect(() => {
-    console.log(route.params)
     isRefetch ? refetch() : null;
   }, [isRefetch]);
 

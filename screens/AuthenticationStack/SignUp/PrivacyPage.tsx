@@ -50,11 +50,9 @@ function PrivacyPage({ navigation, context, route }) {
     onCompleted: async ({ signup }) => {
       await AsyncStorage.setItem(TOKEN_KEY, signup.token);
       context.login();
-      console.log("yo");
       let token = PushNotifications(updateUser);
     },
     onError: error => {
-      console.log("bravo", error);
       if (error.toString().includes("User already exists with that email")) {
         navigation.navigate("EmailPage", {
           user: { nome, cognome },
@@ -64,16 +62,11 @@ function PrivacyPage({ navigation, context, route }) {
     }
   });
 
-  const [updateUser] = useMutation(UPDATEUSER_MUTATION, {
-    onCompleted: async ({ updateUser }) => {
-      console.log(updateUser);
-    }
-  });
+  const [updateUser] = useMutation(UPDATEUSER_MUTATION);
 
   const {
     user: { nome, cognome, email, password }
   } = route.params;
-  console.log(email);
   const [checked, setChecked] = useState(false);
 
   const login = () => {

@@ -167,9 +167,7 @@ export default function EsperienzeEditScreen({ navigation, route }) {
               }
             }
           });
-    } else {
-      console.log("no");
-    }
+    } 
   };
 
   return (

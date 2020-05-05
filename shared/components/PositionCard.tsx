@@ -28,13 +28,11 @@ const application = gql`
 var shortid = require("shortid");
 
 export function PositionCard({ post, position, button, navigation }) {
-  console.log("post", post);
   const [deleteApplication] = useMutation(DELETEAPPLICATION_MUTATION, {
     onCompleted: async ({ deleteApplication }) => {
       alert("success");
     },
     onError: error => {
-      console.log(error);
       alert("Qualcosa è andato storto");
     }
   });

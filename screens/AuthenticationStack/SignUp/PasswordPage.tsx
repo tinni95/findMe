@@ -40,7 +40,6 @@ export default function PasswordPage({ navigation, route }) {
       setRePasswordError(false);
     }
     if (validatePassword(password) && password == rePassword) {
-      console.log("user", user);
       navigation.navigate("PrivacyPage", { user: { ...user, password } });
     }
   };

@@ -44,9 +44,6 @@ export default function PostApplicationCard({
 }) {
   const { data, refetch, loading } = useQuery(APPLICATIONS_FOR_POST, {
     variables: { postId: id },
-    onCompleted: ({ applicationsForPosition }) => {
-      console.log(applicationsForPosition);
-    }
   });
 
   useEffect(() => {

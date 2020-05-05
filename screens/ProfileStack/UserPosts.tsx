@@ -44,7 +44,6 @@ export default function UserPosts({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const { loading, error, data, refetch } = useQuery(userPosts, {
     fetchPolicy: "no-cache",
-    onError: error => console.log(error)
   });
   const [deletePost] = useMutation(DELETEPOST_MUTATION, {
     onCompleted: async ({ deletePost }) => {
@@ -55,7 +54,6 @@ export default function UserPosts({ navigation }) {
   if (loading) return <TenditSpinner />;
   if (error) return <TenditErrorDisplay />;
   if (data) {
-    console.log(data);
     const onRefresh = async () => {
       setRefreshing(true);
       refetch().then(() => setRefreshing(false));

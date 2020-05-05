@@ -51,7 +51,6 @@ const CREATEPOST_MUTATION = gql`
 
 export default function Anteprima({ navigation, route }) {
   const post = route.params?.post
-  console.log("post",post)
   const [checked,setChecked] = useState(false)
   const [pubblicaPost] = useMutation(CREATEPOST_MUTATION,{
     onCompleted: () => {
@@ -81,7 +80,6 @@ export default function Anteprima({ navigation, route }) {
       categoria:post.categoria,
       requisiti:{ set: post.requisiti }
     };
-    console.log("variables", variables)
     pubblicaPost({variables})
 
   }

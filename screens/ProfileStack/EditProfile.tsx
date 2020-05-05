@@ -104,7 +104,6 @@ export default function EditProfile({ navigation, route }) {
 
   const [updateUser] = useMutation(UPDATEUSER_MUTATION, {
     onCompleted: async ({ updateUser }) => {
-      console.log(updateUser);
       navigation.navigate("ProfilePage", {
         refetch: Math.floor(Math.random() * -1000)
       });
@@ -188,7 +187,6 @@ export default function EditProfile({ navigation, route }) {
         },
       }).then(async r => {
         let data = await r.json()
-        console.log(data.secure_url)
         updateUser({
           variables: {
             DoB,

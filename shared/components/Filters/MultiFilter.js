@@ -21,7 +21,6 @@ export default function MultiFilters({
   const [selected, setSelected] = useState(settoreAttivi);
   useEffect(() => {
     setSelected(settoreAttivi);
-    console.log(settoreAttivi)
   });
 
 

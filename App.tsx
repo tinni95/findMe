@@ -55,7 +55,6 @@ export default function App() {
     makeClient().then(object => {
       setClient(object.client);
       object.token ? setLoggedin(true) : setLoggedin(false);
-      console.log(object.token);
     });
   }, []);
 

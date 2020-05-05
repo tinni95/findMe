@@ -10,7 +10,6 @@ import LocationWithText from "../../shared/components/LocationWithText";
 
 export default function Anteprima({ navigation, route }) {
   const post = route.params?.post
-  console.log("post",post)
   //passedLocation (autocomplete)
   const passedComune = route.params?.comune ?? "";
   const passedRegione = route.params?.regione ?? "";

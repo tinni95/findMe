@@ -106,7 +106,6 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
   const id= route.params?.id;
   useEffect(() => {
     socket.on("postnotifica", msg => {
-      console.log("NOTIFICA");
       wait(1000).then(() => refetch());
     });
   });
@@ -131,9 +130,6 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
   const [refreshing, setRefreshing] = useState(false);
   const { refetch, data, loading } = useQuery(APPLICATIONS_FOR_POST, {
     variables: { postId: id },
-    onCompleted : ({applicationsForPosition}) => {
-    console.log("applicationsForPosition",applicationsForPosition)
-    },
     fetchPolicy: "no-cache"
   });
 

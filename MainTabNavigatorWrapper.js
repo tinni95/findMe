@@ -23,16 +23,11 @@ const User = gql`
 }
 `
 export default function MainTabNavigatorWrapper({ screenProps }) {
-    const { data, loading } = useQuery(User, {
-        onCompleted: (currentUser) => {
-            console.log("currentUser")
-        }
-    })
+    const { data, loading } = useQuery(User)
 
     const [updateUser] = useMutation(UpdateUser);
 
     useEffect(() => {
-        console.log("here")
         PushNotifications(updateUser)
     }, [])
 

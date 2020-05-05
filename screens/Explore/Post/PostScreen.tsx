@@ -103,11 +103,7 @@ export default function PostScreen({ navigation, route }) {
     }
   });
 
-  const [deletePost] = useMutation(DELETEPOST_MUTATION, {
-    onCompleted: async ({ deletePost }) => {
-      console.log(deletePost);
-    }
-  });
+  const [deletePost] = useMutation(DELETEPOST_MUTATION);
 
   if (loading) return <TenditSpinner />;
   if (error) return <TenditErrorDisplay />;

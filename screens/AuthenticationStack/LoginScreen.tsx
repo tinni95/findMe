@@ -42,7 +42,6 @@ function LoginScreen({ context, navigation }) {
       });
     },
     onError: error => {
-      console.log(error);
       if (error.toString().includes("password")) {
         setPasswordError(true);
       } else {

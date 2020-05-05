@@ -28,11 +28,9 @@ export default function PasswordForgot({ navigation, route }) {
 
   const [resetMutation] = useMutation(PASSWORD_RESET_MUTATION, {
     onCompleted: async ({ login }) => {
-      console.log();
       setResetComplete(true);
     },
     onError: error => {
-      console.log(error);
       if (error.toString().includes("user")) {
         setEmailError(true);
       } else {
