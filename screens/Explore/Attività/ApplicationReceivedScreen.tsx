@@ -8,16 +8,6 @@ import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import SocketContext from "../../../shared/SocketContext";
 var shortid = require("shortid");
 
-const CREATENOTIFICA_MUTATION = gql`
-  mutation createNotifica($text: String!, $type: String!, $id: ID!) {
-    createNotifica(text: $text, type: $type, id: $id) {
-      to {
-        id
-      }
-    }
-  }
-`;
-
 const APPLICATIONS_FOR_POST = gql`
   query applicationsForPosition($postId: ID!) {
     applicationsForPosition(postId: $postId) {
