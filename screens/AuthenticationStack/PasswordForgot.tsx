@@ -15,12 +15,12 @@ const PASSWORD_RESET_MUTATION = gql`
   }
 `;
 
-export default function PasswordForgot({ navigation, route }) {
+export default function PasswordForgot({ navigation }) {
   navigation.setOptions({
     headerRight: () => <HeaderRight text={"Next"} onPress={() => login()} />
   });
 
-  const passedEmail = route.params?.email;
+  const passedEmail = navigation.getParam("email",null);
   const [resetComplete, setResetComplete] = useState<any>(false);
   const [email, setEmail] = useState(passedEmail);
   const [emailError, setEmailError] = useState<any>(undefined);

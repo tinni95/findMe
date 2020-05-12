@@ -50,7 +50,7 @@ const CREATEPOST_MUTATION = gql`
 `;
 
 export default function Anteprima({ navigation, route }) {
-  const post = route.params?.post
+  const post = navigation.getParam("post",null)
   const [checked,setChecked] = useState(false)
   const [pubblicaPost] = useMutation(CREATEPOST_MUTATION,{
     onCompleted: () => {

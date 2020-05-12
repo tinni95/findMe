@@ -62,8 +62,8 @@ const MESSAGES_QUERY = gql`
 
 export function ApplicationReceivedChat(props) {
   const [messages, setMessages] = useState([]);
-  const id = props.route.params?.id;
-  const application = props.route.params?.application;
+  const id = props.navigation.getParam("id",null)
+  const application = props.navigation.getParam("application",null)
   const { loading, error, data, refetch } = useQuery(MESSAGES_QUERY, {
     variables: { id: application.id },
   });

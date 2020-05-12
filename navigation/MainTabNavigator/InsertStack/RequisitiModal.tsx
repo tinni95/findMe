@@ -1,7 +1,7 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import AutoCompletePosizioni from "../../../../shared/components/AutoCompletePosizioni";
-import Requisiti from "../../../../screens/InsertStack/Requisiti";
+
+import { createStackNavigator } from 'react-navigation-stack';
+import AutoCompletePosizioni from "../../../shared/components/AutoCompletePosizioni";
+import Requisiti from "../../../screens/InsertStack/Requisiti";
 
 const Stack = createStackNavigator();
 

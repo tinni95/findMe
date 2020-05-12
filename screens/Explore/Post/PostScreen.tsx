@@ -83,7 +83,7 @@ export default function PostScreen({ navigation, route }) {
   }
   const { loading, error, data ,refetch} = useQuery(Post, {
     variables: {
-      postId: route.params.id
+      postId: navigation.getParam("id",null)
     },
     onCompleted: async ({ currentUser, singlePost }) => {
       if(currentUser.id === singlePost.postedBy.id){
@@ -122,8 +122,8 @@ export default function PostScreen({ navigation, route }) {
         {
           text: "OK",
           onPress: () => {
-            deletePost({ variables: { id: route.params?.id } });
-            route.params?.onGoBack();
+            deletePost({ variables: { id: navigation.getParam("id",null) } });
+            navigation.getParam("onGoBack",null)()
             navigation.goBack();
           }
         }

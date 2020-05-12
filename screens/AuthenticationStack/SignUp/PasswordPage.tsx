@@ -6,13 +6,11 @@ import { validatePassword } from "../validators";
 import { Ionicons } from "@expo/vector-icons";
 import TenditTextInput from "../../../shared/components/TenditTextInput";
 import { wait } from "../../../shared/functions/wait";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
-export default function PasswordPage({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => <HeaderRight text={"Next"} onPress={() => login()} />
-  });
+export default function PasswordPage({ navigation }) {
 
-  const { user } = route.params;
+  const user = navigation.getParam("user",null)
   const [password, setPassword] = useState<string>("");
   const [rePassword, setRePassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<Boolean>(false);
@@ -21,6 +19,10 @@ export default function PasswordPage({ navigation, route }) {
   const [repassHidden, setRePassHidden] = useState<Boolean>(true);
   let preinput = useRef<any>();
   let input = useRef<any>();
+
+  useEffect(() => {
+    navigation.setParams({ login });
+  }, [password, rePassword]);
 
   useEffect(() => {
     wait(100).then(() => {
@@ -134,3 +136,11 @@ const styles = StyleSheet.create({
   },
   spacer: { height: 20 }
 });
+
+PasswordPage.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+    headerRight: () => <HeaderRight text={"Next"} onPress={() => navigation.getParam("login",null)()} />
+  }
+}

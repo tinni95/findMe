@@ -13,13 +13,13 @@ import HeaderRight from "../../../shared/components/HeaderRight";
 import RoundButton from "../../../shared/components/RoundButton";
 import Colors from "../../../shared/constants/Colors";
 
-export default function FiltersPage({ navigation, route }) {
+export default function FiltersPage({ navigation }) {
   const [reset, setReset] = useState(false);
-  let settore = route.params?.settore ?? [];
+  let settore = navigation.getParam("settore",[])
   const [settori, setSettori] = useState(settore);
-  const [regione, setRegione] = useState(route.params?.regione ?? null);
-  const [provincia, setProvincia] = useState(route.params?.provincia ?? null);
-  const [comune, setComune] = useState(route.params?.comune ?? null);
+  const [regione, setRegione] = useState(navigation.getParam("regione",null));
+  const [provincia, setProvincia] = useState(navigation.getParam("provincia",null));
+  const [comune, setComune] = useState(navigation.getParam("comune",null));
 
   const azzeraFiltri = async () => {
     await setReset(true);
@@ -61,8 +61,8 @@ export default function FiltersPage({ navigation, route }) {
     return removeUndefined([...new Set(comuniArray)]);
   };
 
-  const is = route.params?.is ?? "";
-  const passedItem = route.params?.title ?? null;
+  const is =navigation.getParam("is","");
+  const passedItem = navigation.getParam("title",null);
   useEffect(() => {
     if (passedItem) {
       if (is == "regione") {

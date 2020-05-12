@@ -8,6 +8,7 @@ import HeaderRight from "../../shared/components/HeaderRight";
 import Colors from "../../shared/constants/Colors";
 import { Light } from "../../shared/components/StyledText";
 import LoginContext from "../../shared/LoginContext";
+import HeaderLeft from "../../shared/components/HeaderLeft";
 
 const LOGIN_MUTATION = gql`
   mutation login($email: String!, $password: String!) {
@@ -24,10 +25,7 @@ function wait(timeout) {
 }
 
 function LoginScreen({ context, navigation }) {
-  navigation.setOptions({
-    headerRight: () => <HeaderRight text={"Next"} onPress={() => login()} />
-  });
-
+ 
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState<any>("");
   const [password, setPassword] = useState<any>("");
@@ -56,6 +54,7 @@ function LoginScreen({ context, navigation }) {
   });
 
   useEffect(() => {
+    navigation.setParams({login})
     wait(50).then(() => preinput.current.focus());
   }, []);
 
@@ -110,6 +109,14 @@ const LoginScreenWS = props => {
     </LoginContext.Consumer>
   );
 };
+
+LoginScreenWS.navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft:<HeaderLeft navigation={navigation}/>,
+    title:null,
+    headerRight: () => <HeaderRight text={"Next"} onPress={() => navigation.getParam("login",null)()} />
+  }
+}
 
 export default LoginScreenWS;
 

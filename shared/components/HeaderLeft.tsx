@@ -14,7 +14,7 @@ type HeaderProps = {
 const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) => (
   <TouchableOpacity
     style={{ flexDirection: "row" }}
-    onPress={() => {route?.params?.onGoBack()
+    onPress={() => {
       navigation.goBack()}}
   >
     <Ionicons

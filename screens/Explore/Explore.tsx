@@ -45,12 +45,12 @@ const posts = gql`
   }
 `;
 
-export default function Explore({ navigation, route }) {
-  const regione = route.params?.regione ?? null;
-  const comune = route.params?.comune ?? null;
-  const isRefetch = route.params?.isRefetch ?? null;
-  const provincia = route.params?.provincia ?? null;
-  const settore = route.params?.settori ?? null;
+export default function Explore({ navigation }) {
+  const regione = navigation.getParam("regione",null)
+  const comune = navigation.getParam("comune",null)
+  const isRefetch = navigation.getParam("isRefetch",null) 
+  const provincia = navigation.getParam("provincia",null) 
+  const settore = navigation.getParam("settore",null) 
   const [filter, setSearch] = useState("");
   const filters = { regione, comune, provincia, filter }
   const [refreshing, setRefreshing] = useState(false);

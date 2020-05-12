@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet, AsyncStorage } from "react-native";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import CheckBox from "react-native-check-box";
@@ -12,6 +12,7 @@ import { TOKEN_KEY } from "../../../shared/constants/Token";
 import PushNotifications from "../../../shared/functions/PushNotifications";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import LoginContext from "../../../shared/LoginContext";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
 const SIGNUP_MUTATION = gql`
   mutation signup(
@@ -36,9 +37,6 @@ const UPDATEUSER_MUTATION = gql`
 `;
 
 function PrivacyPage({ navigation, context, route }) {
-  navigation.setOptions({
-    headerRight: () => <HeaderRight text={"Next"} onPress={() => login()} />
-  });
 
   const handleNotification = ({ origin, data }) => {
     console.log(
@@ -66,9 +64,14 @@ function PrivacyPage({ navigation, context, route }) {
 
   const {
     user: { nome, cognome, email, password }
-  } = route.params;
+  } = navigation.state.params;
+
   const [checked, setChecked] = useState(false);
 
+  useEffect(() => {
+    navigation.setParams({ login });
+  }, [checked]);
+  
   const login = () => {
     if (checked) {
       signup({ variables: { nome, cognome, email, password } });
@@ -180,3 +183,11 @@ const styles = StyleSheet.create({
   },
   spacer: { height: 20 }
 });
+
+PrivacyPage.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+    headerRight: () => <HeaderRight text={"Next"} onPress={() => navigation.getParam("login",null)()} />
+  }
+}

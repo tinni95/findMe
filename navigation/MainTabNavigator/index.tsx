@@ -1,63 +1,46 @@
 import React, { useEffect } from "react";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import PostIdeaStack from "./PostIdeaStack";
 import ProfileStack from "./ProfileStack";
+import InsertStack from "./InsertStack";
+import NotificaStack from "./NotificaStack";
 import ProfiloIcon from "../Icons/ProfiloIcon";
 import PostIdeaIcon from "../Icons/PostIdeaIcon";
-import InsertStack from "./InsertStack";
 import CreateIcon from "../Icons/CreateIcon";
-import NotificaStack from "./NotificaStack";
-import CandidatureIconWS from "../../shared/components/CandidatureIcon";
-import { isSmallDevice } from "../../shared/constants/Layout";
+import CandidatureIcon from "../../shared/components/CandidatureIcon";
 import Colors from "../../shared/constants/Colors";
-const BottomTab = createMaterialBottomTabNavigator();
 
-const MainTabNavigator = () => {
-  return (
-    <BottomTab.Navigator
-      barStyle={{
-        height: isSmallDevice ? 70 : undefined,
-        paddingTop: isSmallDevice ? 5 : 0,
-        backgroundColor: Colors.blue
-      }}
-      initialRouteName="PostIdeaStack"
-    >
-      <BottomTab.Screen
-        name="PostIdeaStack"
-        component={PostIdeaStack}
-        options={{
-          tabBarLabel: "",
-          tabBarIcon: ({ focused }) => (
-            <PostIdeaIcon focused={focused}></PostIdeaIcon>
-          )
-        }}
-      />
-      <BottomTab.Screen
-        name="InsertStack"
-        component={InsertStack}
-        options={{
-          tabBarLabel: "",
-          tabBarIcon: ({ focused }) => <CreateIcon focused={focused} />
-        }}
-      />
-      <BottomTab.Screen
-        name="ProfileStack"
-        component={ProfileStack}
-        options={{
-          tabBarLabel: "",
-          tabBarIcon: ({ focused }) => <ProfiloIcon focused={focused} />
-        }}
-      />
-      <BottomTab.Screen
-        name="NotificaStack"
-        component={NotificaStack}
-        options={({ route, navigation }) => ({
-          tabBarLabel: "",
-          tabBarIcon: ({ focused }) => <CandidatureIconWS focused={focused} />
-        })}
-      />
-    </BottomTab.Navigator>
-  );
-};
+const TabNavigator = createBottomTabNavigator(
+  {
+  PostIdeaStack,
+  InsertStack,
+  ProfileStack,
+  NotificaStack
+},
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state;
+        if (routeName === 'PostIdeaStack') {
+          return <PostIdeaIcon focused={focused}></PostIdeaIcon>
+        } else if (routeName === 'InsertStack') {
+          return <CreateIcon focused={focused}></CreateIcon>
+        }
+        else if (routeName === 'ProfileStack') {
+        return <ProfiloIcon focused={focused}></ProfiloIcon>
+        }
+        else if (routeName === 'ProfileStack') {
+          return <ProfiloIcon focused={focused}></ProfiloIcon>
+        }
+        // You can return any component that you like here!
+        return <CandidatureIcon focused={focused}></CandidatureIcon>
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: Colors.blue,
+    },
+  }
+);
 
-export default MainTabNavigator;
+export default createAppContainer(TabNavigator);

@@ -92,7 +92,8 @@ function wait(timeout) {
 }
 
 function ApplicationReceivedScreen({ route,navigation }) {
-  const id= route.params?.id;
+  
+  const id= navigation.getParam("id",null)
 
   const onClosePosition = application => {
     closePosition({
