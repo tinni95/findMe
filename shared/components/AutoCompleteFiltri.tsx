@@ -114,3 +114,9 @@ const styles = StyleSheet.create({
     fontSize: 16
   }
 });
+
+AutoCompleteFiltri.navigationOptions = ({ navigation }) => {
+  return {
+    header:null
+  }
+}

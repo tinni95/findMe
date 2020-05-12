@@ -23,6 +23,7 @@ import TenditErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
 
 import BioBlockVisit from "../../shared/components/Bio/BioBlockVisit";
 import {sortEsperienze} from "../../shared/functions/sortEsperienze";
+import HeaderLeft from "../../shared/components/HeaderLeft";
 
 const User = gql`
   query UserProfile($id: ID!) {
@@ -70,7 +71,7 @@ const User = gql`
   }
 `;
 
-export function UserVisitProfile({ navigation, route }) {
+function UserVisitProfile({ navigation, route }) {
   const id =navigation.getParam("id",null)
   const isRefetch =navigation.getParam("refetch",null)
   const [modalVisbile, setModalVisible] = useState(false);
@@ -83,9 +84,9 @@ export function UserVisitProfile({ navigation, route }) {
     return (
       <View style={styles.infoWrapper}>
         {<BioBlockVisit bio={data.User.presentazione}></BioBlockVisit>}
-       {data.User.formazioni.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:sortEsperienze(data.User.formazioni)})} items={sortEsperienze(data.User.formazioni)} title={"Formazioni"} />
+       {data.User.formazioni.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("FormazioniVisitScreen",{formazioni:sortEsperienze(data.User.formazioni)})} items={sortEsperienze(data.User.formazioni)} title={"Formazioni"} />
         <View style={styles.separator}></View></View>}
-        {data.User.esperienze.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("EsperienzeScreen",{esperienze:sortEsperienze(data.User.esperienze)})} items={sortEsperienze(data.User.esperienze)} title={"Esperienze"} />
+        {data.User.esperienze.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("EsperienzeVisitScreen",{esperienze:sortEsperienze(data.User.esperienze)})} items={sortEsperienze(data.User.esperienze)} title={"Esperienze"} />
         <View style={styles.separator}></View></View>}
         {data.User.competenze.length>0&&<View><CompetenzeBlockVisit
           competenze={data.User.competenze}
@@ -191,7 +192,6 @@ export function UserVisitProfile({ navigation, route }) {
 }
 
 
-export default UserVisitProfile;
 
 const styles = StyleSheet.create({
   userWrapper: {
@@ -248,3 +248,13 @@ const styles = StyleSheet.create({
     minHeight: 500
   }
 });
+
+
+UserVisitProfile.navigationOptions = ({ navigation }) => {
+  return {
+    title:"",
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
+}
+
+export default UserVisitProfile;

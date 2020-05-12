@@ -25,7 +25,6 @@ import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import HeaderRight from "../../shared/components/HeaderRight";
 import ZoomButton from "../../shared/components/ZoomButton";
 import { LinearGradient } from "expo-linear-gradient";
-import { Header } from "react-native/Libraries/NewAppScreen";
 import HeaderLeftWithRoute from "../../shared/components/HeaderLeftWithRoute";
 const _ = require("lodash");
 const UPDATEUSER_MUTATION = gql`
@@ -63,7 +62,10 @@ const UPDATEUSER_MUTATION = gql`
 
  function EditProfile({ navigation, route }) {
 
-  const {currentUser,passedComune, passedRegione, passedProvincia} = navigation.state.params;
+  const {currentUser} = navigation.state.params;
+  const passedComune= navigation.getParam("comune",null)
+  const passedProvincia= navigation.getParam("provincia",null)
+  const passedRegione= navigation.getParam("regione",null)
   //useEffect
   useEffect(() => {
     passedComune ? setComune(passedComune) : null;
@@ -136,7 +138,7 @@ const UPDATEUSER_MUTATION = gql`
 
   useEffect(() => {
     navigation.setParams({ handlePress });
-  }, [nome, cognome]);
+  }, [nome, cognome, regione, provincia, comune]);
 
   const handlePress = () => {
     if (nome.length === 0) {
@@ -292,7 +294,7 @@ const UPDATEUSER_MUTATION = gql`
                 }
                 onFocus={() =>
                   navigation.navigate("AutoCompleteLocation", {
-                    path: "Edit"
+                    path: "EditProfile"
                   })
                 }
                 placeholder={"Comune, provincia, regione"}

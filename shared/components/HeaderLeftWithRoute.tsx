@@ -11,7 +11,7 @@ type HeaderProps = {
 
 const HeaderLeft: FunctionComponent<HeaderProps> = ({ onPress,text }) => (
   <TouchableOpacity
-    style={{ flexDirection: "row" }}
+    style={{ flexDirection: "row", padding:10  }}
     onPress={onPress}
   >
     <Ionicons

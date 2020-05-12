@@ -101,7 +101,7 @@ export default function FiltersPage({ navigation }) {
             navigation.navigate("AutoComplete", {
               is: "regione",
               for: "Requisiti",
-              path: "Filters",
+              path: "FiltersPage",
               items: regioni
             })
           }
@@ -126,7 +126,7 @@ export default function FiltersPage({ navigation }) {
             navigation.navigate("AutoComplete", {
               is: "provincia",
               for: "Requisiti",
-              path: "Filters",
+              path: "FiltersPage",
               items: provincie(regione)
             })
           }
@@ -150,7 +150,7 @@ export default function FiltersPage({ navigation }) {
             navigation.navigate("AutoComplete", {
               is: "comune",
               for: "Requisiti",
-              path: "Filters",
+              path: "FiltersPage",
               items: comunis(provincia)
             })
           }

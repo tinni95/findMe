@@ -17,6 +17,7 @@ const shortid = require("shortid");
 
 function AutoCompleteLocation({ navigation, route }) {
   let path = navigation.getParam("path",null)
+  console.log(path)
   const [text, setText] = useState("null");
   const Input = useRef<any>();
   let filteredComuni = Comuni.filter(comune =>

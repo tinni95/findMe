@@ -1,5 +1,9 @@
 {
   "expo": {
+    "android": {
+      "package": "com.diverseagency.tendit",
+      "versionCode": 1
+    },
     "hooks": {
       "postPublish": [
         {

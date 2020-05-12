@@ -4,8 +4,9 @@ import Colors from "../../../shared/constants/Colors";
 
 let shortid = require("shortid");
 import FormazioneVisitCard from "../../../shared/components/Formazioni/FormazioneVisitCard";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
-export default function FormazioniVisitScreen({ navigation, route }) {
+function FormazioniVisitScreen({ navigation, route }) {
   const formazioni =navigation.getParam("formazioni",null)
 
   return (
@@ -40,3 +41,12 @@ const styles = StyleSheet.create({
     fontSize: 12
   }
 });
+
+FormazioniVisitScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title:"",
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
+}
+
+export default FormazioniVisitScreen;

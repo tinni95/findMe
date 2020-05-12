@@ -9,8 +9,10 @@ import LocationWithText from "../../shared/components/LocationWithText";
 
 
 export default function Anteprima({ navigation }) {
-  const {post,passedComune,passedRegione,passedProvincia} = navigation.state.params;
-
+  const {post} = navigation.state.params;
+  const passedComune = navigation.getParam("comune",null)
+  const passedRegione = navigation.getParam("regione",null)
+  const passedProvincia = navigation.getParam("provincia",null)
 
   const procedi = () => {
     if(passedComune){

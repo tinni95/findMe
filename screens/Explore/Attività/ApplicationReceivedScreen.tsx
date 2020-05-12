@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import ReceivedCard from "../../../shared/components/ReceivedCard";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 var shortid = require("shortid");
 
 const APPLICATIONS_FOR_POST = gql`
@@ -181,5 +182,10 @@ function ApplicationReceivedScreen({ route,navigation }) {
   );
 }
 
-
+ApplicationReceivedScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
+}
 export default ApplicationReceivedScreen;

@@ -58,6 +58,10 @@ function LoginScreen({ context, navigation }) {
     wait(50).then(() => preinput.current.focus());
   }, []);
 
+  useEffect(() => {
+    navigation.setParams({ login });
+  }, [email, password]);
+
   const login = () => {
     loginMutation({
       variables: {

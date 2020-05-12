@@ -11,7 +11,7 @@ type HeaderProps = {
 const HeaderRight: FunctionComponent<HeaderProps> = ({ text, onPress }) => (
   <TouchableOpacity
     onPress={onPress}
-    style={{ paddingRight: 15, marginBottom: 2 }}
+    style={{ padding:10,paddingRight: 15, marginBottom: 2 }}
   >
     <Body style={{ fontSize: 15, color: Colors.red }}>{text}</Body>
   </TouchableOpacity>

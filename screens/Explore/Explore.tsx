@@ -48,9 +48,9 @@ const posts = gql`
 export default function Explore({ navigation }) {
   const regione = navigation.getParam("regione",null)
   const comune = navigation.getParam("comune",null)
-  const isRefetch = navigation.getParam("isRefetch",null) 
+  const isRefetch = navigation.getParam("refetch",null) 
   const provincia = navigation.getParam("provincia",null) 
-  const settore = navigation.getParam("settore",null) 
+  const settore = navigation.getParam("settori",null) 
   const [filter, setSearch] = useState("");
   const filters = { regione, comune, provincia, filter }
   const [refreshing, setRefreshing] = useState(false);

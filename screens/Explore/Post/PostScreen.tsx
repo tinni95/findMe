@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { isSmallDevice } from "../../../shared/constants/Layout";
 import { Bold, Light } from "../../../shared/components/StyledText";
@@ -16,7 +16,8 @@ import RoundButtonEmpty from "../../../shared/components/RoundButtonEmpty";
 import Colors from "../../../shared/constants/Colors";
 import RoundButton from "../../../shared/components/RoundButton";
 import { LinearGradient } from "expo-linear-gradient";
-import moment from "moment/min/moment-with-locales";
+import moment from "moment";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 moment.locale("it");
 
 const DELETEAPPLICATION_MUTATION = gql`
@@ -73,14 +74,10 @@ const Post = gql`
   }
 `;
 
-export default function PostScreen({ navigation }) {
+ function PostScreen({ navigation }) {
 
   const [isOwner,setIsOwner] = useState(false);
-  if(isOwner){
-    navigation.setOptions({
-      headerRight: () => <HeaderRightElimina onPress={() => deleteP()} />
-    });
-  }
+
   const { loading, error, data ,refetch} = useQuery(Post, {
     variables: {
       postId: navigation.getParam("id",null)
@@ -104,6 +101,10 @@ export default function PostScreen({ navigation }) {
   });
 
   const [deletePost] = useMutation(DELETEPOST_MUTATION);
+
+  useEffect(() => {
+    navigation.setParams({ deleteP , isOwner});
+  }, [isOwner]);
 
   if (loading) return <TenditSpinner />;
   if (error) return <TenditErrorDisplay />;
@@ -302,3 +303,13 @@ const styles = StyleSheet.create({
     margin: 20
   }
 })
+
+PostScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title:"",
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+    headerRight: () => navigation.getParam("isOwner",false)&&<HeaderRightElimina onPress={() =>navigation.getParam("deleteP",null)} />
+  }
+}
+
+export default PostScreen

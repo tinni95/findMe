@@ -4,6 +4,7 @@ import Colors from "../../../shared/constants/Colors";
 import Aggiungi from "../../../shared/components/Aggiungi";
 let shortid = require("shortid");
 import EsperienzaEditCard from "../../../shared/components/Esperienze/EsperienzaEditCard";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
 export default function EsperienzeScreen({ navigation, route }) {
   const esperienze = navigation.getParam("esperienze",null)
@@ -43,3 +44,10 @@ const styles = StyleSheet.create({
     fontSize: 12
   }
 });
+
+EsperienzeScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
+}

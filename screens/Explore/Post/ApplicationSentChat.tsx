@@ -9,8 +9,7 @@ import { gql } from "apollo-boost";
 import KeyboardSpacer from "react-native-keyboard-spacer";
 import { sendNotification } from "../../../shared/functions/PushNotifications";
 import { isSmallDevice } from "../../../shared/constants/Layout";
-import moment from "moment/min/moment-with-locales";
-
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   mutation unseeApplicationChatChatMutation(
     $id: ID!
@@ -135,9 +134,15 @@ export function ApplicationSentChat(props) {
           }
         }}
       />
-   <KeyboardSpacer topSpacing={(isSmallDevice ? 20 :30)} />
     </View>
   );
+}
+
+ApplicationSentChat.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
 }
 
 export default ApplicationSentChat;

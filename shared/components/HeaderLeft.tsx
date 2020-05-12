@@ -13,7 +13,7 @@ type HeaderProps = {
 
 const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) => (
   <TouchableOpacity
-    style={{ flexDirection: "row" }}
+    style={{ flexDirection: "row", padding:10 }}
     onPress={() => {
       navigation.goBack()}}
   >
@@ -25,6 +25,7 @@ const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) 
     ></Ionicons>
     <Body
       style={{
+
         color: Colors.blue,
         marginLeft: 20,
         alignSelf: "center",

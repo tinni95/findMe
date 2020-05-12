@@ -9,6 +9,9 @@ import TabBars from "../../../shared/components/TabBars";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
 import PostApplicationCard from "../../../shared/components/PostApplicationCard";
+import { wait } from "../../../shared/functions/wait";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
+import { headerTitleStyle } from "../../../shared/constants/HeaderStyles";
 var shortid = require("shortid");
 
 const User = gql`
@@ -182,6 +185,13 @@ function AttivitàScreen({ navigation }) {
       routes={routes}
     ></TabBars>
   );
+}
+
+AttivitàScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title:"Candidature",
+    headerTitleStyle: headerTitleStyle
+  }
 }
 
 export default AttivitàScreen;

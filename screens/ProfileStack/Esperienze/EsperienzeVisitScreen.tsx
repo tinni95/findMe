@@ -3,8 +3,9 @@ import { View, StyleSheet } from "react-native";
 import Colors from "../../../shared/constants/Colors";
 let shortid = require("shortid");
 import EsperienzaVisitCard from "../../../shared/components/Esperienze/EsperienzaVisitCard";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
-export default function EsperienzeVisitScreen({ navigation, route }) {
+ function EsperienzeVisitScreen({ navigation, route }) {
   const esperienze =navigation.getParam("esperienze",null)
   return (
     <View style={styles.container}>
@@ -38,3 +39,12 @@ const styles = StyleSheet.create({
     fontSize: 12
   }
 });
+
+EsperienzeVisitScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title:"",
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
+}
+
+export default EsperienzeVisitScreen;

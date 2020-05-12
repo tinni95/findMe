@@ -125,4 +125,10 @@ const styles = StyleSheet.create({
   }
 });
 
+AutoComplete.navigationOptions = ({ navigation }) => {
+  return {
+    header:null
+  }
+}
+
 export default AutoComplete;
