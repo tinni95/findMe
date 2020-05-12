@@ -9,17 +9,10 @@ import { Bold, Light } from "../../shared/components/StyledText";
 import CheckBox from "react-native-check-box";
 var moment= require("moment");
 
-export default function Budget({ navigation, route }) {
-  const requisiti = route.params?.requisiti
-  const servizio = route.params?.servizio
-  const descrizione = route.params?.descrizione
-  const categoria = route.params?.categoria
-  const quando = route.params?.quando
-  const giornata = route.params?.giornata
-  const data = route.params?.data
+export default function Budget({ navigation, }) {
+
+  const {requisiti,servizio,descrizione,categoria,quando,startTime,endTime,data}=navigation.state.params;
   const [checked, setChecked] = useState(false);
-  const startTime = route.params?.startTime
-  const endTime = route.params?.endTime
   const [budget, setBudget] = useState("15");
   const post={
     quando,
@@ -27,7 +20,6 @@ export default function Budget({ navigation, route }) {
     requisiti,
     descrizione,
     categoria,
-    giornata,
     data,
     startTime,
     endTime,
@@ -133,3 +125,7 @@ const styles = StyleSheet.create({
     marginBottom: 40
   }
 });
+
+Budget.navigationOptions = {
+  header:null
+}

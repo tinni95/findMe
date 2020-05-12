@@ -15,10 +15,9 @@ import moment from "moment/min/moment-with-locales";
 moment.locale("it");
 
 export default function Quando({ navigation, route }) {
-  const requisiti = route.params?.requisiti
-  const categoria = route.params?.categoria
-  const servizio = route.params?.servizio
-  const descrizione = route.params?.descrizione
+  const {requisiti, categoria, servizio,
+  descrizione} = navigation.state.params;
+
   const [data, setData] = useState("");
   const [dataToPass, setDataToPass] = useState("");
   const[quando,setQuando] = useState("")
@@ -244,3 +243,7 @@ const styles = StyleSheet.create({
     color: "#5F5E5E"
   }
 });
+
+Quando.navigationOptions = {
+  header:null
+}

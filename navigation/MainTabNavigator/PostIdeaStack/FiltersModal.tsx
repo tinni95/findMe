@@ -21,10 +21,10 @@ const FiltersModal = createStackNavigator(
 
 FiltersModal.navigationOptions = ({ navigation }) => {
   return {
-      title: "Filtri",
+      title: null,
       headerStyle,
       headerTitleStyle,
-      headerLeft:HeaderLeft
+      headerLeft: () => <HeaderLeft navigation={navigation}/>
   }
 }
 

@@ -8,11 +8,6 @@ import ApplicationReceivedScreen from "../../../screens/Explore/Attività/Applic
 import ApplicationSentChat from "../../../screens/Explore/Post/ApplicationSentChat";
 import FiltersModal from "./FiltersModal";
 import UserVisitsProfileScreen from "../../../screens/shared/UserVisitsProfileScreen";
-import HeaderLeft from "../../../shared/components/HeaderLeft";
-import {
-  headerStyle,
-  headerTitleStyle
-} from "../../../shared/constants/HeaderStyles";
 import FormazioniVisitScreen from "../../../screens/ProfileStack/Formazioni/FormazioniVisitScreen";
 import ProgettiVisitScreen from "../../../screens/ProfileStack/Progetti/ProgettiVisitScreen";
 import EsperienzeVisitScreen from "../../../screens/ProfileStack/Esperienze/EsperienzeVisitScreen";

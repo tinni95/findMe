@@ -169,3 +169,7 @@ const styles = StyleSheet.create({
     color: "#5F5E5E"
   }
 });
+
+Categoria.navigationOptions = {
+  header:null
+}

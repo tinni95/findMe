@@ -9,7 +9,6 @@ import Anteprima from "../../../screens/InsertStack/Anteprima";
 import Dove from "../../../screens/InsertStack/Dove";
 import AutoCompleteLocation from "../../../shared/components/AutoCompleteLocation";
 
-
 const Stack = createStackNavigator({
   Categoria,
   AutoCompleteLocation,
@@ -22,4 +21,7 @@ const Stack = createStackNavigator({
   Anteprima
 });
 
+Stack.navigationOptions = {
+  headerMode:"none"
+}
 export default Stack;

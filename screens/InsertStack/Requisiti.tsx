@@ -9,10 +9,9 @@ import InputOverlayModal from "../../shared/components/InputOverlayModal";
 import RoundButton from "../../shared/components/RoundButton";
 import Colors from "../../shared/constants/Colors";
 
-export default function Requisiti({ navigation, route }) {
-  const requisiti = route.params?.requisiti
-  const categoria = route.params?.categoria
-  const servizio = route.params?.servizio
+export default function Requisiti({ navigation }) {
+  const {requisiti, categoria, servizio} = 
+  navigation.state.params;
   const [active, setActive] = useState<any>([]);
   const [custom, setCustom] = useState<any>([]);
   const [modalVisibile, setModalVisible] = useState<boolean>(false);
@@ -100,3 +99,7 @@ const styles = StyleSheet.create({
     color: "#5F5E5E"
   }
 });
+
+Requisiti.navigationOptions = {
+  header:null
+}

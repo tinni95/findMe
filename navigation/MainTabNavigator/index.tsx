@@ -38,6 +38,11 @@ const TabNavigator = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
+      style: {
+        backgroundColor: Colors.blue,
+        height:70
+      },
+      showLabel:false,
       activeTintColor: Colors.blue,
     },
   }

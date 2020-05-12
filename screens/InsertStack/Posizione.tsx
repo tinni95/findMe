@@ -5,9 +5,8 @@ import HeaderBarLeft from "../../shared/components/HeaderBarLeft";
 import HeaderTitle from "../../shared/components/HeaderTitle";
 import ServizioCard from "../../shared/components/ServizioCard";
 
-export default function Posizione({ navigation, route }) {
-  const servizi = route.params?.servizi
-  const categoria = route.params?.categoria
+export default function Posizione({ navigation }) {
+  const {servizi, categoria} = navigation.state.params;
 
   return (
     <ScrollView style={styles.container}>
@@ -76,3 +75,7 @@ const styles = StyleSheet.create({
     color: "#5F5E5E"
   }
 });
+
+Posizione.navigationOptions = {
+  header:null
+}

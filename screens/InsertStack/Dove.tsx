@@ -8,12 +8,8 @@ import { Light } from "../../shared/components/StyledText";
 import LocationWithText from "../../shared/components/LocationWithText";
 
 
-export default function Anteprima({ navigation, route }) {
-  const post = route.params?.post
-  //passedLocation (autocomplete)
-  const passedComune = route.params?.comune ?? "";
-  const passedRegione = route.params?.regione ?? "";
-  const passedProvincia = route.params?.provincia ?? "";
+export default function Anteprima({ navigation }) {
+  const {post,passedComune,passedRegione,passedProvincia} = navigation.state.params;
 
 
   const procedi = () => {
@@ -73,3 +69,8 @@ const styles = StyleSheet.create({
     paddingTop: 40
   },
 });
+
+
+Anteprima.navigationOptions = {
+  header:null
+}
