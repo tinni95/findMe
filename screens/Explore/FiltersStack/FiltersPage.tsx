@@ -12,6 +12,7 @@ import { Comuni } from "../../../shared/constants/Comuni";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import RoundButton from "../../../shared/components/RoundButton";
 import Colors from "../../../shared/constants/Colors";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
 export default function FiltersPage({ navigation }) {
   const [reset, setReset] = useState(false);
@@ -30,11 +31,11 @@ export default function FiltersPage({ navigation }) {
     await setComune(null);
   };
 
-  navigation.setOptions({
-    headerRight: () => (
-      <HeaderRight text={"Azzera filtri"} onPress={() => azzeraFiltri()} />
-    )
-  });
+  useEffect(() => {
+    navigation.setParams({ azzera:azzeraFiltri });
+  }, []);
+  
+
   var regioneArray = Comuni.map(comune => {
     return comune.regione;
   });
@@ -199,3 +200,11 @@ const styles = StyleSheet.create({
     width: "100%"
   }
 });
+
+FiltersPage.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+    headerRight: () => <HeaderRight text={"Azzera Filtri"} onPress={() => navigation.getParam("azzera",null)()} />
+  }
+}

@@ -1,17 +1,8 @@
 import React, { useState, useRef } from "react";
 import {
   View,
-  TouchableOpacity,
   StyleSheet,
-  ScrollView,
-  Keyboard
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import Colors from "../../shared/constants/Colors";
-import { Searchbar } from "react-native-paper";
-import { Requisiti } from "../../shared/constants/Requisiti";
-import RoundButton from "../../shared/components/RoundButton";
-import { Body } from "../../shared/components/StyledText";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import HeaderRight from "../../shared/components/HeaderRight";
