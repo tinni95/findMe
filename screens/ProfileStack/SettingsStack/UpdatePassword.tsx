@@ -7,6 +7,7 @@ import TenditTextInput from "../../../shared/components/TenditTextInput";
 import { validatePassword } from "../../AuthenticationStack/validators";
 import { gql } from "apollo-boost";
 import { useMutation } from "react-apollo";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
 const UPDATE_PASSWORD = gql`
   mutation UpdatePassword($password: String!, $newPassword: String!) {
@@ -17,11 +18,7 @@ const UPDATE_PASSWORD = gql`
 `;
 
 export default function UpdatePassword({ navigation }) {
-  navigation.setOptions({
-    headerRight: () => (
-      <HeaderRight text={"Conferma"} onPress={() => action()} />
-    )
-  });
+ 
   const [updatePassword] = useMutation(UPDATE_PASSWORD, {
     onCompleted: () => {
       alert("la password è cambiata con successo");
@@ -46,6 +43,11 @@ export default function UpdatePassword({ navigation }) {
   useEffect(() => {
     preinput.current.focus();
   }, []);
+
+  useEffect(() => {
+    navigation.setParams({ action });
+  }, [password,rePassword]);
+
 
   const action = () => {
     if (!validatePassword(password)) {
@@ -185,3 +187,12 @@ const styles = StyleSheet.create({
   },
   spacer: { height: 20 }
 });
+
+
+UpdatePassword.navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft : () => <HeaderLeft navigation={navigation}></HeaderLeft>,
+    title:"",
+    headerRight: () => <HeaderRight text={"Conferma"} onPress={() => navigation.getParam("action",null)()} />
+  }
+}

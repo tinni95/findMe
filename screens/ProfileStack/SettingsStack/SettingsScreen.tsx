@@ -4,7 +4,8 @@ import {
   ScrollView,
   View,
   Alert,
-  RefreshControl
+  RefreshControl,
+  TouchableOpacity
 } from "react-native";
 import SettingsButton from "../../../shared/components/SettingsButton";
 import { Bold } from "../../../shared/components/StyledText";
@@ -14,6 +15,7 @@ import AccountStatus from "../../../shared/components/AccountStatus";
 import { gql } from "apollo-boost";
 import { useQuery, useMutation } from "react-apollo";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
+import { Ionicons } from "@expo/vector-icons";
 const USER_STATUS = gql`
   {
     currentUser {
@@ -52,7 +54,7 @@ function SettingsScreen({ navigation, route, context }) {
     onError: () => {alert("oops... si è verificato un errore")}
   })
   const [refreshing, setRefreshing] = useState(false);
-  const isRefetch = route.params?.refetch ?? null;
+  const isRefetch = navigation.getParam("refetch",null)
   useEffect(() => {
     isRefetch ? onRefresh() : null;
   }, [isRefetch]);
@@ -149,5 +151,23 @@ const SettingsScreenWC = props => {
     </LoginContext.Consumer>
   );
 };
+
+
+
+SettingsScreenWC.navigationOptions = ({ navigation }) => {
+  return {
+ 
+    headerLeft: () => (
+      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+        <Ionicons
+          name={"ios-menu"}
+          size={25}
+          style={{ marginLeft: 10 }}
+          color={Colors.blue}
+        ></Ionicons>
+      </TouchableOpacity>
+    )
+  }
+}
 
 export default SettingsScreenWC;
