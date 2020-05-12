@@ -22,6 +22,7 @@ import ItemsBlock from "../../shared/components/ItemsBlock";
 import CompetenzeBlock from "../../shared/components/Competenze/CompetenzeBlock";
 import {sortEsperienze} from "../../shared/functions/sortEsperienze";
 import BioBlock from "../../shared/components/Bio/BioBlock";
+import { HeaderTitle } from "react-navigation-stack";
 
 const User = gql`
   {
@@ -285,6 +286,7 @@ const styles = StyleSheet.create({
 
 ProfilePage.navigationOptions = ({ navigation }) => {
   return {
+    title:"",
     headerRight: () => (
       <TouchablePen
         onPress={() => {

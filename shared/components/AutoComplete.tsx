@@ -17,7 +17,6 @@ import Colors from "../constants/Colors";
 const shortid = require("shortid");
 
 function AutoComplete({ navigation, route }) {
-  navigation.setOptions({ title: "" });
   let{items, path, isFor} = navigation.state.params;
   const [text, setText] = useState("");
   const passwordInput = useRef<any>();

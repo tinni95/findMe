@@ -13,10 +13,9 @@ import { Ionicons } from "@expo/vector-icons";
 const shortid = require("shortid");
 
 function AutoComplete({ navigation, route }) {
-  navigation.setOptions({ title: "" });
-  let items = route.params?.items ?? "";
-  let path = route.params?.path ?? "";
-  let isFor = route.params?.for ?? "";
+  let items = navigation.getParam("items",null)
+  let path = navigation.getParam("path",null)
+  let isFor = navigation.getParam("for",null)
   const [text, setText] = useState("");
   const passwordInput = useRef<any>();
   let filteredItems = items.filter(item =>

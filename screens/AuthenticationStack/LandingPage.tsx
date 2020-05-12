@@ -76,6 +76,6 @@ const styles = StyleSheet.create({
 
 LandingPage.navigationOptions = ({ navigation }) => {
   return {
-    <header:null></header:null>
+    header:null
   }
 }

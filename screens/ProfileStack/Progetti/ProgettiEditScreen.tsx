@@ -58,7 +58,7 @@ export default function ProgettiEditScreen({ navigation, route }) {
       <HeaderRight text={"Conferma"} onPress={() => handlePress()} />
     )
   });
-  const progetto = route.params?.progetto ?? null;
+  const progetto =navigation.getParam("progetto",null)
   const [lock, setLock] = useState(false);
   const [zoom, setZoom] = useState(false);
   const [titolo, setTitolo] = useState(progetto ? progetto.titolo : "");

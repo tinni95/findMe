@@ -71,9 +71,9 @@ const User = gql`
 `;
 
 export function UserVisitProfile({ navigation, route }) {
-  const id = route.params.id;
+  const id =navigation.getParam("id",null)
+  const isRefetch =navigation.getParam("refetch",null)
   const [modalVisbile, setModalVisible] = useState(false);
-  const isRefetch = route.param?.refetch ?? false;
   const { loading, error, data, refetch } = useQuery(User, {
     variables: { id },
     fetchPolicy: "no-cache",

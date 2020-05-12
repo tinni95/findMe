@@ -16,10 +16,8 @@ import { LinearGradient } from "expo-linear-gradient";
 const shortid = require("shortid");
 
 export function AutoCompleteFiltri({ navigation, route }) {
-  let items = route.params?.items ?? "";
-  let path = route.params?.path ?? "";
-  let isFor = route.params?.for ?? "";
-  let is = route.params?.is ?? "";
+  let {items, path, is} = navigation.state.params;
+  let isFor = navigation.getParam("for",null)
   const [text, setText] = useState("");
   useEffect(() => {
     wait(50).then(()=>{textInput.current.focus()});

@@ -7,7 +7,7 @@ let shortid = require("shortid");
 import FormazioneEditCard from "../../../shared/components/Formazioni/FormazioneEditCard";
 
 export default function FormazioniScreen({ navigation, route }) {
-  const formazioni = route.params.formazioni;
+  const formazioni =navigation.getParam("formazioni",null)
   return (
     <ScrollView style={styles.container}>
       <Aggiungi

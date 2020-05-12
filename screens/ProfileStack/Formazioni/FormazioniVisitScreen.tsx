@@ -6,7 +6,8 @@ let shortid = require("shortid");
 import FormazioneVisitCard from "../../../shared/components/Formazioni/FormazioneVisitCard";
 
 export default function FormazioniVisitScreen({ navigation, route }) {
-  const formazioni = route.params.formazioni;
+  const formazioni =navigation.getParam("formazioni",null)
+
   return (
     <ScrollView style={styles.container}>
       {formazioni.map(formazione => {

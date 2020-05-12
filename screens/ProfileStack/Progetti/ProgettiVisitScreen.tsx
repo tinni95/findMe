@@ -5,7 +5,7 @@ let shortid = require("shortid");
 import ProgettoVisitCard from "../../../shared/components/Progetti/ProgettoVisitCard";
 
 export default function ProgettiVisitScreen({ navigation, route }) {
-  const progetti = route.params.progetti;
+  const progetti =navigation.getParam("progetti",null)
   return (
     <View style={styles.container}>
       {progetti.map(progetto => {
