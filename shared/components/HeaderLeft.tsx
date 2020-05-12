@@ -3,12 +3,12 @@ import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import { Light, Body } from "./StyledText";
-import { CompositeNavigationProp } from "@react-navigation/native";
+
 
 type HeaderProps = {
-  navigation: CompositeNavigationProp<any, any>;
+  navigation: any;
   text?: string;
-  route?:CompositeNavigationProp<any, any>;
+  route?:AnalyserOptions;
 };
 
 const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) => (
