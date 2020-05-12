@@ -111,4 +111,10 @@ const styles = StyleSheet.create({
   }
 });
 
+AutoCompleteLocation.navigationOptions = ({ navigation }) => {
+  return {
+    header:null
+  }
+}
+
 export default AutoCompleteLocation;

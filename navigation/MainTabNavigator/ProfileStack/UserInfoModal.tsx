@@ -15,16 +15,12 @@ const UserInfoModal = createStackNavigator(
   },
   {
       mode: 'modal',
-      headerMode: 'none',
   }
 );
 
 UserInfoModal.navigationOptions = ({ navigation }) => {
   return {
-      title: null,
-      headerStyle,
-      headerTitleStyle,
-      headerLeft: () => <HeaderLeft navigation={navigation}/>
+      header:null
   }
 }
 

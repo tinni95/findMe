@@ -26,7 +26,7 @@ import HeaderRight from "../../shared/components/HeaderRight";
 import ZoomButton from "../../shared/components/ZoomButton";
 import { LinearGradient } from "expo-linear-gradient";
 import { Header } from "react-native/Libraries/NewAppScreen";
-import HeaderLeft from "../../shared/components/HeaderLeft";
+import HeaderLeftWithRoute from "../../shared/components/HeaderLeftWithRoute";
 const _ = require("lodash");
 const UPDATEUSER_MUTATION = gql`
   mutation updateUser(
@@ -366,9 +366,9 @@ const styles = StyleSheet.create({
 
 EditProfile.navigationOptions = ({ navigation }) => {
   return {
-    title:null,
-    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
-    headerRight: () => <HeaderRight text={"Next"} onPress={() => navigation.getParam("handlePress",null)()} />
+    title:"",
+    headerLeft: <HeaderLeftWithRoute onPress={ () => navigation.navigate("ProfilePage")}></HeaderLeftWithRoute>,
+    headerRight: () => <HeaderRight text={"Conferma"} onPress={() => navigation.getParam("handlePress",null)()} />
   }
 }
 
