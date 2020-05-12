@@ -25,6 +25,8 @@ import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import HeaderRight from "../../shared/components/HeaderRight";
 import ZoomButton from "../../shared/components/ZoomButton";
 import { LinearGradient } from "expo-linear-gradient";
+import { Header } from "react-native/Libraries/NewAppScreen";
+import HeaderLeft from "../../shared/components/HeaderLeft";
 const _ = require("lodash");
 const UPDATEUSER_MUTATION = gql`
   mutation updateUser(
@@ -59,16 +61,9 @@ const UPDATEUSER_MUTATION = gql`
   }
 `;
 
-export default function EditProfile({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => (
-      <HeaderRight text={"Conferma"} onPress={() => handlePress()} />
-    )
-  });
-  //passedLocation (autocomplete)
-  const passedComune = route.params?.comune ?? "";
-  const passedRegione = route.params?.regione ?? "";
-  const passedProvincia = route.params?.provincia ?? "";
+ function EditProfile({ navigation, route }) {
+
+  const {currentUser,passedComune, passedRegione, passedProvincia} = navigation.state.params;
   //useEffect
   useEffect(() => {
     passedComune ? setComune(passedComune) : null;
@@ -77,7 +72,6 @@ export default function EditProfile({ navigation, route }) {
   });
   //hooks
   const [loading, setLoading] = useState(false);
-  const currentUser = route.params?.currentUser ?? "";
   const [zoom, setZoom] = useState(false);
   const [visibleDate, setVisibleDate] = useState(false);
   const [nome, setNome] = useState(currentUser.nome);
@@ -139,6 +133,10 @@ export default function EditProfile({ navigation, route }) {
       setBase64(result.base64);
     }
   };
+
+  useEffect(() => {
+    navigation.setParams({ handlePress });
+  }, [nome, cognome]);
 
   const handlePress = () => {
     if (nome.length === 0) {
@@ -365,3 +363,13 @@ const styles = StyleSheet.create({
     margin: 35
   }
 });
+
+EditProfile.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+    headerRight: () => <HeaderRight text={"Next"} onPress={() => navigation.getParam("handlePress",null)()} />
+  }
+}
+
+export default EditProfile

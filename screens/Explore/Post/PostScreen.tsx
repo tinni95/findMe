@@ -73,7 +73,7 @@ const Post = gql`
   }
 `;
 
-export default function PostScreen({ navigation, route }) {
+export default function PostScreen({ navigation }) {
 
   const [isOwner,setIsOwner] = useState(false);
   if(isOwner){

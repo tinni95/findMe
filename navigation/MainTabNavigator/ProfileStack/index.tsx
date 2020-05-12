@@ -1,6 +1,6 @@
 import React from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createStackNavigator } from 'react-navigation-stack';
 import ProfilePage from "../../../screens/ProfileStack/";
 import Logout from "../../../screens/ProfileStack/Logout";
 import FormazioniScreen from "../../../screens/ProfileStack/Formazioni/FormazioniScreen";
@@ -27,250 +27,60 @@ import UpdateEmail from "../../../screens/ProfileStack/SettingsStack/UpdateEmail
 import AboutPage from "../../../screens/ProfileStack/SettingsStack/AboutPage";
 import BioScreen from "../../../screens/ProfileStack/BioScreen";
 
-const Stack0 = createStackNavigator();
+const SettingsStack = createStackNavigator(
+  {
+      Impostazioni:SettingsScreen,
+      UpdatePassword,
+      About:AboutPage,
+      UpdateEmail
+  }
+);
 
-const SettingsStack = () => {
-  return (
-    <Stack0.Navigator>
-      <Stack0.Screen
-        name="Impostazioni"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-              <Ionicons
-                name={"ios-menu"}
-                size={25}
-                style={{ marginLeft: 10 }}
-                color={Colors.blue}
-              ></Ionicons>
-            </TouchableOpacity>
-          )
-        })}
-        component={SettingsScreen}
-      />
-      <Stack0.Screen
-        name="UpdatePassword"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={UpdatePassword}
-      />
-      <Stack0.Screen
-        name="UpdateEmail"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={UpdateEmail}
-      />
-      <Stack0.Screen
-        name="About"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={AboutPage}
-      />
-    </Stack0.Navigator>
-  );
-};
 
-const Stack1 = createStackNavigator();
+const LogoutStack = createStackNavigator(
+  {
+    Logout
+  }
+);
 
-const LogoutStack = () => {
-  return (
-    <Stack1.Navigator>
-      <Stack1.Screen name="Logout" component={Logout} />
-    </Stack1.Navigator>
-  );
-};
+const PostsStack = createStackNavigator(
+  {
+    UserPosts,
+    PostScreen,
 
-const Stack2 = createStackNavigator();
+  }
+);
 
-const PostsStack = () => {
-  return (
-    <Stack2.Navigator>
-      <Stack2.Screen
-        name="UserPosts"
-        options={({ navigation }) => ({
-          title: "I tuoi post",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-              <Ionicons
-                name={"ios-menu"}
-                size={25}
-                style={{ marginLeft: 10 }}
-                color={Colors.blue}
-              ></Ionicons>
-            </TouchableOpacity>
-          )
-        })}
-        component={UserPosts}
-      />
-      <Stack2.Screen
-        name="PostScreen"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={PostScreen}
-      />
-    </Stack2.Navigator>
-  );
-};
+const ProfileStack = createStackNavigator(
+  {
+    ProfilePage,
+    PostScreen,
+    UserInfoModal,
+    BioScreen,
+    FormazioniScreen,
+    EsperienzeScreen,
+    ProgettiScreen,
+    FormazioneEditScreen,
+    CompetenzeScreen,
+    ProgettiEditScreen,
+    EsperienzeEditScreen
+  }
+);
 
-const Stack3 = createStackNavigator();
 
-const ProfileStack = () => {
-  return (
-    <Stack3.Navigator>
-      <Stack3.Screen
-        name="ProfilePage"
-        options={({ navigation }) => ({
-          title: "Profilo",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-              <Ionicons
-                name={"ios-menu"}
-                size={25}
-                style={{ marginLeft: 10 }}
-                color={Colors.blue}
-              ></Ionicons>
-            </TouchableOpacity>
-          )
-        })}
-        component={ProfilePage}
-      />
-      <Stack3.Screen
-        name="EditProfile"
-        options={{ headerShown: false }}
-        component={UserInfoModal}
-      />
-      <Stack3.Screen
-        name="BioScreen"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={BioScreen}
-      />
-      <Stack3.Screen
-        name="FormazioniScreen"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={FormazioniScreen}
-      />
-      <Stack3.Screen
-        name="EsperienzeScreen"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={EsperienzeScreen}
-      />
-      <Stack3.Screen
-        name="ProgettiScreen"
-        options={({ navigation }) => ({
-          title: "Progetti",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={ProgettiScreen}
-      />
-      <Stack3.Screen
-        name="FormazioneEditScreen"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={FormazioneEditScreen}
-      />
-      <Stack3.Screen
-        name="CompetenzeScreen"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={CompetenzeScreen}
-      />
-      <Stack3.Screen
-        name="EsperienzeEditScreen"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={EsperienzeEditScreen}
-      />
-      <Stack3.Screen
-        name="ProgettiEditScreen"
-        options={({ navigation }) => ({
-          title: "",
-          headerStyle,
-          headerTitleStyle,
-          headerLeft: () => <HeaderLeft navigation={navigation} />
-        })}
-        component={ProgettiEditScreen}
-      />
-    </Stack3.Navigator>
-  );
-};
-
-const Drawer = createDrawerNavigator();
-
-const ProfileDrawer = () => {
-  return (
-    <Drawer.Navigator
-      drawerContentOptions={{
-        activeTintColor: Colors.red,
-        inactiveTintColor: Colors.semiBlue,
-        labelStyle: {
-          fontFamily: "sequel-sans"
-        }
-      }}
-      drawerStyle={{
-        backgroundColor: Colors.blue,
-        width: 240
-      }}
-      initialRouteName={"Profilo"}
-      drawerPosition={"left"}
-    >
-      <Drawer.Screen name="Profilo" component={ProfileStack} />
-      <Drawer.Screen name="Impostazioni" component={SettingsStack} />
-      <Drawer.Screen name="Logout" component={LogoutStack} />
-      <Drawer.Screen name="Posts" component={PostsStack} />
-    </Drawer.Navigator>
-  );
-};
+const ProfileDrawer = createDrawerNavigator({
+  ProfileStack,
+  PostsStack,
+  LogoutStack,
+  SettingsStack
+},{
+  contentOptions:{
+    activeTintColor: Colors.red,
+    inactiveTintColor: Colors.semiBlue,
+    labelStyle: {
+      fontFamily: "sequel-sans"
+    }
+  }
+});
 
 export default ProfileDrawer;

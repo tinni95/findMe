@@ -6,7 +6,7 @@ let shortid = require("shortid");
 import EsperienzaEditCard from "../../../shared/components/Esperienze/EsperienzaEditCard";
 
 export default function EsperienzeScreen({ navigation, route }) {
-  const esperienze = route.params.esperienze;
+  const esperienze = navigation.getParam("esperienze",null)
   return (
     <View style={styles.container}>
       <Aggiungi
