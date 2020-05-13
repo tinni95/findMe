@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
-import { View, Platform } from "react-native";
+import { View } from "react-native";
 import InputToolbar from "../../../shared/components/InputToolbar";
 import TenditMessage from "../../../shared/components/Chat/TenditMessage";
 import { useMutation, useQuery } from "react-apollo";
-import { parsePostMessages } from "../../../shared/functions/ParsePostMessages";
+import { parsePostMessages,parsePostMessage } from "../../../shared/functions/ParsePostMessages";
 import { gql } from "apollo-boost";
+import SocketContext from "../../../shared/SocketContext"
 import { sendNotification } from "../../../shared/functions/PushNotifications";
 import HeaderLeft from "../../../shared/components/HeaderLeft";
+
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   mutation unseeApplicationChatChatMutation(
     $id: ID!
@@ -30,9 +32,13 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
     ) {
       id
       pub {
+        pictureUrl
+        id 
+        nome
         pushToken
       }
       text
+      createdAt
     }
   }
 `;
@@ -63,7 +69,7 @@ function wait(timeout) {
   });
 }
 
-export function ApplicationSentChat(props) {
+function ApplicationSentChat(props) {
   const [messages, setMessages] = useState([]);
   const id = props.navigation.getParam("id",null)
   const application =props.navigation.getParam("application",null)
@@ -79,6 +85,7 @@ export function ApplicationSentChat(props) {
         application.from.nome,
         createPostMessage.text
       );
+      setMessages([...messages,parsePostMessage(createPostMessage,id)]);
       unseeChat({ variables: { id: application.id, pubRead: false } });
     },
     onError: error => {
@@ -104,7 +111,15 @@ export function ApplicationSentChat(props) {
         subId: application.to.id
       }
     });
+ 
+    wait(100).then(()=>{
+      props.socket.socket.emit("chat message",application.to.id)
+    })
   };
+
+  useEffect(() => {
+    wait(500).then(()=>refetch())
+  },[props.socket.refetch]);
 
   const renderMessage = props => {
     return <TenditMessage {...props} />;
@@ -136,11 +151,19 @@ export function ApplicationSentChat(props) {
   );
 }
 
-ApplicationSentChat.navigationOptions = ({ navigation }) => {
+
+
+const ApplicationSentChatWS = props => (
+  <SocketContext.Consumer>
+    {socket => <ApplicationSentChat {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);
+
+ApplicationSentChatWS.navigationOptions = ({ navigation }) => {
   return {
     title:null,
     headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
   }
 }
 
-export default ApplicationSentChat;
+export default ApplicationSentChatWS;

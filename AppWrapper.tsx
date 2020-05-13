@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MainTabNavigator from "./navigation/MainTabNavigator";
 import io from "socket.io-client";
 import { socketEndPoint } from "./shared/constants/urls";
@@ -29,20 +29,32 @@ export default function AppWrapper({logout}) {
   const { data, loading,error } = useQuery(User);
 
   const [updateUser] = useMutation(UpdateUser);
+  const [refetch,setRefetch] = useState(124124123);
+  const [socket, setSocket] = useState(null)
 
   useEffect(() => {
     PushNotifications(updateUser);
   }, []);
 
-  if (loading) return <TenditSpinner />;
+  useEffect(() => {
+    if(!loading){
+    const socket=io(socketEndPoint, {
+      query: { token: data.currentUser.id }
+    })
+    socket.on("chat message", () => {
+      setRefetch(Math.floor(Math.random() * -1000))
+      console.log("message")
+    })
+    setSocket(socket)
+  }
+  }, [loading]);
+
+  if (loading||!socket) return <TenditSpinner />;
   else {
     if(data.currentUser){
       return (
         <SocketContext.Provider
-          value={io(socketEndPoint, {
-            query: { token: data.currentUser.id }
-          })}
-        >
+          value={{socket,refetch,setRefetch}}>
           <MainTabNavigator></MainTabNavigator>
         </SocketContext.Provider>
       );

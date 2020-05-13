@@ -6,6 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import ReceivedCard from "../../../shared/components/ReceivedCard";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import HeaderLeft from "../../../shared/components/HeaderLeft";
+import SocketContext from "../../../shared/SocketContext"
 var shortid = require("shortid");
 
 const APPLICATIONS_FOR_POST = gql`
@@ -92,7 +93,7 @@ function wait(timeout) {
   });
 }
 
-function ApplicationReceivedScreen({ route,navigation }) {
+function ApplicationReceivedScreen({ socket,navigation }) {
   
   const id= navigation.getParam("id",null)
 
@@ -113,6 +114,10 @@ function ApplicationReceivedScreen({ route,navigation }) {
     });
   };
 
+  useEffect(() => {
+    wait(1000).then(()=>refetch())
+  },[socket.refetch]);
+
   const [refreshing, setRefreshing] = useState(false);
   const { refetch, data, loading } = useQuery(APPLICATIONS_FOR_POST, {
     variables: { postId: id },
@@ -128,8 +133,13 @@ function ApplicationReceivedScreen({ route,navigation }) {
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
     onCompleted: () => {
       refetch();
+    socket.setRefetch(Math.floor(Math.random() * -1000))
     }
   });
+
+  useEffect(() => {
+    wait(1000).then(()=>refetch())
+  },[socket.refetch]);
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {
@@ -182,10 +192,19 @@ function ApplicationReceivedScreen({ route,navigation }) {
   );
 }
 
-ApplicationReceivedScreen.navigationOptions = ({ navigation }) => {
+
+const ApplicationReceivedScreenWS = props => (
+  <SocketContext.Consumer>
+    {socket => <ApplicationReceivedScreen {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);
+
+
+ApplicationReceivedScreenWS.navigationOptions = ({ navigation }) => {
   return {
     title:null,
     headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
   }
 }
-export default ApplicationReceivedScreen;
+
+export default ApplicationReceivedScreenWS;

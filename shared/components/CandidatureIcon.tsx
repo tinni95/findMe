@@ -29,10 +29,8 @@ function CandidatureIcon(props) {
   });
 
   useEffect(() => {
-    props.socket.on("postnotifica", msg => {
-      wait(1000).then(() => refetch());
-    });
-  });
+    wait(1000).then(()=>refetch())
+  },[props.socket.refetch]);
 
   if (loading) {
     return (

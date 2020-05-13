@@ -10,8 +10,8 @@ import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
 import PostApplicationCard from "../../../shared/components/PostApplicationCard";
 import { wait } from "../../../shared/functions/wait";
-import HeaderLeft from "../../../shared/components/HeaderLeft";
 import { headerTitleStyle } from "../../../shared/constants/HeaderStyles";
+import SocketContext from "../../../shared/SocketContext"
 var shortid = require("shortid");
 
 const User = gql`
@@ -85,7 +85,7 @@ const UNSEEAPPLICATIONCHAT_MUTATION = gql`
 `;
 
 
-function AttivitàScreen({ navigation }) {
+function AttivitàScreen({ navigation , socket}) {
 
   const [refreshing, setRefreshing] = useState(false);
   const [isRefetch, setRefetch] = useState(false);
@@ -97,6 +97,12 @@ function AttivitàScreen({ navigation }) {
     { key: "first", title: "Inviate" },
     { key: "second", title: "Ricevute" }
   ]);
+  useEffect(() => {
+    wait(500).then(()=>{
+      refetch();
+      setRefetch(!isRefetch);
+    })
+  },[socket.refetch]);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -108,6 +114,7 @@ function AttivitàScreen({ navigation }) {
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
     onCompleted: () => {
       refetch();
+      socket.setRefetch( Math.floor(Math.random() * -1000))
     }
   });
 
@@ -194,4 +201,11 @@ AttivitàScreen.navigationOptions = ({ navigation }) => {
   }
 }
 
-export default AttivitàScreen;
+const AttivitàScreenWS = props => (
+  <SocketContext.Consumer>
+    {socket => <AttivitàScreen {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);
+
+
+export default AttivitàScreenWS;
