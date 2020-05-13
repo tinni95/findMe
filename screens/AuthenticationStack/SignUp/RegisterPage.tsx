@@ -4,11 +4,9 @@ import { isSmallDevice } from "../../../shared/constants/Layout";
 import TenditTextInput from "../../../shared/components/TenditTextInput";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import { wait } from "../../../shared/functions/wait";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
-export default function RegisterPage({ navigation }) {
-  navigation.setOptions({
-    headerRight: () => <HeaderRight text={"Next"} onPress={() => login()} />
-  });
+ function RegisterPage({ navigation }) {
 
   const [name, setName] = useState<string>("");
   const [surname, setSurname] = useState<string>("");
@@ -99,3 +97,13 @@ const styles = StyleSheet.create({
   },
   spacer: { height: 20 }
 });
+
+
+RegisterPage.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+    headerRight: () => <HeaderRight text={"Next"} onPress={() => navigation.getParam("login",null)()} />
+  }
+}
+export default RegisterPage;

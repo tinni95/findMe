@@ -4,18 +4,15 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import { Light, Body } from "./StyledText";
 
-
 type HeaderProps = {
-  navigation: any;
+  onPress:any;
   text?: string;
-  route?:AnalyserOptions;
 };
 
-const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) => (
+const HeaderLeft: FunctionComponent<HeaderProps> = ({ onPress,text }) => (
   <TouchableOpacity
-    style={{ flexDirection: "row", paddingLeft:10,paddingRight:10 }}
-    onPress={() => {
-      navigation.goBack()}}
+    style={{ flexDirection: "row", paddingLeft:10,paddingRight:10  }}
+    onPress={onPress}
   >
     <Ionicons
       name={"ios-arrow-back"}
@@ -25,7 +22,6 @@ const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) 
     ></Ionicons>
     <Body
       style={{
-
         color: Colors.blue,
         marginLeft: 20,
         alignSelf: "center",

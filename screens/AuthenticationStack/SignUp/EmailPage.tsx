@@ -5,13 +5,12 @@ import TenditTextInput from "../../../shared/components/TenditTextInput";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import { validateEmail } from "../validators";
 import { wait } from "../../../shared/functions/wait";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
-export default function EmailPage({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => <HeaderRight text={"Next"} onPress={() => login()} />
-  });
+export default function EmailPage({ navigation }) {
 
-  const { user, emailUsed } = route.params;
+  const user = navigation.getParam("user",null)
+  const emailUsed = navigation.getParam("emailUsed",null)
   const [email, setEmail] = useState("");
   const [reEmail, setReEmail] = useState("");
   const [emailError, setEmailError] = useState<any>(undefined);
@@ -102,3 +101,11 @@ const styles = StyleSheet.create({
   },
   spacer: { height: 20 }
 });
+
+EmailPage.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+    headerRight: () => <HeaderRight text={"Next"} onPress={() => navigation.getParam("login",null)()} />
+  }
+}

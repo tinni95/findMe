@@ -1,7 +1,6 @@
 import { AppLoading } from "expo";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, AsyncStorage } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
 import AuthenticationStack from "./navigation/AuthenticationStack";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
@@ -74,13 +73,11 @@ export default function App() {
             value={{ logout: () => logout(), login: () => login() }}
           >
             <PaperProvider theme={theme}>
-              <NavigationContainer>
                 {!loggedIn ? (
                   <AuthenticationStack></AuthenticationStack>
                 ) : (
                   <AppWrapper logout={() => logout()}></AppWrapper>
                 )}
-              </NavigationContainer>
             </PaperProvider>
           </LoginContext.Provider>
         </ApolloProvider>
@@ -91,7 +88,9 @@ export default function App() {
 
 async function loadResourcesAsync() {
   await Promise.all([
-    Asset.loadAsync([require("./assets/images/Logo_tendit.png")]),
+    Asset.loadAsync([require("./assets/images/arrows.png"),
+    require("./assets/images/homeIcon.png")
+  ]),
     Font.loadAsync({
       "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
       Avenir: require("./assets/fonts/avenir.otf"),

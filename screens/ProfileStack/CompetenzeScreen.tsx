@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   TouchableOpacity,
@@ -16,6 +16,7 @@ import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import HeaderRight from "../../shared/components/HeaderRight";
 import { LinearGradient } from "expo-linear-gradient";
+import HeaderLeft from "../../shared/components/HeaderLeft";
 let shortid = require("shortid");
 
 const UPDATEUSER_MUTATION = gql`
@@ -27,17 +28,18 @@ const UPDATEUSER_MUTATION = gql`
 `;
 
 export default function CompetenzeScreen({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => (
-      <HeaderRight
-        text={"Conferma"}
-        onPress={() =>
-          updateUser({ variables: { competenze: { set: competenze } } })
-        }
-      />
-    )
-  });
+  //hooks
+  const [competenze, setCompetenze] = useState(navigation.getParam("competenze",null));
+  const scrollViewRef = useRef<any>();
+  const [text, setText] = useState<string>("");
+  const [active, setActive] = useState<number>(-1);
+  useEffect(() => {
+    navigation.setParams({ action });
+  }, [competenze]);
   //mutation
+  const action = () => {
+    updateUser({ variables: { competenze: { set: competenze } } })
+  }
   const [updateUser] = useMutation(UPDATEUSER_MUTATION, {
     onCompleted: async ({ updateUser }) => {
       navigation.navigate("ProfilePage", {
@@ -45,11 +47,7 @@ export default function CompetenzeScreen({ navigation, route }) {
       });
     }
   });
-  //hooks
-  const [competenze, setCompetenze] = useState(route.params.competenze);
-  const scrollViewRef = useRef<any>();
-  const [text, setText] = useState<string>("");
-  const [active, setActive] = useState<number>(-1);
+
   //functions
   let filteredItems = Requisiti.filter(item =>
     item.toLowerCase().includes(text.toLowerCase())
@@ -183,3 +181,11 @@ const styles = StyleSheet.create({
     height: 1.5
   }
 });
+
+CompetenzeScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft : () => <HeaderLeft navigation={navigation}></HeaderLeft>,
+    title:"",
+    headerRight: () => <HeaderRight text={"Conferma"} onPress={() => navigation.getParam("action",null)()} />
+  }
+}

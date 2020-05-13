@@ -1,5 +1,9 @@
 {
   "expo": {
+    "android": {
+      "package": "com.diverseagency.tendit",
+      "versionCode": 1
+    },
     "hooks": {
       "postPublish": [
         {
@@ -12,21 +16,13 @@
         }
       ]
     },
-    "name": "tendit",
-    "slug": "tendit",
-    "privacy": "public",
-    "sdkVersion": "35.0.0",
-    "android": {
-      "package": "com.tendit.tendit"
-    },
-    "facebookScheme": "fb822183698200481",
-    "facebookAppId": "822183698200481",
-    "facebookDisplayName": "FindMe",
-    "platforms": ["ios", "android", "web"],
-    "packagerOpts": {
-      "config": "metro.config.js",
-      "sourceExts": ["js", "jsx", "ts", "tsx", "svg"]
-    },
+    "name": "Tendit",
+    "slug": "Tendit",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -38,11 +34,11 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": false,
-      "bundleIdentifier": "com.diverseagency.tendit",
-      "buildNumber": "1.0.0"
+      "supportsTablet": true
     }
   }
 }

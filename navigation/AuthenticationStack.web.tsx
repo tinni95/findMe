@@ -1,4 +1,5 @@
-import { createAppContainer } from 'react-navigation';
+
+import { createBrowserApp } from "@react-navigation/web";
 import { createStackNavigator } from 'react-navigation-stack';
 import {
   LoginScreen,
@@ -20,4 +21,6 @@ const AppNavigator = createStackNavigator({
   PasswordForgot
 });
 
-export default createAppContainer(AppNavigator);
+
+export default createBrowserApp(AppNavigator, { history: "hash" });
+

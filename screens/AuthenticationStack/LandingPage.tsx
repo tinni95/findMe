@@ -73,3 +73,9 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+LandingPage.navigationOptions = ({ navigation }) => {
+  return {
+    header:null
+  }
+}

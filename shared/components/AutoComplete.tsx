@@ -17,10 +17,7 @@ import Colors from "../constants/Colors";
 const shortid = require("shortid");
 
 function AutoComplete({ navigation, route }) {
-  navigation.setOptions({ title: "" });
-  let items = route.params?.items ?? "";
-  let path = route.params?.path ?? "";
-  let isFor = route.params?.for ?? "";
+  let{items, path, isFor} = navigation.state.params;
   const [text, setText] = useState("");
   const passwordInput = useRef<any>();
   let filteredItems = items.filter(item =>
@@ -127,5 +124,11 @@ const styles = StyleSheet.create({
     fontSize: 16
   }
 });
+
+AutoComplete.navigationOptions = ({ navigation }) => {
+  return {
+    header:null
+  }
+}
 
 export default AutoComplete;

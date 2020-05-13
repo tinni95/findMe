@@ -16,9 +16,9 @@ import { LinearGradient } from "expo-linear-gradient";
 const shortid = require("shortid");
 
 function AutoCompleteLocation({ navigation, route }) {
-  let path = route.params?.path;
+  let path = navigation.getParam("path",null)
+  console.log(path)
   const [text, setText] = useState("null");
-  navigation.setOptions({ title: "" });
   const Input = useRef<any>();
   let filteredComuni = Comuni.filter(comune =>
     comune.città.toLowerCase().includes(text.toLowerCase())
@@ -111,5 +111,11 @@ const styles = StyleSheet.create({
     fontSize: 16
   }
 });
+
+AutoCompleteLocation.navigationOptions = ({ navigation }) => {
+  return {
+    header:null
+  }
+}
 
 export default AutoCompleteLocation;

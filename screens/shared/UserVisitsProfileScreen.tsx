@@ -20,9 +20,10 @@ import { Body, Bold } from "../../shared/components/StyledText";
 import Colors from "../../shared/constants/Colors";
 import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import TenditErrorDisplay from "../../shared/graphql/TenditErrorDisplay";
-import SocketContext from "../../shared/SocketContext";
+
 import BioBlockVisit from "../../shared/components/Bio/BioBlockVisit";
 import {sortEsperienze} from "../../shared/functions/sortEsperienze";
+import HeaderLeft from "../../shared/components/HeaderLeft";
 
 const User = gql`
   query UserProfile($id: ID!) {
@@ -70,10 +71,10 @@ const User = gql`
   }
 `;
 
-export function UserVisitProfile({ navigation, route }) {
-  const id = route.params.id;
+function UserVisitProfile({ navigation, route }) {
+  const id =navigation.getParam("id",null)
+  const isRefetch =navigation.getParam("refetch",null)
   const [modalVisbile, setModalVisible] = useState(false);
-  const isRefetch = route.param?.refetch ?? false;
   const { loading, error, data, refetch } = useQuery(User, {
     variables: { id },
     fetchPolicy: "no-cache",
@@ -83,9 +84,9 @@ export function UserVisitProfile({ navigation, route }) {
     return (
       <View style={styles.infoWrapper}>
         {<BioBlockVisit bio={data.User.presentazione}></BioBlockVisit>}
-       {data.User.formazioni.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("FormazioniScreen",{formazioni:sortEsperienze(data.User.formazioni)})} items={sortEsperienze(data.User.formazioni)} title={"Formazioni"} />
+       {data.User.formazioni.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("FormazioniVisitScreen",{formazioni:sortEsperienze(data.User.formazioni)})} items={sortEsperienze(data.User.formazioni)} title={"Formazioni"} />
         <View style={styles.separator}></View></View>}
-        {data.User.esperienze.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("EsperienzeScreen",{esperienze:sortEsperienze(data.User.esperienze)})} items={sortEsperienze(data.User.esperienze)} title={"Esperienze"} />
+        {data.User.esperienze.length>0&& <View><ItemsBlockVisit onPress={() => navigation.navigate("EsperienzeVisitScreen",{esperienze:sortEsperienze(data.User.esperienze)})} items={sortEsperienze(data.User.esperienze)} title={"Esperienze"} />
         <View style={styles.separator}></View></View>}
         {data.User.competenze.length>0&&<View><CompetenzeBlockVisit
           competenze={data.User.competenze}
@@ -190,13 +191,7 @@ export function UserVisitProfile({ navigation, route }) {
   );
 }
 
-const UserVisitProfileWS = props => (
-  <SocketContext.Consumer>
-    {socket => <UserVisitProfile {...props} socket={socket} />}
-  </SocketContext.Consumer>
-);
 
-export default UserVisitProfileWS;
 
 const styles = StyleSheet.create({
   userWrapper: {
@@ -253,3 +248,13 @@ const styles = StyleSheet.create({
     minHeight: 500
   }
 });
+
+
+UserVisitProfile.navigationOptions = ({ navigation }) => {
+  return {
+    title:"",
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
+}
+
+export default UserVisitProfile;

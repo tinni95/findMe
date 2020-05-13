@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
-import { View, Platform } from "react-native";
+import { View } from "react-native";
 import InputToolbar from "../../../shared/components/InputToolbar";
 import TenditMessage from "../../../shared/components/Chat/TenditMessage";
 import { useMutation, useQuery } from "react-apollo";
-import { parsePostMessages } from "../../../shared/functions/ParsePostMessages";
+import { parsePostMessages,parsePostMessage } from "../../../shared/functions/ParsePostMessages";
 import { gql } from "apollo-boost";
-import KeyboardSpacer from "react-native-keyboard-spacer";
+import SocketContext from "../../../shared/SocketContext"
 import { sendNotification } from "../../../shared/functions/PushNotifications";
-import { isSmallDevice } from "../../../shared/constants/Layout";
-import io from "socket.io-client";
-import { socketEndPoint } from "../../../shared/constants/urls";
-import moment from "moment/min/moment-with-locales";
-import SocketContext from "../../../shared/SocketContext";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   mutation unseeApplicationChatChatMutation(
@@ -36,9 +32,13 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
     ) {
       id
       pub {
+        pictureUrl
+        id 
+        nome
         pushToken
       }
       text
+      createdAt
     }
   }
 `;
@@ -69,10 +69,10 @@ function wait(timeout) {
   });
 }
 
-export function ApplicationSentChat(props) {
+function ApplicationSentChat(props) {
   const [messages, setMessages] = useState([]);
-  const id = props.route.params?.id;
-  const application = props.route.params?.application;
+  const id = props.navigation.getParam("id",null)
+  const application =props.navigation.getParam("application",null)
   const { loading, error, data, refetch } = useQuery(MESSAGES_QUERY, {
     variables: { id: application.id },
   });
@@ -85,40 +85,12 @@ export function ApplicationSentChat(props) {
         application.from.nome,
         createPostMessage.text
       );
+      setMessages([...messages,parsePostMessage(createPostMessage,id)]);
       unseeChat({ variables: { id: application.id, pubRead: false } });
-      this.sockettino.emit("chat message", application.id);
-      props.socket.emit("postnotifica", application.to.id);
     },
     onError: error => {
       alert("Qualcosa è andato storto");
     }
-  });
-
-  useEffect(() => {
-    this.sockettino = io(socketEndPoint, { query: { token: application.id } });
-    const didBlurSubscription = props.navigation.addListener(
-      "didBlur",
-      payload => {
-        console.debug("didBlur", payload);
-        this.sockettino.emit("pocho", "");
-        didBlurSubscription.remove();
-      }
-    );
-    moment.locale("it");
-  }, []);
-
-  useEffect(() => {
-    this.sockettino.on(
-      "chat message",
-      msg => {
-        wait(500)
-          .then(() => refetch())
-          .then(() => {
-            unseeChat({ variables: { id: application.id, subRead: true } });
-          });
-      },
-      []
-    );
   });
 
   useEffect(() => {
@@ -139,7 +111,15 @@ export function ApplicationSentChat(props) {
         subId: application.to.id
       }
     });
+ 
+    wait(100).then(()=>{
+      props.socket.socket.emit("chat message",application.to.id)
+    })
   };
+
+  useEffect(() => {
+    wait(500).then(()=>refetch())
+  },[props.socket.refetch]);
 
   const renderMessage = props => {
     return <TenditMessage {...props} />;
@@ -167,15 +147,23 @@ export function ApplicationSentChat(props) {
           }
         }}
       />
-   <KeyboardSpacer topSpacing={(isSmallDevice ? 20 :30)} />
     </View>
   );
 }
+
+
 
 const ApplicationSentChatWS = props => (
   <SocketContext.Consumer>
     {socket => <ApplicationSentChat {...props} socket={socket} />}
   </SocketContext.Consumer>
 );
+
+ApplicationSentChatWS.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
+}
 
 export default ApplicationSentChatWS;

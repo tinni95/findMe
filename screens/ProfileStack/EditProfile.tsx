@@ -25,6 +25,7 @@ import TenditSpinner from "../../shared/graphql/TenditSpinner";
 import HeaderRight from "../../shared/components/HeaderRight";
 import ZoomButton from "../../shared/components/ZoomButton";
 import { LinearGradient } from "expo-linear-gradient";
+import HeaderLeftWithRoute from "../../shared/components/HeaderLeftWithRoute";
 const _ = require("lodash");
 const UPDATEUSER_MUTATION = gql`
   mutation updateUser(
@@ -59,16 +60,12 @@ const UPDATEUSER_MUTATION = gql`
   }
 `;
 
-export default function EditProfile({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => (
-      <HeaderRight text={"Conferma"} onPress={() => handlePress()} />
-    )
-  });
-  //passedLocation (autocomplete)
-  const passedComune = route.params?.comune ?? "";
-  const passedRegione = route.params?.regione ?? "";
-  const passedProvincia = route.params?.provincia ?? "";
+ function EditProfile({ navigation, route }) {
+
+  const {currentUser} = navigation.state.params;
+  const passedComune= navigation.getParam("comune",null)
+  const passedProvincia= navigation.getParam("provincia",null)
+  const passedRegione= navigation.getParam("regione",null)
   //useEffect
   useEffect(() => {
     passedComune ? setComune(passedComune) : null;
@@ -77,7 +74,6 @@ export default function EditProfile({ navigation, route }) {
   });
   //hooks
   const [loading, setLoading] = useState(false);
-  const currentUser = route.params?.currentUser ?? "";
   const [zoom, setZoom] = useState(false);
   const [visibleDate, setVisibleDate] = useState(false);
   const [nome, setNome] = useState(currentUser.nome);
@@ -139,6 +135,10 @@ export default function EditProfile({ navigation, route }) {
       setBase64(result.base64);
     }
   };
+
+  useEffect(() => {
+    navigation.setParams({ handlePress });
+  }, [nome, cognome, regione, provincia, comune]);
 
   const handlePress = () => {
     if (nome.length === 0) {
@@ -294,7 +294,7 @@ export default function EditProfile({ navigation, route }) {
                 }
                 onFocus={() =>
                   navigation.navigate("AutoCompleteLocation", {
-                    path: "Edit"
+                    path: "EditProfile"
                   })
                 }
                 placeholder={"Comune, provincia, regione"}
@@ -365,3 +365,13 @@ const styles = StyleSheet.create({
     margin: 35
   }
 });
+
+EditProfile.navigationOptions = ({ navigation }) => {
+  return {
+    title:"",
+    headerLeft: <HeaderLeftWithRoute onPress={ () => navigation.navigate("ProfilePage")}></HeaderLeftWithRoute>,
+    headerRight: () => <HeaderRight text={"Conferma"} onPress={() => navigation.getParam("handlePress",null)()} />
+  }
+}
+
+export default EditProfile

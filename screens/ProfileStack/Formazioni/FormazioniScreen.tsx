@@ -5,9 +5,10 @@ import Aggiungi from "../../../shared/components/Aggiungi";
 
 let shortid = require("shortid");
 import FormazioneEditCard from "../../../shared/components/Formazioni/FormazioneEditCard";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
 export default function FormazioniScreen({ navigation, route }) {
-  const formazioni = route.params.formazioni;
+  const formazioni =navigation.getParam("formazioni",null)
   return (
     <ScrollView style={styles.container}>
       <Aggiungi
@@ -44,3 +45,10 @@ const styles = StyleSheet.create({
     fontSize: 12
   }
 });
+
+FormazioniScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
+}

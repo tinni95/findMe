@@ -9,10 +9,9 @@ import FormTextInput from "../../shared/components/Form/FormTextInput";
 import { FormStyles } from "../../shared/components/Form/FormStyles";
 import WithErrorString from "../../shared/components/Form/WithErrorString";
 
-export default function Descrizione({ navigation, route }) {
-  const requisiti = route.params?.requisiti
-  const categoria = route.params?.categoria
-  const servizio = route.params?.servizio
+export default function Descrizione({ navigation }) {
+  const {requisiti,categoria,servizio} =
+  navigation.state.params
   const [descrizione, setDescrizione] = useState<any>("");
   const [descrizioneError, setDescrizioneError] = useState<boolean>(false);
 
@@ -97,3 +96,7 @@ const styles = StyleSheet.create({
     color: "#5F5E5E"
   }
 });
+
+Descrizione.navigationOptions = {
+  header:null
+}

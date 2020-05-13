@@ -8,8 +8,10 @@ import SentCard from "../../../shared/components/SentCard";
 import TabBars from "../../../shared/components/TabBars";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
 import { reOrderApplications } from "../../../shared/functions/reOrderApplications";
-import SocketContext from "../../../shared/SocketContext";
 import PostApplicationCard from "../../../shared/components/PostApplicationCard";
+import { wait } from "../../../shared/functions/wait";
+import { headerTitleStyle } from "../../../shared/constants/HeaderStyles";
+import SocketContext from "../../../shared/SocketContext"
 var shortid = require("shortid");
 
 const User = gql`
@@ -82,18 +84,8 @@ const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   }
 `;
 
-function wait(timeout) {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-}
 
-function AttivitàScreen({ navigation, socket }) {
-  useEffect(() => {
-    socket.on("postnotifica", msg => {
-      wait(1000).then(() => refetch());
-    });
-  });
+function AttivitàScreen({ navigation , socket}) {
 
   const [refreshing, setRefreshing] = useState(false);
   const [isRefetch, setRefetch] = useState(false);
@@ -105,6 +97,12 @@ function AttivitàScreen({ navigation, socket }) {
     { key: "first", title: "Inviate" },
     { key: "second", title: "Ricevute" }
   ]);
+  useEffect(() => {
+    wait(500).then(()=>{
+      refetch();
+      setRefetch(!isRefetch);
+    })
+  },[socket.refetch]);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -116,6 +114,7 @@ function AttivitàScreen({ navigation, socket }) {
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
     onCompleted: () => {
       refetch();
+      socket.setRefetch( Math.floor(Math.random() * -1000))
     }
   });
 
@@ -147,9 +146,7 @@ function AttivitàScreen({ navigation, socket }) {
                     id: application.id,
                     subRead: true
                   }
-                }).then(()=>{
-                  socket.emit("postnotifica",application.from.id);
-                });
+                })
               }}
               application={application}
               key={shortid.generate()}
@@ -197,10 +194,18 @@ function AttivitàScreen({ navigation, socket }) {
   );
 }
 
+AttivitàScreen.navigationOptions = ({ navigation }) => {
+  return {
+    title:"Candidature",
+    headerTitleStyle: headerTitleStyle
+  }
+}
+
 const AttivitàScreenWS = props => (
   <SocketContext.Consumer>
     {socket => <AttivitàScreen {...props} socket={socket} />}
   </SocketContext.Consumer>
 );
+
 
 export default AttivitàScreenWS;

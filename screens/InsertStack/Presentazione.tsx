@@ -36,9 +36,8 @@ export default function Presentazione({ navigation, route }) {
   let input2 = useRef<any>();
   let scrollview = useRef<ScrollView | null>();
   //navigation filling values
-  const passedComune = route.params?.comune ?? data.postComune;
-  const passedProvincia = route.params?.provincia ?? data.postProvincia;
-  const passedRegione = route.params?.regione ?? data.postRegione;
+  const {passedComune, passedProvincia, passedRegione} = navigation.state.params;
+
   const [zoom, setZoom] = useState(false);
   const [comune, setComune] = useState<string>("");
   const [regione, setRegione] = useState<string>("");
@@ -211,3 +210,7 @@ const styles = StyleSheet.create({
     color: "#5F5E5E"
   }
 });
+
+Presentazione.navigationOptions = {
+  header:null
+}

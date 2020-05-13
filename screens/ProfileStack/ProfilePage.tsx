@@ -22,6 +22,7 @@ import ItemsBlock from "../../shared/components/ItemsBlock";
 import CompetenzeBlock from "../../shared/components/Competenze/CompetenzeBlock";
 import {sortEsperienze} from "../../shared/functions/sortEsperienze";
 import BioBlock from "../../shared/components/Bio/BioBlock";
+import { HeaderTitle } from "react-navigation-stack";
 
 const User = gql`
   {
@@ -71,15 +72,14 @@ const User = gql`
 `;
 
 export default function ProfilePage({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => <TouchablePen size={22}></TouchablePen>
-  });
 
-  const isRefetch = route.params?.refetch ?? null;
+  const isRefetch = navigation.getParam("refetch",null)
+
   const [modalVisbile, setModalVisible] = useState(false);
   const { loading, error, data, refetch } = useQuery(User);
 
   useEffect(() => {
+    console.log("isRefetch",isRefetch)
     isRefetch ? refetch() : null;
   }, [isRefetch]);
 
@@ -98,20 +98,6 @@ export default function ProfilePage({ navigation, route }) {
       : { props: { source: require("../../assets/images/placeholder.png") } }
   ];
   if (error) return <TenditErrorDisplay />;
-
-  navigation.setOptions({
-    headerRight: () => (
-      <TouchablePen
-        onPress={() => {
-          navigation.navigate("EditProfile", {
-            screen: "Edit",
-            params: { currentUser: data.currentUser }
-          });
-        }}
-        size={22}
-      ></TouchablePen>
-    )
-  });
 
   const Profilo = () => {
     return (
@@ -297,3 +283,29 @@ const styles = StyleSheet.create({
     minHeight: 500
   }
 });
+
+ProfilePage.navigationOptions = ({ navigation }) => {
+  return {
+    title:"",
+    headerRight: () => (
+      <TouchablePen
+        onPress={() => {
+          navigation.navigate("EditProfile", {
+             currentUser: navigation.getParam("currentUser",null)
+          });
+        }}
+        size={22}
+      />
+    ),
+    headerLeft: () => (
+      <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+        <Ionicons
+          name={"ios-menu"}
+          size={25}
+          style={{ marginLeft: 10 }}
+          color={Colors.blue}
+        ></Ionicons>
+      </TouchableOpacity>
+    )
+  }
+}

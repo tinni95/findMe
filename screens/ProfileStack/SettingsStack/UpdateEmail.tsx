@@ -7,6 +7,7 @@ import { validateEmail } from "../../AuthenticationStack/validators";
 import { gql } from "apollo-boost";
 import { useMutation } from "react-apollo";
 import { wait } from "../../../shared/functions/wait";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 const UPDATE_EMAIL = gql`
   mutation UpdateEmail($email: String!) {
     updateEmail(email: $email) {
@@ -16,11 +17,7 @@ const UPDATE_EMAIL = gql`
 `;
 
 export default function UpdateEmail({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => (
-      <HeaderRight text={"Conferma"} onPress={() => action()} />
-    )
-  });
+
   const [updateEmail] = useMutation(UPDATE_EMAIL, {
     onCompleted: () => {
       alert("email aggiornata, per favore verifica la nuova mail");
@@ -43,6 +40,10 @@ export default function UpdateEmail({ navigation, route }) {
   useEffect(() => {
     wait(500).then(() => preinput.current.focus());
   }, []);
+
+  useEffect(() => {
+    navigation.setParams({ action });
+  }, [email,reEmail]);
 
   const action = () => {
     if (!validateEmail(email)) {
@@ -136,3 +137,11 @@ const styles = StyleSheet.create({
   },
   spacer: { height: 20 }
 });
+
+UpdateEmail.navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft : () => <HeaderLeft navigation={navigation}></HeaderLeft>,
+    title:"",
+    headerRight: () => <HeaderRight text={"Conferma"} onPress={() => navigation.getParam("action",null)()} />
+  }
+}

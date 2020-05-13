@@ -15,12 +15,9 @@ const PASSWORD_RESET_MUTATION = gql`
   }
 `;
 
-export default function PasswordForgot({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => <HeaderRight text={"Next"} onPress={() => login()} />
-  });
+export default function PasswordForgot({ navigation }) {
 
-  const passedEmail = route.params?.email;
+  const passedEmail = navigation.getParam("email",null);
   const [resetComplete, setResetComplete] = useState<any>(false);
   const [email, setEmail] = useState(passedEmail);
   const [emailError, setEmailError] = useState<any>(undefined);
@@ -92,3 +89,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   }
 });
+
+PasswordForgot.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+    headerRight: () => <HeaderRight text={"Next"} onPress={() => navigation.getParam("login",null)()} />
+  }
+}

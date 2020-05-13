@@ -6,7 +6,8 @@ let shortid = require("shortid");
 import ProgettoEditCard from "../../../shared/components/Progetti/ProgettoEditCard";
 
 export default function ProgettiScreen({ navigation, route }) {
-  const progetti = route.params.progetti;
+  const progetti =navigation.getParam("progetti",null)
+
   return (
     <View style={styles.container}>
       <Aggiungi

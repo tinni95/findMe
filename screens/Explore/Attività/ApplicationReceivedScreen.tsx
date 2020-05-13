@@ -5,7 +5,8 @@ import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import ReceivedCard from "../../../shared/components/ReceivedCard";
 import TenditSpinner from "../../../shared/graphql/TenditSpinner";
-import SocketContext from "../../../shared/SocketContext";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
+import SocketContext from "../../../shared/SocketContext"
 var shortid = require("shortid");
 
 const APPLICATIONS_FOR_POST = gql`
@@ -92,13 +93,9 @@ function wait(timeout) {
   });
 }
 
-function ApplicationReceivedScreen({ route,navigation, socket }) {
-  const id= route.params?.id;
-  useEffect(() => {
-    socket.on("postnotifica", msg => {
-      wait(1000).then(() => refetch());
-    });
-  });
+function ApplicationReceivedScreen({ socket,navigation }) {
+  
+  const id= navigation.getParam("id",null)
 
   const onClosePosition = application => {
     closePosition({
@@ -117,6 +114,10 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
     });
   };
 
+  useEffect(() => {
+    wait(1000).then(()=>refetch())
+  },[socket.refetch]);
+
   const [refreshing, setRefreshing] = useState(false);
   const { refetch, data, loading } = useQuery(APPLICATIONS_FOR_POST, {
     variables: { postId: id },
@@ -132,8 +133,13 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION, {
     onCompleted: () => {
       refetch();
+    socket.setRefetch(Math.floor(Math.random() * -1000))
     }
   });
+
+  useEffect(() => {
+    wait(1000).then(()=>refetch())
+  },[socket.refetch]);
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {
@@ -174,9 +180,7 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
                     id: application.id,
                     pubRead: true
                   }
-                }).then(()=>{
-                  socket.emit("postnotifica",application.to.id);
-                });
+                })
               }}
               navigation={navigation}
               key={shortid.generate()}
@@ -188,10 +192,19 @@ function ApplicationReceivedScreen({ route,navigation, socket }) {
   );
 }
 
+
 const ApplicationReceivedScreenWS = props => (
   <SocketContext.Consumer>
     {socket => <ApplicationReceivedScreen {...props} socket={socket} />}
   </SocketContext.Consumer>
 );
+
+
+ApplicationReceivedScreenWS.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+  }
+}
 
 export default ApplicationReceivedScreenWS;

@@ -12,6 +12,7 @@ import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import ZoomButton from "../../../shared/components/ZoomButton";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
 const UPDATEUSER_MUTATION = gql`
   mutation updateUser($esperienze: EsperienzaCreateManyInput) {
@@ -46,12 +47,8 @@ const UPDATEESPERIENZA_MUTATION = gql`
 `;
 
 export default function EsperienzeEditScreen({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => (
-      <HeaderRight text={"Conferma"} onPress={() => handlePress()} />
-    )
-  });
-  const esperienza = route.params?.esperienza ?? null;
+
+  const esperienza = navigation.getParam("esperienza",null)
   let preInput = useRef<any>();
   let positionTitle = useRef<any>();
   useEffect(() => {
@@ -96,6 +93,10 @@ export default function EsperienzeEditScreen({ navigation, route }) {
       });
     }
   });
+
+  useEffect(() => {
+    navigation.setParams({ handlePress });
+  }, [compagnia,dataInizio,descrizione,dataFine, posizione]);
 
   const handlePress = async () => {
     if (compagnia.length === 0) {
@@ -245,3 +246,11 @@ const styles = StyleSheet.create({
   },
   separator: { height: 20 }
 });
+
+EsperienzeEditScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft : () => <HeaderLeft navigation={navigation}></HeaderLeft>,
+    title:"",
+    headerRight: () => <HeaderRight text={"Conferma"} onPress={() => navigation.getParam("handlePress",null)()} />
+  }
+}

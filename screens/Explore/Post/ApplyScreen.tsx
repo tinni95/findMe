@@ -70,9 +70,9 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
   }
 `;
 
-function ApplyScreen({ route, navigation, socket }) {
-  const refetch = route.params.refetch;
-  const post = route.params.post;
+function ApplyScreen({  navigation, socket }) {
+  const refetch = navigation.getParam("refetch",null)
+  const post = navigation.getParam("post",null)
   const { data, loading } = useQuery(UserNome, { fetchPolicy: "no-cache" });
   const [messaggio, setMessaggio] = useState("");
   const [UnseeApplication] = useMutation(UNSEEAPPLICATION_MUTATION);

@@ -11,6 +11,7 @@ import gql from "graphql-tag";
 import ZoomButton from "../../../shared/components/ZoomButton";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import LINK_REGEX from "../../../shared/constants/linkRegex";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
 const UPDATEUSER_MUTATION = gql`
   mutation updateUser($formazioni: FormazioneCreateManyInput) {
@@ -46,15 +47,10 @@ const UPDATEFORMAZIONE_MUTATION = gql`
   }
 `;
 
-export default function FormazioneEditScreen({ navigation, route }) {
-  navigation.setOptions({
-    headerRight: () => (
-      <HeaderRight text={"Conferma"} onPress={() => handlePress()} />
-    )
-  });
+export default function FormazioneEditScreen({ navigation }) {
   const preInput = useRef<any>();
   const corsoInput = useRef<any>();
-  const formazione = route.params?.formazione ?? null;
+  const formazione = navigation.getParam("formazione",null)
   useEffect(() => {
     !formazione && preInput.current.focus();
   }, []);
@@ -100,18 +96,16 @@ export default function FormazioneEditScreen({ navigation, route }) {
     }
   });
 
+  useEffect(() => {
+    navigation.setParams({ handlePress });
+  }, [istituto,dataInizio,corso,dataFine, descrizione]);
+
   const handlePress = async () => {
     if (istituto.length === 0) {
       setIstitutoError(true);
     } else {
       setIstitutoError(false);
     }
-    if (!(link.length == 0) && !link.match(LINK_REGEX)) {
-      setLinkError(true);
-    } else {
-      setLinkError(false);
-    }
-
     if (corso.length === 0) {
       setCorsoError(true);
     } else {
@@ -255,3 +249,11 @@ const styles = StyleSheet.create({
   },
   separator: { height: 20 }
 });
+
+FormazioneEditScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft : () => <HeaderLeft navigation={navigation}></HeaderLeft>,
+    title:"",
+    headerRight: () => <HeaderRight text={"Conferma"} onPress={() => navigation.getParam("handlePress",null)()} />
+  }
+}

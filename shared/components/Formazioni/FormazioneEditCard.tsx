@@ -27,18 +27,6 @@ export default function FormazioneEditCard({ formazione, navigation }) {
         <View style={styles.textContainer}>
           <Light>{formazione.descrizione}</Light>
         </View>
-        {formazione.link.length > 0 && (
-          <View style={{ marginTop: 10, marginLeft: 6 }}>
-            <Bold
-              onPress={() =>
-                WebBrowser.openBrowserAsync(adjustLink(formazione.link))
-              }
-              style={styles.link}
-            >
-              LINK
-            </Bold>
-          </View>
-        )}
       </View>
     </View>
   );

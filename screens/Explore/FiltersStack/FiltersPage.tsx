@@ -12,14 +12,16 @@ import { Comuni } from "../../../shared/constants/Comuni";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import RoundButton from "../../../shared/components/RoundButton";
 import Colors from "../../../shared/constants/Colors";
+import HeaderLeft from "../../../shared/components/HeaderLeftWithRoute";
 
-export default function FiltersPage({ navigation, route }) {
+export default function FiltersPage({ navigation }) {
+  console.log(navigation.state.params)
   const [reset, setReset] = useState(false);
-  let settore = route.params?.settore ?? [];
+  let settore = navigation.getParam("settore",[]) || [];
   const [settori, setSettori] = useState(settore);
-  const [regione, setRegione] = useState(route.params?.regione ?? null);
-  const [provincia, setProvincia] = useState(route.params?.provincia ?? null);
-  const [comune, setComune] = useState(route.params?.comune ?? null);
+  const [regione, setRegione] = useState(navigation.getParam("regione",null));
+  const [provincia, setProvincia] = useState(navigation.getParam("provincia",null));
+  const [comune, setComune] = useState(navigation.getParam("comune",null));
 
   const azzeraFiltri = async () => {
     await setReset(true);
@@ -30,11 +32,11 @@ export default function FiltersPage({ navigation, route }) {
     await setComune(null);
   };
 
-  navigation.setOptions({
-    headerRight: () => (
-      <HeaderRight text={"Azzera filtri"} onPress={() => azzeraFiltri()} />
-    )
-  });
+  useEffect(() => {
+    navigation.setParams({ azzera:azzeraFiltri });
+  }, []);
+  
+
   var regioneArray = Comuni.map(comune => {
     return comune.regione;
   });
@@ -61,8 +63,8 @@ export default function FiltersPage({ navigation, route }) {
     return removeUndefined([...new Set(comuniArray)]);
   };
 
-  const is = route.params?.is ?? "";
-  const passedItem = route.params?.title ?? null;
+  const is =navigation.getParam("is","");
+  const passedItem = navigation.getParam("title",null);
   useEffect(() => {
     if (passedItem) {
       if (is == "regione") {
@@ -100,7 +102,7 @@ export default function FiltersPage({ navigation, route }) {
             navigation.navigate("AutoComplete", {
               is: "regione",
               for: "Requisiti",
-              path: "Filters",
+              path: "FiltersPage",
               items: regioni
             })
           }
@@ -125,7 +127,7 @@ export default function FiltersPage({ navigation, route }) {
             navigation.navigate("AutoComplete", {
               is: "provincia",
               for: "Requisiti",
-              path: "Filters",
+              path: "FiltersPage",
               items: provincie(regione)
             })
           }
@@ -149,7 +151,7 @@ export default function FiltersPage({ navigation, route }) {
             navigation.navigate("AutoComplete", {
               is: "comune",
               for: "Requisiti",
-              path: "Filters",
+              path: "FiltersPage",
               items: comunis(provincia)
             })
           }
@@ -199,3 +201,11 @@ const styles = StyleSheet.create({
     width: "100%"
   }
 });
+
+FiltersPage.navigationOptions = ({ navigation }) => {
+  return {
+    title:null,
+    headerLeft: <HeaderLeft onPress={()=>navigation.navigate("Explore",navigation.state.params)}></HeaderLeft>,
+    headerRight: () => <HeaderRight text={"Azzera Filtri"} onPress={() => navigation.getParam("azzera",null)()} />
+  }
+}
