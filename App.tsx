@@ -88,7 +88,9 @@ export default function App() {
 
 async function loadResourcesAsync() {
   await Promise.all([
-    Asset.loadAsync([require("./assets/images/Logo_tendit.png")]),
+    Asset.loadAsync([require("./assets/images/arrows.png"),
+    require("./assets/images/homeIcon.png")
+  ]),
     Font.loadAsync({
       "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
       Avenir: require("./assets/fonts/avenir.otf"),

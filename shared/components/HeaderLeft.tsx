@@ -13,7 +13,7 @@ type HeaderProps = {
 
 const HeaderLeft: FunctionComponent<HeaderProps> = ({ navigation, route,text }) => (
   <TouchableOpacity
-    style={{ flexDirection: "row", padding:10 }}
+    style={{ flexDirection: "row", paddingLeft:10,paddingRight:10 }}
     onPress={() => {
       navigation.goBack()}}
   >

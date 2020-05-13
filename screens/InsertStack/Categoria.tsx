@@ -1,7 +1,6 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { isBigDevice } from "../../shared/constants/Layout";
-import HeaderBar from "../../shared/components/HeaderBar";
 import HeaderTitle from "../../shared/components/HeaderTitle";
 import CategoriaCard from "../../shared/components/CategoriaCard";
 import {
@@ -74,7 +73,7 @@ export default function Categoria({ navigation }) {
                 servizi: casa
               })
             }
-            image={require("../../assets/images/Settori/casa.png")}
+            image={require("../../assets/images/homeIcon.png")}
           ></CategoriaCard>
           <CategoriaCard
             title={"Servizi per l'azienda"}

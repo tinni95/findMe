@@ -12,11 +12,12 @@ import { Comuni } from "../../../shared/constants/Comuni";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import RoundButton from "../../../shared/components/RoundButton";
 import Colors from "../../../shared/constants/Colors";
-import HeaderLeft from "../../../shared/components/HeaderLeft";
+import HeaderLeft from "../../../shared/components/HeaderLeftWithRoute";
 
 export default function FiltersPage({ navigation }) {
+  console.log(navigation.state.params)
   const [reset, setReset] = useState(false);
-  let settore = navigation.getParam("settore",[])
+  let settore = navigation.getParam("settore",[]) || [];
   const [settori, setSettori] = useState(settore);
   const [regione, setRegione] = useState(navigation.getParam("regione",null));
   const [provincia, setProvincia] = useState(navigation.getParam("provincia",null));
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
 FiltersPage.navigationOptions = ({ navigation }) => {
   return {
     title:null,
-    headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
+    headerLeft: <HeaderLeft onPress={()=>navigation.navigate("Explore",navigation.state.params)}></HeaderLeft>,
     headerRight: () => <HeaderRight text={"Azzera Filtri"} onPress={() => navigation.getParam("azzera",null)()} />
   }
 }

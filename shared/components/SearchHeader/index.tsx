@@ -35,17 +35,17 @@ export default function SearchHeader({
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.container}>
-        {!isSearch && (
+        {!isSearch ? 
           <FilterButton
             onPress={() =>
               navigation.navigate("FiltersPage", {
-                screen: "Filters",
-                params: { settore, regione, provincia, comune }
+            settore, regione, provincia, comune 
               })
             }
             filters={filters}
-          />
-        )}
+          />:
+          <View style={{height:50}}/>
+        }
         <SearchBarComponent updateSearch={setSearch} setIs={setIs} />
       </View>
     </View>

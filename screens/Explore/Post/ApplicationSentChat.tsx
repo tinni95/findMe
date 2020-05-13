@@ -6,9 +6,7 @@ import TenditMessage from "../../../shared/components/Chat/TenditMessage";
 import { useMutation, useQuery } from "react-apollo";
 import { parsePostMessages } from "../../../shared/functions/ParsePostMessages";
 import { gql } from "apollo-boost";
-import KeyboardSpacer from "react-native-keyboard-spacer";
 import { sendNotification } from "../../../shared/functions/PushNotifications";
-import { isSmallDevice } from "../../../shared/constants/Layout";
 import HeaderLeft from "../../../shared/components/HeaderLeft";
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   mutation unseeApplicationChatChatMutation(
