@@ -106,7 +106,7 @@ export default function Anteprima({ navigation, route }) {
             </View>
       <RoundButton 
       onPress={pubblica}
-      text={"PUBBLICA POST IDEA"}
+      text={"Inserisci annuncio"}
       color={Colors.blue}
       textColor={"white"}/>
       </View>

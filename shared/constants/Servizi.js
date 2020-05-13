@@ -2,7 +2,7 @@ const SaluteRequisiti = [
     "automunita/o di strumenti", "tutto fornito"
 ]
 export const Salute = [
-    { servizio: "Estetista", requisiti: SaluteRequisiti }, { servizio: "Massaggi", requisiti: SaluteRequisiti }, { servizio: "Truccatore", requisiti: SaluteRequisiti }, { servizio: "Personal trainer", requisiti: SaluteRequisiti }, { servizio: "Nutrizionista", requisiti: SaluteRequisiti }, { servizio: "Psicologo", requisiti: SaluteRequisiti }
+    { servizio: "Estetista", requisiti: SaluteRequisiti },{ servizio: "Truccatore", requisiti: SaluteRequisiti }, { servizio: "Personal trainer", requisiti: SaluteRequisiti }, { servizio: "Nutrizionista", requisiti: SaluteRequisiti }, { servizio: "Fisioterapista", requisiti: SaluteRequisiti }
 ]
 
 const AssistenzaRequisiti = [
@@ -54,7 +54,7 @@ export const Feste = [
 ]
 
 export const aziendali = [
-    { servizio: "Customer care" }, { servizio: "ux designer" }, { servizio: "UI designer" }, { servizio: "commercialista" }, { servizio: "consulente" }, { servizio: "contabile" }, { servizio: "legale" }, { servizio: "architetto" }, { servizio: "designer" }, { servizio: "risorse umane" }, { servizio: "venditore" }, { servizio: "social media manager" }, { servizio: "ingegnere" }, { servizio: "programmatore informatico" }, { servizio: "inventario" }, { servizio: "magazziniere" }, { servizio: "staff negozio" }, { servizio: "data entry" }, { servizio: "reception" }, { servizio: "assistenza it" }
+    { servizio: "Customer care" }, { servizio: "ux designer" }, { servizio: "UI designer" }, { servizio: "volantinaggio" }, { servizio: "designer" }, { servizio: "venditore" }, { servizio: "social media manager" }, { servizio: "ingegnere" }, { servizio: "programmatore informatico" }, { servizio: "inventario" }, { servizio: "magazziniere" }, { servizio: "staff negozio" }, { servizio: "reception" }, { servizio: "assistenza it" }
 ]
 
 export const lezioni = [
