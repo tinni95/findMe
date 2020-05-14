@@ -194,12 +194,6 @@ function AttivitàScreen({ navigation , socket}) {
   );
 }
 
-AttivitàScreen.navigationOptions = ({ navigation }) => {
-  return {
-    title:"Candidature",
-    headerTitleStyle: headerTitleStyle
-  }
-}
 
 const AttivitàScreenWS = props => (
   <SocketContext.Consumer>
@@ -207,5 +201,11 @@ const AttivitàScreenWS = props => (
   </SocketContext.Consumer>
 );
 
+AttivitàScreenWS.navigationOptions = ({ navigation }) => {
+  return {
+    title:"Candidature",
+    headerTitleStyle: headerTitleStyle
+  }
+}
 
 export default AttivitàScreenWS;

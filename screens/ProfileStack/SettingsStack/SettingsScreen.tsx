@@ -157,7 +157,7 @@ const SettingsScreenWC = props => {
 
 SettingsScreenWC.navigationOptions = ({ navigation }) => {
   return {
- 
+    title:"",
     headerLeft: () => (
       <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
         <Ionicons

@@ -20,10 +20,10 @@ export const socketEndPoint = "http://tendit.it/"
    : "http://localhost:3001/".replace("localhost", getLocalHostName());*/
 
 
-export const graphlEndPoint =//"https://tendit.it/api/"
-  Platform.OS === "web"
+export const graphlEndPoint ="https://tendit.it/api/"
+  /*Platform.OS === "web"
         ? "http://localhost:4000/"
-        : "http://localhost:4000/".replace("localhost", getLocalHostName());
+        : "http://localhost:4000/".replace("localhost", getLocalHostName());*/
 
 export const graphlWsEndPoint = "http://134.209.229.6/"
 
