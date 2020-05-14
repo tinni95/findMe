@@ -181,28 +181,14 @@ const Post = gql`
           isHidden={data.singlePost.hidden}
         />
 
-        { data.singlePost.description||data.singlePost.requisiti.length>0&& <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />}
+        { data.singlePost.description&& <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />}
          
        { data.singlePost.description&&<View style={styles.DesriptionContainer}>
           <Bold style={styles.titleSm}>Descrizione</Bold>
           <Light style={styles.body}>{data.singlePost.descrizione}</Light>
         </View>}
         
-     {   data.singlePost.requisiti.length>0&& <View style={styles.DesriptionContainer}>
-          <Bold style={styles.titleSm}>Requisiti</Bold>
-          <View style={styles.RequisitiContainer}>
-          {
-            data.singlePost.requisiti.map(requisito => {
-             return <View key={requisito} style={{marginRight:10}}>
-               <RoundButtonEmpty
-              onPress={null}
-              color={Colors.blue}
-              text={requisito}/>
-              </View>
-            })
-          }
-          </View>
-        </View>}
+
         <LinearGradient start={[0, 1]} end={[1, 0]} colors={["#EBEBEB", "#FFFDFD"]} style={styles.line} />
         <View style={styles.DesriptionContainer}>
         <Bold style={styles.titleSm}>Quando</Bold>

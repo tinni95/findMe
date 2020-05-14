@@ -72,29 +72,7 @@ export default function SentCard({ onPress, application, navigation }) {
         </View>
       </View>
       <View style={styles.messageWrapper}>
-        <Bold style={{ fontSize: 12, marginBottom: 10, color: Colors.blue }}>
-          Qualifiche
-        </Bold>
-        <View style={styles.qualifiche}>
-          {post.requisiti && post.requisiti.length == 0 && (
-            <Body>Non Specificato</Body>
-          )}
-          {post.requisiti &&
-            post.requisiti.map(qualifica => {
-              return (
-                <View key={shortid.generate()} 
-                style={{marginRight:10}}>
-                <RoundButtonSm
-                  onPress={() => {}}
-                  key={shortid.generate()}
-                  text={qualifica}
-                  textColor={"white"}
-                  color={Colors.blue}
-                ></RoundButtonSm>
-                </View>
-              );
-            })}
-        </View>
+
       </View>
       <View style={styles.footer}>
         <View style={styles.buttonWrapper}>
