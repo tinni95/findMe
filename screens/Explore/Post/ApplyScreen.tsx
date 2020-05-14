@@ -57,6 +57,9 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
     ) {
       id
       application {
+        post{
+          titolo
+        }
         from {
           id
           nome
@@ -79,7 +82,6 @@ function ApplyScreen({  navigation, socket }) {
 
   const [createApplication] = useMutation(CREATEAPPLICATION_MUTATION, {
     onCompleted: async ({ createApplication }) => {
-      socket.emit("postnotifica", createApplication.to.id);
       createMessage({
         variables: {
           applicationId: createApplication.id,
@@ -99,6 +101,9 @@ function ApplyScreen({  navigation, socket }) {
   });
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
+    onCompleted : ({createPostMessage}) => {
+      socket.socket.emit("chat message",createPostMessage.application.to.id)
+    },
     onError: error => {
       console.log(error);
       alert("Qualcosa è andato storto");

@@ -72,7 +72,7 @@ const UPDATEUSER_MUTATION = gql`
     passedProvincia ? setProvincia(passedProvincia) : null;
     passedRegione ? setRegione(passedRegione) : null;
   });
-  //hooks
+  //hook
   const initialImage = currentUser.pictureUrl
   ? { uri: currentUser.pictureUrl }
   : require("../../assets/images/placeholder.png");

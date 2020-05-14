@@ -111,6 +111,9 @@ function ApplicationReceivedScreen({ socket,navigation }) {
           subId: application.to.id
         }
       });
+      wait(100).then(()=>{
+        socket.socket.emit("chat message",application.from.id)
+      })
     });
   };
 
