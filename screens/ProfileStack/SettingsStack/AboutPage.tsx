@@ -1,8 +1,9 @@
 import React from "react";
 import { SectionList, Image, StyleSheet, Text, View } from "react-native";
 import Constants from "expo-constants";
+import HeaderLeft from "../../../shared/components/HeaderLeft";
 
-export default class ExpoConfigView extends React.Component {
+ class ExpoConfigView extends React.Component {
   render() {
     const { manifest } = Constants;
     const sections = [
@@ -35,7 +36,7 @@ export default class ExpoConfigView extends React.Component {
       {
         data: [
           {
-            value: "Diverse Agency"
+            value: "Diverse Agency 🚀"
           }
         ],
         title: "Author"
@@ -206,3 +207,12 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+ExpoConfigView.navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft:<HeaderLeft navigation={navigation}/>,
+    title:null,
+  }
+}
+
+export default ExpoConfigView;

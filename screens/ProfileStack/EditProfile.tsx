@@ -73,6 +73,11 @@ const UPDATEUSER_MUTATION = gql`
     passedRegione ? setRegione(passedRegione) : null;
   });
   //hooks
+  const initialImage = currentUser.pictureUrl
+  ? { uri: currentUser.pictureUrl }
+  : require("../../assets/images/placeholder.png");
+  const [base64, setBase64] = useState("");
+  const [image, setImage] = useState(initialImage);
   const [loading, setLoading] = useState(false);
   const [zoom, setZoom] = useState(false);
   const [visibleDate, setVisibleDate] = useState(false);
@@ -95,6 +100,9 @@ const UPDATEUSER_MUTATION = gql`
     currentUser.presentazione ? currentUser.presentazione : ""
   );
 
+  useEffect(()=>{
+    console.log("image",image)
+  },[image])
 
   let scrollview = useRef();
 
@@ -132,13 +140,14 @@ const UPDATEUSER_MUTATION = gql`
 
     if (!result.cancelled) {
       setImage({ uri: result.uri });
+      console.log(result.base64)
       setBase64(result.base64);
     }
   };
 
   useEffect(() => {
     navigation.setParams({ handlePress });
-  }, [nome, cognome, regione, provincia, comune]);
+  }, [nome, cognome, regione, provincia, comune,image, base64]);
 
   const handlePress = () => {
     if (nome.length === 0) {
@@ -155,7 +164,6 @@ const UPDATEUSER_MUTATION = gql`
       submit();
     }
   };
-
 
   const submit = async () => {
     if (_.isEqual(image, initialImage)) {
@@ -187,6 +195,7 @@ const UPDATEUSER_MUTATION = gql`
         },
       }).then(async r => {
         let data = await r.json()
+        console.log(data)
         updateUser({
           variables: {
             DoB,
@@ -209,11 +218,6 @@ const UPDATEUSER_MUTATION = gql`
  
   };
 
-  const initialImage = currentUser.pictureUrl
-    ? { uri: currentUser.pictureUrl }
-    : require("../../assets/images/placeholder.png");
-  const [image, setImage] = useState(initialImage);
-  const [base64, setBase64] = useState("");
   const pen = require("../../assets/images/pen.png");
   if (loading) {
     return <TenditSpinner></TenditSpinner>;

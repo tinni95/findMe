@@ -18,7 +18,7 @@ const userPosts = gql`
       id
       titolo
       descrizione
-      settori
+
       comune
       regione
       postedBy {

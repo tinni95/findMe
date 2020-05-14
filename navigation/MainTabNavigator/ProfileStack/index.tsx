@@ -2,7 +2,7 @@ import React from "react";
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
 import ProfilePage from "../../../screens/ProfileStack/";
-import Logout from "../../../screens/ProfileStack/Logout";
+import LogoutPage from "../../../screens/ProfileStack/Logout";
 import FormazioniScreen from "../../../screens/ProfileStack/Formazioni/FormazioniScreen";
 import EsperienzeScreen from "../../../screens/ProfileStack/Esperienze/EsperienzeScreen";
 import ProgettiScreen from "../../../screens/ProfileStack/Progetti/ProgettiScreen";
@@ -27,7 +27,7 @@ import UpdateEmail from "../../../screens/ProfileStack/SettingsStack/UpdateEmail
 import AboutPage from "../../../screens/ProfileStack/SettingsStack/AboutPage";
 import BioScreen from "../../../screens/ProfileStack/BioScreen";
 
-const SettingsStack = createStackNavigator(
+const Impostazioni = createStackNavigator(
   {
       Impostazioni:SettingsScreen,
       UpdatePassword,
@@ -37,21 +37,14 @@ const SettingsStack = createStackNavigator(
 );
 
 
-const LogoutStack = createStackNavigator(
+const Logout = createStackNavigator(
   {
-    Logout
+    LogoutPage
   }
 );
 
-const PostsStack = createStackNavigator(
-  {
-    UserPosts,
-    PostScreen,
 
-  }
-);
-
-const ProfileStack = createStackNavigator(
+const Profilo = createStackNavigator(
   {
     ProfilePage,
     PostScreen,
@@ -69,11 +62,11 @@ const ProfileStack = createStackNavigator(
 
 
 const ProfileDrawer = createDrawerNavigator({
-  ProfileStack,
-  PostsStack,
-  LogoutStack,
-  SettingsStack
+  Profilo,
+  Logout,
+  Impostazioni
 },{
+  drawerBackgroundColor:Colors.blue,
   contentOptions:{
     activeTintColor: Colors.red,
     inactiveTintColor: Colors.semiBlue,

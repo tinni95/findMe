@@ -7,6 +7,7 @@ import {
   RefreshControl,
   TouchableOpacity
 } from "react-native";
+import * as WebBrowser from 'expo-web-browser';
 import SettingsButton from "../../../shared/components/SettingsButton";
 import { Bold } from "../../../shared/components/StyledText";
 import Colors from "../../../shared/constants/Colors";
@@ -46,7 +47,7 @@ function SettingsScreen({ navigation, route, context }) {
     fetchPolicy: "no-cache"
   });
   const [deleteUser] = useMutation(DELETE_USER_MUTATION,{
-    onCompleted:() => {            context.logout();},
+    onCompleted:() => {context.logout();},
     onError: () => {alert("oops... si è verificato un errore")}
   })
   const [sendEmail] = useMutation(SEND_EMAIL_MUTATION,{
@@ -110,7 +111,7 @@ function SettingsScreen({ navigation, route, context }) {
       <View style={styles.spacer} />
       <Bold style={styles.sectionTitle}>INFO</Bold>
       <SettingsButton
-        onPress={() => navigation.navigate("CambiaPassword")}
+        onPress={() => WebBrowser.openBrowserAsync('https://expo.io')}
         text={"Privacy policy"}
       />
       <SettingsButton
