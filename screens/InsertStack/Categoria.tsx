@@ -73,7 +73,7 @@ export default function Categoria({ navigation }) {
                 servizi: casa
               })
             }
-            image={require("../../assets/images/homeIcon.png")}
+            image={require("../../assets/images/Settori/homeIcon.png")}
           ></CategoriaCard>
           <CategoriaCard
             title={"Servizi per l'azienda"}
