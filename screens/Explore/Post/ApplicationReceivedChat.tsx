@@ -145,8 +145,6 @@ export function ApplicationReceivedChat(props) {
   );
 }
 
-
-
 const ApplicationReceivedChatWS = props => (
   <SocketContext.Consumer>
     {socket => <ApplicationReceivedChat {...props} socket={socket} />}
