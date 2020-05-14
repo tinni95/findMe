@@ -18,6 +18,7 @@ import RoundButton from "../../../shared/components/RoundButton";
 import { LinearGradient } from "expo-linear-gradient";
 import moment from "moment";
 import HeaderLeft from "../../../shared/components/HeaderLeft";
+import SocketContext from "../../../shared/SocketContext";
 moment.locale("it");
 
 const DELETEAPPLICATION_MUTATION = gql`
@@ -65,6 +66,9 @@ const Post = gql`
       }
     }
     applicationUserForPosition(id: $postId) {
+      to{
+        id
+      }
       id
     }
     currentUser {
@@ -74,7 +78,7 @@ const Post = gql`
   }
 `;
 
- function PostScreen({ navigation }) {
+ function PostScreen({ navigation, socket }) {
 
   const [isOwner,setIsOwner] = useState(false);
 
@@ -95,7 +99,10 @@ const Post = gql`
       alert("success");
     },
     onError: error => {
-      console.log(error);
+      if (error.toString().includes("Closed")) {
+        alert("L'applicazione è stata chiusa, non puoi rimuovere la tua applicazione in questo momento")
+      }
+      else
       alert("Qualcosa è andato storto");
     }
   });
@@ -147,6 +154,7 @@ const Post = gql`
           data.currentUser.nome+" ha rimosso la sua applicazione per " + data.singlePost.titolo
         );
         Haptics.selectionAsync();
+        socket.socket.emit("chat message",data.applicationUserForPosition[0].to.id)
       });
   };
 
@@ -304,7 +312,15 @@ const styles = StyleSheet.create({
   }
 })
 
-PostScreen.navigationOptions = ({ navigation }) => {
+
+
+const PostScreenWS = props => (
+  <SocketContext.Consumer>
+    {socket => <PostScreen {...props} socket={socket} />}
+  </SocketContext.Consumer>
+);
+
+PostScreenWS.navigationOptions = ({ navigation }) => {
   return {
     title:"",
     headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
@@ -312,4 +328,4 @@ PostScreen.navigationOptions = ({ navigation }) => {
   }
 }
 
-export default PostScreen
+export default PostScreenWS

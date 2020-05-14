@@ -38,6 +38,9 @@ export default function AppWrapper({logout}) {
 
   useEffect(() => {
     if(!loading){
+      if(!data.currentUser){
+        return logout()
+      }
     const socket=io(socketEndPoint, {
       query: { token: data.currentUser.id }
     })

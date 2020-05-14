@@ -18,7 +18,7 @@ export default function Posizione({ navigation }) {
       <View style={styles.categoriaRow}>
         {servizi.map(servizio=>{
             return <ServizioCard
-            onPress={()=>navigation.navigate("Requisiti",{ categoria,requisiti:servizio.requisiti, servizio:servizio.servizio})}
+            onPress={()=>navigation.navigate("Descrizione",{ categoria, servizio:servizio.servizio})}
             title={servizio.servizio}
           ></ServizioCard>
         })}

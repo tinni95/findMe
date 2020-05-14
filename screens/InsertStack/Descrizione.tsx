@@ -10,13 +10,13 @@ import { FormStyles } from "../../shared/components/Form/FormStyles";
 import WithErrorString from "../../shared/components/Form/WithErrorString";
 
 export default function Descrizione({ navigation }) {
-  const {requisiti,categoria,servizio} =
+  const {categoria,servizio} =
   navigation.state.params
   const [descrizione, setDescrizione] = useState<any>("");
   const [descrizioneError, setDescrizioneError] = useState<boolean>(false);
 
   const procedi = () => {
-    navigation.navigate("Quando",{categoria,servizio,requisiti,descrizione})
+    navigation.navigate("Quando",{categoria,servizio,descrizione})
   }
   return (
     <ScrollView style={styles.container}>
