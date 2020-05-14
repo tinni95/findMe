@@ -8,7 +8,10 @@ import Budget from "../../../screens/InsertStack/Budget";
 import Anteprima from "../../../screens/InsertStack/Anteprima";
 import Dove from "../../../screens/InsertStack/Dove";
 import AutoCompleteLocation from "../../../shared/components/AutoCompleteLocation";
-
+import UserVisitsProfileScreen from "../../../screens/shared/UserVisitsProfileScreen";
+import FormazioniVisitScreen from "../../../screens/ProfileStack/Formazioni/FormazioniVisitScreen";
+import ProgettiVisitScreen from "../../../screens/ProfileStack/Progetti/ProgettiVisitScreen";
+import EsperienzeVisitScreen from "../../../screens/ProfileStack/Esperienze/EsperienzeVisitScreen";
 const Stack = createStackNavigator({
   Categoria,
   AutoCompleteLocation,
@@ -18,7 +21,12 @@ const Stack = createStackNavigator({
   Quando,
   Budget,
   Dove,
-  Anteprima
+  Anteprima,
+  UserVisitsProfileScreen,
+  FormazioniVisitScreen,
+  EsperienzeVisitScreen,
+  ProgettiVisitScreen
+  
 });
 
 Stack.navigationOptions = {

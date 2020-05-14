@@ -11,14 +11,6 @@ import FormazioneEditScreen from "../../../screens/ProfileStack/Formazioni/Forma
 import EsperienzeEditScreen from "../../../screens/ProfileStack/Esperienze/EsperienzeEditScreen";
 import ProgettiEditScreen from "../../../screens/ProfileStack/Progetti/ProgettiEditScreen";
 import UserInfoModal from "./UserInfoModal";
-import UserPosts from "../../../screens/ProfileStack/UserPosts";
-import {
-  headerStyle,
-  headerTitleStyle
-} from "../../../shared/constants/HeaderStyles";
-import HeaderLeft from "../../../shared/components/HeaderLeft";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
 import Colors from "../../../shared/constants/Colors";
 import PostScreen from "../../../screens/Explore/Post/PostScreen";
 import SettingsScreen from "../../../screens/ProfileStack/SettingsStack";

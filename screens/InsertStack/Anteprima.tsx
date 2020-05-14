@@ -91,7 +91,7 @@ export default function Anteprima({ navigation, route }) {
       ></HeaderBarLeft>
       <HeaderTitle text={"Anteprima"}></HeaderTitle>
   <View style={{flex:1,margin:20,justifyContent:"center",alignItems:"center"}}>
-    <PostScreenConfirm hidden={checked} post={post}></PostScreenConfirm>
+    <PostScreenConfirm  navigation={navigation} hidden={checked} post={post}></PostScreenConfirm>
     <View style={styles.buttonWrapper}>
     <View style={styles.checkBoxWrapper}>
               <CheckBox

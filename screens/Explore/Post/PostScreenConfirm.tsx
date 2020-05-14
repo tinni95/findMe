@@ -16,13 +16,14 @@ moment.locale("it");
 const User = gql`
   {
     currentUser {
+      id
       nome
       cognome
       pictureUrl
     }
   }
 `;
-export default function PostScreenConfirm({ hidden, post }) {
+export default function PostScreenConfirm({ navigation, hidden, post }) {
   const { data, loading } = useQuery(User);
   if (loading) return <TenditSpinner></TenditSpinner>;
   return (
@@ -42,6 +43,7 @@ export default function PostScreenConfirm({ hidden, post }) {
           style={styles.line}
         />
         <PostInfo
+          navigation={navigation}
           user={data.currentUser}
           settori={post.categoria}
           isHidden={hidden}
