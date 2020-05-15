@@ -3,6 +3,7 @@ import { Image, View, StyleSheet, Platform } from "react-native";
 import { Light, Bold, Body } from "../../shared/components/StyledText";
 import RoundButtonEmptyLarge from "../../shared/components/RoundButtonEmptyLarge";
 import Colors from "../../shared/constants/Colors";
+import { isSmallDevice } from "../../shared/constants/Layout";
 
 export const LandingPage = ({ navigation: { navigate } }) => {
   return (
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   heading: {
     color: "white",
     fontSize: 26,
-    marginBottom: 50
+    marginBottom: isSmallDevice? 100:50
   },
   buttonsWrapper: {
     flex: 4,

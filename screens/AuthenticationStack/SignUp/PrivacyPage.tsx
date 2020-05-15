@@ -13,6 +13,7 @@ import PushNotifications from "../../../shared/functions/PushNotifications";
 import HeaderRight from "../../../shared/components/HeaderRight";
 import LoginContext from "../../../shared/LoginContext";
 import HeaderLeft from "../../../shared/components/HeaderLeft";
+import * as WebBrowser from 'expo-web-browser';
 
 const SIGNUP_MUTATION = gql`
   mutation signup(
@@ -90,7 +91,7 @@ function PrivacyPage({ navigation, context, route }) {
         Cliccando su “accetto” dichiari di accettare i
         <Bold style={styles.redTerms}> Termini e condizioni d’uso</Bold>, E ci
         consenti all’uso dei tuoi dati come Descritto nella{" "}
-        <Bold style={styles.redTerms}>Privacy Policy</Bold>
+        <Bold onPress={()=>WebBrowser.openBrowserAsync('https://www.iubenda.com/privacy-policy/34475001')} style={styles.redTerms}>Privacy Policy</Bold>
       </Body>
       <View style={styles.buttonsContainer}>
         <View style={styles.checkBoxWrapper}>

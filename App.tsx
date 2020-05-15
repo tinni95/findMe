@@ -41,7 +41,7 @@ export default function App() {
 
   async function fetchToken(){
     let token = await AsyncStorage.getItem(TOKEN_KEY);
-    setToken(token)
+    return token;
   }
 
   const client = new ApolloClient({
@@ -64,7 +64,12 @@ export default function App() {
   }
 
   useEffect(()=>{
-    fetchToken()
+    fetchToken().then(tokens => {
+      if(tokens){
+        setToken(tokens);
+        setLoggedin(true)
+      }
+    })
   },[])
 
   if (!isLoadingComplete) {
@@ -99,8 +104,26 @@ export default function App() {
 async function loadResourcesAsync() {
   await Promise.all([
   
-  Asset.loadAsync([require("./assets/images/arrows.png"),
-  require("./assets/images/homeIcon.png")
+  Asset.loadAsync([
+  require("./assets/images/hat.png"),
+  require("./assets/images/CandidatureIcon.png"),
+  require("./assets/images/placeholder.png"),
+  require("./assets/images/pen-opaca.png"),
+  require("./assets/images/logo.png"),
+  require("./assets/images/controls.png"),
+  require("./assets/images/homeIcon.png"),
+  require("./assets/images/Settori/azienda.png"),
+  require("./assets/images/Settori/benessere.png"),
+  require("./assets/images/Settori/casa.png"),
+  require("./assets/images/Settori/consegne.png"),
+  require("./assets/images/Settori/feste.png"),
+  require("./assets/images/Settori/homeIcon.png"),
+  require("./assets/images/Settori/informatica.png"),
+  require("./assets/images/Settori/lezioni.png"),
+  require("./assets/images/Settori/privati.png"),
+  require("./assets/images/Settori/ristorazione.png"),
+  require("./assets/images/shimmer.gif"),
+  require("./assets/images/valigia.png"),
   ]),
   Font.loadAsync({
     "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),

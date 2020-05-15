@@ -111,7 +111,7 @@ function SettingsScreen({ navigation, route, context }) {
       <View style={styles.spacer} />
       <Bold style={styles.sectionTitle}>INFO</Bold>
       <SettingsButton
-        onPress={() => WebBrowser.openBrowserAsync('https://expo.io')}
+        onPress={() => WebBrowser.openBrowserAsync('https://www.iubenda.com/privacy-policy/34475001')}
         text={"Privacy policy"}
       />
       <SettingsButton

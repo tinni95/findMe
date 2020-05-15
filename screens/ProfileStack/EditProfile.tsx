@@ -100,14 +100,11 @@ const UPDATEUSER_MUTATION = gql`
     currentUser.presentazione ? currentUser.presentazione : ""
   );
 
-  useEffect(()=>{
-    console.log("image",image)
-  },[image])
-
   let scrollview = useRef();
 
   const [updateUser] = useMutation(UPDATEUSER_MUTATION, {
     onCompleted: async ({ updateUser }) => {
+      console.log(updateUser)
       navigation.navigate("ProfilePage", {
         refetch: Math.floor(Math.random() * -1000)
       });
@@ -147,7 +144,8 @@ const UPDATEUSER_MUTATION = gql`
 
   useEffect(() => {
     navigation.setParams({ handlePress });
-  }, [nome, cognome, regione, provincia, comune,image, base64]);
+  }, [nome, cognome, regione, provincia, comune,image, base64, posizione,
+  DoB]);
 
   const handlePress = () => {
     if (nome.length === 0) {
@@ -167,6 +165,7 @@ const UPDATEUSER_MUTATION = gql`
 
   const submit = async () => {
     if (_.isEqual(image, initialImage)) {
+      console.log(posizione)
       updateUser({
         variables: {
           DoB,

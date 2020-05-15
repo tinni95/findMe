@@ -60,6 +60,7 @@ export default function CompetenzeScreen({ navigation, route }) {
           if (!competenze.includes(item)) {
             setCompetenze([...competenze, item]);
             setActive(-1);
+            setText("")
           }
         }}
         key={shortid.generate()}
