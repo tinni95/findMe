@@ -11,13 +11,12 @@ var moment= require("moment");
 
 export default function Budget({ navigation, }) {
 
-  const {requisiti,servizio,descrizione,categoria,quando,startTime,endTime,data}=navigation.state.params;
+  const {servizio,descrizione,categoria,quando,startTime,endTime,data}=navigation.state.params;
   const [checked, setChecked] = useState(false);
   const [budget, setBudget] = useState("15");
   const post={
     quando,
     titolo:servizio,
-    requisiti,
     descrizione,
     categoria,
     data,

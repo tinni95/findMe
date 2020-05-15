@@ -15,7 +15,7 @@ import moment from "moment/min/moment-with-locales";
 moment.locale("it");
 
 export default function Quando({ navigation, route }) {
-  const {requisiti, categoria, servizio,
+  const { categoria, servizio,
   descrizione} = navigation.state.params;
 
   const [data, setData] = useState("");
@@ -53,13 +53,13 @@ export default function Quando({ navigation, route }) {
     }
     else if(quando!=""){
       if(quando==="In un giorno preciso"){
-        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione,giornata,data:dataToPass,startTime,endTime, quando})
+        navigation.navigate("Budget",{categoria,servizio,descrizione,giornata,data:dataToPass,startTime,endTime, quando})
       }
       else if(quando==="Entro una data"){
-        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione,data:dataToPass, quando})
+        navigation.navigate("Budget",{categoria,servizio,descrizione,data:dataToPass, quando})
       }
       else{
-        navigation.navigate("Budget",{categoria,requisiti,servizio,descrizione, quando})
+        navigation.navigate("Budget",{categoria,servizio,descrizione, quando})
       }
      
     }
