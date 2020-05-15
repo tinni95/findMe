@@ -56,7 +56,12 @@ export default function App() {
   })
 
   function login() {
-      setLoggedin(true);
+    fetchToken().then(tokens => {
+      if(tokens){
+        setToken(tokens);
+        setLoggedin(true)
+      }
+    })
   }
 
   function logout() {
@@ -64,12 +69,7 @@ export default function App() {
   }
 
   useEffect(()=>{
-    fetchToken().then(tokens => {
-      if(tokens){
-        setToken(tokens);
-        setLoggedin(true)
-      }
-    })
+    login()
   },[])
 
   if (!isLoadingComplete) {
