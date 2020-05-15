@@ -1,5 +1,6 @@
 {
   "expo": {
+   
     "android": {
       "package": "com.diverseagency.tendit",
       "versionCode": 1
@@ -38,8 +39,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
+    "ios": {  
+      "bundleIdentifier": "com.diverseagency.tendit",
+      "buildNumber": "1.0.0",
+      "supportsTablet": false
     }
   }
 }
