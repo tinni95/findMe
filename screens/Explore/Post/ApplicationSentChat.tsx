@@ -31,7 +31,11 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
       subId: $subId
     ) {
       id
-      pub {
+      pub{
+        id
+        pictureUrl
+      }
+      sub {
         pictureUrl
         id 
         nome
@@ -80,8 +84,9 @@ function ApplicationSentChat(props) {
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {
+      console.log(createPostMessage)
       sendNotification(
-        createPostMessage.pub.pushToken,
+        createPostMessage.sub.pushToken,
         application.from.nome,
         createPostMessage.text
       );

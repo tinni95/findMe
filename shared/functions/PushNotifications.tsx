@@ -1,5 +1,6 @@
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
+import { Platform } from "react-native";
 
 export default async function PushNotifications(updateUser) {
   const { status: existingStatus } = await Permissions.getAsync(
@@ -25,6 +26,14 @@ export default async function PushNotifications(updateUser) {
   // Get the token that uniquely identifies this device
   let token = await Notifications.getExpoPushTokenAsync();
 
+  if (Platform.OS === 'android') {
+    Notifications.createChannelAndroidAsync('default', {
+      name: 'default',
+      sound: true,
+      priority: 'max',
+      vibrate: [0, 250, 250, 250],
+    });
+  }
   // POST the token to your backend server from where you can retrieve it to send push notifications.
   return updateUser({ variables: { pushToken: token } });
 }
@@ -48,7 +57,6 @@ export function sendNotification(to, title, body) {
         status: "ok",
         type: "event"
       },
-      channelId: "chat-messages"
     })
   });
 }
