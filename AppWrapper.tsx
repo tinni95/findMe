@@ -38,6 +38,9 @@ export default function AppWrapper({logout}) {
 
   useEffect(() => {
     if(!loading){
+      if(!data){
+        return logout()
+      }
       if(!data.currentUser){
         return logout()
       }

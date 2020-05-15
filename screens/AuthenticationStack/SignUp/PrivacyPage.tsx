@@ -39,17 +39,11 @@ const UPDATEUSER_MUTATION = gql`
 
 function PrivacyPage({ navigation, context, route }) {
 
-  const handleNotification = ({ origin, data }) => {
-    console.log(
-      `Push notification ${origin} with data: ${JSON.stringify(data)}`
-    );
-  };
-
   const [signup] = useMutation(SIGNUP_MUTATION, {
     onCompleted: async ({ signup }) => {
       await AsyncStorage.setItem(TOKEN_KEY, signup.token);
       context.login();
-      let token = PushNotifications(updateUser);
+      PushNotifications(updateUser);
     },
     onError: error => {
       if (error.toString().includes("User already exists with that email")) {

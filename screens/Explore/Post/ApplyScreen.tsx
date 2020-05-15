@@ -89,10 +89,17 @@ function ApplyScreen({  navigation, socket }) {
           subId: createApplication.to.id
         }
       });
-
+      sendNotification(
+        post.postedBy.pushToken,
+        post.titolo,
+        data.currentUser.nome +
+          " si è applicato alla tua posizione di " +
+          post.titolo
+      );
       UnseeApplication({
         variables: { id: createApplication.id, pubRead: false, subRead: true }
       });
+      Haptics.selectionAsync();
     },
     onError: error => {
       if (error.toString().includes("Verified"))
@@ -124,14 +131,6 @@ function ApplyScreen({  navigation, socket }) {
         refetch();
       })
       .then(() => {
-        sendNotification(
-          post.postedBy.pushToken,
-          post.titolo,
-          data.currentUser.nome +
-            " si è applicato alla tua posizione di " +
-            post.titolo
-        );
-        Haptics.selectionAsync();
         navigation.goBack();
       });
   };
