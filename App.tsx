@@ -5,13 +5,15 @@ import AuthenticationStack from "./navigation/AuthenticationStack";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { makeClient } from "./shared/apollo/client";
 import AppWrapper from "./AppWrapper";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import Colors from "./shared/constants/Colors";
 import LoginContext from "./shared/LoginContext";
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
+import {TOKEN_KEY} from "./shared/constants/Token";
+import ApolloClient from 'apollo-boost'
+import { graphlEndPoint } from "./shared/constants/urls";
 
 Sentry.init({
   dsn: 'https://db25e88e44d04dd3b02475df3830a0d8@o387249.ingest.sentry.io/5222235',
@@ -31,31 +33,39 @@ const theme = {
   }
 };
 
+
 export default function App() {
   const [isLoadingComplete, setLoadingComplete] = useState<boolean>(false);
   const [loggedIn, setLoggedin] = useState<boolean>(false);
-  const [client, setClient] = useState<any>(null);
+  const [token, setToken] = useState<any>(null);
+
+  async function fetchToken(){
+    let token = await AsyncStorage.getItem(TOKEN_KEY);
+    setToken(token)
+  }
+
+  const client = new ApolloClient({
+    request: (operation) => {
+      operation.setContext({
+        headers: {
+          authorization: token ? `Bearer ${token}` : ''
+        }
+      })
+    },
+    uri: graphlEndPoint
+  })
 
   function login() {
-    makeClient().then(object => {
-      setClient(object.client);
       setLoggedin(true);
-    });
   }
 
   function logout() {
-    makeClient().then(object => {
-      setClient(object.client);
       setLoggedin(false);
-    });
   }
 
-  useEffect(() => {
-    makeClient().then(object => {
-      setClient(object.client);
-      object.token ? setLoggedin(true) : setLoggedin(false);
-    });
-  }, []);
+  useEffect(()=>{
+    fetchToken()
+  },[])
 
   if (!isLoadingComplete) {
     return (
@@ -88,17 +98,18 @@ export default function App() {
 
 async function loadResourcesAsync() {
   await Promise.all([
-    Asset.loadAsync([require("./assets/images/arrows.png"),
-    require("./assets/images/homeIcon.png")
+  
+  Asset.loadAsync([require("./assets/images/arrows.png"),
+  require("./assets/images/homeIcon.png")
   ]),
-    Font.loadAsync({
-      "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
-      Avenir: require("./assets/fonts/avenir.otf"),
-      "changa-one": require("./assets/fonts/ChangaOne-Regular.ttf"),
-      "sequel-sans": require("./assets/fonts/regular.otf"),
-      "sequel-sans-bold": require("./assets/fonts/medium.otf"),
-      "sequel-sans-light": require("./assets/fonts/light.otf")
-    })
+  Font.loadAsync({
+    "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf"),
+    Avenir: require("./assets/fonts/avenir.otf"),
+    "changa-one": require("./assets/fonts/ChangaOne-Regular.ttf"),
+    "sequel-sans": require("./assets/fonts/regular.otf"),
+    "sequel-sans-bold": require("./assets/fonts/medium.otf"),
+    "sequel-sans-light": require("./assets/fonts/light.otf")
+  }),
   ]);
 }
 
