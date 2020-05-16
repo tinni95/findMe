@@ -112,7 +112,8 @@ function ApplicationReceivedScreen({ socket,navigation }) {
         }
       });
       wait(100).then(()=>{
-        socket.socket.emit("chat message",application.from.id)
+        socket.socket.emit("chat message",{
+          to:application.from.id})
       })
     });
   };
@@ -173,9 +174,13 @@ function ApplicationReceivedScreen({ socket,navigation }) {
             <ReceivedCard
               onClosePosition={onClosePosition}
               onPress={() => {
-                navigation.navigate("ApplicationReceivedChat", {
-                  id: application.to.id,
-                  application,
+
+                navigation.navigate("Chat", {
+                  pubId:application.to.id,
+                  pubNome:application.to.nome,
+                  pubPicture:application.to.pictureUrl,
+                  subId:application.from.id,
+                  applicationId:application.id,
                   onGoBack: () => {}
                 });
                 unseeChat({

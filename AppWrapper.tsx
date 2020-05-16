@@ -30,6 +30,7 @@ export default function AppWrapper({logout}) {
 
   const [updateUser] = useMutation(UpdateUser);
   const [refetch,setRefetch] = useState(124124123);
+  const [message,setMessage] = useState(null);
   const [socket, setSocket] = useState(null)
 
   useEffect(() => {
@@ -47,9 +48,9 @@ export default function AppWrapper({logout}) {
     const socket=io(socketEndPoint, {
       query: { token: data.currentUser.id }
     })
-    socket.on("chat message", () => {
+    socket.on("chat message", (messages:any) => {
+      setMessage(messages);
       setRefetch(Math.floor(Math.random() * -1000))
-      console.log("message")
     })
     setSocket(socket)
   }
@@ -60,7 +61,7 @@ export default function AppWrapper({logout}) {
     if(data.currentUser){
       return (
         <SocketContext.Provider
-          value={{socket,refetch,setRefetch}}>
+          value={{socket,refetch,setRefetch,message}}>
           <MainTabNavigator></MainTabNavigator>
         </SocketContext.Provider>
       );

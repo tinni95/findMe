@@ -14,10 +14,10 @@ const getLocalHostName = () => {
     return hostname;
 };
 
-export const socketEndPoint = "http://tendit.it/"
-/* Platform.OS === "web"
+export const socketEndPoint =// "http://tendit.it/"
+Platform.OS === "web"
    ? "http://localhost:3001/"
-   : "http://localhost:3001/".replace("localhost", getLocalHostName());*/
+   : "http://localhost:3001/".replace("localhost", getLocalHostName());
 
 
 export const graphlEndPoint =/*"https://tendit.it/api/"*/

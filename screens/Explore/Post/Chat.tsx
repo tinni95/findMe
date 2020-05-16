@@ -67,16 +67,9 @@ const MESSAGES_QUERY = gql`
   }
 `;
 
-function wait(timeout) {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-}
-
-function ApplicationSentChat(props) {
+function Chat(props) {
   const [messages, setMessages] = useState([]);
-  const id = props.navigation.getParam("id",null)
-  const application =props.navigation.getParam("application",null)
+  const {applicationId, subId, pubId,pubNome,pubPicture} = props.navigation.state.params;
   /*
    applicationsSent {
         subRead
@@ -118,32 +111,33 @@ function ApplicationSentChat(props) {
       }
        */
   const [skip,setSkip] = useState(0)
-  const [first,setFirst] = useState(10)
   const { loading} = useQuery(MESSAGES_QUERY, {
-    variables: { id: application.id, first, skip },
+    variables: { id: applicationId, first:10, skip },
     onCompleted : ({PostMessagesFeed}) => {
-    if(first==10){
     setMessages(GiftedChat.prepend(
       messages,
-      parsePostMessages(PostMessagesFeed,id)
+      parsePostMessages(PostMessagesFeed,pubId)
       ))
-    }
     }
   });
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION);
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {
+      props.socket.socket.emit("chat message",{
+        to:subId,
+        createPostMessage
+      })
       sendNotification(
         createPostMessage.sub.pushToken,
-        application.from.nome,
+        pubNome,
         createPostMessage.text
       );
       setMessages(GiftedChat.append(
         messages,
-        parsePostMessage(createPostMessage,id)
+        parsePostMessage(createPostMessage,pubId)
         ))
-      unseeChat({ variables: { id: application.id, pubRead: false } });
+      unseeChat({ variables: { id: applicationId, pubRead: false } });
     },
     onError: error => {
       alert("Qualcosa è andato storto");
@@ -155,18 +149,21 @@ function ApplicationSentChat(props) {
     createMessage({
       variables: {
         text: message,
-        applicationId: application.id,
-        subId: application.to.id
+        applicationId,
+        subId
       }
     });
-    wait(50).then(()=>{
-      props.socket.socket.emit("chat message",application.to.id)
-    })
   };
 
   useEffect(() => {
-    console.log("refetch")
-  },[props.socket.refetch]);
+    console.log("messaage",props.socket.message)
+    if(props.socket.message){
+      setMessages(GiftedChat.append(
+        messages,
+        parsePostMessage(props.socket.message,pubId)
+        ))
+    }
+  },[props.socket.message]);
 
   const fetchMore = () => {
     setSkip(skip+10)
@@ -182,7 +179,7 @@ function ApplicationSentChat(props) {
   }
 
   const renderInputToolbar = props => {
-    const image = !loading && { uri: application.from.pictureUrl };
+    const image = !loading && { uri: pubPicture };
     return <InputToolbar viewStyle={{backgroundColor:"white"}}image={image} onSend={onSend}></InputToolbar>;
   };
   return (
@@ -205,17 +202,17 @@ function ApplicationSentChat(props) {
   );
 }
 
-const ApplicationSentChatWS = props => (
+const ChatWS = props => (
   <SocketContext.Consumer>
-    {socket => <ApplicationSentChat {...props} socket={socket} />}
+    {socket => <Chat {...props} socket={socket} />}
   </SocketContext.Consumer>
 );
 
-ApplicationSentChatWS.navigationOptions = ({ navigation }) => {
+ChatWS.navigationOptions = ({ navigation }) => {
   return {
     title:null,
     headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
   }
 }
 
-export default ApplicationSentChatWS;
+export default ChatWS;

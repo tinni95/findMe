@@ -135,8 +135,12 @@ function AttivitàScreen({ navigation , socket}) {
           return (
             <SentCard
               onPress={() => {
-                navigation.navigate("ApplicationSentChat", {
-                  application,
+                navigation.navigate("Chat", {
+                  applicationId:application.id,
+                  pubId:application.from.id,
+                  pubNome: application.from.nome,
+                  pubPicture: application.from.pictureUrl,
+                  subId:application.to.id,
                   id: application.from.id,
                   onGoBack: () => {}
                 });
