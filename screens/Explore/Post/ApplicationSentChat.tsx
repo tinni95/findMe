@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { GiftedChat } from "react-native-gifted-chat";
-import { View } from "react-native";
+import { GiftedChat, LoadEarlier } from "react-native-gifted-chat";
+import { View, Text } from "react-native";
 import InputToolbar from "../../../shared/components/InputToolbar";
 import TenditMessage from "../../../shared/components/Chat/TenditMessage";
 import { useMutation, useQuery } from "react-apollo";
@@ -48,8 +48,8 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
 `;
 
 const MESSAGES_QUERY = gql`
-  query chatQuery($id: ID!) {
-    PostMessagesFeed(id: $id) {
+  query chatQuery($id: ID!, $last: Int, $skip:Int) {
+    PostMessagesFeed(id: $id, last:$last, skip:$skip) {
       sub {
         pushToken
         id
@@ -77,8 +77,55 @@ function ApplicationSentChat(props) {
   const [messages, setMessages] = useState([]);
   const id = props.navigation.getParam("id",null)
   const application =props.navigation.getParam("application",null)
+  /*
+   applicationsSent {
+        subRead
+        pubRead
+        id
+        messages {
+          createdAt
+        }
+        from {
+          pictureUrl
+          nome
+          id
+        }
+        to {
+          nome
+          pictureUrl
+          id
+        }
+        post {
+          id
+          closedFor {
+            id
+          }
+          postedBy {
+            pictureUrl
+            nome
+            cognome
+            id
+          }
+          opened
+          comune
+          regione
+          id
+          hidden
+          titolo
+          titolo
+          requisiti
+        }
+      }
+       */
+  const [skip,setSkip] = useState(0)
   const { loading, error, data, refetch } = useQuery(MESSAGES_QUERY, {
-    variables: { id: application.id },
+    variables: { id: application.id, last:10, skip },
+    onCompleted : ({PostMessagesFeed}) => {
+    setMessages(GiftedChat.prepend(
+      messages,
+      parsePostMessages(PostMessagesFeed,id)
+      ))
+    }
   });
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION);
 
@@ -98,15 +145,6 @@ function ApplicationSentChat(props) {
     }
   });
 
-  useEffect(() => {
-    if (data) {
-      if (!data.PostMessagesFeed) {
-        alert("oops.. qualcosa è andato storto");
-        props.navigation.navigate("Explore");
-      }
-      setMessages(parsePostMessages(data.PostMessagesFeed, id));
-    }
-  }, [data]);
 
   const onSend = message => {
     createMessage({
@@ -126,9 +164,19 @@ function ApplicationSentChat(props) {
     wait(500).then(()=>refetch())
   },[props.socket.refetch]);
 
+  const fetchMore = () => {
+    setSkip(skip+10);
+    refetch()
+  }
+
   const renderMessage = props => {
     return <TenditMessage {...props} />;
   };
+
+  const renderLoadEarlier = (props) => 
+  {
+  return <LoadEarlier {...props} onLoadEarlier={fetchMore} label="Carica precedenti" />
+  }
 
   const renderInputToolbar = props => {
     const image = !loading && { uri: application.from.pictureUrl };
@@ -137,19 +185,17 @@ function ApplicationSentChat(props) {
   return (
     <View style={{ flex: 1 }}>
       <GiftedChat
+        scrollToBottom={false}
+        loadEarlier={true}
         inverted={false}
         messages={messages}
         onSend={message => onSend(message)}
         renderMessage={renderMessage}
         locale={"it"}
         renderInputToolbar={renderInputToolbar}
+        renderLoadEarlier={renderLoadEarlier}
         user={{
           _id: 1
-        }}
-        listViewProps={{
-          style: {
-            backgroundColor: "#F4F4F4"
-          }
         }}
       />
     </View>

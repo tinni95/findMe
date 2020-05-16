@@ -58,6 +58,7 @@ export default function App() {
   function login() {
     fetchToken().then(tokens => {
       if(tokens){
+        console.log("token",tokens)
         setToken(tokens);
         setLoggedin(true)
       }

@@ -73,6 +73,32 @@ export function ApplicationReceivedChat(props) {
   const [messages, setMessages] = useState([]);
   const id = props.navigation.getParam("id",null)
   const application = props.navigation.getParam("application",null)
+  /*
+   pubRead
+      id
+      to {
+        id
+      }
+      messages{
+        text
+      }
+      from {
+        nome
+        cognome
+        comune
+        regione
+        id
+        pictureUrl
+      }
+      post {
+        closedFor {
+        id
+      }
+        opened
+        id
+        titolo
+      }
+  */
   const { loading, error, data, refetch } = useQuery(MESSAGES_QUERY, {
     variables: { id: application.id },
   });
@@ -85,7 +111,6 @@ export function ApplicationReceivedChat(props) {
         application.from.nome,
         createPostMessage.text
       );
-      setMessages([...messages,parsePostMessage(createPostMessage,id)]);
       unseeChat({ variables: { id: application.id, subRead: false } });
     },
     onError: error => {

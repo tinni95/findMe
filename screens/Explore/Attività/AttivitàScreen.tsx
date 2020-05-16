@@ -58,7 +58,6 @@ const User = gql`
           id
           hidden
           titolo
-          titolo
           requisiti
         }
       }

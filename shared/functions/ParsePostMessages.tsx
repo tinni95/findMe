@@ -5,8 +5,8 @@ export const parsePostMessages = (messages, id) => {
         ? message.pub.pictureUrl
           ? message.pub.pictureUrl
           : require("../../assets/images/placeholder.png")
-        : message.pub.pictureUrl
-        ? message.pub.pictureUrl
+        : message.sub.pictureUrl
+        ? message.sub.pictureUrl
         : require("../../assets/images/placeholder.png");
     return {
       ...message,
