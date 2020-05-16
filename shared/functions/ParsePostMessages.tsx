@@ -1,3 +1,4 @@
+const shortid= require("shortid")
 export const parsePostMessages = (messages, id) => {
   return messages.map(message => {
     const image =
@@ -10,7 +11,7 @@ export const parsePostMessages = (messages, id) => {
         : require("../../assets/images/placeholder.png");
     return {
       ...message,
-      _id: message.id,
+      _id: shortid.generate(),
       user: {
         id,
         _id: message.pub.id == id ? 2 : 1,
@@ -32,7 +33,7 @@ export const parsePostMessage = (message, id) => {
         : require("../../assets/images/placeholder.png");
     return {
       ...message,
-      _id: message.id,
+      _id: shortid.generate(),
       user: {
         id,
         _id: message.pub.id == id ? 2 : 1,

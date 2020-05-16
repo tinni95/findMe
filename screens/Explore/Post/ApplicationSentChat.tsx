@@ -48,8 +48,8 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
 `;
 
 const MESSAGES_QUERY = gql`
-  query chatQuery($id: ID!, $last: Int, $skip:Int) {
-    PostMessagesFeed(id: $id, last:$last, skip:$skip) {
+  query chatQuery($id: ID!, $first: Int, $skip:Int) {
+    PostMessagesFeed(id: $id, first:$first, skip:$skip) {
       sub {
         pushToken
         id
@@ -118,26 +118,31 @@ function ApplicationSentChat(props) {
       }
        */
   const [skip,setSkip] = useState(0)
-  const { loading, error, data, refetch } = useQuery(MESSAGES_QUERY, {
-    variables: { id: application.id, last:10, skip },
+  const [first,setFirst] = useState(10)
+  const { loading} = useQuery(MESSAGES_QUERY, {
+    variables: { id: application.id, first, skip },
     onCompleted : ({PostMessagesFeed}) => {
+    if(first==10){
     setMessages(GiftedChat.prepend(
       messages,
       parsePostMessages(PostMessagesFeed,id)
       ))
+    }
     }
   });
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION);
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {
-      console.log(createPostMessage)
       sendNotification(
         createPostMessage.sub.pushToken,
         application.from.nome,
         createPostMessage.text
       );
-      setMessages([...messages,parsePostMessage(createPostMessage,id)]);
+      setMessages(GiftedChat.append(
+        messages,
+        parsePostMessage(createPostMessage,id)
+        ))
       unseeChat({ variables: { id: application.id, pubRead: false } });
     },
     onError: error => {
@@ -154,19 +159,17 @@ function ApplicationSentChat(props) {
         subId: application.to.id
       }
     });
- 
-    wait(100).then(()=>{
+    wait(50).then(()=>{
       props.socket.socket.emit("chat message",application.to.id)
     })
   };
 
   useEffect(() => {
-    wait(500).then(()=>refetch())
+    console.log("refetch")
   },[props.socket.refetch]);
 
   const fetchMore = () => {
-    setSkip(skip+10);
-    refetch()
+    setSkip(skip+10)
   }
 
   const renderMessage = props => {
@@ -187,7 +190,7 @@ function ApplicationSentChat(props) {
       <GiftedChat
         scrollToBottom={false}
         loadEarlier={true}
-        inverted={false}
+        inverted={true}
         messages={messages}
         onSend={message => onSend(message)}
         renderMessage={renderMessage}
@@ -201,8 +204,6 @@ function ApplicationSentChat(props) {
     </View>
   );
 }
-
-
 
 const ApplicationSentChatWS = props => (
   <SocketContext.Consumer>
