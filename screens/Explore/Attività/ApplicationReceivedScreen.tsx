@@ -174,7 +174,6 @@ function ApplicationReceivedScreen({ socket,navigation }) {
             <ReceivedCard
               onClosePosition={onClosePosition}
               onPress={() => {
-
                 navigation.navigate("Chat", {
                   pubId:application.to.id,
                   pubNome:application.to.nome,

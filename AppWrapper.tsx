@@ -26,11 +26,11 @@ const User = gql`
 `;
 
 export default function AppWrapper({logout}) {
-  const { data, loading,error } = useQuery(User);
+  const { data, loading } = useQuery(User);
 
   const [updateUser] = useMutation(UpdateUser);
   const [refetch,setRefetch] = useState(124124123);
-  const [message,setMessage] = useState(null);
+  const [payload,setPayload] = useState(null);
   const [socket, setSocket] = useState(null)
 
   useEffect(() => {
@@ -48,8 +48,8 @@ export default function AppWrapper({logout}) {
     const socket=io(socketEndPoint, {
       query: { token: data.currentUser.id }
     })
-    socket.on("chat message", (messages:any) => {
-      setMessage(messages);
+    socket.on("chat message", (payload:any) => {
+      setPayload(payload);
       setRefetch(Math.floor(Math.random() * -1000))
     })
     setSocket(socket)
@@ -61,7 +61,7 @@ export default function AppWrapper({logout}) {
     if(data.currentUser){
       return (
         <SocketContext.Provider
-          value={{socket,refetch,setRefetch,message}}>
+          value={{socket,refetch,setRefetch,payload}}>
           <MainTabNavigator></MainTabNavigator>
         </SocketContext.Provider>
       );
@@ -72,6 +72,4 @@ export default function AppWrapper({logout}) {
       </View>
     }
   }
-
-
 }

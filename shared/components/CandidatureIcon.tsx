@@ -29,7 +29,8 @@ function CandidatureIcon(props) {
   });
 
   useEffect(() => {
-    wait(1000).then(()=>refetch())
+    console.log("REFETCH")
+    wait(500).then(()=>refetch())
   },[props.socket.refetch]);
 
   if (loading) {

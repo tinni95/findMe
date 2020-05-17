@@ -111,9 +111,10 @@ function Chat(props) {
       }
        */
   const [skip,setSkip] = useState(0)
-  const { loading} = useQuery(MESSAGES_QUERY, {
+  const { loading, refetch} = useQuery(MESSAGES_QUERY, {
     variables: { id: applicationId, first:10, skip },
     onCompleted : ({PostMessagesFeed}) => {
+      console.log("skip",skip)
     setMessages(GiftedChat.prepend(
       messages,
       parsePostMessages(PostMessagesFeed,pubId)
@@ -126,7 +127,8 @@ function Chat(props) {
     onCompleted: async ({ createPostMessage }) => {
       props.socket.socket.emit("chat message",{
         to:subId,
-        createPostMessage
+        createPostMessage,
+        applicationId
       })
       sendNotification(
         createPostMessage.sub.pushToken,
@@ -156,14 +158,15 @@ function Chat(props) {
   };
 
   useEffect(() => {
-    console.log("messaage",props.socket.message)
-    if(props.socket.message){
+    console.log("messaage",props.socket.payload)
+    if(props.socket.payload&&messages.length>0&&props.socket.payload.applicationId===applicationId){
       setMessages(GiftedChat.append(
         messages,
-        parsePostMessage(props.socket.message,pubId)
+        parsePostMessage(props.socket.payload.message,pubId)
         ))
+      refetch()
     }
-  },[props.socket.message]);
+  },[props.socket.payload]);
 
   const fetchMore = () => {
     setSkip(skip+10)
