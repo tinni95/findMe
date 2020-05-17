@@ -9,7 +9,7 @@ import { gql } from "apollo-boost";
 import SocketContext from "../../../shared/SocketContext"
 import { sendNotification } from "../../../shared/functions/PushNotifications";
 import HeaderLeft from "../../../shared/components/HeaderLeft";
-
+import {headerTitleStyle} from "../../../shared/constants/HeaderStyles";
 const UNSEEAPPLICATIONCHAT_MUTATION = gql`
   mutation unseeApplicationChatChatMutation(
     $id: ID!
@@ -212,8 +212,11 @@ const ChatWS = props => (
 );
 
 ChatWS.navigationOptions = ({ navigation }) => {
+  console.log(navigation.state.params)
   return {
-    title:null,
+    headerTitleAlign: 'center',
+    headerTitleStyle,
+    title: navigation.getParam("applicationTitle",null),
     headerLeft: <HeaderLeft navigation={navigation}></HeaderLeft>,
   }
 }

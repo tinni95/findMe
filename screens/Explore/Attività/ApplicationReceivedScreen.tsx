@@ -180,6 +180,7 @@ function ApplicationReceivedScreen({ socket,navigation }) {
                   pubPicture:application.to.pictureUrl,
                   subId:application.from.id,
                   applicationId:application.id,
+                  applicationTitle: application.post.titolo,
                   onGoBack: () => {}
                 });
                 unseeChat({
