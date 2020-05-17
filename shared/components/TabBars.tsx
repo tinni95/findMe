@@ -9,7 +9,6 @@ export default function TabBars({ routes, renderScene, sent, received }) {
   const initialLayout = { width: Dimensions.get("window").width };
 
   const renderTabBar = props => {
-    if (true) {
       return (
         <TabBar
           style={{
@@ -70,7 +69,6 @@ export default function TabBars({ routes, renderScene, sent, received }) {
           }}
         />
       );
-    }
   };
   return (
     <TabView
