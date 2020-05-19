@@ -74,6 +74,9 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
     ) {
       application {
         pubRead
+        from{
+          id
+        }
         to {
           id
           nome
@@ -111,10 +114,6 @@ function ApplicationReceivedScreen({ socket,navigation }) {
           subId: application.to.id
         }
       });
-      wait(100).then(()=>{
-        socket.socket.emit("chat message",{
-          to:application.from.id})
-      })
     });
   };
 
@@ -147,6 +146,11 @@ function ApplicationReceivedScreen({ socket,navigation }) {
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {
+      socket.socket.emit("chat message",{
+        to:createPostMessage.application.from.id,
+        createPostMessage,
+        applicationId:createPostMessage.application.id
+      })
       unseeChat({
         variables: { id: createPostMessage.application.id, pubRead: false }
       });
