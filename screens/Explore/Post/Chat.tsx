@@ -70,46 +70,7 @@ const MESSAGES_QUERY = gql`
 function Chat(props) {
   const [messages, setMessages] = useState([]);
   const {applicationId, subId, pubId,pubNome,pubPicture} = props.navigation.state.params;
-  /*
-   applicationsSent {
-        subRead
-        pubRead
-        id
-        messages {
-          createdAt
-        }
-        from {
-          pictureUrl
-          nome
-          id
-        }
-        to {
-          nome
-          pictureUrl
-          id
-        }
-        post {
-          id
-          closedFor {
-            id
-          }
-          postedBy {
-            pictureUrl
-            nome
-            cognome
-            id
-          }
-          opened
-          comune
-          regione
-          id
-          hidden
-          titolo
-          titolo
-          requisiti
-        }
-      }
-       */
+
   const [skip,setSkip] = useState(0)
   const { loading, refetch} = useQuery(MESSAGES_QUERY, {
     variables: { id: applicationId, first:10, skip },
@@ -125,6 +86,10 @@ function Chat(props) {
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {
+      setMessages(GiftedChat.append(
+        messages,
+        parsePostMessage(createPostMessage,pubId)
+        ))
       props.socket.socket.emit("chat message",{
         to:subId,
         createPostMessage,
@@ -135,10 +100,6 @@ function Chat(props) {
         pubNome,
         createPostMessage.text
       );
-      setMessages(GiftedChat.append(
-        messages,
-        parsePostMessage(createPostMessage,pubId)
-        ))
       unseeChat({ variables: { id: applicationId, pubRead: false } });
     },
     onError: error => {
@@ -164,7 +125,7 @@ function Chat(props) {
         messages,
         parsePostMessage(props.socket.payload.message,pubId)
         ))
-      refetch()
+      //refetch()
     }
   },[props.socket.payload]);
 

@@ -1,14 +1,9 @@
 const shortid= require("shortid")
 export const parsePostMessages = (messages, id) => {
   return messages.map(message => {
-    const image =
-      message.pub.id == id
-        ? message.pub.pictureUrl
-          ? message.pub.pictureUrl
-          : require("../../assets/images/placeholder.png")
-        : message.sub.pictureUrl
-        ? message.sub.pictureUrl
-        : require("../../assets/images/placeholder.png");
+    const image =  message.pub.pictureUrl
+    ? message.pub.pictureUrl
+    : require("../../assets/images/placeholder.png")
     return {
       ...message,
       _id: shortid.generate(),
@@ -23,14 +18,9 @@ export const parsePostMessages = (messages, id) => {
 };
 
 export const parsePostMessage = (message, id) => {
-    const image =
-      message.pub.id == id
-        ? message.pub.pictureUrl
-          ? message.pub.pictureUrl
-          : require("../../assets/images/placeholder.png")
-        : message.pub.pictureUrl
-        ? message.pub.pictureUrl
-        : require("../../assets/images/placeholder.png");
+  const image =  message.pub.pictureUrl
+  ? message.pub.pictureUrl
+  : require("../../assets/images/placeholder.png")
     return {
       ...message,
       _id: shortid.generate(),
