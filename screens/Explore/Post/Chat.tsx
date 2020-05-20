@@ -69,7 +69,7 @@ const MESSAGES_QUERY = gql`
 
 function Chat(props) {
   const [messages, setMessages] = useState([]);
-  const {applicationId, subId, pubId,pubNome,pubPicture,isReceived} = props.navigation.state.params;
+  const {applicationId,applicationTitle, subId, pubId,pubNome,pubPicture,isReceived} = props.navigation.state.params;
   const [skip,setSkip] = useState(0)
   const [addtoSkip,setAdd] = useState(0)
   const { loading, refetch } = useQuery(MESSAGES_QUERY, {
@@ -98,7 +98,7 @@ function Chat(props) {
       })
       sendNotification(
         createPostMessage.sub.pushToken,
-        pubNome,
+        pubNome+" ("+applicationTitle+")",
         createPostMessage.text
       );
       isReceived ?
@@ -127,7 +127,6 @@ function Chat(props) {
   },[])
 
   useEffect(() => {
-    console.log("messaage",props.socket.payload)
     if(props.socket.payload&&messages.length>0&&props.socket.payload.applicationId===applicationId){
       setMessages(GiftedChat.append(
         messages,

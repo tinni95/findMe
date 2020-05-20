@@ -30,7 +30,7 @@ function AttivitàScreen({ navigation , socket}) {
     { key: "second", title: "Ricevute" }
   ]);
   useEffect(() => {
-    wait(500).then(()=>{
+    wait(100).then(()=>{
       refetch();
       setRefetch(!isRefetch);
     })

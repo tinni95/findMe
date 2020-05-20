@@ -8,6 +8,7 @@ import HeaderLeft from "../../../shared/components/HeaderLeft";
 import SocketContext from "../../../shared/SocketContext"
 import {APPLICATIONS_FOR_POST} from "../../../shared/apollo/query/ApplicationReceivedScreen.query"
 import {CLOSE_POSITION_FOR_APPLICATION,UNSEEAPPLICATIONCHAT_MUTATION,CREATEPOSTMESSAGE_MUTATION} from "../../../shared/apollo/mutation/ApplicationReceivedScreen.mutation"
+import { sendNotification } from "../../../shared/functions/PushNotifications";
 var shortid = require("shortid");
 
 function wait(timeout) {
@@ -38,7 +39,7 @@ function ApplicationReceivedScreen({ socket,navigation }) {
   };
 
   useEffect(() => {
-    wait(500).then(()=>refetch())
+    wait(100).then(()=>refetch())
   },[socket.refetch]);
 
   const [refreshing, setRefreshing] = useState(false);
@@ -70,8 +71,13 @@ function ApplicationReceivedScreen({ socket,navigation }) {
         createPostMessage,
         applicationId:createPostMessage.application.id
       })
+      sendNotification(
+        createPostMessage.sub.pushToken,
+        createPostMessage.application.to.nome,
+        createPostMessage.text
+      );
       unseeChat({
-        variables: { id: createPostMessage.application.id, pubRead: false }
+        variables: { id: createPostMessage.application.id, subRead: false }
       });
       refetch();
     },
@@ -98,13 +104,13 @@ function ApplicationReceivedScreen({ socket,navigation }) {
               onClosePosition={onClosePosition}
               onPress={() => {
                 navigation.navigate("Chat", {
+                  applicationTitle:application.post.titolo,
                   isReceived:true,
                   pubId:application.to.id,
                   pubNome:application.to.nome,
                   pubPicture:application.to.pictureUrl,
                   subId:application.from.id,
                   applicationId:application.id,
-                  applicationTitle: application.post.titolo,
                   onGoBack: () => {}
                 });
                 unseeChat({

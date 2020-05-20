@@ -6,6 +6,7 @@ export const APPLICATIONS_FOR_POST = gql`
       pubRead
       id
       to {
+        nome
         pictureUrl
         id
       }
