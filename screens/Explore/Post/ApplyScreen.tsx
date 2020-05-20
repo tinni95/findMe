@@ -57,6 +57,7 @@ const CREATEPOSTMESSAGE_MUTATION = gql`
     ) {
       id
       application {
+        id
         post{
           titolo
         }
@@ -109,7 +110,12 @@ function ApplyScreen({  navigation, socket }) {
 
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted : ({createPostMessage}) => {
-      socket.socket.emit("chat message",createPostMessage.application.to.id)
+      socket.socket.emit("chat message",{
+        to:createPostMessage.application.to.id,
+        createPostMessage,
+        applicationId:createPostMessage.application.id
+      })
+
     },
     onError: error => {
       console.log(error);

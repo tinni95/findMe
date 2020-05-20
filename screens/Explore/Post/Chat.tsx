@@ -70,9 +70,9 @@ const MESSAGES_QUERY = gql`
 function Chat(props) {
   const [messages, setMessages] = useState([]);
   const {applicationId, subId, pubId,pubNome,pubPicture} = props.navigation.state.params;
-
+  console.log(applicationId)
   const [skip,setSkip] = useState(0)
-  const { loading, refetch} = useQuery(MESSAGES_QUERY, {
+  const { loading, refetch } = useQuery(MESSAGES_QUERY, {
     variables: { id: applicationId, first:10, skip },
     onCompleted : ({PostMessagesFeed}) => {
       console.log("skip",skip)
@@ -80,7 +80,7 @@ function Chat(props) {
       messages,
       parsePostMessages(PostMessagesFeed,pubId)
       ))
-    }
+    }, fetchPolicy:"no-cache"
   });
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION);
 
@@ -118,6 +118,11 @@ function Chat(props) {
     });
   };
 
+  useEffect(()=>{
+    setSkip(0);
+    refetch();
+  },[])
+
   useEffect(() => {
     console.log("messaage",props.socket.payload)
     if(props.socket.payload&&messages.length>0&&props.socket.payload.applicationId===applicationId){
@@ -125,7 +130,6 @@ function Chat(props) {
         messages,
         parsePostMessage(props.socket.payload.message,pubId)
         ))
-      //refetch()
     }
   },[props.socket.payload]);
 
@@ -173,7 +177,6 @@ const ChatWS = props => (
 );
 
 ChatWS.navigationOptions = ({ navigation }) => {
-  console.log(navigation.state.params)
   return {
     headerTitleAlign: 'center',
     headerTitleStyle,

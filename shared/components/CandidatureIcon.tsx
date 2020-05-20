@@ -5,6 +5,7 @@ import Colors from "../constants/Colors";
 import { useQuery } from "react-apollo";
 import { gql } from "apollo-boost";
 import SocketContext from "../SocketContext";
+import { wait } from "../functions/wait";
 
 const UNSEENAPPLICATIONS_QUERY = gql`
   {
@@ -17,19 +18,17 @@ const UNSEENAPPLICATIONS_QUERY = gql`
   }
 `;
 
-function wait(timeout) {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-}
 
 function CandidatureIcon(props) {
   const { loading, refetch, data } = useQuery(UNSEENAPPLICATIONS_QUERY, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
+    onCompleted:({UnseenApplications}) => {
+      console.log("roberto")
+    }
   });
 
   useEffect(() => {
-    console.log("REFETCH")
+    console.log("CAndidature")
     wait(500).then(()=>refetch())
   },[props.socket.refetch]);
 

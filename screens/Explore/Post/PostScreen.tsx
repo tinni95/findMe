@@ -12,7 +12,6 @@ import TenditErrorDisplay from "../../../shared/graphql/TenditErrorDisplay";
 import { sendNotification } from "../../../shared/functions/PushNotifications";
 import { Alert } from "react-native";
 import HeaderRightElimina from "../../../shared/components/HeaderRightElimina";
-import RoundButtonEmpty from "../../../shared/components/RoundButtonEmpty";
 import Colors from "../../../shared/constants/Colors";
 import RoundButton from "../../../shared/components/RoundButton";
 import { LinearGradient } from "expo-linear-gradient";
@@ -154,6 +153,12 @@ const Post = gql`
           data.currentUser.nome+" ha rimosso la sua applicazione per " + data.singlePost.titolo
         );
         Haptics.selectionAsync();
+        socket.socket.emit("chat message",{
+          to:data.applicationUserForPosition[0].to.id,
+          createPostMessage:{},
+          applicationId:data.applicationUserForPosition[0].id
+        })
+  
         socket.socket.emit("chat message",data.applicationUserForPosition[0].to.id)
       });
   };

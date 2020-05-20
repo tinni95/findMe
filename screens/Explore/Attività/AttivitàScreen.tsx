@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { RefreshControl } from "react-native";
 import { SceneMap } from "react-native-tab-view";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import { ScrollView } from "react-native-gesture-handler";
 import SentCard from "../../../shared/components/SentCard";
 import TabBars from "../../../shared/components/TabBars";
@@ -12,83 +10,18 @@ import PostApplicationCard from "../../../shared/components/PostApplicationCard"
 import { wait } from "../../../shared/functions/wait";
 import { headerTitleStyle } from "../../../shared/constants/HeaderStyles";
 import SocketContext from "../../../shared/SocketContext"
+//Apollo
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import {USER_QUERY} from "../../../shared/apollo/query/AttivitàScreen.query"
+import {UNSEEAPPLICATIONCHAT_MUTATION} from "../../../shared/apollo/mutation/Attivitàscreen.mutation"
+
 var shortid = require("shortid");
-
-const User = gql`
-  {
-    UnseenSentApplications {
-      id
-    }
-    UnseenReceivedApplications {
-      id
-    }
-    currentUser {
-      id
-      applicationsSent {
-        subRead
-        pubRead
-        id
-        messages {
-          createdAt
-        }
-        from {
-          pictureUrl
-          nome
-          id
-        }
-        to {
-          nome
-          pictureUrl
-          id
-        }
-        post {
-          id
-          closedFor {
-            id
-          }
-          postedBy {
-            pictureUrl
-            nome
-            cognome
-            id
-          }
-          opened
-          comune
-          regione
-          id
-          hidden
-          titolo
-          requisiti
-        }
-      }
-    }
-    userPosts {
-      opened
-      id
-    }
-  }
-`;
-
-const UNSEEAPPLICATIONCHAT_MUTATION = gql`
-  mutation unseeApplicationChatChatMutation(
-    $id: ID!
-    $pubRead: Boolean
-    $subRead: Boolean
-  ) {
-    UnseeApplication(id: $id, pubRead: $pubRead, subRead: $subRead) {
-      id
-      subRead
-      pubRead
-    }
-  }
-`;
-
 
 function AttivitàScreen({ navigation , socket}) {
 
   const [refreshing, setRefreshing] = useState(false);
   const [isRefetch, setRefetch] = useState(false);
-  const { refetch, data, loading } = useQuery(User, {
+  const { refetch, data, loading } = useQuery(USER_QUERY, {
     fetchPolicy: "no-cache"
   });
 

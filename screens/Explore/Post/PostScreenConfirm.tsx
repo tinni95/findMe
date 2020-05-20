@@ -23,6 +23,7 @@ const User = gql`
     }
   }
 `;
+
 export default function PostScreenConfirm({ navigation, hidden, post }) {
   const { data, loading } = useQuery(User);
   if (loading) return <TenditSpinner></TenditSpinner>;

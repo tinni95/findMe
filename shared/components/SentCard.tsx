@@ -6,7 +6,6 @@ import AvatarAndVedi from "./AvatarAndVedi";
 import { Bold, Body, Light } from "./StyledText";
 import LocationWithText from "./LocationWithText";
 import Colors from "../constants/Colors";
-import RoundButtonSm from "./RoundButtonSm";
 import { RoundButtonEmptyIcon } from "./RoundButtonEmptyIcon";
 import RoundButtonEmpty from "./RoundButtonEmpty";
 var shortid = require("shortid");
