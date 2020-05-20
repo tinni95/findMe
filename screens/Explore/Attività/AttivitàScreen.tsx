@@ -70,6 +70,7 @@ function AttivitàScreen({ navigation , socket}) {
               onPress={() => {
                 navigation.navigate("Chat", {
                   applicationId:application.id,
+                  isReceived:false,
                   applicationTitle: application.post.titolo,
                   pubId:application.from.id,
                   pubNome: application.from.nome,

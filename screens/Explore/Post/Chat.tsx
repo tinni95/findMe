@@ -69,9 +69,9 @@ const MESSAGES_QUERY = gql`
 
 function Chat(props) {
   const [messages, setMessages] = useState([]);
-  const {applicationId, subId, pubId,pubNome,pubPicture} = props.navigation.state.params;
-  console.log(applicationId)
+  const {applicationId, subId, pubId,pubNome,pubPicture,isReceived} = props.navigation.state.params;
   const [skip,setSkip] = useState(0)
+  const [addtoSkip,setAdd] = useState(0)
   const { loading, refetch } = useQuery(MESSAGES_QUERY, {
     variables: { id: applicationId, first:10, skip },
     onCompleted : ({PostMessagesFeed}) => {
@@ -90,6 +90,7 @@ function Chat(props) {
         messages,
         parsePostMessage(createPostMessage,pubId)
         ))
+        setAdd(addtoSkip+1)
       props.socket.socket.emit("chat message",{
         to:subId,
         createPostMessage,
@@ -100,7 +101,9 @@ function Chat(props) {
         pubNome,
         createPostMessage.text
       );
-      unseeChat({ variables: { id: applicationId, pubRead: false } });
+      isReceived ?
+      unseeChat({ variables: { id: applicationId, subRead: false } }):
+      unseeChat({ variables: { id: applicationId, pubRead: false } })
     },
     onError: error => {
       alert("Qualcosa è andato storto");
@@ -130,11 +133,15 @@ function Chat(props) {
         messages,
         parsePostMessage(props.socket.payload.message,pubId)
         ))
+        setAdd(addtoSkip+1)
+        isReceived ?
+        unseeChat({ variables: { id: applicationId, pubRead: true } }):
+        unseeChat({ variables: { id: applicationId, subRead: true } })
     }
   },[props.socket.payload]);
 
   const fetchMore = () => {
-    setSkip(skip+10)
+    setSkip(skip+10+addtoSkip)
   }
 
   const renderMessage = props => {

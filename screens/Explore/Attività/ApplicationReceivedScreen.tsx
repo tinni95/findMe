@@ -98,6 +98,7 @@ function ApplicationReceivedScreen({ socket,navigation }) {
               onClosePosition={onClosePosition}
               onPress={() => {
                 navigation.navigate("Chat", {
+                  isReceived:true,
                   pubId:application.to.id,
                   pubNome:application.to.nome,
                   pubPicture:application.to.pictureUrl,
