@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import MainTabNavigator from "./navigation/MainTabNavigator";
+import MainTabNavigator from "./src/navigation/MainTabNavigator";
 import io from "socket.io-client";
-import { socketEndPoint } from "./shared/constants/urls";
-import SocketContext from "./shared/SocketContext";
+import { socketEndPoint } from "./src/shared/constants/urls";
+import SocketContext from "./src/shared/SocketContext";
 import { useQuery, useMutation } from "react-apollo";
 import { gql } from "apollo-boost";
-import TenditSpinner from "./shared/graphql/TenditSpinner";
-import PushNotifications from "./shared/functions/PushNotifications";
+import TenditSpinner from "./src/shared/graphql/TenditSpinner";
+import PushNotifications from "./src/shared/functions/PushNotifications";
 import { Text, View } from "react-native";
 
 const UpdateUser = gql`

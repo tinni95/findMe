@@ -1,19 +1,19 @@
 import { AppLoading } from "expo";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, AsyncStorage } from "react-native";
-import AuthenticationStack from "./navigation/AuthenticationStack";
+import AuthenticationStack from "./src/navigation/AuthenticationStack";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
 import { ApolloProvider } from "@apollo/react-hooks";
 import AppWrapper from "./AppWrapper";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
-import Colors from "./shared/constants/Colors";
-import LoginContext from "./shared/LoginContext";
+import Colors from "./src/shared/constants/Colors";
+import LoginContext from "./src/shared/LoginContext";
 import * as Sentry from 'sentry-expo';
 import Constants from 'expo-constants';
-import {TOKEN_KEY} from "./shared/constants/Token";
+import {TOKEN_KEY} from "./src/shared/constants/Token";
 import ApolloClient from 'apollo-boost'
-import { graphlEndPoint } from "./shared/constants/urls";
+import { graphlEndPoint } from "./src/shared/constants/urls";
 
 Sentry.init({
   dsn: 'https://db25e88e44d04dd3b02475df3830a0d8@o387249.ingest.sentry.io/5222235',
