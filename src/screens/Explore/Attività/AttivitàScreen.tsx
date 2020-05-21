@@ -13,7 +13,7 @@ import SocketContext from '../../../shared/SocketContext';
 //Apollo
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { USER_QUERY } from '../../../shared/apollo/query/AttivitàScreen.query';
-import { UNSEEAPPLICATIONCHAT_MUTATION } from '../../../shared/apollo/mutation/Attivitàscreen.mutation';
+import UNSEEAPPLICATIONCHAT_MUTATION  from '../../../shared/apollo/mutation/shared.UnseeApplicationChat.mutation';
 
 var shortid = require('shortid');
 

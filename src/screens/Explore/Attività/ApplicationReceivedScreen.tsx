@@ -9,9 +9,9 @@ import SocketContext from '../../../shared/SocketContext';
 import { APPLICATIONS_FOR_POST } from '../../../shared/apollo/query/ApplicationReceivedScreen.query';
 import {
   CLOSE_POSITION_FOR_APPLICATION,
-  UNSEEAPPLICATIONCHAT_MUTATION,
-  CREATEPOSTMESSAGE_MUTATION,
 } from '../../../shared/apollo/mutation/ApplicationReceivedScreen.mutation';
+import UNSEEAPPLICATIONCHAT_MUTATION  from '../../../shared/apollo/mutation/shared.UnseeApplicationChat.mutation';
+import CREATEPOSTMESSAGE_MUTATION  from '../../../shared/apollo/mutation/shared.CreatePostMessageMutation';
 import { sendNotification } from '../../../shared/functions/PushNotifications';
 var shortid = require('shortid');
 

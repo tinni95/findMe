@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GiftedChat, LoadEarlier } from 'react-native-gifted-chat';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import InputToolbar from '../../../shared/components/InputToolbar';
 import TenditMessage from '../../../shared/components/Chat/TenditMessage';
 import { useMutation, useQuery } from 'react-apollo';
@@ -8,17 +8,10 @@ import { parsePostMessages, parsePostMessage } from '../../../shared/functions/P
 import { gql } from 'apollo-boost';
 import SocketContext from '../../../shared/SocketContext';
 import { sendNotification } from '../../../shared/functions/PushNotifications';
-import HeaderLeft from '../../../shared/components/HeaderLeft';
 import { headerTitleStyle } from '../../../shared/constants/HeaderStyles';
-const UNSEEAPPLICATIONCHAT_MUTATION = gql`
-  mutation unseeApplicationChatChatMutation($id: ID!, $pubRead: Boolean, $subRead: Boolean) {
-    UnseeApplication(id: $id, pubRead: $pubRead, subRead: $subRead) {
-      id
-      subRead
-      pubRead
-    }
-  }
-`;
+import HeaderLeft from '../../../shared/components/HeaderLeft';
+import UNSEEAPPLICATIONCHAT_MUTATION  from '../../../shared/apollo/mutation/shared.UnseeApplicationChat.mutation';
+
 const CREATEPOSTMESSAGE_MUTATION = gql`
   mutation createPostMessage($applicationId: ID!, $text: String!, $subId: ID!) {
     createPostMessage(applicationId: $applicationId, text: $text, subId: $subId) {
@@ -106,7 +99,7 @@ function Chat(props) {
         ? unseeChat({ variables: { id: applicationId, subRead: false } })
         : unseeChat({ variables: { id: applicationId, pubRead: false } });
     },
-    onError: (error) => {
+    onError: () => {
       alert('Qualcosa è andato storto');
     },
   });
@@ -156,7 +149,7 @@ function Chat(props) {
     return <LoadEarlier {...props} onLoadEarlier={fetchMore} label="Carica precedenti" />;
   };
 
-  const renderInputToolbar = (props) => {
+  const renderInputToolbar = () => {
     const image = !loading && { uri: pubPicture };
     return (
       <InputToolbar
@@ -186,8 +179,8 @@ function Chat(props) {
 }
 
 //socket context
-const ChatWS = (props) => (
-  <SocketContext.Consumer>{(socket) => <Chat {...props} socket={socket} />}</SocketContext.Consumer>
+const ChatWS = (props:any) => (
+  <SocketContext.Consumer>{(socket:any) => <Chat {...props} socket={socket} />}</SocketContext.Consumer>
 );
 
 //navigation
