@@ -68,10 +68,15 @@ const MESSAGES_QUERY = gql`
 `;
 
 function Chat(props) {
-  const [messages, setMessages] = useState([]);
+  //navigation
   const {applicationId,applicationTitle, subId, pubId,pubNome,pubPicture,isReceived} = props.navigation.state.params;
+
+  //hooks
+  const [messages, setMessages] = useState([]);
   const [skip,setSkip] = useState(0)
   const [addtoSkip,setAdd] = useState(0)
+  
+  //query 
   const { loading, refetch } = useQuery(MESSAGES_QUERY, {
     variables: { id: applicationId, first:10, skip },
     onCompleted : ({PostMessagesFeed}) => {
@@ -82,8 +87,9 @@ function Chat(props) {
       ))
     }, fetchPolicy:"no-cache"
   });
+  
+  //mutations
   const [unseeChat] = useMutation(UNSEEAPPLICATIONCHAT_MUTATION);
-
   const [createMessage] = useMutation(CREATEPOSTMESSAGE_MUTATION, {
     onCompleted: async ({ createPostMessage }) => {
       setMessages(GiftedChat.append(
@@ -109,18 +115,8 @@ function Chat(props) {
       alert("Qualcosa è andato storto");
     }
   });
-
-
-  const onSend = message => {
-    createMessage({
-      variables: {
-        text: message,
-        applicationId,
-        subId
-      }
-    });
-  };
-
+  
+  //useEffect
   useEffect(()=>{
     setSkip(0);
     refetch();
@@ -138,6 +134,17 @@ function Chat(props) {
         unseeChat({ variables: { id: applicationId, subRead: true } })
     }
   },[props.socket.payload]);
+
+  //functions
+  const onSend = message => {
+    createMessage({
+      variables: {
+        text: message,
+        applicationId,
+        subId
+      }
+    });
+  };
 
   const fetchMore = () => {
     setSkip(skip+10+addtoSkip)
@@ -176,12 +183,14 @@ function Chat(props) {
   );
 }
 
+//socket context
 const ChatWS = props => (
   <SocketContext.Consumer>
     {socket => <Chat {...props} socket={socket} />}
   </SocketContext.Consumer>
 );
 
+//navigation
 ChatWS.navigationOptions = ({ navigation }) => {
   return {
     headerTitleAlign: 'center',

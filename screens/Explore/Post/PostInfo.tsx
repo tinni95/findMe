@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { Bold, Body } from "../../../shared/components/StyledText";
+import { StyleSheet, View } from "react-native";
+import { Bold } from "../../../shared/components/StyledText";
 import AvatarAndVediCorNome from "../../../shared/components/AvatarAndVediCorNome";
 
 export default function PostInfo({ user, isHidden, navigation }) {
