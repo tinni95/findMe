@@ -39,7 +39,8 @@ export default function SearchBarComponent({ setIs, updateSearch }) {
           onPress={() => {
             setIs(false);
             setFocused(false);
-            myref.current.blur();
+			myref.current.blur();
+			setSearch("");
           }}
           style={styles.cancelWrapper}>
           <Light style={{ color: Colors.red }}>Cancel</Light>
