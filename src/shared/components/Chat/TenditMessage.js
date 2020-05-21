@@ -1,11 +1,11 @@
 /* eslint-disable no-underscore-dangle, no-use-before-define */
 
-import PropTypes from "prop-types";
-import React from "react";
-import { View, ViewPropTypes, StyleSheet } from "react-native";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { View, ViewPropTypes, StyleSheet } from 'react-native';
 
-import { Avatar, Day, utils } from "react-native-gifted-chat";
-import Bubble from "./Bubble";
+import { Avatar, Day, utils } from 'react-native-gifted-chat';
+import Bubble from './Bubble';
 
 const { isSameUser, isSameDay } = utils;
 
@@ -14,9 +14,9 @@ export default class Message extends React.Component {
     const { containerStyle, ...props } = this.props;
     return {
       ...props,
-      position: "left",
+      position: 'left',
       isSameUser,
-      isSameDay
+      isSameDay,
     };
   }
 
@@ -50,12 +50,7 @@ export default class Message extends React.Component {
   }
 
   render() {
-    const marginBottom = isSameUser(
-      this.props.currentMessage,
-      this.props.nextMessage
-    )
-      ? 5
-      : 20;
+    const marginBottom = isSameUser(this.props.currentMessage, this.props.nextMessage) ? 5 : 20;
     const isOwner = this.props.currentMessage.user._id == 1;
     return (
       <View>
@@ -66,20 +61,19 @@ export default class Message extends React.Component {
             {this.renderBubble()}
           </View>
         ) : (
-            <View
-              style={[
-                styles.container,
-                {
-                  alignItems: "flex-end",
-                  justifyContent: "flex-end"
-                },
-                { marginBottom }
-              ]}
-            >
-              {this.renderBubble()}
-              {this.renderAvatar()}
-            </View>
-          )}
+          <View
+            style={[
+              styles.container,
+              {
+                alignItems: 'flex-end',
+                justifyContent: 'flex-end',
+              },
+              { marginBottom },
+            ]}>
+            {this.renderBubble()}
+            {this.renderAvatar()}
+          </View>
+        )}
       </View>
     );
   }
@@ -87,18 +81,18 @@ export default class Message extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    justifyContent: "flex-start",
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-start',
     marginLeft: 8,
-    marginRight: 0
+    marginRight: 0,
   },
   slackAvatar: {
     // The bottom should roughly line up with the first line of message text.
     height: 30,
     width: 30,
-    borderRadius: 15
-  }
+    borderRadius: 15,
+  },
 });
 
 Message.defaultProps = {
@@ -109,7 +103,7 @@ Message.defaultProps = {
   nextMessage: {},
   previousMessage: {},
   user: {},
-  containerStyle: {}
+  containerStyle: {},
 };
 
 Message.propTypes = {
@@ -122,6 +116,6 @@ Message.propTypes = {
   user: PropTypes.object,
   containerStyle: PropTypes.shape({
     left: ViewPropTypes.style,
-    right: ViewPropTypes.style
-  })
+    right: ViewPropTypes.style,
+  }),
 };

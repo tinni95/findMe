@@ -21,7 +21,6 @@ export type ProfilePageQueryRendererQuery = {|
 |};
 */
 
-
 /*
 query ProfilePageQueryRendererQuery {
   currentUser {
@@ -31,71 +30,69 @@ query ProfilePageQueryRendererQuery {
 }
 */
 
-const node/*: ConcreteRequest*/ = (function(){
-var v0 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "email",
-  "args": null,
-  "storageKey": null
-};
-return {
-  "kind": "Request",
-  "fragment": {
-    "kind": "Fragment",
-    "name": "ProfilePageQueryRendererQuery",
-    "type": "Query",
-    "metadata": null,
-    "argumentDefinitions": [],
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "currentUser",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "User",
-        "plural": false,
-        "selections": [
-          (v0/*: any*/)
-        ]
-      }
-    ]
-  },
-  "operation": {
-    "kind": "Operation",
-    "name": "ProfilePageQueryRendererQuery",
-    "argumentDefinitions": [],
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "currentUser",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "User",
-        "plural": false,
-        "selections": [
-          (v0/*: any*/),
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "id",
-            "args": null,
-            "storageKey": null
-          }
-        ]
-      }
-    ]
-  },
-  "params": {
-    "operationKind": "query",
-    "name": "ProfilePageQueryRendererQuery",
-    "id": null,
-    "text": "query ProfilePageQueryRendererQuery {\n  currentUser {\n    email\n    id\n  }\n}\n",
-    "metadata": {}
-  }
-};
+const node /*: ConcreteRequest*/ = (function () {
+  var v0 = {
+    kind: 'ScalarField',
+    alias: null,
+    name: 'email',
+    args: null,
+    storageKey: null,
+  };
+  return {
+    kind: 'Request',
+    fragment: {
+      kind: 'Fragment',
+      name: 'ProfilePageQueryRendererQuery',
+      type: 'Query',
+      metadata: null,
+      argumentDefinitions: [],
+      selections: [
+        {
+          kind: 'LinkedField',
+          alias: null,
+          name: 'currentUser',
+          storageKey: null,
+          args: null,
+          concreteType: 'User',
+          plural: false,
+          selections: [(v0 /*: any*/)],
+        },
+      ],
+    },
+    operation: {
+      kind: 'Operation',
+      name: 'ProfilePageQueryRendererQuery',
+      argumentDefinitions: [],
+      selections: [
+        {
+          kind: 'LinkedField',
+          alias: null,
+          name: 'currentUser',
+          storageKey: null,
+          args: null,
+          concreteType: 'User',
+          plural: false,
+          selections: [
+            (v0 /*: any*/),
+            {
+              kind: 'ScalarField',
+              alias: null,
+              name: 'id',
+              args: null,
+              storageKey: null,
+            },
+          ],
+        },
+      ],
+    },
+    params: {
+      operationKind: 'query',
+      name: 'ProfilePageQueryRendererQuery',
+      id: null,
+      text: 'query ProfilePageQueryRendererQuery {\n  currentUser {\n    email\n    id\n  }\n}\n',
+      metadata: {},
+    },
+  };
 })();
 // prettier-ignore
 (node/*: any*/).hash = 'f49a915bdc1884ead44d313b1470ff6a';

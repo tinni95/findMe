@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
-import { MultiFilterItem } from "./MultiFilterItem";
-import RoundButton from "../RoundButton";
-import { Body } from "../StyledText";
-import Colors from "../../constants/Colors"
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { MultiFilterItem } from './MultiFilterItem';
+import RoundButton from '../RoundButton';
+import { Body } from '../StyledText';
+import Colors from '../../constants/Colors';
 
 export default function MultiFilters({
   inactive,
@@ -23,7 +23,6 @@ export default function MultiFilters({
     setSelected(settoreAttivi);
   });
 
-
   let filters, active;
   if (maximum == 1) {
     filters = settori.map((settore, index) => {
@@ -34,8 +33,8 @@ export default function MultiFilters({
             <RoundButton
               isLight={true}
               text={settore}
-              textColor={active ? "#FFF" : "#5F5E5E"}
-              color={active ? Colors.red : "#FFF"}
+              textColor={active ? '#FFF' : '#5F5E5E'}
+              color={active ? Colors.red : '#FFF'}
               onPress={() => {
                 if (!inactive) {
                   addItem(settore);
@@ -67,8 +66,7 @@ export default function MultiFilters({
           <Body
             style={{ margin: 5, marginTop: 15, fontSize: 12, color: Colors.red }}
             onPress={() => setHidden(!hidden)}
-            key={index}
-          >
+            key={index}>
             ..Altro
           </Body>
         );
@@ -79,7 +77,7 @@ export default function MultiFilters({
 
 const styles = StyleSheet.create({
   wrapper: {
-    flexDirection: "row",
-    flexWrap: "wrap"
-  }
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
 });

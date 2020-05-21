@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const APPLICATIONS_FOR_POST = gql`
   query applicationsForPosition($postId: ID!) {
@@ -10,7 +10,7 @@ export const APPLICATIONS_FOR_POST = gql`
         pictureUrl
         id
       }
-      messages{
+      messages {
         text
       }
       from {
@@ -23,8 +23,8 @@ export const APPLICATIONS_FOR_POST = gql`
       }
       post {
         closedFor {
-        id
-      }
+          id
+        }
         opened
         id
         titolo

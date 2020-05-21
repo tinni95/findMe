@@ -23,29 +23,28 @@ export type Explore_post$key = {
 };
 */
 
-
-const node/*: ReaderFragment*/ = {
-  "kind": "Fragment",
-  "name": "Explore_post",
-  "type": "Post",
-  "metadata": null,
-  "argumentDefinitions": [],
-  "selections": [
+const node /*: ReaderFragment*/ = {
+  kind: 'Fragment',
+  name: 'Explore_post',
+  type: 'Post',
+  metadata: null,
+  argumentDefinitions: [],
+  selections: [
     {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "title",
-      "args": null,
-      "storageKey": null
+      kind: 'ScalarField',
+      alias: null,
+      name: 'title',
+      args: null,
+      storageKey: null,
     },
     {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "description",
-      "args": null,
-      "storageKey": null
-    }
-  ]
+      kind: 'ScalarField',
+      alias: null,
+      name: 'description',
+      args: null,
+      storageKey: null,
+    },
+  ],
 };
 // prettier-ignore
 (node/*: any*/).hash = '9fa96f8934eae8806065bbe53e7d38e3';

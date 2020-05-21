@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle, no-use-before-define */
 
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 import {
   Text,
   Clipboard,
@@ -9,12 +9,12 @@ import {
   TouchableOpacity,
   View,
   ViewPropTypes,
-  Platform
-} from "react-native";
-import moment from "moment/min/moment-with-locales";
-import { MessageText, MessageImage } from "react-native-gifted-chat";
-import { Light } from "../StyledText";
-moment.locale("it");
+  Platform,
+} from 'react-native';
+import moment from 'moment/min/moment-with-locales';
+import { MessageText, MessageImage } from 'react-native-gifted-chat';
+import { Light } from '../StyledText';
+moment.locale('it');
 export default class Bubble extends React.Component {
   constructor(props) {
     super(props);
@@ -26,20 +26,20 @@ export default class Bubble extends React.Component {
       this.props.onLongPress(this.context, this.props.currentMessage);
     } else {
       if (this.props.currentMessage.text) {
-        const options = ["Copy Text", "Cancel"];
+        const options = ['Copy Text', 'Cancel'];
         const cancelButtonIndex = options.length - 1;
         this.context.actionSheet().showActionSheetWithOptions(
           {
             options,
-            cancelButtonIndex
+            cancelButtonIndex,
           },
-          buttonIndex => {
+          (buttonIndex) => {
             switch (buttonIndex) {
               case 0:
                 Clipboard.setString(this.props.currentMessage.text);
                 break;
             }
-          }
+          },
         );
       }
     }
@@ -47,12 +47,7 @@ export default class Bubble extends React.Component {
 
   renderMessageText() {
     if (this.props.currentMessage.text) {
-      const {
-        containerStyle,
-        wrapperStyle,
-        messageTextStyle,
-        ...messageTextProps
-      } = this.props;
+      const { containerStyle, wrapperStyle, messageTextStyle, ...messageTextProps } = this.props;
       if (this.props.renderMessageText) {
         return this.props.renderMessageText(messageTextProps);
       }
@@ -89,18 +84,10 @@ export default class Bubble extends React.Component {
       return (
         <View style={[styles.headerItem, styles.tickView]}>
           {currentMessage.sent && (
-            <Text
-              style={[styles.standardFont, styles.tick, this.props.tickStyle]}
-            >
-              ✓
-            </Text>
+            <Text style={[styles.standardFont, styles.tick, this.props.tickStyle]}>✓</Text>
           )}
           {currentMessage.received && (
-            <Text
-              style={[styles.standardFont, styles.tick, this.props.tickStyle]}
-            >
-              ✓
-            </Text>
+            <Text style={[styles.standardFont, styles.tick, this.props.tickStyle]}>✓</Text>
           )}
         </View>
       );
@@ -116,7 +103,7 @@ export default class Bubble extends React.Component {
       }
       return (
         <Light style={styles.time}>
-          {moment(this.props.currentMessage.createdAt).format("HH:mm")}
+          {moment(this.props.currentMessage.createdAt).format('HH:mm')}
         </Light>
       );
     }
@@ -144,26 +131,20 @@ export default class Bubble extends React.Component {
           styles.container,
           this.props.containerStyle,
           {
-            alignItems:
-              this.props.currentMessage.user._id == 1
-                ? "flex-start"
-                : "flex-end"
-          }
-        ]}
-      >
+            alignItems: this.props.currentMessage.user._id == 1 ? 'flex-start' : 'flex-end',
+          },
+        ]}>
         <TouchableOpacity
           onLongPress={this.onLongPress}
           accessibilityTraits="text"
-          {...this.props.touchableProps}
-        >
+          {...this.props.touchableProps}>
           <View style={[styles.wrapper, this.props.wrapperStyle]}>
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between"
-              }}
-            >
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
               {this.renderMessageImage()}
               {this.renderMessageText()}
               {messageHeader}
@@ -179,20 +160,20 @@ export default class Bubble extends React.Component {
 // The "right" position is only used in the default Bubble.
 const styles = StyleSheet.create({
   standardFont: {
-    fontSize: 15
+    fontSize: 15,
   },
   slackMessageText: {
     marginLeft: 0,
-    marginRight: 0
+    marginRight: 0,
   },
   container: {
-    flex: 1
+    flex: 1,
   },
   wrapper: {
     marginRight: 10,
     minHeight: 20,
-    justifyContent: "flex-end",
-    backgroundColor: "#FFFFFF",
+    justifyContent: 'flex-end',
+    backgroundColor: '#FFFFFF',
     padding: 5,
     maxWidth: 300,
     borderRadius: 5,
@@ -200,56 +181,56 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     ...Platform.select({
       ios: {
-        shadowColor: "black",
+        shadowColor: 'black',
         shadowOffset: { height: 3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3
+        shadowRadius: 3,
       },
       android: {
-        elevation: 5
-      }
-    })
+        elevation: 5,
+      },
+    }),
   },
   username: {
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
   timeContainer: {
     marginLeft: 0,
     marginRight: 0,
-    marginBottom: 0
+    marginBottom: 0,
   },
   headerItem: {
-    marginRight: 10
+    marginRight: 10,
   },
   headerView: {
     // Try to align it better with the avatar on Android.
-    marginTop: Platform.OS === "android" ? -2 : 0,
-    flexDirection: "row",
-    alignItems: "baseline"
+    marginTop: Platform.OS === 'android' ? -2 : 0,
+    flexDirection: 'row',
+    alignItems: 'baseline',
   },
   time: {
     fontSize: 10,
-    textAlign: "left",
-    color: "#707070"
+    textAlign: 'left',
+    color: '#707070',
   },
   /* eslint-disable react-native/no-color-literals */
   tick: {
-    backgroundColor: "transparent",
-    color: "white"
+    backgroundColor: 'transparent',
+    color: 'white',
   },
   /* eslint-enable react-native/no-color-literals */
   tickView: {
-    flexDirection: "row"
+    flexDirection: 'row',
   },
   slackImage: {
     borderRadius: 3,
     marginLeft: 0,
-    marginRight: 0
-  }
+    marginRight: 0,
+  },
 });
 
 Bubble.contextTypes = {
-  actionSheet: PropTypes.func
+  actionSheet: PropTypes.func,
 };
 
 Bubble.defaultProps = {
@@ -262,7 +243,7 @@ Bubble.defaultProps = {
   currentMessage: {
     text: null,
     createdAt: null,
-    image: null
+    image: null,
   },
   nextMessage: {},
   previousMessage: {},
@@ -270,7 +251,7 @@ Bubble.defaultProps = {
   wrapperStyle: {},
   tickStyle: {},
   containerToNextStyle: {},
-  containerToPreviousStyle: {}
+  containerToPreviousStyle: {},
 };
 
 Bubble.propTypes = {
@@ -288,21 +269,21 @@ Bubble.propTypes = {
   user: PropTypes.object,
   containerStyle: PropTypes.shape({
     left: ViewPropTypes.style,
-    right: ViewPropTypes.style
+    right: ViewPropTypes.style,
   }),
   wrapperStyle: PropTypes.shape({
     left: ViewPropTypes.style,
-    right: ViewPropTypes.style
+    right: ViewPropTypes.style,
   }),
   messageTextStyle: Text.propTypes.style,
   usernameStyle: Text.propTypes.style,
   tickStyle: Text.propTypes.style,
   containerToNextStyle: PropTypes.shape({
     left: ViewPropTypes.style,
-    right: ViewPropTypes.style
+    right: ViewPropTypes.style,
   }),
   containerToPreviousStyle: PropTypes.shape({
     left: ViewPropTypes.style,
-    right: ViewPropTypes.style
-  })
+    right: ViewPropTypes.style,
+  }),
 };

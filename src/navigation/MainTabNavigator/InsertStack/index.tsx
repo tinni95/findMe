@@ -1,3 +1,3 @@
-import InsertStack from "./InsertStack";
+import InsertStack from './InsertStack';
 
 export default InsertStack;

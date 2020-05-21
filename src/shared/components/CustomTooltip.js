@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Text, View, StyleSheet, Platform } from "react-native";
-import { Tooltip as RNETooltip } from "react-native-elements";
+import React, { Component } from 'react';
+import { Text, View, StyleSheet, Platform } from 'react-native';
+import { Tooltip as RNETooltip } from 'react-native-elements';
 
 const TOOLTIP_WIDTH = 250;
 const TOOLTIP_PADDING = 10;
@@ -17,17 +17,13 @@ class CustomTooltip extends Component {
 
     return (
       <View
-        style={[
-          { width: TOOLTIP_WIDTH, padding: TOOLTIP_PADDING },
-          styles.tooltipHiddenBox
-        ]}
-        onLayout={event => {
+        style={[{ width: TOOLTIP_WIDTH, padding: TOOLTIP_PADDING }, styles.tooltipHiddenBox]}
+        onLayout={(event) => {
           const { height } = event.nativeEvent.layout;
           this.setState({
-            tooltipHeight: height
+            tooltipHeight: height,
           });
-        }}
-      >
+        }}>
         <Text style={styles.tooltipHiddenText}>{tooltipText}</Text>
       </View>
     );
@@ -41,12 +37,11 @@ class CustomTooltip extends Component {
     return (
       <RNETooltip
         containerStyle={styles.container}
-        backgroundColor={"#EBEBEB"}
+        backgroundColor={'#EBEBEB'}
         width={TOOLTIP_WIDTH}
         height={tooltipHeight}
         withOverlay={true}
-        popover={getPopover(tooltipText)}
-      >
+        popover={getPopover(tooltipText)}>
         <View>{this.props.questionMark()}</View>
         {this.renderHiddenBoxToGetHeight()}
       </RNETooltip>
@@ -56,31 +51,31 @@ class CustomTooltip extends Component {
 
 const styles = StyleSheet.create({
   tooltipHiddenBox: {
-    position: "absolute",
-    right: 10000000000
+    position: 'absolute',
+    right: 10000000000,
   },
   tooltipHiddenText: {
-    color: "transparent"
+    color: 'transparent',
   },
   container: {
     borderRadius: 0,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     ...Platform.select({
       ios: {
-        shadowColor: "black",
+        shadowColor: 'black',
         shadowOpacity: 0.2,
-        shadowOffset: { height: 3 }
+        shadowOffset: { height: 3 },
       },
       android: {
-        elevation: 5
+        elevation: 5,
       },
       web: {
-        borderBottomColor: "#EBEBEB",
+        borderBottomColor: '#EBEBEB',
         borderBottomWidth: 4,
-        width: "80%"
-      }
-    })
-  }
+        width: '80%',
+      },
+    }),
+  },
 });
 
 export default CustomTooltip;
